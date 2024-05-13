@@ -1,11 +1,4 @@
-import React, {
-  SetStateAction,
-  useCallback,
-  useContext,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { useCallback, useContext, useState, forwardRef, useImperativeHandle } from 'react';
 import { Button, IButtonProps } from 'aelf-design';
 import CreatePreviewModal, { ICreatePreviewModalProps } from '../CreatePreviewModal';
 import CommonOperationResultModal, {

@@ -1,9 +1,9 @@
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import { Typography, FontWeightEnum } from 'aelf-design';
-import { Form, InputNumber } from 'antd';
-import IPFSUpload, { IFUploadProps } from 'components/IPFSUpload';
+import { Form } from 'antd';
+import IPFSUpload from 'components/IPFSUpload';
 import './index.css';
-import { FilesSubmitedRes, StepEnum, StepsContext } from '../../type';
+import { StepEnum, StepsContext } from '../../type';
 import { useRegisterForm } from '../utils';
 
 const { Title } = Typography;

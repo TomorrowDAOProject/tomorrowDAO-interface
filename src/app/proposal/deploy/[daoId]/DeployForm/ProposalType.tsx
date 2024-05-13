@@ -1,15 +1,13 @@
 'use client';
 
-import { Radio } from 'aelf-design';
-import { Button, Form, Switch, Select } from 'antd';
-import { memo, useState } from 'react';
+import { Button, Form } from 'antd';
+import { memo } from 'react';
 import { ResponsiveSelect } from 'components/ResponsiveSelect';
 import { proposalTypeList } from 'types';
 
 const defaultType = proposalTypeList[0].value;
 console.log('defaultType', defaultType, proposalTypeList);
 
-const { Option } = Select;
 interface ProposalTypeProps {
   next?: () => void;
   className?: string;

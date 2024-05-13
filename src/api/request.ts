@@ -1,4 +1,3 @@
-import qs from 'qs';
 import { apiServer, explorerServer } from './axios';
 
 export const fetchDaoList = async (params: IListDaoReq): Promise<ListDaoRes> => {

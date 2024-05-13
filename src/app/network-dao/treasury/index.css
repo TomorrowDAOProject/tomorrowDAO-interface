@@ -1,0 +1,13 @@
+.treasury-token-column {
+  @apply !pl-[0];
+}
+
+.table-header-sorter-left {
+  .TMRWDAO-table-column-sorters {
+    @apply justify-normal;
+  }
+
+  .TMRWDAO-table-column-title {
+    @apply flex-grow-0 pl-[8px];
+  }
+}

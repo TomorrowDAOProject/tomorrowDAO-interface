@@ -24,15 +24,14 @@
   },
   "include": ["src", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": [
-    "node_modules"
-    // "src/app/network-dao/_proposal_root/**/*",
-    // "src/app/network-dao/_src/**/*",
-    // "src/app/network-dao/proposal-list/**/*",
-    // "src/app/network-dao/apply/**/*",
-    // "src/app/network-dao/organization/**/*",
-    // "src/app/network-dao/resource/**/*",
-    // "src/app/network-dao/vote/**/*",
-    // "src/app/network-dao/vote/**/*",
-    // "src/app/network-dao/layout.tsx"
+    "node_modules",
+    "src/app/network-dao/_proposal_root/**/*",
+    "src/app/network-dao/_src/**/*",
+    "src/app/network-dao/apply/**/*",
+    "src/app/network-dao/organization/**/*",
+    "src/app/network-dao/proposal-list/**/*",
+    "src/app/network-dao/resource/**/*",
+    "src/app/network-dao/vote/**/*",
+    "src/app/network-dao/layout.tsx"
   ]
 }

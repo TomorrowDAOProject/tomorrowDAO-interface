@@ -29,8 +29,8 @@ export default function Header() {
       //   key: 'Home',
       // },
       {
-        label: <Link href={formatUrl('/network-dao/transparent')}>Transparent</Link>,
-        key: 'transparent',
+        label: <Link href={formatUrl('/network-dao/treasury')}>Treasury</Link>,
+        key: 'treasury',
       },
       {
         label: (
@@ -43,30 +43,24 @@ export default function Header() {
         key: 'Governance',
         children: [
           {
-            label: <Link href={formatUrl(`/network-dao/proposal-list`)}>Governance Proposals</Link>,
-            key: 'Governance Proposals',
+            label: <Link href={formatUrl(`/network-dao/proposal-list`)}>Proposals</Link>,
+            key: 'Proposals',
           },
           {
-            label: (
-              <Link href={formatUrl('/network-dao/organization')}>Governance Organization</Link>
-            ),
-            key: 'Governance Organization',
+            label: <Link href={formatUrl('/network-dao/organization')}>Organisations</Link>,
+            key: 'Organisations',
           },
           {
-            label: <Link href={formatUrl('/network-dao/vote')}>Governance BP Election</Link>,
-            key: 'Governance BP Election',
+            label: <Link href={formatUrl('/network-dao/vote')}>BP Elections</Link>,
+            key: 'BP Elections',
           },
           {
-            label: (
-              <Link href={formatUrl('/network-dao/apply')}>Governance Contract Management</Link>
-            ),
-            key: 'Governance Contract Management',
+            label: <Link href={formatUrl('/network-dao/apply')}>Contract Management</Link>,
+            key: 'Contract Management',
           },
           {
-            label: (
-              <Link href={formatUrl('/network-dao/resource')}>Governance Resources Trade</Link>
-            ),
-            key: 'Governance Resources Trade',
+            label: <Link href={formatUrl('/network-dao/resource')}>Resource Token Trade</Link>,
+            key: 'Resource Token Trade',
           },
         ],
       },

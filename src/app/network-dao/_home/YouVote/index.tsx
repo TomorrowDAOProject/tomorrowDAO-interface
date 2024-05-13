@@ -1,19 +1,16 @@
-import React from "react";
-import { AddFilled } from '@aelf-design/icons'
-import { Button } from "aelf-design";
+import React from 'react';
+import { AddFilled } from '@aelf-design/icons';
+import { Button } from 'aelf-design';
 
 const Frame = (): JSX.Element => {
   return (
     <div className="flex ">
-      <div >
-        <h2>
-        Your vote makes difference
-        </h2>
+      <div>
+        <h2>Your vote makes difference</h2>
         <p>
-        Vote with or delegate your ELF tokens to help protect theintegrity
-of the AELF protocol.
+          Vote with or delegate your ELF tokens to help protect theintegrity of the AELF protocol.
         </p>
-        <Button >
+        <Button>
           <AddFilled />
           How to Vote
         </Button>

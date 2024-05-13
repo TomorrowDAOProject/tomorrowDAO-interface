@@ -13,9 +13,6 @@ import CommonOperationResultModal, {
 } from 'components/CommonOperationResultModal';
 import { proposalCreateContractRequest } from 'contract/proposalCreateContract';
 import { emitLoading } from 'utils/myEvent';
-import Link from 'next/link';
-import ProtoInstance from 'utils/decode-log';
-import { propalAddress } from 'config';
 import { parseJSON, uint8ToBase64 } from 'utils/parseJSON';
 import { getContract } from '../util';
 
@@ -37,8 +34,6 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
   const [isNext, setNext] = useState(false);
   const router = useRouter();
   const [resultModalConfig, setResultModalConfig] = useState(INIT_RESULT_MODAL_CONFIG);
-  const title = Form.useWatch(['proposal_basic_info', 'proposal_title'], form);
-  const description = Form.useWatch(['proposal_basic_info', 'proposal_description'], form);
   const { daoId } = props;
   const openErrorModal = (
     primaryContent = 'Failed to Create the DAO',

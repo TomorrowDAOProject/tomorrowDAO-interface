@@ -1,6 +1,6 @@
 import React from 'react';
-import { useCallback, useEffect, useState } from 'react';
-import { Table, IPaginationProps, Typography, FontWeightEnum, HashAddress } from 'aelf-design';
+import { useEffect, useState } from 'react';
+import { Table, HashAddress } from 'aelf-design';
 import { ConfigProvider } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ export default function RecordTable() {
   });
   const {
     data: voteHistoryData,
-    error: voteHistoryError,
+    // error: voteHistoryError,
     loading: voteHistoryLoading,
     run,
   } = useRequest(

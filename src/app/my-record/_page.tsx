@@ -9,13 +9,6 @@ import './page.css';
 
 export default function MyRecord() {
   const [form] = Form.useForm();
-  const [query, setQuery] = useState<{
-    content: string;
-  }>({
-    content: '',
-  });
-
-  const { isSM } = useResponsive();
 
   const handleSearch = () => {
     console.log(form.getFieldsValue());

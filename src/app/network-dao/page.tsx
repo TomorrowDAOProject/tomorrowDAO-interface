@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import YouVote from './_home/YouVote/index'
+import YouVote from './_home/YouVote/index';
 
 export default function NetworkDaoHome() {
   return (

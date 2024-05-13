@@ -8,7 +8,7 @@ export interface ITokenListItem extends AddressTokenListDataItem {
   price?: number;
   valueUSD?: BigNumber;
 }
-export default function useTransparentData() {
+export default function useTokenListData() {
   const {
     data: tokenListData,
     error: tokenListError,
@@ -57,5 +57,7 @@ export default function useTransparentData() {
   return {
     tokenPriceData,
     tokenList: tokenList,
+    tokenListLoading,
+    tokenListError,
   };
 }

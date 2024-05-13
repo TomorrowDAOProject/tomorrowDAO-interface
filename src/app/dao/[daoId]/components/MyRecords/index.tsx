@@ -1,7 +1,6 @@
 import { Typography, FontWeightEnum, Button, HashAddress } from 'aelf-design';
 import Image from 'next/image';
 import arrowRightIcon from 'assets/imgs/arrow-right.svg';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { fetchVoteHistory } from 'api/request';
 import { useSelector } from 'react-redux';
@@ -31,8 +30,8 @@ export default function MyRecords(props: IProps) {
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const {
     data: voteHistoryData,
-    error: voteHistoryError,
-    loading: voteHistoryLoading,
+    // error: voteHistoryError,
+    // loading: voteHistoryLoading,
   } = useRequest(() => {
     return fetchVoteHistory({
       address: walletInfo.address,

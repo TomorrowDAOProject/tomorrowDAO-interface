@@ -2,7 +2,7 @@
 
 import { Input, Tooltip } from 'aelf-design';
 import { Form, InputNumber } from 'antd';
-import { memo, useContext, useMemo } from 'react';
+import { memo, useContext } from 'react';
 import { InfoCircleOutlined } from '@aelf-design/icons';
 import { useRequest } from 'ahooks';
 import InputSlideBind from 'components/InputSlideBind';
@@ -12,7 +12,6 @@ import { useSelector } from 'redux/store';
 import { fetchContractInfo } from 'api/request';
 import { electionContractAddress } from 'config/index';
 import './index.css';
-import BigNumber from 'bignumber.js';
 
 const HighCouncil = () => {
   const [form] = Form.useForm();

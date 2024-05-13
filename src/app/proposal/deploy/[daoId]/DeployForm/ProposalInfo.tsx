@@ -2,7 +2,7 @@
 
 import { Radio, Input, Tooltip, Button } from 'aelf-design';
 import { InfoCircleOutlined } from '@aelf-design/icons';
-import { Form, Select } from 'antd';
+import { Form } from 'antd';
 import { memo, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ResponsiveSelect } from 'components/ResponsiveSelect';
@@ -16,9 +16,6 @@ import {
   fetchDaoInfo,
   fetchVoteSchemeList,
 } from 'api/request';
-// import { VoteSchemeListRes, fetchVoteSchemeList } from '../type';
-import { formatDate } from '../util';
-import { proposalCreateContractRequest } from 'contract/proposalCreateContract';
 import { useSelector } from 'redux/store';
 import { curChain } from 'config';
 import { useAsyncEffect } from 'ahooks';
@@ -26,7 +23,6 @@ import { GetDaoProposalTimePeriodContract } from 'contract/callContract';
 import dayjs from 'dayjs';
 
 const contractMethodNamePath = ['transaction', 'contractMethodName'];
-const { Option } = Select;
 interface ProposalInfoProps {
   next?: () => void;
   className?: string;
@@ -39,6 +35,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
 
   const searchParams = useSearchParams();
   const [daoInfo, setDaoInfo] = useState<DaoInfoData>();
+  console.log(searchParams, daoInfo);
   const [contractInfo, setContractInfo] = useState<ContractInfoListData>();
   const [voteScheme, setVoteScheme] = useState<IVoteSchemeListData>();
   const [timePeriod, setTimePeriod] = useState<ITimePeriod | null>(null);
@@ -49,16 +46,6 @@ const ProposalInfo = (props: ProposalInfoProps) => {
 
   const governanceMechanismOptions = useMemo(() => {
     return governanceMechanismList?.map((item) => {
-      // const isHighCouncil = item.name === 'High Council';
-      // let num = daoInfo?.memberCount ?? 0;
-      // if (!daoInfo?.governanceToken) {
-      //   num = 0;
-      // }
-      // return {
-      //   label: isHighCouncil ? `High Council (${num} members)` : item.name,
-      //   disabled: num === 0,
-      //   value: item.governanceSchemeId,
-      // };
       return {
         label: item.governanceMechanism,
         value: item.schemeAddress,

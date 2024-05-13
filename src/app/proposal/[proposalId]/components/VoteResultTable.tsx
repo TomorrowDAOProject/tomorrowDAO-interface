@@ -1,9 +1,8 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import BoxWrapper from './BoxWrapper';
 import { FontWeightEnum, HashAddress, Search, Table, Typography } from 'aelf-design';
-import { ITableProps, TVotingOption } from './type';
+import { TVotingOption } from './type';
 import { ColumnsType } from 'antd/es/table';
-import { tableData } from '../tabItem';
 import thousandsNumber from 'utils/thousandsNumber';
 import clsx from 'clsx';
 

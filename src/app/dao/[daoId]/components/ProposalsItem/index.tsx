@@ -5,7 +5,7 @@ import { ProposalStatusString } from 'types';
 import WarningGrayIcon from 'assets/imgs/warning-gray.svg';
 import CheckedIcon from 'assets/imgs/checked.svg';
 import useResponsive from 'hooks/useResponsive';
-import { getTimeDesc, tagColorMap } from '../../constants';
+import { tagColorMap } from '../../constants';
 import DetailTag from 'components/DetailTag';
 
 import './index.css';

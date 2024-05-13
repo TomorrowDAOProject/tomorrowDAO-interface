@@ -5,7 +5,6 @@ import { formMachine } from './xstate';
 import { Button, Typography, FontWeightEnum } from 'aelf-design';
 import React, { memo, useCallback, useRef, useState } from 'react';
 import { Steps, message, FormInstance, Result, StepsProps, StepProps } from 'antd';
-import Image from 'next/image';
 import { useWebLoginEvent, WebLoginEvents, useWebLogin, WebLoginState } from 'aelf-web-login';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
@@ -17,30 +16,14 @@ import { timesDecimals } from 'utils/calculate';
 import { ReactComponent as ArrowRight } from 'assets/imgs/arrow-right.svg';
 import { ReactComponent as ArrowLeft } from 'assets/imgs/arrow-left.svg';
 import { ReactComponent as Skip } from 'assets/imgs/skip.svg';
-import CommonOperationResultModal, {
-  CommonOperationResultModalType,
-  TCommonOperationResultModalProps,
-} from 'components/CommonOperationResultModal';
+import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import './index.css';
-import {
-  ICreateDAOInput,
-  IFile,
-  IGovernanceSchemeThreshold,
-  IHighCouncilInput,
-  IMetadata,
-  IStepsContext,
-  StepEnum,
-  StepsContext,
-  defaultStepsFormMap,
-} from './type';
+import { IFile, IStepsContext, StepEnum, StepsContext, defaultStepsFormMap } from './type';
 import { emitLoading } from 'utils/myEvent';
 import Link from 'next/link';
-import { current } from '@reduxjs/toolkit';
 import { IFormValidateError, IContractError } from 'types';
 import { cloneDeep, cloneDeepWith } from 'lodash-es';
-import NetworkDaoHome from 'app/network-dao/page';
 import { NetworkName } from 'config';
-import BigNumber from 'bignumber.js';
 
 const initItems: StepsProps['items'] = [
   {

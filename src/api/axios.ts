@@ -28,7 +28,7 @@ class Request {
     this.instance.interceptors.response.use(
       <T>(response: AxiosResponse<ResponseType<T>>) => {
         const res = response.data;
-        const { code, data, message: errorMessage } = res;
+        const { code, message: errorMessage } = res;
         if (config.baseURL?.includes('/explorer-api')) {
           switch (response.status) {
             case 200:
@@ -120,6 +120,6 @@ const apiServer = new Request({
 const explorerServer = new Request({
   baseURL: '/explorer-api/',
 });
-
-export default new Request({});
+const req = new Request({});
+export default req;
 export { apiServer, explorerServer };

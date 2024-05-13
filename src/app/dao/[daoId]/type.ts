@@ -1,5 +1,4 @@
 import { IPaginationProps } from 'aelf-design';
-import { ProposalType } from 'types';
 
 export interface ISocialMedia {
   twitter: string;

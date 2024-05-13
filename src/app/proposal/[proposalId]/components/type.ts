@@ -1,4 +1,3 @@
-import { ChainId } from '@portkey/types';
 import { IPaginationProps } from 'aelf-design';
 
 export enum TVotingOption {
