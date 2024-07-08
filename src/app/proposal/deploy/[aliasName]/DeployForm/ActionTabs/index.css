@@ -1,10 +1,16 @@
 .proposal-action-tabs {
   .proposal-action-tabs-label {
     @apply flex items-center font-[500];
+    .TMRWDAO-icon {
+      @apply text-[16px];
+    }
   }
 
   .proposal-action-tabs-text {
-    @apply ml-2;
+    @apply ml-2 card-sm-text-bold text-neutralPrimaryText;
+    &.active {
+      @apply text-colorPrimary;
+    }
   }
 
   .TMRWDAO-tabs-tab {

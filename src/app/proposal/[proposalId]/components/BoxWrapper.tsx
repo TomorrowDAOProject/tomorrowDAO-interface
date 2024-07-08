@@ -9,7 +9,7 @@ const BoxWrapper = ({ children, className }: IBoxWrapperProps) => {
   return (
     <div
       className={cls(
-        'border border-Neutral-Divider border-solid rounded-lg bg-white px-8  py-6',
+        'border border-Neutral-Divider border-solid rounded-lg bg-white lg:px-8 py-6 px-4 ',
         className,
       )}
     >

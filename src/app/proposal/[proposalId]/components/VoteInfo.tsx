@@ -126,7 +126,7 @@ const VoteInfo = (props: IHeaderInfoProps) => {
         isShowVote={true}
         height={isOnlyShowVoteOption ? 'max-content' : 'auto'}
         titleNode={isOnlyShowVoteOption ? 'Vote' : 'My Info'}
-        clssName="flex-1 grow-0 lg:basis-[32%]"
+        clssName="flex-1 grow-0 lg:basis-[439px] mb-[16px] lg:mb-0"
         daoId={proposalDetailData.daoId || ''}
         proposalId={proposalDetailData.proposalId}
         voteMechanismName={proposalDetailData.voteMechanismName}

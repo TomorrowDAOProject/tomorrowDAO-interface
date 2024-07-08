@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { HashAddress, Table } from 'aelf-design';
+import { HashAddress, Table, Pagination } from 'aelf-design';
 import { curChain } from 'config';
 import { useRequest } from 'ahooks';
 import useUpdateHeaderDaoInfo from 'hooks/useUpdateHeaderDaoInfo';
@@ -12,6 +12,8 @@ import { EProposalActionTabs } from 'app/proposal/deploy/[aliasName]/type';
 import { ColumnsType } from 'antd/es/table';
 import useResponsive from 'hooks/useResponsive';
 import { message } from 'antd';
+import './index.css';
+import { SkeletonLine } from 'components/Skeleton';
 interface ITreasuryDetailsProps {
   aliasName?: string;
 }
@@ -76,47 +78,57 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
     if (!daoId) return;
     run(daoId);
   }, [tableParams, daoId, run]);
-  const columns: ColumnsType<IDaoMembersItem> = [
-    {
-      title: <span className="table-title-text">Address</span>,
-      dataIndex: 'address',
-      render(address) {
-        const mobileProps = isLG
-          ? {
-              preLen: 8,
-              endLen: 9,
-            }
-          : {};
-        return (
-          <span>
-            <HashAddress address={address} {...mobileProps} chain={curChain} />
-          </span>
-        );
-      },
-    },
-  ];
+  const mobileProps = isLG
+    ? {
+        preLen: 8,
+        endLen: 9,
+      }
+    : {};
   return (
     <>
-      <div className="page-content-bg-border flex justify-between mb-[24px]">
+      <div className="page-content-bg-border flex justify-between mb-[24px] lg:flex-row flex-col">
         <h2 className="card-title-lg mb-[4px]">{daoMembersData?.data?.totalCount} Members</h2>
-        <Link href={`/proposal/deploy/${aliasName}?tab=${EProposalActionTabs.AddMultisigMembers}`}>
+        <Link
+          href={`/proposal/deploy/${aliasName}?tab=${EProposalActionTabs.AddMultisigMembers}`}
+          className="lg:mt-0 mt-[24px]"
+        >
           <Button type="primary" size="medium">
             Manage members
           </Button>
         </Link>
       </div>
-      <div className="page-content-bg-border">
-        <Table
-          pagination={{
-            ...tableParams,
-            total: daoMembersData?.data.totalCount ?? 0,
-            pageChange,
-            pageSizeChange,
-          }}
-          columns={columns as any}
-          dataSource={daoMembersData?.data.data ?? []}
-          loading={daoMembersDataLoading || daoLoading}
-        ></Table>
+      <div className="page-content-bg-border px-0 py-0 members-lists">
+        <h3 className="table-title-text py-[24px] members-padding">Address</h3>
+        <ul>
+          {daoLoading || daoMembersDataLoading ? (
+            <div className="members-padding">
+              <SkeletonLine />
+            </div>
+          ) : (
+            daoMembersData?.data.data.map((item, index) => {
+              return (
+                <li key={item.address} className="members-lists-item members-padding">
+                  <HashAddress
+                    className="TMRWDAO-members-hash-address "
+                    address={item.address}
+                    {...mobileProps}
+                    chain={curChain}
+                  />
+                </li>
+              );
+            })
+          )}
+
+          <div className="members-padding py-[24px]">
+            <Pagination
+              current={tableParams.page}
+              pageSize={tableParams.pageSize}
+              total={daoMembersData?.data.totalCount ?? 0}
+              pageChange={pageChange}
+              pageSizeChange={pageSizeChange}
+            ></Pagination>
+          </div>
+        </ul>
       </div>
     </>
   );

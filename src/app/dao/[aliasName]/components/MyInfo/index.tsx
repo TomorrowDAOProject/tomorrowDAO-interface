@@ -19,7 +19,7 @@ import { timesDecimals, divDecimals } from 'utils/calculate';
 import { IContractError } from 'types';
 import { TokenIconMap } from 'constants/token';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
-
+import './index.css';
 type TInfoTypes = {
   height?: number | string;
   children?: ReactNode;
@@ -215,7 +215,7 @@ export default function MyInfo(props: TInfoTypes) {
 
   return (
     <div
-      className={`mb-[16px] lg:mb-0 flex flex-col border border-Neutral-Divider border-solid rounded-lg bg-white px-8 py-6 ${clssName}`}
+      className={`flex flex-col border border-Neutral-Divider border-solid rounded-lg bg-white lg:px-8 px-[16px] py-6 ${clssName}`}
       style={{
         height: height || 'auto',
       }}

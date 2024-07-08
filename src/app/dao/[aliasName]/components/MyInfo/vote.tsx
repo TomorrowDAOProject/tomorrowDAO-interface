@@ -1,4 +1,4 @@
-import { Divider, Form, InputNumber, message } from 'antd';
+import { ConfigProvider, Divider, Form, InputNumber, message } from 'antd';
 import { Button } from 'aelf-design';
 import { useState, useCallback } from 'react';
 import CommonModal from 'components/CommonModal';
@@ -175,11 +175,12 @@ function Vote(props: TVoteTypes) {
   ]);
 
   return (
-    <div className={`flex justify-between items-center ${className}`}>
+    <div className={`flex justify-between gap-[16px] items-center ${className}`}>
       <Button
         type="primary"
         size="medium"
         millisecondOfDebounce={1000}
+        className="approve-button flex-1"
         onClick={() => handlerModal(EVoteOption.APPROVED)}
         disabled={!canVote}
       >
@@ -188,7 +189,7 @@ function Vote(props: TVoteTypes) {
       <Button
         type="primary"
         size="medium"
-        className="bg-rejection"
+        className="reject-button flex-1"
         millisecondOfDebounce={1000}
         onClick={() => handlerModal(EVoteOption.REJECTED)}
         disabled={!canVote}
@@ -199,7 +200,7 @@ function Vote(props: TVoteTypes) {
         type="primary"
         size="medium"
         millisecondOfDebounce={1000}
-        className="bg-abstention"
+        className="abstention-button flex-1"
         onClick={() => handlerModal(EVoteOption.ABSTAINED)}
         disabled={!canVote}
       >

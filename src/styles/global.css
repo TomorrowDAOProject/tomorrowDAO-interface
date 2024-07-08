@@ -30,8 +30,8 @@
     @apply text-[16px] leading-[24px] text-neutralPrimaryText font-medium;
   }
 
-  .card {
-    @apply border-0 lg:border lg:mb-[10px] border-Neutral-Divider border-solid rounded-lg bg-white px-4 lg:px-8 lg:py-6;
+  .dao-detail-card {
+    @apply border-0 lg:border lg:mb-[10px] border-Neutral-Divider border-solid rounded-lg bg-white px-4 lg:px-8 lg:py-6 pt-[8px] pb-[24px];
   }
 
   .card-title {
@@ -59,6 +59,9 @@
   }
   .flex-center {
     @apply flex items-center justify-center;
+  }
+  .max-content {
+    width: max-content;
   }
 }
 
@@ -146,4 +149,10 @@ input[type='number'] {
 }
 .TMRWDAO-tabs-nav {
   overflow: hidden!important;
+}
+.TMRWDAO-members-hash-address {
+  @apply flex justify-between w-full;
+  .TMRWDAO-icon {
+    @apply text-[20px];
+  }
 }

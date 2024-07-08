@@ -71,7 +71,7 @@ export default function MyRecords(props: IProps) {
   );
   const dataLen = voteHistoryData?.data?.items?.length ?? 0;
   return (
-    <div className="page-content-bg-border mt-[24px] my-votes-wrap">
+    <div className="page-content-bg-border mt-[16px] my-votes-wrap">
       <div className="flex justify-between items-center mb-[24px]">
         <div className="card-title ">My Votes</div>
         {dataLen > 5 && (

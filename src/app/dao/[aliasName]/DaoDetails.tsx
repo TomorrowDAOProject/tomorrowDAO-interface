@@ -275,7 +275,7 @@ export default function DeoDetails(props: IProps) {
               <MyInfoContent
                 daoId={daoId}
                 isTokenGovernanceMechanism={isTokenGovernanceMechanism}
-                className="border-0  px-[16px] py-[24px]"
+                className="border-0  px-[16px] pt-[8px] pb-[24px] lg:mb-[16px] mb-0"
               />
             ),
           });
@@ -472,7 +472,7 @@ export default function DeoDetails(props: IProps) {
               <MyInfoContent
                 daoId={daoId}
                 isTokenGovernanceMechanism={isTokenGovernanceMechanism}
-                className="border"
+                className="border lg:mb-[16px] mb-0"
               />
               {walletInfo.address && daoId && (
                 <ExecutdProposals daoId={daoId} address={walletInfo.address} />

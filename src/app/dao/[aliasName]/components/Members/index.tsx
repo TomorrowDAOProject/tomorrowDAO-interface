@@ -43,13 +43,13 @@ const DaoMembers: React.FC<IProps> = (props) => {
     run();
   }, []);
   return (
-    <div className={'card'}>
+    <div className={'dao-detail-card'}>
       {daoMembersDataLoading ? (
         <SkeletonLine />
       ) : (
         <div>
           <h3 className="card-title mb-[24px]">Members</h3>
-          <div className="flex justify-between items-center lg:flex-row flex-col ">
+          <div className="flex justify-between items-start lg:items-center lg:flex-row flex-col ">
             <p>
               <h2 className="card-title-lg mb-[4px]">{daoMembersData?.data?.totalCount} Members</h2>
               <span className="dao-members-normal-text text-Neutral-Secondary-Text">
@@ -77,7 +77,7 @@ const DaoMembers: React.FC<IProps> = (props) => {
                   >
                     <li className="dao-members-item">
                       <HashAddress
-                        className="dao-members-normal-text"
+                        className="dao-members-normal-text TMRWDAO-members-hash-address"
                         preLen={8}
                         endLen={11}
                         address={item.address}

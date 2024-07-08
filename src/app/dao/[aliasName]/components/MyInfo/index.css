@@ -1,0 +1,29 @@
+.approve-button:not(:disabled) {
+  @apply !text-white !bg-[#3888FF] border-[#3888FF] ;
+  &:hover {
+    @apply !text-white !bg-[#5A9CFF] border-[#5A9CFF];
+  }
+  &:active {
+    @apply !text-white !bg-[#2777ED] border-[#2777ED];
+  }
+}
+.reject-button:not(:disabled)  {
+  @apply !text-white !bg-[#F55D6E] border-[#F55D6E];
+  &:hover {
+    @apply !text-white !bg-[#F77987] border-[#F77987];
+  }
+  &:active {
+    @apply !text-white !bg-[#DF4F5F] border-[#DF4F5F];
+  }
+}
+
+.abstention-button:not(:disabled)  {
+  @apply !text-white !bg-[#687083] border-[#687083];
+  &:hover {
+    @apply !text-white !bg-[#828898] border-[#828898];
+  }
+  &:active {
+    @apply !text-white !bg-[#5D6579] border-[#5D6579];
+  }
+}
+

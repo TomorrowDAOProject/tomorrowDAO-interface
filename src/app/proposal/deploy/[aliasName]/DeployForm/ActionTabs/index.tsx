@@ -93,7 +93,13 @@ export default function TabsCom(props: IActionTabsProps) {
         label: (
           <span className="proposal-action-tabs-label">
             <RightArrowOutlined />
-            <span className="proposal-action-tabs-text">Withdraw Assets</span>
+            <span
+              className={`proposal-action-tabs-text ${
+                activeTab === EProposalActionTabs.TREASURY ? 'active' : ''
+              }`}
+            >
+              Withdraw Assets
+            </span>
           </span>
         ),
         key: EProposalActionTabs.TREASURY,
@@ -210,7 +216,13 @@ export default function TabsCom(props: IActionTabsProps) {
             label: (
               <span className="proposal-action-tabs-label">
                 <AddCircleOutlined />
-                <span className="proposal-action-tabs-text">Add Multisig Members</span>
+                <span
+                  className={`proposal-action-tabs-text ${
+                    activeTab === EProposalActionTabs.AddMultisigMembers ? 'active' : ''
+                  }`}
+                >
+                  Add Multisig Members
+                </span>
               </span>
             ),
             key: EProposalActionTabs.AddMultisigMembers,
@@ -222,7 +234,13 @@ export default function TabsCom(props: IActionTabsProps) {
             label: (
               <span className="proposal-action-tabs-label">
                 <DeleteOutlined />
-                <span className="proposal-action-tabs-text">Delete Multisig Members</span>
+                <span
+                  className={`proposal-action-tabs-text ${
+                    activeTab === EProposalActionTabs.DeleteMultisigMembers ? 'active' : ''
+                  }`}
+                >
+                  Delete Multisig Members
+                </span>
               </span>
             ),
             key: EProposalActionTabs.DeleteMultisigMembers,
@@ -233,7 +251,13 @@ export default function TabsCom(props: IActionTabsProps) {
         label: (
           <span className="proposal-action-tabs-label">
             <UserAddOutlined />
-            <span className="proposal-action-tabs-text">Custom Action</span>
+            <span
+              className={`proposal-action-tabs-text ${
+                activeTab === EProposalActionTabs.CUSTOM_ACTION ? 'active' : ''
+              }`}
+            >
+              Custom Action
+            </span>
           </span>
         ),
         key: EProposalActionTabs.CUSTOM_ACTION,
@@ -296,6 +320,7 @@ export default function TabsCom(props: IActionTabsProps) {
     ];
     return initItems.filter((item) => item.label) as TabsProps['items'];
   }, [
+    activeTab,
     contractInfoOptions,
     contractMethodOptions,
     daoData?.governanceMechanism,
