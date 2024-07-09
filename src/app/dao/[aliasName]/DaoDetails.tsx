@@ -298,7 +298,26 @@ export default function DeoDetails(props: IProps) {
             key: TabKey.DAOMEMBERS,
             label: 'Members',
             children: daoData?.data ? (
-              <DaoMembers daoData={daoData.data} aliasName={aliasName} />
+              <DaoMembers
+                daoData={daoData.data}
+                aliasName={aliasName}
+                createProposalCheck={handleCreateProposalRef.current}
+              />
+            ) : (
+              <span></span>
+            ),
+          });
+        }
+        if (daoData?.data?.governanceMechanism === EDaoGovernanceMechanism.Token) {
+          finalItems.push({
+            key: TabKey.HCMEMBERS,
+            label: 'High Council Members',
+            children: daoData?.data ? (
+              <HcMembers
+                daoData={daoData.data}
+                aliasName={aliasName}
+                createProposalCheck={handleCreateProposalRef.current}
+              />
             ) : (
               <span></span>
             ),
@@ -467,7 +486,20 @@ export default function DeoDetails(props: IProps) {
               {daoData?.data &&
                 !isNetworkDAO &&
                 daoData.data.governanceMechanism === EDaoGovernanceMechanism.Multisig && (
-                  <DaoMembers daoData={daoData.data} aliasName={aliasName} />
+                  <DaoMembers
+                    createProposalCheck={handleCreateProposal}
+                    daoData={daoData.data}
+                    aliasName={aliasName}
+                  />
+                )}
+              {daoData?.data &&
+                !isNetworkDAO &&
+                daoData.data.governanceMechanism === EDaoGovernanceMechanism.Token && (
+                  <HcMembers
+                    createProposalCheck={handleCreateProposal}
+                    daoData={daoData.data}
+                    aliasName={aliasName}
+                  />
                 )}
               <MyInfoContent
                 daoId={daoId}

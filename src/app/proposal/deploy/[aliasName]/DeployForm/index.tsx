@@ -31,6 +31,8 @@ import {
 } from 'api/request';
 import { timesDecimals } from 'utils/calculate';
 import { trimAddress } from 'utils/address';
+import { useWebLogin } from 'aelf-web-login';
+import { SkeletonForm } from 'components/Skeleton';
 // import { useWalletSyncCompleted } from 'hooks/useWalletSyncCompleted';
 
 const convertParams = async (address: string, methodName: string, originParams: any) => {
@@ -304,19 +306,23 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
         }}
       >
         <ProposalType className={clsx({ hidden: isNext })} next={handleNext} />
-        {daoId && (
-          <ProposalInfo
-            className={clsx({ hidden: !isNext })}
-            daoData={daoData?.data}
-            daoId={daoId}
-            onSubmit={handleSubmit}
-            onTabChange={(key: string) => {
-              setActiveTab(key);
-            }}
-            activeTab={activeTab}
-            treasuryAssetsData={treasuryAssetsData}
-            daoDataLoading={daoLoading}
-          />
+        {daoLoading && isNext ? (
+          <SkeletonForm />
+        ) : (
+          daoId && (
+            <ProposalInfo
+              className={clsx({ hidden: !isNext })}
+              daoData={daoData?.data}
+              daoId={daoId}
+              onSubmit={handleSubmit}
+              onTabChange={(key: string) => {
+                setActiveTab(key);
+              }}
+              activeTab={activeTab}
+              treasuryAssetsData={treasuryAssetsData}
+              daoDataLoading={daoLoading}
+            />
+          )
         )}
       </Form>
       <CommonOperationResultModal

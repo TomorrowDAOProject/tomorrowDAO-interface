@@ -58,6 +58,14 @@ const membersPage: TBreadcrumbFn = (daoAliasName, daoName) => {
     },
   ];
 };
+const hcMembersPage: TBreadcrumbFn = (daoAliasName, daoName) => {
+  return [
+    ...(daoDetailPage(daoAliasName, daoName) ?? []),
+    {
+      title: 'High Council',
+    },
+  ];
+};
 const myVotesPage: TBreadcrumbFn = (daoAliasName, daoName) => {
   return [
     ...(daoDetailPage(daoAliasName, daoName) ?? []),
@@ -134,6 +142,10 @@ class BreadCrumb {
   public async updateMembersPage(daoAliasName?: string) {
     const daoName = await this.getDaoName(daoAliasName);
     this.updateBreadCrumb(membersPage(daoAliasName, daoName));
+  }
+  public async updateHcMembersPage(daoAliasName?: string) {
+    const daoName = await this.getDaoName(daoAliasName);
+    this.updateBreadCrumb(hcMembersPage(daoAliasName, daoName));
   }
   public async updateMyVotesPage(daoAliasName?: string) {
     const daoName = await this.getDaoName(daoAliasName);

@@ -355,10 +355,8 @@ const CreateDaoPage = () => {
                 </div>
                 <p className="step-subtitle">a supplementary governance mechanism</p>
                 <p className="step-subtext">
-                  As an optional governance choice that supplements referendum, High Council
-                  consists of top-ranked addresses who stake governance tokens in the Election
-                  contract and receive votes. High Council members have the authority and
-                  responsibility in DAO governance.
+                  High Council is an optional governance choice that supplements referendum. High
+                  Council members have the authority and responsibility in DAO governance.
                 </p>
               </>
             )}
