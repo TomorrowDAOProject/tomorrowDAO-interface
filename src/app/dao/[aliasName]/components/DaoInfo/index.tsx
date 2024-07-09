@@ -153,17 +153,17 @@ export default function DaoInfo(props: IParams) {
             <span className="dao-collapse-panel-child">
               <span className="dis-item">
                 <span
-                  className="dis-common-span"
+                  className={isNetworkDAO ? 'dis-common-span-cursor' : 'dis-common-span'}
                   onClick={() => {
                     if (isNetworkDAO) {
                       onChangeHCParams();
                     }
                   }}
                 >
-                  {data?.highCouncilMemberCount ?? '-'} Members,
+                  {data?.highCouncilMemberCount ?? '-'} Members
                 </span>
                 {isNetworkDAO && (
-                  <span>Rotates Every {data?.highCouncilConfig?.electionPeriod} Days.</span>
+                  <span>, Rotates Every {data?.highCouncilConfig?.electionPeriod} Days.</span>
                 )}
               </span>
             </span>

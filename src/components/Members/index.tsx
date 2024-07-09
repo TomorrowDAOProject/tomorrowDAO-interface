@@ -9,28 +9,48 @@ interface IProps {
   lists: string[];
   isLoading: boolean;
   totalCount: number;
-  managerUrl: string;
   loadMoreUrl: string;
   descriptionNode: React.ReactNode;
+  cardTitle?: React.ReactNode;
+  onCreatePoposal?: () => void;
+  createButtonLoading?: boolean;
+  managerUrl?: string;
 }
 const LoadCount = 5;
 
 const Members: React.FC<IProps> = (props) => {
-  const { lists, descriptionNode, isLoading, managerUrl, totalCount, loadMoreUrl } = props;
+  const {
+    lists,
+    descriptionNode,
+    isLoading,
+    totalCount,
+    loadMoreUrl,
+    cardTitle = 'Members',
+    onCreatePoposal,
+    createButtonLoading,
+    managerUrl,
+  } = props;
+  const ManageButton = (
+    <Button
+      type="primary"
+      size="medium"
+      className="dao-members-manage"
+      onClick={onCreatePoposal}
+      loading={createButtonLoading}
+    >
+      Manage members
+    </Button>
+  );
   return (
     <div className={'dao-detail-card'}>
       {isLoading ? (
         <SkeletonLine />
       ) : (
         <div>
-          <h3 className="card-title mb-[24px]">Members</h3>
+          <h3 className="card-title mb-[24px]">{cardTitle}</h3>
           <div className="flex justify-between items-start lg:items-center lg:flex-row flex-col">
             <p>{descriptionNode}</p>
-            <Link href={managerUrl}>
-              <Button type="primary" size="medium" className="dao-members-manage">
-                Manage members
-              </Button>
-            </Link>
+            {managerUrl ? <Link href={managerUrl}>{ManageButton}</Link> : ManageButton}
           </div>
           {!!lists?.length && (
             <ul className="dao-members-wrap mt-[24px]">

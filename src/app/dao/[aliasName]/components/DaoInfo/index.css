@@ -41,6 +41,9 @@
     @apply flex items-center text-neutralTitle;
 
     .dis-common-span {
+      @apply mr-1;
+    }
+    .dis-common-span-cursor {
       @apply text-colorPrimary mr-1 cursor-pointer;
     }
   }

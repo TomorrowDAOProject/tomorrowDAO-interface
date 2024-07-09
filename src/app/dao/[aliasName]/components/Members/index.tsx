@@ -9,11 +9,11 @@ import Members from 'components/Members';
 interface IProps {
   daoData: IDaoInfoData;
   aliasName?: string;
+  createProposalCheck?: (customRouter?: boolean) => Promise<boolean>;
 }
 
 const DaoMembers: React.FC<IProps> = (props) => {
-  const { daoData, aliasName } = props;
-
+  const { daoData, aliasName, createProposalCheck } = props;
   const {
     data: daoMembersData,
     // error: transferListError,
@@ -41,8 +41,8 @@ const DaoMembers: React.FC<IProps> = (props) => {
       lists={lists}
       isLoading={daoMembersDataLoading}
       totalCount={daoMembersData?.data?.totalCount ?? 0}
-      managerUrl={`/proposal/deploy/${aliasName}?tab=${EProposalActionTabs.AddMultisigMembers}`}
       loadMoreUrl={`/dao/${aliasName}/members`}
+      managerUrl={`/proposal/deploy/${aliasName}?tab=${EProposalActionTabs.AddMultisigMembers}`}
       descriptionNode={
         <>
           <h2 className="card-title-lg mb-[4px]">{daoMembersData?.data?.totalCount} Members</h2>
