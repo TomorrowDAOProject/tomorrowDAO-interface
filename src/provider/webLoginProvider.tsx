@@ -6,6 +6,13 @@ import dynamicReq from 'next/dynamic';
 import { store } from 'redux/store';
 import getChainIdQuery from 'utils/url';
 
+type TNodes = {
+  AELF: { chainId: string; rpcUrl: string };
+  tDVW: { chainId: string; rpcUrl: string };
+  tDVV: { chainId: string; rpcUrl: string };
+};
+
+type TNodeKeys = keyof TNodes;
 const APP_NAME = 'TMRWDAO';
 
 function addBasePath(url: string) {
@@ -14,7 +21,19 @@ function addBasePath(url: string) {
   }
   return `${url}`;
 }
-
+function moveKeyToFront(nodes: TNodes, key: TNodeKeys) {
+  const reordered = {} as TNodes;
+  if (nodes[key]) {
+    reordered[key] = nodes[key];
+  }
+  Object.keys(nodes).forEach((k) => {
+    const newKey = k as TNodeKeys;
+    if (newKey !== key) {
+      reordered[newKey] = nodes[newKey];
+    }
+  });
+  return reordered;
+}
 const PortkeyProviderDynamic = dynamicReq(
   async () => {
     const weblogin = await import('aelf-web-login').then((module) => module);
@@ -43,9 +62,37 @@ const WebLoginProviderDynamic = dynamicReq(
     const chainId = getChainId();
 
     console.log('login with', chainId);
+    const getNodes = () => {
+      const nodes = {
+        AELF: {
+          chainId: 'AELF',
+          rpcUrl: info?.rpcUrlAELF as unknown as string,
+        },
+        tDVW: {
+          chainId: 'tDVW',
+          rpcUrl: info?.rpcUrlTDVW as unknown as string,
+        },
+        tDVV: {
+          chainId: 'tDVV',
+          rpcUrl: info?.rpcUrlTDVV as unknown as string,
+        },
+      };
+      if (isNetWorkDao) {
+        const chain = getChainIdQuery();
+        const chainId = chain.chainId ?? 'AELF';
+        if (chainId === 'tDVW') {
+          return moveKeyToFront(nodes, 'tDVW');
+        }
+        if (chainId === 'tDVV') {
+          return moveKeyToFront(nodes, 'tDVV');
+        }
+      }
+      return nodes;
+    };
+    const nodes = getNodes();
     webLogin.setGlobalConfig({
       appName: APP_NAME,
-      chainId: getChainId(),
+      chainId: chainId,
       onlyShowV2: true,
       portkey: {},
       portkeyV2: {
@@ -61,20 +108,7 @@ const WebLoginProviderDynamic = dynamicReq(
       },
       aelfReact: {
         appName: APP_NAME,
-        nodes: {
-          AELF: {
-            chainId: 'AELF',
-            rpcUrl: info?.rpcUrlAELF as unknown as string,
-          },
-          tDVW: {
-            chainId: 'tDVW',
-            rpcUrl: info?.rpcUrlTDVW as unknown as string,
-          },
-          tDVV: {
-            chainId: 'tDVV',
-            rpcUrl: info?.rpcUrlTDVV as unknown as string,
-          },
-        },
+        nodes: nodes,
       },
       defaultRpcUrl:
         (info?.[`rpcUrl${String(info?.curChain).toUpperCase()}`] as unknown as string) ||

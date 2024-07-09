@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NEXT_PUBLIC_APP_ENV=development next dev",
+    "dev:mainnet": "APP_ENV=mainnet next dev",
     "build-todo": "NODE_OPTIONS=--max-old-space-size=4096 && next build",
     "next-compile": "next experimental-compile",
     "build": "node ./script/build.js",
