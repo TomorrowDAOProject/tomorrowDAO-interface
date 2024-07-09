@@ -1,10 +1,10 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { curChain } from 'config';
 import { useRequest } from 'ahooks';
 import useUpdateHeaderDaoInfo from 'hooks/useUpdateHeaderDaoInfo';
 import breadCrumb from 'utils/breadCrumb';
-import { fetchDaoInfo, fetchDaoMembers } from 'api/request';
+import { fetchDaoInfo, fetchHcMembers } from 'api/request';
 import { EProposalActionTabs } from 'app/proposal/deploy/[aliasName]/type';
 import { message } from 'antd';
 import MembersPage from 'pageComponents/members';
@@ -38,11 +38,9 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
     run,
   } = useRequest(
     async (daoId) => {
-      return fetchDaoMembers({
-        SkipCount: tableParams.pageSize * (tableParams.page - 1),
-        MaxResultCount: tableParams.pageSize,
-        ChainId: curChain,
-        DAOId: daoId,
+      return fetchHcMembers({
+        chainId: curChain,
+        daoId: daoId,
       });
     },
     {
@@ -65,18 +63,23 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
   useEffect(() => {
     if (!daoId) return;
     run(daoId);
-  }, [tableParams, daoId, run]);
-  const lists = (daoMembersData?.data?.data ?? []).map((item) => item.address);
+  }, [daoId, run]);
+  const lists = useMemo(() => {
+    const { page, pageSize } = tableParams;
+    const allLists = daoMembersData?.data ?? [];
+    return allLists.slice((page - 1) * pageSize, page * pageSize) ?? [];
+  }, [tableParams, daoMembersData]);
+  const totalCount = (daoMembersData?.data ?? []).length;
   return (
     <MembersPage
-      totalCount={daoMembersData?.data?.totalCount ?? 0}
+      totalCount={totalCount}
       isLoading={daoLoading || daoMembersDataLoading}
-      managerUrl={`/proposal/deploy/${aliasName}?tab=${EProposalActionTabs.AddMultisigMembers}`}
+      managerUrl={`/proposal/deploy/${aliasName}?tab=${EProposalActionTabs.AddHcMembers}`}
       lists={lists}
       pagination={{
         current: tableParams.page,
         pageSize: tableParams.pageSize,
-        total: daoMembersData?.data?.totalCount ?? 0,
+        total: totalCount,
         onChange: pageChange,
       }}
     />

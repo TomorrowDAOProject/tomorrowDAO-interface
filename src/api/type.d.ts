@@ -207,6 +207,17 @@ interface IDaoMembersResponse {
   data: IDaoMembersData;
   message: string;
 }
+// -------------------------------------dao-HC-members-----------------------------
+interface IDaoHCMembersRequestParams {
+  chainId: string;
+  daoId: string;
+}
+type IDaoHCMembersData = string[];
+interface IDaoHCMembersResponse {
+  code: string;
+  data: IDaoHCMembersData;
+  message: string;
+}
 // -------------------------------------propal-list-----------------------------
 
 interface IProposalListReq {

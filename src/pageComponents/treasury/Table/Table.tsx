@@ -179,14 +179,7 @@ export default function RecordTable(props: IRecordTableProps) {
     // },
   ];
 
-  const pageChange = (page: number, pageSize?: number) => {
-    setTableParams({
-      page,
-      pageSize: pageSize ?? defaultPageSize,
-    });
-  };
-
-  const pageSizeChange = (page: number, pageSize: number) => {
+  const pageChange = (page: number, pageSize: number) => {
     setTableParams({
       page,
       pageSize,
@@ -210,8 +203,7 @@ export default function RecordTable(props: IRecordTableProps) {
         pagination={{
           ...tableParams,
           total: transferListData?.data?.total ?? 0,
-          pageChange,
-          pageSizeChange,
+          onChange: pageChange,
         }}
         dataSource={transferListData?.data?.list ?? []}
         rowClassName={handleRowClassName}

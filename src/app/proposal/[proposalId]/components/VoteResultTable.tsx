@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import BoxWrapper from './BoxWrapper';
 import { FontWeightEnum, HashAddress, Search, Table, Typography } from 'aelf-design';
 import { TVotingOption } from './type';
@@ -86,19 +86,16 @@ const VoteResultTable = (props: IVoteResultTableProps) => {
     pageSize: defaultPageSize,
   });
 
-  const pageChange = (page: number, pageSize?: number) => {
-    setTableParams({
-      page,
-      pageSize: pageSize ?? defaultPageSize,
-    });
-  };
-
-  const pageSizeChange = (page: number, pageSize: number) => {
+  const pageChange = (page: number, pageSize: number) => {
     setTableParams({
       page,
       pageSize,
     });
   };
+  const lists = useMemo(() => {
+    const { page, pageSize } = tableParams;
+    return voteTopList?.slice((page - 1) * pageSize, page * pageSize) ?? [];
+  }, [tableParams, voteTopList]);
   return (
     <BoxWrapper>
       <div className="flex justify-between pb-6">
@@ -127,10 +124,9 @@ const VoteResultTable = (props: IVoteResultTableProps) => {
         pagination={{
           ...tableParams,
           total: voteTopList?.length ?? 0,
-          pageChange,
-          pageSizeChange,
+          onChange: pageChange,
         }}
-        dataSource={voteTopList ?? []}
+        dataSource={lists}
       ></Table>
     </BoxWrapper>
   );

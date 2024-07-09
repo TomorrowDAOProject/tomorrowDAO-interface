@@ -38,6 +38,7 @@ import ExplorerProposalList, {
 import { useChainSelect } from 'hooks/useChainSelect';
 import getChainIdQuery from 'utils/url';
 import DaoMembers from './components/Members';
+import HcMembers from './components/HCMembers';
 import './page.css';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 
@@ -304,6 +305,17 @@ export default function DeoDetails(props: IProps) {
             ),
           });
         }
+        if (daoData?.data?.governanceMechanism === EDaoGovernanceMechanism.Token) {
+          finalItems.push({
+            key: TabKey.HCMEMBERS,
+            label: 'High Council Members',
+            children: daoData?.data ? (
+              <HcMembers daoData={daoData.data} aliasName={aliasName} />
+            ) : (
+              <span></span>
+            ),
+          });
+        }
       }
       return finalItems;
     }
@@ -468,6 +480,11 @@ export default function DeoDetails(props: IProps) {
                 !isNetworkDAO &&
                 daoData.data.governanceMechanism === EDaoGovernanceMechanism.Multisig && (
                   <DaoMembers daoData={daoData.data} aliasName={aliasName} />
+                )}
+              {daoData?.data &&
+                !isNetworkDAO &&
+                daoData.data.governanceMechanism === EDaoGovernanceMechanism.Token && (
+                  <HcMembers daoData={daoData.data} aliasName={aliasName} />
                 )}
               <MyInfoContent
                 daoId={daoId}

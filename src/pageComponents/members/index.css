@@ -1,0 +1,22 @@
+.members-lists {
+    .TMRWDAO-select-selector {
+      @apply !border-Neutral-Disable-Text;
+    }
+    .TMRWDAO-select-single {
+      @apply h-[32px];
+    }
+    .members-lists-item {
+      @apply h-[64px] flex items-center;
+      border-top: 1px solid #EDEDED;
+      &:hover {
+       @apply bg-Neutral-Hover-BG;
+      }
+    }
+    .TMRWDAO-members-hash-address > span {
+      @apply normal-text-bold;
+    }
+  
+  }
+  .members-padding {
+    @apply lg:px-[32px] px-[16px];
+  }

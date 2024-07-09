@@ -38,6 +38,7 @@ export enum TabKey {
   MYINFO = 'myInfo',
   TREASURY = 'treasury',
   DAOMEMBERS = 'daoMembers',
+  HCMEMBERS = 'hcMembers',
 }
 
 export const enum ProposalStatus {

@@ -9,21 +9,22 @@ import {
 import { ResponsiveSelect } from 'components/ResponsiveSelect';
 import { useEffect, useMemo, useState } from 'react';
 import Editor from '@monaco-editor/react';
-import { Alert, Form, TabsProps } from 'antd';
+import { Form, TabsProps } from 'antd';
 import { EProposalActionTabs } from '../../type';
 import { useAsyncEffect } from 'ahooks';
-import { fetchContractInfo, fetchTreasuryAssets } from 'api/request';
+import { fetchContractInfo } from 'api/request';
 import { curChain } from 'config';
 
 import AmountInput from './FormAmountInput';
 import './index.css';
-import { timesDecimals } from 'utils/calculate';
 import BigNumber from 'bignumber.js';
 import Symbol from 'components/Symbol';
 import { GetTokenInfo } from 'contract/callContract';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import DeleteMultisigMembers from './TabContent/DeleteMultisigMembers';
 import AddMultisigMembers from './TabContent/AddMultisigMembers';
+import DeleteHCMembers from './TabContent/DeleteHCMembers';
+import AddHCMembers from './TabContent/AddHCMembers';
 
 const contractMethodNamePath = ['transaction', 'contractMethodName'];
 
@@ -245,6 +246,42 @@ export default function TabsCom(props: IActionTabsProps) {
             ),
             key: EProposalActionTabs.DeleteMultisigMembers,
             children: <DeleteMultisigMembers daoId={daoId} form={form} />,
+          }
+        : {},
+      daoData?.governanceMechanism === EDaoGovernanceMechanism.Token && daoData.isHighCouncilEnabled
+        ? {
+            label: (
+              <span className="proposal-action-tabs-label">
+                <AddCircleOutlined />
+                <span
+                  className={`proposal-action-tabs-text ${
+                    activeTab === EProposalActionTabs.AddMultisigMembers ? 'active' : ''
+                  }`}
+                >
+                  Add HC Members
+                </span>
+              </span>
+            ),
+            key: EProposalActionTabs.AddHcMembers,
+            children: <AddHCMembers form={form} />,
+          }
+        : {},
+      daoData?.governanceMechanism === EDaoGovernanceMechanism.Token && daoData.isHighCouncilEnabled
+        ? {
+            label: (
+              <span className="proposal-action-tabs-label">
+                <DeleteOutlined />
+                <span
+                  className={`proposal-action-tabs-text ${
+                    activeTab === EProposalActionTabs.DeleteMultisigMembers ? 'active' : ''
+                  }`}
+                >
+                  Delete HC Members
+                </span>
+              </span>
+            ),
+            key: EProposalActionTabs.DeleteHcMembers,
+            children: <DeleteHCMembers daoId={daoId} form={form} />,
           }
         : {},
       {

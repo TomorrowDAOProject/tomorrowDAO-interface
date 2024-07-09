@@ -104,4 +104,6 @@ export enum EProposalActionTabs {
   CUSTOM_ACTION = 'customAction',
   AddMultisigMembers = 'addMultisigMembers',
   DeleteMultisigMembers = 'deleteMultisigMembers',
+  AddHcMembers = 'addHcMembers',
+  DeleteHcMembers = 'deleteHcMembers',
 }

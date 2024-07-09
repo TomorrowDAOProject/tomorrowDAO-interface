@@ -155,14 +155,7 @@ export default function RecordTable() {
     },
   ];
 
-  const pageChange = (page: number, pageSize?: number) => {
-    setTableParams({
-      page,
-      pageSize: pageSize ?? defaultPageSize,
-    });
-  };
-
-  const pageSizeChange = (page: number, pageSize: number) => {
+  const pageChange = (page: number, pageSize: number) => {
     setTableParams({
       page,
       pageSize,
@@ -188,8 +181,7 @@ export default function RecordTable() {
         pagination={{
           ...tableParams,
           total: voteHistoryData?.data?.total ?? 0,
-          pageChange,
-          pageSizeChange,
+          onChange: pageChange,
         }}
         dataSource={voteHistoryData?.data?.items ?? []}
         rowClassName={handleRowClassName}

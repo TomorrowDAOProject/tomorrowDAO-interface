@@ -32,6 +32,13 @@ export const fetchDaoMembers = async (
     params,
   });
 };
+export const fetchHcMembers = async (
+  params: IDaoHCMembersRequestParams,
+): Promise<IDaoHCMembersResponse> => {
+  return apiServer.post('/council/members', {
+    ...params,
+  });
+};
 
 export const fetchProposalList = async (params: IProposalListReq): Promise<IProposalListRes> => {
   return apiServer.post('/proposal/list', {
