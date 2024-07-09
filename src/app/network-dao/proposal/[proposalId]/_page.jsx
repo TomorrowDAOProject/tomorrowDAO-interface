@@ -14,7 +14,7 @@ import {
   Col,
   Tabs,
   Typography,
-  Modal,
+  Card
 } from "antd";
 import { useSelector } from "react-redux";
 import { useWebLogin } from "aelf-web-login";
@@ -54,6 +54,9 @@ import addressFormat from "@utils/addressFormat";
 import { NETWORK_TYPE } from '@config/config';
 import { explorer, mainExplorer } from "config";
 import { useChainSelect } from "hooks/useChainSelect";
+import { useRequest } from "ahooks";
+import getChainIdQuery from "utils/url";
+import { fetchNetworkDaoProposaDetail } from "api/request";
 
 const {
   proposalActions,
@@ -161,6 +164,13 @@ const ProposalDetail = () => {
     tab: "proposal",
     loadingStatus: LOADING_STATUS.LOADING,
   });
+  const { data: networkDaoProposalDetail } = useRequest(() => {
+    const chain = getChainIdQuery()
+    return fetchNetworkDaoProposaDetail({
+      chainId: chain.chainId,
+      proposalId
+    })
+  })
   if (!proposalId) {
     return <div>no data { proposalId}</div>;
   }
@@ -172,6 +182,7 @@ const ProposalDetail = () => {
     }
   }, [proposalId]);
   useEffect(() => {
+    // todo 2 get proposal detail
     getData(currentWallet, proposalId)
       .then((result) => {
         setInfo({
@@ -333,17 +344,10 @@ const ProposalDetail = () => {
             </div>
           </div>
           <Divider className="proposal-detail-header-divider" />
-          {isPhoneCheck() ? (
-            <Title level={4}>
-              Proposal ID:
-              {proposalId}
-            </Title>
-          ) : (
-            <Title level={3} ellipsis>
-              Proposal ID:
-              {proposalId}
-            </Title>
-          )}
+          <Title level={3}>{networkDaoProposalDetail?.data?.title}</Title>
+          <p className="normal-text-bold truncate mb-[4px]">
+          Proposal ID:{proposalId}
+          </p>
           <div className="proposal-detail-tag gap-bottom">
             <Tag color={PRIMARY_COLOR} className="gap-right">
               {proposalType}
@@ -354,7 +358,7 @@ const ProposalDetail = () => {
               </Tag>
             ) : null}
           </div>
-          <div className="proposal-detail-desc-list">
+          <div className="proposal-detail-desc-list overflow-hidden">
             <Row gutter={48}>
               <Col sm={12} xs={24} className="detail-flex items-center">
                 <span className="sub-title gap-right">
@@ -372,7 +376,7 @@ const ProposalDetail = () => {
               </Col>
               <Col sm={12} xs={24} className="detail-flex items-center">
                 <span className="sub-title gap-right">Proposer:</span>
-                <span className="text-ellipsis">
+                <span className="text-ellipsis truncate">
                   <a
                     href={`${isSideChain ? explorer : mainExplorer}/address/${addressFormat(proposer)}`}
                     target="_blank"
@@ -420,6 +424,12 @@ const ProposalDetail = () => {
           >
             <TabPane tab="Proposal Details" key="proposal">
               <>
+                {
+                  networkDaoProposalDetail?.data?.description &&
+                  <Card title='Description' className='mb-[10px]'>
+                    {networkDaoProposalDetail?.data?.description}
+                  </Card>
+                }
                 <VoteData
                   className="gap-top-large"
                   proposalType={proposalType}

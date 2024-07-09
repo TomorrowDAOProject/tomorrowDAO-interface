@@ -9,7 +9,7 @@ function AddMultisigMembers(props: IAddMultisigMembersProps) {
   const { form } = props;
   return (
     <FormMembersItem
-      name={['addMembers', 'value']}
+      name={['addHighCouncils', 'value']}
       initialValue={['']}
       form={form}
       titleNode={

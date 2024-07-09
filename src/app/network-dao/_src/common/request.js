@@ -48,7 +48,6 @@ const handleRequestError = (error) => {
 
 const makeRequestConfig = (url, params, { headers = {}, ...extraOptions }) => {
   const searchParams = qs.parse(window.location.search);
-  console.log('searchParams.chainId', searchParams.chainId);
   const isSide = isSideChain(searchParams.chainId);
   const prefix = isSide ? '/side-explorer-api' : '/explorer-api';
   // console.log('window.location', url, window.location)

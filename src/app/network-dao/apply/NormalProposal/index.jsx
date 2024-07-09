@@ -44,6 +44,7 @@ const JSONEditor = lazy(() =>
   import(/* webpackChunkName: "jsonEditor" */ "../../_proposal_root/components/JSONEditor")
 );
 
+const { TextArea } = Input;
 const { proposalTypes } = constants;
 
 const { Item: FormItem } = Form;
@@ -58,6 +59,30 @@ const formItemLayout = {
 };
 
 const FIELDS_MAP = {
+  title: {
+    name: "title",
+    label: "Title",
+    placeholder: "Please input the title of proposal",
+    rules: [
+      {
+        required: true,
+        message: "Please input the title of proposal!",
+        max: 255
+      },
+    ],
+  },
+  description: {
+    name: "description",
+    label: "Description",
+    placeholder: "Please input the description of proposal",
+    rules: [
+      {
+        required: true,
+        message: "Please input the description of proposal!",
+        max: 10200
+      },
+    ],
+  },
   formProposalType: {
     name: "formProposalType",
     label: (
@@ -331,7 +356,7 @@ const SuspenseJSONEditor = (props) => (
     <JSONEditor className="params-input" {...props} />
   </Suspense>
 );
-
+// Ordinary Proposal
 const NormalProposal = (props) => {
   const {
     aelf,
@@ -474,6 +499,8 @@ const NormalProposal = (props) => {
         formExpiredTime,
         formDescriptionURL,
         formPrefix,
+        title,
+        description,
         ...leftParams
       } = result;
       const method =
@@ -494,6 +521,8 @@ const NormalProposal = (props) => {
         decoded = method.packInput(parsed);
       }
       submit({
+        title,
+        description,
         expiredTime: formExpiredTime,
         contractMethodName: formContractMethod,
         toAddress: formContractAddress,
@@ -526,6 +555,18 @@ const NormalProposal = (props) => {
           realSpecialPlain: "",
         }}
       >
+        <FormItem
+          required
+          {...FIELDS_MAP.title}
+        >
+          <Input/>
+        </FormItem>
+        <FormItem
+          required
+          {...FIELDS_MAP.description}
+        >
+          <TextArea />
+        </FormItem>
         <FormItem
           label={FIELDS_MAP.formProposalType.label}
           required

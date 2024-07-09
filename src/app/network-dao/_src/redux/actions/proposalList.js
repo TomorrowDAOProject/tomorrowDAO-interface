@@ -2,9 +2,11 @@
  * @file organization actions
  * @author atom-yang
  */
-import { request } from '../../common/request';
-import { API_PATH } from '../common/constants';
+import { fetchNetworkDaoProposalList } from 'api/request';
+// import { request } from '../../common/request';
+// import { API_PATH } from '../common/constants';
 import { arrayToMap } from '../common/utils';
+import getChainIdQuery from 'utils/url';
 
 export const GET_PROPOSALS_LIST = arrayToMap([
   'GET_PROPOSALS_LIST_START',
@@ -18,12 +20,16 @@ export const getProposals = (params) => async (dispatch) => {
     payload: params,
   });
   try {
-    const result = await request(API_PATH.GET_PROPOSAL_LIST, params, {
-      method: 'GET',
+    // todo 1. get proposal list
+    // const searchParams = qs.parse(window.location.search);
+    const chain = getChainIdQuery();
+    const result = await fetchNetworkDaoProposalList({
+      ...params,
+      chainId: chain.chainId
     });
     dispatch({
       type: GET_PROPOSALS_LIST.GET_PROPOSALS_LIST_SUCCESS,
-      payload: result,
+      payload: result.data,
     });
   } catch (e) {
     dispatch({

@@ -324,6 +324,17 @@ export default function DeoDetails(props: IProps) {
             ),
           });
         }
+        if (daoData?.data?.governanceMechanism === EDaoGovernanceMechanism.Token) {
+          finalItems.push({
+            key: TabKey.HCMEMBERS,
+            label: 'High Council Members',
+            children: daoData?.data ? (
+              <HcMembers daoData={daoData.data} aliasName={aliasName} />
+            ) : (
+              <span></span>
+            ),
+          });
+        }
       }
       return finalItems;
     }
@@ -501,6 +512,11 @@ export default function DeoDetails(props: IProps) {
                     daoData={daoData.data}
                     aliasName={aliasName}
                   />
+                )}
+              {daoData?.data &&
+                !isNetworkDAO &&
+                daoData.data.governanceMechanism === EDaoGovernanceMechanism.Token && (
+                  <HcMembers daoData={daoData.data} aliasName={aliasName} />
                 )}
               <MyInfoContent
                 daoId={daoId}
