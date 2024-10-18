@@ -29,17 +29,16 @@ import { useConfig } from 'components/CmsGlobalConfig/type';
 import RuleButton from '../../components/RuleButton';
 import useNftBalanceChange from '../../hook/use-nft-balance-change';
 import { LeftArrowOutlined } from '@aelf-design/icons';
-import { ITabSource } from '../../type';
 import useVotePoints from '../../hook/use-vote-points';
 
 // interface IVoteListProps {}
 export default function VoteList({
+  backToPrev,
   proposalId,
-  pushStackByValue,
   isGold,
 }: {
+  backToPrev: () => void;
   proposalId: string;
-  pushStackByValue: (arg: number) => void;
   isGold: boolean;
 }) {
   const confirmDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -249,12 +248,7 @@ export default function VoteList({
   return (
     <div className="votigram-main">
       <div className="mb-[8px] flex items-center gap-[27px]">
-        <LeftArrowOutlined
-          className="text-2xl !text-white"
-          onClick={() => {
-            pushStackByValue(ITabSource.Rank);
-          }}
-        />
+        <LeftArrowOutlined className="text-2xl !text-white" onClick={backToPrev} />
         <h3 className="font-20-25-weight text-white  text-center">
           <span
             dangerouslySetInnerHTML={{

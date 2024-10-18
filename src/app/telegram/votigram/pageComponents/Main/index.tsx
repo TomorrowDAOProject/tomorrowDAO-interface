@@ -3,12 +3,10 @@ import Assets from '../Assets';
 import FootTabBar from '../../components/FootTabBar';
 import Task from '../Task';
 import Rankings from '../Rankings';
-import VoteList from '../VoteList';
 import Discover from '../Discover';
 import Footer from '../../components/Footer';
 import Referral from '../Referral';
 import { IStackItem, ITabSource } from '../../type';
-import clsx from 'clsx';
 import './index.css';
 
 export interface IMainProps {
@@ -33,8 +31,8 @@ const WalletIcon = () => (
 );
 export default function Main(props: IMainProps) {
   const [activeTabStack, setActiveTabStack] = useState<IStackItem[]>([{ path: ITabSource.Rank }]);
-  const [proposalId, setProposalId] = useState('');
-  const [isGold, setIsGold] = useState(false);
+  // const [proposalId, setProposalId] = useState('');
+  // const [isGold, setIsGold] = useState(false);
   const activeTab = activeTabStack[activeTabStack.length - 1];
   const pushStackByValue = (value: number) => {
     setActiveTabStack([...activeTabStack, { path: value }]);
@@ -46,16 +44,7 @@ export default function Main(props: IMainProps) {
   return (
     <div className="relative z-[1]">
       {activeTab.path === ITabSource.Discover && <Discover />}
-      {activeTab.path === ITabSource.Rank && (
-        <Rankings
-          pushStackByValue={pushStackByValue}
-          setProposalId={setProposalId}
-          setIsGold={setIsGold}
-        />
-      )}
-      {activeTab.path === ITabSource.Vote && (
-        <VoteList pushStackByValue={pushStackByValue} proposalId={proposalId} isGold={isGold} />
-      )}
+      {activeTab.path === ITabSource.Rank && <Rankings />}
       <Task
         style={{
           display: activeTab.path === ITabSource.Task ? 'block' : 'none',

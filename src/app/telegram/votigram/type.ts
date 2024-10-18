@@ -29,7 +29,6 @@ export enum ITabSource {
   Task = 2,
   Referral = 3,
   Asset = 4,
-  Vote = 5,
 }
 export interface IStackItem {
   path: number;

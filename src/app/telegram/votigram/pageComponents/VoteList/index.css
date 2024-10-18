@@ -1,6 +1,7 @@
 .votigram-main {
-  @apply px-[16px] pt-[15px] relative;
-  min-height: calc(100vh - 186px);
+  @apply px-[16px] pt-[15px] relative min-h-full;
+  /* min-height: calc(100vh - 186px); */
+  padding-bottom: 48px;
   .vote-lists {
     transform: translateZ(0);
     @apply flex flex-col gap-[8px];

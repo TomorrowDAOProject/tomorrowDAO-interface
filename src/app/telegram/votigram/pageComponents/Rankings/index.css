@@ -12,3 +12,12 @@
     overflow-y: scroll;
   }
 }
+
+.discover-app-detail-drawer {
+    height: 100vh;
+    overflow-y: scroll;
+    /* background: #000; */
+    .drawer-body {
+      @apply p-0 h-full;
+    }
+}

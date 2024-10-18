@@ -105,12 +105,11 @@ const footTabBarList = [
 ];
 export default function FootTabBar(props: IFootTabBarProps) {
   const { value, onChange } = props;
-  const tmpValue = value === ITabSource.Vote ? 0 : value;
   return (
     <ul className="foot-tabbar">
       {footTabBarList.map((item, index) => (
         <li
-          className={`foot-tabbar-item ${index === tmpValue ? 'active' : ''}`}
+          className={`foot-tabbar-item ${index === value ? 'active' : ''}`}
           key={index}
           onClick={() => {
             onChange(index);

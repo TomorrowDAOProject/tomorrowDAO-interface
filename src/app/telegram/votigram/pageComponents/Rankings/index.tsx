@@ -2,23 +2,17 @@ import { RightOutlined } from '@aelf-design/icons';
 import BigNumber from 'bignumber.js';
 import { ReactComponent as Flower } from 'assets/imgs/badgeForRankings.svg';
 import './index.css';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import MyPoints from '../../components/MyPoints';
-import { ITabSource } from '../../type';
 import { getRankings } from 'api/request';
 import { curChain } from 'config';
 import { useInfiniteScroll } from 'ahooks';
 import Loading from '../../components/Loading';
 import { RankingTypeEnum, RankingLabelEnum } from './type';
+import VoteList from '../VoteList';
 
 const MaxResultCount = 10;
-
-interface IRankingsProps {
-  pushStackByValue: (arg: number) => void;
-  setProposalId: (arg: string) => void;
-  setIsGold: (arg: boolean) => void;
-}
 
 interface IFetchResult {
   list: IRankingsItem[];
@@ -38,11 +32,11 @@ const RankItem = ({ item }: { item: IRankingsItem }) => {
   return (
     <div className="rounded-2xl p-4 bg-[#1B1B1B] flex items-center active:bg-[#292929]">
       <div className="flex items-center justify-between w-full">
-        <div className="flex items-center gap-4 overflow-hidden">
+        <div className="flex items-center gap-4 w-full">
           <img src="/images/tg/ranking-icon.png" alt="rankings-icon" width={48} height={48} />
-          <div className="flex flex-col overflow-hidden">
-            <div className="flex overflow-hidden">
-              <h3 className="truncate text-base font-medium text-white flex-1">
+          <div className="flex flex-col w-full">
+            <div className="flex overflow-hidden w-full">
+              <h3 className="m-w-[72%] truncate text-base font-medium text-white mr-1">
                 {item?.proposalTitle}
               </h3>
               <Flower
@@ -70,14 +64,12 @@ const RankItem = ({ item }: { item: IRankingsItem }) => {
     </div>
   );
 };
-const Rankings: React.FC<IRankingsProps> = ({
-  pushStackByValue,
-  setProposalId,
-  setIsGold,
-}: IRankingsProps) => {
+const Rankings: React.FC = () => {
   const pointsDrawerRef = useRef<ICommonDrawerRef>(null);
-
+  const detailDrawerRef = useRef<ICommonDrawerRef>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [proposalId, setProposalId] = useState('');
+  const [isGold, setIsGold] = useState(false);
 
   const fetchRankings: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
     const preList = data?.list ?? [];
@@ -111,7 +103,11 @@ const Rankings: React.FC<IRankingsProps> = ({
   const onClickHandler = (pid: string, isGold: boolean) => {
     setIsGold(isGold);
     setProposalId(pid);
-    pushStackByValue(ITabSource.Vote);
+    detailDrawerRef.current?.open();
+  };
+
+  const backToPrevHandler = () => {
+    detailDrawerRef.current?.close();
   };
 
   const needLoading = loading || loadingMore;
@@ -155,6 +151,24 @@ const Rankings: React.FC<IRankingsProps> = ({
           It has already reached the bottom.
         </div>
       )}
+
+      <CommonDrawer
+        title=""
+        ref={detailDrawerRef}
+        showCloseTarget={false}
+        showLeftArrow={false}
+        headerClassname="!hidden"
+        bodyClassname="discover-app-detail-drawer"
+        drawerProps={{
+          destroyOnClose: true,
+        }}
+        showCloseIcon={false}
+        body={
+          <div className="h-full">
+            <VoteList backToPrev={backToPrevHandler} proposalId={proposalId} isGold={isGold} />
+          </div>
+        }
+      />
 
       <CommonDrawer
         title={`My Points`}
