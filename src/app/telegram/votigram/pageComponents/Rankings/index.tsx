@@ -16,6 +16,7 @@ import { Button } from 'antd';
 import RankItem from './RankItem';
 import clsx from 'clsx';
 import BannerList from './BannerList';
+import { RANKING_TYPE_KEY } from 'constants/ranking';
 
 import './index.css';
 
@@ -43,32 +44,7 @@ const Rankings: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<ItemClickParams | null>(null);
   const [bannerList, setBannerList] = useState<IRankingsItem[]>([]);
   const [officialList, setOfficialList] = useState<IRankingsItem[]>([]);
-
-  const fetchRankings: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
-    const prevList = data?.list ?? [];
-    const res = await getRankings({
-      chainId: curChain,
-      type: 2,
-      skipCount: prevList.length,
-      maxResultCount: COMMUNITY_ROW_COUNT,
-    });
-    const currentList = res?.data?.data ?? [];
-    const len = currentList.length + prevList.length;
-    return {
-      list: currentList,
-      totalPoints: res?.data?.userTotalPoints ?? 0,
-      hasData: len < res.data?.totalCount,
-    };
-  };
-  const {
-    data: communityList,
-    loadingMore,
-    loading,
-    noMore,
-  } = useInfiniteScroll(fetchRankings, {
-    target: containerRef,
-    isNoMore: (d) => !d?.hasData || d.list.length === 0,
-  });
+  const [hasMoreOfficial, setHasMoreOfficial] = useState(false);
 
   const renderPointsStr = useMemo(() => {
     return BigNumber(accountBalance ?? 0).toFormat();
@@ -83,36 +59,90 @@ const Rankings: React.FC = () => {
     detailDrawerRef.current?.close();
   };
 
+  // Generalized function to fetch rankings with different types and configurations
+  const fetchRankings = async (type: number, skipCount: number, maxResultCount: number) => {
+    try {
+      const result = await getRankings({
+        chainId: curChain,
+        type,
+        skipCount,
+        maxResultCount,
+      });
+      return {
+        list: result?.data?.data || [],
+        userTotalPoints: result?.data?.userTotalPoints || 0,
+        hasMoreData: skipCount < result.data?.totalCount,
+      };
+    } catch (error) {
+      console.error(`Failed to fetch rankings of type ${type}`, error);
+      return {};
+    }
+  };
+
+  // Fetch function for community rankings, now using a consistent structure
+  const fetchCommunityRankings: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
+    const prevList = data?.list ?? [];
+    try {
+      const res = await getRankings({
+        chainId: curChain,
+        type: RANKING_TYPE_KEY.COMMUNITY,
+        skipCount: prevList.length,
+        maxResultCount: COMMUNITY_ROW_COUNT,
+      });
+      const currentList = res?.data?.data ?? [];
+      const len = currentList.length + prevList.length;
+
+      return {
+        list: [...prevList, ...currentList],
+        totalPoints: res?.data?.userTotalPoints ?? 0,
+        hasData: len < res.data?.totalCount,
+      };
+    } catch (error) {
+      console.error('Failed to fetch community rankings', error);
+      return {
+        list: prevList,
+        totalPoints: 0,
+        hasData: false,
+      };
+    }
+  };
+
   const initialize = async () => {
-    const [officialData, bannerData] = await Promise.all([
-      getRankings({
-        chainId: curChain,
-        type: 1,
-        skipCount: 0,
-        maxResultCount: OFFICIAL_ROW_COUNT,
-      }),
-      getRankings({
-        chainId: curChain,
-        type: 3,
-        skipCount: 0,
-        maxResultCount: BANNER_ROW_COUNT,
-      }),
-    ]);
-    setAccountBalance(officialData.data.userTotalPoints);
-    setOfficialList(officialData.data.data);
-    setBannerList(bannerData.data.data);
+    try {
+      const [officialData, bannerData] = await Promise.all([
+        fetchRankings(RANKING_TYPE_KEY.OFFICIAL, 0, OFFICIAL_ROW_COUNT),
+        fetchRankings(RANKING_TYPE_KEY.TOP_BANNER, 0, BANNER_ROW_COUNT),
+      ]);
+
+      setHasMoreOfficial(!!officialData.hasMoreData);
+      setAccountBalance(officialData?.userTotalPoints || 0);
+      setOfficialList(officialData.list || []);
+      setBannerList(bannerData.list || []);
+    } catch (error) {
+      console.error('Initialization failed', error);
+    }
   };
 
   const onShowMoreClick = async () => {
-    const result = await getRankings({
-      chainId: curChain,
-      type: 1,
-      skipCount: officialList.length,
-      maxResultCount: OFFICIAL_ROW_COUNT,
-    });
-
-    setOfficialList([...officialList, ...(result?.data?.data || [])]);
+    const newOfficialData = await fetchRankings(
+      RANKING_TYPE_KEY.OFFICIAL,
+      officialList.length,
+      OFFICIAL_ROW_COUNT,
+    );
+    setHasMoreOfficial(!!newOfficialData.hasMoreData);
+    setOfficialList((prevList) => [...prevList, ...(newOfficialData?.list || [])]);
   };
+
+  // Infinite scroll setup for community rankings
+  const {
+    data: communityList,
+    loadingMore,
+    loading,
+    noMore,
+  } = useInfiniteScroll(fetchCommunityRankings, {
+    target: containerRef,
+    isNoMore: (d) => !d?.hasData || d.list.length === 0,
+  });
 
   useEffect(() => {
     initialize();
@@ -155,12 +185,14 @@ const Rankings: React.FC = () => {
             <RankItem key={item.proposalId} {...item} onItemClick={onItemClick} />
           ))}
         </div>
-        <div className="flex justify-center items-center my-4">
-          <span className="text-[#ACA6FF] text-xs flex items-center" onClick={onShowMoreClick}>
-            <Reload className="mr-1" />
-            Show More
-          </span>
-        </div>
+        {hasMoreOfficial && (
+          <div className="flex justify-center items-center my-4">
+            <span className="text-[#ACA6FF] text-xs flex items-center" onClick={onShowMoreClick}>
+              <Reload className="mr-1" />
+              Show More
+            </span>
+          </div>
+        )}
       </div>
       <div className="flex flex-col">
         <span className="text-base items-center flex my-4">
