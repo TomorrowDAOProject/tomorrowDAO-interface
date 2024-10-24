@@ -161,6 +161,7 @@ export const discoverConfirmChoose = async (params: {
 export const getRankings = async (params: {
   chainId: string;
   skipCount: number;
+  type: number;
   maxResultCount: number;
 }): Promise<IRankingsRes> => {
   return apiServer.get(rankingsUrl, {
