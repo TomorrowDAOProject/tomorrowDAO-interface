@@ -312,16 +312,19 @@ enum RankingLabelEnum {
 }
 interface IRankingsItem {
   active: boolean;
+  activeEndEpochTime: number;
   activeEndTime: string;
+  activeStartEpochTime: number;
   activeStartTime: string;
+  bannerUrl: string;
   chainId: string;
-  proposalId: string;
   daoId: string;
-  proposalTitle: string;
-  proposalDescription: string;
-  totalVoteAmount: number;
-  rankingType: RankingTypeEnum;
   labelType: RankingLabelEnum;
+  proposalDescription: string;
+  proposalId: string;
+  proposalTitle: string;
+  rankingType: RANKING_TYPE_KEY;
+  totalVoteAmount: number;
 }
 interface IRankingsRes {
   code: string;
