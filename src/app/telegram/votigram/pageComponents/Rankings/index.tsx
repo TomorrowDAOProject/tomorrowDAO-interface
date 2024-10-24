@@ -111,7 +111,7 @@ const Rankings: React.FC = () => {
       maxResultCount: OFFICIAL_ROW_COUNT,
     });
 
-    setOfficialList([...officialList, ...result?.data?.data]);
+    setOfficialList([...officialList, ...(result?.data?.data || [])]);
   };
 
   useEffect(() => {
