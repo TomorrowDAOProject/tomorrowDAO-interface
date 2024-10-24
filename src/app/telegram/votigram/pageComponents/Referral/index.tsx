@@ -167,7 +167,7 @@ export default function Referral(props: IReferralProps) {
         }}
         className="rules-wrap"
       />
-      <Button onClick={handleInvite} className="invite-btn">
+      <Button onClick={handleInvite} className="invite-btn" type="primary">
         <img
           src="/images/tg/person-add.png"
           alt="person-add"

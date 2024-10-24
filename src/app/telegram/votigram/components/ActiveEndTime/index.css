@@ -1,0 +1,16 @@
+.votigram-active-time-end-wrap {
+  .active-time-end-input-duration {
+    @apply grid gap-4 grid-cols-3 grid-rows-3;
+  }
+  .active-time-end-input-duration-item{
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid var(--Black-BG-Light-D, #3A3A3A);
+    background: var(--Black-Title, #0F0F0F);
+    padding: 6px 16px;
+    color: #fff;
+    &.active {
+      background: var(--Black-BG-Light-D, #3A3A3A);
+    }
+  }
+}

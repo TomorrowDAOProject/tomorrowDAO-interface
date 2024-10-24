@@ -2,6 +2,9 @@
   @apply overflow-hidden relative bg-[#221D51];
   border-radius: 16px;
   border: 1px solid var(--Border-1, #403493);
+  .fake-content {
+    @apply h-[60px];
+  }
   .bg {
     z-index: 1;
     border-radius: 16px;

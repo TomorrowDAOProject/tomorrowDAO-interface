@@ -3,10 +3,10 @@ import { Drawer, DrawerProps } from 'antd';
 import Alloyfinger from 'alloyfinger';
 import './index.css';
 import { LeftArrowOutlined } from '@aelf-design/icons';
-import CloseIcon from './CloseIcon';
+import { CloseIcon } from 'components/Icons';
 
 interface ICommonDrawerProps {
-  title?: string;
+  title?: React.ReactNode;
   body?: React.ReactNode;
   onClose?: () => void;
   headerClassname?: string;

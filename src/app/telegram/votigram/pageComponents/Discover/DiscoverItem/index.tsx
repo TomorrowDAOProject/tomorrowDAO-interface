@@ -38,7 +38,9 @@ export default function DiscoverItem(props: IDiscoverProps) {
             rel="noopener noreferrer"
             className="button-wrap"
           >
-            <Button size="small">Open</Button>
+            <Button size="small" type="primary">
+              Open
+            </Button>
           </a>
         </div>
         {item.screenshots?.[0] && (

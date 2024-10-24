@@ -4,6 +4,7 @@ import { ReactComponent as Official } from 'assets/icons/official.svg';
 import { ReactComponent as Community } from 'assets/icons/community.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
 import { ReactComponent as Add } from 'assets/icons/add.svg';
+import { useConfig } from 'components/CmsGlobalConfig/type';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import MyPoints from '../../components/MyPoints';
@@ -17,6 +18,7 @@ import RankItem from './RankItem';
 import clsx from 'clsx';
 import BannerList from './BannerList';
 import { RANKING_TYPE_KEY } from 'constants/ranking';
+import { CreateVote } from '../CreateVote';
 
 import './index.css';
 
@@ -39,12 +41,14 @@ interface IFetchResult {
 const Rankings: React.FC = () => {
   const pointsDrawerRef = useRef<ICommonDrawerRef>(null);
   const detailDrawerRef = useRef<ICommonDrawerRef>(null);
+  const createVoteDrawerRef = useRef<ICommonDrawerRef>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [accountBalance, setAccountBalance] = useState(0);
   const [selectedItem, setSelectedItem] = useState<ItemClickParams | null>(null);
   const [bannerList, setBannerList] = useState<IRankingsItem[]>([]);
   const [officialList, setOfficialList] = useState<IRankingsItem[]>([]);
   const [hasMoreOfficial, setHasMoreOfficial] = useState(false);
+  const { createVotePageTitle } = useConfig() ?? {};
 
   const renderPointsStr = useMemo(() => {
     return BigNumber(accountBalance ?? 0).toFormat();
@@ -147,6 +151,9 @@ const Rankings: React.FC = () => {
   useEffect(() => {
     initialize();
   }, []);
+  const handleCreateVote = () => {
+    createVoteDrawerRef.current?.open();
+  };
 
   const needLoading = loading || loadingMore;
 
@@ -166,7 +173,11 @@ const Rankings: React.FC = () => {
           <span className="font-18-22-weight text-[#51FF00]">{renderPointsStr}</span>
         </div>
         <div className="flex flex-1 items-center justify-end">
-          <Button className="!text-sm !h-8 !rounded-lg !font-medium items-center gap-[6px] flex">
+          <Button
+            className="!text-sm !h-8 !rounded-lg !font-medium items-center gap-[6px] flex"
+            type="primary"
+            onClick={handleCreateVote}
+          >
             <Add className="text-sm" />
             New List
           </Button>
@@ -249,6 +260,29 @@ const Rankings: React.FC = () => {
         }}
         bodyClassname="my-points-drawer"
         body={<MyPoints />}
+      />
+      <CommonDrawer
+        title={<span>{createVotePageTitle}</span>}
+        ref={createVoteDrawerRef}
+        drawerProps={{
+          destroyOnClose: true,
+          placement: 'right',
+          width: '100%',
+          push: false,
+        }}
+        showCloseIcon={false}
+        showLeftArrow
+        rootClassName="create-vote-drawer-root"
+        bodyClassname="create-vote-drawer"
+        body={
+          <div>
+            <CreateVote
+              closeCreateForm={() => {
+                createVoteDrawerRef.current?.close();
+              }}
+            />
+          </div>
+        }
       />
     </div>
   );

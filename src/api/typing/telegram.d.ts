@@ -46,28 +46,28 @@ interface IRankingListReq {
   proposalId: string;
 }
 interface IRankingListResItem {
-  id: string;
-  chainId: string;
-  daoId: string;
-  proposalId: string;
-  proposalTitle: string;
-  proposalDescription: string;
-  activeStartTime: string;
-  activeEndTime: string;
-  appId: string;
+  id?: string;
+  chainId?: string;
+  daoId?: string;
+  proposalId?: string;
+  proposalTitle?: string;
+  proposalDescription?: string;
+  activeStartTime?: string;
+  activeEndTime?: string;
+  appId?: string;
   alias: string;
   title: string;
-  icon: string;
-  description: string;
-  editorChoice: boolean;
-  deployTime: string;
-  voteAmount: number;
-  votePercent: number;
-  url: string;
-  longDescription: string;
-  screenshots: Array<string>;
-  pointsAmount: number;
-  pointsPercent: number;
+  icon?: string;
+  description?: string;
+  editorChoice?: boolean;
+  deployTime?: string;
+  voteAmount?: number;
+  votePercent?: number;
+  url?: string;
+  longDescription?: string;
+  screenshots?: Array<string>;
+  pointsAmount?: number;
+  pointsPercent?: number;
 }
 interface IRankingListResData {
   bannerUrl: string;
@@ -77,6 +77,8 @@ interface IRankingListResData {
   totalVoteAmount: number;
   userTotalPoints: number;
   rankingList: Array<IRankingListResItem>;
+  title?: string;
+  isGold?: boolean;
 }
 interface IRankingListRes {
   code: string;

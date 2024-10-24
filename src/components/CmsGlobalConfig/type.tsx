@@ -20,6 +20,8 @@ export interface IConfigContent {
     topBannerImages: string[];
     nftImage: string;
   };
+  communityDaoId: string;
+  createVotePageTitle: string;
 }
 
 export const ConfigContext = createContext<IConfigContent | null>(null);

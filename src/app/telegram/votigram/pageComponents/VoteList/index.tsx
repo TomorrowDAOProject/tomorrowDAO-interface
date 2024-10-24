@@ -257,7 +257,7 @@ export default function VoteList({
     <div className="votigram-main">
       <div className="mb-[8px] flex items-center relative justify-center">
         <LeftArrowOutlined className="text-2xl !text-white absolute left-0" onClick={backToPrev} />
-        <h3 className="font-20-25-weight text-white px-7 text-center truncate">
+        <h3 className="font-20-25-weight text-white px-7 text-center">
           <span
             dangerouslySetInnerHTML={{
               __html: `${finalTitle}`,
@@ -460,6 +460,7 @@ export default function VoteList({
             <p className="my-[24px]">You need to have a TomorrowPass-1 NFT to vote.</p>
             <div className="mt-[16px] w-full">
               <Button
+                type="primary"
                 onClick={() => {
                   nftMissingModalRef.current?.close();
                 }}
