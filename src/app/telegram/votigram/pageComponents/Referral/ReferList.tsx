@@ -103,6 +103,7 @@ export default function ReferList(props: IReferListProps) {
               event will be counted here.
             </p>
             <Button
+              type="primary"
               onClick={() => {
                 invitedModalRef.current?.close();
               }}

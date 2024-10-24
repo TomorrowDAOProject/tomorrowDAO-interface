@@ -1,5 +1,6 @@
 import { CheckCircleOutlined, WalletOutlined } from '@aelf-design/icons';
 import './index.css';
+import clsx from 'clsx';
 import { ITabSource } from '../../type';
 
 export interface IFootTabBarProps {
@@ -109,7 +110,10 @@ export default function FootTabBar(props: IFootTabBarProps) {
     <ul className="foot-tabbar">
       {footTabBarList.map((item, index) => (
         <li
-          className={`foot-tabbar-item ${index === value ? 'active' : ''}`}
+          className={clsx('foot-tabbar-item', {
+            active: index === value,
+            bg: index === 0,
+          })}
           key={index}
           onClick={() => {
             onChange(index);

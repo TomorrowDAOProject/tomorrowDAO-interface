@@ -31,3 +31,44 @@
     }
   }
 }
+
+.tg-common-modal.tg-common-modal-crop {
+  .TMRWDAO-modal-content {
+    background: var(--Native-bg_color, #212121);
+    padding: 0 24px 24px 24px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .TMRWDAO-modal {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: initial;
+    top: initial;
+    padding-bottom: 0;
+    width: 1000vw !important;
+  }
+  .TMRWDAO-modal-header {
+    height: 60px;
+    padding: 8px 0px;
+    background: var(--Native-bg_color, #212121);
+    @apply flex-center;
+  }
+  .TMRWDAO-modal-title {
+    @apply text-center;
+  }
+  .TMRWDAO-modal-body {
+    .TMRWDAO-btn {
+      bottom: initial;
+    }
+  }
+  .TMRWDAO-modal-close {
+    &:hover,
+    &:active {
+      background-color: initial;
+    }
+
+  }
+} 

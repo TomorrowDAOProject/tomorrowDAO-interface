@@ -7,30 +7,44 @@ import { ActiveStartTimeEnum } from '../../type';
 import { activeEndTimeName, activeStartTimeName } from '../constant';
 import './index.css';
 
-export default function TimeRange() {
+interface ITimeRangeStartTimeProps {
+  mobile?: boolean;
+  ignoreToolTip?: boolean;
+}
+export const TimeRangeStartTime = (props: ITimeRangeStartTimeProps) => {
+  const { ignoreToolTip } = props;
   return (
-    <>
-      <Form.Item
-        className="voting-start-time-form-label"
-        label={
+    <Form.Item
+      className="voting-start-time-form-label"
+      label={
+        ignoreToolTip ? (
+          <span className="form-item-label">Voting start time</span>
+        ) : (
           <Tooltip title="Define when a proposal should be active to receive approvals. If now is selected, the proposal is immediately active after publishing.">
             <span className="form-item-label">
               Voting start time
               <InfoCircleOutlined className="cursor-pointer label-icon" />
             </span>
           </Tooltip>
-        }
-        initialValue={ActiveStartTimeEnum.now}
-        name={activeStartTimeName}
-        rules={[
-          {
-            required: true,
-            message: 'The voting start time is required',
-          },
-        ]}
-      >
-        <ActiveStartTime />
-      </Form.Item>
+        )
+      }
+      initialValue={ActiveStartTimeEnum.now}
+      name={activeStartTimeName}
+      rules={[
+        {
+          required: true,
+          message: 'The voting start time is required',
+        },
+      ]}
+    >
+      <ActiveStartTime mobile={props.mobile} />
+    </Form.Item>
+  );
+};
+export default function TimeRange() {
+  return (
+    <>
+      <TimeRangeStartTime />
       <Form.Item
         label={
           <Tooltip title="Define how long the voting should last in days, or add an exact date and time for it to conclude.">

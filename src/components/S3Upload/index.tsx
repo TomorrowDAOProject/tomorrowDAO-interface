@@ -1,11 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Upload, IUploadProps } from 'aelf-design';
+import { RefreshOutlined } from '@aelf-design/icons';
 import { GetProp, UploadFile, message } from 'antd';
+import ImgCrop, { ImgCropProps } from 'antd-img-crop';
 import clsx from 'clsx';
 import { fileUplaod } from 'api/request';
 export type TFileType = Parameters<GetProp<IUploadProps, 'beforeUpload'>>[0];
 import { checkImgRatio } from 'utils/checkImgSize';
 import './index.css';
+import { CloseIcon } from 'components/Icons';
 
 const COMMON_UPLOAD_INPUT_ID = 'common-upload-input-id';
 
@@ -16,6 +19,7 @@ export interface IFUploadProps extends Omit<IUploadProps, 'onChange'> {
   fileList?: UploadFile[];
   isAntd?: boolean;
   needCheckImgSize?: boolean;
+  needCrop?: boolean;
   ratio?: number | [number, number];
   ratioErrorText?: string;
   onChange?: (fileList: UploadFile[]) => void;
@@ -49,6 +53,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
   disabled,
   ratio,
   ratioErrorText,
+  needCrop,
   ...props
 }) => {
   const [showUploadBtn, setShowUploadBtn] = useState<boolean>(false);
@@ -160,12 +165,27 @@ const AWSUpload: React.FC<IFUploadProps> = ({
     maxCount: maxFileCount,
   };
 
+  const Wrap = needCrop ? ImgCrop : React.Fragment;
+
+  const imgCropRatio = Array.isArray(ratio) ? ratio[1] : ratio;
+  const imgCropProps: ImgCropProps = {
+    aspect: imgCropRatio,
+    showReset: true,
+    zoomSlider: true,
+    resetText: (<RefreshOutlined />) as unknown as string,
+    modalTitle: 'Picture Editor',
+    modalProps: {
+      closeIcon: <CloseIcon />,
+    },
+    modalClassName: 'tg-common-modal tg-common-modal-crop',
+  } as ImgCropProps;
+  const wrapProps = needCrop ? imgCropProps : {};
+
   return (
     <div className="aws-upload-wrap">
-      <Upload {...commonProps} {...uploadButtonProps} showUploadButton={showUploadBtn} />
-      {/* <AntdUpload {...commonProps}>
-        <UploadButton {...uploadButtonProps} />
-      </AntdUpload> */}
+      <Wrap {...wrapProps}>
+        <Upload {...commonProps} {...uploadButtonProps} showUploadButton={showUploadBtn} />
+      </Wrap>
     </div>
   );
 };
