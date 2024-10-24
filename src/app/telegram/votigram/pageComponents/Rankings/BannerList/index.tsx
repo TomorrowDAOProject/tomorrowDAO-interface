@@ -22,6 +22,7 @@ const BannerList: FC<BannerList> = ({ bannerList }) => {
         key={bannerList[startIndex]}
         className="animate-vibrate rounded-2xl w-full"
         src={bannerList[startIndex]}
+        alt="banner"
       />
     )
   );
