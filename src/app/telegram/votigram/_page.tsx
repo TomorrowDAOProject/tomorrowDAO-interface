@@ -43,8 +43,8 @@ export default function Page() {
     preloadImages(voteMain?.topBannerImages ?? []);
   }, []);
   useEffect(() => {
-    const webapp = window.Telegram.WebApp;
-    webapp.setBackgroundColor(mainPageBgColor);
+    const webapp = window.Telegram?.WebApp;
+    webapp?.setBackgroundColor(mainPageBgColor);
   }, []);
 
   const enterMainPage = () => {

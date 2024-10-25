@@ -77,7 +77,7 @@ export default function InfiniteList(props: InfiniteListProps) {
       )}
       {!listData?.hasData && !isLoading && (
         <div className="font-14-18-weight reached-the-bottom text-[#6A6D79] text-center">
-          It has already reached the bottom.
+          You have reached the bottom of the page.
         </div>
       )}
       <div

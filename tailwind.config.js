@@ -5,6 +5,17 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx,css}'],
   theme: {
     extend: {
+      animation: {
+        vibrate: 'vibrate 100ms linear 4',
+      },
+      keyframes: {
+        vibrate: {
+          '0%, 100%': { transform: 'translate(0)' },
+          '25%': { transform: 'translate(3px, 3px)' },
+          '50%': { transform: 'translate(-3px, -3px)' },
+          '75%': { transform: 'translate(3px, -3px)' },
+        },
+      },
       colors: {
         neutralTitle: '#1A1A1A',
         neutralPrimaryText: '#434343',
