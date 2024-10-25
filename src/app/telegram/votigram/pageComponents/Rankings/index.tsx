@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import Image from 'next/image';
 import { ReactComponent as Official } from 'assets/icons/official.svg';
 import { ReactComponent as Community } from 'assets/icons/community.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
@@ -21,6 +20,8 @@ import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
 import { CreateVote } from '../CreateVote';
 
 import './index.css';
+import { TelegramPlatform } from '@portkey/did-ui-react';
+import { parseStartAppParams } from '../../util/start-params';
 
 const OFFICIAL_ROW_COUNT = 3;
 const COMMUNITY_ROW_COUNT = 10;
@@ -165,9 +166,10 @@ const Rankings: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const url = new URL(window.location.href);
-    if (url.searchParams.has('pid')) {
-      fetchRankDetail(url.searchParams.get('pid') || '');
+    const startParam = TelegramPlatform.getInitData()?.start_param ?? '';
+    const params = parseStartAppParams(startParam);
+    if (params) {
+      fetchRankDetail(params.pid || '');
     }
   }, []);
 
@@ -293,18 +295,7 @@ const Rankings: React.FC = () => {
         body={<MyPoints />}
       />
       <CommonDrawer
-        title={
-          <span>
-            <Image
-              src="/images/tg/magic-wand.png"
-              width={20}
-              height={20}
-              alt="page-title"
-              className="pr-1"
-            />
-            {createVotePageTitle}
-          </span>
-        }
+        title={<span>{createVotePageTitle}</span>}
         ref={createVoteDrawerRef}
         drawerProps={{
           destroyOnClose: true,

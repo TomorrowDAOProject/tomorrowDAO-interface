@@ -11,7 +11,7 @@ import {
   rankingVote,
   rankingVoteLike,
 } from 'api/request';
-import { curChain, rpcUrlTDVW, sideChainCAContractAddress, voteAddress } from 'config';
+import { curChain, networkType, rpcUrlTDVW, sideChainCAContractAddress, voteAddress } from 'config';
 import { useAsyncEffect, useRequest } from 'ahooks';
 import { getRawTransaction } from 'utils/transaction';
 import CommonModal, { ICommonModalRef } from '../../components/CommonModal';
@@ -36,6 +36,7 @@ import useVotePoints from '../../hook/use-vote-points';
 import Image from 'next/image';
 
 import './index.css';
+import { stringifyStartAppParams } from '../../util/start-params';
 
 // interface IVoteListProps {}
 export default function VoteList({
@@ -67,6 +68,11 @@ export default function VoteList({
   const rankListLoadingRef = useRef(false);
   const isIgnoreWsData = useRef(false);
   const reportQueue = useRef<ILikeItem[]>([]);
+
+  const tgLink =
+    networkType === 'TESTNET'
+      ? 'https://t.me/monkeyTmrwDevBot/Votigram'
+      : ' https://t.me/VotigramBot/votigram_web_app';
 
   const updateWsRankList = (data: IWsPointsItem[]) => {
     if (isIgnoreWsData.current) {
@@ -270,9 +276,9 @@ export default function VoteList({
 
   const generateShareUrl = () => {
     if (window) {
-      const url = new URL(window.location.href);
-      url.searchParams.append('pid', proposalId);
-      return url.href;
+      return `${tgLink}?startapp=${stringifyStartAppParams({
+        pid: proposalId,
+      })}`;
     }
     return '';
   };

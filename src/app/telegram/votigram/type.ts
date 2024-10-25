@@ -1,4 +1,5 @@
 export interface IStartAppParams {
+  pid?: string;
   referralCode?: string;
   source?: string;
 }
