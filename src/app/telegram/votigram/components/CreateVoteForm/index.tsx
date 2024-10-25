@@ -4,13 +4,14 @@ import { UpOutlined, DownOutlined } from '@aelf-design/icons';
 import AWSUpload from 'components/S3Upload';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { FormInstance } from 'antd/lib';
+import { ISubmitFile } from 'types';
 export interface IOptionFormSubmitValue {
   title: string;
-  icon?: string;
+  icon?: ISubmitFile[];
   description?: string;
   longDescription?: string;
   url?: string;
-  screenshots?: string[];
+  screenshots?: ISubmitFile[];
 }
 interface ICreateFormProps {
   onSubmit: (values: IOptionFormSubmitValue) => void;
@@ -30,12 +31,7 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
   const handleFormSubmit = async () => {
     try {
       const res = await form.validateFields();
-      const submitValues: IOptionFormSubmitValue = {
-        ...res,
-        icon: res?.icon?.[0]?.url,
-        screenshots: res?.screenshots?.map((item: any) => item.url),
-      };
-      props.onSubmit(submitValues);
+      props.onSubmit(res);
     } catch (error) {
       console.log('error', error);
     }
@@ -44,19 +40,7 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
     form,
   }));
   useEffect(() => {
-    const convertValue = {
-      ...initialValues,
-      icon: initialValues?.icon
-        ? [{ url: initialValues.icon, uid: initialValues.icon, name: 'icon.png', status: 'done' }]
-        : [],
-      screenshots: initialValues?.screenshots?.map((item, i) => ({
-        url: item,
-        uid: item,
-        name: i + '.png',
-        status: 'done',
-      })),
-    };
-    form.setFieldsValue(convertValue);
+    form.setFieldsValue(initialValues);
   }, [initialValues, form]);
   return (
     <Form
@@ -64,11 +48,17 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
       layout="vertical"
       name="votigram-create-vote-option-form"
       autoComplete="off"
+      requiredMark={false}
       scrollToFirstError
     >
       <Form.Item
         name={'title'}
-        label="Name"
+        label={
+          <span>
+            Name
+            <span className="form-item-label-custom-required-mark"> *</span>
+          </span>
+        }
         required
         rules={[
           {
@@ -97,11 +87,17 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
           <AWSUpload
             accept=".png,.jpg,.jpeg"
             maxFileCount={1}
-            tips={'Formats supported: PNG and JPG. Ratio: 1:1, less than 1 MB'}
             needCheckImgSize
             needCrop
             ratio={1}
             ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
+            tips={
+              <span className="TMRWDAO-upload-button-upload-tips">
+                Formats supported: PNG and JPG.
+                <br />
+                Ratio: 1:1, less than 1 MB.
+              </span>
+            }
           />
         </Form.Item>
         <Form.Item
@@ -155,7 +151,13 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
           <AWSUpload
             accept=".png,.jpg,.jpeg"
             maxFileCount={9}
-            tips={`Formats supported: PNG and JPG. less than 1 MB. `}
+            tips={
+              <span className="TMRWDAO-upload-button-upload-tips">
+                Formats supported: PNG and JPG.
+                <br />
+                less than 1 MB.
+              </span>
+            }
           />
         </Form.Item>
       </div>

@@ -5,8 +5,7 @@ import DynamicOption from '../../components/DynamicOptionFormItem';
 import AWSUpload from 'components/S3Upload';
 import { useConfig } from 'components/CmsGlobalConfig/type';
 import CommonModal, { ICommonModalRef } from '../../components/CommonModal';
-import { EOptionType } from 'pageComponents/proposal-create-option/type';
-import { ProposalType as ProposalTypeEnum } from 'types';
+import { ISubmitFile, ProposalType as ProposalTypeEnum } from 'types';
 import { TimeRangeStartTime } from 'pageComponents/proposal-create/DeployForm/TimeRange';
 import './index.css';
 import { activeEndTimeName } from 'pageComponents/proposal-create/DeployForm/constant';
@@ -23,13 +22,34 @@ import { proposalCreateContractRequest } from 'contract/proposalCreateContract';
 import { getProposalTimeParams } from '../../util/getProposalTimeParams';
 import Loading from '../../components/Loading';
 import { SuccessSubmitIcon } from 'components/Icons';
+import { IOptionFormSubmitValue } from '../../components/CreateVoteForm';
 
 interface ICreateVoteProps {
   closeCreateForm?: () => void;
 }
+interface ICreateFormValues {
+  proposalBasicInfo: {
+    proposalTitle: string;
+    activeStartTime: number;
+    activeEndTime: number;
+  };
+  banner: ISubmitFile[];
+  options: IOptionFormSubmitValue[];
+}
+const convertOptions = (formValue: IOptionFormSubmitValue[]) => {
+  const options: ISaveAppListReq['apps'] = formValue.map((item) => {
+    return {
+      ...item,
+      icon: item?.icon?.[0]?.url,
+      screenshots: item?.screenshots?.map((item) => item.url).filter(Boolean),
+      sourceType: ESourceType.TomorrowDao,
+    };
+  });
+  return options;
+};
 export function CreateVote(props: ICreateVoteProps) {
   const { closeCreateForm } = props;
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<ICreateFormValues>();
   const submitModalRef = useRef<ICommonModalRef>(null);
   const loadingModalRef = useRef<ICommonModalRef>(null);
   const previewDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -38,10 +58,11 @@ export function CreateVote(props: ICreateVoteProps) {
   const [errorMessage, setErrorMessage] = useState('');
   const handlePreview = async () => {
     const res = await form.validateFields();
+    const options = convertOptions(res.options);
     const previewData = {
-      ...res,
+      options,
       title: res?.proposalBasicInfo?.proposalTitle,
-      icon: res?.banner?.[0]?.url,
+      banner: res?.banner?.[0]?.url,
     };
     setPreviewData(previewData);
     previewDrawerRef.current?.open();
@@ -49,13 +70,9 @@ export function CreateVote(props: ICreateVoteProps) {
   const handleSubmit = async () => {
     try {
       const res = await form.validateFields();
+      console.log('res 111', res);
       loadingModalRef.current?.open();
-      const saveReqApps: ISaveAppListReq['apps'] = res.options.map((item: any) => {
-        return {
-          ...item,
-          sourceType: ESourceType.TomorrowDao,
-        };
-      });
+      const saveReqApps: ISaveAppListReq['apps'] = convertOptions(res.options);
       const bannerUrl = res?.banner?.[0]?.url;
       if (bannerUrl) {
         saveReqApps.push({
@@ -134,13 +151,18 @@ export function CreateVote(props: ICreateVoteProps) {
         form={form}
         layout="vertical"
         autoComplete="off"
-        requiredMark={true}
+        requiredMark={false}
         scrollToFirstError={true}
         name="dynamic_form_item"
       >
         <Form.Item
           name={['proposalBasicInfo', 'proposalTitle']}
-          label={<span>Title</span>}
+          label={
+            <span>
+              Title
+              <span className="form-item-label-custom-required-mark"> *</span>
+            </span>
+          }
           validateFirst
           rules={[
             {
@@ -149,12 +171,12 @@ export function CreateVote(props: ICreateVoteProps) {
             },
             {
               min: 0,
-              max: 300,
-              message: 'The proposal title supports a maximum of 300 characters',
+              max: 20,
+              message: 'The name should contain no more than 20 characters.',
             },
           ]}
         >
-          <Input type="text" placeholder="Enter the title of the list (300 characters max). " />
+          <Input type="text" placeholder="Enter a name for the option(20 characters max). " />
         </Form.Item>
         <Form.Item name={'banner'} label={<span>Banner</span>} valuePropName="fileList">
           <AWSUpload
@@ -171,7 +193,9 @@ export function CreateVote(props: ICreateVoteProps) {
             }
             tips={
               <span className="TMRWDAO-upload-button-upload-tips">
-                Formats supported: PNG and JPG. Ratio: 3:1, less than 1 MB.
+                Formats supported: PNG and JPG.
+                <br />
+                Ratio: 3:1, less than 1 MB.
               </span>
             }
           />
@@ -192,13 +216,24 @@ export function CreateVote(props: ICreateVoteProps) {
               },
             },
           ]}
-          optionType={EOptionType.advanced}
           initialValue={[]}
         />
         <Divider />
-        <TimeRangeStartTime mobile ignoreToolTip />
+        <TimeRangeStartTime
+          mobile
+          label={
+            <span className="form-item-label">
+              Voting start time <span className="form-item-label-custom-required-mark"> *</span>
+            </span>
+          }
+        />
         <Form.Item
-          label={<span className="form-item-label">Voting end date</span>}
+          label={
+            <span className="form-item-label">
+              Voting end date
+              <span className="form-item-label-custom-required-mark"> *</span>
+            </span>
+          }
           initialValue={{
             value: 1,
             unit: 'hour',
@@ -232,8 +267,10 @@ export function CreateVote(props: ICreateVoteProps) {
         headerClassname="create-form-preview-drawer-header"
         body={
           <div className="vote-list-preview">
-            <h2 className="proposal-title font-20-25-weight">{previewData.title}</h2>
-            {previewData.icon && <img className="preview-image" src={previewData.icon} alt="" />}
+            <h2 className="proposal-title font-20-25-weight break-words">{previewData.title}</h2>
+            {previewData.banner && (
+              <img className="preview-image" src={previewData.banner} alt="" />
+            )}
             <div>
               {previewData.options?.map((item: any, i: number) => {
                 return (
@@ -254,10 +291,10 @@ export function CreateVote(props: ICreateVoteProps) {
       />
       <CommonModal
         ref={loadingModalRef}
-        title=""
+        title="the transaction is being processed"
         showCloseIcon={false}
         content={
-          <div className="invite-modal-content flex-center pb-[24px]">
+          <div className="invite-modal-content flex-center py-[48px]">
             <Loading />
           </div>
         }

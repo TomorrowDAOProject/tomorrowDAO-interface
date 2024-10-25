@@ -6,28 +6,18 @@ import ActiveEndTime, { defaultActiveEndTimeDuration } from '../ActiveEndTime';
 import { ActiveStartTimeEnum } from '../../type';
 import { activeEndTimeName, activeStartTimeName } from '../constant';
 import './index.css';
+import React from 'react';
 
 interface ITimeRangeStartTimeProps {
   mobile?: boolean;
-  ignoreToolTip?: boolean;
+  label: React.ReactNode;
 }
 export const TimeRangeStartTime = (props: ITimeRangeStartTimeProps) => {
-  const { ignoreToolTip } = props;
+  const { label } = props;
   return (
     <Form.Item
       className="voting-start-time-form-label"
-      label={
-        ignoreToolTip ? (
-          <span className="form-item-label">Voting start time</span>
-        ) : (
-          <Tooltip title="Define when a proposal should be active to receive approvals. If now is selected, the proposal is immediately active after publishing.">
-            <span className="form-item-label">
-              Voting start time
-              <InfoCircleOutlined className="cursor-pointer label-icon" />
-            </span>
-          </Tooltip>
-        )
-      }
+      label={label}
       initialValue={ActiveStartTimeEnum.now}
       name={activeStartTimeName}
       rules={[
@@ -44,7 +34,16 @@ export const TimeRangeStartTime = (props: ITimeRangeStartTimeProps) => {
 export default function TimeRange() {
   return (
     <>
-      <TimeRangeStartTime />
+      <TimeRangeStartTime
+        label={
+          <Tooltip title="Define when a proposal should be active to receive approvals. If now is selected, the proposal is immediately active after publishing.">
+            <span className="form-item-label">
+              Voting start time
+              <InfoCircleOutlined className="cursor-pointer label-icon" />
+            </span>
+          </Tooltip>
+        }
+      />
       <Form.Item
         label={
           <Tooltip title="Define how long the voting should last in days, or add an exact date and time for it to conclude.">

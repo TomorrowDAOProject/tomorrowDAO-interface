@@ -22,6 +22,7 @@ const THEME_CONFIG: ThemeConfig = {
     colorError: '#B7142D',
     colorText: '#FFF',
     borderRadius: 16,
+    colorBgContainer: '#0F0F0F',
   },
   components: {
     Form: {
@@ -45,6 +46,10 @@ const THEME_CONFIG: ThemeConfig = {
       buttonSolidCheckedBg: '#0000FF', // blue
       buttonSolidCheckedColor: '#FF0000', // red
       buttonSolidCheckedHoverBg: '#008000', // green
+    },
+    Input: {
+      activeShadow: '0 0 0 4px rgba(117, 78, 224, 0.40)',
+      errorActiveShadow: '0 0 0 4px rgba(183, 20, 45, 0.40)',
     },
   },
 };

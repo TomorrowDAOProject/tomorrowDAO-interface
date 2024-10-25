@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Upload, IUploadProps } from 'aelf-design';
 import { RefreshOutlined } from '@aelf-design/icons';
-import { GetProp, UploadFile, message } from 'antd';
+import { GetProp, UploadFile, UploadProps, message } from 'antd';
 import ImgCrop, { ImgCropProps } from 'antd-img-crop';
 import clsx from 'clsx';
 import { fileUplaod } from 'api/request';
@@ -9,6 +9,7 @@ export type TFileType = Parameters<GetProp<IUploadProps, 'beforeUpload'>>[0];
 import { checkImgRatio } from 'utils/checkImgSize';
 import './index.css';
 import { CloseIcon } from 'components/Icons';
+import { RcFile } from 'antd/es/upload';
 
 const COMMON_UPLOAD_INPUT_ID = 'common-upload-input-id';
 
@@ -93,9 +94,20 @@ const AWSUpload: React.FC<IFUploadProps> = ({
       .filter((file) => file.status !== 'error');
     onChange?.(newFileList);
   };
+  const acceptCheck = (file: RcFile) => {
+    const fileExt = file.name.split('.').pop()?.toLowerCase();
+    const acceptExt = props.accept?.split(',')?.map((ext) => ext.replace('.', '')) ?? [];
+    if (acceptExt.length && !acceptExt.includes(fileExt ?? '')) {
+      message.error('The file format is incorrect, please upload the correct file format');
+      return false;
+    }
+    return true;
+  };
 
   const onBeforeUpload = async (file: TFileType) => {
     let result = true;
+
+    const acceptCheckResult = props?.accept && !needCrop ? acceptCheck(file) : true;
 
     const isLteLimit = file.size <= handleLimit(fileLimit);
     if (!isLteLimit) {
@@ -104,7 +116,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
         `${contentType} too large. Please upload an ${contentType} no larger than ${fileLimit}`,
       );
     }
-    result = isLteLimit;
+    result = acceptCheckResult && isLteLimit;
 
     if (needCheckImgSize) {
       const checkSize = await checkImgRatio(file, ratio ?? 0);
@@ -168,7 +180,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
   const Wrap = needCrop ? ImgCrop : React.Fragment;
 
   const imgCropRatio = Array.isArray(ratio) ? ratio[1] : ratio;
-  const imgCropProps: ImgCropProps = {
+  const imgCropProps: Partial<ImgCropProps> = {
     aspect: imgCropRatio,
     showReset: true,
     zoomSlider: true,
@@ -178,7 +190,8 @@ const AWSUpload: React.FC<IFUploadProps> = ({
       closeIcon: <CloseIcon />,
     },
     modalClassName: 'tg-common-modal tg-common-modal-crop',
-  } as ImgCropProps;
+    beforeCrop: acceptCheck,
+  };
   const wrapProps = needCrop ? imgCropProps : {};
 
   return (

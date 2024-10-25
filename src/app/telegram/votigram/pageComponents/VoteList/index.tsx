@@ -255,9 +255,12 @@ export default function VoteList({
 
   return (
     <div className="votigram-main">
-      <div className="mb-[8px] flex items-center relative justify-center">
-        <LeftArrowOutlined className="text-2xl !text-white absolute left-0" onClick={backToPrev} />
-        <h3 className="font-20-25-weight text-white px-7 text-center">
+      <div className="mb-[8px] relative">
+        <LeftArrowOutlined
+          className="text-2xl !text-white absolute left-0 top-[50%] translate-y-[-50%]"
+          onClick={backToPrev}
+        />
+        <h3 className="font-20-25-weight text-white px-7 text-center break-words">
           <span
             dangerouslySetInnerHTML={{
               __html: `${finalTitle}`,
