@@ -1,10 +1,15 @@
 .telegram-vote-item {
+  @apply overflow-hidden relative bg-[#221D51];
   border-radius: 16px;
   border: 1px solid var(--Border-1, #403493);
-  z-index: 1;
-  border-radius: 16px;
-  @apply overflow-hidden relative h-[60px] w-full bg-[#4600C5];
-
+  .fake-content {
+    @apply h-[60px];
+  }
+  .bg {
+    z-index: 1;
+    border-radius: 16px;
+    @apply h-[60px] w-full bg-[#4600C5] absolute left-0 top-[0px];
+  }
   .vote-item-percent {
     z-index: 2;
     @apply h-[60px] w-0 opacity-25 bg-[#ACA6FF] absolute left-0 top-[0px];

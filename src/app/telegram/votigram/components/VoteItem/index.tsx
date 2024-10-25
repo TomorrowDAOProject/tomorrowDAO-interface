@@ -110,7 +110,9 @@ export default function VoteItem(props: IVoteItemProps) {
     />
   );
   return (
-    <div className="telegram-vote-item h-[60px]">
+    <div className="telegram-vote-item">
+      <div className="bg"></div>
+      <div className="fake-content"></div>
       {!canVote && <Percent percent={item.pointsPercent || 0} />}
       <div
         className={`telegram-vote-item-wrap ${
@@ -171,41 +173,40 @@ export default function VoteItem(props: IVoteItemProps) {
             </div>
           </div>
         </div>
-        {canVote ? (
-          <div
-            className={clsx('vote-button', {
-              disabled: disableOperation,
-            })}
-            onClick={() => {
-              if (disableOperation) return;
-              onVote?.(item);
-            }}
-          >
-            Vote
-          </div>
-        ) : (
-          <div className="vote-amount-wrap">
-            <h3 className="vote-amount font-14-18">
-              {BigNumber(item.pointsAmount || 0).toFormat()}
-            </h3>
-            {!disableOperation && (
-              <>
-                {index === 0 ? (
-                  <Tooltip
-                    placement="topRight"
-                    title="Tap coin button to earn more points!"
-                    open={isToolTipVisible}
-                    overlayClassName="telegram-like-tooltip"
-                  >
-                    {voteAmountIncreseIcon}
-                  </Tooltip>
-                ) : (
-                  voteAmountIncreseIcon
-                )}
-              </>
-            )}
-          </div>
-        )}
+        {showVoteAndLike &&
+          (canVote ? (
+            <div
+              className={`${disableOperation ? 'disabled' : ''} vote-button`}
+              onClick={() => {
+                if (disableOperation) return;
+                onVote?.(item);
+              }}
+            >
+              Vote
+            </div>
+          ) : (
+            <div className="vote-amount-wrap">
+              <h3 className="vote-amount font-14-18">
+                {BigNumber(item?.pointsAmount ?? 0).toFormat()}
+              </h3>
+              {!disableOperation && (
+                <>
+                  {index === 0 ? (
+                    <Tooltip
+                      placement="topRight"
+                      title={'Tap coin button to earn more points!'}
+                      open={isToolTipVisible}
+                      overlayClassName="telegram-like-tooltip"
+                    >
+                      {voteAmountIncreseIcon}
+                    </Tooltip>
+                  ) : (
+                    voteAmountIncreseIcon
+                  )}
+                </>
+              )}
+            </div>
+          ))}
       </div>
       <div className={clsx('px-4 description-full-wrap', open ? 'block' : 'hidden')}>
         {item.description && (

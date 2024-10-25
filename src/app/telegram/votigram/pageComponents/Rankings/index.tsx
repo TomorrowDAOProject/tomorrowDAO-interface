@@ -96,7 +96,7 @@ const Rankings: React.FC = () => {
       const len = currentList.length + prevList.length;
 
       return {
-        list: [...prevList, ...currentList],
+        list: currentList,
         totalPoints: res?.data?.userTotalPoints ?? 0,
         hasData: len < res.data?.totalCount,
       };

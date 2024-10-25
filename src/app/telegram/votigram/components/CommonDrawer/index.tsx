@@ -3,7 +3,7 @@ import { Drawer, DrawerProps } from 'antd';
 import Alloyfinger from 'alloyfinger';
 import './index.css';
 import { LeftArrowOutlined } from '@aelf-design/icons';
-import CloseIcon from './CloseIcon';
+import { CloseIcon } from 'components/Icons';
 import clsx from 'clsx';
 
 interface ICommonDrawerProps {
