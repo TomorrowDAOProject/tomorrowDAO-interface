@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { unionBy } from 'lodash-es';
 import { useEffectOnce } from 'react-use';
+import useInputForceRender from '../../../hook/use-input-force-render';
 import clsx from 'clsx';
 import LoadMoreButton from '../../../components/LoadMoreButton';
 import './index.css';
@@ -155,23 +156,7 @@ export default function Discussion(props: IDiscussionProps) {
     addComment(filtedContent);
     setContent('');
   };
-  useEffect(() => {
-    const cb = () => {
-      window?.scrollTo(window.scrollX, window.scrollY - 1);
-    };
-    const inputWrap = inputWrapRef.current?.querySelector('textarea');
-    const scroll = () => {
-      setTimeout(() => {
-        inputWrap?.scrollIntoView({ behavior: 'smooth' });
-      }, 500);
-    };
-    inputWrap?.addEventListener('focus', scroll);
-    window?.Telegram?.WebApp?.onEvent('viewportChanged', cb);
-    return () => {
-      window?.Telegram?.WebApp?.offEvent('viewportChanged', cb);
-      inputWrap?.removeEventListener('focus', scroll);
-    };
-  }, []);
+  useInputForceRender(inputWrapRef);
   return (
     <div className="discover-app-detail-discussion-wrap">
       <h3 className="font-20-28-weight text-white" id="discussion">
@@ -185,9 +170,6 @@ export default function Discussion(props: IDiscussionProps) {
           status={errorMessage ? 'error' : ''}
           value={content}
           autoSize={{ minRows: 1, maxRows: 10 }}
-          onBlur={() => {
-            window.scrollTo(window.scrollX, window.scrollY - 1);
-          }}
         />
         <div>
           <Button
