@@ -463,7 +463,9 @@ export default function VoteList({
               onClick={() => {
                 if (window?.Telegram?.WebApp?.openTelegramLink) {
                   window?.Telegram?.WebApp?.openTelegramLink(
-                    `https://t.me/share/url?url=${generateShareUrl()}`,
+                    `https://t.me/share/url?url=${generateShareUrl()}&text=${encodeURIComponent(
+                      `${detailTitle}\n\n🔥 The campaign is in progress.\n🌈 Cast your vote to express your opinion!`,
+                    )}`,
                   );
                 }
               }}
