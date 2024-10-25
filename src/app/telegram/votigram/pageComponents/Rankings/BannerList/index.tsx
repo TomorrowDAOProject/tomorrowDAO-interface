@@ -22,7 +22,7 @@ const BannerList: FC<BannerList> = ({ bannerList, onClick }) => {
   return (
     bannerList && (
       <Image
-        key={bannerList[currentIndex].bannerUrl}
+        key={`${bannerList[currentIndex].bannerUrl}_${Math.floor(Math.random() * 3)}`}
         src={bannerList[currentIndex].bannerUrl}
         className="animate-vibrate rounded-2xl w-full h-full"
         alt="banner"
