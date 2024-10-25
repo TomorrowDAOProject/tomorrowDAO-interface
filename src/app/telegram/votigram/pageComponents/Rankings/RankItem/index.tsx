@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
 import { RANKING_LABEL_KEY, RANKING_TYPE, RANKING_TYPE_KEY } from 'constants/ranking';
-import { ReactComponent as Flower } from 'assets/imgs/badgeForRankings.svg';
 import dayjs from 'dayjs';
 import clsx from 'clsx';
 
@@ -59,13 +58,6 @@ const RankItem: React.FC<RankItemProps> = ({
       <div className="flex flex-col gap-[2px] flex-1 overflow-hidden">
         <div className="flex gap-2">
           <span className="text-base leading-6 truncate flex-[8]">{proposalTitle}</span>
-          {labelType !== RANKING_LABEL_KEY.NONE && (
-            <Flower
-              className={`w-6 h-6 flex flex-1 ${
-                labelType === RANKING_LABEL_KEY.GOLD ? 'text-[#F4AC33]' : 'text-[#0395FF]'
-              }`}
-            />
-          )}
         </div>
         <div className="flex gap-2 items-center">
           <div className="text-xs px-2 rounded-full border border-[#2D1F73] border-solid text-[#ACA6FF] text-center">

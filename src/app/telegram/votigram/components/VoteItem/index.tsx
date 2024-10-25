@@ -7,6 +7,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import './index.css';
 import CommonDrawer, { ICommonDrawerRef } from '../CommonDrawer';
 import AppDetail from '../AppDetail';
+import Image from 'next/image';
+import clsx from 'clsx';
 
 export interface ILikeItem {
   likeAmount: number;
@@ -33,7 +35,6 @@ const increseIconDomCreate = (top: number, right: number) => {
   div.style.right = `${right + 4}px`;
   return div;
 };
-const rankIndex = [0, 1, 2];
 export default function VoteItem(props: IVoteItemProps) {
   const {
     index,
@@ -48,7 +49,7 @@ export default function VoteItem(props: IVoteItemProps) {
     showRankIndex = true,
     ingoreShowMoreButtonClick = false,
   } = props;
-  const isRankIcon = rankIndex.includes(index);
+  const isRankIcon = index < 3;
   const domRef = useRef<HTMLDivElement>(null);
   const increseDomRef = useRef<HTMLImageElement>(null);
   const detailDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -72,7 +73,7 @@ export default function VoteItem(props: IVoteItemProps) {
     timer.current = undefined;
   };
 
-  const handleIncrese = () => {
+  const handleIncrease = () => {
     if (disableOperation) return;
     if (increseDomRef.current) {
       const rect = increseDomRef.current.getBoundingClientRect();
@@ -105,16 +106,14 @@ export default function VoteItem(props: IVoteItemProps) {
       className="vote-amount-increse"
       alt="gold coin"
       ref={increseDomRef}
-      onClick={handleIncrese}
+      onClick={handleIncrease}
     />
   );
   return (
     <div className="telegram-vote-item">
       <div className="bg"></div>
       <div className="fake-content"></div>
-      {!canVote && typeof item?.pointsPercent === 'number' && (
-        <Percent percent={item.pointsPercent} />
-      )}
+      {!canVote && <Percent percent={item.pointsPercent || 0} />}
       <div
         className={`telegram-vote-item-wrap ${
           canVote ? 'padding-right-large' : 'padding-right-small'
@@ -122,36 +121,34 @@ export default function VoteItem(props: IVoteItemProps) {
         ref={domRef}
       >
         <div className="telegram-vote-item-content truncate">
-          {showRankIndex && (
-            <div className={`rank-index-wrap ${isRankIcon ? 'rank-icon' : 'rank-not-icon'}`}>
-              {isRankIcon ? (
-                <img
-                  src={`/images/tg/rank-icon-${index}.png`}
-                  className="vote-item-icon"
-                  alt="rank-icon"
-                  width={24}
-                  height={45}
-                />
-              ) : (
-                <div className="rank-text">
-                  <span className="title">{index + 1}</span>
-                  <span className="text">RANK</span>
-                </div>
-              )}
-            </div>
-          )}
-
-          <div className="vote-game truncate">
-            {item.icon ? (
+          <div className={`rank-index-wrap ${index ? 'rank-icon' : 'rank-not-icon'}`}>
+            {isRankIcon ? (
               <img
-                src={item.icon}
+                src={`/images/tg/rank-icon-${index}.png`}
+                className="vote-item-icon"
                 alt="rank-icon"
-                width={44}
-                height={44}
-                className="vote-item-rounded"
+                width={24}
+                height={45}
               />
             ) : (
-              <div className="vote-item-rounded vote-item-fake-logo font-17-22">
+              <div className="rank-text">
+                <span className="title">{index + 1}</span>
+                <span className="text">RANK</span>
+              </div>
+            )}
+          </div>
+          <div className="vote-game truncate">
+            {item.icon ? (
+              <Image
+                src={item.icon}
+                width={44}
+                height={44}
+                quality={100}
+                className="rounded-lg"
+                alt=""
+              />
+            ) : (
+              <div className="rounded-lg vote-item-fake-logo font-17-22">
                 {(item.title?.[0] ?? 'T').toUpperCase()}
               </div>
             )}
@@ -211,15 +208,15 @@ export default function VoteItem(props: IVoteItemProps) {
             </div>
           ))}
       </div>
-      <div style={{ display: open ? 'block' : 'none' }} className="px-[16px] description-full-wrap">
+      <div className={clsx('px-4 description-full-wrap', open ? 'block' : 'hidden')}>
         {item.description && (
           <p
-            className="desc sub-title-text pt-[16px] font-14-18"
+            className="desc sub-title-text pt-4 font-14-18"
             dangerouslySetInnerHTML={{ __html: item.description }}
           ></p>
         )}
         {item?.url && (
-          <a href={item?.url} target="_blank" rel="noreferrer" className="">
+          <a href={item?.url} target="_blank" rel="noreferrer">
             <Button type="primary" className="open-button">
               <span className="font-17-22-weight">Open</span>
             </Button>
@@ -227,18 +224,13 @@ export default function VoteItem(props: IVoteItemProps) {
         )}
       </div>
       <CommonDrawer
-        title=""
         ref={detailDrawerRef}
         showCloseTarget={false}
-        showLeftArrow={true}
+        showCloseIcon={false}
+        showLeftArrow
         bodyClassname="app-detail-drawer"
         headerClassname="app-detail-drawer-header"
-        showCloseIcon={false}
-        body={
-          <div className="">
-            <AppDetail item={item} />
-          </div>
-        }
+        body={<AppDetail item={item} />}
       />
     </div>
   );
