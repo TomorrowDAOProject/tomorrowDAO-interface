@@ -19,7 +19,7 @@ const BannerList: FC<BannerList> = ({ bannerList, onClick }) => {
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [currentIndex]);
 
   return (
     bannerList && (
