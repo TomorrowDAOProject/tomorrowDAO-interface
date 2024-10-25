@@ -339,7 +339,7 @@ export default function VoteList({
         <Flipper flipKey={renderRankListIds} className="vote-lists">
           {renderRankList?.map((item, index) => {
             return (
-              <Flipped key={item.alias} flipId={item.alias}>
+              <Flipped key={item.id} flipId={item.alias}>
                 <div>
                   <VoteItem
                     disableOperation={disableOperation}
