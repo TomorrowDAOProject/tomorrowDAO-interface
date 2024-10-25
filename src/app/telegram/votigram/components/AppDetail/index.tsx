@@ -43,13 +43,15 @@ export default function AppDetail(props: IAppDetailProps) {
           <p className="font-14-18 mt-[8px] text-[#B1B3BC] break-words">{item?.longDescription}</p>
         </div>
       )}
-      <div className="app-link">
-        <a href={item?.url}>
-          <Button type="primary">
-            <span className="font-17-22 app-link-text">Open</span>
-          </Button>
-        </a>
-      </div>
+      {item?.url && (
+        <div className="app-link">
+          <a href={item?.url}>
+            <Button type="primary">
+              <span className="font-17-22 app-link-text">Open</span>
+            </Button>
+          </a>
+        </div>
+      )}
     </div>
   );
 }

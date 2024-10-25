@@ -1,35 +1,29 @@
-import { Form, FormInstance } from 'antd';
-import { Input, Button } from 'aelf-design';
+import { Form, FormInstance, Button } from 'antd';
 import { useUpdate } from 'ahooks';
 import {
   AddCircleOutlined,
   DeleteOutlined,
-  DownOutlined,
-  UpOutlined,
   MinusCircleOutlined,
   EditOutlined,
 } from '@aelf-design/icons';
 import './index.css';
 import { FormListFieldData } from 'antd/lib/form/FormList';
 import { useState, useRef } from 'react';
-import AWSUpload from 'components/S3Upload';
 import { FormListProps } from 'antd/es/form/FormList';
 import { NamePath } from 'antd/es/form/interface';
 import { EOptionType } from 'pageComponents/proposal-create-option/type';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
-import CreateVoteOptionForm, {
-  IOptionFormSubmitValue,
-  ICreateFormRef,
-} from '../../components/CreateVoteForm';
+import CreateVoteOptionForm, { IOptionFormSubmitValue } from '../../components/CreateVoteForm';
 import VoteItem from '../VoteItem';
+import { ISubmitFile } from 'types';
 
 interface IFormListFullItemValue {
   title: string;
-  icon?: string;
+  icon?: ISubmitFile[];
   description?: string;
   longDescription?: string;
   url?: string;
-  screenshots?: string[];
+  screenshots?: ISubmitFile[];
 }
 interface IFormListDymanicProps {
   name: NamePath;
@@ -49,6 +43,12 @@ interface IFormItemsProps {
 }
 function FormListFullItems(props: IFormItemsProps) {
   const { field, onRemove, total, index, form, formValue, onEdit } = props;
+  const voteItem = {
+    ...formValue,
+    icon: formValue?.icon?.[0]?.url,
+    screenshots: formValue?.screenshots?.map((item) => item.url),
+    alias: field.name.toString(),
+  };
   return (
     <div className="form-option-render">
       <div className="mb-[16px] flex items-center justify-between">
@@ -64,11 +64,12 @@ function FormListFullItems(props: IFormItemsProps) {
           showVoteAndLike={false}
           showRankIndex={false}
           item={{
-            ...formValue,
-            alias: field.name.toString(),
+            ...voteItem,
           }}
         />
-        <EditOutlined className="edit-icon" onClick={onEdit} />
+        <Button type="text" onClick={onEdit} className="edit-icon">
+          <EditOutlined />
+        </Button>
       </div>
     </div>
   );
@@ -128,7 +129,11 @@ function FormListDymanic(props: IFormListDymanicProps) {
           <span className="flex justify-between w-full">
             <span>Options</span>
             {options?.length === 0 && (
-              <span className="text-[#F4AC33] text-[14px]">Please add at least two options</span>
+              <span className="text-[#F4AC33] text-[14px]">
+                Please add at least
+                <span className="font-semibold"> 2 </span>
+                options
+              </span>
             )}
           </span>
         }
@@ -141,21 +146,19 @@ function FormListDymanic(props: IFormListDymanicProps) {
                 {fields.map((field, index) => {
                   return (
                     <Form.Item key={field.key} className={`${optionType} dynamic-form-item-wrap`}>
-                      {optionType === EOptionType.advanced ? (
-                        <FormListFullItems
-                          form={form}
-                          field={field}
-                          total={fields.length}
-                          formValue={form.getFieldValue([name, field.name])}
-                          onRemove={() => {
-                            remove(field.name);
-                          }}
-                          onEdit={() => {
-                            handleEdit(field.name);
-                          }}
-                          index={index}
-                        />
-                      ) : null}
+                      <FormListFullItems
+                        form={form}
+                        field={field}
+                        total={fields.length}
+                        formValue={form.getFieldValue([name, field.name])}
+                        onRemove={() => {
+                          remove(field.name);
+                        }}
+                        onEdit={() => {
+                          handleEdit(field.name);
+                        }}
+                        index={index}
+                      />
                     </Form.Item>
                   );
                 })}

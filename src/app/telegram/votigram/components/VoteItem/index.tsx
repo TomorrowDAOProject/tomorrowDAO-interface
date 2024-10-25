@@ -121,22 +121,25 @@ export default function VoteItem(props: IVoteItemProps) {
         ref={domRef}
       >
         <div className="telegram-vote-item-content truncate">
-          <div className={`rank-index-wrap ${index ? 'rank-icon' : 'rank-not-icon'}`}>
-            {isRankIcon ? (
-              <img
-                src={`/images/tg/rank-icon-${index}.png`}
-                className="vote-item-icon"
-                alt="rank-icon"
-                width={24}
-                height={45}
-              />
-            ) : (
-              <div className="rank-text">
-                <span className="title">{index + 1}</span>
-                <span className="text">RANK</span>
-              </div>
-            )}
-          </div>
+          {showRankIndex && (
+            <div className={`rank-index-wrap ${index ? 'rank-icon' : 'rank-not-icon'}`}>
+              {isRankIcon ? (
+                <img
+                  src={`/images/tg/rank-icon-${index}.png`}
+                  className="vote-item-icon"
+                  alt="rank-icon"
+                  width={24}
+                  height={45}
+                />
+              ) : (
+                <div className="rank-text">
+                  <span className="title">{index + 1}</span>
+                  <span className="text">RANK</span>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="vote-game truncate">
             {item.icon ? (
               <Image
