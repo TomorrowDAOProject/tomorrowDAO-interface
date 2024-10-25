@@ -97,7 +97,7 @@ export default function ActiveEndTime(props: IActiveEndTimeProps) {
               }}
             >
               <span>
-                {propsValue ? dayjs(propsValue).format('YYYY-MM-DD hh:mm:ss') : dayjs().format()}
+                {propsValue ? dayjs(propsValue).format('YYYY-MM-DD HH:mm:ss') : dayjs().format()}
               </span>
               <TimeSelectIcon />
             </div>

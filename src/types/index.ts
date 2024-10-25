@@ -197,3 +197,10 @@ export interface IAccountInfo {
   token?: string;
   expirationTime?: number;
 }
+
+export interface ISubmitFile {
+  uid: string;
+  name: string;
+  url: string;
+  status: string;
+}

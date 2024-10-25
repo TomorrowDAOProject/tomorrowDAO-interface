@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import Image from 'next/image';
 import { ReactComponent as Official } from 'assets/icons/official.svg';
 import { ReactComponent as Community } from 'assets/icons/community.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
@@ -292,7 +293,18 @@ const Rankings: React.FC = () => {
         body={<MyPoints />}
       />
       <CommonDrawer
-        title={<span>{createVotePageTitle}</span>}
+        title={
+          <span>
+            <Image
+              src="/images/tg/magic-wand.png"
+              width={20}
+              height={20}
+              alt="page-title"
+              className="pr-1"
+            />
+            {createVotePageTitle}
+          </span>
+        }
         ref={createVoteDrawerRef}
         drawerProps={{
           destroyOnClose: true,
