@@ -17,7 +17,7 @@ export default function useInputForceRender(wrapperRef: React.RefObject<HTMLElem
     };
     const inputElement = wrapperRef.current?.querySelectorAll('input[type="text"]') ?? [];
     const textareaElement = wrapperRef.current?.querySelectorAll('textarea') ?? [];
-    const elements = [...inputElement, ...textareaElement];
+    const elements = [...Array.from(inputElement), ...Array.from(textareaElement)];
     for (const element of elements) {
       element.addEventListener('blur', forceRefreshDomPosition);
       element.addEventListener('focus', scroll);
