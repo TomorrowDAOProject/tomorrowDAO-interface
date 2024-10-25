@@ -152,12 +152,11 @@ const Rankings: React.FC = () => {
       chainId: curChain,
       proposalId,
     });
-    setSelectedItem({
+    onItemClick({
       proposalId,
       proposalTitle: data?.proposalTitle,
       isGold: data?.labelType === RANKING_LABEL_KEY.GOLD,
     });
-    detailDrawerRef.current?.open();
   };
 
   useEffect(() => {
@@ -208,7 +207,7 @@ const Rankings: React.FC = () => {
           <BannerList
             bannerList={bannerList}
             onClick={({ proposalId, proposalTitle, labelType }) => {
-              setSelectedItem({
+              onItemClick({
                 isGold: labelType === RANKING_LABEL_KEY.GOLD,
                 proposalId,
                 proposalTitle,
