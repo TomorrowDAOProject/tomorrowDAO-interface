@@ -8,11 +8,11 @@
   .bg {
     z-index: 1;
     border-radius: 16px;
-    @apply  h-[60px] w-full bg-[#4600C5] absolute left-0 top-[0px];
+    @apply h-[60px] w-full bg-[#4600C5] absolute left-0 top-[0px];
   }
   .vote-item-percent {
     z-index: 2;
-    @apply  h-[60px] w-0 opacity-25 bg-[#ACA6FF] absolute left-0 top-[0px];
+    @apply h-[60px] w-0 opacity-25 bg-[#ACA6FF] absolute left-0 top-[0px];
   }
 }
 .telegram-vote-item-wrap {
@@ -32,7 +32,7 @@
   .rank-index-wrap {
     @apply w-[24px] h-[45px];
     &.rank-icon {
-      @apply self-start;
+      @apply items-center flex;
     }
     &.rank-not-icon {
       @apply flex flex-col justify-center items-center;
@@ -41,14 +41,14 @@
   .rank-text {
     @apply flex flex-col justify-center items-center;
     .title {
-      color: var(--Text-Gray-2, #EDEEF0);
+      color: var(--Text-Gray-2, #edeef0);
       font-size: 18px;
       font-weight: 590;
       line-height: 18px;
       letter-spacing: -0.4px;
     }
     .text {
-      color: var(--Text-Gray-1, #B1B3BC);
+      color: var(--Text-Gray-1, #b1b3bc);
       font-size: 8px;
       font-weight: 590;
       line-height: 14px;
@@ -59,7 +59,7 @@
     .vote-game-content {
       @apply flex flex-col ml-[8px];
       .title {
-        color: #FFF;
+        color: #fff;
         font-size: 16px;
         font-weight: 590;
         line-height: 20px;
@@ -68,19 +68,16 @@
         @apply flex items-center cursor-pointer;
       }
       .desc {
-        color: var(--Text-1, #ACA6FF);
+        color: var(--Text-1, #aca6ff);
         width: 100%;
-        
+
         .TMRWDAO-icon {
           @apply text-[12px] pl-[2px];
         }
       }
     }
-    .vote-item-rounded {
-      @apply rounded-[0.5rem];
-    }
     .vote-item-fake-logo {
-      color: var(--Solid-2, #4600C5);
+      color: var(--Solid-2, #4600c5);
       flex-shrink: 0;
       @apply w-[44px] h-[44px] flex-center bg-white;
     }
@@ -94,21 +91,21 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    background: var(--Text-2, #DDDFFF);
-    color: var(--Solid-2, #4600C5);
+    background: var(--Text-2, #dddfff);
+    color: var(--Solid-2, #4600c5);
     text-align: center;
     font-size: 14px;
     font-style: normal;
     font-weight: 590;
     line-height: 18px;
     &.disabled {
-      color: var(--Text-2, #DDDFFF);
+      color: var(--Text-2, #dddfff);
       background: var(--Interactive-3, #362984);
       opacity: 0.35;
     }
   }
   .vote-amount {
-   @apply text-[#51FF00] font-[590] mr-[8px]; 
+    @apply text-[#51FF00] font-[590] mr-[8px];
   }
   .vote-amount-increse {
     @apply w-[44px] h-[44px];
@@ -120,7 +117,7 @@
 .increment-icon {
   @apply rounded-full w-[36px] h-[36px] bg-[#51FF00] flex-center pointer-events-none fixed z-[1003];
   border: 1px solid #373940;
-  color: var(--Border-2, #4C41A9);
+  color: var(--Border-2, #4c41a9);
   font-size: 13.5px;
   font-weight: 590;
   animation: moveUpFadeOut 1s ease-in-out forwards;
@@ -137,15 +134,15 @@
 }
 .telegram-like-tooltip {
   &.TMRWDAO-tooltip .TMRWDAO-tooltip-inner {
-    background: var(--Text-1, #ACA6FF);
-    color: var(--Interactive-1, #221D51);
+    background: var(--Text-1, #aca6ff);
+    color: var(--Interactive-1, #221d51);
   }
   &.TMRWDAO-tooltip .TMRWDAO-tooltip-arrow:before {
-    background: var(--Text-1, #ACA6FF);
+    background: var(--Text-1, #aca6ff);
   }
 }
 .description-full-wrap {
-  color: #FFF;
+  color: #fff;
   .open-button {
     @apply w-full mb-[16px] mt-[24px];
   }

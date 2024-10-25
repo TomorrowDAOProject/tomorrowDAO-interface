@@ -12,7 +12,7 @@ export default function useVotePoints(
   proposalId: string,
   params: IProps,
 ) {
-  const { onReceivePointsProduce } = params;
+  const { onReceivePointsProduce } = params || {};
   const onReceivePointsProduceRef = useRef(onReceivePointsProduce);
   onReceivePointsProduceRef.current = onReceivePointsProduce;
   useEffect(() => {

@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import Image from 'next/image';
-import { ReactComponent as Reload } from 'assets/icons/reload.svg';
 import { ReactComponent as Official } from 'assets/icons/official.svg';
 import { ReactComponent as Community } from 'assets/icons/community.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
@@ -9,7 +8,7 @@ import { useConfig } from 'components/CmsGlobalConfig/type';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import MyPoints from '../../components/MyPoints';
-import { getRankings } from 'api/request';
+import { getRankingDetail, getRankings } from 'api/request';
 import { curChain } from 'config';
 import { useInfiniteScroll } from 'ahooks';
 import Loading from '../../components/Loading';
@@ -18,7 +17,7 @@ import { Button } from 'antd';
 import RankItem from './RankItem';
 import clsx from 'clsx';
 import BannerList from './BannerList';
-import { RANKING_TYPE_KEY } from 'constants/ranking';
+import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
 import { CreateVote } from '../CreateVote';
 
 import './index.css';
@@ -98,7 +97,7 @@ const Rankings: React.FC = () => {
       const len = currentList.length + prevList.length;
 
       return {
-        list: [...prevList, ...currentList],
+        list: currentList,
         totalPoints: res?.data?.userTotalPoints ?? 0,
         hasData: len < res.data?.totalCount,
       };
@@ -149,9 +148,29 @@ const Rankings: React.FC = () => {
     isNoMore: (d) => !d?.hasData || d.list.length === 0,
   });
 
+  const fetchRankDetail = async (proposalId: string) => {
+    const { data } = await getRankingDetail({
+      chainId: curChain,
+      proposalId,
+    });
+    onItemClick({
+      proposalId,
+      proposalTitle: data?.proposalTitle,
+      isGold: data?.labelType === RANKING_LABEL_KEY.GOLD,
+    });
+  };
+
   useEffect(() => {
     initialize();
   }, []);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.has('pid')) {
+      fetchRankDetail(url.searchParams.get('pid') || '');
+    }
+  }, []);
+
   const handleCreateVote = () => {
     createVoteDrawerRef.current?.open();
   };
@@ -184,9 +203,21 @@ const Rankings: React.FC = () => {
           </Button>
         </div>
       </div>
-      <div className="flex">
-        <BannerList bannerList={bannerList.map((item) => item.bannerUrl).filter((item) => item)} />
-      </div>
+      {bannerList && bannerList.length > 0 && (
+        <div className="flex">
+          <BannerList
+            bannerList={bannerList}
+            onClick={({ proposalId, proposalTitle, labelType }) => {
+              onItemClick({
+                isGold: labelType === RANKING_LABEL_KEY.GOLD,
+                proposalId,
+                proposalTitle,
+              });
+            }}
+          />
+        </div>
+      )}
+
       <div className="flex flex-col border-0 border-b border-[#1B1B1B] border-solid">
         <span className="text-base items-center flex my-4">
           <Official className="text-xl mr-1" />
@@ -200,7 +231,6 @@ const Rankings: React.FC = () => {
         {hasMoreOfficial && (
           <div className="flex justify-center items-center my-4">
             <span className="text-[#ACA6FF] text-xs flex items-center" onClick={onShowMoreClick}>
-              <Reload className="mr-1" />
               Show More
             </span>
           </div>
