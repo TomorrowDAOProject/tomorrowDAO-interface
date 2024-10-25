@@ -3,7 +3,8 @@ import { Drawer, DrawerProps } from 'antd';
 import Alloyfinger from 'alloyfinger';
 import './index.css';
 import { LeftArrowOutlined } from '@aelf-design/icons';
-import { CloseIcon } from 'components/Icons';
+import CloseIcon from './CloseIcon';
+import clsx from 'clsx';
 
 interface ICommonDrawerProps {
   title?: React.ReactNode;
@@ -73,7 +74,7 @@ const CommonDrawer = forwardRef<ICommonDrawerRef, ICommonDrawerProps>((props, re
   return (
     <Drawer
       title={null}
-      rootClassName={`${rootClassName} telegram-common-drawer`}
+      rootClassName={clsx('telegram-common-drawer', rootClassName)}
       placement={'bottom'}
       closable={false}
       open={open}

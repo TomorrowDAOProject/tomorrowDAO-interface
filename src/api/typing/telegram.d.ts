@@ -71,14 +71,15 @@ interface IRankingListResItem {
 }
 interface IRankingListResData {
   bannerUrl: string;
-  startTime: string;
-  endTime: string;
   canVoteAmount: number;
+  endTime: string;
+  labelType: RANKING_LABEL_KEY;
+  proposalTitle: string;
+  rankingList: Array<IRankingListResItem>;
+  rankingType: RANKING_TYPE_KEY;
+  startTime: string;
   totalVoteAmount: number;
   userTotalPoints: number;
-  rankingList: Array<IRankingListResItem>;
-  title?: string;
-  isGold?: boolean;
 }
 interface IRankingListRes {
   code: string;
@@ -321,7 +322,7 @@ interface IRankingsItem {
   bannerUrl: string;
   chainId: string;
   daoId: string;
-  labelType: RankingLabelEnum;
+  labelType: RANKING_LABEL_KEY;
   proposalDescription: string;
   proposalId: string;
   proposalTitle: string;

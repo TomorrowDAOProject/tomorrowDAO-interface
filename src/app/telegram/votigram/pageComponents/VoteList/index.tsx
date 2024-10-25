@@ -20,7 +20,6 @@ import { EVoteOption } from 'types/vote';
 import { retryWrap } from 'utils/request';
 import { VoteStatus } from 'types/telegram';
 import Loading from '../../components/Loading';
-import './index.css';
 import signalRManager from 'utils/socket/signalr-manager';
 import SignalR from 'utils/socket/signalr';
 import { IPointsListRes, IWsPointsItem } from './type';
@@ -29,7 +28,14 @@ import { useConfig } from 'components/CmsGlobalConfig/type';
 import RuleButton from '../../components/RuleButton';
 import useNftBalanceChange from '../../hook/use-nft-balance-change';
 import { LeftArrowOutlined } from '@aelf-design/icons';
+import { ReactComponent as Share } from 'assets/icons/share.svg';
+import { ReactComponent as CopyLink } from 'assets/icons/copy-link.svg';
+import { ReactComponent as Telegram } from 'assets/icons/telegram.svg';
+
 import useVotePoints from '../../hook/use-vote-points';
+import Image from 'next/image';
+
+import './index.css';
 
 // interface IVoteListProps {}
 export default function VoteList({
@@ -48,8 +54,10 @@ export default function VoteList({
   const ruleDrawerRef = useRef<ICommonDrawerRef>(null);
   const retryDrawerRef = useRef<ICommonDrawerRef>(null);
   const nftMissingModalRef = useRef<ICommonModalRef>(null);
+  const shareDrawerRef = useRef<ICommonDrawerRef>(null);
 
   // const [isLoading, setIsLoading] = useState(true);
+  const [isCopied, setIsCopied] = useState(false);
   const [currentVoteItem, setCurrentVoteItem] = useState<IRankingListResItem | null>(null);
   const [wsRankList, setWsRankList] = useState<IWsPointsItem[]>([]);
   const [isToolTipVisible, setIsToolTipVisible] = useState(false);
@@ -70,7 +78,6 @@ export default function VoteList({
   const { voteMain } = useConfig() ?? {};
   const {
     data: rankList,
-    error: rankListError,
     loading: rankListLoading,
     run: getRankingListFn,
     runAsync: getRankingListAsync,
@@ -107,10 +114,10 @@ export default function VoteList({
         if (!likeList.length) {
           return;
         }
-        const res = await rankingVoteLike({
+        await rankingVoteLike({
           chainId: curChain,
-          proposalId: proposalId,
-          likeList: likeList,
+          proposalId,
+          likeList,
         });
       } catch (error) {
         reportQueue.current.push(...likeList);
@@ -128,7 +135,7 @@ export default function VoteList({
     };
     try {
       const res = await retryWrap<IRankingVoteStatusRes>(
-        async () =>
+        () =>
           fetchRankingVoteStatus({
             chainId: curChain,
             address: wallet!.address,
@@ -224,8 +231,8 @@ export default function VoteList({
     }
     return wsRankList.map((item) => {
       const rankItem = rankListMap.get(item.alias ?? '');
-      const points = item?.points ?? rankItem?.pointsAmount ?? 0;
       if (rankItem) {
+        const points = item?.points ?? rankItem?.pointsAmount ?? 0;
         return {
           ...rankItem,
           ...item,
@@ -243,6 +250,14 @@ export default function VoteList({
     }, 500);
   }, [initRankList]);
 
+  useEffect(() => {
+    if (isCopied) {
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    }
+  }, [isCopied]);
+
   const renderRankListIds = renderRankList.map((item) => item.alias).join('-');
 
   const finalBannerImages = isGold
@@ -253,26 +268,45 @@ export default function VoteList({
 
   const finalTitle = isGold ? voteMain?.listTitle : detailTitle;
 
+  const generateShareUrl = () => {
+    if (window) {
+      const url = new URL(window.location.href);
+      url.searchParams.append('pid', proposalId);
+      return url.href;
+    }
+    return '';
+  };
+
   return (
     <div className="votigram-main">
-      <div className="mb-[8px] flex items-center relative justify-center">
+      <div className="mb-4 flex items-center relative justify-center">
         <LeftArrowOutlined className="text-2xl !text-white absolute left-0" onClick={backToPrev} />
-        <h3 className="font-20-25-weight text-white px-7 text-center">
-          <span
-            dangerouslySetInnerHTML={{
-              __html: `${finalTitle}`,
-            }}
-          ></span>
-        </h3>
+        <span
+          className="font-20-25-weight text-white px-7 text-center truncate"
+          dangerouslySetInnerHTML={{
+            __html: `${finalTitle}`,
+          }}
+        />
+        <Share
+          className="absolute right-0"
+          onClick={() => {
+            shareDrawerRef.current?.open();
+          }}
+        />
       </div>
       {finalBannerImages && finalBannerImages?.length > 0 && (
         <div className="banner">
           <Carousel autoplay dots={(finalBannerImages?.length ?? 0) > 1}>
             {finalBannerImages?.map((item) => {
               return (
-                <div key={item}>
-                  <img src={item} className="banner-img" alt={''} />
-                </div>
+                <Image
+                  key={item}
+                  src={item}
+                  className="w-full h-full"
+                  alt="banner"
+                  width={179}
+                  height={60}
+                />
               );
             })}
           </Carousel>
@@ -288,7 +322,7 @@ export default function VoteList({
       )}
       <div className="flex items-center gap-4 py-4">
         <span className="text-white text-base">Remaining vote</span>
-        <div className="flex items-end gap-[2px]">
+        <div className="flex items-end gap-0.5">
           <span className="text-2xl leading-[30px] font-medium text-[#51FF00]">
             {rankList?.data?.canVoteAmount ?? 0}
           </span>
@@ -302,37 +336,34 @@ export default function VoteList({
           <Loading />
         </div>
       ) : (
-        <>
-          <Flipper flipKey={renderRankListIds} className="vote-lists">
-            {renderRankList?.map((item, index) => {
-              return (
-                <Flipped key={item.alias} flipId={item.alias}>
-                  <div>
-                    <VoteItem
-                      disableOperation={disableOperation}
-                      index={index}
-                      item={item as IRankingListResItem}
-                      canVote={canVote}
-                      onVote={(item: IRankingListResItem) => {
-                        setCurrentVoteItem(item);
-                        confirmDrawerRef.current?.open();
-                      }}
-                      onReportClickCount={(item: ILikeItem) => {
-                        reportQueue.current.push(item);
-                        handleReportQueue();
-                      }}
-                      onLikeClick={() => {
-                        setIsToolTipVisible(false);
-                      }}
-                      isToolTipVisible={isToolTipVisible}
-                    />
-                  </div>
-                </Flipped>
-              );
-            })}
-          </Flipper>
-          {/* {renderRankList?.length !== 0 && <div className="padding-bottom-content"></div>} */}
-        </>
+        <Flipper flipKey={renderRankListIds} className="vote-lists">
+          {renderRankList?.map((item, index) => {
+            return (
+              <Flipped key={item.alias} flipId={item.alias}>
+                <div>
+                  <VoteItem
+                    disableOperation={disableOperation}
+                    index={index}
+                    item={item as IRankingListResItem}
+                    canVote={canVote}
+                    onVote={(item: IRankingListResItem) => {
+                      setCurrentVoteItem(item);
+                      confirmDrawerRef.current?.open();
+                    }}
+                    onReportClickCount={(item: ILikeItem) => {
+                      reportQueue.current.push(item);
+                      handleReportQueue();
+                    }}
+                    onLikeClick={() => {
+                      setIsToolTipVisible(false);
+                    }}
+                    isToolTipVisible={isToolTipVisible}
+                  />
+                </div>
+              </Flipped>
+            );
+          })}
+        </Flipper>
       )}
 
       {rankList && renderRankList?.length === 0 && (
@@ -366,9 +397,7 @@ export default function VoteList({
               </div>
             )}
 
-            <h3 className="font-16-20-weight text-[#EDEEF0] mt-[8px] mb-[16px]">
-              {currentVoteItem?.title}
-            </h3>
+            <h3 className="font-16-20-weight text-[#EDEEF0] mt-2 mb-4">{currentVoteItem?.title}</h3>
             <p className="font-14-18">Are you sure you want to vote for this App?</p>
             <Button type="primary" onClick={sendRawTransaction}>
               Confirm
@@ -396,7 +425,7 @@ export default function VoteList({
                 />
               </svg>
             </div>
-            <p className="font-14-18 mt-[24px] text-center">
+            <p className="font-14-18 mt-6 text-center">
               Something went wrong while registering your vote on chain. Please try again.
             </p>
             <Button
@@ -418,14 +447,49 @@ export default function VoteList({
         body={
           <div className="flex flex-col items-center">
             <Loading />
-            <p className="font-14-18 mt-[24px] text-center">
+            <p className="font-14-18 mt-6 text-center">
               Please wait while your vote is securely registered on chain.
             </p>
           </div>
         }
       />
       <CommonDrawer
-        title={`${voteMain?.rules?.title}`}
+        title="Share"
+        ref={shareDrawerRef}
+        body={
+          <div className="flex">
+            <div
+              className="flex flex-1 justify-center items-center flex-col gap-2"
+              onClick={() => {
+                if (window?.Telegram?.WebApp?.openTelegramLink) {
+                  window?.Telegram?.WebApp?.openTelegramLink(
+                    `https://t.me/share/url?url=${generateShareUrl()}`,
+                  );
+                }
+              }}
+            >
+              <div className="flex bg-[#0395FF] rounded-2xl w-12 h-12 items-center justify-center">
+                <Telegram />
+              </div>
+              <span>Share to Telegram</span>
+            </div>
+            <div
+              className="flex flex-1 justify-center items-center flex-col gap-2"
+              onClick={() => {
+                navigator?.clipboard?.writeText(generateShareUrl());
+                setIsCopied(true);
+              }}
+            >
+              <div className="flex bg-[#0395FF] rounded-2xl w-12 h-12 items-center justify-center">
+                <CopyLink />
+              </div>
+              <span>{isCopied ? 'Copied' : 'Copy Link'}</span>
+            </div>
+          </div>
+        }
+      />
+      <CommonDrawer
+        title={voteMain?.rules?.title}
         ref={ruleDrawerRef}
         body={
           <div className="flex flex-col items-center">
@@ -455,10 +519,10 @@ export default function VoteList({
               alt=""
               width={96}
               height={96}
-              className="rounded-[16px] mt-[24px]"
+              className="rounded-2xl mt-6"
             />
-            <p className="my-[24px]">You need to have a TomorrowPass-1 NFT to vote.</p>
-            <div className="mt-[16px] w-full">
+            <p className="my-6">You need to have a TomorrowPass-1 NFT to vote.</p>
+            <div className="mt-4 w-full">
               <Button
                 type="primary"
                 onClick={() => {
