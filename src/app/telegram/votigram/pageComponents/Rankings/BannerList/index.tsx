@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
+import dayjs from 'dayjs';
+
 interface BannerList {
   bannerList: IRankingsItem[];
   onClick: (selectedItem: IRankingsItem) => void;
@@ -17,12 +19,12 @@ const BannerList: FC<BannerList> = ({ bannerList, onClick }) => {
     }, 5000);
 
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   return (
     bannerList && (
       <Image
-        key={`${bannerList[currentIndex].bannerUrl}_${Math.floor(Math.random() * 3)}`}
+        key={`${bannerList[currentIndex].bannerUrl}_${dayjs().unix()}`}
         src={bannerList[currentIndex].bannerUrl}
         className="animate-vibrate rounded-2xl w-full h-full"
         alt="banner"
