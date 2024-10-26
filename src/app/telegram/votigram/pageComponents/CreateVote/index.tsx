@@ -167,7 +167,7 @@ export function CreateVote(props: ICreateVoteProps) {
           rules={[
             {
               required: true,
-              message: 'The proposal title is required',
+              message: 'The name is required',
             },
             {
               min: 0,
@@ -202,12 +202,7 @@ export function CreateVote(props: ICreateVoteProps) {
         </Form.Item>
 
         <DynamicOption
-          name={
-            <span>
-              Options
-              <span className="form-item-label-custom-required-mark"> *</span>
-            </span>
-          }
+          name="options"
           form={form}
           rules={[
             {

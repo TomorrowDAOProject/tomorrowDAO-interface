@@ -127,7 +127,10 @@ function FormListDymanic(props: IFormListDymanicProps) {
         }}
         label={
           <span className="flex justify-between w-full">
-            <span>Options</span>
+            <span>
+              Options Options
+              <span className="form-item-label-custom-required-mark"> *</span>
+            </span>
             {options?.length === 0 && (
               <span className="text-[#F4AC33] text-[14px]">
                 Please add at least

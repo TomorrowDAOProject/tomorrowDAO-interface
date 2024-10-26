@@ -27,7 +27,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <VconsoleScript />
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script src="https://telegram.org/js/telegram-web-app.js"></script>
+        <script src="/js/telegram-web-app.js"></script>
         {/* Google Tag Manager  */}
         {/* eslint-disable-next-line @next/next/inline-script-id */}
         <Script>

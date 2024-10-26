@@ -97,6 +97,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
   const acceptCheck = (file: RcFile) => {
     const fileExt = file.name.split('.').pop()?.toLowerCase();
     const acceptExt = props.accept?.split(',')?.map((ext) => ext.replace('.', '')) ?? [];
+    console.log('acceptExt', acceptExt, fileExt);
     if (acceptExt.length && !acceptExt.includes(fileExt ?? '')) {
       message.error('The file format is incorrect, please upload the correct file format');
       return false;
