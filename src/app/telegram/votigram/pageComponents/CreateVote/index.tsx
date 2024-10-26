@@ -175,16 +175,16 @@ export function CreateVote(props: ICreateVoteProps) {
           rules={[
             {
               required: true,
-              message: 'The name is required',
+              message: 'The list name is required.',
             },
             {
               min: 0,
-              max: 20,
-              message: 'The name should contain no more than 20 characters.',
+              max: 100,
+              message: 'The list name supports a maximum of 100 characters.',
             },
           ]}
         >
-          <Input type="text" placeholder="Enter a name for the option(20 characters max). " />
+          <Input type="text" placeholder="Enter a list name." />
         </Form.Item>
         <Form.Item name={'banner'} label={<span>Banner</span>} valuePropName="fileList">
           <AWSUpload
