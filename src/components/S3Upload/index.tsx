@@ -97,7 +97,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
   const acceptCheck = (file: RcFile) => {
     const fileExt = file.name.split('.').pop()?.toLowerCase();
     const acceptExt = props.accept?.split(',')?.map((ext) => ext.replace('.', '')) ?? [];
-    console.log('acceptExt', acceptExt, fileExt);
+    console.log('acceptExt', acceptExt, fileExt, file);
     if (acceptExt.length && !acceptExt.includes(fileExt ?? '')) {
       message.error('The file format is incorrect, please upload the correct file format');
       return false;
@@ -107,8 +107,13 @@ const AWSUpload: React.FC<IFUploadProps> = ({
 
   const onBeforeUpload = async (file: TFileType) => {
     let result = true;
+    console.log('onBeforeUpload', file);
 
     const acceptCheckResult = props?.accept && !needCrop ? acceptCheck(file) : true;
+    console.log('acceptCheckResult', acceptCheckResult, props?.accept, !needCrop);
+    if (!acceptCheckResult) {
+      return false;
+    }
 
     const isLteLimit = file.size <= handleLimit(fileLimit);
     if (!isLteLimit) {
@@ -191,7 +196,11 @@ const AWSUpload: React.FC<IFUploadProps> = ({
       closeIcon: <CloseIcon />,
     },
     modalClassName: 'tg-common-modal tg-common-modal-crop',
-    beforeCrop: acceptCheck,
+    beforeCrop: (file) => {
+      const res = acceptCheck(file);
+      console.log('beforeCrop', res);
+      return res;
+    },
   };
   const wrapProps = needCrop ? imgCropProps : {};
 
