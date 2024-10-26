@@ -45,8 +45,7 @@ export const getShareText = (title: string) => {
     return doc.documentElement.textContent;
   }
   const decoded = decodeHtmlEntity(title);
-  return `
-${decoded}\n
+  return `${decoded}\n
 🔥 The campaign is in progress.\n
 🌈 Cast your vote to express your opinion!\n
 `;
