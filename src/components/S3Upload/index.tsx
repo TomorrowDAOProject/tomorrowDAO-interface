@@ -24,6 +24,7 @@ export interface IFUploadProps extends Omit<IUploadProps, 'onChange'> {
   ratio?: number | [number, number];
   ratioErrorText?: string;
   onChange?: (fileList: UploadFile[]) => void;
+  extensions?: string[];
 }
 
 const handleLimit = (limit: string) => {
@@ -96,10 +97,9 @@ const AWSUpload: React.FC<IFUploadProps> = ({
   };
   const acceptCheck = (file: RcFile) => {
     const fileExt = file.name.split('.').pop()?.toLowerCase();
-    const acceptExt = props.accept?.split(',')?.map((ext) => ext.replace('.', '')) ?? [];
+    const acceptExt = props?.extensions ?? [];
     console.log('acceptExt', acceptExt, fileExt, file);
     if (acceptExt.length && !acceptExt.includes(fileExt ?? '')) {
-      message.error('The file format is incorrect, please upload the correct file format');
       return false;
     }
     return true;
@@ -109,9 +109,10 @@ const AWSUpload: React.FC<IFUploadProps> = ({
     let result = true;
     console.log('onBeforeUpload', file);
 
-    const acceptCheckResult = props?.accept && !needCrop ? acceptCheck(file) : true;
-    console.log('acceptCheckResult', acceptCheckResult, props?.accept, !needCrop);
+    const acceptCheckResult = props?.extensions ? acceptCheck(file) : true;
+    console.log('acceptCheckResult', acceptCheckResult, props?.extensions);
     if (!acceptCheckResult) {
+      message.error('The file format is incorrect, please upload the correct file format');
       return false;
     }
 
@@ -198,7 +199,6 @@ const AWSUpload: React.FC<IFUploadProps> = ({
     modalClassName: 'tg-common-modal tg-common-modal-crop',
     beforeCrop: (file) => {
       const res = acceptCheck(file);
-      console.log('beforeCrop', res);
       return res;
     },
   };

@@ -7,13 +7,14 @@ interface ICommonModalProps {
   content: React.ReactNode;
   title: string;
   showCloseIcon?: boolean;
+  onCloseClick?: () => void;
 }
 export interface ICommonModalRef {
   open: () => void;
   close: () => void;
 }
 const CommonModal = forwardRef((props: ICommonModalProps, ref) => {
-  const { showCloseIcon = true } = props;
+  const { showCloseIcon = true, onCloseClick } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   useImperativeHandle(ref, () => ({
     open: () => {
@@ -38,6 +39,7 @@ const CommonModal = forwardRef((props: ICommonModalProps, ref) => {
           <CloseIcon
             onClick={() => {
               setIsModalOpen(false);
+              onCloseClick?.();
             }}
           />
         )}

@@ -21,3 +21,10 @@ export const taskTitle: Record<
     icon: '/images/tg/gift-icon.png',
   },
 };
+const imageExtensions = '.png,.jpg,.jpeg';
+export const uploadImageAccept =
+  typeof window === 'undefined'
+    ? imageExtensions
+    : window?.Telegram?.WebApp?.platform === 'macos'
+    ? ''
+    : imageExtensions;
