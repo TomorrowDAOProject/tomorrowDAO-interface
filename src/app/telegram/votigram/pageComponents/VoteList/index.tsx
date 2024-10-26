@@ -38,6 +38,19 @@ import Image from 'next/image';
 import './index.css';
 import { stringifyStartAppParams } from '../../util/start-params';
 
+export const getShareText = (title: string) => {
+  function decodeHtmlEntity(str: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(str, 'text/html');
+    return doc.documentElement.textContent;
+  }
+  const decoded = decodeHtmlEntity(title);
+  return `
+${decoded}\n
+🔥 The campaign is in progress.\n
+🌈 Cast your vote to express your opinion!\n
+`;
+};
 // interface IVoteListProps {}
 export default function VoteList({
   backToPrev,
@@ -275,12 +288,10 @@ export default function VoteList({
   const finalTitle = isGold ? voteMain?.listTitle : detailTitle;
 
   const generateShareUrl = () => {
-    if (window) {
-      return `${tgLink}?startapp=${stringifyStartAppParams({
-        pid: proposalId,
-      })}`;
-    }
-    return '';
+    const paramsStr = stringifyStartAppParams({
+      pid: proposalId,
+    });
+    return `${tgLink}?startapp=${paramsStr}`;
   };
 
   return (
@@ -288,7 +299,7 @@ export default function VoteList({
       <div className="mb-4 flex items-center relative justify-center">
         <LeftArrowOutlined className="text-2xl !text-white absolute left-0" onClick={backToPrev} />
         <span
-          className="font-20-25-weight text-white px-7 text-center"
+          className="font-20-25-weight text-white px-7 text-center break-words w-full"
           dangerouslySetInnerHTML={{
             __html: `${finalTitle}`,
           }}
@@ -468,10 +479,10 @@ export default function VoteList({
               className="flex flex-1 justify-center items-center flex-col gap-2"
               onClick={() => {
                 if (window?.Telegram?.WebApp?.openTelegramLink) {
+                  const url = encodeURIComponent(generateShareUrl());
+                  const shareText = encodeURIComponent(getShareText(finalTitle ?? ''));
                   window?.Telegram?.WebApp?.openTelegramLink(
-                    `https://t.me/share/url?url=${generateShareUrl()}&text=${encodeURIComponent(
-                      `\n${detailTitle}\n\n🔥 The campaign is in progress.\n🌈 Cast your vote to express your opinion!`,
-                    )}`,
+                    `https://t.me/share/url?url=${url}&text=${shareText}`,
                   );
                 }
               }}
