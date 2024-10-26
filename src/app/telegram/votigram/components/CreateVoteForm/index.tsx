@@ -6,6 +6,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import { FormInstance } from 'antd/lib';
 import { ISubmitFile } from 'types';
 import useInputForceRender from '../../hook/use-input-force-render';
+import { uploadImageAccept } from '../../const';
 export interface IOptionFormSubmitValue {
   title: string;
   icon?: ISubmitFile[];
@@ -89,7 +90,8 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
         <div className={`${isOpen ? 'block' : 'hidden'}`}>
           <Form.Item name={'icon'} label={'Logo'} valuePropName="fileList">
             <AWSUpload
-              accept=".png,.jpg,.jpeg"
+              accept={uploadImageAccept}
+              extensions={['png', 'jpg', 'jpeg']}
               maxFileCount={1}
               needCheckImgSize
               needCrop
@@ -153,7 +155,8 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
             className="dymaic-form-item-screenshots"
           >
             <AWSUpload
-              accept=".png,.jpg,.jpeg"
+              accept={uploadImageAccept}
+              extensions={['png', 'jpg', 'jpeg']}
               maxFileCount={9}
               tips={
                 <span className="TMRWDAO-upload-button-upload-tips">

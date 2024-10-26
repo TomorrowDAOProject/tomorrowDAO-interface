@@ -23,6 +23,7 @@ import { getProposalTimeParams } from '../../util/getProposalTimeParams';
 import Loading from '../../components/Loading';
 import { SuccessSubmitIcon } from 'components/Icons';
 import { IOptionFormSubmitValue } from '../../components/CreateVoteForm';
+import { uploadImageAccept } from '../../const';
 
 interface ICreateVoteProps {
   closeCreateForm?: () => void;
@@ -145,6 +146,13 @@ export function CreateVote(props: ICreateVoteProps) {
     }
   };
 
+  const handleClose = () => {
+    submitModalRef.current?.close();
+    if (!errorMessage) {
+      closeCreateForm?.();
+    }
+  };
+
   return (
     <div className="votigram-create-vote-form">
       <Form
@@ -180,7 +188,8 @@ export function CreateVote(props: ICreateVoteProps) {
         </Form.Item>
         <Form.Item name={'banner'} label={<span>Banner</span>} valuePropName="fileList">
           <AWSUpload
-            accept=".png,.jpg,.jpeg"
+            accept={uploadImageAccept}
+            extensions={['png', 'jpg', 'jpeg']}
             maxFileCount={1}
             needCrop
             needCheckImgSize
@@ -302,6 +311,7 @@ export function CreateVote(props: ICreateVoteProps) {
       <CommonModal
         ref={submitModalRef}
         title={errorMessage ? 'Oops!' : 'Congratulations!'}
+        onCloseClick={handleClose}
         content={
           <div className="invite-modal-content">
             {errorMessage ? (
@@ -317,15 +327,7 @@ export function CreateVote(props: ICreateVoteProps) {
             )}
 
             <div className="mt-[16px]">
-              <Button
-                type="primary"
-                onClick={() => {
-                  submitModalRef.current?.close();
-                  if (!errorMessage) {
-                    closeCreateForm?.();
-                  }
-                }}
-              >
+              <Button type="primary" onClick={handleClose}>
                 {errorMessage ? 'I See' : 'Confirm'}
               </Button>
             </div>
