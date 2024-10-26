@@ -44,7 +44,7 @@
       @apply mr-[28px];
     }
     img {
-      @apply w-[242px] h-[525px];
+      @apply w-[242px] max-h-[525px];
       border-radius: 32px;
     }
     li + li {
