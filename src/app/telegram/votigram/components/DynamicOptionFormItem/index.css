@@ -1,0 +1,43 @@
+.create-vote-option-drawer {
+  max-height: 100vh;
+  overflow-y: scroll;
+  .drawer-body {
+    @apply py-[24px];
+  }
+}
+.votigram-create-dynamic-form-list {
+  .form-option-render {
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid var(--Black-BG-Light-D, #3A3A3A);
+  }
+  .form-option-render-update {
+    @apply flex gap-[16px] items-center;
+    .telegram-vote-item {
+      background: #000;
+      @apply flex-1 border-none rounded-none;
+      .telegram-vote-item-wrap {
+        padding-left: 0;
+      }
+      .telegram-vote-item-wrap .vote-game {
+        @apply ml-0;
+      }
+      .bg {
+        background: #000;
+      }
+      .fake-content, .bg, .vote-item-percent, .telegram-vote-item-wrap {
+        height: 44px;
+      }
+      .vote-game-content {
+        margin-left: 16px;
+      }
+      .show-detail{
+        color: var(--Black-Tertiary-D, #9A9A9A);
+      }
+    }
+    .edit-icon {
+      border-radius: 10px;
+      @apply w-[34px] h-[34px] flex-center text-[16px] m-0 p-[8px];
+    }
+  }
+}

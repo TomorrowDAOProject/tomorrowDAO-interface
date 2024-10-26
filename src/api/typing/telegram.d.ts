@@ -46,37 +46,40 @@ interface IRankingListReq {
   proposalId: string;
 }
 interface IRankingListResItem {
-  id: string;
-  chainId: string;
-  daoId: string;
-  proposalId: string;
-  proposalTitle: string;
-  proposalDescription: string;
-  activeStartTime: string;
-  activeEndTime: string;
-  appId: string;
+  id?: string;
+  chainId?: string;
+  daoId?: string;
+  proposalId?: string;
+  proposalTitle?: string;
+  proposalDescription?: string;
+  activeStartTime?: string;
+  activeEndTime?: string;
+  appId?: string;
   alias: string;
   title: string;
-  icon: string;
-  description: string;
-  editorChoice: boolean;
-  deployTime: string;
-  voteAmount: number;
-  votePercent: number;
-  url: string;
-  longDescription: string;
-  screenshots: Array<string>;
-  pointsAmount: number;
-  pointsPercent: number;
+  icon?: string;
+  description?: string;
+  editorChoice?: boolean;
+  deployTime?: string;
+  voteAmount?: number;
+  votePercent?: number;
+  url?: string;
+  longDescription?: string;
+  screenshots?: Array<string>;
+  pointsAmount?: number;
+  pointsPercent?: number;
 }
 interface IRankingListResData {
   bannerUrl: string;
-  startTime: string;
-  endTime: string;
   canVoteAmount: number;
+  endTime: string;
+  labelType: RANKING_LABEL_KEY;
+  proposalTitle: string;
+  rankingList: Array<IRankingListResItem>;
+  rankingType: RANKING_TYPE_KEY;
+  startTime: string;
   totalVoteAmount: number;
   userTotalPoints: number;
-  rankingList: Array<IRankingListResItem>;
 }
 interface IRankingListRes {
   code: string;
@@ -312,16 +315,19 @@ enum RankingLabelEnum {
 }
 interface IRankingsItem {
   active: boolean;
+  activeEndEpochTime: number;
   activeEndTime: string;
+  activeStartEpochTime: number;
   activeStartTime: string;
+  bannerUrl: string;
   chainId: string;
-  proposalId: string;
   daoId: string;
-  proposalTitle: string;
+  labelType: RANKING_LABEL_KEY;
   proposalDescription: string;
+  proposalId: string;
+  proposalTitle: string;
+  rankingType: RANKING_TYPE_KEY;
   totalVoteAmount: number;
-  rankingType: RankingTypeEnum;
-  labelType: RankingLabelEnum;
 }
 interface IRankingsRes {
   code: string;

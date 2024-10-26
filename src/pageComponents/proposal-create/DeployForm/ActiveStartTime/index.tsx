@@ -1,18 +1,22 @@
 import { Radio, DatePicker } from 'antd';
+import { DatePicker as AntdMobileDatePicker } from 'antd-mobile';
 import type { RadioChangeEvent } from 'antd';
 import { useState } from 'react';
 import { ActiveStartTimeEnum } from '../../type';
 import dayjs from 'dayjs';
 import './index.css';
+import { TimeSelectIcon } from 'components/Icons';
 
 interface IActiveStartTimeProps {
   value?: string | number;
   onChange?: (value: string | number | undefined) => void;
+  mobile?: boolean;
 }
 
 export default function ActiveStartTime(props: IActiveStartTimeProps) {
-  const { value: propsValue } = props;
+  const { value: propsValue, mobile } = props;
   const [value, setValue] = useState<ActiveStartTimeEnum>(ActiveStartTimeEnum.now);
+  const [visible, setVisible] = useState(false);
   const handleChange = (e: RadioChangeEvent) => {
     const { onChange } = props;
     const { value } = e.target;
@@ -33,7 +37,7 @@ export default function ActiveStartTime(props: IActiveStartTimeProps) {
         </Radio.Group>
       </div>
       <div className="active-start-time-date-picker">
-        {value === ActiveStartTimeEnum.custom && (
+        {value === ActiveStartTimeEnum.custom && !mobile && (
           <DatePicker
             defaultValue={dayjs()}
             showTime
@@ -43,6 +47,41 @@ export default function ActiveStartTime(props: IActiveStartTimeProps) {
               onChange?.(value?.valueOf());
             }}
           />
+        )}
+        {value === ActiveStartTimeEnum.custom && mobile && (
+          <div>
+            <div
+              className="fake-input-start-time-select flex items-center justify-between"
+              onClick={() => {
+                setVisible(true);
+              }}
+            >
+              <span>
+                {propsValue ? dayjs(propsValue).format('YYYY-MM-DD HH:mm:ss') : dayjs().format()}
+              </span>
+              <TimeSelectIcon />
+            </div>
+            <AntdMobileDatePicker
+              style={{
+                '--header-button-font-size': '16px',
+                '--item-font-size': '14px',
+                '--item-height': '48px',
+              }}
+              className="antd-mobile-date-picker"
+              visible={visible}
+              defaultValue={dayjs().toDate()}
+              value={propsValue ? dayjs(propsValue).toDate() : undefined}
+              precision="second"
+              onConfirm={(value: Date) => {
+                const { onChange } = props;
+                onChange?.(value?.valueOf());
+                setVisible(false);
+              }}
+              onCancel={() => {
+                setVisible(false);
+              }}
+            />
+          </div>
         )}
       </div>
     </div>

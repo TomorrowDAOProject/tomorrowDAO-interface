@@ -6,12 +6,35 @@ import ActiveEndTime, { defaultActiveEndTimeDuration } from '../ActiveEndTime';
 import { ActiveStartTimeEnum } from '../../type';
 import { activeEndTimeName, activeStartTimeName } from '../constant';
 import './index.css';
+import React from 'react';
 
+interface ITimeRangeStartTimeProps {
+  mobile?: boolean;
+  label: React.ReactNode;
+}
+export const TimeRangeStartTime = (props: ITimeRangeStartTimeProps) => {
+  const { label } = props;
+  return (
+    <Form.Item
+      className="voting-start-time-form-label"
+      label={label}
+      initialValue={ActiveStartTimeEnum.now}
+      name={activeStartTimeName}
+      rules={[
+        {
+          required: true,
+          message: 'The voting start time is required',
+        },
+      ]}
+    >
+      <ActiveStartTime mobile={props.mobile} />
+    </Form.Item>
+  );
+};
 export default function TimeRange() {
   return (
     <>
-      <Form.Item
-        className="voting-start-time-form-label"
+      <TimeRangeStartTime
         label={
           <Tooltip title="Define when a proposal should be active to receive approvals. If now is selected, the proposal is immediately active after publishing.">
             <span className="form-item-label">
@@ -20,17 +43,7 @@ export default function TimeRange() {
             </span>
           </Tooltip>
         }
-        initialValue={ActiveStartTimeEnum.now}
-        name={activeStartTimeName}
-        rules={[
-          {
-            required: true,
-            message: 'The voting start time is required',
-          },
-        ]}
-      >
-        <ActiveStartTime />
-      </Form.Item>
+      />
       <Form.Item
         label={
           <Tooltip title="Define how long the voting should last in days, or add an exact date and time for it to conclude.">

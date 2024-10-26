@@ -1,112 +1,63 @@
-import { RightOutlined } from '@aelf-design/icons';
 import BigNumber from 'bignumber.js';
-import { ReactComponent as Flower } from 'assets/imgs/badgeForRankings.svg';
-import './index.css';
-import { useMemo, useRef, useState } from 'react';
+import Image from 'next/image';
+import { ReactComponent as Official } from 'assets/icons/official.svg';
+import { ReactComponent as Community } from 'assets/icons/community.svg';
+import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
+import { ReactComponent as Add } from 'assets/icons/add.svg';
+import { useConfig } from 'components/CmsGlobalConfig/type';
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import MyPoints from '../../components/MyPoints';
-import { getRankings } from 'api/request';
+import { getRankingDetail, getRankings } from 'api/request';
 import { curChain } from 'config';
 import { useInfiniteScroll } from 'ahooks';
 import Loading from '../../components/Loading';
-import { RankingTypeEnum, RankingLabelEnum } from './type';
 import VoteList from '../VoteList';
+import { Button } from 'antd';
+import RankItem from './RankItem';
+import clsx from 'clsx';
+import BannerList from './BannerList';
+import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
+import { CreateVote } from '../CreateVote';
 
-const MaxResultCount = 10;
+import './index.css';
+
+const OFFICIAL_ROW_COUNT = 3;
+const COMMUNITY_ROW_COUNT = 10;
+const BANNER_ROW_COUNT = 10;
+
+type ItemClickParams = {
+  proposalId: string;
+  proposalTitle: string;
+  isGold: boolean;
+};
 
 interface IFetchResult {
   list: IRankingsItem[];
   hasData: boolean;
   totalPoints: number;
 }
-
-const Badge = ({ text }: { text: string }) => {
-  return (
-    <div className="text-xs px-2 rounded-full border border-[#2D1F73] border-solid text-[#ACA6FF] text-center">
-      {text}
-    </div>
-  );
-};
-
-const RankItem = ({ item }: { item: IRankingsItem }) => {
-  return (
-    <div className="rounded-2xl p-4 bg-[#1B1B1B] flex items-center active:bg-[#292929]">
-      <div className="flex items-center justify-between w-full">
-        <div className="flex items-center gap-4 flex-1 overflow-hidden">
-          <img src="/images/tg/ranking-icon.png" alt="rankings-icon" width={48} height={48} />
-          <div className="flex flex-col w-full overflow-hidden">
-            <div className="flex overflow-hidden w-full">
-              <h3 className="truncate text-base font-medium text-white mr-1 max-w-[90%]">
-                {item?.proposalTitle}
-              </h3>
-              {item.labelType !== RankingLabelEnum.None && (
-                <Flower
-                  className={`w-6 h-6 ${
-                    item.labelType === RankingLabelEnum.Gold ? 'text-[#F4AC33]' : 'text-[#0395FF]'
-                  }`}
-                />
-              )}
-            </div>
-            <div className="flex items-center gap-2 pt-[2px]">
-              <Badge
-                text={item.rankingType === RankingTypeEnum.Official ? 'Official' : 'Community'}
-              />
-              <div className="text-sm leading-[18px] flex items-center gap-1">
-                <div className="text-[#9A9A9A]">
-                  <span>Total </span>
-                  <span>Vote</span>
-                </div>
-                <span className="font-medium text-[#51FF00]">{item?.totalVoteAmount}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <RightOutlined className="!text-white text-base" />
-      </div>
-    </div>
-  );
-};
-const Rankings: React.FC = () => {
+export interface IRankingsRef {
+  openDetailWithProposalId: (proposalId: string) => void;
+}
+const Rankings = forwardRef<IRankingsRef>((props, ref) => {
   const pointsDrawerRef = useRef<ICommonDrawerRef>(null);
   const detailDrawerRef = useRef<ICommonDrawerRef>(null);
+  const createVoteDrawerRef = useRef<ICommonDrawerRef>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [proposalId, setProposalId] = useState('');
-  const [isGold, setIsGold] = useState(false);
-  const [detailTitle, setDetailTitle] = useState('');
-
-  const fetchRankings: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
-    const preList = data?.list ?? [];
-    const res = await getRankings({
-      chainId: curChain,
-      skipCount: preList.length,
-      maxResultCount: MaxResultCount,
-    });
-    const currentList = res?.data?.data ?? [];
-    const len = currentList.length + preList.length;
-    return {
-      list: currentList,
-      totalPoints: res?.data?.userTotalPoints ?? 0,
-      hasData: len < res.data?.totalCount,
-    };
-  };
-  const {
-    data: dataFromServer,
-    loadingMore,
-    loading,
-    noMore,
-  } = useInfiniteScroll(fetchRankings, {
-    target: containerRef,
-    isNoMore: (d) => !d?.hasData || d.list.length === 0,
-  });
+  const [accountBalance, setAccountBalance] = useState(0);
+  const [selectedItem, setSelectedItem] = useState<ItemClickParams | null>(null);
+  const [bannerList, setBannerList] = useState<IRankingsItem[]>([]);
+  const [officialList, setOfficialList] = useState<IRankingsItem[]>([]);
+  const [hasMoreOfficial, setHasMoreOfficial] = useState(false);
+  const { createVotePageTitle } = useConfig() ?? {};
 
   const renderPointsStr = useMemo(() => {
-    return BigNumber(dataFromServer?.totalPoints ?? 0).toFormat();
-  }, [dataFromServer?.totalPoints]);
+    return BigNumber(accountBalance ?? 0).toFormat();
+  }, [accountBalance]);
 
-  const onClickHandler = (pid: string, isGold: boolean, title: string) => {
-    setIsGold(isGold);
-    setProposalId(pid);
-    setDetailTitle(title);
+  const onItemClick = (item: ItemClickParams) => {
+    setSelectedItem(item);
     detailDrawerRef.current?.open();
   };
 
@@ -114,56 +65,206 @@ const Rankings: React.FC = () => {
     detailDrawerRef.current?.close();
   };
 
-  const needLoading = loading || loadingMore;
-  return (
-    <div className="rankings-main" ref={containerRef}>
-      <div className="py-[10px] gap-1 flex flex-col items-center justify-center rounded-2xl bg-[#221D51]">
-        <div
-          className="flex items-center gap-1"
-          onClick={() => {
-            pointsDrawerRef.current?.open();
-          }}
-        >
-          <span className="font-14-18 text-white">Total points earned</span>
-          <RightOutlined className="!text-white" />
-        </div>
-        <p className="font-18-22-weight text-[#51FF00]">{renderPointsStr}</p>
-      </div>
-      <div className="flex items-center gap-1 my-4">
-        <Flower className="w-6 h-6 text-[#F4AC33]" />
-        <div className="text-sm text-[#E0E0E0]">Hot</div>
-      </div>
-      <div>
-        {dataFromServer?.list?.map((ele) => (
-          <div
-            key={ele.proposalId}
-            className="mb-4"
-            onClick={() =>
-              onClickHandler(
-                ele.proposalId,
-                ele.labelType === RankingLabelEnum.Gold,
-                ele.proposalTitle,
-              )
-            }
-          >
-            <RankItem item={ele} />
-          </div>
-        ))}
-        {needLoading && (
-          <div className={`${loading ? 'mt-[100px]' : ''} flex-center`}>
-            <Loading />
-          </div>
-        )}
-      </div>
+  // Generalized function to fetch rankings with different types and configurations
+  const fetchRankings = async (type: number, skipCount: number, maxResultCount: number) => {
+    try {
+      const result = await getRankings({
+        chainId: curChain,
+        type,
+        skipCount,
+        maxResultCount,
+      });
+      return {
+        list: result?.data?.data || [],
+        userTotalPoints: result?.data?.userTotalPoints || 0,
+        hasMoreData: skipCount < result.data?.totalCount,
+      };
+    } catch (error) {
+      console.error(`Failed to fetch rankings of type ${type}`, error);
+      return {};
+    }
+  };
 
-      {noMore && !needLoading && (
-        <div className="font-14-18-weight  mt-6 py-8 text-[#6A6D79] text-center">
-          It has already reached the bottom.
+  // Fetch function for community rankings, now using a consistent structure
+  const fetchCommunityRankings: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
+    const prevList = data?.list ?? [];
+    try {
+      const res = await getRankings({
+        chainId: curChain,
+        type: RANKING_TYPE_KEY.COMMUNITY,
+        skipCount: prevList.length,
+        maxResultCount: COMMUNITY_ROW_COUNT,
+      });
+      const currentList = res?.data?.data ?? [];
+      const len = currentList.length + prevList.length;
+
+      return {
+        list: currentList,
+        totalPoints: res?.data?.userTotalPoints ?? 0,
+        hasData: len < res.data?.totalCount,
+      };
+    } catch (error) {
+      console.error('Failed to fetch community rankings', error);
+      return {
+        list: prevList,
+        totalPoints: 0,
+        hasData: false,
+      };
+    }
+  };
+
+  const initialize = async () => {
+    try {
+      const [officialData, bannerData] = await Promise.all([
+        fetchRankings(RANKING_TYPE_KEY.OFFICIAL, 0, OFFICIAL_ROW_COUNT),
+        fetchRankings(RANKING_TYPE_KEY.TOP_BANNER, 0, BANNER_ROW_COUNT),
+      ]);
+
+      setHasMoreOfficial(!!officialData.hasMoreData);
+      setAccountBalance(officialData?.userTotalPoints || 0);
+      setOfficialList(officialData.list || []);
+      setBannerList(bannerData.list || []);
+    } catch (error) {
+      console.error('Initialization failed', error);
+    }
+  };
+
+  const onShowMoreClick = async () => {
+    const newOfficialData = await fetchRankings(
+      RANKING_TYPE_KEY.OFFICIAL,
+      officialList.length,
+      OFFICIAL_ROW_COUNT,
+    );
+    setHasMoreOfficial(!!newOfficialData.hasMoreData);
+    setOfficialList((prevList) => [...prevList, ...(newOfficialData?.list || [])]);
+  };
+
+  // Infinite scroll setup for community rankings
+  const {
+    data: communityList,
+    loadingMore,
+    loading,
+    noMore,
+  } = useInfiniteScroll(fetchCommunityRankings, {
+    target: containerRef,
+    isNoMore: (d) => !d?.hasData || d.list.length === 0,
+  });
+
+  const fetchRankDetail = async (proposalId: string) => {
+    const { data } = await getRankingDetail({
+      chainId: curChain,
+      proposalId,
+    });
+    onItemClick({
+      proposalId,
+      proposalTitle: data?.proposalTitle,
+      isGold: data?.labelType === RANKING_LABEL_KEY.GOLD,
+    });
+  };
+
+  useEffect(() => {
+    initialize();
+  }, []);
+
+  const handleCreateVote = () => {
+    createVoteDrawerRef.current?.open();
+  };
+  const openDetailWithProposalId = (proposalId: string) => {
+    if (proposalId) {
+      fetchRankDetail(proposalId);
+    }
+  };
+  useImperativeHandle(ref, () => ({
+    openDetailWithProposalId,
+  }));
+
+  const needLoading = loading || loadingMore;
+
+  return (
+    <div className="px-4 bg-black h-screen text-white overflow-y-auto" ref={containerRef}>
+      <div className="flex py-4">
+        <div className="flex flex-col flex-1 gap-1">
+          <span
+            className="flex items-center"
+            onClick={() => {
+              pointsDrawerRef.current?.open();
+            }}
+          >
+            Total points earned
+            <ChevronRight className="ml-1 text-base" />
+          </span>
+          <span className="font-18-22-weight text-[#51FF00]">{renderPointsStr}</span>
+        </div>
+        <div className="flex flex-1 items-center justify-end">
+          <Button
+            className="!text-sm !h-8 !rounded-lg !font-medium items-center gap-[6px] flex"
+            type="primary"
+            onClick={handleCreateVote}
+          >
+            <Add className="text-sm" />
+            New List
+          </Button>
+        </div>
+      </div>
+      {bannerList && bannerList.length > 0 && (
+        <div className="flex">
+          <BannerList
+            bannerList={bannerList}
+            onClick={({ proposalId, proposalTitle, labelType }) => {
+              onItemClick({
+                isGold: labelType === RANKING_LABEL_KEY.GOLD,
+                proposalId,
+                proposalTitle,
+              });
+            }}
+          />
         </div>
       )}
 
+      <div className="flex flex-col border-0 border-b border-[#1B1B1B] border-solid">
+        <span className="text-base items-center flex my-4">
+          <Official className="text-xl mr-1" />
+          Official List
+        </span>
+        <div className="flex flex-col gap-4">
+          {officialList?.map((item) => (
+            <RankItem key={item.proposalId} {...item} onItemClick={onItemClick} />
+          ))}
+        </div>
+        {hasMoreOfficial && (
+          <div className="flex justify-center items-center my-4">
+            <span className="text-[#ACA6FF] text-xs flex items-center" onClick={onShowMoreClick}>
+              Show More
+            </span>
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col">
+        <span className="text-base items-center flex my-4">
+          <Community className="text-xl mr-1" />
+          Community List
+        </span>
+        <div className="flex flex-col gap-4">
+          {communityList?.list?.map((item) => (
+            <RankItem key={item.proposalId} {...item} onItemClick={onItemClick} />
+          ))}
+          {needLoading && (
+            <div
+              className={clsx('flex-center', {
+                'mt-[100px]': loading,
+              })}
+            >
+              <Loading />
+            </div>
+          )}
+        </div>
+        {noMore && !needLoading && (
+          <div className="font-normal text-xs mt-6 py-8 text-[#616161] text-center">
+            You have reached the bottom of the page.
+          </div>
+        )}
+      </div>
       <CommonDrawer
-        title=""
         ref={detailDrawerRef}
         showCloseTarget={false}
         showLeftArrow={false}
@@ -178,29 +279,58 @@ const Rankings: React.FC = () => {
           <div className="h-full">
             <VoteList
               backToPrev={backToPrevHandler}
-              proposalId={proposalId}
-              isGold={isGold}
-              detailTitle={detailTitle}
+              proposalId={selectedItem?.proposalId || ''}
+              isGold={selectedItem?.isGold || false}
+              detailTitle={selectedItem?.proposalTitle || ''}
             />
           </div>
         }
       />
-
       <CommonDrawer
-        title={`My Points`}
+        title="My Points"
         ref={pointsDrawerRef}
         drawerProps={{
           destroyOnClose: true,
         }}
         bodyClassname="my-points-drawer"
+        body={<MyPoints />}
+      />
+      <CommonDrawer
+        title={
+          <span>
+            <Image
+              src="/images/tg/magic-wand.png"
+              width={20}
+              height={20}
+              alt="page-title"
+              className="pr-1"
+            />
+            {createVotePageTitle}
+          </span>
+        }
+        ref={createVoteDrawerRef}
+        drawerProps={{
+          destroyOnClose: true,
+          placement: 'right',
+          width: '100%',
+          push: false,
+        }}
+        showCloseIcon={false}
+        showLeftArrow
+        rootClassName="create-vote-drawer-root"
+        bodyClassname="create-vote-drawer"
         body={
           <div>
-            <MyPoints />
+            <CreateVote
+              closeCreateForm={() => {
+                createVoteDrawerRef.current?.close();
+              }}
+            />
           </div>
         }
       />
     </div>
   );
-};
+});
 
 export default Rankings;

@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { TelegramPlatform } from '@portkey/did-ui-react';
+import { parseStartAppParams } from '../../util/start-params';
 import Assets from '../Assets';
 import FootTabBar from '../../components/FootTabBar';
 import Task from '../Task';
-import Rankings from '../Rankings';
+import Rankings, { IRankingsRef } from '../Rankings';
 import Discover from '../Discover';
 import Footer from '../../components/Footer';
 import Referral from '../Referral';
@@ -33,6 +35,7 @@ export default function Main(props: IMainProps) {
   const [activeTabStack, setActiveTabStack] = useState<IStackItem[]>([{ path: ITabSource.Rank }]);
   // const [proposalId, setProposalId] = useState('');
   // const [isGold, setIsGold] = useState(false);
+  const rankPageRef = useRef<IRankingsRef>(null);
   const activeTab = activeTabStack[activeTabStack.length - 1];
   const pushStackByValue = (value: number) => {
     setActiveTabStack([...activeTabStack, { path: value }]);
@@ -41,10 +44,17 @@ export default function Main(props: IMainProps) {
     setActiveTabStack([...activeTabStack, item]);
   };
   const isNotAssetPage = activeTab.path !== ITabSource.Asset;
+  useEffect(() => {
+    const startParam = TelegramPlatform.getInitData()?.start_param ?? '';
+    const params = parseStartAppParams(startParam);
+    if (params && params.pid) {
+      rankPageRef.current?.openDetailWithProposalId(params.pid || '');
+    }
+  }, []);
   return (
     <div className="relative z-[1]">
       {activeTab.path === ITabSource.Discover && <Discover />}
-      {activeTab.path === ITabSource.Rank && <Rankings />}
+      {activeTab.path === ITabSource.Rank && <Rankings ref={rankPageRef} />}
       <Task
         style={{
           display: activeTab.path === ITabSource.Task ? 'block' : 'none',
