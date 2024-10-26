@@ -14,6 +14,24 @@ module.exports = {
         hostname: '**.mypinata.cloud',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'testnet1-tmrwdao.s3.amazonaws.com',
+        port: '',
+        pathname: '/DAO/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'tmrwdao-mainnet.s3.amazonaws.com',
+        port: '',
+        pathname: '/DAO/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'tmrwdao.com',
+        port: '',
+        pathname: '/cms/**',
+      },
     ],
   },
   typescript: {
