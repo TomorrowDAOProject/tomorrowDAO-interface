@@ -288,7 +288,7 @@ export default function VoteList({
       <div className="mb-4 flex items-center relative justify-center">
         <LeftArrowOutlined className="text-2xl !text-white absolute left-0" onClick={backToPrev} />
         <span
-          className="font-20-25-weight text-white px-7 text-center truncate"
+          className="font-20-25-weight text-white px-7 text-center"
           dangerouslySetInnerHTML={{
             __html: `${finalTitle}`,
           }}
@@ -470,7 +470,7 @@ export default function VoteList({
                 if (window?.Telegram?.WebApp?.openTelegramLink) {
                   window?.Telegram?.WebApp?.openTelegramLink(
                     `https://t.me/share/url?url=${generateShareUrl()}&text=${encodeURIComponent(
-                      `${detailTitle}\n\n🔥 The campaign is in progress.\n🌈 Cast your vote to express your opinion!`,
+                      `\n${detailTitle}\n\n🔥 The campaign is in progress.\n🌈 Cast your vote to express your opinion!`,
                     )}`,
                   );
                 }
