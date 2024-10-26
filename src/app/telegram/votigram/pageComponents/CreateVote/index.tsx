@@ -179,8 +179,8 @@ export function CreateVote(props: ICreateVoteProps) {
             },
             {
               min: 0,
-              max: 100,
-              message: 'The list name supports a maximum of 100 characters.',
+              max: 300,
+              message: 'The list name supports a maximum of 300 characters.',
             },
           ]}
         >
