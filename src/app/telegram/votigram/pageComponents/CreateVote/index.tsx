@@ -159,7 +159,7 @@ export function CreateVote(props: ICreateVoteProps) {
           name={['proposalBasicInfo', 'proposalTitle']}
           label={
             <span>
-              Title
+              List Name
               <span className="form-item-label-custom-required-mark"> *</span>
             </span>
           }
@@ -202,7 +202,12 @@ export function CreateVote(props: ICreateVoteProps) {
         </Form.Item>
 
         <DynamicOption
-          name={'options'}
+          name={
+            <span>
+              Options
+              <span className="form-item-label-custom-required-mark"> *</span>
+            </span>
+          }
           form={form}
           rules={[
             {
@@ -223,14 +228,14 @@ export function CreateVote(props: ICreateVoteProps) {
           mobile
           label={
             <span className="form-item-label">
-              Voting start time <span className="form-item-label-custom-required-mark"> *</span>
+              Voting Start Time <span className="form-item-label-custom-required-mark"> *</span>
             </span>
           }
         />
         <Form.Item
           label={
             <span className="form-item-label">
-              Voting end date
+              Voting End Time
               <span className="form-item-label-custom-required-mark"> *</span>
             </span>
           }

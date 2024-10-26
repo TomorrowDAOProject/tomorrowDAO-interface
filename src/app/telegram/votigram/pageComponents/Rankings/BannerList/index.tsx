@@ -1,4 +1,5 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
+import { useUpdate } from 'ahooks';
 
 import Image from 'next/image';
 
@@ -10,16 +11,21 @@ interface BannerList {
 }
 
 const BannerList: FC<BannerList> = ({ bannerList, onClick }) => {
+  const forceRender = useUpdate();
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const latestIndex = useRef(currentIndex);
+  latestIndex.current = currentIndex;
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const newIndex = currentIndex + 1;
+    const timer = setInterval(() => {
+      const newIndex = latestIndex.current + 1;
       setCurrentIndex(newIndex >= bannerList.length ? 0 : newIndex);
+      forceRender();
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [currentIndex]);
+  }, []);
 
   return (
     bannerList && (
