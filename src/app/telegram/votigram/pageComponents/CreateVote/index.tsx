@@ -193,6 +193,7 @@ export function CreateVote(props: ICreateVoteProps) {
             maxFileCount={1}
             needCrop
             needCheckImgSize
+            fileLimit="8 MB"
             ratio={[2.9, 3]}
             ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 3:1"
             uploadText={

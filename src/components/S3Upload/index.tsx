@@ -188,6 +188,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
 
   const imgCropRatio = Array.isArray(ratio) ? ratio[1] : ratio;
   const imgCropProps: Partial<ImgCropProps> = {
+    quality: 0.1,
     aspect: imgCropRatio,
     showReset: true,
     zoomSlider: true,
