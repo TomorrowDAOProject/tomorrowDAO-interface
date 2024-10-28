@@ -16,6 +16,11 @@ module.exports = {
       },
       {
         protocol: 'https',
+        hostname: '*.amazonaws.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
         hostname: 'testnet1-tmrwdao.s3.amazonaws.com',
         port: '',
         pathname: '/DAO/**',
