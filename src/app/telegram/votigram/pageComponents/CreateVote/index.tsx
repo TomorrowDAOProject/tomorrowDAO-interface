@@ -193,7 +193,8 @@ export function CreateVote(props: ICreateVoteProps) {
             maxFileCount={1}
             needCrop
             needCheckImgSize
-            fileLimit="8 MB"
+            fileLimit="10 MB"
+            fileLimitTip="5 MB"
             ratio={[2.9, 3]}
             ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 3:1"
             uploadText={
@@ -205,7 +206,7 @@ export function CreateVote(props: ICreateVoteProps) {
               <span className="TMRWDAO-upload-button-upload-tips">
                 Formats supported: PNG and JPG.
                 <br />
-                Ratio: 3:1, less than 1 MB.
+                Ratio: 3:1, less than 5 MB.
               </span>
             }
           />
@@ -301,7 +302,7 @@ export function CreateVote(props: ICreateVoteProps) {
       />
       <CommonModal
         ref={loadingModalRef}
-        title="the transaction is being processed"
+        title="The transaction is being processed"
         showCloseIcon={false}
         content={
           <div className="invite-modal-content flex-center py-[48px]">

@@ -320,8 +320,9 @@ export default function VoteList({
                   src={item}
                   className="w-full h-full"
                   alt="banner"
-                  width={179}
-                  height={60}
+                  width={358}
+                  height={120}
+                  quality={100}
                 />
               );
             })}
