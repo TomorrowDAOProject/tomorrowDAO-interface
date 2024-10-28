@@ -77,7 +77,7 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
             },
           ]}
         >
-          <Input placeholder={`Enter a name for the option(20 characters max). `} />
+          <Input placeholder={`Enter a name for the option (20 characters max). `} />
         </Form.Item>
         <div
           onClick={handleOpen}
