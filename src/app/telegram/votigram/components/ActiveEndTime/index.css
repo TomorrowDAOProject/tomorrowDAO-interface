@@ -1,6 +1,6 @@
 .votigram-active-time-end-wrap {
   .active-time-end-input-duration {
-    @apply grid gap-4 grid-cols-3 grid-rows-3;
+    @apply grid gap-4 grid-cols-3 grid-rows-2;
   }
   .active-time-end-input-duration-item{
     text-align: center;

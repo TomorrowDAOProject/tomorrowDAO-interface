@@ -21,6 +21,7 @@ export interface IFUploadProps extends Omit<IUploadProps, 'onChange'> {
   isAntd?: boolean;
   needCheckImgSize?: boolean;
   needCrop?: boolean;
+  fileLimitTip?: string;
   ratio?: number | [number, number];
   ratioErrorText?: string;
   onChange?: (fileList: UploadFile[]) => void;
@@ -47,6 +48,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
   fileList,
   maxFileCount = 10,
   fileLimit = '1 MB',
+  fileLimitTip,
   fileNameLengthLimit,
   onChange,
   tips,
@@ -120,7 +122,9 @@ const AWSUpload: React.FC<IFUploadProps> = ({
     if (!isLteLimit) {
       const contentType = needCheckImgSize ? 'Image' : 'File';
       message.error(
-        `${contentType} too large. Please upload an ${contentType} no larger than ${fileLimit}`,
+        `${contentType} too large. Please upload an ${contentType} no larger than ${
+          fileLimitTip ?? fileLimit
+        }`,
       );
     }
     result = acceptCheckResult && isLteLimit;

@@ -34,8 +34,8 @@ const BannerList: FC<BannerList> = ({ bannerList, onClick }) => {
         src={bannerList[currentIndex].bannerUrl}
         className="animate-vibrate rounded-2xl w-full h-full"
         alt="banner"
-        width={179}
-        height={60}
+        width={358}
+        height={120}
         onClick={() => {
           onClick(bannerList[currentIndex]);
         }}

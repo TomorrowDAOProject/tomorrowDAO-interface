@@ -50,11 +50,6 @@ const DurationList: IDurationItem[] = [
     value: 14,
     unit: 'day',
   },
-  {
-    label: '1 month',
-    value: 1,
-    unit: 'month',
-  },
 ];
 
 export default function ActiveEndTime(props: IActiveEndTimeProps) {
