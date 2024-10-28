@@ -94,7 +94,8 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
               extensions={['png', 'jpg', 'jpeg']}
               maxFileCount={1}
               needCheckImgSize
-              fileLimit="8 MB"
+              fileLimit="10 MB"
+              fileLimitTip="5 MB"
               needCrop
               ratio={1}
               ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
@@ -102,7 +103,7 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
                 <span className="TMRWDAO-upload-button-upload-tips">
                   Formats supported: PNG and JPG.
                   <br />
-                  Ratio: 1:1, less than 1 MB.
+                  Ratio: 1:1, less than 5 MB.
                 </span>
               }
             />
@@ -159,12 +160,13 @@ const CreateVoteOptionForm = forwardRef<ICreateFormRef, ICreateFormProps>((props
               accept={uploadImageAccept}
               extensions={['png', 'jpg', 'jpeg']}
               maxFileCount={9}
-              fileLimit="8 MB"
+              fileLimit="10 MB"
+              fileLimitTip="5 MB"
               tips={
                 <span className="TMRWDAO-upload-button-upload-tips">
                   Formats supported: PNG and JPG.
                   <br />
-                  less than 1 MB.
+                  less than 5 MB.
                 </span>
               }
             />
