@@ -59,4 +59,4 @@ Ensure you have:
 
 ## License 📄
 
-Licensed under the MIT License. See the LICENSE file for details.
+Licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
