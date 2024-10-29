@@ -47,11 +47,11 @@ export const SOCKET_URL_NEW = 'wss://explorer-test.aelf.io';
 export const chainIdSelect = [
   {
     value: 'AELF',
-    label: 'MainChain AELF',
+    label: 'aelf MainChain',
   },
   {
     value: 'tDVW',
-    label: 'SideChain tDVW',
+    label: 'aelf dAppChain',
   },
 ];
 

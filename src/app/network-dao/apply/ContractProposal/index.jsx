@@ -341,7 +341,7 @@ const ContractProposal = (props) => {
         CHAIN_ID === "AELF"
       ) {
         onlyOkModal({
-          message: `Smart contract wallet address currently do not support deploying contracts on the AELF MainChain without approval.`,
+          message: `Smart contract wallet address currently do not support deploying contracts on the aelf MainChain without approval.`,
         });
         return;
       }
