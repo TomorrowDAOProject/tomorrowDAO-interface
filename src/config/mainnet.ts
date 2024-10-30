@@ -48,13 +48,14 @@ export const SOCKET_URL_NEW = 'wss://explorer.aelf.io';
 export const chainIdSelect = [
   {
     value: 'AELF',
-    label: 'MainChain AELF',
+    label: 'aelf MainChain',
   },
   {
     value: 'tDVV',
-    label: 'SideChain tDVV',
+    label: 'aelf dAppChain',
   },
 ];
+
 // network-dao
 export const networkDaoId = 'e9e131724d50de8fce13629043dc8a58a6692be57417985972418159cd883d72';
 
