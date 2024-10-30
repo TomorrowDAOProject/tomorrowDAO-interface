@@ -217,7 +217,6 @@ function SceneLoading(props: ISceneLoadingProps) {
         }
       />
       <TimeoutTip style={{ display: isTimeout ? 'flex' : 'none' }} />
-      <Footer classname="scene-foot-text" />
     </>
   );
 }

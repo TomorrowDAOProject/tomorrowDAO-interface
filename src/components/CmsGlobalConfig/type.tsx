@@ -22,6 +22,7 @@ export interface IConfigContent {
   };
   communityDaoId: string;
   createVotePageTitle: string;
+  discoverTopBannerURL: string;
 }
 
 export const ConfigContext = createContext<IConfigContent | null>(null);

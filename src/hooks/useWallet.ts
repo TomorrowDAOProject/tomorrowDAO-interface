@@ -60,7 +60,6 @@ export const useCheckLoginAndToken = () => {
       );
       apiServer.setToken(tokenRes?.access_token);
       setLocalJWT(key, tokenRes as LocalJWTData);
-      message.success('log in');
     } else {
       await disConnectWallet();
       dispatch(resetLoginStatus());
@@ -85,7 +84,6 @@ export const useCheckLoginAndToken = () => {
           );
           emitLoading(false);
           authManager.isAuthing = false;
-          message.success('log in');
           return;
         }
       }

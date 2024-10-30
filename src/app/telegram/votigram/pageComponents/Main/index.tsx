@@ -94,9 +94,6 @@ export default function Main(props: IMainProps) {
           <WalletIcon />
         </div>
       )}
-      {activeTab.path !== ITabSource.Discover && activeTab.path !== ITabSource.Rank && (
-        <Footer classname="telegram-votigram-footer-main" />
-      )}
     </div>
   );
 }

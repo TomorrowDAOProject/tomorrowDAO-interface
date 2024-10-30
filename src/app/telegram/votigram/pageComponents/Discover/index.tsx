@@ -8,12 +8,18 @@ import { discoverConfirmChoose, getDiscoverAppView } from 'api/request';
 import { curChain } from 'config';
 import { useEffect, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
+import Image from 'next/image';
 
 const items: TabsProps['items'] = [
   {
     key: ETelegramAppCategory.Recommend,
     label: 'Recommend',
     children: <InfiniteList category={ETelegramAppCategory.Recommend} />,
+  },
+  {
+    key: ETelegramAppCategory.New,
+    label: 'New',
+    children: <InfiniteList category={ETelegramAppCategory.New} />,
   },
   {
     key: ETelegramAppCategory.Game,
@@ -55,6 +61,10 @@ const options: {
   value: string;
   label: string;
 }[] = [
+  {
+    value: ETelegramAppCategory.New,
+    label: 'New',
+  },
   {
     value: ETelegramAppCategory.Game,
     label: 'Game',
@@ -112,6 +122,15 @@ export default function Discover() {
 
   return (
     <div className="discover-page-wrap" ref={wrapRef}>
+      <div className="flex relative mt-6">
+        <Image
+          src="https://tmrwdao.com/cms/assets/88f10d02-b204-4005-bf68-76ab1e37b070"
+          className="rounded-lg w-full h-full"
+          alt="banner"
+          width={358}
+          height={120}
+        />
+      </div>
       <Tabs defaultActiveKey={ETelegramAppCategory.Recommend} className="discover-page-tab">
         {items?.map((item) => {
           return (

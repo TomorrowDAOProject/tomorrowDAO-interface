@@ -112,7 +112,6 @@ export default function FootTabBar(props: IFootTabBarProps) {
         <li
           className={clsx('foot-tabbar-item', {
             active: index === value,
-            bg: index === 0,
           })}
           key={index}
           onClick={() => {

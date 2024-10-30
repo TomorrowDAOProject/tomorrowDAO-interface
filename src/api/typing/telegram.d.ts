@@ -224,10 +224,12 @@ interface IReferralBindingStatusRes {
 }
 // ------------------
 interface IGetRankPointsResItem {
-  title: string;
   description: string;
+  id: string;
   points: number;
+  pointsTime: number;
   pointsType: string;
+  title: string;
 }
 interface IGetRankPointsRes {
   code: number;
