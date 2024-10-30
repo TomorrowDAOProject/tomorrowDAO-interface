@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { message, Form } from 'antd';
 import { useRequest } from 'ahooks';
 import { Input, Typography } from 'aelf-design';
@@ -27,11 +27,17 @@ interface IEditDaoProps {
   isNetworkDAO?: boolean;
 }
 
+const FILE_LIMIT = '20 MB';
+const ANTD_UPLOAD_DONE_STATUS = 'done';
+const MAX_FILE_COUNT = 20;
+const MAX_FILE_NAME_LENGTH = 128;
+
 const EditDao: React.FC<IEditDaoProps> = (props) => {
   const { isNetworkDAO, aliasName } = props;
-  console.log('aliasName', aliasName);
+  const [deletedFile, setDeletedFile] = useState<string[]>([]);
   const [mediaError, setMediaError] = useState<boolean>(false);
   const [form] = Form.useForm();
+  const fileList = Form.useWatch('files', form) ?? [];
   const {
     data: daoData,
     error: daoError,
@@ -67,9 +73,44 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
         socialMedia,
       },
     };
+
+    const newFile = res?.files
+      .filter((item: Record<string, string>) => item && item.cid === undefined)
+      .map((item: Record<string, string>) => {
+        const url = new URL(item.url);
+        const id = url.pathname.split('/').pop() ?? '';
+        return {
+          cid: id,
+          name: item.name,
+          url: item.url,
+        };
+      });
+
     try {
+      console.log(daoAddress);
       emitLoading(true, 'The changes is being processed...');
-      const res = await callContract('UpdateMetadata', params, daoAddress);
+      if (deletedFile.length > 0) {
+        await callContract(
+          'RemoveFileInfos',
+          {
+            daoId,
+            fileCids: deletedFile,
+          },
+          daoAddress,
+        );
+      }
+      if (newFile?.length > 0) {
+        await callContract(
+          'UploadFileInfos',
+          {
+            daoId,
+            files: newFile,
+          },
+          daoAddress,
+        );
+      }
+
+      await callContract('UpdateMetadata', params, daoAddress);
       emitLoading(false);
       console.log('eventBus.emit');
       eventBus.emit(ResultModal, {
@@ -118,7 +159,10 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
   // recover from api response
   useEffect(() => {
     if (!daoData?.data) return;
-    const { name, logoUrl, description, socialMedia } = daoData.data?.metadata ?? {};
+    const {
+      metadata: { name, logoUrl, description, socialMedia },
+      fileInfoList,
+    } = daoData.data ?? {};
     form.setFieldsValue({
       metadata: {
         name,
@@ -126,7 +170,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
           {
             uid: '3',
             name: 'logo.png',
-            status: 'done',
+            status: ANTD_UPLOAD_DONE_STATUS,
             url: logoUrl,
           },
         ],
@@ -139,8 +183,40 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
           Reddit: socialMedia.Reddit,
         },
       },
+      files: fileInfoList.map(({ file }) => ({
+        uid: file.cid,
+        status: ANTD_UPLOAD_DONE_STATUS,
+        ...file,
+      })),
     });
   }, [form, daoData]);
+
+  const isUploadDisabled = useMemo(() => {
+    return fileList.length >= MAX_FILE_COUNT;
+  }, [fileList.length]);
+
+  const uploadTips = useMemo(() => {
+    if (isUploadDisabled) {
+      return (
+        <p>
+          You have reached the maximum limit of {MAX_FILE_COUNT} files. Please consider removing
+          some files before uploading a new one. If you need further assistance, you can join
+          TMRWDAO&apos;s
+          <a href="https://t.me/tmrwdao" target="_blank" rel="noreferrer" className="px-[4px]">
+            Telegram
+          </a>
+          group.
+        </p>
+      );
+    } else {
+      return (
+        <>
+          <p>Format supported: PDF.</p>
+          <p>Size: Less than {FILE_LIMIT}. </p>
+        </>
+      );
+    }
+  }, [isUploadDisabled]);
 
   return (
     <div className="dao-edit">
@@ -321,6 +397,54 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               label="Reddit"
             >
               <Input placeholder={`Enter the DAO's subreddit link`} />
+            </Form.Item>
+            <Typography.Title level={6}>Documentation</Typography.Title>
+            <div className={cx('Media-info mb-6', mediaError && '!text-Reject-Reject')}>
+              It is recommended to upload at least a project whitepaper and roadmap
+            </div>
+            <Form.Item
+              name="files"
+              validateFirst
+              className="mb-8"
+              rules={[
+                {
+                  required: true,
+                  type: 'array',
+                  message: 'Add at least one documentation',
+                },
+                {
+                  validator(rule, value) {
+                    if (value.length > 20) {
+                      return Promise.reject(
+                        "You have reached the maximum limit of 20 files. Please consider removing some files before uploading a new one. If you need further assistance, you can join TMRWDAO's Telegram group.",
+                      );
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
+              valuePropName="fileList"
+              initialValue={[]}
+            >
+              <IPFSUpload
+                className="upload"
+                isAntd
+                accept=".pdf"
+                fileLimit={FILE_LIMIT}
+                maxCount={MAX_FILE_COUNT}
+                fileNameLengthLimit={MAX_FILE_NAME_LENGTH}
+                uploadIconColor="#1A1A1A"
+                uploadText="Click to Upload"
+                tips={uploadTips}
+                disabled={isUploadDisabled}
+                onRemove={(item) => {
+                  if (item.url) {
+                    const url = new URL(item.url);
+                    const id = url.pathname.split('/').pop() ?? '';
+                    setDeletedFile([...deletedFile, id]);
+                  }
+                }}
+              />
             </Form.Item>
           </Form>
           <ButtonCheckLogin onClick={handleSave} type="primary">

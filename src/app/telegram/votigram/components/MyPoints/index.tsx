@@ -97,6 +97,7 @@ export default function MyPoints() {
                       <div className="body truncate">
                         <h3 className="font-17-22 truncate">{item.title}</h3>
                         <p className="font-15-20 truncate">{getPonitDescription(item)}</p>
+                        <span>{dayjs(item.pointsTime).format('YYYY.MM.DD HH:mm')}</span>
                       </div>
                     </div>
                     <p className="amount font-18-22-weight">
