@@ -40,7 +40,13 @@ interface IFetchResult {
 export interface IRankingsRef {
   openDetailWithProposalId: (proposalId: string) => void;
 }
-const Rankings = forwardRef<IRankingsRef>((props, ref) => {
+
+interface IRankingsProps {
+  toggleNewListDrawerOpen?: () => void;
+}
+
+const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
+  console.log('ranking props', props);
   const pointsDrawerRef = useRef<ICommonDrawerRef>(null);
   const detailDrawerRef = useRef<ICommonDrawerRef>(null);
   const createVoteDrawerRef = useRef<ICommonDrawerRef>(null);

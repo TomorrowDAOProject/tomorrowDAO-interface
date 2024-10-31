@@ -8,6 +8,7 @@ import { discoverConfirmChoose, getDiscoverAppView } from 'api/request';
 import { curChain } from 'config';
 import { useEffect, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
+import { useConfig } from 'components/CmsGlobalConfig/type';
 import Image from 'next/image';
 
 const items: TabsProps['items'] = [
@@ -95,6 +96,7 @@ const options: {
   },
 ];
 export default function Discover() {
+  const { discoverTopBannerURL } = useConfig() ?? {};
   const chooseDrawerRef = useRef<ICommonDrawerRef>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
@@ -124,7 +126,7 @@ export default function Discover() {
     <div className="discover-page-wrap" ref={wrapRef}>
       <div className="flex relative mt-6">
         <Image
-          src="https://tmrwdao.com/cms/assets/88f10d02-b204-4005-bf68-76ab1e37b070"
+          src={discoverTopBannerURL || ''}
           className="rounded-lg w-full h-full"
           alt="banner"
           width={358}

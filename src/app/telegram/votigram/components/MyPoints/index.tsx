@@ -91,13 +91,15 @@ export default function MyPoints() {
             <ul className="point-list">
               {voteListData?.list.map((item, i) => {
                 return (
-                  <li className="point-list-item" key={i}>
+                  <li className="point-list-item py-3" key={i}>
                     <div className="wrap1 truncate">
                       <CheckCircleOutlined />
                       <div className="body truncate">
                         <h3 className="font-17-22 truncate">{item.title}</h3>
-                        <p className="font-15-20 truncate">{getPonitDescription(item)}</p>
-                        <span>{dayjs(item.pointsTime).format('YYYY.MM.DD HH:mm')}</span>
+                        <p className="font-15-20 mb-0.5 truncate">{getPonitDescription(item)}</p>
+                        <span className="text-[13px] leading-4">
+                          {dayjs(item.pointsTime).format('YYYY.MM.DD HH:mm')}
+                        </span>
                       </div>
                     </div>
                     <p className="amount font-18-22-weight">

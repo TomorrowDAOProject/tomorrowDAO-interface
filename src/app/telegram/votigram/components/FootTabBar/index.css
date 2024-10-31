@@ -1,6 +1,6 @@
 .foot-tabbar {
   z-index: 1001;
-  @apply fixed bottom-0 gap-[12px] flex w-full p-[8px] flex-row bg-[#292929] justify-around;
+  @apply fixed bottom-0 gap-3 flex w-full p-2 pb-4 flex-row bg-[#292929] justify-around;
   .foot-tabbar-item {
     @apply flex flex-col justify-center items-center text-[#9A9A9A] text-center text-[0.875rem] leading-[1.125rem] w-[60px] h-[60px] rounded-full;
     .TMRWDAO-icon {
