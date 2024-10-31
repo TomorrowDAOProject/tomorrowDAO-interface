@@ -33,6 +33,12 @@ module.exports = {
       },
       {
         protocol: 'https',
+        hostname: 'test.tmrwdao.com',
+        port: '',
+        pathname: '/cms/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'tmrwdao.com',
         port: '',
         pathname: '/cms/**',

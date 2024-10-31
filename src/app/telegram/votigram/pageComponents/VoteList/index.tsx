@@ -31,12 +31,14 @@ import { LeftArrowOutlined } from '@aelf-design/icons';
 import { ReactComponent as Share } from 'assets/icons/share.svg';
 import { ReactComponent as CopyLink } from 'assets/icons/copy-link.svg';
 import { ReactComponent as Telegram } from 'assets/icons/telegram.svg';
+import { ReactComponent as Info } from 'assets/icons/info.svg';
 
 import useVotePoints from '../../hook/use-vote-points';
 import Image from 'next/image';
 
 import './index.css';
 import { stringifyStartAppParams } from '../../util/start-params';
+import dayjs from 'dayjs';
 
 export const getShareText = (title: string) => {
   function decodeHtmlEntity(str: string) {
@@ -62,6 +64,7 @@ export default function VoteList({
   isGold: boolean;
   detailTitle: string;
 }) {
+  const votingPeriodDrawerRef = useRef<ICommonDrawerRef>(null);
   const confirmDrawerRef = useRef<ICommonDrawerRef>(null);
   const loadingDrawerRef = useRef<ICommonDrawerRef>(null);
   const ruleDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -293,6 +296,30 @@ export default function VoteList({
     return `${tgLink}?startapp=${paramsStr}`;
   };
 
+  const renderTimeLeft = (endDate: string) => {
+    const endDateObj = dayjs(endDate);
+    const todayDateObj = dayjs();
+
+    if (endDateObj > todayDateObj) {
+      const secondsDiff = endDateObj.diff(todayDateObj, 'second');
+      if (secondsDiff <= 60) {
+        return 'Less than one hour left to vote';
+      }
+
+      if (secondsDiff < 86400) {
+        const daysDiff = endDateObj.diff(todayDateObj, 'hour');
+        return `${daysDiff} hour(s) left to vote!`;
+      }
+
+      if (secondsDiff >= 86400) {
+        const daysDiff = endDateObj.diff(todayDateObj, 'day');
+        return `${daysDiff} day(s) left to vote!`;
+      }
+    }
+
+    return 'Voting is over!';
+  };
+
   return (
     <div className="votigram-main">
       <div className="mb-4 flex items-center relative justify-center">
@@ -337,14 +364,30 @@ export default function VoteList({
           )}
         </div>
       )}
-      <div className="flex items-center gap-4 py-4">
-        <span className="text-white text-base">Remaining vote</span>
-        <div className="flex items-end gap-0.5">
-          <span className="text-2xl leading-[30px] font-medium text-[#51FF00]">
-            {rankList?.data?.canVoteAmount ?? 0}
-          </span>
-          <span className="text-[#616161] leading-[30px] text-base">/</span>
-          <span className="text-[#616161] leading-[26px] text-base">1</span>
+      <div className="flex items-center justify-between gap-4 py-4">
+        <div className="flex items-center gap-4">
+          <span className="text-white text-base">Remaining vote</span>
+          <div className="flex items-end gap-0.5">
+            <span className="text-2xl leading-[30px] font-medium text-[#51FF00]">
+              {rankList?.data?.canVoteAmount ?? 0}
+            </span>
+            <span className="text-[#616161] leading-[30px] text-base">/</span>
+            <span className="text-[#616161] leading-[26px] text-base">1</span>
+          </div>
+        </div>
+        <div className="flex flex-col text-right">
+          <span>Vote period:</span>
+          <div className="flex items-center gap-1">
+            <span className="font-bold text-xs text-[#C9BAF3]">
+              {renderTimeLeft(rankList?.data?.endTime || '')}
+            </span>
+            <Info
+              className="text-base text-[#C9BAF3]"
+              onClick={() => {
+                votingPeriodDrawerRef.current?.open();
+              }}
+            />
+          </div>
         </div>
       </div>
 
@@ -454,6 +497,27 @@ export default function VoteList({
               }}
             >
               Retry
+            </Button>
+          </div>
+        }
+      />
+      <CommonDrawer
+        title="Voting Period"
+        ref={votingPeriodDrawerRef}
+        body={
+          <div className="flex flex-col items-center">
+            <p className="font-14-18 mt-3 text-center">
+              {`${dayjs(rankList?.data?.startTime).format('YYYY.MM.DD HH:mm')} - ${dayjs(
+                rankList?.data?.endTime,
+              ).format('YYYY.MM.DD HH:mm')}`}
+            </p>
+            <Button
+              type="primary"
+              onClick={() => {
+                votingPeriodDrawerRef.current?.close();
+              }}
+            >
+              Got it
             </Button>
           </div>
         }

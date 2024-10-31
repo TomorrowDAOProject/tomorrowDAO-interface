@@ -6,10 +6,13 @@ import FootTabBar from '../../components/FootTabBar';
 import Task from '../Task';
 import Rankings, { IRankingsRef } from '../Rankings';
 import Discover from '../Discover';
-import Footer from '../../components/Footer';
 import Referral from '../Referral';
 import { IStackItem, ITabSource } from '../../type';
 import './index.css';
+import { CreateVote } from '../CreateVote';
+import Image from 'next/image';
+import { useConfig } from 'components/CmsGlobalConfig/type';
+import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 
 export interface IMainProps {
   onShowMore?: (item: IRankingListResItem) => void;
@@ -35,6 +38,9 @@ export default function Main(props: IMainProps) {
   const [activeTabStack, setActiveTabStack] = useState<IStackItem[]>([{ path: ITabSource.Rank }]);
   // const [proposalId, setProposalId] = useState('');
   // const [isGold, setIsGold] = useState(false);
+  const { createVotePageTitle } = useConfig() ?? {};
+  const createVoteDrawerRef = useRef<ICommonDrawerRef>(null);
+
   const rankPageRef = useRef<IRankingsRef>(null);
   const activeTab = activeTabStack[activeTabStack.length - 1];
   const pushStackByValue = (value: number) => {
@@ -51,10 +57,21 @@ export default function Main(props: IMainProps) {
       rankPageRef.current?.openDetailWithProposalId(params.pid || '');
     }
   }, []);
+
+  const toggleNewListDrawerOpen = () => {
+    createVoteDrawerRef.current?.open();
+  };
+
+  const toggleNewListDrawerClose = () => {
+    createVoteDrawerRef.current?.close();
+  };
+
   return (
     <div className="relative z-[1]">
       {activeTab.path === ITabSource.Discover && <Discover />}
-      {activeTab.path === ITabSource.Rank && <Rankings ref={rankPageRef} />}
+      {activeTab.path === ITabSource.Rank && (
+        <Rankings ref={rankPageRef} toggleNewListDrawerOpen={toggleNewListDrawerOpen} />
+      )}
       <Task
         style={{
           display: activeTab.path === ITabSource.Task ? 'block' : 'none',
@@ -79,6 +96,7 @@ export default function Main(props: IMainProps) {
       {isNotAssetPage && typeof document.body !== 'undefined' && (
         <FootTabBar
           value={activeTab.path}
+          toggleNewListDrawerOpen={toggleNewListDrawerOpen}
           onChange={(value: number) => {
             pushStackByValue(value);
           }}
@@ -94,6 +112,36 @@ export default function Main(props: IMainProps) {
           <WalletIcon />
         </div>
       )}
+      <CommonDrawer
+        title={
+          <span>
+            <Image
+              src="/images/tg/magic-wand.png"
+              width={20}
+              height={20}
+              alt="page-title"
+              className="pr-1"
+            />
+            {createVotePageTitle}
+          </span>
+        }
+        ref={createVoteDrawerRef}
+        drawerProps={{
+          destroyOnClose: true,
+          placement: 'right',
+          width: '100%',
+          push: false,
+        }}
+        showCloseIcon={false}
+        showLeftArrow
+        rootClassName="create-vote-drawer-root"
+        bodyClassname="create-vote-drawer"
+        body={
+          <div>
+            <CreateVote closeCreateForm={toggleNewListDrawerClose} />
+          </div>
+        }
+      />
     </div>
   );
 }

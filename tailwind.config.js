@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       animation: {
         vibrate: 'vibrate 100ms linear 4',
+        flash: 'flash 1s infinite',
       },
       keyframes: {
         vibrate: {
@@ -14,6 +15,10 @@ module.exports = {
           '25%': { transform: 'translate(3px, 3px)' },
           '50%': { transform: 'translate(-3px, -3px)' },
           '75%': { transform: 'translate(3px, -3px)' },
+        },
+        flash: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
         },
       },
       colors: {
