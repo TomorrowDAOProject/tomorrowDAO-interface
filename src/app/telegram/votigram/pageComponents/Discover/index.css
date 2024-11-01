@@ -27,29 +27,28 @@
     width: calc(100vw - 16px - 16px);
     overflow-y: hidden;
   }
-   
-   .adm-tabs-content {
+
+  .adm-tabs-content {
     @apply p-0;
-   }
-   .adm-tabs-tab-wrapper {
+  }
+  .adm-tabs-tab-wrapper {
     @apply p-0 flex-grow-0;
-   }
-   .adm-tabs-tab-wrapper + .adm-tabs-tab-wrapper {
+  }
+  .adm-tabs-tab-wrapper + .adm-tabs-tab-wrapper {
     @apply ml-[8px];
-   }
-   .adm-tabs-tab-line,
-   .adm-tabs-header-mask
-   {
+  }
+  .adm-tabs-tab-line,
+  .adm-tabs-header-mask {
     @apply hidden;
-   }
-   .adm-tabs-tab {
+  }
+  .adm-tabs-tab {
     display: flex;
     padding: 4px 8px;
     justify-content: center;
     align-items: center;
     border-radius: 100px;
     border: 1px solid var(--Black-BG-Dark-D, #292929);
-    color: var(--Black-Tertiary-D, #9A9A9A);
+    color: var(--Black-Tertiary-D, #9a9a9a);
     text-align: center;
     font-size: 12px;
     font-weight: 400;
@@ -57,16 +56,16 @@
     margin: 0;
     &.adm-tabs-tab-active {
       background: var(--Black-BG-Dark-D, #292929);
-      color: var(--Black-Tertiary-D, #9A9A9A);
+      color: var(--Black-Tertiary-D, #9a9a9a);
     }
-   }
+  }
 }
 .discover-app-select-drawer-root {
   &.telegram-common-drawer .TMRWDAO-btn {
     border-radius: 16px;
   }
   .TMRWDAO-checkbox-wrapper {
-    color: var(--Black-Tertiary-D, #9A9A9A);
+    color: var(--Black-Tertiary-D, #9a9a9a);
     text-align: center;
     font-size: 16px;
     font-weight: 400;
@@ -76,10 +75,10 @@
     @apply flex-center;
     padding: 8px;
     border-radius: 100px;
-    border: 1px solid var(--Black-BG-Light-D, #3A3A3A);
+    border: 1px solid var(--Black-BG-Light-D, #3a3a3a);
   }
   .TMRWDAO-checkbox-wrapper-checked {
-    background: var(--Black-BG-Light-D, #3A3A3A);
+    background: var(--Black-BG-Light-D, #3a3a3a);
   }
 }
 .discover-app-select-drawer {
@@ -100,10 +99,10 @@
 .discover-app-list-refresh-icon {
   @apply w-[48px] h-[48px];
   position: fixed;
-  right: 0;
-  bottom: 84px;
+  right: 16px;
+  bottom: 155px;
   border-radius: 100px;
-  background: var(--Violet-violet-600, #4B1FC5);
+  background: var(--Violet-violet-600, #4b1fc5);
   /* Shadow_Button */
-  box-shadow: 0px 4px 8px 0px rgba(34, 14, 91, 0.40);
+  box-shadow: 0px 4px 8px 0px rgba(34, 14, 91, 0.4);
 }

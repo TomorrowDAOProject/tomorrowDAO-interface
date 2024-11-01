@@ -2,7 +2,8 @@
   .banner-img {
     @apply w-full;
   }
-  @apply pt-[32px] px-[16px];
+  @apply pt-[32px] px-[16px] pb-[110px];
+
   .rules-wrap {
     @apply top-[32px] right-[16px];
   }
@@ -16,8 +17,8 @@
   }
 
   .reward {
-    color: var(--Text-1, #ACA6FF);
-    background: #1B1741;
+    color: var(--Text-1, #aca6ff);
+    background: #1b1741;
     border-radius: 8px;
     @apply p-[24px] text-center;
   }
@@ -25,7 +26,7 @@
     @apply text-[16px];
   }
   .reward-num {
-    color: #FFF;
+    color: #fff;
     margin-top: 4px;
   }
   .records {
@@ -37,18 +38,16 @@
       }
     }
     .border {
-      border-left: 1px solid #2D1F73;
-      @apply w-[1px] ;
+      border-left: 1px solid #2d1f73;
+      @apply w-[1px];
     }
     .records-title {
-      color: var(--Text-1, #ACA6FF);
+      color: var(--Text-1, #aca6ff);
       display: flex;
       align-items: center;
       margin-bottom: 4px;
     }
   }
-
-
 }
 .invite-drawer-header {
   .close-target {
@@ -58,49 +57,50 @@
 .referral-wrap {
   .leaderboard-wrap {
     border-radius: 8px;
-    background: #1B1741;
+    background: #1b1741;
     padding-top: 8px;
     padding-bottom: 8px;
   }
 }
-.invite-drawer-body, .referral-wrap {
+.invite-drawer-body,
+.referral-wrap {
   .fake-avatar {
-    color: #7F7FA7;
+    color: #7f7fa7;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
-    line-height: 16px; 
+    line-height: 16px;
     @apply w-[20px] h-[20px] rounded-full bg-[#303055] flex-center flex justify-center mr-[4px];
   }
   .TMRWDAO-hash-address > span {
-    color: #FFF;
+    color: #fff;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: 16px;
   }
   .leaderboard-wrap {
-    color: #FFF;
+    color: #fff;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: 16px;
     .header {
       @apply p-[12px];
-      color: var(--Text-1, #ACA6FF);
+      color: var(--Text-1, #aca6ff);
     }
     .top-wrap {
       border-radius: 8px;
-      background: var(--Interactive-2, #2D1F73);
+      background: var(--Interactive-2, #2d1f73);
       @apply px-[8px] py-[10px] mx-[4px];
       .main {
         @apply flex;
       }
       .me-tag {
         border-radius: 3px;
-        background: var(--Accent-1, #0395FF);
+        background: var(--Accent-1, #0395ff);
         padding: 0px 2px;
-        color: #FFF;
+        color: #fff;
         font-size: 10px;
         font-weight: 400;
         margin-left: 4px;
@@ -112,7 +112,9 @@
     .invite-item {
       @apply px-[12px] py-[14px];
     }
-    .header, .top-wrap, .invite-item {
+    .header,
+    .top-wrap,
+    .invite-item {
       @apply flex items-center;
       .left {
         @apply w-[12.3vw];
@@ -125,7 +127,7 @@
         text-align: right;
       }
       .TMRWDAO-hash-address > span {
-        color: #FFF;
+        color: #fff;
       }
     }
     .view-more {
@@ -138,7 +140,7 @@
       justify-content: center;
       cursor: pointer;
       @apply py-[8px];
-      color: var(--Accent-1, #0395FF);
+      color: var(--Accent-1, #0395ff);
       .view-more-text {
         @apply pr-[8px];
       }
@@ -156,7 +158,7 @@
     @apply px-[12px] py-[19px];
   }
   .top-wrap {
-    background: var(--Interactive-Gray-3, #2F3036);
+    background: var(--Interactive-Gray-3, #2f3036);
     @apply px-[12px] py-[14px];
   }
   .invite-item {
@@ -174,7 +176,7 @@
     border: 1px solid var(--Border-Gray-1, #373940) !important;
     background: var(--Interactive-Gray-1, #212125) !important;
     border-radius: 16px;
-    color: #FFF !important;
+    color: #fff !important;
   }
 }
 .invite-drawer-popup {
@@ -182,11 +184,11 @@
     @apply text-white;
   }
   &.TMRWDAO-select-dropdown {
-    background: var(--Interactive-Gray-2, #28292E);
+    background: var(--Interactive-Gray-2, #28292e);
   }
   .TMRWDAO-select-item-option {
-    background: var(--Interactive-Gray-2, #28292E) !important;
-    color: #FFF !important;
+    background: var(--Interactive-Gray-2, #28292e) !important;
+    color: #fff !important;
     font-size: 14px;
     font-style: normal;
     font-weight: 400 !important;
@@ -198,25 +200,25 @@
 .referral-link-wrap {
   border-radius: 12px;
   margin-top: 24px;
-  background: var(--Interactive-Gray-2, #28292E);
+  background: var(--Interactive-Gray-2, #28292e);
   width: 100%;
   @apply p-[12px];
   h2 {
-    color: #FFF;
+    color: #fff;
     @apply mb-[8px];
   }
   .link {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: var(--Text-Gray-1, #B1B3BC);
+    color: var(--Text-Gray-1, #b1b3bc);
   }
   .link-text {
     @apply mr-[12px];
   }
   .copy-button {
     border-radius: 8px;
-background: var(--Custom-plain_background, rgba(255, 255, 255, 0.08));
+    background: var(--Custom-plain_background, rgba(255, 255, 255, 0.08));
     @apply p-[8px] cursor-pointer text-[16px];
   }
 }
@@ -228,9 +230,9 @@ background: var(--Custom-plain_background, rgba(255, 255, 255, 0.08));
   }
   h2 {
     font-size: 16px;
-    color: var(--Text-1, #ACA6FF);
+    color: var(--Text-1, #aca6ff);
     font-weight: 400;
-    line-height: 20px; 
+    line-height: 20px;
     margin-bottom: 20px;
     text-align: center;
   }
@@ -243,8 +245,8 @@ background: var(--Custom-plain_background, rgba(255, 255, 255, 0.08));
   .text-item {
     padding: 8px;
     border-radius: 8px;
-    background: #1B1741;
-    color: #FFF;
+    background: #1b1741;
+    color: #fff;
     width: 100%;
   }
   .referral-task-item-rules {
@@ -258,7 +260,7 @@ background: var(--Custom-plain_background, rgba(255, 255, 255, 0.08));
       @apply flex flex-col justify-between;
     }
     .bold {
-      color: var(--Accent-2, #51FF00);
+      color: var(--Accent-2, #51ff00);
       font-weight: 590;
     }
   }
