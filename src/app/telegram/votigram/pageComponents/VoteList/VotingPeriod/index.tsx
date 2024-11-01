@@ -21,7 +21,6 @@ const VotingPeriod: FC<IVotingPeriodProps> = ({
   const votingPeriodDrawerRef = useRef<ICommonDrawerRef>(null);
   const [endDateTimeCountDown, setEndDateTimeCountDown] = useState<number | undefined>(endDateTime);
 
-  console.log(dayjs);
   useEffect(() => {
     const timer = setInterval(() => {
       if (endDateTime) {
@@ -40,21 +39,6 @@ const VotingPeriod: FC<IVotingPeriodProps> = ({
 
     return () => clearInterval(timer);
   }, [endDateTimeCountDown, endDateTime]);
-
-  // const [secondsLeft, setSecondsLeft] = useState(endDateTime);
-
-  // useEffect(() => {
-  //   // If the countdown has reached zero, do not start the timer
-  //   if (secondsLeft < 0) return;
-
-  //   // Set up the interval that decreases the countdown
-  //   const intervalId = setInterval(() => {
-  //     setSecondsLeft((prevSeconds) => prevSeconds - 1);
-  //   }, 1000);
-
-  //   // Clean up the interval on component unmount or when secondsLeft changes
-  //   return () => clearInterval(intervalId);
-  // }, [secondsLeft]); // Dependency array: re-run effect if secondsLeft changes
 
   const renderTimeLeft = (secondsLeft: number | undefined) => {
     const endDateObj = dayjs(endDateTime);
@@ -86,8 +70,6 @@ const VotingPeriod: FC<IVotingPeriodProps> = ({
 
     return 'Voting is over!';
   };
-
-  console.log(endDateTimeCountDown);
 
   return (
     <>
