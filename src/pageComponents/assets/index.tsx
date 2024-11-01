@@ -2,6 +2,7 @@
 
 import {
   Asset as AssetV2,
+  did,
   PortkeyAssetProvider as PortkeyAssetProviderV2,
 } from '@portkey/did-ui-react';
 
@@ -12,12 +13,14 @@ import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { LeftOutlined } from '@ant-design/icons';
 
 import './index.css';
+import { LoginStatusEnum } from '@portkey/types';
 
 export interface IMyAssetProps {
   redirect?: boolean;
   onBack?: () => void;
 }
 export default function MyAsset(props: IMyAssetProps) {
+  const isLoginOnChain = did.didWallet.isLoginStatus === LoginStatusEnum.SUCCESS;
   const { redirect = true, onBack } = props;
   const router = useRouter();
   const { walletInfo: wallet } = useConnectWallet();
@@ -35,6 +38,7 @@ export default function MyAsset(props: IMyAssetProps) {
       <PortkeyAssetProvider
         originChainId={wallet?.extraInfo?.portkeyInfo?.chainId as Chain}
         pin={wallet?.extraInfo?.portkeyInfo?.pin}
+        isLoginOnChain={isLoginOnChain}
       >
         <Asset
           isShowRamp={true}

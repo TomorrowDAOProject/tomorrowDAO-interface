@@ -31,12 +31,15 @@ import { LeftArrowOutlined } from '@aelf-design/icons';
 import { ReactComponent as Share } from 'assets/icons/share.svg';
 import { ReactComponent as CopyLink } from 'assets/icons/copy-link.svg';
 import { ReactComponent as Telegram } from 'assets/icons/telegram.svg';
+import { ReactComponent as Info } from 'assets/icons/info.svg';
 
 import useVotePoints from '../../hook/use-vote-points';
 import Image from 'next/image';
 
 import './index.css';
 import { stringifyStartAppParams } from '../../util/start-params';
+import dayjs from 'dayjs';
+import VotingPeriod from './VotingPeriod';
 
 export const getShareText = (title: string) => {
   function decodeHtmlEntity(str: string) {
@@ -62,6 +65,7 @@ export default function VoteList({
   isGold: boolean;
   detailTitle: string;
 }) {
+  const votingPeriodDrawerRef = useRef<ICommonDrawerRef>(null);
   const confirmDrawerRef = useRef<ICommonDrawerRef>(null);
   const loadingDrawerRef = useRef<ICommonDrawerRef>(null);
   const ruleDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -337,15 +341,22 @@ export default function VoteList({
           )}
         </div>
       )}
-      <div className="flex items-center gap-4 py-4">
-        <span className="text-white text-base">Remaining vote</span>
-        <div className="flex items-end gap-0.5">
-          <span className="text-2xl leading-[30px] font-medium text-[#51FF00]">
-            {rankList?.data?.canVoteAmount ?? 0}
-          </span>
-          <span className="text-[#616161] leading-[30px] text-base">/</span>
-          <span className="text-[#616161] leading-[26px] text-base">1</span>
+      <div className="flex items-center justify-between gap-4 py-4">
+        <div className="flex items-center gap-4">
+          <span className="text-white text-base">Remaining vote</span>
+          <div className="flex items-end gap-0.5">
+            <span className="text-2xl leading-[30px] font-medium text-[#51FF00]">
+              {rankList?.data?.canVoteAmount ?? 0}
+            </span>
+            <span className="text-[#616161] leading-[30px] text-base">/</span>
+            <span className="text-[#616161] leading-[26px] text-base">1</span>
+          </div>
         </div>
+        <VotingPeriod
+          startDateTime={rankList?.data.startEpochTime || undefined}
+          endDateTime={rankList?.data.endEpochTime || undefined}
+          refreshVotingDetail={getRankingListFn}
+        />
       </div>
 
       {rankListLoading ? (
@@ -454,6 +465,27 @@ export default function VoteList({
               }}
             >
               Retry
+            </Button>
+          </div>
+        }
+      />
+      <CommonDrawer
+        title="Voting Period"
+        ref={votingPeriodDrawerRef}
+        body={
+          <div className="flex flex-col items-center">
+            <p className="font-14-18 mt-3 text-center">
+              {`${dayjs(rankList?.data?.startEpochTime).format('YYYY.MM.DD HH:mm')} - ${dayjs(
+                rankList?.data?.endEpochTime,
+              ).format('YYYY.MM.DD HH:mm')}`}
+            </p>
+            <Button
+              type="primary"
+              onClick={() => {
+                votingPeriodDrawerRef.current?.close();
+              }}
+            >
+              Got it
             </Button>
           </div>
         }

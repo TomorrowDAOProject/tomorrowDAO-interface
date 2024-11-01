@@ -48,4 +48,5 @@ export enum ETelegramAppCategory {
   Utility = 'Utility',
   Information = 'Information',
   Ecommerce = 'Ecommerce',
+  New = 'New',
 }

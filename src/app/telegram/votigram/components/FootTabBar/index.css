@@ -1,19 +1,13 @@
 .foot-tabbar {
   z-index: 1001;
-    @apply fixed bottom-[34px] gap-[12px] flex w-[18.3125rem] p-[8px] flex-row rounded-[4.875rem] bg-[#292929] left-[50%] translate-x-[-50%];
-    .foot-tabbar-item {
-      @apply flex flex-col justify-center items-center text-[#9A9A9A] text-center text-[0.875rem] leading-[1.125rem] w-[60px] h-[60px] rounded-full;
-      .TMRWDAO-icon {
-        @apply text-[24px];
-      }
-      &.active {
-        @apply text-[#FFF];
-      }
-      &.bg {
-        @apply bg-[#3A3A3A];
-        &.active {
-          @apply bg-[#5222D8];
-        }
-      }
+  @apply fixed bottom-0 gap-3 flex w-full p-2 pb-4 flex-row bg-[#292929] justify-around;
+  .foot-tabbar-item {
+    @apply flex flex-col justify-center items-center text-[#9A9A9A] text-center text-[0.875rem] leading-[1.125rem] w-[60px] h-[60px] rounded-full;
+    .TMRWDAO-icon {
+      @apply text-[24px];
+    }
+    &.active {
+      @apply text-[#5222D8];
     }
   }
+}

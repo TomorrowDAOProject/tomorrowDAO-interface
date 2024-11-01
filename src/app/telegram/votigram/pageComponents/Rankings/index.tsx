@@ -40,7 +40,13 @@ interface IFetchResult {
 export interface IRankingsRef {
   openDetailWithProposalId: (proposalId: string) => void;
 }
-const Rankings = forwardRef<IRankingsRef>((props, ref) => {
+
+interface IRankingsProps {
+  toggleNewListDrawerOpen?: () => void;
+}
+
+const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
+  console.log('ranking props', props);
   const pointsDrawerRef = useRef<ICommonDrawerRef>(null);
   const detailDrawerRef = useRef<ICommonDrawerRef>(null);
   const createVoteDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -116,7 +122,7 @@ const Rankings = forwardRef<IRankingsRef>((props, ref) => {
   const initialize = async () => {
     try {
       const [officialData, bannerData] = await Promise.all([
-        fetchRankings(RANKING_TYPE_KEY.OFFICIAL, 0, OFFICIAL_ROW_COUNT),
+        fetchRankings(RANKING_TYPE_KEY.TRENDING, 0, OFFICIAL_ROW_COUNT),
         fetchRankings(RANKING_TYPE_KEY.TOP_BANNER, 0, BANNER_ROW_COUNT),
       ]);
 
@@ -131,7 +137,7 @@ const Rankings = forwardRef<IRankingsRef>((props, ref) => {
 
   const onShowMoreClick = async () => {
     const newOfficialData = await fetchRankings(
-      RANKING_TYPE_KEY.OFFICIAL,
+      RANKING_TYPE_KEY.TRENDING,
       officialList.length,
       OFFICIAL_ROW_COUNT,
     );
@@ -224,7 +230,7 @@ const Rankings = forwardRef<IRankingsRef>((props, ref) => {
       <div className="flex flex-col border-0 border-b border-[#1B1B1B] border-solid">
         <span className="text-base items-center flex my-4">
           <Official className="text-xl mr-1" />
-          Official List
+          Trending List
         </span>
         <div className="flex flex-col gap-4">
           {officialList?.map((item) => (

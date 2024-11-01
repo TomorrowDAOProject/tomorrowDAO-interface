@@ -1,11 +1,19 @@
 import { CheckCircleOutlined, WalletOutlined } from '@aelf-design/icons';
 import './index.css';
 import clsx from 'clsx';
+import { ReactComponent as Add } from 'assets/icons/add.svg';
+import Fire from 'assets/imgs/fire.png';
 import { ITabSource } from '../../type';
+import { useEffect, useState } from 'react';
+import { getRankings } from 'api/request';
+import { curChain } from 'config';
+import { RANKING_TYPE_KEY } from 'constants/ranking';
+import Image from 'next/image';
 
 export interface IFootTabBarProps {
   value: number;
   onChange: (value: number) => void;
+  toggleNewListDrawerOpen: () => void;
 }
 const GiftIcon = () => {
   return (
@@ -82,41 +90,106 @@ const DiscoverIcon = () => (
     />
   </svg>
 );
-const footTabBarList = [
+
+const leftMenu = [
   {
     icon: <CheckCircleOutlined />,
     text: 'Vote',
+    value: ITabSource.Rank,
   },
   {
     icon: <DiscoverIcon />,
     text: 'Discover',
+    value: ITabSource.Discover,
   },
+];
+
+const rightMenu = [
   {
     icon: <TaskIcon />,
     text: 'Task',
+    value: ITabSource.Task,
   },
   {
     icon: <GiftIcon />,
     text: 'Referral',
+    value: ITabSource.Referral,
   },
-  // {
-  //   icon: <WalletIcon />,
-  //   text: 'Wallet',
-  // },
 ];
+
 export default function FootTabBar(props: IFootTabBarProps) {
-  const { value, onChange } = props;
+  const { value, onChange, toggleNewListDrawerOpen } = props;
+  const [bannerExist, setBannerExist] = useState(false);
+
+  const fetchRankings = async (type: number, skipCount: number, maxResultCount: number) => {
+    try {
+      const result = await getRankings({
+        chainId: curChain,
+        type,
+        skipCount,
+        maxResultCount,
+      });
+      return {
+        list: result?.data?.data || [],
+        userTotalPoints: result?.data?.userTotalPoints || 0,
+        hasMoreData: skipCount < result.data?.totalCount,
+      };
+    } catch (error) {
+      console.error(`Failed to fetch rankings of type ${type}`, error);
+      return {};
+    }
+  };
+
+  const checkBanner = async () => {
+    const result = await fetchRankings(RANKING_TYPE_KEY.TOP_BANNER, 0, 10);
+    setBannerExist((result.list?.length ?? 0) > 0);
+  };
+
+  useEffect(() => {
+    checkBanner();
+  }, []);
+
   return (
     <ul className="foot-tabbar">
-      {footTabBarList.map((item, index) => (
+      {leftMenu.map((item, index) => (
         <li
-          className={clsx('foot-tabbar-item', {
-            active: index === value,
-            bg: index === 0,
+          className={clsx('foot-tabbar-item relative', {
+            active: item.value === value,
           })}
           key={index}
           onClick={() => {
-            onChange(index);
+            onChange(item.value);
+          }}
+        >
+          {item.icon}
+          <span>{item.text}</span>
+          {bannerExist && item.value === ITabSource.Rank && (
+            <Image
+              className="animate-flash absolute top-[5px] right-[10px]"
+              src={Fire}
+              width={16}
+              height={16}
+              alt="Hot"
+            />
+          )}
+        </li>
+      ))}
+      <li className="relative">
+        <div
+          onClick={toggleNewListDrawerOpen}
+          className="mt-[-28px] rounded-full bg-[#5222D8] h-14 w-14 flex justify-center items-center"
+        >
+          <Add className="text-[32px] text-white" />
+        </div>
+      </li>
+      {rightMenu.map((item, index) => (
+        <li
+          className={clsx('foot-tabbar-item', {
+            active: item.value === value,
+          })}
+          key={index}
+          onClick={() => {
+            onChange(item.value);
           }}
         >
           {item.icon}

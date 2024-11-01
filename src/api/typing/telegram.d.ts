@@ -72,11 +72,13 @@ interface IRankingListResItem {
 interface IRankingListResData {
   bannerUrl: string;
   canVoteAmount: number;
+  endEpochTime: number;
   endTime: string;
   labelType: RANKING_LABEL_KEY;
   proposalTitle: string;
   rankingList: Array<IRankingListResItem>;
   rankingType: RANKING_TYPE_KEY;
+  startEpochTime: number;
   startTime: string;
   totalVoteAmount: number;
   userTotalPoints: number;
@@ -224,10 +226,12 @@ interface IReferralBindingStatusRes {
 }
 // ------------------
 interface IGetRankPointsResItem {
-  title: string;
   description: string;
+  id: string;
   points: number;
+  pointsTime: number;
   pointsType: string;
+  title: string;
 }
 interface IGetRankPointsRes {
   code: number;

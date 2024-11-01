@@ -10,7 +10,6 @@ import { curChain, nftSymbol } from 'config';
 import { retryWrap } from 'utils/request';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { useConfig } from 'components/CmsGlobalConfig/type';
-import Footer from '../../components/Footer';
 import TimeoutTip from '../../components/TimeoutTip';
 import { TelegramPlatform } from '@portkey/did-ui-react';
 import { parseStartAppParams } from '../../util/start-params';
@@ -217,7 +216,6 @@ function SceneLoading(props: ISceneLoadingProps) {
         }
       />
       <TimeoutTip style={{ display: isTimeout ? 'flex' : 'none' }} />
-      <Footer classname="scene-foot-text" />
     </>
   );
 }

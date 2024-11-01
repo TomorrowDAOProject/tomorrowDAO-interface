@@ -1,5 +1,5 @@
 .my-point-wrap {
-  @apply  px-[16px];
+  @apply px-[16px];
   min-height: calc(100vh - 186px);
   .header {
     @apply my-[8px];
@@ -13,7 +13,7 @@
   .point-list {
     @apply flex flex-col gap-[8px];
     .point-list-item {
-      @apply flex justify-between px-[16px] h-[68px] items-center rounded-[1rem] border-[0.0625rem] border-solid border-[#454750] bg-[#2F3036];
+      @apply flex justify-between px-4 py-3 h-[92px] items-center rounded-[1rem] border-[0.0625rem] border-solid border-[#454750] bg-[#2F3036];
       .TMRWDAO-icon {
         @apply text-[28px] text-[#ACA6FF];
       }
@@ -21,16 +21,16 @@
         @apply flex items-center pr-[16px];
       }
       .body {
-        @apply  ml-[16px];
+        @apply ml-[16px];
         p {
-          color: var(--Native-subtitle_text_color, #AAA);
+          color: var(--Native-subtitle_text_color, #aaa);
         }
         h3 {
           color: #fff;
         }
       }
       .amount {
-        color: var(--Text-2, #DDDFFF);
+        color: var(--Text-2, #dddfff);
       }
     }
   }
@@ -46,4 +46,3 @@
     }
   }
 }
-
