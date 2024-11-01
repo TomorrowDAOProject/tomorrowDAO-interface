@@ -54,17 +54,30 @@ const VotingPeriod: FC<IVotingPeriodProps> = ({
 
     if (secondsLeft > 0) {
       if (secondsLeft <= 3600) {
+        // Less than 1 hour
         return 'Less than 1 hour left to vote!';
       }
 
-      if (secondsLeft < 86400) {
-        const daysDiff = endDateObj.diff(todayDateObj, 'hour');
-        return `${daysDiff} hour(s) left to vote!`;
+      if (secondsLeft > 3600 && secondsLeft <= 7200) {
+        // 1 hour < secondsLeft < 2 hours
+        return '1 hour left to vote';
       }
 
-      if (secondsLeft >= 86400) {
+      if (secondsLeft > 7200 && secondsLeft <= 86400) {
+        // 2 hour < secondsLeft < 1 day
+        const daysDiff = endDateObj.diff(todayDateObj, 'hour');
+        return `${daysDiff} hour left to vote!`;
+      }
+
+      if (secondsLeft > 86400 && secondsLeft <= 172800) {
+        // 1 day < secondsLeft < 2 days
+        return '1 day left to vote';
+      }
+
+      if (secondsLeft > 172800) {
+        // secondsLeft > 2 days
         const daysDiff = endDateObj.diff(todayDateObj, 'day');
-        return `${daysDiff} day(s) left to vote!`;
+        return `${daysDiff} days left to vote!`;
       }
     }
 
