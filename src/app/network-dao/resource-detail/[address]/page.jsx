@@ -9,6 +9,7 @@ const PageIndex = dynamicReq(() => import('./_page'), { ssr: false });
 export default function Page() {
   const { address } = useParams();
   const { isSideChain } = useChainSelect();
+  debugger;
   return (
     <ConfigProvider prefixCls="antExplorer"
     theme={{
@@ -26,7 +27,7 @@ export default function Page() {
         isSideChain ? <Result
         className="px-4 lg:px-8"
         status="warning"
-        title="The current content is only displayed under MainChain AELF, please switch the chain"
+        title="The current content is only displayed under aelf MainChain, please switch the chain"
       /> :<PageIndex address={address} />
       }
       

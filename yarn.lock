@@ -3305,6 +3305,15 @@
     "@portkey/types" "^2.15.1"
     "@portkey/utils" "^2.15.1"
 
+"@portkey/contracts@^2.15.2-alpha.0":
+  version "2.15.2-alpha.0"
+  resolved "https://registry.yarnpkg.com/@portkey/contracts/-/contracts-2.15.2-alpha.0.tgz#17abe06c33576ad970196dde9d69a3afed8fe6b7"
+  integrity sha512-l/Z6HZF6P7TIBlrZaw+Pq+5xDYHJW2fwSlZIPDlo3GQGu52AC/WYE4AXYBbqMqByv+Per/K3e/XXNqYJDJZaqA==
+  dependencies:
+    "@portkey/provider-types" "^2.1.0"
+    "@portkey/types" "^2.15.2-alpha.0"
+    "@portkey/utils" "^2.15.2-alpha.0"
+
 "@portkey/detect-provider@2.0.0-alpha.5":
   version "2.0.0-alpha.5"
   resolved "https://registry.npmjs.org/@portkey/detect-provider/-/detect-provider-2.0.0-alpha.5.tgz#78eb2c85ce287c42753362659ccbbc4ab7313643"
@@ -3396,6 +3405,16 @@
   resolved "https://registry.yarnpkg.com/@portkey/onboarding/-/onboarding-2.15.1.tgz#5409abd42efdd17e33d61c62260c60858228edf1"
   integrity sha512-NV/JF8n4Z8WHv5eHEdtSpPmPM/xoUeboOtGmXsXbJxP7StoYiANtbooAfY79AtvIdvMjV/SMHJfLuUwxpO1s6g==
   dependencies:
+    "@apollo/client" "^3.7.3"
+    "@portkey/types" "^2.15.2-alpha.0"
+    graphql "^16.6.0"
+    subscriptions-transport-ws "^0.11.0"
+
+"@portkey/onboarding@^2.15.2-alpha.0":
+  version "2.15.2-alpha.0"
+  resolved "https://registry.yarnpkg.com/@portkey/onboarding/-/onboarding-2.15.2-alpha.0.tgz#f1a4f629aa0aa2f58b930f49595793594618423f"
+  integrity sha512-kL6y+8ixm1khInCJrRucn9f3MTpLj/G4bUJZ2afperKy2l8N5QV+2lG4uiuaYjrwyqRfFSkYmZmxioLuo1+0kg==
+  dependencies:
     "@portkey/detect-provider" "^2.0.0-alpha.2"
     "@portkey/types" "^2.15.1"
     "@portkey/utils" "^2.15.1"
@@ -3461,6 +3480,14 @@
     "@portkey/types" "^2.15.1"
     query-string "^7.1.1"
 
+"@portkey/request@^2.15.2-alpha.0":
+  version "2.15.2-alpha.0"
+  resolved "https://registry.yarnpkg.com/@portkey/request/-/request-2.15.2-alpha.0.tgz#66c03f42e91f25977e915e88ef52db0cdc4fd8be"
+  integrity sha512-GtTwjpOj1oNRi2EbHvccPBxc5QlX5a0xxN9Kpe3sjt4hSC9lL6NMie5DkG3BAD6RruWXumNfDLwOWUg6otmK0g==
+  dependencies:
+    "@portkey/types" "^2.15.2-alpha.0"
+    query-string "^7.1.1"
+
 "@portkey/services@^2.11.0":
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/@portkey/services/-/services-2.11.0.tgz#6da1166cdb2919b0d317f22c53918c8f6814a4ef"
@@ -3486,6 +3513,16 @@
   resolved "https://registry.yarnpkg.com/@portkey/socket/-/socket-2.15.1.tgz#86d12242bdf9f89d31b45ceed419553264c83462"
   integrity sha512-ghsBeZnyWzZlmIfxofcy1qP5WaNIhd0YGN1nHQ/CCJtKXLoGaq599ycMUBkJl2JsGnIpQ4euusND93428R4EFw==
   dependencies:
+    "@portkey/graphql" "^2.15.2-alpha.0"
+    "@portkey/request" "^2.15.2-alpha.0"
+    "@portkey/types" "^2.15.2-alpha.0"
+    "@portkey/utils" "^2.15.2-alpha.0"
+
+"@portkey/socket@^2.15.2-alpha.0":
+  version "2.15.2-alpha.0"
+  resolved "https://registry.yarnpkg.com/@portkey/socket/-/socket-2.15.2-alpha.0.tgz#2fde7aee20d4cbf6320bf0521a858dc32a10b6ca"
+  integrity sha512-cFk4v928wwNj5xZQgRWFgnVb9BEDrDcDiq31VpLi6HES9Qt6s26DmqKDuJUppqE+GmsYxcZmHARpr64biZxAWg==
+  dependencies:
     "@abp/signalr" "^7.0.0"
     "@portkey/utils" "^2.15.1"
 
@@ -3503,6 +3540,11 @@
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/@portkey/types/-/types-2.15.1.tgz#751bcb3fde29684057a0793a7a42d03f88e2a1d1"
   integrity sha512-GgUSxZE+UD7OXCSmHm+zkYuhL+ruAPinqw4MAgNub28xOZNQ0p9cZOq9OQ2H/CoMkC2porR8gYQQxwDIXqKYoA==
+
+"@portkey/types@^2.15.2-alpha.0":
+  version "2.15.2-alpha.0"
+  resolved "https://registry.yarnpkg.com/@portkey/types/-/types-2.15.2-alpha.0.tgz#facc9203e1e704df88742290b6207c639f425780"
+  integrity sha512-ib4ij1UgnGRC2q+lzAa4BEruwwWG2Zo1quH3CAUNZnbqkBLQMWRCuZG/P6SUb0KYxdVvQiLJY9rFiVziS0W+7g==
 
 "@portkey/utils@^2.11.0":
   version "2.11.0"
@@ -3522,6 +3564,11 @@
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/@portkey/validator/-/validator-2.15.1.tgz#8a7b77b09117617790efd0c89005740863a1eb2f"
   integrity sha512-xfSNyRtOQFPTXXRY9zpYOk3yyMppW/321gDcPVtjYcFsoBEz9rT05yEYIcsKW4VSUmaFoeQXWEIYvv9PVgzBZA==
+
+"@portkey/validator@^2.15.2-alpha.0":
+  version "2.15.2-alpha.0"
+  resolved "https://registry.yarnpkg.com/@portkey/validator/-/validator-2.15.2-alpha.0.tgz#78bcd39b318eefe01d8579e31f8262dce31e00dc"
+  integrity sha512-xWkfwIirjlcGpHhoTgLL5oNlyybedupyONN1Qvur6/148ginLumitCeNHQwzeqK34Y+C+oS7hfQY3Gs2g9Pp0Q==
 
 "@prisma/instrumentation@5.17.0":
   version "5.17.0"
