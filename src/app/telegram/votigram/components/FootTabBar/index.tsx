@@ -2,11 +2,13 @@ import { CheckCircleOutlined, WalletOutlined } from '@aelf-design/icons';
 import './index.css';
 import clsx from 'clsx';
 import { ReactComponent as Add } from 'assets/icons/add.svg';
+import Fire from 'assets/imgs/fire.png';
 import { ITabSource } from '../../type';
 import { useEffect, useState } from 'react';
 import { getRankings } from 'api/request';
 import { curChain } from 'config';
 import { RANKING_TYPE_KEY } from 'constants/ranking';
+import Image from 'next/image';
 
 export interface IFootTabBarProps {
   value: number;
@@ -162,7 +164,13 @@ export default function FootTabBar(props: IFootTabBarProps) {
           {item.icon}
           <span>{item.text}</span>
           {bannerExist && item.value === ITabSource.Rank && (
-            <span className="animate-flash absolute top-[5px] right-[10px]">🔥</span>
+            <Image
+              className="animate-flash absolute top-[5px] right-[10px]"
+              src={Fire}
+              width={16}
+              height={16}
+              alt="Hot"
+            />
           )}
         </li>
       ))}
