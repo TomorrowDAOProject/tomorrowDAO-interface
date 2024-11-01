@@ -39,6 +39,7 @@ import Image from 'next/image';
 import './index.css';
 import { stringifyStartAppParams } from '../../util/start-params';
 import dayjs from 'dayjs';
+import VotingPeriod from './VotingPeriod';
 
 export const getShareText = (title: string) => {
   function decodeHtmlEntity(str: string) {
@@ -296,30 +297,6 @@ export default function VoteList({
     return `${tgLink}?startapp=${paramsStr}`;
   };
 
-  const renderTimeLeft = (endDate: string) => {
-    const endDateObj = dayjs(endDate);
-    const todayDateObj = dayjs();
-
-    if (endDateObj > todayDateObj) {
-      const secondsDiff = endDateObj.diff(todayDateObj, 'second');
-      if (secondsDiff <= 60) {
-        return 'Less than one hour left to vote';
-      }
-
-      if (secondsDiff < 86400) {
-        const daysDiff = endDateObj.diff(todayDateObj, 'hour');
-        return `${daysDiff} hour(s) left to vote!`;
-      }
-
-      if (secondsDiff >= 86400) {
-        const daysDiff = endDateObj.diff(todayDateObj, 'day');
-        return `${daysDiff} day(s) left to vote!`;
-      }
-    }
-
-    return 'Voting is over!';
-  };
-
   return (
     <div className="votigram-main">
       <div className="mb-4 flex items-center relative justify-center">
@@ -375,20 +352,11 @@ export default function VoteList({
             <span className="text-[#616161] leading-[26px] text-base">1</span>
           </div>
         </div>
-        <div className="flex flex-col text-right">
-          <span>Vote period:</span>
-          <div className="flex items-center gap-1">
-            <span className="font-bold text-xs text-[#C9BAF3]">
-              {renderTimeLeft(rankList?.data?.endTime || '')}
-            </span>
-            <Info
-              className="text-base text-[#C9BAF3]"
-              onClick={() => {
-                votingPeriodDrawerRef.current?.open();
-              }}
-            />
-          </div>
-        </div>
+        <VotingPeriod
+          startDateTime={rankList?.data.startEpochTime || undefined}
+          endDateTime={rankList?.data.endEpochTime || undefined}
+          refreshVotingDetail={getRankingListFn}
+        />
       </div>
 
       {rankListLoading ? (
@@ -507,8 +475,8 @@ export default function VoteList({
         body={
           <div className="flex flex-col items-center">
             <p className="font-14-18 mt-3 text-center">
-              {`${dayjs(rankList?.data?.startTime).format('YYYY.MM.DD HH:mm')} - ${dayjs(
-                rankList?.data?.endTime,
+              {`${dayjs(rankList?.data?.startEpochTime).format('YYYY.MM.DD HH:mm')} - ${dayjs(
+                rankList?.data?.endEpochTime,
               ).format('YYYY.MM.DD HH:mm')}`}
             </p>
             <Button
