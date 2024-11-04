@@ -9,7 +9,6 @@ const PageIndex = dynamicReq(() => import('./_page'), { ssr: false });
 export default function Page() {
   const { address } = useParams();
   const { isSideChain } = useChainSelect();
-  debugger;
   return (
     <ConfigProvider prefixCls="antExplorer"
     theme={{
