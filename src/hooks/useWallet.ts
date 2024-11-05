@@ -37,7 +37,7 @@ export const useWalletService = () => {
 };
 
 export const useCheckLoginAndToken = () => {
-  const { isConnected, disConnectWallet, walletInfo: wallet } = useConnectWallet();
+  const { isConnected, disConnectWallet, walletInfo: wallet, walletType } = useConnectWallet();
   const isConnectWallet = isConnected;
   const { getToken, checkTokenValid } = useGetToken();
   const { isTelegram } = useUrlPath();
@@ -67,7 +67,10 @@ export const useCheckLoginAndToken = () => {
     }
   };
   useAsyncEffect(async () => {
-    if (isConnectWallet && wallet) {
+    const waitPublicKey =
+      walletType === WalletTypeEnum.discover ? true : wallet?.extraInfo?.publicKey;
+    console.log('isConnectWallet', isConnectWallet, wallet, waitPublicKey);
+    if (isConnectWallet && wallet && waitPublicKey) {
       if (authManager.isAuthing) return;
       authManager.isAuthing = true;
       emitLoading(true, 'Authorize account...');
@@ -92,7 +95,7 @@ export const useCheckLoginAndToken = () => {
       authManager.isAuthing = false;
       // emitLoading(true, 'Authorize account...');
     }
-  }, [isConnectWallet, wallet]);
+  }, [isConnectWallet, wallet, wallet?.extraInfo?.publicKey, walletType]);
 
   useEffect(() => {
     if (wallet?.address && isConnected) {
