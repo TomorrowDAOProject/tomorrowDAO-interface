@@ -3,7 +3,6 @@
 import {
   did,
   Asset as AssetV2,
-  did,
   PortkeyAssetProvider as PortkeyAssetProviderV2,
 } from '@portkey/did-ui-react';
 import { useRouter } from 'next/navigation';
@@ -13,7 +12,6 @@ import { LoginStatusEnum } from '@aelf-web-login/wallet-adapter-base';
 import { LeftOutlined } from '@ant-design/icons';
 
 import './index.css';
-import { LoginStatusEnum } from '@portkey/types';
 
 export interface IMyAssetProps {
   redirect?: boolean;
@@ -26,7 +24,6 @@ export default function MyAsset(props: IMyAssetProps) {
   const { walletInfo: wallet } = useConnectWallet();
   const Asset = AssetV2;
   const PortkeyAssetProvider = PortkeyAssetProviderV2;
-  const isLoginOnChain = did.didWallet.isLoginStatus === LoginStatusEnum.SUCCESS;
 
   useEffect(() => {
     if (!wallet?.address && redirect) {
