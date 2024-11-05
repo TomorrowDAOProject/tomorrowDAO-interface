@@ -1,19 +1,17 @@
 'use client';
 
 import {
-  Asset as AssetV2,
   did,
+  Asset as AssetV2,
   PortkeyAssetProvider as PortkeyAssetProviderV2,
 } from '@portkey/did-ui-react';
-
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
-
+import { LoginStatusEnum } from '@aelf-web-login/wallet-adapter-base';
 import { LeftOutlined } from '@ant-design/icons';
 
 import './index.css';
-import { LoginStatusEnum } from '@portkey/types';
 
 export interface IMyAssetProps {
   redirect?: boolean;

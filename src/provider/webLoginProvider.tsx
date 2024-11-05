@@ -143,7 +143,7 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
     keyboard: true,
     noCommonBaseModal: false,
     design: SignInDesignEnum.CryptoDesign,
-    // enableAcceleration: true,
+    enableAcceleration: true,
   };
 
   const aaWallet = useMemo(() => {
