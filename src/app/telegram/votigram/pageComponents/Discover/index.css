@@ -107,7 +107,7 @@
 .discover-app-list-refresh-icon {
   @apply w-[48px] h-[48px];
   position: fixed;
-  right: 16px;
+  right: 30px;
   bottom: 115px;
   border-radius: 100px;
   background: var(--Violet-violet-600, #4b1fc5);
