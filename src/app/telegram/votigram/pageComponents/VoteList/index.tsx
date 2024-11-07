@@ -40,6 +40,7 @@ import './index.css';
 import { stringifyStartAppParams } from '../../util/start-params';
 import dayjs from 'dayjs';
 import VotingPeriod from './VotingPeriod';
+import { useCopyToClipboard } from 'react-use';
 
 export const getShareText = (title: string) => {
   function decodeHtmlEntity(str: string) {
@@ -74,6 +75,7 @@ export default function VoteList({
   const shareDrawerRef = useRef<ICommonDrawerRef>(null);
 
   // const [isLoading, setIsLoading] = useState(true);
+  const [, setCopied] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
   const [currentVoteItem, setCurrentVoteItem] = useState<IRankingListResItem | null>(null);
   const [wsRankList, setWsRankList] = useState<IWsPointsItem[]>([]);
@@ -527,7 +529,7 @@ export default function VoteList({
             <div
               className="flex flex-1 justify-center items-center flex-col gap-2"
               onClick={() => {
-                navigator?.clipboard?.writeText(generateShareUrl());
+                setCopied(generateShareUrl());
                 setIsCopied(true);
               }}
             >
