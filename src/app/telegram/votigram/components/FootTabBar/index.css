@@ -11,3 +11,29 @@
     }
   }
 }
+
+.floating-menu-container {
+  display: flex;
+  position: fixed;
+  z-index: 999;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.wallet-entry-button {
+  position: fixed;
+  right: -20px;
+  bottom: -30px;
+  display: flex;
+  padding: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background: var(--Solid-1, #5222d8);
+  box-shadow: 0px 4px 8px 0px rgba(34, 14, 91, 0.4);
+  z-index: 1001;
+  color: white;
+  cursor: pointer;
+}
