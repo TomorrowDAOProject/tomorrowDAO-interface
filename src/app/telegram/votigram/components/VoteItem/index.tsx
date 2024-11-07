@@ -122,21 +122,8 @@ export default function VoteItem(props: IVoteItemProps) {
       >
         <div className="telegram-vote-item-content truncate">
           {showRankIndex && (
-            <div className={`rank-index-wrap ${index ? 'rank-icon' : 'rank-not-icon'}`}>
-              {isRankIcon ? (
-                <img
-                  src={`/images/tg/rank-icon-${index}.png`}
-                  className="vote-item-icon"
-                  alt="rank-icon"
-                  width={24}
-                  height={45}
-                />
-              ) : (
-                <div className="rank-text">
-                  <span className="title">{index + 1}</span>
-                  <span className="text">RANK</span>
-                </div>
-              )}
+            <div className="rank-index-wrap flex justify-center items-center">
+              <span className="text-lg font-bold">{index + 1}</span>
             </div>
           )}
 

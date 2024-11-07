@@ -195,10 +195,19 @@ interface IGetInviteDetailReq {
   chainId: string;
 }
 interface IRewardInfo {
-  estimatedReward: number;
   accountCreation: number;
-  votigramVote: number;
+  accountCreationAll: number;
+  address: string;
+  caHash: string;
+  duringCycle: boolean;
+  endTime: number;
+  estimatedReward: number;
+  estimatedRewardAll: number;
+  startTime: number;
   votigramActivityVote: number;
+  votigramActivityVoteAll: number;
+  votigramVote: number;
+  votigramVoteAll: number;
 }
 interface IGetInviteDetailResponse {
   code: number;
@@ -281,15 +290,22 @@ interface IGetDiscoverAppListRes {
 
 interface IDiscoverAppItem {
   alias: string;
-  title: string;
-  icon: string;
+  appType: string;
+  categories: string[];
+  createTime: string; // Consider using Date instead of string for more precise typing
+  creator: string;
   description: string;
   editorChoice: boolean;
-  url: string;
+  icon: string;
+  id: string;
+  loadTime: string; // Date could be used for better date handling
   longDescription: string;
-  screenshots: string[];
+  screenshots: string[]; // Array of image URLs
+  title: string;
   totalPoints: number;
-  categories: string[];
+  updateTime: string; // Using Date could benefit future calculations
+  url: string;
+  viewed: boolean;
 }
 
 // ------------------- discover view -------------------
@@ -339,5 +355,13 @@ interface IRankingsRes {
     totalCount: number;
     userTotalPoints: number;
     data: IRankingsItem[];
+  };
+}
+
+interface IRankingBannerInfoRes {
+  code: string;
+  data: {
+    notViewedNewAppCount: number;
+    hasFire: boolean;
   };
 }

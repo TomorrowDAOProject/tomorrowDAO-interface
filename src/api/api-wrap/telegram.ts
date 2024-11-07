@@ -18,8 +18,10 @@ const reportSourceUrl = '/user/user-source-report';
 const discoverAppListUrl = '/discover/app-list';
 const discoverViewUrl = '/discover/view';
 const discoverConfirmChooseUrl = '/discover/choose';
+const discoverViewAp = '/discover/view-app';
 
 const rankingsUrl = '/ranking/list';
+const rankingBannerInfo = '/ranking/banner-info';
 
 export const nftTokenTransfer = async (
   params: INftTokenTransfer,
@@ -169,6 +171,23 @@ export const getRankings = async (params: {
   });
 };
 
+export const getRankingBannerInfo = async (params: {
+  chainId: string;
+}): Promise<IRankingBannerInfoRes> => {
+  return apiServer.get(rankingBannerInfo, {
+    ...params,
+  });
+};
+
+export const updateViewApp = async (params: {
+  chainId: string;
+  aliases: string[];
+}): Promise<IDiscoverConfirmChooseRes> => {
+  return apiServer.post(discoverViewAp, {
+    ...params,
+  });
+};
+
 export const telegramNeedAuthList = [
   transferUrl,
   rankingVoteUrl,
@@ -188,4 +207,6 @@ export const telegramNeedAuthList = [
   discoverViewUrl,
   discoverConfirmChooseUrl,
   rankingsUrl,
+  rankingBannerInfo,
+  discoverViewAp,
 ];

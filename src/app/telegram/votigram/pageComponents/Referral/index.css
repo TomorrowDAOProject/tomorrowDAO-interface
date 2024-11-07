@@ -70,7 +70,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 16px;
-    @apply w-[20px] h-[20px] rounded-full bg-[#303055] flex-center flex justify-center mr-[4px];
+    @apply w-[20px] h-[20px] rounded-full bg-[#303055] flex-center flex justify-center;
   }
   .TMRWDAO-hash-address > span {
     color: #fff;
@@ -103,7 +103,6 @@
         color: #fff;
         font-size: 10px;
         font-weight: 400;
-        margin-left: 4px;
         line-height: 10px;
         width: 19px;
         height: 12px;
@@ -120,7 +119,7 @@
         @apply w-[12.3vw];
       }
       .main {
-        @apply flex-1 px-[8px] flex items-center;
+        @apply flex-1 pl-2 flex items-center gap-1;
       }
       .right {
         @apply w-[15.38vw];
