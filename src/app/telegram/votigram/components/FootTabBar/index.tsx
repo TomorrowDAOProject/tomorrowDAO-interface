@@ -61,6 +61,7 @@ export default function FootTabBar(props: IFootTabBarProps) {
         <div className="flex flex-1 w-full h-full">
           {leftMenu.map((item) => (
             <div
+              key={item.value}
               className={clsx(
                 'flex flex-1 flex-col justify-center items-center gap-1 text-[#9A9A9A]',
                 {
@@ -85,6 +86,7 @@ export default function FootTabBar(props: IFootTabBarProps) {
         <div className="flex flex-1 w-full h-full">
           {rightMenu.map((item) => (
             <div
+              key={item.value}
               className={clsx(
                 'flex flex-1 flex-col justify-center items-center gap-1 text-[#9A9A9A]',
                 {
