@@ -25,8 +25,10 @@ const VotingPeriod: FC<IVotingPeriodProps> = ({
     const timer = setInterval(() => {
       if (endDateTime) {
         const newCountdownValue = dayjs(endDateTime).diff(dayjs(), 'second');
-        if (newCountdownValue < 0) {
+        if (newCountdownValue === 0) {
           refreshVotingDetail?.();
+        }
+        if (newCountdownValue < 0) {
           clearInterval(timer);
           return;
         }
