@@ -2,11 +2,11 @@ import { Button, TabsProps, Checkbox } from 'antd';
 import { Tabs } from 'antd-mobile';
 import { ETelegramAppCategory } from '../../type';
 import './index.css';
-import InfiniteList from './InfiniteList';
+import InfiniteList, { InfiniteListRef } from './InfiniteList';
 import { useAsyncEffect } from 'ahooks';
 import { discoverConfirmChoose, getDiscoverAppView } from 'api/request';
 import { curChain } from 'config';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import { useConfig } from 'components/CmsGlobalConfig/type';
 import Image from 'next/image';
@@ -112,7 +112,7 @@ interface IDiscover {
   onBannerView: (alias: string) => void;
 }
 
-export default function Discover({ bannerCount, onBannerView }: IDiscover) {
+const Discover = forwardRef<InfiniteListRef, IDiscover>(({ bannerCount, onBannerView }, ref) => {
   const { discoverTopBannerURL } = useConfig() ?? {};
   const chooseDrawerRef = useRef<ICommonDrawerRef>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -175,7 +175,7 @@ export default function Discover({ bannerCount, onBannerView }: IDiscover) {
               }
               key={item.key}
             >
-              <InfiniteList category={item.key} onBannerView={onBannerView} />
+              <InfiniteList ref={ref} category={item.key} onBannerView={onBannerView} />
             </Tabs.Tab>
           );
         })}
@@ -218,4 +218,6 @@ export default function Discover({ bannerCount, onBannerView }: IDiscover) {
       />
     </div>
   );
-}
+});
+
+export default Discover;

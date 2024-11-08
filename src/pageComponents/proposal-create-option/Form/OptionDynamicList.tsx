@@ -88,9 +88,10 @@ function FormListFullItems(props: IFormItemsProps) {
           <AWSUpload
             accept=".png,.jpg,.jpeg"
             maxFileCount={1}
-            tips={'Formats supported: PNG and JPG. Ratio: 1:1, less than 1 MB'}
+            tips="Formats supported: PNG and JPG. Ratio: 1:1, less than 10 MB"
             needCheckImgSize
             ratio={1}
+            fileLimit="10 MB"
             ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
           />
         </Form.Item>
@@ -147,7 +148,7 @@ function FormListFullItems(props: IFormItemsProps) {
         </Form.Item>
         <Form.Item
           name={[field.name, 'screenshots']}
-          label={'Image'}
+          label="Image"
           valuePropName="fileList"
           labelCol={{
             span: 4,
@@ -157,7 +158,8 @@ function FormListFullItems(props: IFormItemsProps) {
           <AWSUpload
             accept=".png,.jpg,.jpeg"
             maxFileCount={9}
-            tips={`Formats supported: PNG and JPG. less than 1 MB. `}
+            fileLimit="10 MB"
+            tips="Formats supported: PNG and JPG. less than 10 MB."
           />
         </Form.Item>
       </div>

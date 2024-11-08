@@ -15,6 +15,7 @@ import { useConfig } from 'components/CmsGlobalConfig/type';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import { getRankingBannerInfo, updateViewApp } from 'api/request';
 import { curChain } from 'config';
+import { InfiniteListRef } from '../Discover/InfiniteList';
 
 export interface IMainProps {
   onShowMore?: (item: IRankingListResItem) => void;
@@ -25,6 +26,7 @@ export default function Main(props: IMainProps) {
   const [bannerCount, setBannerCount] = useState(0);
   const { createVotePageTitle } = useConfig() ?? {};
   const createVoteDrawerRef = useRef<ICommonDrawerRef>(null);
+  const infiniteListRef = useRef<InfiniteListRef>(null);
 
   const rankPageRef = useRef<IRankingsRef>(null);
   const activeTab = activeTabStack[activeTabStack.length - 1];
@@ -80,11 +82,16 @@ export default function Main(props: IMainProps) {
     }
   };
 
+  const onReloadClick = () => {
+    document.body.scrollTop = 0;
+    infiniteListRef.current?.listReload();
+  };
+
   return (
     <>
       <div className="relative">
         {activeTab.path === ITabSource.Discover && (
-          <Discover bannerCount={bannerCount} onBannerView={onBannerView} />
+          <Discover ref={infiniteListRef} bannerCount={bannerCount} onBannerView={onBannerView} />
         )}
         {activeTab.path === ITabSource.Rank && (
           <Rankings ref={rankPageRef} toggleNewListDrawerOpen={toggleNewListDrawerOpen} />
@@ -147,6 +154,7 @@ export default function Main(props: IMainProps) {
           bannerCount={bannerCount}
           value={activeTab.path}
           toggleNewListDrawerOpen={toggleNewListDrawerOpen}
+          onReloadClick={onReloadClick}
           onChange={(value: number) => {
             pushStackByValue(value);
           }}

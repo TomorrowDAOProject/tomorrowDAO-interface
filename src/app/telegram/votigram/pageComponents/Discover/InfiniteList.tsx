@@ -1,7 +1,7 @@
 import { useInfiniteScroll } from 'ahooks';
 import { getDiscoverAppList } from 'api/request';
 import { curChain } from 'config';
-import { createRef, MutableRefObject, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import useInfiniteScrollUI from 'react-infinite-scroll-hook';
 import Loading from '../../components/Loading';
 import DiscoverItem from './DiscoverItem';
@@ -20,7 +20,11 @@ interface IFetchResult {
   hasData: boolean;
 }
 
-export default function InfiniteList(props: InfiniteListProps) {
+export interface InfiniteListRef {
+  listReload: () => void;
+}
+
+const InfiniteList = forwardRef<InfiniteListRef, InfiniteListProps>((props, ref) => {
   const { category, onBannerView } = props;
 
   const fetchList: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
@@ -50,6 +54,7 @@ export default function InfiniteList(props: InfiniteListProps) {
     reload: listReload,
     error,
   } = useInfiniteScroll(fetchList, { manual: true });
+
   const [sentryRef] = useInfiniteScrollUI({
     loading: listLoading,
     hasNextPage: Boolean(listData?.hasData),
@@ -67,6 +72,10 @@ export default function InfiniteList(props: InfiniteListProps) {
   useEffect(() => {
     listReload();
   }, []);
+
+  useImperativeHandle(ref, () => ({
+    listReload: listReload,
+  }));
 
   return (
     <div>
@@ -96,7 +105,7 @@ export default function InfiniteList(props: InfiniteListProps) {
           You have reached the bottom of the page.
         </div>
       )}
-      <div
+      {/* <div
         className="text-white flex-center discover-app-list-refresh-icon"
         onClick={() => {
           document.body.scrollTop = 0;
@@ -104,7 +113,9 @@ export default function InfiniteList(props: InfiniteListProps) {
         }}
       >
         <RefreshIcon />
-      </div>
+      </div> */}
     </div>
   );
-}
+});
+
+export default InfiniteList;
