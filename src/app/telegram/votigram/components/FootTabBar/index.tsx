@@ -9,6 +9,7 @@ import { ReactComponent as Task } from 'assets/icons/task.svg';
 import { ReactComponent as Referral } from 'assets/icons/referral.svg';
 import { ReactComponent as Plus } from 'assets/icons/plus.svg';
 import { ReactComponent as Wallet } from 'assets/icons/wallet.svg';
+import { ReactComponent as Refresh } from 'assets/icons/refresh.svg';
 import Hot from 'assets/imgs/hot.gif';
 
 import './index.css';
@@ -17,12 +18,13 @@ export interface IFootTabBarProps {
   value: number;
   bannerCount: number;
   onChange: (value: number) => void;
+  onReloadClick: () => void;
   toggleNewListDrawerOpen: () => void;
 }
 
 const leftMenu = [
   {
-    icon: <Image src={Hot} width={16} height={24} alt="hot" />,
+    icon: <Image src={Hot} width={18} height={24} alt="hot" />,
     text: 'Vote',
     value: ITabSource.Rank,
   },
@@ -47,7 +49,7 @@ const rightMenu = [
 ];
 
 export default function FootTabBar(props: IFootTabBarProps) {
-  const { value, onChange, toggleNewListDrawerOpen, bannerCount } = props;
+  const { value, onChange, toggleNewListDrawerOpen, onReloadClick, bannerCount } = props;
   const [discoverCount, setDiscoverCount] = useState(bannerCount);
 
   useEffect(() => {
@@ -105,7 +107,7 @@ export default function FootTabBar(props: IFootTabBarProps) {
       </div>
       <div
         onClick={toggleNewListDrawerOpen}
-        className="absolute justify-center items-center flex bg-[#5222D8] rounded-full left-1/2 p-3.5 mt-[-18px] translate-x-[-50%]"
+        className="absolute justify-center items-center flex rounded-full left-1/2 p-3.5 mt-[-18px] translate-x-[-50%] bg-gradient-to-br from-[#754EE0] to-[#5222D8]"
       >
         <Plus className="text-[24px] text-white" />
       </div>
@@ -117,6 +119,11 @@ export default function FootTabBar(props: IFootTabBarProps) {
           }}
         >
           <Wallet className="text-[24px] text-white" />
+        </div>
+      )}
+      {value === ITabSource.Discover && (
+        <div className="refresh-button" onClick={onReloadClick}>
+          <Refresh className="text-[24px] text-white" />
         </div>
       )}
     </div>

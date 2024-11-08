@@ -271,7 +271,7 @@ export default function Referral(props: IReferralProps) {
         <Button
           onClick={() => setIsViewAllModalOpen(false)}
           type="primary"
-          className="w-full text-[17px] bg-[#5222D8] font-semibold"
+          className="w-full text-[17px] !bg-[#5222D8] font-semibold active:bg-[#5222D8] active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]"
         >
           I See
         </Button>

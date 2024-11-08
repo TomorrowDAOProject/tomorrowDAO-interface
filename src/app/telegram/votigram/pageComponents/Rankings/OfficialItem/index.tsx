@@ -33,9 +33,12 @@ const OfficialItem = ({
 }: IOfficialItem) => {
   return (
     <div
-      className={clsx('flex rounded-2xl overflow-hidden relative', {
-        'opacity-70': dayjs() > dayjs(activeEndEpochTime),
-      })}
+      className={clsx(
+        'flex rounded-2xl overflow-hidden relative active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]',
+        {
+          'bg-opacity-80': dayjs() > dayjs(activeEndEpochTime),
+        },
+      )}
       onClick={() =>
         onItemClick?.({
           proposalId,
@@ -48,7 +51,7 @@ const OfficialItem = ({
         src={bannerUrl === '' ? '/images/tg/default-banner.png' : bannerUrl}
         className="w-full max-h-[121px]"
       />
-      <div className="absolute p-4 left-[126px] flex opacity-80 w-full h-full bg-black gap-2 items-center">
+      <div className="absolute p-4 left-[126px] flex opacity-[0.92] w-full h-full bg-black gap-2 items-center">
         <div className="flex flex-col w-[184px]">
           <span className="text-base mb-1">{proposalTitle}</span>
           <div className="text-xs px-2 w-max mb-2 rounded-full border border-[#2D1F73] border-solid text-[#ACA6FF] text-center">
