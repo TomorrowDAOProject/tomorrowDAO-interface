@@ -77,7 +77,7 @@ export default function FootTabBar(props: IFootTabBarProps) {
             >
               {item.icon}
               <span>{item.text}</span>
-              {item.value === ITabSource.Discover && (
+              {item.value === ITabSource.Discover && discoverCount > 0 && (
                 <span className="absolute right-[5px] top-[13px] bg-[#B7142D] rounded-full p-1 text-[10px] text-white">
                   {discoverCount > 99 ? `${discoverCount}+` : discoverCount}
                 </span>
@@ -107,13 +107,13 @@ export default function FootTabBar(props: IFootTabBarProps) {
       </div>
       <div
         onClick={toggleNewListDrawerOpen}
-        className="absolute justify-center items-center flex rounded-full left-1/2 p-3.5 mt-[-18px] translate-x-[-50%] bg-gradient-to-br from-[#754EE0] to-[#5222D8]"
+        className="absolute justify-center items-center flex rounded-full left-1/2 p-3.5 mt-[-18px] translate-x-[-50%] bg-gradient-to-br from-[#754EE0] to-[#5222D8] active:bg-[#5222D8] active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]"
       >
         <Plus className="text-[24px] text-white" />
       </div>
       {value !== ITabSource.Asset && (
         <div
-          className="wallet-entry-button"
+          className="wallet-entry-button active:bg-[#5222D8] active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]"
           onClick={() => {
             onChange(ITabSource.Asset);
           }}
@@ -122,7 +122,10 @@ export default function FootTabBar(props: IFootTabBarProps) {
         </div>
       )}
       {value === ITabSource.Discover && (
-        <div className="refresh-button" onClick={onReloadClick}>
+        <div
+          className="refresh-button active:bg-[#5222D8] active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]"
+          onClick={onReloadClick}
+        >
           <Refresh className="text-[24px] text-white" />
         </div>
       )}

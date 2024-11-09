@@ -20,7 +20,7 @@ import ReferralTask from './ReferralTask';
 import { useCopyToClipboard } from 'react-use';
 import { IStartAppParams } from '../../type';
 import { stringifyStartAppParams } from '../../util/start-params';
-import CommonModal from 'components/CommonModal';
+import CommonModal, { ICommonModalRef } from '../../components/CommonModal';
 import { ReactComponent as Vote } from 'assets/icons/vote.svg';
 import { ReactComponent as Account } from 'assets/icons/account.svg';
 
@@ -44,7 +44,7 @@ interface IReferralProps {
 export default function Referral(props: IReferralProps) {
   const { walletInfo: wallet, walletType } = useConnectWallet();
   const [currentTimePeriod, setCurrentTimePeriod] = useState('');
-  const [isViewAllModalOpen, setIsViewAllModalOpen] = useState(false);
+  const viewAllModalRef = useRef<ICommonModalRef>(null);
   const ruleDrawerRef = useRef<ICommonDrawerRef>(null);
   const shareDrawerRef = useRef<ICommonDrawerRef>(null);
   const listsDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -162,6 +162,11 @@ export default function Referral(props: IReferralProps) {
       }
     }
   }, [referrelConfigRes, runReferrelListQuery]);
+
+  const handleClose = () => {
+    viewAllModalRef.current?.close();
+  };
+
   return (
     <div className="referral-wrap">
       <img src="/images/tg/refer-banner.png" className="banner-img" alt="" />
@@ -221,7 +226,7 @@ export default function Referral(props: IReferralProps) {
             type="primary"
             className="w-full"
             onClick={() => {
-              setIsViewAllModalOpen(true);
+              viewAllModalRef.current?.open();
             }}
           >
             View All Records
@@ -244,38 +249,39 @@ export default function Referral(props: IReferralProps) {
         />
       </div>
       <CommonModal
-        open={isViewAllModalOpen}
+        ref={viewAllModalRef}
         title="My Invitation"
-        onCancel={() => {
-          setIsViewAllModalOpen(false);
-        }}
-      >
-        <div className="flex bg-[#1B1B1B] p-6 mb-2 justify-between rounded-2xl">
-          <span className="flex gap-1 items-center">
-            <Account className="text-[16px]" />
-            Account Creation
-          </span>
-          <span className="text-[#51FF00] font-semibold">
-            {inviteDetailRes?.data.accountCreationAll}
-          </span>
-        </div>
-        <div className="flex bg-[#1B1B1B] p-6 mb-10 justify-between rounded-2xl">
-          <span className="flex gap-1 items-center">
-            <Vote className="text-[16px]" />
-            Votigram Vote
-          </span>
-          <span className="text-[#51FF00] font-semibold">
-            {inviteDetailRes?.data.votigramActivityVoteAll}
-          </span>
-        </div>
-        <Button
-          onClick={() => setIsViewAllModalOpen(false)}
-          type="primary"
-          className="w-full text-[17px] !bg-[#5222D8] font-semibold active:bg-[#5222D8] active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]"
-        >
-          I See
-        </Button>
-      </CommonModal>
+        onCloseClick={handleClose}
+        content={
+          <>
+            <div className="flex bg-[#1B1B1B] p-6 mb-2 justify-between rounded-2xl">
+              <span className="flex gap-1 items-center">
+                <Account className="text-[16px]" />
+                Account Creation
+              </span>
+              <span className="text-[#51FF00] font-semibold">
+                {inviteDetailRes?.data.accountCreationAll}
+              </span>
+            </div>
+            <div className="flex bg-[#1B1B1B] p-6 mb-10 justify-between rounded-2xl">
+              <span className="flex gap-1 items-center">
+                <Vote className="text-[16px]" />
+                Votigram Vote
+              </span>
+              <span className="text-[#51FF00] font-semibold">
+                {inviteDetailRes?.data.votigramActivityVoteAll}
+              </span>
+            </div>
+            <Button
+              onClick={() => viewAllModalRef.current?.close()}
+              type="primary"
+              className="w-full text-[17px] !bg-[#5222D8] font-semibold active:bg-[#5222D8] active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]"
+            >
+              I See
+            </Button>
+          </>
+        }
+      ></CommonModal>
 
       <CommonDrawer
         title={`Rules`}

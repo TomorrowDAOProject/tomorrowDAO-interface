@@ -16,8 +16,10 @@ interface IDiscoverProps {
 export default function DiscoverItem(props: IDiscoverProps) {
   const { item, category, onBannerView } = props;
   const itemRef = useRef<HTMLDivElement>(null);
+  const itemViewRef = useRef(item.viewed);
   useInViewport(itemRef, undefined, () => {
-    if (category === ETelegramAppCategory.New && !item.viewed) {
+    if (category === ETelegramAppCategory.New && !item.viewed && !itemViewRef.current) {
+      itemViewRef.current = true;
       onBannerView(item.alias);
     }
   });

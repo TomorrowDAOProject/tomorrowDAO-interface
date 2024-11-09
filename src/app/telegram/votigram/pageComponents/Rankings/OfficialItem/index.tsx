@@ -37,6 +37,7 @@ const OfficialItem = ({
         'flex rounded-2xl overflow-hidden relative active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]',
         {
           'bg-opacity-80': dayjs() > dayjs(activeEndEpochTime),
+          'opacity-70': dayjs() > dayjs(activeEndEpochTime),
         },
       )}
       onClick={() =>
@@ -63,6 +64,11 @@ const OfficialItem = ({
         </div>
         <ChevronRight className="text-base" />
       </div>
+      {dayjs() > dayjs(activeEndEpochTime) && (
+        <div className="absolute top-0 left-0 bg-[#221D51] px-[10px] py-[2px] text-[10px] rounded-br-full">
+          Expired
+        </div>
+      )}
     </div>
   );
 };
