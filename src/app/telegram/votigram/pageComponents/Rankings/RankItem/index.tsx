@@ -57,7 +57,7 @@ const RankItem: React.FC<RankItemProps> = ({
       />
       <div className="flex flex-col gap-[2px] flex-1 overflow-hidden">
         <div className="flex gap-2">
-          <span className="text-base leading-6 truncate flex-[8]">{proposalTitle}</span>
+          <span className="text-base leading-6 flex-[8]">{proposalTitle}</span>
         </div>
         <div className="flex gap-2 items-center">
           <div className="text-xs px-2 rounded-full border border-[#2D1F73] border-solid text-[#ACA6FF] text-center">
