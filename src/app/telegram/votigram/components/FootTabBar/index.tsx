@@ -79,7 +79,7 @@ export default function FootTabBar(props: IFootTabBarProps) {
               <span>{item.text}</span>
               {item.value === ITabSource.Discover && discoverCount > 0 && (
                 <span className="absolute right-[5px] top-[13px] bg-[#B7142D] rounded-full p-1 text-[10px] text-white">
-                  {discoverCount > 99 ? `${discoverCount}+` : discoverCount}
+                  {discoverCount > 99 ? '99+' : discoverCount}
                 </span>
               )}
             </div>
