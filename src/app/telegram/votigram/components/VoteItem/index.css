@@ -28,6 +28,32 @@
 
   .telegram-vote-item-content {
     @apply flex;
+
+    &.canVote {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70%;
+        height: 100%;
+        background: linear-gradient(to right, #754ee000 0, #754ee066 10%);
+        clip-path: polygon(0% -40%, 20% 50%, 0% 140%);
+        border-radius: 20px 0 0 20px;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: -13px;
+        width: 70%;
+        height: 100%;
+        background: linear-gradient(to right, #754ee000 0, #754ee080 10%);
+        clip-path: polygon(0% -40%, 20% 50%, 0% 140%);
+        border-radius: 20px 0 0 20px;
+      }
+    }
   }
   .rank-index-wrap {
     @apply w-[24px] h-[45px];

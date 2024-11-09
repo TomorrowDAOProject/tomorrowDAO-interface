@@ -2,11 +2,11 @@ import { Button, TabsProps, Checkbox } from 'antd';
 import { Tabs } from 'antd-mobile';
 import { ETelegramAppCategory } from '../../type';
 import './index.css';
-import InfiniteList from './InfiniteList';
+import InfiniteList, { InfiniteListRef } from './InfiniteList';
 import { useAsyncEffect } from 'ahooks';
 import { discoverConfirmChoose, getDiscoverAppView } from 'api/request';
 import { curChain } from 'config';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import { useConfig } from 'components/CmsGlobalConfig/type';
 import Image from 'next/image';
@@ -20,60 +20,52 @@ import Note from 'assets/imgs/note.png';
 import Screw from 'assets/imgs/screw.png';
 import Tick from 'assets/imgs/tick.png';
 import Star from 'assets/imgs/star.png';
+import clsx from 'clsx';
 
 const items: TabsProps['items'] = [
   {
     key: ETelegramAppCategory.Recommend,
     label: 'Recommend',
-    children: <InfiniteList category={ETelegramAppCategory.Recommend} />,
     icon: <Image src={Tick} width={14} height={14} alt="Recommend" />,
   },
   {
     key: ETelegramAppCategory.New,
     label: 'New',
-    children: <InfiniteList category={ETelegramAppCategory.New} />,
     icon: <Image src={Star} width={14} height={14} alt="New" />,
   },
   {
     key: ETelegramAppCategory.Game,
     label: 'Game',
-    children: <InfiniteList category={ETelegramAppCategory.Game} />,
     icon: <Image src={Game} width={14} height={14} alt="Game" />,
   },
   {
     key: ETelegramAppCategory.Earn,
     label: 'Earn',
-    children: <InfiniteList category={ETelegramAppCategory.Earn} />,
     icon: <Image src={Money} width={14} height={14} alt="Earn" />,
   },
   {
     key: ETelegramAppCategory.Finance,
     label: 'Finance',
-    children: <InfiniteList category={ETelegramAppCategory.Finance} />,
     icon: <Image src={Finance} width={14} height={14} alt="Finance" />,
   },
   {
     key: ETelegramAppCategory.Social,
     label: 'Social',
-    children: <InfiniteList category={ETelegramAppCategory.Social} />,
     icon: <Image src={Bubble} width={14} height={14} alt="Social" />,
   },
   {
     key: ETelegramAppCategory.Utility,
     label: 'Utility',
-    children: <InfiniteList category={ETelegramAppCategory.Utility} />,
     icon: <Image src={Screw} width={14} height={14} alt="Utility" />,
   },
   {
     key: ETelegramAppCategory.Information,
     label: 'Information',
-    children: <InfiniteList category={ETelegramAppCategory.Information} />,
     icon: <Image src={Note} width={14} height={14} alt="Information" />,
   },
   {
     key: ETelegramAppCategory.Ecommerce,
     label: 'E-commerce',
-    children: <InfiniteList category={ETelegramAppCategory.Ecommerce} />,
     icon: <Image src={Ecommerce} width={14} height={14} alt="Ecommerce" />,
   },
 ];
@@ -114,7 +106,13 @@ const options: {
     label: 'E-commerce',
   },
 ];
-export default function Discover() {
+
+interface IDiscover {
+  bannerCount: number;
+  onBannerView: (alias: string) => void;
+}
+
+const Discover = forwardRef<InfiniteListRef, IDiscover>(({ bannerCount, onBannerView }, ref) => {
   const { discoverTopBannerURL } = useConfig() ?? {};
   const chooseDrawerRef = useRef<ICommonDrawerRef>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -156,15 +154,28 @@ export default function Discover() {
         {items?.map((item) => {
           return (
             <Tabs.Tab
+              className={clsx(item.key === ETelegramAppCategory.New && 'new-tab')}
               title={
                 <>
                   {item.icon}
-                  <span className="ml-1">{item.label}</span>
+                  <span
+                    className={clsx(
+                      'ml-1',
+                      item.key === ETelegramAppCategory.New && 'text-[#cf6272]',
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                  {item.key === ETelegramAppCategory.New && bannerCount > 0 && (
+                    <span className="ml-1 bg-[#B7142D] text-white px-1 rounded-full">
+                      {bannerCount > 99 ? `${bannerCount}+` : bannerCount}
+                    </span>
+                  )}
                 </>
               }
               key={item.key}
             >
-              {item.children}
+              <InfiniteList ref={ref} category={item.key} onBannerView={onBannerView} />
             </Tabs.Tab>
           );
         })}
@@ -207,4 +218,6 @@ export default function Discover() {
       />
     </div>
   );
-}
+});
+
+export default Discover;

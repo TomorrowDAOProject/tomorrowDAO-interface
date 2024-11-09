@@ -120,36 +120,34 @@ export default function VoteItem(props: IVoteItemProps) {
         }`}
         ref={domRef}
       >
-        <div className="telegram-vote-item-content truncate">
+        <div
+          className={clsx('telegram-vote-item-content truncate', {
+            canVote,
+          })}
+        >
           {showRankIndex && (
-            <div className={`rank-index-wrap ${index ? 'rank-icon' : 'rank-not-icon'}`}>
-              {isRankIcon ? (
-                <img
-                  src={`/images/tg/rank-icon-${index}.png`}
-                  className="vote-item-icon"
-                  alt="rank-icon"
-                  width={24}
-                  height={45}
-                />
-              ) : (
-                <div className="rank-text">
-                  <span className="title">{index + 1}</span>
-                  <span className="text">RANK</span>
-                </div>
-              )}
+            <div className="rank-index-wrap flex justify-center items-center min-w-[24px]">
+              {!canVote &&
+                (isRankIcon ? (
+                  <img
+                    src={`/images/tg/rank-icon-${index}.png`}
+                    className="vote-item-icon"
+                    alt="Rank Icon"
+                    width={24}
+                    height={45}
+                  />
+                ) : (
+                  <div className="rank-text">
+                    <span className="title">{index + 1}</span>
+                    <span className="text">RANK</span>
+                  </div>
+                ))}
             </div>
           )}
 
           <div className="vote-game truncate">
             {item.icon ? (
-              <Image
-                src={item.icon}
-                width={44}
-                height={44}
-                quality={100}
-                className="rounded-lg"
-                alt=""
-              />
+              <img src={item.icon} className="w-[44px] h-[44px] rounded-lg" />
             ) : (
               <div className="rounded-lg vote-item-fake-logo font-17-22">
                 {(item.title?.[0] ?? 'T').toUpperCase()}
