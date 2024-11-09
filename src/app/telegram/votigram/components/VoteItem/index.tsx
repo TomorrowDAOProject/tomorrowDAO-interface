@@ -120,10 +120,14 @@ export default function VoteItem(props: IVoteItemProps) {
         }`}
         ref={domRef}
       >
-        <div className="telegram-vote-item-content truncate">
+        <div
+          className={clsx('telegram-vote-item-content truncate', {
+            canVote,
+          })}
+        >
           {showRankIndex && (
-            <div className="rank-index-wrap flex justify-center items-center">
-              <span className="text-lg font-bold">{index + 1}</span>
+            <div className="rank-index-wrap flex justify-center items-center min-w-[24px]">
+              {!canVote && <span className="text-lg font-bold">{index + 1}</span>}
             </div>
           )}
 
