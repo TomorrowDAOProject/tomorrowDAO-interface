@@ -53,14 +53,19 @@ const OfficialItem = ({
         className="w-full max-h-[121px]"
       />
       <div className="absolute p-4 left-[126px] flex opacity-[0.92] w-full h-full bg-black gap-2 items-center">
-        <div className="flex flex-col w-[184px]">
-          <span className="text-base mb-1">{proposalTitle}</span>
-          <div className="text-xs px-2 w-max mb-2 rounded-full border border-[#2D1F73] border-solid text-[#ACA6FF] text-center">
-            {RANKING_TYPE[rankingType || 1]}
+        <div className="flex flex-col gap-1 w-[184px]">
+          <p className="text-base line-clamp-3">{proposalTitle}</p>
+          <div className="flex gap-2 items-center">
+            <div className="text-xs px-2 w-max rounded-full border border-[#2D1F73] border-solid text-[#ACA6FF] text-center">
+              {RANKING_TYPE[rankingType || 1]}
+            </div>
+            <span className="text-[#9A9A9A] text-sm">
+              Total Votes{' '}
+              <span className="text-[#51FF00] font-semibold">
+                {totalVoteAmount.toLocaleString()}
+              </span>
+            </span>
           </div>
-          <span className="text-[#9A9A9A] text-sm">
-            Total Votes <span className="text-[#51FF00] font-semibold">{totalVoteAmount}</span>
-          </span>
         </div>
         <ChevronRight className="text-base" />
       </div>
