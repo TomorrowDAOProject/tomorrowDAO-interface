@@ -21,6 +21,7 @@ import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
 import { CreateVote } from '../CreateVote';
 
 import './index.css';
+import OfficialItem from './OfficialItem';
 
 const OFFICIAL_ROW_COUNT = 3;
 const COMMUNITY_ROW_COUNT = 10;
@@ -234,7 +235,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
         </span>
         <div className="flex flex-col gap-4">
           {officialList?.map((item) => (
-            <RankItem key={item.proposalId} {...item} onItemClick={onItemClick} />
+            <OfficialItem key={item.proposalId} {...item} onItemClick={onItemClick} />
           ))}
         </div>
         {hasMoreOfficial && (

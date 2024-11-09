@@ -1,16 +1,17 @@
 import { useInfiniteScroll } from 'ahooks';
 import { getDiscoverAppList } from 'api/request';
 import { curChain } from 'config';
-import { useEffect } from 'react';
-// import InfiniteScroll from 'react-infinite-scroll-component';
+import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import useInfiniteScrollUI from 'react-infinite-scroll-hook';
 import Loading from '../../components/Loading';
 import DiscoverItem from './DiscoverItem';
 import { RefreshIcon } from 'components/Icons';
 import { ETelegramAppCategory } from '../../type';
+import clsx from 'clsx';
 
 interface InfiniteListProps {
   category: string;
+  onBannerView: (alias: string) => void;
 }
 const MaxResultCount = 10;
 
@@ -19,8 +20,13 @@ interface IFetchResult {
   hasData: boolean;
 }
 
-export default function InfiniteList(props: InfiniteListProps) {
-  const { category } = props;
+export interface InfiniteListRef {
+  listReload: () => void;
+}
+
+const InfiniteList = forwardRef<InfiniteListRef, InfiniteListProps>((props, ref) => {
+  const { category, onBannerView } = props;
+
   const fetchList: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
     const preList = data?.list ?? [];
     const aliases =
@@ -39,6 +45,7 @@ export default function InfiniteList(props: InfiniteListProps) {
       hasData: len < res.data?.totalCount,
     };
   };
+
   const {
     data: listData,
     loadingMore: listLoadingMore,
@@ -47,6 +54,7 @@ export default function InfiniteList(props: InfiniteListProps) {
     reload: listReload,
     error,
   } = useInfiniteScroll(fetchList, { manual: true });
+
   const [sentryRef] = useInfiniteScrollUI({
     loading: listLoading,
     hasNextPage: Boolean(listData?.hasData),
@@ -59,19 +67,36 @@ export default function InfiniteList(props: InfiniteListProps) {
     // visible, instead of becoming fully visible on the screen.
     rootMargin: '0px 0px 400px 0px',
   });
+  const isLoading = listLoading || listLoadingMore;
+
   useEffect(() => {
     listReload();
   }, []);
-  const isLoading = listLoading || listLoadingMore;
+
+  useImperativeHandle(ref, () => ({
+    listReload: listReload,
+  }));
+
   return (
     <div>
       {listLoading
         ? null
-        : listData?.list.map((appItem, index) => <DiscoverItem item={appItem} key={index} />)}
+        : listData?.list.map((appItem, index) => (
+            <DiscoverItem
+              category={category}
+              onBannerView={onBannerView}
+              item={appItem}
+              key={index}
+            />
+          ))}
       <div ref={sentryRef} />
 
       {isLoading && (
-        <div className={`${listLoading ? 'init-loading-wrap' : ''} flex-center`}>
+        <div
+          className={clsx('flex-center', {
+            'init-loading-wrap': listLoading,
+          })}
+        >
           <Loading />
         </div>
       )}
@@ -80,7 +105,7 @@ export default function InfiniteList(props: InfiniteListProps) {
           You have reached the bottom of the page.
         </div>
       )}
-      <div
+      {/* <div
         className="text-white flex-center discover-app-list-refresh-icon"
         onClick={() => {
           document.body.scrollTop = 0;
@@ -88,7 +113,9 @@ export default function InfiniteList(props: InfiniteListProps) {
         }}
       >
         <RefreshIcon />
-      </div>
+      </div> */}
     </div>
   );
-}
+});
+
+export default InfiniteList;

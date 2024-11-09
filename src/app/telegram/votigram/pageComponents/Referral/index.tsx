@@ -20,6 +20,9 @@ import ReferralTask from './ReferralTask';
 import { useCopyToClipboard } from 'react-use';
 import { IStartAppParams } from '../../type';
 import { stringifyStartAppParams } from '../../util/start-params';
+import CommonModal, { ICommonModalRef } from '../../components/CommonModal';
+import { ReactComponent as Vote } from 'assets/icons/vote.svg';
+import { ReactComponent as Account } from 'assets/icons/account.svg';
 
 interface ShortLinkResponse {
   shortLink: string;
@@ -41,6 +44,7 @@ interface IReferralProps {
 export default function Referral(props: IReferralProps) {
   const { walletInfo: wallet, walletType } = useConnectWallet();
   const [currentTimePeriod, setCurrentTimePeriod] = useState('');
+  const viewAllModalRef = useRef<ICommonModalRef>(null);
   const ruleDrawerRef = useRef<ICommonDrawerRef>(null);
   const shareDrawerRef = useRef<ICommonDrawerRef>(null);
   const listsDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -158,6 +162,11 @@ export default function Referral(props: IReferralProps) {
       }
     }
   }, [referrelConfigRes, runReferrelListQuery]);
+
+  const handleClose = () => {
+    viewAllModalRef.current?.close();
+  };
+
   return (
     <div className="referral-wrap">
       <img src="/images/tg/refer-banner.png" className="banner-img" alt="" />
@@ -184,7 +193,7 @@ export default function Referral(props: IReferralProps) {
       <div className="tg-information-card">
         <div className="top-logo">
           <img src="/images/tg/rectangle-top-border.png" alt="" />
-          <h3 className="card-title-text font-16-20-weight">Invitation Records</h3>
+          <h3 className="card-title-text font-16-20-weight">Current Period Records</h3>
         </div>
         <div className="reward">
           <div className="reward-title">
@@ -197,20 +206,31 @@ export default function Referral(props: IReferralProps) {
         </div>
         <div className="records">
           <div className="records-item">
-            <div className="records-title">
-              <img src="/images/tg/account-icon.png" alt="" />
+            <div className="records-title gap-1">
+              <Account className="text-[16px] text-white" />
               <span className="font-14-18 ">Account Creation</span>
             </div>
             {inviteDetailRes?.data?.accountCreation}
           </div>
           <div className="border"></div>
           <div className="records-item">
-            <div className="records-title">
-              <img src="/images/tg/vote-icon.png" alt="" />
+            <div className="records-title gap-1">
+              <Vote className="text-[16px] text-white" />
               <span className="font-14-18">Votigram Vote</span>
             </div>
             {BigNumber(inviteDetailRes?.data?.votigramActivityVote ?? 0).toFormat()}
           </div>
+        </div>
+        <div className="mt-4">
+          <Button
+            type="primary"
+            className="w-full"
+            onClick={() => {
+              viewAllModalRef.current?.open();
+            }}
+          >
+            View All Records
+          </Button>
         </div>
       </div>
       <div className="tg-information-card">
@@ -228,6 +248,40 @@ export default function Referral(props: IReferralProps) {
           isLoading={referrelListResLoading}
         />
       </div>
+      <CommonModal
+        ref={viewAllModalRef}
+        title="My Invitation"
+        onCloseClick={handleClose}
+        content={
+          <>
+            <div className="flex bg-[#1B1B1B] p-6 mb-2 justify-between rounded-2xl">
+              <span className="flex gap-1 items-center">
+                <Account className="text-[16px]" />
+                Account Creation
+              </span>
+              <span className="text-[#51FF00] font-semibold">
+                {inviteDetailRes?.data.accountCreationAll}
+              </span>
+            </div>
+            <div className="flex bg-[#1B1B1B] p-6 mb-10 justify-between rounded-2xl">
+              <span className="flex gap-1 items-center">
+                <Vote className="text-[16px]" />
+                Votigram Vote
+              </span>
+              <span className="text-[#51FF00] font-semibold">
+                {inviteDetailRes?.data.votigramActivityVoteAll}
+              </span>
+            </div>
+            <Button
+              onClick={() => viewAllModalRef.current?.close()}
+              type="primary"
+              className="w-full text-[17px] !bg-[#5222D8] font-semibold active:bg-[#5222D8] active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]"
+            >
+              I See
+            </Button>
+          </>
+        }
+      ></CommonModal>
 
       <CommonDrawer
         title={`Rules`}
