@@ -166,7 +166,7 @@ const Discover = forwardRef<InfiniteListRef, IDiscover>(({ bannerCount, onBanner
                   >
                     {item.label}
                   </span>
-                  {item.key === ETelegramAppCategory.New && (
+                  {item.key === ETelegramAppCategory.New && bannerCount > 0 && (
                     <span className="ml-1 bg-[#B7142D] text-white px-1 rounded-full">
                       {bannerCount > 99 ? `${bannerCount}+` : bannerCount}
                     </span>
