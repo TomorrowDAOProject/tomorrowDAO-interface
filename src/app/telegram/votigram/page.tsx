@@ -13,7 +13,7 @@ export default async function page() {
     return (
       <>
         <Script
-          src="https://richinfo.co/richpartners/telegram/js/rp-ob.js?pub_id=947286&widget_id=353236"
+          src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=947286&siteid=353397"
           strategy="lazyOnload" // or another strategy like "afterInteractive"
           data-cfasync="false"
           async
