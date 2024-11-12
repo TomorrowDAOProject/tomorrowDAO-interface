@@ -51,8 +51,9 @@ const OfficialItem = ({
       <img
         src={bannerUrl === '' ? '/images/tg/default-banner.png' : bannerUrl}
         className="w-full max-h-[121px]"
+        alt="banner"
       />
-      <div className="absolute p-4 left-[126px] flex opacity-[0.92] w-full h-full bg-black gap-2 items-center">
+      <div className="absolute p-4 left-[126px] flex w-full h-full bg-[rgba(0,0,0,0.7)] gap-2 items-center">
         <div className="flex flex-col gap-1 w-[184px]">
           <p className="text-base line-clamp-3">{proposalTitle}</p>
           <div className="flex gap-2 items-center">
