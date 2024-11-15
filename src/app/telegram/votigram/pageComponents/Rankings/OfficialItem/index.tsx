@@ -65,19 +65,6 @@ const OfficialItem = ({
       </div>
       <div className="px-4 py-2 left-[126px] flex w-full h-full gap-2 items-center">
         <p className="text-base line-clamp-3">{proposalTitle}</p>
-        {/* <div className="flex flex-col gap-1 w-[184px]">
-          <div className="flex gap-2 items-center">
-            <div className="text-xs px-2 w-max rounded-full border border-[#2D1F73] border-solid text-[#ACA6FF] text-center">
-              {RANKING_TYPE[rankingType || 1]}
-            </div>
-            <span className="text-[#9A9A9A] text-sm">
-              Total Votes{' '}
-              <span className="text-[#51FF00] font-semibold">
-                {totalVoteAmount.toLocaleString()}
-              </span>
-            </span>
-          </div>
-        </div> */}
       </div>
       {dayjs() > dayjs(activeEndEpochTime) && (
         <div className="absolute top-0 left-0 bg-[#221D51] px-[10px] py-[2px] text-[10px] rounded-br-full">
