@@ -265,7 +265,6 @@ export const TaskItem = (props: ITaskItemProps) => {
       <AdsGram
         ref={adsGramRef}
         onCustomReward={() => {
-          debugger;
           getTaskListFn();
         }}
       />
