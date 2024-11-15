@@ -264,7 +264,7 @@ export const TaskItem = (props: ITaskItemProps) => {
       </div>
       <AdsGram
         ref={adsGramRef}
-        onCustomReward={() => {
+        onRewardModalClose={() => {
           getTaskListFn();
         }}
       />

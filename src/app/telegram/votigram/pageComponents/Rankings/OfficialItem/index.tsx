@@ -63,8 +63,8 @@ const OfficialItem = ({
           </span>
         </div>
       </div>
-      <div className="px-4 py-2 left-[126px] flex w-full h-full gap-2 items-center overflow-hidden whitespace-nowrap">
-        <div className="flex gap-5 animate-scroll-left">
+      <div className="px-4 py-2 left-[126px] flex w-[90%] ml-[5%] h-full gap-2 items-center overflow-hidden whitespace-nowrap">
+        <div className="flex gap-5 animate-scroll-left ">
           <p className="text-base">{proposalTitle}</p>
           <p className="text-base">{proposalTitle}</p>
         </div>

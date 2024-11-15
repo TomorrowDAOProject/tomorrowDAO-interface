@@ -42,7 +42,7 @@
     font-size: 16px;
     &.dailyAds {
       color: #e0ad28;
-      background-color: #fcebbe;
+      background-color: #fef9ea;
     }
     &.complete {
       color: #dddfff;
