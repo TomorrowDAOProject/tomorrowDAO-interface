@@ -61,7 +61,6 @@ const OfficialItem = ({
             <Vote className="text-[13px] text-[#9A9A9A]" />
             {totalVoteAmount.toLocaleString()}
           </span>
-
         </div>
       </div>
       <div className="px-4 py-2 left-[126px] flex w-full h-full gap-2 items-center">

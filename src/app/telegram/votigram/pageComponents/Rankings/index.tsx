@@ -25,17 +25,13 @@ import { Button } from 'antd';
 import RankItem from './RankItem';
 import clsx from 'clsx';
 import BannerList from './BannerList';
-import { ADSGRAM_ID, RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
+import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
 import { CreateVote } from '../CreateVote';
 
-import './index.css';
 import OfficialItem from './OfficialItem';
-import { useAdsgram } from '../../hook/useAdsgram';
-import { ShowPromiseResult } from 'types/adsgram';
-import dayjs from 'dayjs';
-import CommonModal, { ICommonModalRef } from '../../components/CommonModal';
-import Present from 'assets/imgs/present.png';
 import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
+
+import './index.css';
 
 const OFFICIAL_ROW_COUNT = 3;
 const COMMUNITY_ROW_COUNT = 10;

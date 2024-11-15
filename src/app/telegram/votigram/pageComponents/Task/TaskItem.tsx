@@ -70,7 +70,7 @@ const openNewPageWaitPageVisible = async (
 const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?: Function }> = {
   [UserTaskDetail.DailyViewAd]: {
     icon: <Image src={VideoImage} alt="video" width={32} height={32} />,
-    title: 'More Opportunity',
+    title: 'Watch ads',
   },
   [UserTaskDetail.DailyVote]: {
     icon: <DailyTaskIcon />,
@@ -241,7 +241,9 @@ export const TaskItem = (props: ITaskItemProps) => {
               dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
             })}
           >
-            +{BigNumber(taskItem.points).toFormat()}
+            {UserTaskDetail.DailyViewAd === taskItem.userTaskDetail
+              ? `+${BigNumber(taskItem.points).toFormat()} per ad`
+              : `+${BigNumber(taskItem.points).toFormat()}`}
           </p>
         </div>
         <div

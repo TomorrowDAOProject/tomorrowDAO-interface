@@ -12,18 +12,32 @@ import { curChain } from 'config';
 export interface useAdsgramParams {
   blockId: string;
   onReward: (result: ShowPromiseResult) => void;
-  onError?: (result: ShowPromiseResult) => void;
+  onError: (result: ShowPromiseResult) => void;
+  onSkip: () => void;
 }
 
-export function useAdsgram({ blockId, onReward, onError }: useAdsgramParams): () => Promise<void> {
+export function useAdsgram({
+  blockId,
+  onReward,
+  onError,
+  onSkip,
+}: useAdsgramParams): () => Promise<void> {
   const AdControllerRef = useRef<AdController | undefined>(undefined);
 
   useEffect(() => {
     AdControllerRef.current = window.Adsgram?.init({
       blockId,
-      debug: true,
-      debugBannerType: 'RewardedVideo',
     });
+
+    AdControllerRef.current?.addEventListener('onSkip', () => {
+      onSkip?.();
+    });
+
+    return () => {
+      AdControllerRef.current?.removeEventListener('onSkip', () => {
+        onSkip?.();
+      });
+    };
   }, [blockId]);
 
   return useCallback(async () => {
