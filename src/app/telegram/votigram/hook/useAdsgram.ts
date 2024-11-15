@@ -11,7 +11,7 @@ import { curChain } from 'config';
 
 export interface useAdsgramParams {
   blockId: string;
-  onReward: (result: ShowPromiseResult) => void;
+  onReward: (newPoints: number) => void;
   onError: (result: ShowPromiseResult) => void;
   onSkip: () => void;
 }
@@ -49,13 +49,13 @@ export function useAdsgram({
             const timestamp = dayjs().valueOf();
             const hash = sha256(`${process.env.NEXT_PUBLIC_HASH_PRIVATE_KEY}-${timestamp}`);
 
-            await updateAdsView({
+            const result = await updateAdsView({
               chainId: curChain,
               timestamp,
               signature: hash.toString(),
             });
 
-            onReward(result);
+            onReward(result.data);
           }
         })
         .catch((result: ShowPromiseResult) => {

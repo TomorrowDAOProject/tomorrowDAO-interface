@@ -32,6 +32,7 @@ const Task: React.FC<ITaskProps> = (props: ITaskProps) => {
   } = useRequest(
     async () => {
       const res = await getTaskList({ chainId: curChain });
+      setTaskGroupList(res?.data?.taskList || []);
       return res;
     },
     {

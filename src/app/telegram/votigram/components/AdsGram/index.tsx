@@ -11,20 +11,17 @@ export interface IAdsGramRef {
 }
 
 interface IAdsGramProps {
-  onCustomReward?: () => void;
+  onCustomReward?: (newPoints: number) => void;
 }
 
 const AdsGram = forwardRef<IAdsGramRef, IAdsGramProps>(({ onCustomReward }, ref) => {
   const rewardModalRef = useRef<ICommonModalRef>(null);
   const errorModalRef = useRef<ICommonModalRef>(null);
   const [errorMsg, setErrorMsg] = useState('');
-  const [title, setTitle] = useState();
 
-  const onReward = useCallback(async (result: ShowPromiseResult) => {
-    if (result?.done) {
-      rewardModalRef.current?.open();
-      onCustomReward?.();
-    }
+  const onReward = useCallback(async (newPoints: number) => {
+    rewardModalRef.current?.open();
+    onCustomReward?.(newPoints);
   }, []);
   const onError = useCallback((result: ShowPromiseResult) => {
     if (result.error) {

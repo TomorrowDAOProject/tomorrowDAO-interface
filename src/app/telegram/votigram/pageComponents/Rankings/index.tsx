@@ -277,7 +277,12 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
           </div>
         )}
       </div>
-      <AdsGram ref={adsGramRef} />
+      <AdsGram
+        ref={adsGramRef}
+        onCustomReward={(newPoints: number) => {
+          setAccountBalance(newPoints);
+        }}
+      />
       <CommonDrawer
         ref={detailDrawerRef}
         showCloseTarget={false}
