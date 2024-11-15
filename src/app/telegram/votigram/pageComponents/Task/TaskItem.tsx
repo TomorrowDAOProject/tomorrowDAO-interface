@@ -68,7 +68,7 @@ const openNewPageWaitPageVisible = async (
   });
 };
 const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?: Function }> = {
-  [UserTaskDetail.DailyViewAd]: {
+  [UserTaskDetail.DailyViewAds]: {
     icon: <Image src={VideoImage} alt="video" width={32} height={32} />,
     title: 'Watch ads',
   },
@@ -114,7 +114,7 @@ const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?
   },
 };
 const needShowTaskProgress: string[] = [
-  UserTaskDetail.DailyViewAd,
+  UserTaskDetail.DailyViewAds,
   UserTaskDetail.ExploreCumulateFiveInvite,
   UserTaskDetail.ExploreCumulateTenInvite,
   UserTaskDetail.ExploreCumulateTwentyInvite,
@@ -172,7 +172,7 @@ export const TaskItem = (props: ITaskItemProps) => {
   const handleClick = async () => {
     if (isLoading || taskItem.complete) return;
     switch (taskItem.userTaskDetail) {
-      case UserTaskDetail.DailyViewAd:
+      case UserTaskDetail.DailyViewAds:
         adsGramRef?.current?.showAd();
         break;
       case UserTaskDetail.DailyVote:
@@ -204,12 +204,12 @@ export const TaskItem = (props: ITaskItemProps) => {
       <div
         className={clsx('task-item', {
           complete: taskItem.complete,
-          dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+          dailyAds: UserTaskDetail.DailyViewAds === taskItem.userTaskDetail,
         })}
       >
         <div
           className={clsx('icon-wrap', {
-            dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+            dailyAds: UserTaskDetail.DailyViewAds === taskItem.userTaskDetail,
           })}
         >
           {taskItemMap[taskItem.userTaskDetail]?.icon}
@@ -217,7 +217,7 @@ export const TaskItem = (props: ITaskItemProps) => {
         <div className="task-desc">
           <h3
             className={clsx('task-desc-title font-17-22', {
-              dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+              dailyAds: UserTaskDetail.DailyViewAds === taskItem.userTaskDetail,
             })}
           >
             {taskItemMap[taskItem.userTaskDetail]?.title}
@@ -227,7 +227,7 @@ export const TaskItem = (props: ITaskItemProps) => {
                 (
                 <span
                   className={clsx('text-[#F4AC33]', {
-                    'text-[#F6692C]': UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+                    'text-[#F6692C]': UserTaskDetail.DailyViewAds === taskItem.userTaskDetail,
                   })}
                 >
                   {taskItem.completeCount}
@@ -238,10 +238,10 @@ export const TaskItem = (props: ITaskItemProps) => {
           </h3>
           <p
             className={clsx('task-desc-points font-14-18-weight', {
-              dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+              dailyAds: UserTaskDetail.DailyViewAds === taskItem.userTaskDetail,
             })}
           >
-            {UserTaskDetail.DailyViewAd === taskItem.userTaskDetail
+            {UserTaskDetail.DailyViewAds === taskItem.userTaskDetail
               ? `+${BigNumber(taskItem.points).toFormat()} per ad`
               : `+${BigNumber(taskItem.points).toFormat()}`}
           </p>
@@ -249,7 +249,7 @@ export const TaskItem = (props: ITaskItemProps) => {
         <div
           className={clsx('task-button flex-center', {
             complete: taskItem.complete,
-            dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+            dailyAds: UserTaskDetail.DailyViewAds === taskItem.userTaskDetail,
           })}
           onClick={handleClick}
         >
@@ -265,6 +265,7 @@ export const TaskItem = (props: ITaskItemProps) => {
       <AdsGram
         ref={adsGramRef}
         onCustomReward={() => {
+          debugger;
           getTaskListFn();
         }}
       />
