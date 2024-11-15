@@ -91,6 +91,7 @@ function FormListFullItems(props: IFormItemsProps) {
             tips="Formats supported: PNG and JPG. Ratio: 1:1, less than 10 MB"
             needCheckImgSize
             ratio={1}
+            needCrop
             fileLimit="10 MB"
             ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
           />
@@ -160,6 +161,7 @@ function FormListFullItems(props: IFormItemsProps) {
             maxFileCount={9}
             fileLimit="10 MB"
             tips="Formats supported: PNG and JPG. less than 10 MB."
+            needCrop
           />
         </Form.Item>
       </div>

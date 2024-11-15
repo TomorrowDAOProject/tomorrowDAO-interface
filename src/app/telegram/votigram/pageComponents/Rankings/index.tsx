@@ -5,10 +5,18 @@ import { ReactComponent as Community } from 'assets/icons/community.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
 import { ReactComponent as Add } from 'assets/icons/add.svg';
 import { useConfig } from 'components/CmsGlobalConfig/type';
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import MyPoints from '../../components/MyPoints';
-import { getRankingDetail, getRankings } from 'api/request';
+import { getRankingDetail, getRankings, updateAdsView } from 'api/request';
 import { curChain } from 'config';
 import { useInfiniteScroll } from 'ahooks';
 import Loading from '../../components/Loading';
@@ -17,11 +25,17 @@ import { Button } from 'antd';
 import RankItem from './RankItem';
 import clsx from 'clsx';
 import BannerList from './BannerList';
-import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
+import { ADSGRAM_ID, RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
 import { CreateVote } from '../CreateVote';
 
 import './index.css';
 import OfficialItem from './OfficialItem';
+import { useAdsgram } from '../../hook/useAdsgram';
+import { ShowPromiseResult } from 'types/adsgram';
+import dayjs from 'dayjs';
+import CommonModal, { ICommonModalRef } from '../../components/CommonModal';
+import Present from 'assets/imgs/present.png';
+import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
 
 const OFFICIAL_ROW_COUNT = 3;
 const COMMUNITY_ROW_COUNT = 10;
@@ -47,7 +61,7 @@ interface IRankingsProps {
 }
 
 const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
-  console.log('ranking props', props);
+  const adsGramRef = useRef<IAdsGramRef>(null);
   const pointsDrawerRef = useRef<ICommonDrawerRef>(null);
   const detailDrawerRef = useRef<ICommonDrawerRef>(null);
   const createVoteDrawerRef = useRef<ICommonDrawerRef>(null);
@@ -209,7 +223,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
             onClick={handleCreateVote}
           >
             <Add className="text-sm" />
-            New List
+            Create Poll
           </Button>
         </div>
       </div>
@@ -217,12 +231,8 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
         <div className="flex">
           <BannerList
             bannerList={bannerList}
-            onClick={({ proposalId, proposalTitle, labelType }) => {
-              onItemClick({
-                isGold: labelType === RANKING_LABEL_KEY.GOLD,
-                proposalId,
-                proposalTitle,
-              });
+            onClick={() => {
+              adsGramRef?.current?.showAd();
             }}
           />
         </div>
@@ -231,7 +241,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
       <div className="flex flex-col border-0 border-b border-[#1B1B1B] border-solid">
         <span className="text-base items-center flex my-4">
           <Official className="text-xl mr-1" />
-          Trending List
+          Trending
         </span>
         <div className="flex flex-col gap-4">
           {officialList?.map((item) => (
@@ -249,7 +259,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
       <div className="flex flex-col">
         <span className="text-base items-center flex my-4">
           <Community className="text-xl mr-1" />
-          Community List
+          Community
         </span>
         <div className="flex flex-col gap-4">
           {communityList?.list?.map((item) => (
@@ -271,6 +281,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
           </div>
         )}
       </div>
+      <AdsGram ref={adsGramRef} />
       <CommonDrawer
         ref={detailDrawerRef}
         showCloseTarget={false}

@@ -22,6 +22,7 @@ const discoverViewAp = '/discover/view-app';
 
 const rankingsUrl = '/ranking/list';
 const rankingBannerInfo = '/ranking/banner-info';
+const viewAppUrl = '/user/view-ad';
 
 export const nftTokenTransfer = async (
   params: INftTokenTransfer,
@@ -188,6 +189,16 @@ export const updateViewApp = async (params: {
   });
 };
 
+export const updateAdsView = async (params: {
+  chainId: string;
+  signature: string;
+  timestamp: number;
+}): Promise<IUpdateAdsViewRes> => {
+  return apiServer.post(viewAppUrl, {
+    ...params,
+  });
+};
+
 export const telegramNeedAuthList = [
   transferUrl,
   rankingVoteUrl,
@@ -209,4 +220,5 @@ export const telegramNeedAuthList = [
   rankingsUrl,
   rankingBannerInfo,
   discoverViewAp,
+  viewAppUrl,
 ];

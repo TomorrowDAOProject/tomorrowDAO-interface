@@ -322,6 +322,11 @@ interface IDiscoverConfirmChooseRes {
   };
 }
 
+interface IUpdateAdsViewRes {
+  code: string;
+  data: number;
+}
+
 // ------------------- Rankings -------------------
 enum RankingTypeEnum {
   Official = 1,
