@@ -22,6 +22,7 @@ export interface IConfigContent {
   };
   communityDaoId: string;
   createVotePageTitle: string;
+  rankingAdsBannerUrl: string;
   discoverTopBannerURL: string;
 }
 
