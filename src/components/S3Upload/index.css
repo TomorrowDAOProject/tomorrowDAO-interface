@@ -32,6 +32,29 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .common-modal-crop {
+    .TMRWDAO-modal {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-width: 100%;
+      margin: initial;
+      top: initial;
+      padding-bottom: 0;
+      width: 1000vw !important;
+    }
+
+    .TMRWDAO-modal-close {
+      &:hover,
+      &:active {
+        background-color: initial;
+      }
+    }
+  }
+}
+
 .tg-common-modal.tg-common-modal-crop {
   .TMRWDAO-modal-content {
     background: var(--Native-bg_color, #212121);
@@ -69,6 +92,5 @@
     &:active {
       background-color: initial;
     }
-
   }
-} 
+}

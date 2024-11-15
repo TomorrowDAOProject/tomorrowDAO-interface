@@ -188,6 +188,7 @@ export default function Page(props: IFormPageProps) {
               fileLimit="10 MB"
               ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 3:1"
               tips={'Formats supported: PNG and JPG. Ratio: 3:1, less than 10 MB.'}
+              needCrop
             />
           </Form.Item>
         )}

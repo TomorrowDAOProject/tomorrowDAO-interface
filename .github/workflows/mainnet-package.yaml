@@ -2,7 +2,7 @@ name: Build and Push Image
 on:
   push:
     tags:
-      - "v*.*.*"
+      - 'v*.*.*'
 jobs:
   build-and-push-image:
     runs-on: tmrwdao-runner
@@ -23,7 +23,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         env:
-          NEXT_PUBLIC_PINATA_JWT: ${{ secrets.MAINNET_NEXT_PUBLIC_PINATA_JWT }}              # testnet   mainnet
+          NEXT_PUBLIC_ADSGRAM_ID: ${{ secrest.MAINNET_NEXT_PUBLIC_ADSGRAM_ID }}
+          NEXT_PUBLIC_HASH_PRIVATE_KEY: ${{ secrest.MAINNET_NEXT_PUBLIC_HASH_PRIVATE_KEY }}
+          NEXT_PUBLIC_PINATA_JWT: ${{ secrets.MAINNET_NEXT_PUBLIC_PINATA_JWT }}
           NEXT_PUBLIC_GATEWAY_TOKEN: ${{ secrets.MAINNET_NEXT_PUBLIC_GATEWAY_TOKEN }}
         with:
           context: .
@@ -34,6 +36,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
+            NEXT_PUBLIC_ADSGRAM_ID: ${{ secrest.MAINNET_NEXT_PUBLIC_ADSGRAM_ID }}
+            NEXT_PUBLIC_HASH_PRIVATE_KEY: ${{ secrest.MAINNET_NEXT_PUBLIC_HASH_PRIVATE_KEY }}
             NEXT_PUBLIC_PINATA_JWT=${{ secrets.MAINNET_NEXT_PUBLIC_PINATA_JWT }}
             NEXT_PUBLIC_GATEWAY_TOKEN=${{ secrets.MAINNET_NEXT_PUBLIC_GATEWAY_TOKEN }}
             APP_ENV=mainnet

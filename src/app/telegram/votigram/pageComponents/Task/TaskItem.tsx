@@ -9,9 +9,15 @@ import {
   LoadingIcon,
   DailyTaskIcon,
 } from 'components/Icons';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { completeTaskItem } from 'api/request';
 import { curChain } from 'config';
+import VideoImage from 'assets/imgs/video.png';
+import Image from 'next/image';
+
+import './TaskItem.css';
+import clsx from 'clsx';
+import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
 
 interface ITaskItemProps {
   taskItem: IUserTaskItemDetail;
@@ -62,6 +68,10 @@ const openNewPageWaitPageVisible = async (
   });
 };
 const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?: Function }> = {
+  [UserTaskDetail.DailyViewAd]: {
+    icon: <Image src={VideoImage} alt="video" width={32} height={32} />,
+    title: 'Watch ads',
+  },
   [UserTaskDetail.DailyVote]: {
     icon: <DailyTaskIcon />,
     title: 'Complete a vote',
@@ -104,6 +114,7 @@ const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?
   },
 };
 const needShowTaskProgress: string[] = [
+  UserTaskDetail.DailyViewAd,
   UserTaskDetail.ExploreCumulateFiveInvite,
   UserTaskDetail.ExploreCumulateTenInvite,
   UserTaskDetail.ExploreCumulateTwentyInvite,
@@ -127,8 +138,10 @@ const jumpExternalList = [
   },
 ];
 export const TaskItem = (props: ITaskItemProps) => {
-  const { taskItem, activeTabItem, userTask, onReportComplete } = props;
+  const { taskItem, activeTabItem, userTask, onReportComplete, getTaskListFn } = props;
   const [isLoading, setIsLoading] = useState(false);
+  const adsGramRef = useRef<IAdsGramRef>(null);
+
   const activeTabWithSource = (target: number) => {
     activeTabItem({ path: target, source: ITabSource.Task });
   };
@@ -159,6 +172,9 @@ export const TaskItem = (props: ITaskItemProps) => {
   const handleClick = async () => {
     if (isLoading || taskItem.complete) return;
     switch (taskItem.userTaskDetail) {
+      case UserTaskDetail.DailyViewAd:
+        adsGramRef?.current?.showAd();
+        break;
       case UserTaskDetail.DailyVote:
         activeTabWithSource(ITabSource.Rank);
         break;
@@ -184,35 +200,74 @@ export const TaskItem = (props: ITaskItemProps) => {
     }
   };
   return (
-    <div className={`task-item ${taskItem.complete ? 'complete' : ''}`}>
-      <div className="icon-wrap">{taskItemMap[taskItem.userTaskDetail]?.icon}</div>
-      <div className="task-desc">
-        <h3 className="task-desc-title font-17-22">
-          {taskItemMap[taskItem.userTaskDetail]?.title}
-
-          {needShowTaskProgress.includes(taskItem.userTaskDetail) && (
-            <span className="task-desc-progress pl-[4px]">
-              (<span className="text-[#F4AC33]">{taskItem.completeCount}</span>/{taskItem.taskCount}
-              )
-            </span>
-          )}
-        </h3>
-        <p className="task-desc-points font-14-18-weight">
-          +{BigNumber(taskItem.points).toFormat()}
-        </p>
-      </div>
+    <>
       <div
-        className={`task-button flex-center ${taskItem.complete ? 'complete' : ''}`}
-        onClick={handleClick}
+        className={clsx('task-item', {
+          complete: taskItem.complete,
+          dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+        })}
       >
-        {isLoading ? (
-          <LoadingIcon className="animate-spin" />
-        ) : taskItem.complete ? (
-          <CheckOutlined />
-        ) : (
-          <span className="text font-14-18-weight font-bold">Start</span>
-        )}
+        <div
+          className={clsx('icon-wrap', {
+            dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+          })}
+        >
+          {taskItemMap[taskItem.userTaskDetail]?.icon}
+        </div>
+        <div className="task-desc">
+          <h3
+            className={clsx('task-desc-title font-17-22', {
+              dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+            })}
+          >
+            {taskItemMap[taskItem.userTaskDetail]?.title}
+
+            {needShowTaskProgress.includes(taskItem.userTaskDetail) && (
+              <span className="task-desc-progress pl-[4px]">
+                (
+                <span
+                  className={clsx('text-[#F4AC33]', {
+                    'text-[#F6692C]': UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+                  })}
+                >
+                  {taskItem.completeCount}
+                </span>
+                /{taskItem.taskCount})
+              </span>
+            )}
+          </h3>
+          <p
+            className={clsx('task-desc-points font-14-18-weight', {
+              dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+            })}
+          >
+            {UserTaskDetail.DailyViewAd === taskItem.userTaskDetail
+              ? `+${BigNumber(taskItem.points).toFormat()} per ad`
+              : `+${BigNumber(taskItem.points).toFormat()}`}
+          </p>
+        </div>
+        <div
+          className={clsx('task-button flex-center', {
+            complete: taskItem.complete,
+            dailyAds: UserTaskDetail.DailyViewAd === taskItem.userTaskDetail,
+          })}
+          onClick={handleClick}
+        >
+          {isLoading ? (
+            <LoadingIcon className="animate-spin" />
+          ) : taskItem.complete ? (
+            <CheckOutlined />
+          ) : (
+            <span className="text font-14-18-weight font-bold">Start</span>
+          )}
+        </div>
       </div>
-    </div>
+      <AdsGram
+        ref={adsGramRef}
+        onCustomReward={() => {
+          getTaskListFn();
+        }}
+      />
+    </>
   );
 };
