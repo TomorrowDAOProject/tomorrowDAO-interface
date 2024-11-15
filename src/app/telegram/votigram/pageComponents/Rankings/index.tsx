@@ -366,6 +366,77 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
           }
         />
       </div>
+      <AdsGram
+        ref={adsGramRef}
+        onCustomReward={(newPoints: number) => {
+          setAccountBalance(newPoints);
+        }}
+      />
+      <CommonDrawer
+        ref={detailDrawerRef}
+        showCloseTarget={false}
+        showLeftArrow={false}
+        headerClassname="!hidden"
+        bodyClassname="discover-app-detail-drawer"
+        drawerProps={{
+          destroyOnClose: true,
+          push: false,
+        }}
+        showCloseIcon={false}
+        body={
+          <div className="h-full">
+            <VoteList
+              backToPrev={backToPrevHandler}
+              proposalId={selectedItem?.proposalId || ''}
+              isGold={selectedItem?.isGold || false}
+              detailTitle={selectedItem?.proposalTitle || ''}
+            />
+          </div>
+        }
+      />
+      <CommonDrawer
+        title="My Points"
+        ref={pointsDrawerRef}
+        drawerProps={{
+          destroyOnClose: true,
+        }}
+        bodyClassname="my-points-drawer"
+        body={<MyPoints />}
+      />
+      <CommonDrawer
+        title={
+          <span>
+            <Image
+              src="/images/tg/magic-wand.png"
+              width={20}
+              height={20}
+              alt="page-title"
+              className="pr-1"
+            />
+            {createVotePageTitle}
+          </span>
+        }
+        ref={createVoteDrawerRef}
+        drawerProps={{
+          destroyOnClose: true,
+          placement: 'right',
+          width: '100%',
+          push: false,
+        }}
+        showCloseIcon={false}
+        showLeftArrow
+        rootClassName="create-vote-drawer-root"
+        bodyClassname="create-vote-drawer"
+        body={
+          <div>
+            <CreateVote
+              closeCreateForm={() => {
+                createVoteDrawerRef.current?.close();
+              }}
+            />
+          </div>
+        }
+      />
     </div>
   );
 });
