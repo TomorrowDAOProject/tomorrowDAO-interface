@@ -161,7 +161,6 @@ function FormListFullItems(props: IFormItemsProps) {
             maxFileCount={9}
             fileLimit="10 MB"
             tips="Formats supported: PNG and JPG. less than 10 MB."
-            needCrop
           />
         </Form.Item>
       </div>

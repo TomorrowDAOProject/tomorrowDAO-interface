@@ -5,25 +5,14 @@ import { ReactComponent as Community } from 'assets/icons/community.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
 import { ReactComponent as Add } from 'assets/icons/add.svg';
 import { useConfig } from 'components/CmsGlobalConfig/type';
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import MyPoints from '../../components/MyPoints';
-import { getRankingDetail, getRankings, getTaskList, updateAdsView } from 'api/request';
+import { getRankingDetail, getRankings, getTaskList } from 'api/request';
 import { curChain } from 'config';
-import { useInfiniteScroll } from 'ahooks';
-import Loading from '../../components/Loading';
 import VoteList from '../VoteList';
 import { Button } from 'antd';
 import RankItem from './RankItem';
-import clsx from 'clsx';
 import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
 import { CreateVote } from '../CreateVote';
 
@@ -33,7 +22,7 @@ import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
 import './index.css';
 
 const OFFICIAL_ROW_COUNT = 3;
-const COMMUNITY_ROW_COUNT = 10;
+const COMMUNITY_ROW_COUNT = 3;
 const BANNER_ROW_COUNT = 10;
 
 type ItemClickParams = {
@@ -66,7 +55,9 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
   const [selectedItem, setSelectedItem] = useState<ItemClickParams | null>(null);
   const [bannerList, setBannerList] = useState<IRankingsItem[]>([]);
   const [officialList, setOfficialList] = useState<IRankingsItem[]>([]);
+  const [communityList, setCommunityList] = useState<IRankingsItem[]>([]);
   const [hasMoreOfficial, setHasMoreOfficial] = useState(false);
+  const [hasMoreCommunity, setHasMoreCommunity] = useState(false);
   const { createVotePageTitle, rankingAdsBannerUrl } = useConfig() ?? {};
 
   const renderPointsStr = useMemo(() => {
@@ -116,45 +107,20 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
     }
   };
 
-  // Fetch function for community rankings, now using a consistent structure
-  const fetchCommunityRankings: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
-    const prevList = data?.list ?? [];
-    try {
-      const res = await getRankings({
-        chainId: curChain,
-        type: RANKING_TYPE_KEY.COMMUNITY,
-        skipCount: prevList.length,
-        maxResultCount: COMMUNITY_ROW_COUNT,
-      });
-      const currentList = res?.data?.data ?? [];
-      const len = currentList.length + prevList.length;
-
-      return {
-        list: currentList,
-        totalPoints: res?.data?.userTotalPoints ?? 0,
-        hasData: len < res.data?.totalCount,
-      };
-    } catch (error) {
-      console.error('Failed to fetch community rankings', error);
-      return {
-        list: prevList,
-        totalPoints: 0,
-        hasData: false,
-      };
-    }
-  };
-
   const initialize = async () => {
     try {
-      const [officialData, bannerData] = await Promise.all([
+      const [communityData, officialData, bannerData] = await Promise.all([
+        fetchRankings(RANKING_TYPE_KEY.COMMUNITY, 0, COMMUNITY_ROW_COUNT),
         fetchRankings(RANKING_TYPE_KEY.TRENDING, 0, OFFICIAL_ROW_COUNT),
         fetchRankings(RANKING_TYPE_KEY.TOP_BANNER, 0, BANNER_ROW_COUNT),
       ]);
       const completed = await fetchTaskList();
       setHasCompletedAds(completed);
+      setHasMoreCommunity(!!communityData.hasMoreData);
+      setCommunityList(communityData.list || []);
       setHasMoreOfficial(!!officialData.hasMoreData);
-      setAccountBalance(officialData?.userTotalPoints || 0);
       setOfficialList(officialData.list || []);
+      setAccountBalance(officialData?.userTotalPoints || 0);
       setBannerList(bannerData.list || []);
     } catch (error) {
       console.error('Initialization failed', error);
@@ -171,16 +137,15 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
     setOfficialList((prevList) => [...prevList, ...(newOfficialData?.list || [])]);
   };
 
-  // Infinite scroll setup for community rankings
-  const {
-    data: communityList,
-    loadingMore,
-    loading,
-    noMore,
-  } = useInfiniteScroll(fetchCommunityRankings, {
-    target: containerRef,
-    isNoMore: (d) => !d?.hasData || d.list.length === 0,
-  });
+  const onShowMoreCommunityClick = async () => {
+    const newCommunityData = await fetchRankings(
+      RANKING_TYPE_KEY.COMMUNITY,
+      communityList.length,
+      COMMUNITY_ROW_COUNT,
+    );
+    setHasMoreCommunity(!!newCommunityData.hasMoreData);
+    setCommunityList((prevList) => [...prevList, ...(newCommunityData?.list || [])]);
+  };
 
   const fetchRankDetail = async (proposalId: string) => {
     const { data } = await getRankingDetail({
@@ -209,8 +174,6 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
   useImperativeHandle(ref, () => ({
     openDetailWithProposalId,
   }));
-
-  const needLoading = loading || loadingMore;
 
   return (
     <div className="h-screen overflow-y-auto">
@@ -247,6 +210,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
           onClick={() => {
             adsGramRef?.current?.showAd();
           }}
+          alt="ads banner"
         />
       )}
 
@@ -269,30 +233,31 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
             </div>
           )}
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col pb-32">
           <span className="text-base items-center flex my-4">
             <Community className="text-xl mr-1" />
             Community
           </span>
           <div className="flex flex-col gap-4">
-            {communityList?.list?.map((item) => (
+            {communityList?.map((item) => (
               <RankItem key={item.proposalId} {...item} onItemClick={onItemClick} />
             ))}
-            {needLoading && (
-              <div
-                className={clsx('flex-center', {
-                  'mt-[100px]': loading,
-                })}
-              >
-                <Loading />
-              </div>
-            )}
           </div>
-          {noMore && !needLoading && (
+          {hasMoreCommunity && (
+            <div className="flex justify-center items-center my-4">
+              <span
+                className="text-[#ACA6FF] text-xs flex items-center"
+                onClick={onShowMoreCommunityClick}
+              >
+                Show More
+              </span>
+            </div>
+          )}
+          {/* {noMore && !needLoading && (
             <div className="font-normal text-xs mt-6 py-8 text-[#616161] text-center">
               You have reached the bottom of the page.
             </div>
-          )}
+          )} */}
         </div>
         <AdsGram
           ref={adsGramRef}
