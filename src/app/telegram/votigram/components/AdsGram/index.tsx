@@ -27,7 +27,7 @@ const AdsGram = forwardRef<IAdsGramRef, IAdsGramProps>(
     }, []);
     const onError = useCallback((result: ShowPromiseResult) => {
       if (result.error) {
-        setErrorMsg(result.description);
+        setErrorMsg('No ads available at the moment. Please check back again in 5 minutes.');
         errorModalRef.current?.open();
       }
     }, []);
