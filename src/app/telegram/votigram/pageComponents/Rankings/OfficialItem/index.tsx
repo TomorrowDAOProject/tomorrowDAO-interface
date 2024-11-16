@@ -70,7 +70,7 @@ const OfficialItem = ({
           })}
         >
           <p className="text-base">{proposalTitle}</p>
-          <p className="text-base">{proposalTitle}</p>
+          {proposalTitle.length >= 35 && <p className="text-base">{proposalTitle}</p>}
         </div>
       </div>
       {dayjs() > dayjs(activeEndEpochTime) && (
