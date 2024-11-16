@@ -29,7 +29,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         env:
-          NEXT_PUBLIC_PINATA_JWT: ${{ secrets.TESTNET_NEXT_PUBLIC_PINATA_JWT }}              # testnet   mainnet
+          NEXT_PUBLIC_ADSGRAM_ID: ${{ secrets.TESTNET_NEXT_PUBLIC_ADSGRAM_ID }}
+          NEXT_PUBLIC_HASH_PRIVATE_KEY: ${{ secrets.TESTNET_NEXT_PUBLIC_HASH_PRIVATE_KEY }}
+          NEXT_PUBLIC_PINATA_JWT: ${{ secrets.TESTNET_NEXT_PUBLIC_PINATA_JWT }} # testnet   mainnet
           NEXT_PUBLIC_GATEWAY_TOKEN: ${{ secrets.TESTNET_NEXT_PUBLIC_GATEWAY_TOKEN }}
         with:
           context: .
@@ -40,6 +42,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
+            NEXT_PUBLIC_ADSGRAM_ID=${{ secrets.TESTNET_NEXT_PUBLIC_ADSGRAM_ID }}
+            NEXT_PUBLIC_HASH_PRIVATE_KEY=${{ secrets.TESTNET_NEXT_PUBLIC_HASH_PRIVATE_KEY }}
             NEXT_PUBLIC_PINATA_JWT=${{ secrets.TESTNET_NEXT_PUBLIC_PINATA_JWT }}
             NEXT_PUBLIC_GATEWAY_TOKEN=${{ secrets.TESTNET_NEXT_PUBLIC_GATEWAY_TOKEN }}
             APP_ENV=testnet

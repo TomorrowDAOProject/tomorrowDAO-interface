@@ -11,6 +11,7 @@ export enum UserTask {
 
 export enum UserTaskDetail {
   // Daily
+  DailyViewAds = 'DailyViewAds',
   DailyVote = 'DailyVote',
   DailyFirstInvite = 'DailyFirstInvite',
   DailyViewAsset = 'DailyViewAsset',
