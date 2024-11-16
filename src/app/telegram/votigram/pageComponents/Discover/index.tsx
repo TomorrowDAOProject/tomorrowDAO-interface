@@ -194,7 +194,7 @@ const Discover = forwardRef<InfiniteListRef, IDiscover>(({ bannerCount, onBanner
           <div className="">
             <Checkbox.Group
               className="unset-check-box"
-              options={options}
+              options={options.filter((item) => item.value !== ETelegramAppCategory.New)}
               value={selectedCategory}
               onChange={onSelectChange}
             />
