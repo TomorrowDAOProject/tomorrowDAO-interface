@@ -53,6 +53,9 @@ const AdsGram = forwardRef<IAdsGramRef, IAdsGramProps>(
         <CommonModal
           ref={rewardModalRef}
           title="Congratulations"
+          onCloseClick={() => {
+            onRewardModalClose?.();
+          }}
           content={
             <div className="flex flex-col justify-center items-center">
               <Image src={Present} width={96} height={96} alt="Congratulations!" className="my-6" />
