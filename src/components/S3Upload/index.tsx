@@ -10,6 +10,7 @@ import { checkImgRatio } from 'utils/checkImgSize';
 import './index.css';
 import { CloseIcon } from 'components/Icons';
 import { RcFile } from 'antd/es/upload';
+import { useUrlPath } from 'hooks/useUrlPath';
 
 const COMMON_UPLOAD_INPUT_ID = 'common-upload-input-id';
 
@@ -60,6 +61,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
   needCrop,
   ...props
 }) => {
+  const { isTelegram } = useUrlPath();
   const [showUploadBtn, setShowUploadBtn] = useState<boolean>(false);
   const [inFileList, setFileList] = useState<UploadFile[]>([]);
   useEffect(() => {
@@ -201,7 +203,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
     modalProps: {
       closeIcon: <CloseIcon />,
     },
-    modalClassName: 'tg-common-modal tg-common-modal-crop',
+    modalClassName: isTelegram ? 'tg-common-modal tg-common-modal-crop' : 'common-modal-crop',
     beforeCrop: (file) => {
       const res = acceptCheck(file);
       return res;

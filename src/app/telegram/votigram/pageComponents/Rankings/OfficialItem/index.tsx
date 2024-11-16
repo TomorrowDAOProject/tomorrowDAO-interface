@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
+import { ReactComponent as Vote } from 'assets/icons/vote.svg';
 import { RANKING_LABEL_KEY, RANKING_TYPE, RANKING_TYPE_KEY } from 'constants/ranking';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -34,7 +34,7 @@ const OfficialItem = ({
   return (
     <div
       className={clsx(
-        'flex rounded-2xl overflow-hidden relative active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]',
+        'flex flex-col rounded-2xl overflow-hidden relative bg-[#1C1C1C] active:bg-[#2A2A2A] active:shadow-[0_0_0_4px_rgba(117,78,224,0.40)]',
         {
           'bg-opacity-80': dayjs() > dayjs(activeEndEpochTime),
           'opacity-70': dayjs() > dayjs(activeEndEpochTime),
@@ -48,27 +48,30 @@ const OfficialItem = ({
         })
       }
     >
-      <img
-        src={bannerUrl === '' ? '/images/tg/default-banner.png' : bannerUrl}
-        className="w-full max-h-[121px]"
-        alt="banner"
-      />
-      <div className="absolute p-4 left-[126px] flex w-full h-full bg-[rgba(0,0,0,0.7)] gap-2 items-center">
-        <div className="flex flex-col gap-1 w-[184px]">
-          <p className="text-base line-clamp-3">{proposalTitle}</p>
-          <div className="flex gap-2 items-center">
-            <div className="text-xs px-2 w-max rounded-full border border-[#2D1F73] border-solid text-[#ACA6FF] text-center">
-              {RANKING_TYPE[rankingType || 1]}
-            </div>
-            <span className="text-[#9A9A9A] text-sm">
-              Total Votes{' '}
-              <span className="text-[#51FF00] font-semibold">
-                {totalVoteAmount.toLocaleString()}
-              </span>
-            </span>
-          </div>
+      <div className="relative">
+        <img
+          src={bannerUrl === '' ? '/images/tg/default-banner.png' : bannerUrl}
+          className="w-full max-h-[121px] rounded-2xl"
+          alt="banner"
+        />
+        <div className="absolute right-[6px] bottom-[6px] gap-1 bg-[#1B1B1B] flex items-center py-0.5 px-2 rounded-full">
+          <span className="text-[#ACA6FF]">{RANKING_TYPE[rankingType || 1]}</span>
+          <span className="text-[#292929]">|</span>
+          <span className="flex items-center text-[#51FF00] font-semibold gap-[5px]">
+            <Vote className="text-[13px] text-[#9A9A9A]" />
+            {totalVoteAmount.toLocaleString()}
+          </span>
         </div>
-        <ChevronRight className="text-base" />
+      </div>
+      <div className="py-2 left-[126px] flex w-[90%] ml-[5%] h-full gap-2 items-center overflow-hidden whitespace-nowrap">
+        <div
+          className={clsx('flex gap-5', {
+            'animate-scroll-left': proposalTitle.length >= 35,
+          })}
+        >
+          <p className="text-base">{proposalTitle}</p>
+          {proposalTitle.length >= 35 && <p className="text-base">{proposalTitle}</p>}
+        </div>
       </div>
       {dayjs() > dayjs(activeEndEpochTime) && (
         <div className="absolute top-0 left-0 bg-[#221D51] px-[10px] py-[2px] text-[10px] rounded-br-full">

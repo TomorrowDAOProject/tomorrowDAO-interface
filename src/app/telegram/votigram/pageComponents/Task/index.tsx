@@ -32,6 +32,7 @@ const Task: React.FC<ITaskProps> = (props: ITaskProps) => {
   } = useRequest(
     async () => {
       const res = await getTaskList({ chainId: curChain });
+      setTaskGroupList(res?.data?.taskList || []);
       return res;
     },
     {
@@ -52,6 +53,7 @@ const Task: React.FC<ITaskProps> = (props: ITaskProps) => {
   useAsyncEffect(async () => {
     if (!show) return;
     const listRes = await getTaskListAsync();
+    console.log(listRes?.data?.taskList);
     setTaskGroupList(listRes?.data?.taskList || []);
   }, [show]);
   // useEffect(() => {

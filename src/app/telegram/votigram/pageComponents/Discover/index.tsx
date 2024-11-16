@@ -6,7 +6,7 @@ import InfiniteList, { InfiniteListRef } from './InfiniteList';
 import { useAsyncEffect } from 'ahooks';
 import { discoverConfirmChoose, getDiscoverAppView } from 'api/request';
 import { curChain } from 'config';
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import { useConfig } from 'components/CmsGlobalConfig/type';
 import Image from 'next/image';
@@ -25,8 +25,8 @@ import clsx from 'clsx';
 const items: TabsProps['items'] = [
   {
     key: ETelegramAppCategory.Recommend,
-    label: 'Recommend',
-    icon: <Image src={Tick} width={14} height={14} alt="Recommend" />,
+    label: 'For You',
+    icon: <Image src={Tick} width={14} height={14} alt="For You" />,
   },
   {
     key: ETelegramAppCategory.New,
@@ -194,7 +194,7 @@ const Discover = forwardRef<InfiniteListRef, IDiscover>(({ bannerCount, onBanner
           <div className="">
             <Checkbox.Group
               className="unset-check-box"
-              options={options}
+              options={options.filter((item) => item.value !== ETelegramAppCategory.New)}
               value={selectedCategory}
               onChange={onSelectChange}
             />

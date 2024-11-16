@@ -1,0 +1,75 @@
+.task-item {
+  @apply mt-[8px] h-[64px] p-[12px] flex items-center;
+  border-radius: 16px;
+  border: 1px solid var(--Border-1, #403493);
+  background: var(--Solid-2, #4600c5);
+  .icon-wrap {
+    @apply w-[40px] h-[40px] p-[8px] text-[24px];
+    border-radius: 8px;
+    background: var(--Solid-1, #5222d8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      @apply text-white w-[24px] h-[24px];
+    }
+
+    &.dailyAds {
+      background-color: #292929;
+    }
+  }
+  .task-desc {
+    @apply flex-1 mx-[8px];
+    .task-desc-points {
+      @apply text-[#51FF00];
+      &.dailyAds {
+        color: #d736ff;
+      }
+    }
+    .task-desc-title {
+      @apply text-white;
+
+      &.dailyAds {
+        color: #3a3a3a;
+      }
+    }
+  }
+  .task-button {
+    @apply w-[57px] h-[34px] cursor-pointer;
+    border-radius: 20px;
+    background: var(--Text-2, #dddfff);
+    color: #4600c5;
+    font-size: 16px;
+    &.dailyAds {
+      color: #e0ad28;
+      background-color: #fef9ea;
+    }
+    &.complete {
+      color: #dddfff;
+      opacity: 0.35;
+      background: var(--Interactive-3, #362984);
+      &.dailyAds {
+        color: #f9d372;
+        opacity: 1;
+        background: #e0ad28;
+      }
+    }
+  }
+  &.complete {
+    .task-desc {
+      .task-desc-points {
+        @apply text-[#ACA6FF];
+        &.dailyAds {
+          @apply text-white;
+        }
+      }
+    }
+  }
+
+  &.dailyAds {
+    background-color: #f6be2c;
+    background-image: url('../../../../../assets/imgs/daily-ads.png');
+    background-size: cover;
+    color: black;
+  }
+}
