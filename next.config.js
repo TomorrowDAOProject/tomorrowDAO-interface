@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const withPlugins = require('next-compose-plugins');
-const { ANALYZE, NODE_ENV } = process.env;
+const { ANALYZE, NODE_ENV, NO_DRY_RUN } = process.env;
 const pluginConfig = require('./build.config/plugin');
 const development = require('./build.config/development');
 const production = require('./build.config/production');
@@ -18,7 +18,7 @@ module.exports = withSentryConfig(module.exports, {
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
   include: [],
-  dryRun: true,
+  dryRun: !NO_DRY_RUN,
   sourcemaps: {
     disable: true,
   },
