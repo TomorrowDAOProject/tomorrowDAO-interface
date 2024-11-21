@@ -1,23 +1,18 @@
-import BigNumber from 'bignumber.js';
 import Image from 'next/image';
-import { ReactComponent as Official } from 'assets/icons/official.svg';
-import { ReactComponent as Community } from 'assets/icons/community.svg';
-import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
-import { ReactComponent as Add } from 'assets/icons/add.svg';
 import { useConfig } from 'components/CmsGlobalConfig/type';
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import MyPoints from '../../components/MyPoints';
 import { getRankingDetail, getRankings, getTaskList } from 'api/request';
 import { curChain } from 'config';
 import VoteList from '../VoteList';
-import { Button } from 'antd';
-import RankItem from './RankItem';
 import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
 import { CreateVote } from '../CreateVote';
-
-import OfficialItem from './OfficialItem';
 import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
+
+import Header from '../../components/Header';
+import OfficialList from '../../components/OfficialList';
+import CommunityList from '../../components/CommunityList';
 
 import './index.css';
 
@@ -49,20 +44,15 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
   const pointsDrawerRef = useRef<ICommonDrawerRef>(null);
   const detailDrawerRef = useRef<ICommonDrawerRef>(null);
   const createVoteDrawerRef = useRef<ICommonDrawerRef>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [hasCompletedAds, setHasCompletedAds] = useState(true);
+  const [hasCompletedAds, setHasCompletedAds] = useState(false);
   const [accountBalance, setAccountBalance] = useState(0);
   const [selectedItem, setSelectedItem] = useState<ItemClickParams | null>(null);
   const [bannerList, setBannerList] = useState<IRankingsItem[]>([]);
-  const [officialList, setOfficialList] = useState<IRankingsItem[]>([]);
-  const [communityList, setCommunityList] = useState<IRankingsItem[]>([]);
+  const [officialList, setOfficialList] = useState<IRankingsItem[]>(new Array(3).fill({}));
+  const [communityList, setCommunityList] = useState<IRankingsItem[]>(new Array(3).fill({}));
   const [hasMoreOfficial, setHasMoreOfficial] = useState(false);
   const [hasMoreCommunity, setHasMoreCommunity] = useState(false);
   const { createVotePageTitle, rankingAdsBannerUrl } = useConfig() ?? {};
-
-  const renderPointsStr = useMemo(() => {
-    return BigNumber(accountBalance ?? 0).toFormat();
-  }, [accountBalance]);
 
   const onItemClick = (item: ItemClickParams) => {
     setSelectedItem(item);
@@ -127,16 +117,6 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
     }
   };
 
-  const onShowMoreClick = async () => {
-    const newOfficialData = await fetchRankings(
-      RANKING_TYPE_KEY.TRENDING,
-      officialList.length,
-      OFFICIAL_ROW_COUNT,
-    );
-    setHasMoreOfficial(!!newOfficialData.hasMoreData);
-    setOfficialList((prevList) => [...prevList, ...(newOfficialData?.list || [])]);
-  };
-
   const onShowMoreCommunityClick = async () => {
     const newCommunityData = await fetchRankings(
       RANKING_TYPE_KEY.COMMUNITY,
@@ -176,161 +156,57 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
   }));
 
   return (
-    <div className="h-screen overflow-y-auto">
-      <div className="px-4 bg-black text-white">
-        <div className="flex py-4">
-          <div className="flex flex-col flex-1 gap-1">
-            <span
-              className="flex items-center"
-              onClick={() => {
-                pointsDrawerRef.current?.open();
-              }}
-            >
-              Total points earned
-              <ChevronRight className="ml-1 text-base" />
-            </span>
-            <span className="font-18-22-weight text-[#51FF00]">{renderPointsStr}</span>
-          </div>
-          <div className="flex flex-1 items-center justify-end">
-            <Button
-              className="!text-sm !h-8 !rounded-lg !font-medium items-center gap-[6px] flex"
-              type="primary"
-              onClick={handleCreateVote}
-            >
-              <Add className="text-sm" />
-              Create Poll
-            </Button>
-          </div>
-        </div>
-      </div>
-      {!hasCompletedAds && (
-        <img
-          src={rankingAdsBannerUrl}
-          className="w-full"
-          onClick={() => {
+    <>
+      <div className="ranking-container h-screen overflow-y-auto">
+        <Header
+          points={accountBalance}
+          hasCompletedAds={hasCompletedAds}
+          onPointsClick={() => {
+            pointsDrawerRef.current?.open();
+          }}
+          onAdsVideoClick={() => {
             adsGramRef?.current?.showAd();
           }}
-          alt="ads banner"
         />
-      )}
-
-      <div className="px-4 bg-black text-white" ref={containerRef}>
-        <div className="flex flex-col border-0 border-b border-[#1B1B1B] border-solid">
-          <span className="text-base items-center flex my-4">
-            <Official className="text-xl mr-1" />
-            Trending
-          </span>
-          <div className="flex flex-col gap-4">
-            {officialList?.map((item) => (
-              <OfficialItem key={item.proposalId} {...item} onItemClick={onItemClick} />
-            ))}
-          </div>
-          {hasMoreOfficial && (
-            <div className="flex justify-center items-center my-4">
-              <span className="text-[#ACA6FF] text-xs flex items-center" onClick={onShowMoreClick}>
-                Show More
-              </span>
-            </div>
-          )}
-        </div>
-        <div className="flex flex-col pb-32">
-          <span className="text-base items-center flex my-4">
-            <Community className="text-xl mr-1" />
-            Community
-          </span>
-          <div className="flex flex-col gap-4">
-            {communityList?.map((item) => (
-              <RankItem key={item.proposalId} {...item} onItemClick={onItemClick} />
-            ))}
-          </div>
-          {hasMoreCommunity && (
-            <div className="flex justify-center items-center my-4">
-              <span
-                className="text-[#ACA6FF] text-xs flex items-center"
-                onClick={onShowMoreCommunityClick}
-              >
-                Show More
-              </span>
-            </div>
-          )}
-          {/* {noMore && !needLoading && (
-            <div className="font-normal text-xs mt-6 py-8 text-[#616161] text-center">
-              You have reached the bottom of the page.
-            </div>
-          )} */}
-        </div>
-        <AdsGram
-          ref={adsGramRef}
-          onCustomReward={(newPoints: number) => {
-            setAccountBalance(newPoints);
-          }}
-        />
-        <CommonDrawer
-          ref={detailDrawerRef}
-          showCloseTarget={false}
-          showLeftArrow={false}
-          headerClassname="!hidden"
-          bodyClassname="discover-app-detail-drawer"
-          drawerProps={{
-            destroyOnClose: true,
-            push: false,
-          }}
-          showCloseIcon={false}
-          body={
-            <div className="h-full">
-              <VoteList
-                backToPrev={backToPrevHandler}
-                proposalId={selectedItem?.proposalId || ''}
-                isGold={selectedItem?.isGold || false}
-                detailTitle={selectedItem?.proposalTitle || ''}
-              />
-            </div>
-          }
-        />
-        <CommonDrawer
-          title="My Points"
-          ref={pointsDrawerRef}
-          drawerProps={{
-            destroyOnClose: true,
-          }}
-          bodyClassname="my-points-drawer"
-          body={<MyPoints />}
-        />
-        <CommonDrawer
-          title={
-            <span>
-              <Image
-                src="/images/tg/magic-wand.png"
-                width={20}
-                height={20}
-                alt="page-title"
-                className="pr-1"
-              />
-              {createVotePageTitle}
+        <div className="ranking-content">
+          <div className="flex text-[40px] leading-[37px] text-white font-[860] px-4 pt-[18px] pb-[28px]">
+            <span className="!font-sf-pro leading-[34px]">
+              YOUR VOTE, <br />
+              YOUR CHOICE
             </span>
-          }
-          ref={createVoteDrawerRef}
-          drawerProps={{
-            destroyOnClose: true,
-            placement: 'right',
-            width: '100%',
-            push: false,
-          }}
-          showCloseIcon={false}
-          showLeftArrow
-          rootClassName="create-vote-drawer-root"
-          bodyClassname="create-vote-drawer"
-          body={
-            <div>
-              <CreateVote
-                closeCreateForm={() => {
-                  createVoteDrawerRef.current?.close();
-                }}
-              />
+          </div>
+          <OfficialList data={officialList} onItemClick={onItemClick} />
+          {!hasCompletedAds && rankingAdsBannerUrl && (
+            <div
+              className="flex px-4 py-7"
+              onClick={() => {
+                adsGramRef?.current?.showAd();
+              }}
+            >
+              <div className="flex w-full h-[72px] relative overflow-hidden rounded-lg">
+                <Image src={rankingAdsBannerUrl} fill alt="Ads Banner" priority />
+              </div>
             </div>
-          }
-        />
+          )}
+          <CommunityList
+            data={communityList}
+            onItemClick={onItemClick}
+            handleCreateVote={handleCreateVote}
+          />
+          <div className="flex justify-center pb-[150px]" onClick={onShowMoreCommunityClick}>
+            <span className="underline text-white">See More</span>
+          </div>
+        </div>
       </div>
+      <CommonDrawer
+        title="My Points"
+        ref={pointsDrawerRef}
+        drawerProps={{
+          destroyOnClose: true,
+        }}
+        bodyClassname="my-points-drawer"
+        body={<MyPoints />}
+      />
       <AdsGram
         ref={adsGramRef}
         onCustomReward={(newPoints: number) => {
@@ -358,15 +234,6 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
             />
           </div>
         }
-      />
-      <CommonDrawer
-        title="My Points"
-        ref={pointsDrawerRef}
-        drawerProps={{
-          destroyOnClose: true,
-        }}
-        bodyClassname="my-points-drawer"
-        body={<MyPoints />}
       />
       <CommonDrawer
         title={
@@ -402,7 +269,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
           </div>
         }
       />
-    </div>
+    </>
   );
 });
 

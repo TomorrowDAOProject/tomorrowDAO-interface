@@ -5,9 +5,32 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx,css}'],
   theme: {
     extend: {
+      fontFamily: {
+        'sf-pro-text': [
+          'SF Pro Text',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          "'Segoe UI'",
+          'Roboto',
+          "'Helvetica Neue'",
+          'Arial',
+          'sans-serif',
+        ],
+        'sf-pro': [
+          'SF Pro',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          "'Segoe UI'",
+          'Roboto',
+          "'Helvetica Neue'",
+          'Arial',
+          'sans-serif',
+        ],
+      },
       animation: {
         vibrate: 'vibrate 100ms linear 4',
         flash: 'flash 1s infinite',
+        skeleton: 'skeleton 1.5s ease-in-out infinite',
         'scroll-left': 'scroll-left 10s linear infinite',
       },
       keyframes: {
@@ -24,6 +47,10 @@ module.exports = {
         'scroll-left': {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
+        },
+        skeleton: {
+          '0%, 100%': { backgroundColor: '#353535' },
+          '50%': { backgroundColor: '#1c1a1a' },
         },
       },
       colors: {
