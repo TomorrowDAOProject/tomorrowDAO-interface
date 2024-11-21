@@ -16,6 +16,8 @@ import CommunityList from '../../components/CommunityList';
 
 import './index.css';
 
+import './index.css';
+
 const OFFICIAL_ROW_COUNT = 3;
 const COMMUNITY_ROW_COUNT = 3;
 const BANNER_ROW_COUNT = 10;
@@ -198,6 +200,12 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
           </div>
         </div>
       </div>
+      <AdsGram
+        ref={adsGramRef}
+        onCustomReward={(newPoints: number) => {
+          setAccountBalance(newPoints);
+        }}
+      />
       <CommonDrawer
         title="My Points"
         ref={pointsDrawerRef}
