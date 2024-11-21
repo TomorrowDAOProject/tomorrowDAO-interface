@@ -178,7 +178,12 @@ interface IGetReferrelListReq {
 interface IInviterInfo {
   rank: number;
   inviter: string;
+  inviterCaHash: string;
   inviteAndVoteCount: number;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  icon: string;
 }
 
 interface InviterListResponse {

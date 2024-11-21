@@ -2,6 +2,7 @@
   .my-points-drawer.telegram-common-drawer-body .drawer-body {
     @apply px-0;
   }
+
   .my-points-drawer {
     max-height: 100vh;
     overflow-y: scroll;
@@ -11,7 +12,16 @@
 .discover-app-detail-drawer {
   height: 100vh;
   overflow-y: scroll;
+
   .drawer-body {
     @apply p-0 h-full;
+  }
+}
+
+.ranking-container {
+  @apply font-sf-pro-text;
+
+  .ranking-content {
+    background-color: #0F0F0F;
   }
 }
