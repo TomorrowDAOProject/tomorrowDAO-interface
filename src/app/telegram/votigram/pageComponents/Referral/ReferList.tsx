@@ -31,10 +31,9 @@ export default function ReferList(props: IReferListProps) {
       const { first_name, last_name, photo_url } =
         window?.Telegram?.WebApp?.initDataUnsafe.user || {};
       setMyInfo({
-        first_name: 'Sri',
-        last_name: 'Venkatanarasimharajuvaripeta',
-        photo_url:
-          'https://t.me/i/userpic/320/f4ZHGhoTj1E_IzAdBfjgNbwtY8gCkjvvsiH_02VVCO2JCz3hGOaPR1xO19VL4J5_.svg',
+        first_name,
+        last_name,
+        photo_url,
       });
     }
   }, []);
