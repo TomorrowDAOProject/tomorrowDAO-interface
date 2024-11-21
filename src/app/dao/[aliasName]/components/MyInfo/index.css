@@ -11,3 +11,8 @@
     @apply m-0;
   }
 }
+.my-info-form {
+  .TMRWDAO-input-number-filled {
+    @apply w-full;
+  }
+}
