@@ -13,40 +13,6 @@
         @apply text-white;
       }
     }
-
-    .button-wrap {
-      button {
-        font-size: 14px;
-        font-weight: 510;
-        line-height: 20px;
-        border-radius: 10px;
-        @apply h-[32px];
-      }
-    }
-  }
-
-  .cover-image {
-    @apply w-full h-[200px] mt-[16px] rounded-2xl overflow-hidden;
-
-    img {
-      object-fit: cover;
-      object-position: center;
-    }
-  }
-
-  .description {
-    color: var(--Black-Divider, #e0e0e0);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    margin-top: 16px;
-    margin-bottom: 24px;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    color: var(--hint_color);
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .tag-wrap {
