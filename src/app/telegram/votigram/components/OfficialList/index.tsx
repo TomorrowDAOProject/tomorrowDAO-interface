@@ -37,7 +37,7 @@ const OfficialList = ({ data, onItemClick }: IOfficialList) => {
   return (
     <div className="w-full votigram-featured-list-container">
       <span className="tracking-[1px] leading-[16px] text-[16px] text-[#9A9A9A] font-[510] title">
-        OFFICIAL
+        TRENDING
       </span>
       <Slider className="mt-5 pl-4" {...settings}>
         {data?.map(({ proposalId, proposalTitle, labelType, bannerUrl, totalVoteAmount }) => (
