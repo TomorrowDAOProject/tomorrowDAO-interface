@@ -3,12 +3,15 @@
   color: white;
   background: #000;
   @apply px-[16px] pb-[128px];
+
   .init-loading-wrap {
     @apply mt-[100px];
   }
 }
+
 .discover-page-tab {
   color: white;
+
   .adm-tabs-header {
     position: sticky;
     height: 72px;
@@ -22,6 +25,7 @@
     border-bottom: none;
     padding-top: 24px;
   }
+
   .adm-tabs-tab-list {
     height: 26px;
     width: calc(100vw - 16px - 16px);
@@ -31,16 +35,20 @@
   .adm-tabs-content {
     @apply p-0;
   }
+
   .adm-tabs-tab-wrapper {
     @apply p-0 flex-grow-0;
   }
-  .adm-tabs-tab-wrapper + .adm-tabs-tab-wrapper {
+
+  .adm-tabs-tab-wrapper+.adm-tabs-tab-wrapper {
     @apply ml-[8px];
   }
+
   .adm-tabs-tab-line,
   .adm-tabs-header-mask {
     @apply hidden;
   }
+
   .adm-tabs-tab {
     display: flex;
     padding: 4px 8px;
@@ -54,24 +62,19 @@
     font-weight: 400;
     line-height: 16px;
     margin: 0;
+
     &.adm-tabs-tab-active {
-      background: var(--Black-BG-Dark-D, #292929);
-      color: var(--Black-Tertiary-D, #9a9a9a);
-    }
-  }
-  .new-tab {
-    .adm-tabs-tab {
-      border-color: #650b19;
-      &.adm-tabs-tab-active {
-        background-color: #650b19;
-      }
+      background: var(--Black-BG-Dark-D, #5222D8);
+      color: white;
     }
   }
 }
+
 .discover-app-select-drawer-root {
   &.telegram-common-drawer .TMRWDAO-btn {
     border-radius: 16px;
   }
+
   .TMRWDAO-checkbox-wrapper {
     color: var(--Black-Tertiary-D, #9a9a9a);
     text-align: center;
@@ -79,16 +82,19 @@
     font-weight: 400;
     line-height: 24px;
   }
+
   .TMRWDAO-checkbox-wrapper {
     @apply flex-center;
     padding: 8px;
     border-radius: 100px;
     border: 1px solid var(--Black-BG-Light-D, #3a3a3a);
   }
+
   .TMRWDAO-checkbox-wrapper-checked {
     background: var(--Black-BG-Light-D, #3a3a3a);
   }
 }
+
 .discover-app-select-drawer {
   .TMRWDAO-checkbox-group {
     @apply grid;
@@ -96,14 +102,17 @@
     grid-row-gap: 16px;
   }
 }
+
 .unset-check-box {
   .TMRWDAO-checkbox {
     @apply hidden;
   }
 }
+
 .reached-the-bottom {
   @apply mt-[24px] py-[32px];
 }
+
 .discover-app-list-refresh-icon {
   @apply w-[48px] h-[48px];
   position: fixed;
