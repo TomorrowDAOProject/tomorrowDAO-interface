@@ -45,7 +45,7 @@ RUN \
   fi; \
   NODE_OPTIONS=--max-old-space-size=8192 \
   NO_DRY_RUN=1 \
-  STANDALONE=1 \
+  NEXT_PUBLIC_STANDALONE=1 \
   APP_ENV=${APP_ENV} \
     $BUILD_CMD
 RUN ls -asl .next
@@ -78,7 +78,7 @@ RUN chown nextjs:nodejs .next
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/NEXT_PUBLIC_STANDALONE ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
@@ -87,6 +87,6 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-# server.js is created by next build from the standalone output
+# server.js is created by next build from the NEXT_PUBLIC_STANDALONE output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
 CMD HOSTNAME="0.0.0.0" yarn start
