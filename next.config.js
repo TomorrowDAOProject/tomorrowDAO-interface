@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const withPlugins = require('next-compose-plugins');
-const { ANALYZE, NODE_ENV, NO_DRY_RUN, NEXT_PUBLIC_STANDALONE } = process.env;
+const { ANALYZE, NODE_ENV, NO_DRY_RUN } = process.env;
 const pluginConfig = require('./build.config/plugin');
 const development = require('./build.config/development');
 const production = require('./build.config/production');
@@ -10,7 +10,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 let config = ANALYZE === 'true' || NODE_ENV === 'production' ? production : development;
 
-config = withPlugins(
+module.exports = withPlugins(
   [
     ...pluginConfig,
     withSentryConfig(config, {
@@ -44,5 +44,3 @@ config = withPlugins(
   ],
   config,
 );
-
-module.exports = config;
