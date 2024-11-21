@@ -45,7 +45,7 @@ RUN \
   fi; \
   NODE_OPTIONS=--max-old-space-size=8192 \
   NO_DRY_RUN=1 \
-  STANDALONE=1 \
+  NEXT_PUBLIC_STANDALONE=1 \
   APP_ENV=${APP_ENV} \
     $BUILD_CMD
 RUN ls -asl .next
@@ -87,6 +87,6 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-# server.js is created by next build from the standalone output
+# server.js is created by next build from the NEXT_PUBLIC_STANDALONE output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
 CMD HOSTNAME="0.0.0.0" yarn start
