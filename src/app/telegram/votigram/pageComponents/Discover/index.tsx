@@ -154,12 +154,13 @@ const Discover = forwardRef<InfiniteListRef, IDiscover>(({ bannerCount, onBanner
         {items?.map((item) => {
           return (
             <Tabs.Tab
+              className={clsx(item.key === ETelegramAppCategory.New && 'new-tab')}
               title={
                 <>
                   {item.icon}
                   <span className="ml-1">{item.label}</span>
                   {item.key === ETelegramAppCategory.New && bannerCount > 0 && (
-                    <span className="ml-1 bg-[#754EE0] text-white px-1 rounded-full">
+                    <span className="ml-1 bg-[#5222D8] text-white px-1 rounded-full bubble">
                       {bannerCount > 99 ? '99+' : bannerCount}
                     </span>
                   )}

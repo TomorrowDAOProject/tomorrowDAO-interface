@@ -66,7 +66,16 @@
     &.adm-tabs-tab-active {
       background: var(--Black-BG-Dark-D, #5222D8);
       color: white;
-      border: 0;
+
+      .bubble {
+        background-color: #754EE0;
+      }
+    }
+  }
+
+  .new-tab {
+    .adm-tabs-tab {
+      border-color: #5222D8;
     }
   }
 }
