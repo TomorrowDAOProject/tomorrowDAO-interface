@@ -16,7 +16,7 @@ const Header = ({ points, hasCompletedAds, onPointsClick, onAdsVideoClick }: IHe
   return (
     <div className="votigram-header-container">
       <div className="flex flex-col" onClick={onPointsClick}>
-        <span className="text-white text-[10px] tracking-[-0.4px]">Points Accumulated</span>
+        <span className="text-white text-[10px] tracking-[-0.4px]">Total Points Earned</span>
         <div className="flex gap-[3px] items-center">
           <span className="text-[#51FF00] text-[18px] font-semibold">
             {points.toLocaleString()}
