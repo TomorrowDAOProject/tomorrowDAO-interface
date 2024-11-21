@@ -20,7 +20,7 @@ async function main() {
   }
   const env = Object.assign({}, process.env);
   // pass along the current process.env to maintain build flags from CI
-  const buildCommand = spawn('yarn', [env.STANDALONE ? 'next:build' : 'next-compile'], {
+  const buildCommand = spawn('yarn', [env.NEXT_PUBLIC_STANDALONE ? 'next:build' : 'next-compile'], {
     env,
   });
 
