@@ -66,6 +66,7 @@
     &.adm-tabs-tab-active {
       background: var(--Black-BG-Dark-D, #5222D8);
       color: white;
+      border: 0;
     }
   }
 }
