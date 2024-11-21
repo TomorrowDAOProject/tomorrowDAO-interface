@@ -64,7 +64,7 @@ export default function ReferList(props: IReferListProps) {
                   src="https://cdn.tmrwdao.com/assets/imgs/F40486EA32B7.webp"
                 />
               )}
-              {myInfo?.first_name && myInfo?.last_name ? (
+              {myInfo?.first_name ? (
                 <span className="truncate max-w-[145px]">
                   {myInfo.first_name} {myInfo.last_name}
                 </span>
@@ -106,7 +106,7 @@ export default function ReferList(props: IReferListProps) {
                       src="https://cdn.tmrwdao.com/assets/imgs/F40486EA32B7.webp"
                     />
                   )}
-                  {item?.firstName && item?.lastName ? (
+                  {item?.firstName ? (
                     <span className="truncate max-w-[145px]">
                       {item.firstName} {item.lastName}
                     </span>
