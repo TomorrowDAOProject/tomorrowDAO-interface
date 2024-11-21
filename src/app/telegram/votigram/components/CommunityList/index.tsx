@@ -32,6 +32,7 @@ const CommunityList = ({ data, onItemClick, handleCreateVote }: ICommunityList) 
             const isExpired = dayjs() > dayjs(activeEndEpochTime);
             return (
               <div
+                key={proposalId}
                 className={clsx(
                   'flex bg-[#353535] px-[17px] py-[10px] rounded-[15px] gap-[14px] items-center',
                   {
