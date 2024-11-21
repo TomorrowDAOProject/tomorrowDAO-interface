@@ -20,33 +20,23 @@ async function main() {
   }
   const env = Object.assign({}, process.env);
   // pass along the current process.env to maintain build flags from CI
-  const buildCommand = spawn('yarn', [env.NEXT_PUBLIC_STANDALONE ? 'next:build' : 'next-compile'], {
+  const command = env.NEXT_PUBLIC_STANDALONE ? 'next:build' : 'next-compile';
+  console.log('build command', command);
+  const buildCommand = spawn('yarn', [command], {
     env,
   });
 
   buildCommand.stdout.on('data', (data) => {
-    const output = data.toString();
-
-    console.log(output);
-
-    if (output.includes('Collecting build traces')) {
-      setTimeout(() => {
-        console.log('build success');
-        buildCommand.kill('SIGKILL');
-        process.exit(0);
-      }, 5100);
-    }
+    console.log(data.toString());
   });
 
   buildCommand.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
+    console.error(data.toString());
   });
 
   buildCommand.on('close', (code) => {
     console.log(`child process exited with code ${code}`);
-    if (code !== 0) {
-      process.exit(1);
-    }
+    process.exit(code);
   });
 }
 main().catch((error) => {
