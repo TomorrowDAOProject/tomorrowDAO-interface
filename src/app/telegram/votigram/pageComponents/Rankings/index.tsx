@@ -3,7 +3,7 @@ import { useConfig } from 'components/CmsGlobalConfig/type';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import MyPoints from '../../components/MyPoints';
-import { getRankingDetail, getRankings, getTaskList } from 'api/request';
+import { getRankingDetail, getRankings, getTaskList, updateTGInfo } from 'api/request';
 import { curChain } from 'config';
 import VoteList from '../VoteList';
 import { RANKING_LABEL_KEY, RANKING_TYPE_KEY } from 'constants/ranking';
@@ -101,10 +101,20 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
 
   const initialize = async () => {
     try {
+      const { first_name, last_name, photo_url, username } =
+        window?.Telegram?.WebApp?.initDataUnsafe.user || {};
+
       const [communityData, officialData, bannerData] = await Promise.all([
         fetchRankings(RANKING_TYPE_KEY.COMMUNITY, 0, COMMUNITY_ROW_COUNT),
         fetchRankings(RANKING_TYPE_KEY.TRENDING, 0, OFFICIAL_ROW_COUNT),
         fetchRankings(RANKING_TYPE_KEY.TOP_BANNER, 0, BANNER_ROW_COUNT),
+        updateTGInfo({
+          chainId: curChain,
+          firstName: first_name,
+          lastName: last_name,
+          userName: username,
+          icon: photo_url,
+        }),
       ]);
       const completed = await fetchTaskList();
       setHasCompletedAds(completed);

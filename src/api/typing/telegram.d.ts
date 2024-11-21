@@ -332,6 +332,11 @@ interface IUpdateAdsViewRes {
   data: number;
 }
 
+interface IUpdateTgInfo {
+  code: string;
+  data: number;
+}
+
 // ------------------- Rankings -------------------
 enum RankingTypeEnum {
   Official = 1,
