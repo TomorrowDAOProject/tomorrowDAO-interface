@@ -11,16 +11,13 @@ import { CreateVote } from '../CreateVote';
 import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
 
 import Header from '../../components/Header';
-import OfficialList from '../../components/OfficialList';
+import TrendingList from '../../components/TrendingList';
 import CommunityList from '../../components/CommunityList';
 
 import './index.css';
 
-import './index.css';
-
-const OFFICIAL_ROW_COUNT = 3;
+const TRENDING_ROW_COUNT = 3;
 const COMMUNITY_ROW_COUNT = 3;
-const BANNER_ROW_COUNT = 10;
 
 type ItemClickParams = {
   proposalId: string;
@@ -49,10 +46,9 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
   const [hasCompletedAds, setHasCompletedAds] = useState(false);
   const [accountBalance, setAccountBalance] = useState(0);
   const [selectedItem, setSelectedItem] = useState<ItemClickParams | null>(null);
-  const [bannerList, setBannerList] = useState<IRankingsItem[]>([]);
-  const [officialList, setOfficialList] = useState<IRankingsItem[]>(new Array(3).fill({}));
+  const [trendingList, setTrendingList] = useState<IRankingsItem[]>(new Array(3).fill({}));
   const [communityList, setCommunityList] = useState<IRankingsItem[]>(new Array(3).fill({}));
-  const [hasMoreOfficial, setHasMoreOfficial] = useState(false);
+  const [hasMoreTrending, setHasMoreTrending] = useState(false);
   const [hasMoreCommunity, setHasMoreCommunity] = useState(false);
   const { createVotePageTitle, rankingAdsBannerUrl } = useConfig() ?? {};
 
@@ -91,7 +87,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
       return {
         list: result?.data?.data || [],
         userTotalPoints: result?.data?.userTotalPoints || 0,
-        hasMoreData: skipCount < result.data?.totalCount,
+        hasMoreData: skipCount + result?.data?.data.length < result.data?.totalCount,
       };
     } catch (error) {
       console.error(`Failed to fetch rankings of type ${type}`, error);
@@ -104,10 +100,9 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
       const { first_name, last_name, photo_url, username } =
         window?.Telegram?.WebApp?.initDataUnsafe.user || {};
 
-      const [communityData, officialData, bannerData] = await Promise.all([
+      const [communityData, trendingData] = await Promise.all([
         fetchRankings(RANKING_TYPE_KEY.COMMUNITY, 0, COMMUNITY_ROW_COUNT),
-        fetchRankings(RANKING_TYPE_KEY.TRENDING, 0, OFFICIAL_ROW_COUNT),
-        fetchRankings(RANKING_TYPE_KEY.TOP_BANNER, 0, BANNER_ROW_COUNT),
+        fetchRankings(RANKING_TYPE_KEY.TRENDING, 0, TRENDING_ROW_COUNT),
         updateTGInfo({
           chainId: curChain,
           firstName: first_name,
@@ -120,10 +115,9 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
       setHasCompletedAds(completed);
       setHasMoreCommunity(!!communityData.hasMoreData);
       setCommunityList(communityData.list || []);
-      setHasMoreOfficial(!!officialData.hasMoreData);
-      setOfficialList(officialData.list || []);
-      setAccountBalance(officialData?.userTotalPoints || 0);
-      setBannerList(bannerData.list || []);
+      setHasMoreTrending(!!trendingData.hasMoreData);
+      setTrendingList(trendingData.list || []);
+      setAccountBalance(trendingData?.userTotalPoints || 0);
     } catch (error) {
       console.error('Initialization failed', error);
     }
@@ -137,6 +131,16 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
     );
     setHasMoreCommunity(!!newCommunityData.hasMoreData);
     setCommunityList((prevList) => [...prevList, ...(newCommunityData?.list || [])]);
+  };
+
+  const onShowMoreTrendingClick = async () => {
+    const newTrendingData = await fetchRankings(
+      RANKING_TYPE_KEY.TRENDING,
+      trendingList.length,
+      TRENDING_ROW_COUNT,
+    );
+    setHasMoreTrending(!!newTrendingData.hasMoreData);
+    setTrendingList((prevList) => [...prevList, ...(newTrendingData?.list || [])]);
   };
 
   const fetchRankDetail = async (proposalId: string) => {
@@ -187,7 +191,12 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
               YOUR CHOICE
             </span>
           </div>
-          <OfficialList data={officialList} onItemClick={onItemClick} />
+          <TrendingList data={trendingList} onItemClick={onItemClick} />
+          {hasMoreTrending && (
+            <div className="flex justify-center mt-[15px]" onClick={onShowMoreTrendingClick}>
+              <span className="underline text-white">See More</span>
+            </div>
+          )}
           {!hasCompletedAds && rankingAdsBannerUrl && (
             <div
               className="flex px-4 py-7"
@@ -204,10 +213,13 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
             data={communityList}
             onItemClick={onItemClick}
             handleCreateVote={handleCreateVote}
+            hasMoreCommunity={hasMoreCommunity}
           />
-          <div className="flex justify-center pb-[150px]" onClick={onShowMoreCommunityClick}>
-            <span className="underline text-white">See More</span>
-          </div>
+          {hasMoreCommunity && (
+            <div className="flex justify-center pb-[150px]" onClick={onShowMoreCommunityClick}>
+              <span className="underline text-white">See More</span>
+            </div>
+          )}
         </div>
       </div>
       <AdsGram

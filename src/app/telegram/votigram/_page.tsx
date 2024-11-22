@@ -44,7 +44,6 @@ export default function Page() {
   }, []);
   useEffect(() => {
     const webapp = window.Telegram?.WebApp;
-    console.log(webapp.expand);
     webapp?.setBackgroundColor(mainPageBgColor);
   }, []);
 
