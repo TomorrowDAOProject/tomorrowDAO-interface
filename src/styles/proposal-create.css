@@ -1,7 +1,7 @@
 .dynamic-form-buttons {
   @apply mt-[8px] flex justify-between lg:justify-start lg:gap-0 gap-[16px] lg:w-auto w-full;
   .dynamic-form-buttons-item {
-    @apply lg:w-[143px] flex-1;
+    @apply lg:w-[143px] lg:flex-none flex-1;
   }
   .dynamic-form-buttons-item + .dynamic-form-buttons-item {
     @apply lg:ml-[16px];
@@ -25,5 +25,3 @@
     @apply text-rejection;
   }
 }
-
-
