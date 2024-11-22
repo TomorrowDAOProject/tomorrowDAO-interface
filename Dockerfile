@@ -38,17 +38,11 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
-  if [ -f yarn.lock ]; then BUILD_CMD="yarn run build"; \
-  elif [ -f package-lock.json ]; then BUILD_CMD="npm run build"; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && BUILD_CMD="pnpm run build"; \
+  if [ -f yarn.lock ]; then APP_ENV=${APP_ENV} yarn run build; \
+  elif [ -f package-lock.json ]; then APP_ENV=${APP_ENV} npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && APP_ENV=${APP_ENV} pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
-  fi; \
-  NODE_OPTIONS=--max-old-space-size=8192 \
-  NO_DRY_RUN=1 \
-  STANDALONE=1 \
-  APP_ENV=${APP_ENV} \
-    $BUILD_CMD
-RUN ls -asl .next
+  fi
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -77,10 +71,13 @@ RUN chown nextjs:nodejs .next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
+#COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+#COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/next.config.js ./next.config.js
+COPY --from=builder --chown=nextjs:nodejs /app/build.config ./build.config
+COPY package.json ./
+RUN yarn install
 USER nextjs
 
 EXPOSE 3000

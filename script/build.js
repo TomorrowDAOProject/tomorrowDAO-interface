@@ -18,11 +18,7 @@ async function main() {
     console.log(`APP_ENV: ${APP_ENV}, replace testnet with mainnet !!!`);
     // await Promise.all([getConfig(), getContractAddress()]);
   }
-  const env = Object.assign({}, process.env);
-  // pass along the current process.env to maintain build flags from CI
-  const buildCommand = spawn('yarn', [env.STANDALONE ? 'next:build' : 'next-compile'], {
-    env,
-  });
+  const buildCommand = spawn('yarn', ['next-compile']);
 
   buildCommand.stdout.on('data', (data) => {
     const output = data.toString();
