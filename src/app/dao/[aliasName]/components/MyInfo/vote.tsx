@@ -261,6 +261,7 @@ function Vote(props: TVoteTypes) {
             ]}
           >
             <InputNumber
+              className="w-full"
               placeholder="Please input stake amount"
               autoFocus
               prefix={

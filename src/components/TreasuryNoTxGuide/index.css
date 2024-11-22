@@ -14,9 +14,6 @@
   .treasury-no-tx-label {
     @apply text-[16px] leading-[24px];
   }
-  .TMRWDAO-input-number {
-    @apply w-full;
-  }
 }
 
 .treasury-no-tx-button-item {
