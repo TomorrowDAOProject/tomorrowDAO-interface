@@ -35,7 +35,7 @@ const InfiniteList = forwardRef<InfiniteListRef, InfiniteListProps>((props, ref)
       category: category,
       chainId: curChain,
       skipCount: preList.length,
-      maxResultCount: MaxResultCount,
+      maxResultCount: ETelegramAppCategory.New === category ? 100 : MaxResultCount,
       aliases,
     });
     const currentList = res?.data?.data ?? [];
