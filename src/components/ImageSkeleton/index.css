@@ -1,15 +1,10 @@
 .image-skeleton-wrap {
   @apply relative w-full h-full;
   .TMRWDAO-skeleton.TMRWDAO-skeleton-active .TMRWDAO-skeleton-image {
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.06) 25%,
-      rgba(255, 255, 255, 0.15) 37%,
-      rgba(255, 255, 255, 0.06) 63%
-    );
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 25%, rgba(255, 255, 255, 0.15) 37%, rgba(255, 255, 255, 0.06) 63%);
     background-size: 400% 100%;
   }
-  .TMRWDAO-skeleton.TMRWDAO-skeleton-element {
+  .TMRWDAO-skeleton-element {
     @apply w-full h-full;
   }
   .TMRWDAO-skeleton.TMRWDAO-skeleton-element .TMRWDAO-skeleton-image {
