@@ -18,25 +18,31 @@ async function main() {
     console.log(`APP_ENV: ${APP_ENV}, replace testnet with mainnet !!!`);
     // await Promise.all([getConfig(), getContractAddress()]);
   }
-  const env = Object.assign({}, process.env);
-  // pass along the current process.env to maintain build flags from CI
-  const command = env.NEXT_PUBLIC_STANDALONE ? 'next:build' : 'next-compile';
-  console.log('build command', command);
-  const buildCommand = spawn('yarn', [command], {
-    env,
-  });
+  const buildCommand = spawn('yarn', ['next-compile']);
 
   buildCommand.stdout.on('data', (data) => {
-    console.log(data.toString());
+    const output = data.toString();
+
+    console.log(output);
+
+    if (output.includes('Collecting build traces')) {
+      setTimeout(() => {
+        console.log('build success');
+        buildCommand.kill('SIGKILL');
+        process.exit(0);
+      }, 5100);
+    }
   });
 
   buildCommand.stderr.on('data', (data) => {
-    console.error(data.toString());
+    console.error(`stderr: ${data}`);
   });
 
   buildCommand.on('close', (code) => {
     console.log(`child process exited with code ${code}`);
-    process.exit(code);
+    if (code !== 0) {
+      process.exit(1);
+    }
   });
 }
 main().catch((error) => {

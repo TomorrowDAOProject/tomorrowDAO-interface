@@ -40,10 +40,7 @@ export default function IssueToken(props: IIssueTokenProps) {
         validateFirst
         label={<span className="form-item-label">Amount</span>}
       >
-        <InputNumber
-          placeholder="Please enter the amount you want to issue"
-          className="issue-amount-input"
-        />
+        <InputNumber placeholder="Please enter the amount you want to issue" className="w-full" />
       </Form.Item>
       <Form.Item
         validateFirst
@@ -179,7 +176,7 @@ export default function IssueToken(props: IIssueTokenProps) {
       >
         <InputNumber
           placeholder="Please enter the amount you want to issue"
-          className="issue-amount-input"
+          className="w-full"
           controls={false}
           stringMode={true}
         />

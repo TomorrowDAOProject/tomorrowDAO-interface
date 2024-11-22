@@ -267,6 +267,7 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
               >
                 <InputNumber
                   placeholder="Please enter the amount you want to deposit"
+                  className="w-full"
                   controls={false}
                 />
               </Form.Item>
