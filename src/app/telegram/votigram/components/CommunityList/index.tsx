@@ -20,9 +20,15 @@ interface ICommunityList {
   data: IRankingsItem[];
   onItemClick({ proposalId, proposalTitle, isGold }: ItemClickParams): void;
   handleCreateVote: () => void;
+  hasMoreCommunity: boolean;
 }
 
-const CommunityList = ({ data, onItemClick, handleCreateVote }: ICommunityList) => {
+const CommunityList = ({
+  data,
+  onItemClick,
+  handleCreateVote,
+  hasMoreCommunity,
+}: ICommunityList) => {
   return (
     <div className="votigram-communiy-list">
       <span className="tracking-[1px] leading-[16px] text-[16px] font-[500] title">COMMUNITY</span>
@@ -91,7 +97,11 @@ const CommunityList = ({ data, onItemClick, handleCreateVote }: ICommunityList) 
           },
         )}
       </div>
-      <div className="flex mb-[14px]">
+      <div
+        className={clsx('flex mb-[14px]', {
+          'pb-[150px]': !hasMoreCommunity,
+        })}
+      >
         <button
           onClick={handleCreateVote}
           className="bg-[#5222D8] w-full h-8 border-0 text-white items-center justify-center flex gap-[6px] rounded-[10px]"

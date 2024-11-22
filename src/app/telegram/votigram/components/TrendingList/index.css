@@ -1,10 +1,11 @@
 .votigram-featured-list-container {
+  padding: 0 16px;
+
   .title {
     background: linear-gradient(90deg, #6E53FB, #AB92FF);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    padding: 0 16px;
     font-weight: 500;
   }
 

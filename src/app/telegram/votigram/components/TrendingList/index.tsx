@@ -1,26 +1,11 @@
 import React from 'react';
 
-import Slider from 'react-slick';
 import Image from 'next/image';
 import { ReactComponent as Vote } from 'assets/icons/vote.svg';
 import { RANKING_LABEL_KEY } from 'constants/ranking';
-
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './index.css';
 import clsx from 'clsx';
 
-const settings = {
-  arrows: false,
-  dots: false,
-  infinite: false,
-  centerMode: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  centerPadding: '16px',
-  variableWidth: true,
-};
+import './index.css';
 
 type ItemClickParams = {
   proposalId: string;
@@ -28,22 +13,22 @@ type ItemClickParams = {
   isGold: boolean;
 };
 
-interface IOfficialList {
+interface ITrendingList {
   data: IRankingsItem[];
   onItemClick({ proposalId, proposalTitle, isGold }: ItemClickParams): void;
 }
 
-const OfficialList = ({ data, onItemClick }: IOfficialList) => {
+const TrendingList = ({ data, onItemClick }: ITrendingList) => {
   return (
     <div className="w-full votigram-featured-list-container">
       <span className="tracking-[1px] leading-[16px] text-[16px] text-[#9A9A9A] font-[510] title">
         TRENDING
       </span>
-      <Slider className="mt-5 pl-4" {...settings}>
+      <div className="mt-[15px] flex flex-col gap-[15px]">
         {data?.map(({ proposalId, proposalTitle, labelType, bannerUrl, totalVoteAmount }) => (
           <div
             key={proposalId}
-            className="!flex flex-col !w-[300px] gap-2"
+            className="flex flex-col w-full gap-2"
             onClick={() => {
               onItemClick({
                 proposalId,
@@ -52,7 +37,7 @@ const OfficialList = ({ data, onItemClick }: IOfficialList) => {
               });
             }}
           >
-            <div className="relative w-[300px] h-[100px] rounded-2xl overflow-hidden">
+            <div className="relative w-full min-h-[120px] rounded-2xl overflow-hidden">
               {bannerUrl !== undefined ? (
                 <Image src={bannerUrl} fill alt="Banner" priority />
               ) : (
@@ -94,9 +79,9 @@ const OfficialList = ({ data, onItemClick }: IOfficialList) => {
             </div>
           </div>
         ))}
-      </Slider>
+      </div>
     </div>
   );
 };
 
-export default OfficialList;
+export default TrendingList;
