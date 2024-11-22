@@ -35,7 +35,7 @@ COPY . .
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-ENV NEXT_TELEMETRY_DISABLED 1
+# ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
   if [ -f yarn.lock ]; then BUILD_CMD="yarn run build"; \
@@ -83,9 +83,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
+EXPOSE 3000
+
+ENV PORT 3000
+
 # server.js is created by next build from the NEXT_PUBLIC_STANDALONE output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-EXPOSE 3000
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD HOSTNAME="0.0.0.0" yarn start
