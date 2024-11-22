@@ -34,42 +34,17 @@ export default function DiscoverItem(props: IDiscoverProps) {
   return (
     <>
       <div ref={itemRef} className="discover-item-wrap" onClick={handleItemOpen}>
-        <div className="header">
+        <div className="header grid-cols-[48px_auto]">
           <img src={item.icon} className="icon" alt="" width={48} />
           <div className="title-wrap">
-            <h3 className="font-16-20-weight">{item.title}</h3>
+            <h3 className="text-[16px] font-medium leading-[24px]">{item.title}</h3>
             <div className="tag-wrap">
               {item.categories?.map((category, index) => (
                 <Tag key={index}>{category}</Tag>
               ))}
             </div>
           </div>
-          <a
-            href={item.url}
-            ref={aHrefRef}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="button-wrap"
-          >
-            <Button size="small" type="primary">
-              Open
-            </Button>
-          </a>
         </div>
-        {item.screenshots?.[0] && (
-          <div className="cover-image">
-            <ImageWithPlaceholder src={item.screenshots[0]} />
-          </div>
-        )}
-
-        {item.longDescription && (
-          <p
-            className="description"
-            dangerouslySetInnerHTML={{
-              __html: item.longDescription,
-            }}
-          ></p>
-        )}
       </div>
       <CommonDrawer
         title=""

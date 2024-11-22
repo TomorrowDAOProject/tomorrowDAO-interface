@@ -43,6 +43,12 @@ module.exports = {
         port: '',
         pathname: '/cms/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.tmrwdao.com',
+        port: '',
+        pathname: '/assets/**',
+      },
     ],
   },
   typescript: {
