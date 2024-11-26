@@ -65,11 +65,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             }}
           ></iframe>
         </noscript>
-        <StyleRegistry>
-          <Provider>
-            <LayoutContent>{children}</LayoutContent>
-          </Provider>
-        </StyleRegistry>
+        <div id="root">{children}</div>
       </body>
     </html>
   );
