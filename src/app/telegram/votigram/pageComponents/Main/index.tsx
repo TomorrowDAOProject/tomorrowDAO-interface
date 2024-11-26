@@ -46,7 +46,6 @@ export default function Main(props: IMainProps) {
   }, []);
 
   const toggleNewListDrawerOpen = () => {
-    pushStackByValue(ITabSource.Rank);
     createVoteDrawerRef.current?.open();
   };
 
@@ -102,6 +101,7 @@ export default function Main(props: IMainProps) {
           }}
           show={activeTab.path === ITabSource.Task}
           activeTabItem={activeTabItem}
+          toggleNewListDrawerOpen={toggleNewListDrawerOpen}
         />
         {activeTab.path === ITabSource.Referral && <Referral />}
         {activeTab.path === ITabSource.Asset && (
