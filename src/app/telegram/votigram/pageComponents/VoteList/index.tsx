@@ -180,6 +180,21 @@ export default function VoteList({
       handleError();
     }
   };
+
+  const getTrackId = () => {
+    if (window?.Telegram) {
+      const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
+      const taskDivider = '__CPN__';
+      if (startParam && startParam.includes(taskDivider)) {
+        const param = startParam.split(taskDivider)[1];
+        console.log('trackid', param);
+        return param;
+      } else {
+        return '';
+      }
+    }
+  };
+
   const sendRawTransaction = async () => {
     confirmDrawerRef.current?.close();
     retryDrawerRef.current?.close();
@@ -207,9 +222,11 @@ export default function VoteList({
         chainId: curChain,
       });
       if (rawTransaction) {
+        const trackId = getTrackId();
         const voteRes = await rankingVote({
           chainId: curChain,
           rawTransaction: rawTransaction,
+          trackId,
         });
         if (voteRes?.data?.status === VoteStatus.Voting) {
           requestVoteStatus();
