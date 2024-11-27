@@ -19,6 +19,7 @@ import Image from 'next/image';
 import './TaskItem.css';
 import clsx from 'clsx';
 import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
+import { useConfig } from 'components/CmsGlobalConfig/type';
 
 interface ITaskItemProps {
   taskItem: IUserTaskItemDetail;
@@ -137,37 +138,40 @@ const needShowTaskProgress: string[] = [
   UserTaskDetail.ExploreCumulateTenInvite,
   UserTaskDetail.ExploreCumulateTwentyInvite,
 ];
-const jumpExternalList = [
-  {
-    taskId: UserTaskDetail.ExploreJoinVotigram,
-    url: 'https://t.me/votigram',
-  },
-  {
-    taskId: UserTaskDetail.ExploreFollowVotigramX,
-    url: 'https://x.com/votigram',
-  },
-  {
-    taskId: UserTaskDetail.ExploreForwardVotigramX,
-    url: 'https://x.com/votigram/status/1860983403656761689',
-  },
-  {
-    taskId: UserTaskDetail.ExploreJoinTgChannel,
-    url: 'https://t.me/tmrwdao',
-  },
-  {
-    taskId: UserTaskDetail.ExploreFollowX,
-    url: 'https://x.com/tmrwdao',
-  },
-  {
-    taskId: UserTaskDetail.ExploreJoinDiscord,
-    url: 'https://discord.com/invite/gTWkeR5pQB',
-  },
-  {
-    taskId: UserTaskDetail.ExploreForwardX,
-    url: 'https://x.com/tmrwdao/status/1827955375070650747',
-  },
-];
+
 export const TaskItem = (props: ITaskItemProps) => {
+  const { retweetVotigramPostURL, retweetTmrwdaoPostURL } = useConfig() ?? {};
+
+  const jumpExternalList = [
+    {
+      taskId: UserTaskDetail.ExploreJoinVotigram,
+      url: 'https://t.me/votigram',
+    },
+    {
+      taskId: UserTaskDetail.ExploreFollowVotigramX,
+      url: 'https://x.com/votigram',
+    },
+    {
+      taskId: UserTaskDetail.ExploreForwardVotigramX,
+      url: retweetVotigramPostURL || '',
+    },
+    {
+      taskId: UserTaskDetail.ExploreJoinTgChannel,
+      url: 'https://t.me/tmrwdao',
+    },
+    {
+      taskId: UserTaskDetail.ExploreFollowX,
+      url: 'https://x.com/tmrwdao',
+    },
+    {
+      taskId: UserTaskDetail.ExploreJoinDiscord,
+      url: 'https://discord.com/invite/gTWkeR5pQB',
+    },
+    {
+      taskId: UserTaskDetail.ExploreForwardX,
+      url: retweetTmrwdaoPostURL || '',
+    },
+  ];
   const {
     taskItem,
     activeTabItem,
