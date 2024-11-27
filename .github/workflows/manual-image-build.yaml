@@ -1,6 +1,7 @@
 name: Build Image on demand
 on:
   workflow_dispatch:
+
 jobs:
   build-image-on-demand:
     runs-on: tmrwdao-runner
@@ -11,6 +12,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/iron'
+      - run: npm i -g yarn
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: |
+          NEXT_PUBLIC_ADSGRAM_ID=${{ secrets.MAINNET_NEXT_PUBLIC_ADSGRAM_ID }}
+          NEXT_PUBLIC_HASH_PRIVATE_KEY=${{ secrets.MAINNET_NEXT_PUBLIC_HASH_PRIVATE_KEY }}
+          NEXT_PUBLIC_PINATA_JWT=${{ secrets.MAINNET_NEXT_PUBLIC_PINATA_JWT }}
+          NEXT_PUBLIC_GATEWAY_TOKEN=${{ secrets.MAINNET_NEXT_PUBLIC_GATEWAY_TOKEN }}
+          NODE_OPTIONS=--max-old-space-size=8192 \
+          NO_DRY_RUN=1 \
+          NEXT_PUBLIC_STANDALONE=1 \
+          APP_ENV=testnet \
+            yarn build
+
       - name: Set short git commit SHA
         id: vars
         run: |
@@ -36,8 +58,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            APP_ENV=testnet
       - name: Inspect Image
         run: |
           docker images -a
