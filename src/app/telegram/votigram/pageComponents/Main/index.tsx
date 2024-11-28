@@ -46,6 +46,7 @@ export default function Main(props: IMainProps) {
   }, []);
 
   const toggleNewListDrawerOpen = () => {
+    pushStackByValue(ITabSource.Rank);
     createVoteDrawerRef.current?.open();
   };
 
