@@ -100,6 +100,7 @@ enum VoteStatus {
 interface IRankingVoteReq {
   rawTransaction: string;
   chainId: string;
+  trackId: string;
 }
 interface IRankingVoteRes {
   code: number;
