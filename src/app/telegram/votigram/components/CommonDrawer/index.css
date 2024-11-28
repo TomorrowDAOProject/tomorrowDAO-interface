@@ -4,7 +4,7 @@
   }
 
   .TMRWDAO-drawer-content-wrapper {
-    @apply !h-full;
+    @apply !h-auto;
   }
 
   .TMRWDAO-drawer-body {
