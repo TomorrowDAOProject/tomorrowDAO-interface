@@ -60,6 +60,15 @@
   }
 }
 
+.invite-drawer-root {
+  height: 100%;
+  width: 100%;
+
+  .TMRWDAO-drawer-content-wrapper {
+    height: 100% !important;
+  }
+}
+
 .invite-drawer-header {
   .close-target {
     @apply hidden;

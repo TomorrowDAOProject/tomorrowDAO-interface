@@ -17,9 +17,10 @@ interface ITaskProps {
   className?: string;
   show: boolean;
   activeTabItem: (item: IStackItem) => void;
+  toggleNewListDrawerOpen: () => void;
 }
 const Task: React.FC<ITaskProps> = (props: ITaskProps) => {
-  const { style, className, show, activeTabItem } = props;
+  const { style, className, show, activeTabItem, toggleNewListDrawerOpen } = props;
   const { walletInfo: wallet } = useConnectWallet();
   // const completeTaskModalRef = useRef<ICommonModalRef>(null);
   const [taskGroupList, setTaskGroupList] = useState<IGetTaskListResItem[]>([]);
@@ -110,6 +111,7 @@ const Task: React.FC<ITaskProps> = (props: ITaskProps) => {
                       userTask={taskGroup.userTask}
                       getTaskListFn={getTaskListFn}
                       onReportComplete={handleReportComplete}
+                      toggleNewListDrawerOpen={toggleNewListDrawerOpen}
                     />
                   );
                 })}

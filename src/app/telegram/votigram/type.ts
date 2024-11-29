@@ -15,8 +15,12 @@ export enum UserTaskDetail {
   DailyVote = 'DailyVote',
   DailyFirstInvite = 'DailyFirstInvite',
   DailyViewAsset = 'DailyViewAsset',
+  DailyCreatePoll = 'DailyCreatePoll',
 
   // Explore
+  ExploreJoinVotigram = 'ExploreJoinVotigram',
+  ExploreFollowVotigramX = 'ExploreFollowVotigramX',
+  ExploreForwardVotigramX = 'ExploreForwardVotigramX',
   ExploreJoinTgChannel = 'ExploreJoinTgChannel',
   ExploreFollowX = 'ExploreFollowX',
   ExploreJoinDiscord = 'ExploreJoinDiscord',
