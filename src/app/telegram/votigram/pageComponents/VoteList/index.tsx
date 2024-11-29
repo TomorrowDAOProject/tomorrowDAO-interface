@@ -54,6 +54,11 @@ export const getShareText = (title: string) => {
 🌈 Cast your vote to express your opinion!\n
 `;
 };
+
+type CallSendResult = {
+  data: any;
+  transactionId: string;
+};
 // interface IVoteListProps {}
 export default function VoteList({
   backToPrev,
@@ -148,7 +153,7 @@ export default function VoteList({
       }
     }, 100);
   };
-  const { walletInfo: wallet, walletType } = useConnectWallet();
+  const { walletInfo: wallet, walletType, callSendMethod } = useConnectWallet();
   const requestVoteStatus = async () => {
     retryDrawerRef.current?.close();
     loadingDrawerRef.current?.open();
@@ -206,6 +211,18 @@ export default function VoteList({
     };
 
     try {
+      const result: CallSendResult = await callSendMethod({
+        contractAddress: voteAddress,
+        methodName: 'Vote',
+        args: {
+          votingItemId: currentVoteItem?.proposalId,
+          voteOption: EVoteOption.APPROVED,
+          voteAmount: 1,
+          memo: `##GameRanking:{${currentVoteItem?.alias}}`,
+        },
+        chainId: curChain,
+      });
+
       const rawTransaction = await getRawTransaction({
         walletInfo: wallet,
         contractAddress: voteAddress,
@@ -221,19 +238,17 @@ export default function VoteList({
         rpcUrl: rpcUrlTDVW,
         chainId: curChain,
       });
-      if (rawTransaction) {
+      if (rawTransaction && result) {
         const trackId = getTrackId();
-        const voteRes = await rankingVote({
+        await rankingVote({
           chainId: curChain,
           rawTransaction: rawTransaction,
+          transactionId: result.transactionId,
           trackId,
         });
-        if (voteRes?.data?.status === VoteStatus.Voting) {
-          requestVoteStatus();
-        } else {
-          loadingDrawerRef.current?.close();
-          getRankingListFn();
-        }
+
+        loadingDrawerRef.current?.close();
+        getRankingListFn();
       }
     } catch (error) {
       console.log('sendRawTransaction, error', error);
