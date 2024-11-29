@@ -5,14 +5,15 @@ import { ReactComponent as Vote } from 'assets/icons/vote.svg';
 import { ReactComponent as Add } from 'assets/icons/add.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
 
-import './index.css';
 import dayjs from 'dayjs';
 import clsx from 'clsx';
 import { RANKING_LABEL_KEY } from 'constants/ranking';
 
+import './index.css';
+
 type ItemClickParams = {
   proposalId: string;
-  proposalTitle: string;
+  proposalTitle: string | undefined;
   isGold: boolean;
 };
 
@@ -77,7 +78,7 @@ const CommunityList = ({
                   {proposalTitle !== undefined ? (
                     <span className="text-[#E0E0E0]">{proposalTitle}</span>
                   ) : (
-                    <div className="flex flex-col gap-[3px]">
+                    <div data-testid="proposal-title-testId" className="flex flex-col gap-[3px]">
                       <div className="h-3 bg-[#353535] w-4/5 rounded animate-pulse" />
                       <div className="h-3 bg-[#353535] w-2/5 rounded animate-pulse" />
                     </div>
@@ -87,7 +88,10 @@ const CommunityList = ({
                     {totalVoteAmount !== undefined ? (
                       <span className="text-[#51FF00]">{totalVoteAmount}</span>
                     ) : (
-                      <div className="h-3 bg-[#353535] w-1/5 rounded animate-pulse" />
+                      <div
+                        data-testid="proposal-vote-testId"
+                        className="h-3 bg-[#353535] w-1/5 rounded animate-pulse"
+                      />
                     )}
                   </div>
                 </div>
