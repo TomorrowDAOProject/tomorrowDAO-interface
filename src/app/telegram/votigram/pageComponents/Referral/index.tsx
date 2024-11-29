@@ -284,7 +284,7 @@ export default function Referral(props: IReferralProps) {
       ></CommonModal>
 
       <CommonDrawer
-        title={`Rules`}
+        title="Rules"
         ref={ruleDrawerRef}
         body={
           <div className="flex flex-col items-center">
@@ -319,7 +319,7 @@ export default function Referral(props: IReferralProps) {
         }
       />
       <CommonDrawer
-        title={`Share`}
+        title="Share"
         ref={shareDrawerRef}
         body={
           <div className="flex flex-col items-center">
@@ -357,18 +357,17 @@ export default function Referral(props: IReferralProps) {
         }
       />
       <CommonDrawer
-        title={`Leaderboard`}
+        title="Leaderboard"
         ref={listsDrawerRef}
+        rootClassName="invite-drawer-root"
         headerClassname="invite-drawer-header"
         bodyClassname="invite-drawer-body-wrap"
         body={
           <div className="invite-drawer-body">
             <Select
               defaultValue=""
-              // eslint-disable-next-line no-inline-styles/no-inline-styles
               value={currentTimePeriod}
-              // eslint-disable-next-line no-inline-styles/no-inline-styles
-              style={{ width: '100%' }}
+              className="w-full"
               popupClassName="invite-drawer-popup"
               onChange={handleChange}
               options={referrelConfigRes?.data.config.map((time) => {

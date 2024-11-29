@@ -76,13 +76,19 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
   };
 
   // Generalized function to fetch rankings with different types and configurations
-  const fetchRankings = async (type: number, skipCount: number, maxResultCount: number) => {
+  const fetchRankings = async (
+    type: number,
+    skipCount: number,
+    maxResultCount: number,
+    isShowMore: boolean,
+  ) => {
     try {
       const result = await getRankings({
         chainId: curChain,
         type,
         skipCount,
         maxResultCount,
+        isShowMore,
       });
       return {
         list: result?.data?.data || [],
@@ -101,8 +107,8 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
         window?.Telegram?.WebApp?.initDataUnsafe.user || {};
 
       const [communityData, trendingData] = await Promise.all([
-        fetchRankings(RANKING_TYPE_KEY.COMMUNITY, 0, COMMUNITY_ROW_COUNT),
-        fetchRankings(RANKING_TYPE_KEY.TRENDING, 0, TRENDING_ROW_COUNT),
+        fetchRankings(RANKING_TYPE_KEY.COMMUNITY, 0, COMMUNITY_ROW_COUNT, false),
+        fetchRankings(RANKING_TYPE_KEY.TRENDING, 0, TRENDING_ROW_COUNT, false),
         updateTGInfo({
           chainId: curChain,
           firstName: first_name,
@@ -128,6 +134,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
       RANKING_TYPE_KEY.COMMUNITY,
       communityList.length,
       COMMUNITY_ROW_COUNT,
+      true,
     );
     setHasMoreCommunity(!!newCommunityData.hasMoreData);
     setCommunityList((prevList) => [...prevList, ...(newCommunityData?.list || [])]);
@@ -138,6 +145,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
       RANKING_TYPE_KEY.TRENDING,
       trendingList.length,
       TRENDING_ROW_COUNT,
+      true,
     );
     setHasMoreTrending(!!newTrendingData.hasMoreData);
     setTrendingList((prevList) => [...prevList, ...(newTrendingData?.list || [])]);

@@ -24,6 +24,8 @@ export interface IConfigContent {
   createVotePageTitle: string;
   rankingAdsBannerUrl: string;
   discoverTopBannerURL: string;
+  retweetVotigramPostURL: string;
+  retweetTmrwdaoPostURL: string;
 }
 
 export const ConfigContext = createContext<IConfigContent | null>(null);

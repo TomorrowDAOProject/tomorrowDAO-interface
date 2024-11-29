@@ -8,6 +8,7 @@ import {
   DiscardIcon,
   LoadingIcon,
   DailyTaskIcon,
+  CreatePollIcon,
 } from 'components/Icons';
 import { useRef, useState } from 'react';
 import { completeTaskItem } from 'api/request';
@@ -18,6 +19,7 @@ import Image from 'next/image';
 import './TaskItem.css';
 import clsx from 'clsx';
 import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
+import { useConfig } from 'components/CmsGlobalConfig/type';
 
 interface ITaskItemProps {
   taskItem: IUserTaskItemDetail;
@@ -25,6 +27,7 @@ interface ITaskItemProps {
   userTask: string;
   getTaskListFn: () => void;
   onReportComplete: (task: string, taskDetail: string) => void;
+  toggleNewListDrawerOpen: () => void;
 }
 
 const openNewPageWaitPageVisible = async (
@@ -84,13 +87,29 @@ const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?
     icon: <WalletOutlined />,
     title: 'View your assets',
   },
+  [UserTaskDetail.DailyCreatePoll]: {
+    icon: <CreatePollIcon />,
+    title: 'Create your poll',
+  },
+  [UserTaskDetail.ExploreJoinVotigram]: {
+    icon: <TelegramIcon />,
+    title: 'Join Votigram channel',
+  },
+  [UserTaskDetail.ExploreFollowVotigramX]: {
+    icon: <XIcon />,
+    title: 'Follow Votigram on X',
+  },
+  [UserTaskDetail.ExploreForwardVotigramX]: {
+    icon: <XIcon />,
+    title: 'RT Votigram Post',
+  },
   [UserTaskDetail.ExploreJoinTgChannel]: {
     icon: <TelegramIcon />,
-    title: 'Join channel',
+    title: 'Join TMRWDAO channel',
   },
   [UserTaskDetail.ExploreFollowX]: {
     icon: <XIcon />,
-    title: 'Follow us on X',
+    title: 'Follow TMRWDAO on X',
   },
   [UserTaskDetail.ExploreJoinDiscord]: {
     icon: <DiscardIcon />,
@@ -98,7 +117,7 @@ const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?
   },
   [UserTaskDetail.ExploreForwardX]: {
     icon: <XIcon />,
-    title: 'RT Post',
+    title: 'RT TMRWDAO Post',
   },
   [UserTaskDetail.ExploreCumulateFiveInvite]: {
     icon: <UserAddIcon />,
@@ -119,26 +138,48 @@ const needShowTaskProgress: string[] = [
   UserTaskDetail.ExploreCumulateTenInvite,
   UserTaskDetail.ExploreCumulateTwentyInvite,
 ];
-const jumpExternalList = [
-  {
-    taskId: UserTaskDetail.ExploreJoinTgChannel,
-    url: 'https://t.me/tmrwdao',
-  },
-  {
-    taskId: UserTaskDetail.ExploreFollowX,
-    url: 'https://x.com/tmrwdao',
-  },
-  {
-    taskId: UserTaskDetail.ExploreJoinDiscord,
-    url: 'https://discord.com/invite/gTWkeR5pQB',
-  },
-  {
-    taskId: UserTaskDetail.ExploreForwardX,
-    url: 'https://x.com/tmrwdao/status/1827955375070650747',
-  },
-];
+
 export const TaskItem = (props: ITaskItemProps) => {
-  const { taskItem, activeTabItem, userTask, onReportComplete, getTaskListFn } = props;
+  const { retweetVotigramPostURL, retweetTmrwdaoPostURL } = useConfig() ?? {};
+
+  const jumpExternalList = [
+    {
+      taskId: UserTaskDetail.ExploreJoinVotigram,
+      url: 'https://t.me/votigram',
+    },
+    {
+      taskId: UserTaskDetail.ExploreFollowVotigramX,
+      url: 'https://x.com/votigram',
+    },
+    {
+      taskId: UserTaskDetail.ExploreForwardVotigramX,
+      url: retweetVotigramPostURL || '',
+    },
+    {
+      taskId: UserTaskDetail.ExploreJoinTgChannel,
+      url: 'https://t.me/tmrwdao',
+    },
+    {
+      taskId: UserTaskDetail.ExploreFollowX,
+      url: 'https://x.com/tmrwdao',
+    },
+    {
+      taskId: UserTaskDetail.ExploreJoinDiscord,
+      url: 'https://discord.com/invite/gTWkeR5pQB',
+    },
+    {
+      taskId: UserTaskDetail.ExploreForwardX,
+      url: retweetTmrwdaoPostURL || '',
+    },
+  ];
+  const {
+    taskItem,
+    activeTabItem,
+    userTask,
+    onReportComplete,
+    getTaskListFn,
+    toggleNewListDrawerOpen,
+  } = props;
   const [isLoading, setIsLoading] = useState(false);
   const adsGramRef = useRef<IAdsGramRef>(null);
 
@@ -184,6 +225,12 @@ export const TaskItem = (props: ITaskItemProps) => {
       case UserTaskDetail.DailyViewAsset:
         activeTabWithSource(ITabSource.Asset);
         break;
+      case UserTaskDetail.DailyCreatePoll:
+        toggleNewListDrawerOpen();
+        break;
+      case UserTaskDetail.ExploreJoinVotigram:
+      case UserTaskDetail.ExploreFollowVotigramX:
+      case UserTaskDetail.ExploreForwardVotigramX:
       case UserTaskDetail.ExploreJoinTgChannel:
       case UserTaskDetail.ExploreFollowX:
       case UserTaskDetail.ExploreJoinDiscord:

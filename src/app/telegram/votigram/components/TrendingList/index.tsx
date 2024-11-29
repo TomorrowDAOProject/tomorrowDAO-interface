@@ -9,7 +9,7 @@ import './index.css';
 
 type ItemClickParams = {
   proposalId: string;
-  proposalTitle: string;
+  proposalTitle: string | undefined;
   isGold: boolean;
 };
 
@@ -29,6 +29,7 @@ const TrendingList = ({ data, onItemClick }: ITrendingList) => {
           <div
             key={proposalId}
             className="flex flex-col w-full gap-2"
+            data-testid={proposalId}
             onClick={() => {
               onItemClick({
                 proposalId,
@@ -41,7 +42,10 @@ const TrendingList = ({ data, onItemClick }: ITrendingList) => {
               {bannerUrl !== undefined ? (
                 <Image src={bannerUrl} fill alt="Banner" priority />
               ) : (
-                <div className="h-full bg-[#353535] w-full animate-pulse" />
+                <div
+                  data-testid="proposal-banner-testid"
+                  className="h-full bg-[#353535] w-full animate-pulse"
+                />
               )}
             </div>
 
@@ -63,7 +67,7 @@ const TrendingList = ({ data, onItemClick }: ITrendingList) => {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col gap-1 mt-1">
+              <div data-testid="proposal-title-testId" className="flex flex-col gap-1 mt-1">
                 <div className="h-3 bg-[#353535] w-full rounded animate-pulse" />
               </div>
             )}
@@ -74,7 +78,10 @@ const TrendingList = ({ data, onItemClick }: ITrendingList) => {
                   {totalVoteAmount}
                 </span>
               ) : (
-                <div className="h-3 bg-[#353535] w-1/5 rounded animate-pulse" />
+                <div
+                  data-testid="proposal-vote-testId"
+                  className="h-3 bg-[#353535] w-1/5 rounded animate-pulse"
+                />
               )}
             </div>
           </div>

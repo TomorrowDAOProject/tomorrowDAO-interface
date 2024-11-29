@@ -99,6 +99,7 @@ enum VoteStatus {
 }
 interface IRankingVoteReq {
   rawTransaction: string;
+  transactionId: string;
   chainId: string;
   trackId: string;
 }
@@ -355,15 +356,15 @@ interface IRankingsItem {
   activeEndTime: string;
   activeStartEpochTime: number;
   activeStartTime: string;
-  bannerUrl: string;
+  bannerUrl: string | undefined;
   chainId: string;
   daoId: string;
   labelType: RANKING_LABEL_KEY;
   proposalDescription: string;
   proposalId: string;
-  proposalTitle: string;
+  proposalTitle: string | undefined;
   rankingType: RANKING_TYPE_KEY;
-  totalVoteAmount: number;
+  totalVoteAmount: number | undefined;
 }
 interface IRankingsRes {
   code: string;

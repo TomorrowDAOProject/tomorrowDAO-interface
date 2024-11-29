@@ -167,6 +167,7 @@ export const getRankings = async (params: {
   skipCount: number;
   type: number;
   maxResultCount: number;
+  isShowMore: boolean;
 }): Promise<IRankingsRes> => {
   return apiServer.get(rankingsUrl, {
     ...params,
