@@ -8,7 +8,7 @@ import { ReactComponent as ArrowDownIcon } from 'assets/revamp-icon/arrow-down.s
 import { Dropdown, Flex, Space } from 'antd';
 import { DownOutlined } from '@aelf-design/icons';
 import styles from './index.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import SideMenu from 'components/SideMenu';
 
@@ -36,7 +36,10 @@ const items: MenuItem[] = [
       {
         key: 'Github',
         label: (
-          <Link href={'/'} className='text-[15px] font-medium text-white no-underline font-Montserrat'>
+          <Link
+            href={'/'}
+            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+          >
             <Space>Github</Space>
           </Link>
         ),
@@ -44,7 +47,10 @@ const items: MenuItem[] = [
       {
         key: 'Documentation',
         label: (
-          <Link href={'/'} className='text-[15px] font-medium text-white no-underline font-Montserrat'>
+          <Link
+            href={'/'}
+            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+          >
             <Space>Documentation</Space>
           </Link>
         ),
@@ -59,7 +65,10 @@ const items: MenuItem[] = [
       {
         key: 'Twitter',
         label: (
-          <Link href={'/'} className='text-[15px] font-medium text-white no-underline font-Montserrat'>
+          <Link
+            href={'/'}
+            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+          >
             <Flex align="center" gap={14}>
               <TwitterIcon className="w-[18px] h-[18px]" />
               Twitter
@@ -70,7 +79,10 @@ const items: MenuItem[] = [
       {
         key: 'Discord',
         label: (
-          <Link href={'/'} className='text-[15px] font-medium text-white no-underline font-Montserrat'>
+          <Link
+            href={'/'}
+            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+          >
             <Flex align="center" gap={14}>
               <DiscordIcon className="w-[18px] h-[18px]" />
               Discord
@@ -81,7 +93,10 @@ const items: MenuItem[] = [
       {
         key: 'Telegram',
         label: (
-          <Link href={'/'} className='text-[15px] font-medium text-white no-underline font-Montserrat'>
+          <Link
+            href={'/'}
+            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+          >
             <Flex align="center" gap={14}>
               <TelegramIcon className="w-[18px] h-[18px]" />
               Telegram
@@ -114,7 +129,9 @@ const NavMenuItem = ({ item }: { item: MenuItem }) => {
           onOpenChange={(open) => setIsOpen(open)}
         >
           <a onClick={(e) => e.preventDefault()}>
-            <span className="text-[15px] font-medium text-white no-underline font-Montserrat m-[8px]">{item.label}</span>
+            <span className="text-[15px] font-medium text-white no-underline font-Montserrat m-[8px]">
+              {item.label}
+            </span>
             <ArrowDownIcon
               className={clsx(
                 'transition-all duration-300 ease-in-out',
@@ -133,7 +150,9 @@ const NavMenuItem = ({ item }: { item: MenuItem }) => {
 const NavHeader = ({ style }: { style?: React.CSSProperties }) => {
   return (
     <div
-      className={clsx('w-full bg-fillBg sticky top-0 z-10 transition-[top] duration-300 ease-in-out')}
+      className={clsx(
+        'w-full bg-fillBg sticky top-0 z-10 transition-[top] duration-300 ease-in-out',
+      )}
       style={style}
     >
       <div className="max-w-[1280px] mx-auto px-[20px] py-[25px] flex justify-between items-center box-border md:px-[40px] lg:px-[84px] lg:py-[17px] xl:px-[35px] xl:py-[21px]">

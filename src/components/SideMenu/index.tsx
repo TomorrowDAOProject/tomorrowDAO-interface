@@ -1,10 +1,9 @@
-import Link from 'next/link';
 import { ReactComponent as TwitterIcon } from 'assets/revamp-icon/twitter.svg';
 import { ReactComponent as DiscordIcon } from 'assets/revamp-icon/discord.svg';
 import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/telegram.svg';
 import { ReactComponent as MenuIcon } from 'assets/revamp-icon/menu.svg';
 import { ReactComponent as LogoIcon } from 'assets/revamp-icon/logo.svg';
-import { Drawer, Flex } from 'antd';
+import { Drawer } from 'antd';
 import React, { useState } from 'react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';

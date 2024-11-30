@@ -32,7 +32,6 @@ const Swiper = (props: SwiperProps) => {
   const handleScrollUp = throttle(() => {
     currentIndex !== 0 && setCurrentIndex(currentIndex - 1);
   }, 500);
-  
 
   const handleScrollDown = throttle(() => {
     currentIndex !== childrenCount - 1 && setCurrentIndex(currentIndex + 1);
@@ -55,7 +54,17 @@ const Swiper = (props: SwiperProps) => {
     >
       <div className="relative w-full h-full">
         {React.Children.map(children, (child, index) => (
-          <div className={clsx('absolute w-full h-full transition-[transform,opacity] ease-in-out duration-500', `z-[${index === currentIndex ? childrenCount : index}]`, index === currentIndex ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-1/2 scale-90 transition-none')}>{child}</div>
+          <div
+            className={clsx(
+              'absolute w-full h-full transition-[transform,opacity] ease-in-out duration-500',
+              `z-[${index === currentIndex ? childrenCount : index}]`,
+              index === currentIndex
+                ? 'opacity-100 translate-y-0 scale-100'
+                : 'opacity-0 translate-y-1/2 scale-90 transition-none',
+            )}
+          >
+            {child}
+          </div>
         ))}
       </div>
     </div>
