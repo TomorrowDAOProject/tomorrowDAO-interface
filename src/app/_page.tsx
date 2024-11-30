@@ -238,8 +238,8 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
           <section className="py-[40px] md:py-[55px] lg:py-[41.6px] xl:py-[52px]">
             <div className="flex flex-col md:items-stretch md:flex-row">
-              <div className='md:flex-1'>
-                <div className='sticky top-0 left-0 flex items-center h-screen'>
+              <div className="md:flex-1">
+                <div className="sticky top-0 left-0 flex items-center h-screen">
                   <div className="md:pr-[64px] md:flex-1 lg:pr-[76px] xl:pr-[78px] md:">
                     <h2 className="mt-0 mb-[30px] text-[24px] font-Unbounded font-light text-white text-left whitespace-pre-wrap lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px]">
                       {`Create in just 3 \nsimple steps.`}
@@ -258,10 +258,13 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 </div>
               </div>
 
-              <div className='md:flex-1 md:h-[500vh]'>
-                <div className='sticky top-0 left-0 flex items-center h-screen'>
+              <div className="md:flex-1 md:h-[500vh]">
+                <div className="sticky top-0 left-0 flex items-center h-screen">
                   <div className="flex flex-row items-center mt-[30px] md:mt-0 md:flex-1 md:h-[287px] lg:h-[363px] xl:h-[454px]">
-                    <Swiper currentIndex={swiperIndex} className='!h-[287px] lg:!h-[363px] xl:!h-[454px]'>
+                    <Swiper
+                      currentIndex={swiperIndex}
+                      className="!h-[287px] lg:!h-[363px] xl:!h-[454px]"
+                    >
                       <Swiper.Item>
                         <div className="relative w-full h-[287px] lg:h-[363px] xl:h-[454px] flex flex-col items-start justify-between px-[28px] py-[22px] lg:pt-[30px] lg:pb-[35px] lg:px-[35px] bg-darkGray rounded-[7px] box-border">
                           <img
@@ -309,8 +312,11 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                       </Swiper.Item>
                     </Swiper>
 
-                    <div className='hidden ml-[15px] md:block lg:ml-[13.6px] xl:ml-[17px] relative w-[3px] h-[60%] bg-darkGray rounded-[2px]'>
-                      <div className='absolute w-full bg-mainColor rounded-[2px]' style={{ height: `${scrollPercent}%` }}></div>
+                    <div className="hidden ml-[15px] md:block lg:ml-[13.6px] xl:ml-[17px] relative w-[3px] h-[60%] bg-darkGray rounded-[2px]">
+                      <div
+                        className="absolute w-full bg-mainColor rounded-[2px]"
+                        style={{ height: `${scrollPercent}%` }}
+                      ></div>
                     </div>
                   </div>
                 </div>
