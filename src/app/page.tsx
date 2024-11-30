@@ -22,22 +22,35 @@ const LinkWithRightArrow = (props: LinkWithRightArrowProps) => {
 export default function Page() {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [showHeader, setShowHeader] = useState(true);
-  const lastPosition = useRef(0);
 
-  const handleScroll = () => {
+  useEffect(() => {
+    let lastScrollPosition = 0;
     const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      const position = scrollContainer.scrollTop;
 
-      if (lastPosition.current > position) {
-        setShowHeader(true);
-      } else {
-        setShowHeader(false);
+    const handleScroll = () => {
+      if (scrollContainer) {
+        const position = scrollContainer.scrollTop;
+
+        if (lastScrollPosition > position) {
+          setShowHeader(true);
+        } else {
+          setShowHeader(false);
+        }
+
+        lastScrollPosition = position;
       }
+    };
 
-      lastPosition.current = position;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
     }
-  };
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -50,7 +63,7 @@ export default function Page() {
         {/* <div className="col-4 bg-red-500 p-2">Item 2 (4 cols)</div> */}
         {/* <div className="col-5 bg-red-500 p-2">Item 3 (5 cols)</div> */}
       </div>
-      <HomePage parentRef={scrollContainerRef} onScroll={handleScroll} />
+      <HomePage />
     </div>
   );
 }

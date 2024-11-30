@@ -15,12 +15,6 @@ import Collapse from 'components/Collapse';
 import Swiper from 'components/Swiper';
 import NavFooter from 'components/NavFooter';
 import clsx from 'clsx';
-import { useEffect, useMemo, useState } from 'react';
-
-type PageProps = {
-  parentRef: React.RefObject<HTMLDivElement>;
-  onScroll?: () => void;
-};
 
 const collapseItems: CollapseProps['items'] = [
   {
@@ -74,6 +68,36 @@ const posts = [
     date: 'Apr 15, 2024',
     img: require('assets/revamp-imgs/Image-3.jpg').default.src,
   },
+  {
+    title: 'Telegram Mini Apps',
+    description: "Guide to Telegram's Mini Apps Platform (and a Wishlist for DAOs)",
+    date: 'Apr 15, 2024',
+    img: require('assets/revamp-imgs/Image-4.jpg').default.src,
+  },
+  {
+    title: 'What’s a DAO?',
+    description: "What's a DAO, and Why Should You Care?",
+    date: 'Apr 15, 2024',
+    img: require('assets/revamp-imgs/Image-5.jpg').default.src,
+  },
+  {
+    title: 'Launch of NetworkDAO in collaboration with aelf',
+    description: 'TMRWDAO Announces the Launch of Network DAO in Collaboration with aelf',
+    date: 'Apr 15, 2024',
+    img: require('assets/revamp-imgs/Image-6.jpg').default.src,
+  },
+  {
+    title: 'Manage a DAO Treasury',
+    description: 'How to Enable and Manage a DAO Treasury with TMRWDAO',
+    date: 'Apr 15, 2024',
+    img: require('assets/revamp-imgs/Image-7.jpg').default.src,
+  },
+  {
+    title: 'Create a DAO',
+    description: 'How to create a DAO on TMRWDAO Platform?',
+    date: 'Apr 15, 2024',
+    img: require('assets/revamp-imgs/Image-8.jpg').default.src,
+  },
 ];
 
 const Arrow = ({ isActive }: PanelProps): React.ReactNode => {
@@ -87,35 +111,7 @@ const Arrow = ({ isActive }: PanelProps): React.ReactNode => {
   );
 };
 
-const Page = ({ parentRef, onScroll }: PageProps) => {
-  const [scrollPercent, setScrollPercent] = useState(0);
-
-  const handleScroll = () => {
-    if (parentRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = parentRef.current;
-      const currentScroll = (scrollTop / (scrollHeight - clientHeight)) * 100;
-      setScrollPercent(currentScroll);
-    }
-    onScroll?.();
-  };
-
-  useEffect(() => {
-    const scrollContainer = parentRef.current;
-    if (!scrollContainer) return;
-
-    scrollContainer.addEventListener('scroll', handleScroll);
-
-    return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const swiperIndex = useMemo(() => {
-    if (scrollPercent < 30) return 0;
-    if (scrollPercent < 64) return 1;
-    return 2;
-  }, [scrollPercent]);
-
+const Page = () => {
   return (
     <>
       <div className="tmrwdao-grid">
@@ -237,89 +233,71 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           </section>
 
           <section className="py-[40px] md:py-[55px] lg:py-[41.6px] xl:py-[52px]">
-            <div className="flex flex-col md:items-stretch md:flex-row">
-              <div className="md:flex-1">
-                <div className="sticky top-0 left-0 flex items-center h-screen">
-                  <div className="md:pr-[64px] md:flex-1 lg:pr-[76px] xl:pr-[78px] md:">
-                    <h2 className="mt-0 mb-[30px] text-[24px] font-Unbounded font-light text-white text-left whitespace-pre-wrap lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px]">
-                      {`Create in just 3 \nsimple steps.`}
-                    </h2>
-                    <p className="mb-0 text-[14px] font-Unbounded font-normal text-white text-right md:mb-[36px] lg:mb-[33px] lg:text-[12px] xl:mb-[42px] xl:text-[15px]">
-                      /It is just that easy!
-                    </p>
-                    <Link
-                      href="/"
-                      className="primary-button items-center gap-[10px] hidden md:inline-flex"
-                    >
-                      Create DAO
-                      <LinkIcon className="h-[11px] w-[11px]" />
-                    </Link>
-                  </div>
-                </div>
+            <div className="flex flex-col md:items-start md:flex-row lg:items-center">
+              <div className="md:pr-[64px] md:flex-1 lg:pr-[76px] xl:pr-[78px]">
+                <h2 className="mt-0 mb-[30px] text-[24px] font-Unbounded font-light text-white text-left whitespace-pre-wrap lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px]">
+                  {`Create in just 3 \nsimple steps.`}
+                </h2>
+                <p className="mb-0 text-[14px] font-Unbounded font-normal text-white text-right md:mb-[36px] lg:mb-[33px] lg:text-[12px] xl:mb-[42px] xl:text-[15px]">
+                  /It is just that easy!
+                </p>
+                <Link
+                  href="/"
+                  className="primary-button items-center gap-[10px] hidden md:inline-flex"
+                >
+                  Create DAO
+                  <LinkIcon className="h-[11px] w-[11px]" />
+                </Link>
               </div>
 
-              <div className="md:flex-1 md:h-[500vh]">
-                <div className="sticky top-0 left-0 flex items-center h-screen">
-                  <div className="flex flex-row items-center mt-[30px] md:mt-0 md:flex-1 md:h-[287px] lg:h-[363px] xl:h-[454px]">
-                    <Swiper
-                      currentIndex={swiperIndex}
-                      className="!h-[287px] lg:!h-[363px] xl:!h-[454px]"
-                    >
-                      <Swiper.Item>
-                        <div className="relative w-full h-[287px] lg:h-[363px] xl:h-[454px] flex flex-col items-start justify-between px-[28px] py-[22px] lg:pt-[30px] lg:pb-[35px] lg:px-[35px] bg-darkGray rounded-[7px] box-border">
-                          <img
-                            className="absolute w-auto h-[134px] top-[51px] right-[24px] md:top-[40px] md:right-[40px] lg:h-[170px] lg:top-[51px] lg:right-[45px] xl:h-[212.6px] xl:top-[64px] xl:right-[55px]"
-                            src="https://cdn.tmrwdao.com/assets/imgs/B5650D5FCE2B.webp"
-                            alt=""
-                          />
-                          <p className="text-white font-Unbounded font-light text-[12px]">STEP 1</p>
+              <div className="mt-[30px] md:mt-0 md:flex-1 md:h-[287px] lg:h-[363px] xl:h-[454px]">
+                <Swiper>
+                  <Swiper.Item>
+                    <div className="relative w-full h-[287px] lg:h-[363px] xl:h-[454px] flex flex-col items-start justify-between px-[28px] py-[22px] lg:pt-[30px] lg:pb-[35px] lg:px-[35px] bg-darkGray rounded-[7px] box-border">
+                      <img
+                        className="absolute w-auto h-[134px] top-[51px] right-[24px] md:top-[40px] md:right-[40px] lg:h-[170px] lg:top-[51px] lg:right-[45px] xl:h-[212.6px] xl:top-[64px] xl:right-[55px]"
+                        src="https://cdn.tmrwdao.com/assets/imgs/B5650D5FCE2B.webp"
+                        alt=""
+                      />
+                      <p className="text-white font-Unbounded font-light text-[12px]">STEP 1</p>
 
-                          <div className="">
-                            <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Select & create \ntype Of DAO`}</h3>
-                            <p className="mt-[17px] lg:mt-[22px] xl:mt-[27px] mb-0 leading-[1.6] text-[14px] lg:text-[12.8px] xl:text-[16px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal">{`Select an issued token or NFT as the \ngovernance token, or choose some \nusers as DAO members.`}</p>
-                          </div>
-                        </div>
-                      </Swiper.Item>
-                      <Swiper.Item>
-                        <div className="relative w-full h-[287px] lg:h-[363px] xl:h-[454px] flex flex-col items-start justify-between px-[28px] py-[22px] lg:pt-[30px] lg:pb-[35px] lg:px-[35px] bg-darkGray rounded-[7px] box-border">
-                          <img
-                            className="absolute w-auto h-[135px] top-[44px] right-[16px] md:top-[45px] md:right-[22px] lg:h-[182px] lg:top-[34px] lg:right-[28px] xl:h-[239px] xl:top-[40px] xl:right-[36px]"
-                            src="https://cdn.tmrwdao.com/assets/imgs/A33A05660253.webp"
-                            alt=""
-                          />
-                          <p className="text-white font-Unbounded font-light text-[12px]">STEP 2</p>
-
-                          <div className="">
-                            <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Govern through \nproposals`}</h3>
-                            <p className="mt-[17px] lg:mt-[22px] xl:mt-[27px] mb-0 leading-[1.6] text-[14px] lg:text-[12.8px] xl:text-[16px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal">{`After creating a proposal, use tokens, NFTs, or become a DAO member to \nvote.`}</p>
-                          </div>
-                        </div>
-                      </Swiper.Item>
-                      <Swiper.Item>
-                        <div className="relative w-full h-[287px] lg:h-[363px] xl:h-[454px] flex flex-col items-start justify-between px-[28px] py-[22px] lg:pt-[30px] lg:pb-[35px] lg:px-[35px] bg-darkGray rounded-[7px] box-border">
-                          <img
-                            className="absolute w-auto h-[134px] top-[51px] right-[24px] md:top-[40px] md:right-[40px] lg:h-[170px] lg:top-[51px] lg:right-[45px] xl:h-[212.6px] xl:top-[64px] xl:right-[55px]"
-                            src="https://cdn.tmrwdao.com/assets/imgs/8F08514716C0.webp"
-                            alt=""
-                          />
-                          <p className="text-white font-Unbounded font-light text-[12px]">STEP 3</p>
-
-                          <div className="">
-                            <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Fund & allocate \nthe treasury`}</h3>
-                            <p className="mt-[17px] lg:mt-[22px] xl:mt-[27px] mb-0 leading-[1.6] text-[14px] lg:text-[12.8px] xl:text-[16px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal">{`Deposit funds to your DAO's treasury \nand govern your DAO by allocating\n these funds.`}</p>
-                          </div>
-                        </div>
-                      </Swiper.Item>
-                    </Swiper>
-
-                    <div className="hidden ml-[15px] md:block lg:ml-[13.6px] xl:ml-[17px] relative w-[3px] h-[60%] bg-darkGray rounded-[2px]">
-                      <div
-                        className="absolute w-full bg-mainColor rounded-[2px]"
-                        style={{ height: `${scrollPercent}%` }}
-                      ></div>
+                      <div className="">
+                        <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Select & create \ntype Of DAO`}</h3>
+                        <p className="mt-[17px] lg:mt-[22px] xl:mt-[27px] mb-0 leading-[1.6] text-[14px] lg:text-[12.8px] xl:text-[16px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal">{`Select an issued token or NFT as the \ngovernance token, or choose some \nusers as DAO members.`}</p>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </Swiper.Item>
+                  <Swiper.Item>
+                    <div className="relative w-full h-[287px] lg:h-[363px] xl:h-[454px] flex flex-col items-start justify-between px-[28px] py-[22px] lg:pt-[30px] lg:pb-[35px] lg:px-[35px] bg-darkGray rounded-[7px] box-border">
+                      <img
+                        className="absolute w-auto h-[135px] top-[44px] right-[16px] md:top-[45px] md:right-[22px] lg:h-[182px] lg:top-[34px] lg:right-[28px] xl:h-[239px] xl:top-[40px] xl:right-[36px]"
+                        src="https://cdn.tmrwdao.com/assets/imgs/A33A05660253.webp"
+                        alt=""
+                      />
+                      <p className="text-white font-Unbounded font-light text-[12px]">STEP 2</p>
+
+                      <div className="">
+                        <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Govern through \nproposals`}</h3>
+                        <p className="mt-[17px] lg:mt-[22px] xl:mt-[27px] mb-0 leading-[1.6] text-[14px] lg:text-[12.8px] xl:text-[16px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal">{`After creating a proposal, use tokens, NFTs, or become a DAO member to \nvote.`}</p>
+                      </div>
+                    </div>
+                  </Swiper.Item>
+                  <Swiper.Item>
+                    <div className="relative w-full h-[287px] lg:h-[363px] xl:h-[454px] flex flex-col items-start justify-between px-[28px] py-[22px] lg:pt-[30px] lg:pb-[35px] lg:px-[35px] bg-darkGray rounded-[7px] box-border">
+                      <img
+                        className="absolute w-auto h-[134px] top-[51px] right-[24px] md:top-[40px] md:right-[40px] lg:h-[170px] lg:top-[51px] lg:right-[45px] xl:h-[212.6px] xl:top-[64px] xl:right-[55px]"
+                        src="https://cdn.tmrwdao.com/assets/imgs/8F08514716C0.webp"
+                        alt=""
+                      />
+                      <p className="text-white font-Unbounded font-light text-[12px]">STEP 3</p>
+
+                      <div className="">
+                        <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Fund & allocate \nthe treasury`}</h3>
+                        <p className="mt-[17px] lg:mt-[22px] xl:mt-[27px] mb-0 leading-[1.6] text-[14px] lg:text-[12.8px] xl:text-[16px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal">{`Deposit funds to your DAO's treasury \nand govern your DAO by allocating\n these funds.`}</p>
+                      </div>
+                    </div>
+                  </Swiper.Item>
+                </Swiper>
               </div>
             </div>
 
