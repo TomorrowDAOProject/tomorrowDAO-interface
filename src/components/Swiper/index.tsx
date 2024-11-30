@@ -34,6 +34,7 @@ const Swiper = (props: SwiperProps) => {
           <div
             className={clsx(
               'mb-[20px] md:mb-0 md:absolute w-full h-full transition-[transform,opacity] ease-in-out duration-500',
+              index === (childrenCount - 1) ? '!mb-0' : '',
               `z-[${index === currentIndex ? childrenCount : index}]`,
               index === currentIndex
                 ? 'opacity-100 translate-y-0 scale-100'

@@ -226,8 +226,8 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           <section className="py-[40px] md:py-[55px] lg:py-[41.6px] xl:py-[52px]">
             <div className="flex flex-col md:items-stretch md:flex-row">
               <div className="md:flex-1">
-                <div className="sticky top-0 left-0 flex items-center md:h-screen">
-                  <div className="md:pr-[64px] md:flex-1 lg:pr-[76px] xl:pr-[78px] md:">
+                <div className="sticky top-0 left-0 flex items-center w-full md:h-screen">
+                  <div className="md:pr-[64px] md:flex-1 w-full lg:pr-[76px] xl:pr-[78px]">
                     <h2 className="mt-0 mb-[30px] text-[24px] font-Unbounded font-light text-white text-left whitespace-pre-wrap lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-3px] xl:tracking-[-3.84px]">
                       {`Create in just 3 \nsimple steps.`}
                     </h2>
@@ -259,7 +259,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                             src="https://cdn.tmrwdao.com/assets/imgs/B5650D5FCE2B.webp"
                             alt=""
                           />
-                          <p className="text-white font-Unbounded font-light text-[12px]">STEP 1</p>
+                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">STEP 1</p>
 
                           <div className="">
                             <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Select & create \ntype Of DAO`}</h3>
@@ -274,7 +274,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                             src="https://cdn.tmrwdao.com/assets/imgs/A33A05660253.webp"
                             alt=""
                           />
-                          <p className="text-white font-Unbounded font-light text-[12px]">STEP 2</p>
+                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">STEP 2</p>
 
                           <div className="">
                             <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Govern through \nproposals`}</h3>
@@ -289,7 +289,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                             src="https://cdn.tmrwdao.com/assets/imgs/8F08514716C0.webp"
                             alt=""
                           />
-                          <p className="text-white font-Unbounded font-light text-[12px]">STEP 3</p>
+                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">STEP 3</p>
 
                           <div className="">
                             <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Fund & allocate \nthe treasury`}</h3>
@@ -310,7 +310,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               </div>
             </div>
 
-            <div className="flex items-center justify-center md:hidden">
+            <div className="flex items-center justify-center mt-[30px] md:hidden">
               <Link href="/" className="primary-button items-center gap-[10px] inline-flex">
                 Create DAO
                 <LinkIcon className="h-[11px] w-[11px]" />
@@ -349,7 +349,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 <p className="mt-[12px] mb-[80px] text-[14px] font-Unbounded font-normal text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                   {`/Where Innovation Meets Security\n in the Web3 Space`}
                 </p>
-                <p className="mb-[12px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:text-[12px] xl:text-[15px]">
+                <p className="mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:text-[12px] xl:text-[15px]">
                   {`Vote with or delegate your ELF tokens to \nhelp protect the integrity of the AELF \nprotocol.`}
                 </p>
                 <Link href="/" className="default-button inline-flex items-center gap-[10px]">
@@ -433,7 +433,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-center mt-[40px] md:hidden">
+            <div className="flex flex-row items-center justify-center mb-[35px] md:hidden">
               <Link href="/" className="default-button inline-flex items-center gap-[10px]">
                 About aelf
                 <LinkIcon className="h-[11px] w-[11px]" />
