@@ -1,0 +1,38 @@
+
+.side-menu-drawer {
+  @apply py-[20px] px-[24px] !bg-darkGray;
+  .ant-drawer-header {
+    @apply mb-[26px] px-4 py-[14px] border-none;
+
+    .ant-drawer-header-title, .ant-drawer-title {
+      @apply h-[19px];
+    }
+  }
+
+  .ant-drawer-body {
+    @apply px-0 py-[14px];
+  }
+}
+
+.side-menu {
+  @apply !bg-darkGray;
+
+  .ant-menu-item, .ant-menu-item:hover, .ant-menu-item:active, .ant-menu-submenu-title, .ant-menu-submenu-title:active, .ant-menu-submenu-title:hover {
+    @apply m-0 !pl-[14px] !text-white h-[38px] !text-[15px] font-medium;
+  }
+  .ant-menu-item:active, .ant-menu-item:focus, .ant-menu-item-active, .ant-menu-item-selected {
+    @apply !bg-transparent;
+  }
+  .ant-menu-item .ant-menu-item-icon +span {
+    @apply ms-[14px];
+  }
+  .ant-menu-sub {
+    @apply ml-[14px];
+  }
+  .ant-menu-title-content {
+    @apply pr-[8px] !flex-none;
+  }
+  .ant-menu-submenu-arrow {
+    @apply static;
+  }
+}
