@@ -1,0 +1,15 @@
+.nav-dropdown {
+  @apply pt-[16px];
+
+  :global(.ant-dropdown-menu) {
+    @apply bg-darkGray py-[13px] px-[14px] rounded-[7px];
+  }
+
+  :global(.ant-dropdown-menu-item) {
+    @apply !py-[10px] !px-[14px];
+  }
+
+  :global(.ant-dropdown-menu-title-content) {
+    @apply text-white font-medium text-[15px] leading-[24px] font-Montserrat;
+  }
+}
