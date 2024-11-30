@@ -1,10 +1,12 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { Button } from 'aelf-design';
 import { RightOutlined } from '@ant-design/icons';
-import HomePage from './_page';
 import './home.css';
 import Link from 'next/link';
-import NavHeader from 'components/NavHeader';
+import breadCrumb from 'utils/breadCrumb';
+import { eventBus, ShowHeaderExplore } from 'utils/myEvent';
+import useResponsive from 'hooks/useResponsive';
 
 interface LinkWithRightArrowProps {
   href: string;
@@ -20,37 +22,36 @@ const LinkWithRightArrow = (props: LinkWithRightArrowProps) => {
   );
 };
 export default function Page() {
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const [showHeader, setShowHeader] = useState(true);
-  const lastPosition = useRef(0);
+  // const exploreButtonRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = () => {
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      const position = scrollContainer.scrollTop;
-
-      if (lastPosition.current > position) {
-        setShowHeader(true);
-      } else {
-        setShowHeader(false);
-      }
-
-      lastPosition.current = position;
-    }
-  };
-
+  // useEffect(() => {
+  //   breadCrumb.clearBreadCrumb();
+  // }, []);
+  // const { isLG } = useResponsive();
+  // useEffect(() => {
+  //   const top = isLG ? 64 : 82;
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         eventBus.emit(ShowHeaderExplore, false);
+  //       } else {
+  //         eventBus.emit(ShowHeaderExplore, true);
+  //       }
+  //     },
+  //     { threshold: 0.5, rootMargin: `0px 0px ${top}px 0px` },
+  //   );
+  //   observer.observe(exploreButtonRef.current as Element);
+  //   return () => {
+  //     observer.disconnect();
+  //   };
+  // }, []);
   return (
-    <div
-      className="flex flex-col bg-baseBg h-screen overflow-x-hidden overflow-y-auto"
-      ref={scrollContainerRef}
-    >
-      <NavHeader style={{ top: !showHeader ? '-80px' : '0' }} />
+    <div className="flex">
       <div className="tmrwdao-grid">
-        {/* <div className="col-3 bg-red-500 offset-6 p-2">Item 1 (3 cols)</div> */}
+        <div className="col-3 bg-red-500 offset-6 p-2">Item 1 (3 cols)</div>
         {/* <div className="col-4 bg-red-500 p-2">Item 2 (4 cols)</div> */}
-        {/* <div className="col-5 bg-red-500 p-2">Item 3 (5 cols)</div> */}
+        <div className="col-5 bg-red-500 p-2">Item 3 (5 cols)</div>
       </div>
-      <HomePage parentRef={scrollContainerRef} onScroll={handleScroll} />
     </div>
   );
 }
