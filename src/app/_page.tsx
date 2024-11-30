@@ -130,17 +130,11 @@ const Page = () => {
               <p className="my-[50px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap sm:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</p>
 
               <div className="flex flex-col items-start gap-[9.68px] mt-[20px] sm:flex-row lg:gap-[6px] xl:gap-[10px]">
-                <Link
-                  href="/"
-                  className="primary-button inline-flex items-center gap-[10px]"
-                >
+                <Link href="/" className="primary-button inline-flex items-center gap-[10px]">
                   Create DAO
                   <LinkIcon className="h-[11px] w-[11px]" />
                 </Link>
-                <Link
-                  href="/"
-                  className="default-button inline-flex items-center gap-[10px]"
-                >
+                <Link href="/" className="default-button inline-flex items-center gap-[10px]">
                   View Documentations
                   <LinkIcon className="h-[11px] w-[11px]" />
                 </Link>
@@ -308,10 +302,7 @@ const Page = () => {
             </div>
 
             <div className="flex items-center justify-center md:hidden">
-              <Link
-                href="/"
-                className="primary-button items-center gap-[10px] inline-flex"
-              >
+              <Link href="/" className="primary-button items-center gap-[10px] inline-flex">
                 Create DAO
                 <LinkIcon className="h-[11px] w-[11px]" />
               </Link>
@@ -357,10 +348,7 @@ const Page = () => {
                 <p className="mb-[12px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:text-[12px] xl:text-[15px]">
                   {`Vote with or delegate your ELF tokens to \nhelp protect the integrity of the AELF \nprotocol.`}
                 </p>
-                <Link
-                  href="/"
-                  className="default-button inline-flex items-center gap-[10px]"
-                >
+                <Link href="/" className="default-button inline-flex items-center gap-[10px]">
                   Find out more
                   <LinkIcon className="h-[11px] w-[11px]" />
                 </Link>
@@ -442,10 +430,7 @@ const Page = () => {
             </div>
 
             <div className="flex flex-row items-center justify-center mt-[40px] md:hidden">
-              <Link
-                href="/"
-                className="default-button inline-flex items-center gap-[10px]"
-              >
+              <Link href="/" className="default-button inline-flex items-center gap-[10px]">
                 About aelf
                 <LinkIcon className="h-[11px] w-[11px]" />
               </Link>
@@ -473,10 +458,7 @@ const Page = () => {
               Recent Updates
             </h2>
 
-            <Link
-              href="/"
-              className="default-button hidden items-center gap-[10px] lg:inline-flex"
-            >
+            <Link href="/" className="default-button hidden items-center gap-[10px] lg:inline-flex">
               View More
               <LinkIcon className="h-[11px] w-[11px]" />
             </Link>
