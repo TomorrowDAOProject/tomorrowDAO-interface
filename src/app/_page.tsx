@@ -442,7 +442,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           </div>
 
           <div className="col-12 box-border">
-            <div className="flex flex-row justify-center flex-wrap lg:px-[172px] xl:px-[200px]">
+            <div className="flex flex-row justify-center flex-wrap lg:px-[164px] xl:px-[200px]">
               <PortkeyIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
               <SchordingerIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
               <AwakenIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
