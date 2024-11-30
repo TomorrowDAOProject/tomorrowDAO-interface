@@ -33,11 +33,11 @@ const Swiper = (props: SwiperProps) => {
         {React.Children.map(children, (child, index) => (
           <div
             className={clsx(
-              'absolute w-full h-full transition-[transform,opacity] ease-in-out duration-500',
+              'mb-[20px] md:mb-0 md:absolute w-full h-full transition-[transform,opacity] ease-in-out duration-500',
               `z-[${index === currentIndex ? childrenCount : index}]`,
               index === currentIndex
                 ? 'opacity-100 translate-y-0 scale-100'
-                : 'opacity-0 translate-y-1/2 scale-90 transition-none',
+                : 'md:opacity-0 md:translate-y-1/2 md:scale-90 transition-none',
             )}
           >
             {child}

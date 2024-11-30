@@ -4,15 +4,13 @@ import { ReactComponent as TwitterIcon } from 'assets/revamp-icon/twitter.svg';
 import { ReactComponent as DiscordIcon } from 'assets/revamp-icon/discord.svg';
 import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/telegram.svg';
 import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
-import { ReactComponent as ArrowDownIcon } from 'assets/revamp-icon/arrow-down.svg';
-import { Dropdown, Flex, Space } from 'antd';
 import { DownOutlined } from '@aelf-design/icons';
-import styles from './index.module.css';
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import SideMenu from 'components/SideMenu';
+import Dropdown from 'components/Dropmenu';
 
-type MenuItem = {
+export type MenuItem = {
   key: string;
   label: React.ReactNode;
   icon?: React.ReactNode;
@@ -40,7 +38,7 @@ const items: MenuItem[] = [
             href={'/'}
             className="text-[15px] font-medium text-white no-underline font-Montserrat"
           >
-            <Space>Github</Space>
+            Github
           </Link>
         ),
       },
@@ -51,7 +49,7 @@ const items: MenuItem[] = [
             href={'/'}
             className="text-[15px] font-medium text-white no-underline font-Montserrat"
           >
-            <Space>Documentation</Space>
+            Documentation
           </Link>
         ),
       },
@@ -69,10 +67,10 @@ const items: MenuItem[] = [
             href={'/'}
             className="text-[15px] font-medium text-white no-underline font-Montserrat"
           >
-            <Flex align="center" gap={14}>
+            <div className="flex items-center gap-[14px]">
               <TwitterIcon className="w-[18px] h-[18px]" />
               Twitter
-            </Flex>
+            </div>
           </Link>
         ),
       },
@@ -83,10 +81,10 @@ const items: MenuItem[] = [
             href={'/'}
             className="text-[15px] font-medium text-white no-underline font-Montserrat"
           >
-            <Flex align="center" gap={14}>
+            <div className="flex items-center gap-[14px]">
               <DiscordIcon className="w-[18px] h-[18px]" />
               Discord
-            </Flex>
+            </div>
           </Link>
         ),
       },
@@ -97,10 +95,10 @@ const items: MenuItem[] = [
             href={'/'}
             className="text-[15px] font-medium text-white no-underline font-Montserrat"
           >
-            <Flex align="center" gap={14}>
+            <div className="flex items-center gap-[14px]">
               <TelegramIcon className="w-[18px] h-[18px]" />
               Telegram
-            </Flex>
+            </div>
           </Link>
         ),
       },
@@ -122,22 +120,11 @@ const NavMenuItem = ({ item }: { item: MenuItem }) => {
   return (
     <div key={item?.key}>
       {item?.children?.length ? (
-        <Dropdown
-          className="text-white no-underline cursor-pointer"
-          overlayClassName={styles['nav-dropdown']}
-          menu={{ items: item.children }}
-          onOpenChange={(open) => setIsOpen(open)}
-        >
+        <Dropdown menu={item.children}>
           <a onClick={(e) => e.preventDefault()}>
             <span className="text-[15px] font-medium text-white no-underline font-Montserrat m-[8px]">
               {item.label}
             </span>
-            <ArrowDownIcon
-              className={clsx(
-                'transition-all duration-300 ease-in-out',
-                isOpen ? 'rotate-180' : '',
-              )}
-            />
           </a>
         </Dropdown>
       ) : (

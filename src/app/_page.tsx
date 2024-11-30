@@ -10,8 +10,7 @@ import { ReactComponent as ForestIcon } from 'assets/revamp-icon/forest.svg';
 import { ReactComponent as PortkeyIcon } from 'assets/revamp-icon/portkey.svg';
 import { ReactComponent as SchordingerIcon } from 'assets/revamp-icon/schordinger.svg';
 import { ReactComponent as LongArrowIcon } from 'assets/revamp-icon/long-arrow.svg';
-import { CollapseProps } from 'antd';
-import Collapse from 'components/Collapse';
+import Collapse, { itemType } from 'components/Collapse';
 import Swiper from 'components/Swiper';
 import NavFooter from 'components/NavFooter';
 import clsx from 'clsx';
@@ -22,36 +21,24 @@ type PageProps = {
   onScroll?: () => void;
 };
 
-const collapseItems: CollapseProps['items'] = [
+const collapseItems: itemType[] = [
   {
     key: '1',
     label: 'AI agents in DAO governance',
-    children: (
-      <p>
-        Drafting proposals, whitepapers, manifestos, and posts, summarizing governance decisions,
-        and onboarding new members through on-chain reputation or credential storage.
-      </p>
-    ),
+    children:
+      'Drafting proposals, whitepapers, manifestos, and posts, summarizing governance decisions, and onboarding new members through on-chain reputation or credential storage.',
   },
   {
     key: '2',
     label: 'AI-assisted data analysis',
-    children: (
-      <p>
-        Drafting proposals, whitepapers, manifestos, and posts, summarizing governance decisions,
-        and onboarding new members through on-chain reputation or credential storage.
-      </p>
-    ),
+    children:
+      'Drafting proposals, whitepapers, manifestos, and posts, summarizing governance decisions, and onboarding new members through on-chain reputation or credential storage.',
   },
   {
     key: '3',
     label: 'Swarm Intelligence',
-    children: (
-      <p>
-        Drafting proposals, whitepapers, manifestos, and posts, summarizing governance decisions,
-        and onboarding new members through on-chain reputation or credential storage.
-      </p>
-    ),
+    children:
+      'Drafting proposals, whitepapers, manifestos, and posts, summarizing governance decisions, and onboarding new members through on-chain reputation or credential storage.',
   },
 ];
 
@@ -111,14 +98,14 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
   }, []);
 
   const swiperIndex = useMemo(() => {
-    if (scrollPercent < 30) return 0;
+    if (scrollPercent < 38) return 0;
     if (scrollPercent < 64) return 1;
     return 2;
   }, [scrollPercent]);
 
   return (
     <>
-      <div className="tmrwdao-grid">
+      <div className="tmrwdao-grid z-0">
         <div className="col-12 box-border">
           <section className="relative">
             <img
@@ -127,11 +114,11 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               alt=""
             />
             <div className="relative py-[25px] flex flex-col justify-center h-[calc(100vh-90px)] box-border z-10">
-              <h1 className="mt-[50px] mb-0 text-[36px] font-Unbounded font-light text-white tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px] lg:mt-0 lg:whitespace-pre-wrap lg:text-[54px] xl:text-[66px]">
+              <h1 className="mt-[50px] mb-0 text-[36px] font-Unbounded font-light text-white tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px] lg:tracking-[-4.32px] xl:tracking-[-5.28px] lg:mt-0 lg:whitespace-pre-wrap lg:text-[54px] xl:text-[66px]">
                 {`TMRWDAO:`} <br />
                 {`Where Your Vision Fuels \nThe Future`}
               </h1>
-              <p className="my-[50px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap sm:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</p>
+              <p className="my-[50px] text-[14px] font-Unbounded font-light text-white text-right tracking-[-.56px] lg:tracking-[-.52px] xl:tracking-[-0.6px] whitespace-pre-wrap sm:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</p>
 
               <div className="flex flex-col items-start gap-[9.68px] mt-[20px] sm:flex-row lg:gap-[6px] xl:gap-[10px]">
                 <Link href="/" className="primary-button inline-flex items-center gap-[10px]">
@@ -209,13 +196,13 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           </section>
 
           <section className="py-[40px] md:py-[55px] lg:py-[118.4px] xl:py-[148px]">
-            <h2 className="mt-0 mb-[42px] text-[24px] font-Unbounded font-light text-white text-center lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px]">
+            <h2 className="mt-0 mb-[42px] text-[24px] font-Unbounded font-light text-white text-center lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">
               Type of DAOs
             </h2>
 
             <div className="flex flex-col gap-[19px] md:flex-row lg:gap-[20px] xl:gap-[32px]">
               <div className="flex flex-col items-start justify-between h-[164px] px-[22px] py-[12.77px] bg-mainColor rounded-[7px] md:flex-1 lg:p-[26px] lg:h-[180px] lx:p-[32px] lx:h-[225px]">
-                <h4 className="m-0 text-[20px] font-Unbounded font-light text-white">
+                <h4 className="m-0 text-[20px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
                   Multisig-based DAO
                 </h4>
                 <p className="m-0 text-[14px] font-Montserrat font-normal text-white leading-[160%]">
@@ -225,7 +212,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               </div>
 
               <div className="flex flex-col items-start justify-between h-[164px] px-[22px] py-[12.77px] bg-mainColor rounded-[7px] md:flex-1 lg:p-[26px] lg:h-[180px] lx:p-[32px] lx:h-[225px]">
-                <h4 className="m-0 text-[20px] font-Unbounded font-light text-white">
+                <h4 className="m-0 text-[20px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
                   Token-based DAO
                 </h4>
                 <p className="m-0 text-[14px] font-Montserrat font-normal text-white leading-[160%]">
@@ -239,12 +226,12 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           <section className="py-[40px] md:py-[55px] lg:py-[41.6px] xl:py-[52px]">
             <div className="flex flex-col md:items-stretch md:flex-row">
               <div className="md:flex-1">
-                <div className="sticky top-0 left-0 flex items-center h-screen">
+                <div className="sticky top-0 left-0 flex items-center md:h-screen">
                   <div className="md:pr-[64px] md:flex-1 lg:pr-[76px] xl:pr-[78px] md:">
-                    <h2 className="mt-0 mb-[30px] text-[24px] font-Unbounded font-light text-white text-left whitespace-pre-wrap lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px]">
+                    <h2 className="mt-0 mb-[30px] text-[24px] font-Unbounded font-light text-white text-left whitespace-pre-wrap lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-3px] xl:tracking-[-3.84px]">
                       {`Create in just 3 \nsimple steps.`}
                     </h2>
-                    <p className="mb-0 text-[14px] font-Unbounded font-normal text-white text-right md:mb-[36px] lg:mb-[33px] lg:text-[12px] xl:mb-[42px] xl:text-[15px]">
+                    <p className="mb-0 text-[14px] font-Unbounded font-normal text-white text-right md:mb-[36px] lg:mb-[33px] lg:text-[12px] xl:mb-[42px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                       /It is just that easy!
                     </p>
                     <Link
@@ -259,11 +246,11 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               </div>
 
               <div className="md:flex-1 md:h-[500vh]">
-                <div className="sticky top-0 left-0 flex items-center h-screen">
-                  <div className="flex flex-row items-center mt-[30px] md:mt-0 md:flex-1 md:h-[287px] lg:h-[363px] xl:h-[454px]">
+                <div className="sticky top-0 left-0 flex items-center md:h-screen">
+                  <div className="flex flex-row items-center w-full mt-[30px] md:mt-0 md:flex-1 md:h-[287px] lg:h-[363px] xl:h-[454px]">
                     <Swiper
                       currentIndex={swiperIndex}
-                      className="!h-[287px] lg:!h-[363px] xl:!h-[454px]"
+                      className="md:!h-[287px] lg:!h-[363px] xl:!h-[454px]"
                     >
                       <Swiper.Item>
                         <div className="relative w-full h-[287px] lg:h-[363px] xl:h-[454px] flex flex-col items-start justify-between px-[28px] py-[22px] lg:pt-[30px] lg:pb-[35px] lg:px-[35px] bg-darkGray rounded-[7px] box-border">
@@ -334,10 +321,10 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           <section className="py-[40px] md:py-[55px] lg:py-[80px] xl:py-[100px]">
             <div className="flex flex-col md:flex-row">
               <div className="flex flex-col md:pr-[64px] md:flex-1 lg:pr-[76px] xl:pr-[78px]">
-                <h2 className="mb-[30px] text-[24px] font-Unbounded font-light text-white text-left lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px]">
+                <h2 className="mb-[30px] text-[24px] font-Unbounded font-light text-white text-left lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-3px] xl:tracking-[-3.84px]">
                   AI Driven DAO
                 </h2>
-                <p className="mb-[30px] text-[14px] font-Unbounded font-normal text-white text-right md:mb-[100px] lg:mb-[56px] lg:text-[12px] xl:mb-[70px] xl:text-[15px]">
+                <p className="mb-[30px] text-[14px] font-Unbounded font-normal text-white text-right md:mb-[100px] lg:mb-[56px] lg:text-[12px] xl:mb-[70px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                   /For smarter community
                 </p>
                 <img
@@ -348,12 +335,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               </div>
 
               <div className="mt-[30px] md:flex-1">
-                <Collapse
-                  expandIconPosition="end"
-                  defaultActiveKey={['2', '3']}
-                  items={collapseItems}
-                  expandIcon={Arrow}
-                />
+                <Collapse defaultActiveKey={['2', '3']} items={collapseItems} />
               </div>
             </div>
           </section>
@@ -361,10 +343,10 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           <section className="py-[60px] lg:py-[67px] xl:py-[84px]">
             <div className="flex flex-col gap-[20px] md:gap-[25px] md:flex-row bg-mainColor py-[21px] px-[22px] rounded-[12px] xl:p-[32px] md:items-stretch">
               <div className="w-full md:flex-1">
-                <h2 className="mt-0 mb-0 text-[24px] font-Unbounded font-light text-white text-left lg:text-[38.4px] xl:text-[48px]">
+                <h2 className="mt-0 mb-0 text-[24px] font-Unbounded font-light text-white text-left lg:text-[38.4px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">
                   Network DAO
                 </h2>
-                <p className="mt-[12px] mb-[80px] text-[14px] font-Unbounded font-normal text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px]">
+                <p className="mt-[12px] mb-[80px] text-[14px] font-Unbounded font-normal text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                   {`/Where Innovation Meets Security\n in the Web3 Space`}
                 </p>
                 <p className="mb-[12px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:text-[12px] xl:text-[15px]">
@@ -388,14 +370,14 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
           <section>
             <div className="py-[100px] lg:py-[160px] xl:py-[200px]">
-              <h3 className="mb-[24px] text-[14px] font-Unbounded font-light text-white text-center lg:mb-[17px] lg:text-[12px] xl:mb-[22px] xl:text-[15px]">
+              <h3 className="mb-[24px] text-[14px] font-Unbounded font-light text-white text-center lg:mb-[17px] lg:text-[12px] xl:mb-[22px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                 Join the movement:
               </h3>
-              <h1 className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px]">
+              <h1 className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">
                 {`Be a part of \n`}
                 <span className="text-mainColor">TmrwDAO</span>’s
               </h1>
-              <h1 className="m-0 text-[36px] font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px]">{`Community \nTransformation`}</h1>
+              <h1 className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">{`Community \nTransformation`}</h1>
               <div className="flex align-center justify-center mt-[35px] lg:mt-[48.8px] xl:mt-[61px] text-white">
                 <Link href="/">
                   <ArrowSymbolIcon className="h-[39px] w-[39.83px]" color="white" />
@@ -410,7 +392,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
         <div className="tmrwdao-grid">
           <div className="col-12 box-border">
             <div className="flex flex-row justify-between items-end">
-              <h2 className="m-0 text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Built on the aelf \necosystem`}</h2>
+              <h2 className="m-0 text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">{`Built on the aelf \necosystem`}</h2>
 
               <Link
                 href="/"
@@ -476,7 +458,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
       <div className="tmrwdao-grid py-[100px] lg:py-[67px] xl:py-[126px]">
         <div className="col-12 box-border mb-[50px] lg:mb-[43px] xl:mb-[50px]">
           <div className="flex flex-row justify-between items-center">
-            <h2 className="m-0 text-[24px] lg:text-[20.8px] xl:text-[26px] font-Unbounded font-light text-white whitespace-pre-wrap">
+            <h2 className="m-0 text-[24px] lg:text-[20.8px] xl:text-[26px] font-Unbounded font-light text-white whitespace-pre-wrap tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
               Recent Updates
             </h2>
 
