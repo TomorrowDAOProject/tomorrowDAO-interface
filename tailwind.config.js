@@ -26,16 +26,12 @@ module.exports = {
           'Arial',
           'sans-serif',
         ],
-        'Montserrat': ['Montserrat-Regular', 'sans-serif'],
-        'Montserrat-Medium': ['Montserrat-Medium', 'sans-serif'],
-        'Unbounded': ['Unbounded', 'sans-serif'],
       },
       animation: {
         vibrate: 'vibrate 100ms linear 4',
         flash: 'flash 1s infinite',
         skeleton: 'skeleton 1.5s ease-in-out infinite',
         'scroll-left': 'scroll-left 10s linear infinite',
-        'up-down': 'upDown 3s ease-in-out infinite',
       },
       keyframes: {
         vibrate: {
@@ -56,10 +52,6 @@ module.exports = {
           '0%, 100%': { backgroundColor: '#353535' },
           '50%': { backgroundColor: '#1c1a1a' },
         },
-        upDown: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-15px)' },
-        }
       },
       colors: {
         neutralTitle: '#1A1A1A',
@@ -89,22 +81,10 @@ module.exports = {
         'Reject-Reject': '#F55D6E',
         'Light-Mode-Brand-Brand': '#127FFF',
         link: '#5b8ef4',
-        baseBg: 'var(--base-bg)',
-        baseText: 'var(--base-text)',
-        fillBg: 'var(--fill-bg)',
-        fillBg8: 'var(--fill-bg-8)',
-        fillBg40: 'var(--fill-bg-40)',
-        fillBlack15: 'var(--fill-black-15)',
-        mainColor: 'var(--main-color)',
-        darkGray: 'var(--dark-gray)',
-        lightGrey: 'var(--light-gray)',
       },
       flex: {
         quarter: '1 1 25%',
         half: '1 1 50%',
-      },
-      backgroundImage: {
-        aelfItemShadow: 'linear-gradient(29deg, #5D49F6 9.71%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0.08) 100%)',
       },
     },
     screens: {
@@ -211,7 +191,6 @@ module.exports = {
           justifyContent: 'center',
           alignItems: 'center',
           padding: '0 1.25rem',
-          boxSizing: 'border-box',
           '@screen md': {
             padding: '0 2.5rem',
           },
