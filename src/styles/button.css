@@ -1,28 +1,45 @@
 .approve-button:not(:disabled) {
-    @apply !text-white !bg-[#3888FF] border-[#3888FF] ;
-    &:hover {
-      @apply !text-white !bg-[#5A9CFF] border-[#5A9CFF];
-    }
-    &:active {
-      @apply !text-white !bg-[#2777ED] border-[#2777ED];
-    }
+  @apply !text-white !bg-[#3888FF] border-[#3888FF];
+  &:hover {
+    @apply !text-white !bg-[#5A9CFF] border-[#5A9CFF];
   }
-  .reject-button:not(:disabled)  {
-    @apply !text-white !bg-[#F55D6E] border-[#F55D6E];
-    &:hover {
-      @apply !text-white !bg-[#F77987] border-[#F77987];
-    }
-    &:active {
-      @apply !text-white !bg-[#DF4F5F] border-[#DF4F5F];
-    }
+  &:active {
+    @apply !text-white !bg-[#2777ED] border-[#2777ED];
   }
-  
-  .abstention-button:not(:disabled)  {
-    @apply !text-white !bg-[#687083] border-[#687083];
-    &:hover {
-      @apply !text-white !bg-[#828898] border-[#828898];
-    }
-    &:active {
-      @apply !text-white !bg-[#5D6579] border-[#5D6579];
-    }
+}
+.reject-button:not(:disabled) {
+  @apply !text-white !bg-[#F55D6E] border-[#F55D6E];
+  &:hover {
+    @apply !text-white !bg-[#F77987] border-[#F77987];
   }
+  &:active {
+    @apply !text-white !bg-[#DF4F5F] border-[#DF4F5F];
+  }
+}
+
+.abstention-button:not(:disabled) {
+  @apply !text-white !bg-[#687083] border-[#687083];
+  &:hover {
+    @apply !text-white !bg-[#828898] border-[#828898];
+  }
+  &:active {
+    @apply !text-white !bg-[#5D6579] border-[#5D6579];
+  }
+}
+
+.primary-button:not(:disabled) {
+  @apply font-Montserrat !text-baseText !bg-mainColor border-[1px] border-solid  border-mainColor px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out;
+  &:hover, &:active {
+    @apply !text-mainColor !bg-transparent;
+  }
+}
+
+.default-button:not(:disabled) {
+  @apply font-Montserrat !text-baseText !bg-transparent border-[1px] border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out;
+  &:hover {
+    @apply !text-mainColor !bg-transparent !border-mainColor;
+  }
+  &:active {
+    @apply !text-baseText !bg-[#2777ED] border-[#2777ED];
+  }
+}
