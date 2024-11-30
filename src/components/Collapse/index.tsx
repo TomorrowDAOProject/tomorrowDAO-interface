@@ -18,10 +18,10 @@ const CollapseItem = ({ item, isOpened }: { item: itemType; isOpened?: boolean }
 
   return (
     <div
-      className="group border-0 border-b-[1px] border-white border-solid cursor-pointer"
+      className="group border-0 border-b-[1px] border-fillBg40 border-solid cursor-pointer"
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className="flex flex-row items-center justify-between w-full py-[12px] lg:py-[16px] xl:py-[20px] border-b-[1px] border-white">
+      <div className="flex flex-row items-center justify-between w-full py-[12px] lg:py-[16px] xl:py-[20px] border-b-[1px] border-fillBg40">
         <p className="m-0 text-[16px] lg:text-[14px] xl:text-[18px] font-Montserrat font-normal text-white">
           {item.label}
         </p>
@@ -53,7 +53,7 @@ const CollapseItem = ({ item, isOpened }: { item: itemType; isOpened?: boolean }
 const WebCollapse = (props: IProps) => {
   const { items } = props;
   return (
-    <div className="border-0 border-t-[1px] border-white border-solid">
+    <div className="border-0 border-t-[1px] border-fillBg40 border-solid">
       {items.map((item, index) => (
         <CollapseItem
           key={index}
