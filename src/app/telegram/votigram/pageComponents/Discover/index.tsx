@@ -113,7 +113,7 @@ interface IDiscover {
 }
 
 const Discover = forwardRef<InfiniteListRef, IDiscover>(({ bannerCount, onBannerView }, ref) => {
-  const { discoverTopBannerURL } = useConfig() ?? {};
+  const { discoverTopBannerURL, discoverTopBannerRedirectURL } = useConfig() ?? {};
   const chooseDrawerRef = useRef<ICommonDrawerRef>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
@@ -141,7 +141,14 @@ const Discover = forwardRef<InfiniteListRef, IDiscover>(({ bannerCount, onBanner
 
   return (
     <div className="discover-page-wrap" ref={wrapRef}>
-      <div className="flex relative mt-6">
+      <div
+        className="flex relative mt-6"
+        onClick={() => {
+          if (discoverTopBannerRedirectURL) {
+            window.open(discoverTopBannerRedirectURL);
+          }
+        }}
+      >
         <Image
           src={discoverTopBannerURL || ''}
           className="rounded-lg w-full h-full"

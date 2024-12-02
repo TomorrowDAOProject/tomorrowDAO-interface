@@ -9,6 +9,7 @@ import {
   LoadingIcon,
   DailyTaskIcon,
   CreatePollIcon,
+  SchrodingerIcon,
 } from 'components/Icons';
 import { useRef, useState } from 'react';
 import { completeTaskItem } from 'api/request';
@@ -91,6 +92,10 @@ const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?
     icon: <CreatePollIcon />,
     title: 'Create your poll',
   },
+  [UserTaskDetail.ExploreSchrodinger]: {
+    icon: <SchrodingerIcon />,
+    title: "Join Schrodinger's cat",
+  },
   [UserTaskDetail.ExploreJoinVotigram]: {
     icon: <TelegramIcon />,
     title: 'Join Votigram channel',
@@ -170,6 +175,10 @@ export const TaskItem = (props: ITaskItemProps) => {
     {
       taskId: UserTaskDetail.ExploreForwardX,
       url: retweetTmrwdaoPostURL || '',
+    },
+    {
+      taskId: UserTaskDetail.ExploreSchrodinger,
+      url: 'https://t.me/scat_game_bot/partner02?startapp=activityCode--A05',
     },
   ];
   const {
