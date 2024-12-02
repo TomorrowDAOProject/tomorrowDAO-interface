@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import Item from './item';
-import React, { useState } from 'react';
-import { throttle } from 'lodash-es';
+import React from 'react';
 
 type SwiperProps = {
   currentIndex: number;
