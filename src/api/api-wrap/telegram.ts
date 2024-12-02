@@ -202,6 +202,7 @@ export const updateAdsView = async (params: {
 };
 
 export const updateTGInfo = async (params: {
+  telegramId: string;
   chainId: string;
   firstName: string;
   lastName: string;
