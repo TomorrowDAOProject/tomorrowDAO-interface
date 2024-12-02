@@ -11,6 +11,7 @@ import { LayoutContent } from './layout-content';
 import { Metadata } from 'next';
 import VconsoleScript from './VconsoleScript';
 import GtagConfigScript from './GtagConfigScript';
+import Layout from './_layout';
 export const metadata: Metadata = {
   title: 'TMRWDAO: Revolutionise Decentralised Governance with AI',
   description:
@@ -72,7 +73,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             }}
           ></iframe>
         </noscript>
-        <div id="root">{children}</div>
+        <div id="root">
+          <Provider>
+            <Layout>{children}</Layout>
+          </Provider>
+        </div>
       </body>
     </html>
   );

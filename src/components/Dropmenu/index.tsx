@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { ReactComponent as ArrowDownIcon } from 'assets/revamp-icon/arrow-down.svg';
 import { MenuItem } from 'components/NavHeader';
 
-type DropmenuProps = {
+interface DropmenuProps {
   children: React.ReactNode;
   menu?: MenuItem[];
-};
+}
 
 const Dropdown = (props: DropmenuProps) => {
   const { children, menu = [] } = props;
@@ -35,12 +35,12 @@ const Dropdown = (props: DropmenuProps) => {
         )}
       </div>
 
-      {isOpen ? (
+      {isOpen && (
         <div className="origin-top-left absolute left-0 pt-[10px] ">
           <div className="py-[13px] px-[14px] rounded-[7px] bg-darkGray">
             <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               {menu?.map((item, index) => (
-                <div className="py-[10px] px-[14px]" key={index}>
+                <div className="py-[10px] px-[14px]" key={`${item.label}_${index}`}>
                   <p className="m-0 text-white font-medium text-[15px] leading-[24px] font-Montserrat;">
                     {item.label}
                   </p>
@@ -49,7 +49,7 @@ const Dropdown = (props: DropmenuProps) => {
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
