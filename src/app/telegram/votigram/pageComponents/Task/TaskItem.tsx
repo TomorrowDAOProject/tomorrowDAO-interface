@@ -244,6 +244,7 @@ export const TaskItem = (props: ITaskItemProps) => {
       case UserTaskDetail.ExploreFollowX:
       case UserTaskDetail.ExploreJoinDiscord:
       case UserTaskDetail.ExploreForwardX:
+      case UserTaskDetail.ExploreSchrodinger:
         await jumpAndRefresh(taskItem.userTaskDetail);
         break;
       case UserTaskDetail.ExploreCumulateFiveInvite:
