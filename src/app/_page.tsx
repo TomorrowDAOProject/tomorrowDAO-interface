@@ -406,7 +406,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 href="/"
                 className="default-button hidden items-center gap-[10px] md:inline-flex"
               >
-                Find out more
+                About aelf
                 <LinkIcon className="h-[11px] w-[11px]" />
               </Link>
             </div>
@@ -443,7 +443,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
             <div className="flex flex-row items-center justify-center mb-[35px] md:hidden">
               <Link href="/" className="default-button inline-flex items-center gap-[10px]">
-                Find out more
+                About aelf
                 <LinkIcon className="h-[11px] w-[11px]" />
               </Link>
             </div>
