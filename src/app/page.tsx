@@ -44,7 +44,7 @@ export default function Page() {
       className="flex flex-col bg-baseBg h-screen overflow-x-hidden overflow-y-auto"
       ref={scrollContainerRef}
     >
-      <NavHeader style={{ top: !showHeader ? '-80px' : '0' }} />
+      <NavHeader className={showHeader ? 'backdrop-blur-[10px]' : ''} style={{ top: !showHeader ? '-80px' : '0' }} />
 
       <HomePage parentRef={scrollContainerRef} onScroll={handleScroll} />
     </div>

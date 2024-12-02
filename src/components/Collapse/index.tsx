@@ -22,13 +22,13 @@ const CollapseItem = ({ item, isOpened }: { item: itemType; isOpened?: boolean }
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className="flex flex-row items-center justify-between w-full py-[12px] lg:py-[16px] xl:py-[20px] border-b-[1px] border-fillBg40">
-        <p className="m-0 text-[16px] lg:text-[14px] xl:text-[18px] font-Montserrat font-normal text-white">
+        <p className="m-0 text-[16px] lg:text-[14px] xl:text-[18px] font-Montserrat font-medium text-white">
           {item.label}
         </p>
 
         <LargeArrowIcon
           className={clsx(
-            'w-[12px] h-[11px] lg:w-[16px] lg:h-[14.5px] lg:w-[20px] lg:h-[18px] transition-[transform] ease-in-out duration-300',
+            'w-[14px] h-[12px] lg:w-[16px] lg:h-[14.5px] lg:w-[20px] lg:h-[18px] transition-[transform] ease-in-out duration-300',
             isOpen ? 'rotate-[-180deg]' : '',
           )}
         />

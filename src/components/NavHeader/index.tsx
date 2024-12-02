@@ -5,7 +5,7 @@ import { ReactComponent as DiscordIcon } from 'assets/revamp-icon/discord.svg';
 import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/telegram.svg';
 import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import { DownOutlined } from '@aelf-design/icons';
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import SideMenu from 'components/SideMenu';
 import Dropdown from 'components/Dropmenu';
@@ -115,7 +115,6 @@ const items: MenuItem[] = [
 ];
 
 const NavMenuItem = ({ item }: { item: MenuItem }) => {
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div key={item?.key}>
@@ -134,11 +133,12 @@ const NavMenuItem = ({ item }: { item: MenuItem }) => {
   );
 };
 
-const NavHeader = ({ style }: { style?: React.CSSProperties }) => {
+const NavHeader = ({ className, style }: { className?: string; style?: React.CSSProperties }) => {
   return (
     <div
       className={clsx(
         'w-full bg-fillBg sticky top-0 z-10 transition-[top] duration-300 ease-in-out',
+        className,
       )}
       style={style}
     >
