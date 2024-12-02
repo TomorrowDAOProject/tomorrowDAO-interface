@@ -6,12 +6,12 @@ export interface ItemType {
   children: React.ReactNode;
 }
 
-interface IProps {
+interface IWebCollapseProps {
   items: ItemType[];
   defaultActiveKey?: string[];
 }
 
-const WebCollapse = ({ items, defaultActiveKey }: IProps) => {
+const WebCollapse = ({ items, defaultActiveKey }: IWebCollapseProps) => {
   return (
     <div className="border-0 border-t-[1px] border-fillBg40 border-solid">
       {items.map((item, index) => (
