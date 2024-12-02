@@ -115,7 +115,6 @@ const items: MenuItem[] = [
 ];
 
 const NavMenuItem = ({ item }: { item: MenuItem }) => {
-
   return (
     <div key={item?.key}>
       {item?.children?.length ? (
