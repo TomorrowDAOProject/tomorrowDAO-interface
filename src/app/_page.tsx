@@ -148,7 +148,9 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   Create a DAO
                 </h2>
                 <p className="m-0 text-[14px] lg:text-[13px] font-Montserrat xl:text-[16px] font-normal text-white leading-[160%] overflow-hidden transition-[height,opacity] duration-300 lg:opacity-0 lg:group-hover:opacity-100 lg:mb-0 lg:whitespace-pre-wrap lg:h-[39px] lg:group-hover:h-[62.39px] xl:h-[53px] xl:group-hover:h-[76.78px]">
-                  {`Set up your DAO effortlessly and shape its mission and governance. \nBuild a thriving community where every member has a voice in \ndriving the organization’s success.`}
+                  Set up your DAO effortlessly and shape its mission and governance. Build a
+                  thriving community where every member has a voice in driving the organization's
+                  success.
                 </p>
               </div>
               <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
@@ -260,7 +262,9 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                             src="https://cdn.tmrwdao.com/assets/imgs/B5650D5FCE2B.webp"
                             alt=""
                           />
-                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">STEP 1</p>
+                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">
+                            STEP 1
+                          </p>
 
                           <div className="">
                             <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Select & create \ntype Of DAO`}</h3>
@@ -275,7 +279,9 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                             src="https://cdn.tmrwdao.com/assets/imgs/A33A05660253.webp"
                             alt=""
                           />
-                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">STEP 2</p>
+                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">
+                            STEP 2
+                          </p>
 
                           <div className="">
                             <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Govern through \nproposals`}</h3>
@@ -290,7 +296,9 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                             src="https://cdn.tmrwdao.com/assets/imgs/8F08514716C0.webp"
                             alt=""
                           />
-                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">STEP 3</p>
+                          <p className="m-0 text-white font-Unbounded font-light text-[12px]">
+                            STEP 3
+                          </p>
 
                           <div className="">
                             <h3 className="mt-0 mb-0 text-[18px] lg:text-[19px] xl:text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap">{`Fund & allocate \nthe treasury`}</h3>
@@ -347,7 +355,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 <h2 className="mt-0 mb-0 text-[24px] font-Unbounded font-light text-white text-left lg:text-[38.4px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">
                   Network DAO
                 </h2>
-                <p className="mt-[12px] mb-[80px] text-[14px] font-Unbounded font-normal text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
+                <p className="mt-[12px] mb-[80px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                   {`/Where Innovation Meets Security\n in the Web3 Space`}
                 </p>
                 <p className="mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:text-[12px] xl:text-[15px]">
@@ -369,22 +377,20 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
             </div>
           </section>
 
-          <section>
-            <div className="py-[100px] lg:py-[160px] xl:py-[200px]">
-              <h3 className="mb-[24px] text-[14px] font-Unbounded font-light text-white text-center lg:mb-[17px] lg:text-[12px] xl:mb-[22px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
-                Join the movement:
-              </h3>
-              <h1 className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">
-                {`Be a part of \n`}
-                <span className="text-mainColor">TmrwDAO</span>’s
-              </h1>
-              <h1 className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">{`Community \nTransformation`}</h1>
-              <div className="flex align-center justify-center mt-[35px] lg:mt-[48.8px] xl:mt-[61px] text-white">
-                <Link href="/" className='group'>
-                  <ArrowSymbolIcon className="h-[39px] w-[39.83px] inline-block group-hover:hidden transition-[display] duration-300" />
-                  <ArrowFilledIcon className="h-[39px] w-[39.83px] hidden group-hover:inline-block transition-[display] duration-300" />
-                </Link>
-              </div>
+          <section className="py-[100px] lg:py-[160px] xl:py-[200px] text-center flex flex-col">
+            <span className="mb-6 text-[14px] font-Unbounded font-light text-white text-center lg:mb-[17px] lg:text-[12px] xl:mb-[22px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
+              Join the movement:
+            </span>
+            <span className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">
+              {`Be a part of \n`}
+              <span className="text-mainColor font-Unbounded">TmrwDAO'</span>'s
+            </span>
+            <span className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">{`Community \nTransformation`}</span>
+            <div className="flex align-center justify-center mt-[35px] lg:mt-[48.8px] xl:mt-[61px] text-white">
+              <Link href="/" className="group">
+                <ArrowSymbolIcon className="h-[39px] w-[39.83px] inline-block group-hover:hidden transition-[display] duration-300" />
+                <ArrowFilledIcon className="h-[39px] w-[39.83px] hidden group-hover:inline-block transition-[display] duration-300" />
+              </Link>
             </div>
           </section>
         </div>
@@ -437,7 +443,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
             <div className="flex flex-row items-center justify-center mb-[35px] md:hidden">
               <Link href="/" className="default-button inline-flex items-center gap-[10px]">
-                  Find out more
+                Find out more
                 <LinkIcon className="h-[11px] w-[11px]" />
               </Link>
             </div>
@@ -482,7 +488,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               <p className="m-0 text-lightGrey text-[12px] font-Montserrat font-normal whitespace-pre-wrap md:text-[10px] lg:text-[12px] xl:text-[14px]">
                 {date}
               </p>
-              <p className="mt-[12px] mb-0 heigh-[36px] overflow-hidden line-clamp-2 text-overflow-ellipsis text-[13px] font-Montserrat font-normal text-white whitespace-pre-wrap lg:h-[32px] xl:h-[40px] lg:text-[11.2px] xl:text-[14px]">
+              <p className="mt-1 mb-0 heigh-[36px] overflow-hidden line-clamp-2 text-overflow-ellipsis text-[13px] font-Montserrat font-normal text-white whitespace-pre-wrap lg:h-[32px] xl:h-[40px] lg:text-[11.2px] xl:text-[14px]">
                 {description}
               </p>
             </div>

@@ -19,6 +19,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 * {
   font-family: Roboto, sans-serif;
 }
@@ -27,36 +28,17 @@ body {
   font-family: 'Roboto';
   src: url('/font/Roboto-Regular.ttf');
 }
+
 @font-face {
   font-family: 'Roboto';
   font-weight: 500;
   src: url('/font/Roboto-Medium.ttf');
 }
+
 @font-face {
   font-family: 'Roboto';
   font-weight: 700;
   src: url('/font/Roboto-Bold.ttf');
-}
-
-@font-face {
-  font-family: 'Montserrat-Medium';
-  src: url('/font/Montserrat-Medium.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('/font/Montserrat-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Unbounded';
-  src: url('/font/Unbounded-Light.ttf');
-  font-weight: normal;
-  font-style: normal;
 }
 
 
@@ -95,114 +77,147 @@ input[type='number'] {
 .hash-link-color>span {
   @apply !text-inherit;
 }
+
 .TMRWDAO-message .TMRWDAO-message-notice-wrapper .TMRWDAO-message-custom-content>.anticon {
   vertical-align: -0.125em;
 }
+
 .TMRWDAO-table-wrapper td.TMRWDAO-table-column-sort {
   @apply bg-white;
 }
+
 .TMRWDAO-table-wrapper .TMRWDAO-table-column-sorters {
   @apply justify-start;
-  
+
 }
+
 .TMRWDAO-table-wrapper .TMRWDAO-table-column-title {
   @apply flex-grow-0;
 }
+
 .dao-tx-hash {
   &>span {
     @apply truncate max-w-[120px];
   }
 }
+
 .TMRWDAO-pagination-container .TMRWDAO-select-selector {
   @apply !border-Neutral-Disable-Text;
 }
+
 .antExplorer-tabs-nav,
 .TMRWDAO-tabs-nav {
-  overflow: hidden!important;
+  overflow: hidden !important;
 }
+
 .TMRWDAO-members-hash-address {
   @apply flex justify-between w-full;
+
   .TMRWDAO-icon {
     @apply text-[20px];
   }
 }
+
 .TMRWDAO-table-column-sorter-up.active,
 .TMRWDAO-table-column-sorter-down.active {
   @apply !text-neutralTitle;
 }
+
 .TMRWDAO-table-container {
-  .TMRWDAO-table-thead >tr>th {
+  .TMRWDAO-table-thead>tr>th {
     @apply text-Neutral-Secondary-Text;
   }
+
   tbody {
     @apply text-neutralPrimaryText;
   }
 }
+
 .TMRWDAO-typography {
   font-family: Roboto, sans-serif !important;
 }
+
 .table-padding-large {
   .TMRWDAO-table-thead>tr>th {
     @apply pl-[24px];
   }
+
   .TMRWDAO-table-tbody>tr>td {
     @apply pl-[24px];
   }
 }
+
 .clear-table-padding {
   .TMRWDAO-table-thead>tr>th {
     @apply pr-0;
   }
+
   .TMRWDAO-table-tbody>tr>td {
     @apply pr-0;
   }
 }
+
 .normal-table {
   .TMRWDAO-table-thead>tr>th {
-     @apply text-[14px] leading-[20px] font-medium text-Neutral-Secondary-Text py-[14px]; 
+    @apply text-[14px] leading-[20px] font-medium text-Neutral-Secondary-Text py-[14px];
   }
-  .TMRWDAO-table-tbody>tr>td, .TMRWDAO-hash-address > span{
-   @apply text-[12px] leading-[20px] font-normal text-neutralTitle; 
+
+  .TMRWDAO-table-tbody>tr>td,
+  .TMRWDAO-hash-address>span {
+    @apply text-[12px] leading-[20px] font-normal text-neutralTitle;
   }
- }
- .table-header-normal {
+}
+
+.table-header-normal {
   .TMRWDAO-table-thead>tr>th {
-    @apply text-[14px] leading-[20px] font-medium text-Neutral-Secondary-Text py-[14px]; 
- }
- .TMRWDAO-table-column-sorter {
-  @apply h-[20px];
- }
- }
- .table-td-sm {
-  .TMRWDAO-table-tbody>tr>td, .TMRWDAO-hash-address > span{
-   @apply text-[14px] leading-[22px] font-normal; 
+    @apply text-[14px] leading-[20px] font-medium text-Neutral-Secondary-Text py-[14px];
   }
- }
+
+  .TMRWDAO-table-column-sorter {
+    @apply h-[20px];
+  }
+}
+
+.table-td-sm {
+
+  .TMRWDAO-table-tbody>tr>td,
+  .TMRWDAO-hash-address>span {
+    @apply text-[14px] leading-[22px] font-normal;
+  }
+}
+
 .full-table {
   .TMRWDAO-table-thead>tr>th:first-child {
     @apply lg:pl-[32px] pl-[16px];
- }
- .TMRWDAO-table-thead>tr>th:last-child {
+  }
+
+  .TMRWDAO-table-thead>tr>th:last-child {
     @apply lg:pr-[32px] pr-[16px];
- }
- .TMRWDAO-table-tbody>tr>td:first-child {
+  }
+
+  .TMRWDAO-table-tbody>tr>td:first-child {
     @apply lg:pl-[32px] pl-[16px];
- }
- .TMRWDAO-table-tbody>tr>td:last-child {
+  }
+
+  .TMRWDAO-table-tbody>tr>td:last-child {
     @apply lg:pr-[32px] pr-[16px];
- }
+  }
 }
+
 .full-table-wrap {
   .TMRWDAO-pagination-container {
     @apply lg:px-8 px-4;
   }
 }
+
 .TMRWDAO-table-expanded-row-fixed {
   @apply !w-full !m-0;
 }
+
 .TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
   @apply mt-[8px];
 }
+
 /* .TMRWDAO-form-item-margin-offset {
   @apply !mb-0;
 }

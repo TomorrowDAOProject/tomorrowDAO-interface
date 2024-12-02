@@ -1,24 +1,10 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
-import { RightOutlined } from '@ant-design/icons';
+import React, { useRef, useState } from 'react';
 import HomePage from './_page';
-import './home.css';
-import Link from 'next/link';
 import NavHeader from 'components/NavHeader';
 
-interface LinkWithRightArrowProps {
-  href: string;
-  children: React.ReactNode;
-}
-const LinkWithRightArrow = (props: LinkWithRightArrowProps) => {
-  return (
-    <Link target="_blank" href={props.href}>
-      <div className="text-colorPrimary flex items-center mt-[16px] text-[16px] font-medium leading-[22px]">
-        <span className="pr-[8px] text-[14px]">{props.children}</span> <RightOutlined />
-      </div>
-    </Link>
-  );
-};
+import './home.css';
+
 export default function Page() {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [showHeader, setShowHeader] = useState(true);
@@ -44,7 +30,10 @@ export default function Page() {
       className="flex flex-col bg-baseBg h-screen overflow-x-hidden overflow-y-auto"
       ref={scrollContainerRef}
     >
-      <NavHeader className={showHeader ? 'backdrop-blur-[10px]' : ''} style={{ top: !showHeader ? '-80px' : '0' }} />
+      <NavHeader
+        className={showHeader ? 'backdrop-blur-[10px]' : ''}
+        style={{ top: !showHeader ? '-80px' : '0' }}
+      />
 
       <HomePage parentRef={scrollContainerRef} onScroll={handleScroll} />
     </div>

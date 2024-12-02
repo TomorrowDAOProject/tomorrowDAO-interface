@@ -26,9 +26,8 @@ module.exports = {
           'Arial',
           'sans-serif',
         ],
-        'Montserrat': ['Montserrat-Regular', 'sans-serif'],
-        'Montserrat-Medium': ['Montserrat-Medium', 'sans-serif'],
-        'Unbounded': ['Unbounded', 'sans-serif'],
+        Montserrat: ['Montserrat', 'sans-serif'],
+        Unbounded: ['Unbounded', 'sans-serif'],
       },
       animation: {
         vibrate: 'vibrate 100ms linear 4',
@@ -59,7 +58,7 @@ module.exports = {
         upDown: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-15px)' },
-        }
+        },
       },
       colors: {
         neutralTitle: '#1A1A1A',
@@ -104,7 +103,8 @@ module.exports = {
         half: '1 1 50%',
       },
       backgroundImage: {
-        aelfItemShadow: 'linear-gradient(29deg, #5D49F6 9.71%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.2) 100%)',
+        aelfItemShadow:
+          'linear-gradient(29deg, #5D49F6 9.71%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.2) 100%)',
       },
     },
     screens: {
