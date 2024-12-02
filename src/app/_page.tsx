@@ -246,7 +246,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 </div>
               </div>
 
-              <div className="relative md:flex-1 md:h-[500vh]">
+              <div className="relative md:flex-1 md:h-[900vh]">
                 <div className="sticky top-0 left-0 flex items-center md:h-screen">
                   <div className="flex flex-row items-center w-full mt-[30px] md:mt-0 md:flex-1 md:h-[287px] lg:h-[363px] xl:h-[454px]">
                     <Swiper
