@@ -350,10 +350,10 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           <section className="py-[60px] lg:py-[67px] xl:py-[84px]">
             <div className="flex flex-col gap-[20px] md:gap-[25px] md:flex-row bg-mainColor py-[21px] px-[22px] rounded-[12px] xl:p-[32px] md:items-stretch">
               <div className="w-full md:flex-1">
-                <h2 className="mt-0 mb-0 text-[24px] font-Unbounded font-light text-white text-left lg:text-[38.4px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">
+                <h2 className="mt-0 mb-0 text-[24px] font-Unbounded font-light text-white text-left lg:text-[38.4px] xl:text-[48px] leading-[1] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">
                   Network DAO
                 </h2>
-                <p className="mt-[12px] mb-[80px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
+                <p className="mt-[10px] mb-[80px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                   {`/Where Innovation Meets Security\n in the Web3 Space`}
                 </p>
                 <p className="mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal lg:pr-[88px] xl:pr-[112px] lg:text-[12px] xl:text-[15px]">
@@ -367,7 +367,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
               <div className="w-full md:flex-1">
                 <img
-                  className="w-full h-[199px] lg:h-[270px] object-cover object-center rounded-[12px] md:h-[265] lg:h-[278.58px] xl:h-[348.22px] align-top"
+                  className="w-full h-[199px] lg:h-[270px] object-cover object-center rounded-[12px] md:h-[265px] lg:h-[278.58px] xl:h-[348.22px] align-top"
                   src={require('assets/revamp-imgs/NetworkDAO.gif').default.src}
                   alt=""
                 />
