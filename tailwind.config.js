@@ -28,6 +28,7 @@ module.exports = {
         ],
         Montserrat: ['Montserrat', 'sans-serif'],
         Unbounded: ['Unbounded', 'sans-serif'],
+        Syne: ['Syne', 'sans-serif'],
       },
       animation: {
         vibrate: 'vibrate 100ms linear 4',

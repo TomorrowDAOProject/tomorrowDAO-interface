@@ -26,7 +26,7 @@ const Dropdown = (props: DropmenuProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="inline-flex items-center justify-center">
+      <div className="inline-flex items-center justify-center cursor-pointer">
         {children}
         {menu?.length > 0 && (
           <ArrowDownIcon
