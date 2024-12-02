@@ -104,7 +104,7 @@ module.exports = {
         half: '1 1 50%',
       },
       backgroundImage: {
-        aelfItemShadow:
+        itemShadow:
           'linear-gradient(29deg, #5D49F6 9.71%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.2) 100%)',
       },
     },

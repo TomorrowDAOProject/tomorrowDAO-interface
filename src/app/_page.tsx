@@ -327,7 +327,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 <img
                   className="w-[207px] h-[203px] object-cover object-center lg:w-[179px] lg:h-[176px] xl:w-[224px] xl:h-[220px]"
                   src="https://cdn.tmrwdao.com/assets/imgs/3996DAE19A7E.webp"
-                  alt=""
+                  alt="Community"
                 />
               </div>
 
@@ -359,7 +359,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 <img
                   className="w-full h-[199px] lg:h-[270px] object-cover object-center rounded-[12px] md:h-[265px] lg:h-[278.58px] xl:h-[348.22px] align-top"
                   src={require('assets/revamp-imgs/NetworkDAO.gif').default.src}
-                  alt=""
+                  alt="Network DAO"
                 />
               </div>
             </div>
@@ -403,7 +403,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           <div className="col-12 box-border">
             <div className="flex flex-row gap-[12px] lg:gap-[20px] overflow-x-auto py-[36px] md:py-[33px] lg:py-[40px] xl:py-[50px] lg:overflow-x-hidden mr-[-1.25rem] md:mr-[-2.5rem] lg:mr-0">
               <div className="relative group py-[26px] px-[28px] w-[335px] h-[295px] flex flex-col items-start shrink-0 justify-end rounded-[12px] overflow-hidden lg:rounded-r-none box-border lg:bg-fillBlack15 lg:hover:bg-transparent lg:flex-1 lg:h-[241px] xl:h-[301px]">
-                <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-aelfItemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
+                <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-itemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <div className="absolute top-[29px] right-[22px] w-[124.718px] h-[95px] lg:top-[22px] lg:right-[22px] lg:w-[110px] lg:h-[83px] xl:w-[137px] xl:h-[104px] xl:top-[28px] xl:right-[26px] transition-[opacity] duration-300 bg-[url(https://cdn.tmrwdao.com/assets/imgs/76FE650ED476.webp)] bg-no-repeat bg-cover lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <h4 className="m-0 text-[20px] font-Unbounded font-normal text-white whitespace-pre-wrap lg:text-[16px] xl:text-[20px]">{`AI-powered \nOperational Efficiency`}</h4>
                 <p className="mt-[23px] mb-0 text-[14px] font-Montserrat font-normal text-white text-left lg:mt-[16px] lg:text-[12.8px] xl:mt-[20px] xl:text-[16px] opacity-70">
@@ -412,7 +412,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 </p>
               </div>
               <div className="relative group py-[26px] px-[28px] w-[335px] h-[295px] flex flex-col items-start shrink-0 justify-end rounded-[12px] overflow-hidden lg:rounded-none box-border lg:bg-fillBlack15 lg:hover:bg-transparent lg:flex-1 lg:h-[241px] xl:h-[301px]">
-                <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-aelfItemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
+                <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-itemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <div className="absolute top-[29px] right-[22px] w-[124.718px] h-[95px] lg:top-[22px] lg:right-[22px] lg:w-[110px] lg:h-[83px] xl:w-[137px] xl:h-[104px] xl:top-[28px] xl:right-[26px] transition-[opacity] duration-300 bg-[url(https://cdn.tmrwdao.com/assets/imgs/B0D7D235602A.webp)] bg-no-repeat bg-cover opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <h4 className="m-0 text-[20px] font-Unbounded font-normal text-white whitespace-pre-wrap lg:text-[16px] xl:text-[20px]">{`Zero Gas Fees`}</h4>
                 <p className="mt-[23px] mb-0 text-[14px] font-Montserrat font-normal text-white text-left lg:mt-[16px] lg:text-[12.8px] xl:mt-[20px] xl:text-[16px] opacity-70">
@@ -420,7 +420,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 </p>
               </div>
               <div className="relative group py-[26px] px-[28px] w-[335px] h-[295px] flex flex-col items-start shrink-0 justify-end rounded-[12px] overflow-hidden lg:rounded-l-none box-border lg:bg-fillBlack15 lg:hover:bg-transparent lg:flex-1 lg:h-[241px] xl:h-[301px]">
-                <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-aelfItemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
+                <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-itemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <div className="absolute top-[29px] right-[22px] w-[124.718px] h-[95px] lg:top-[22px] lg:right-[22px] lg:w-[110px] lg:h-[83px] xl:w-[137px] xl:h-[104px] xl:top-[28px] xl:right-[26px] transition-[opacity] duration-300 bg-[url(https://cdn.tmrwdao.com/assets/imgs/ACFD1295C8DA.webp)] bg-no-repeat bg-cover opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <h4 className="m-0 text-[20px] font-Unbounded font-normal text-white whitespace-pre-wrap lg:text-[16px] xl:text-[20px]">{`Flexible Architecture`}</h4>
                 <p className="mt-[23px] mb-0 text-[14px] font-Montserrat font-normal text-white text-left lg:mt-[16px] lg:text-[12.8px] xl:mt-[20px] xl:text-[16px] opacity-70">
@@ -471,7 +471,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               <img
                 className="w-[100%] h-[190px] lg:h-[162px] xl:h-[203px] object-fill object-center rounded-[12px] mb-[15px] lg:mb-[12.8px] xl:mb-[16px]"
                 src={img}
-                alt=""
+                alt="Recent Updates"
               />
               <p className="m-0 text-lightGrey text-[12px] font-Montserrat font-normal whitespace-pre-wrap md:text-[10px] lg:text-[12px] xl:text-[14px]">
                 {date}
