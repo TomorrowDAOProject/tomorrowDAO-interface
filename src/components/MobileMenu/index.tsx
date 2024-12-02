@@ -15,15 +15,14 @@ const MunuItem = ({ title, items }: { title: React.ReactNode; items?: MenuItem[]
   };
 
   return (
-    <div className="group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+    <div className="group cursor-pointer" onClick={toggleMenu}>
       <div className="flex flex-row items-center justify-start w-full py-[10px] px-[14px] gap-[8px]">
         <p className="m-0 text-[15px] lg:text-[14px] font-MontserratMedium text-white">{title}</p>
 
         <LargeArrowIcon
-          className={clsx(
-            'transition-[transform] ease-in-out duration-300',
-            isOpen ? 'rotate-[-180deg]' : '',
-          )}
+          className={clsx('transition-[transform] ease-in-out duration-300', {
+            'rotate-[-180deg]': isOpen,
+          })}
         />
       </div>
 
@@ -53,8 +52,10 @@ const MobileMenu = ({ menus }: MenuProps) => {
     <div className="menu">
       <div className="list-none">
         {menus.map((menu, index) => (
-          <div key={index} className="mb-2">
-            {!menu?.children ? (
+          <div key={`${menu.label}_${index}`} className="mb-2">
+            {menu?.children && menu.children.length > 0 ? (
+              <MunuItem key={index} title={menu.label} items={menu.children} />
+            ) : (
               <a
                 key={index}
                 href="/"
@@ -63,8 +64,6 @@ const MobileMenu = ({ menus }: MenuProps) => {
                 {menu.icon}
                 {menu.label}
               </a>
-            ) : (
-              <MunuItem key={index} title={menu.label} items={menu.children} />
             )}
           </div>
         ))}

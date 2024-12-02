@@ -11,7 +11,7 @@ import { ReactComponent as ForestIcon } from 'assets/revamp-icon/forest.svg';
 import { ReactComponent as PortkeyIcon } from 'assets/revamp-icon/portkey.svg';
 import { ReactComponent as SchordingerIcon } from 'assets/revamp-icon/schordinger.svg';
 import { ReactComponent as LongArrowIcon } from 'assets/revamp-icon/long-arrow.svg';
-import Collapse, { itemType } from 'components/Collapse';
+import Collapse, { ItemType } from 'components/Collapse';
 import Swiper from 'components/Swiper';
 import NavFooter from 'components/NavFooter';
 import clsx from 'clsx';
@@ -22,7 +22,7 @@ type PageProps = {
   onScroll?: () => void;
 };
 
-const collapseItems: itemType[] = [
+const collapseItems: ItemType[] = [
   {
     key: '1',
     label: 'AI agents in DAO governance',
@@ -64,23 +64,12 @@ const posts = [
   },
 ];
 
-const Arrow = ({ isActive }: PanelProps): React.ReactNode => {
-  return (
-    <LargeArrowIcon
-      className={clsx(
-        'w-[12px] h-[11px] lg:w-[16px] lg:h-[14.5px] lg:w-[20px] lg:h-[18px]',
-        isActive ? 'rotate-[-180deg]' : '',
-      )}
-    />
-  );
-};
-
 const Page = ({ parentRef, onScroll }: PageProps) => {
   const [scrollPercent, setScrollPercent] = useState(0);
 
   const handleScroll = () => {
     if (parentRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = parentRef.current;
+      const { scrollTop, scrollHeight, clientHeight } = parentRef?.current || {};
       const currentScroll = (scrollTop / (scrollHeight - clientHeight)) * 100;
       setScrollPercent(currentScroll);
     }
@@ -88,7 +77,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
   };
 
   useEffect(() => {
-    const scrollContainer = parentRef.current;
+    const scrollContainer = parentRef?.current;
     if (!scrollContainer) return;
 
     scrollContainer.addEventListener('scroll', handleScroll);
@@ -112,11 +101,12 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
             <img
               className="absolute w-full h-auto object-cover z-0 md:w-auto md:h-[335px] md:top-[40%] md:left-1/2 md:translate-x-[-50%] md:translate-y-[-50%] lg:top-[45%] lg:left-auto lg:right-[-60px] xl:right-[-80px] lg:translate-x-0 lg:h-[529.5px] xl:h-[662px]"
               src={require('assets/revamp-imgs/Intro.gif').default.src}
-              alt=""
+              alt="Banner Animation"
             />
             <div className="relative py-[25px] flex flex-col justify-center h-[calc(100vh-90px)] box-border z-10">
               <h1 className="mt-[50px] mb-0 text-[36px] font-Unbounded font-light text-white tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px] lg:tracking-[-4.32px] xl:tracking-[-5.28px] lg:mt-0 lg:whitespace-pre-wrap lg:text-[54px] xl:text-[66px]">
-                {`TMRWDAO:`} <br />
+                TMRWDAO:
+                <br />
                 {`Where Your Vision Fuels \nThe Future`}
               </h1>
               <p className="my-[50px] text-[14px] font-Unbounded font-light text-white text-right tracking-[-.56px] lg:tracking-[-.52px] xl:tracking-[-0.6px] whitespace-pre-wrap sm:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</p>
@@ -258,7 +248,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                           <img
                             className="absolute w-auto h-[134px] top-[51px] right-[24px] md:top-[40px] md:right-[40px] lg:h-[170px] lg:top-[51px] lg:right-[45px] xl:h-[212.6px] xl:top-[64px] xl:right-[55px]"
                             src="https://cdn.tmrwdao.com/assets/imgs/B5650D5FCE2B.webp"
-                            alt=""
+                            alt="STEP 1 Symbol"
                           />
                           <p className="m-0 text-white font-Unbounded font-light text-[12px]">
                             STEP 1
@@ -275,7 +265,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                           <img
                             className="absolute w-auto h-[151px] top-[25px] right-[16px] md:top-[45px] md:right-[22px] lg:h-[182px] lg:top-[34px] lg:right-[28px] xl:h-[239px] xl:top-[40px] xl:right-[36px]"
                             src="https://cdn.tmrwdao.com/assets/imgs/A33A05660253.webp"
-                            alt=""
+                            alt="STEP 2 Symbol"
                           />
                           <p className="m-0 text-white font-Unbounded font-light text-[12px]">
                             STEP 2
@@ -292,7 +282,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                           <img
                             className="absolute w-auto h-[134px] top-[19px] right-[24px] md:top-[40px] md:right-[40px] lg:h-[170px] lg:top-[51px] lg:right-[45px] xl:h-[212.6px] xl:top-[64px] xl:right-[55px]"
                             src="https://cdn.tmrwdao.com/assets/imgs/8F08514716C0.webp"
-                            alt=""
+                            alt="STEP 3 Symbol"
                           />
                           <p className="m-0 text-white font-Unbounded font-light text-[12px]">
                             STEP 3
@@ -310,7 +300,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                       <div
                         className="absolute w-full bg-mainColor rounded-[2px]"
                         style={{ height: `${scrollPercent}%` }}
-                      ></div>
+                      />
                     </div>
                   </div>
                 </div>

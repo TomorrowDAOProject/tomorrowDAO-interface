@@ -6,13 +6,12 @@ type SwiperProps = {
   currentIndex: number;
   width?: number | string;
   height?: number | string;
-  style?: React.CSSProperties;
   className?: string;
   children: React.ReactNode;
 };
 
 const Swiper = (props: SwiperProps) => {
-  const { currentIndex = 0, width = '100%', height = 320, style, className, children } = props;
+  const { currentIndex = 0, width = '100%', height = 320, className, children } = props;
 
   const childrenCount = React.Children.count(children);
 
@@ -25,15 +24,18 @@ const Swiper = (props: SwiperProps) => {
 
   return (
     <div
-      className={clsx('web-swiper', className)}
-      style={{ ...style, width: convertToCssValue(width), minHeight: convertToCssValue(height) }}
+      className={clsx(
+        'web-swiper',
+        className,
+        `w-[${convertToCssValue(width)}] h-[${convertToCssValue(height)}]`,
+      )}
     >
       <div className="relative w-full h-full">
         {React.Children.map(children, (child, index) => (
           <div
             className={clsx(
               'mb-[20px] md:mb-0 md:absolute w-full h-full transition-[transform,opacity] ease-in-out duration-500',
-              index === childrenCount - 1 ? '!mb-0' : '',
+              { '!mb-0': index === childrenCount - 1 },
               `z-[${index === currentIndex ? childrenCount : index}]`,
               index === currentIndex
                 ? 'opacity-100 translate-y-0 scale-100'

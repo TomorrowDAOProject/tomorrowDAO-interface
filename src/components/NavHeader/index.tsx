@@ -8,7 +8,7 @@ import { DownOutlined } from '@aelf-design/icons';
 import React from 'react';
 import clsx from 'clsx';
 import SideMenu from 'components/SideMenu';
-import Dropdown from 'components/Dropmenu';
+import NavMenuItem from './NavMenuItem';
 
 export type MenuItem = {
   key: string;
@@ -113,24 +113,6 @@ const items: MenuItem[] = [
     ),
   },
 ];
-
-const NavMenuItem = ({ item }: { item: MenuItem }) => {
-  return (
-    <div key={item?.key}>
-      {item?.children?.length ? (
-        <Dropdown menu={item.children}>
-          <a onClick={(e) => e.preventDefault()}>
-            <span className="text-[15px] font-medium text-white no-underline font-Montserrat m-[8px]">
-              {item.label}
-            </span>
-          </a>
-        </Dropdown>
-      ) : (
-        item?.label
-      )}
-    </div>
-  );
-};
 
 const NavHeader = ({ className, style }: { className?: string; style?: React.CSSProperties }) => {
   return (

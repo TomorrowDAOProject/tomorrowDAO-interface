@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { MenuItem } from 'components/NavHeader';
 import Drawer from 'components/MobileDrawer';
 import MobileMenu from 'components/MobileMenu';
+import { group } from 'console';
 
 const items: MenuItem[] = [
   {
@@ -31,7 +32,7 @@ const items: MenuItem[] = [
   },
 ];
 
-const gourpItems = [
+const groupItems = [
   {
     key: 'Twitter',
     label: 'Twitter',
@@ -66,7 +67,7 @@ const SideMenu = () => {
         <div className="flex flex-col justify-between h-full">
           <MobileMenu menus={items} />
 
-          <MobileMenu menus={gourpItems} />
+          <MobileMenu menus={groupItems} />
         </div>
       </Drawer>
     </>
