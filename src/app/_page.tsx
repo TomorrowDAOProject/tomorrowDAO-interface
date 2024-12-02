@@ -121,7 +121,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               </h1>
               <p className="my-[50px] text-[14px] font-Unbounded font-light text-white text-right tracking-[-.56px] lg:tracking-[-.52px] xl:tracking-[-0.6px] whitespace-pre-wrap sm:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</p>
 
-              <div className="flex flex-col items-start gap-[9.68px] lg:mt-[20px] sm:flex-row lg:gap-[6px] xl:gap-[10px]">
+              <div className="flex flex-col items-start gap-[9.68px] sm:flex-row lg:gap-[6px] xl:gap-[10px]">
                 <Link href="/" className="primary-button inline-flex items-center gap-[10px]">
                   Create DAO
                   <LinkIcon className="h-[11px] w-[11px]" />
@@ -138,22 +138,20 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
           <section className="py-[56px] md:py-[55px] lg:py-[24px] xl:py-[30px]">
             <div className="flex flex-row items-center gap-[20px] w-full overflow-x-auto lg:overflow-hidden lg:flex-wrap">
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[251px] xl:h-[314px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-t-[24px] xl:rounded-t-[30px] box-border transition-all duration-300 xs:w-[335px] lg:flex-row lg:items-end lg:justify-start lg:w-full hover:bg-mainColor">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[251px] xl:h-[314px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-t-[24px] xl:rounded-t-[30px] box-border transition-all duration-300 xs:w-[335px] lg:flex-row lg:items-end lg:justify-start lg:w-full hover:bg-mainColor">
                 <p className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   01
                 </p>
                 <LargeArrowIcon className="absolute top-[16px] right-[16px] xl:right-[20px] xl:top-[20px] w-[18px] h-[20px] rotate-[-135deg] transition-[opacity] duration-300 opacity-0 lg:group-hover:opacity-100" />
                 <div className="absolute w-[224px] h-[224px] top-[-83px] right-[-64px] lg:w-[374px] lg:h-[374px] lg:top-[-166px] lg:right-[-82px] xl:w-[464px] xl:h-[464px] xl:top-[-208px] xl:right-[-101px] bg-[url(https://cdn.tmrwdao.com/assets/imgs/B9A0510D246F.webp)] bg-cover"></div>
-                <h2 className="mb-[23px] text-[20px] font-Unbounded font-light text-white lg:text-[19.2px] xl:text-[24px] transition-[height] duration-300 lg:pr-[50px] lg:mb-0 lg:whitespace-pre-wrap lg:h-[39px] lg:group-hover:h-[62.39px] xl:h-[53px] xl:group-hover:h-[76.78px]">
+                <h2 className="mb-[23px] text-[20px] font-Unbounded font-light text-white lg:text-[19.2px] xl:text-[24px] transition-[height] duration-300 lg:shrink-0 lg:pr-[50px] lg:mb-0 lg:whitespace-pre-wrap lg:h-[39px] lg:group-hover:h-[62.39px] xl:h-[53px] xl:group-hover:h-[76.78px]">
                   Create a DAO
                 </h2>
                 <p className="m-0 text-[14px] lg:text-[13px] font-Montserrat xl:text-[16px] font-normal text-white leading-[160%] overflow-hidden transition-[height,opacity] duration-300 lg:opacity-0 lg:group-hover:opacity-100 lg:mb-0 lg:whitespace-pre-wrap lg:h-[39px] lg:group-hover:h-[62.39px] xl:h-[53px] xl:group-hover:h-[76.78px]">
-                  Set up your DAO effortlessly and shape its mission and governance. Build a
-                  thriving community where every member has a voice in driving the organization's
-                  success.
+                  {`Set up your DAO effortlessly and shape its mission and governance. \nBuild a thriving community where every member has a voice in \ndriving the organization's success.`}
                 </p>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <p className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   02
                 </p>
@@ -167,7 +165,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   your core team to ensure critical proposals are reviewed by trusted individuals.
                 </p>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <p className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   03
                 </p>
@@ -181,7 +179,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   your community vote and shape the future with collective decision-making.
                 </p>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-br-[24px] xl:rounded-br-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-br-[24px] xl:rounded-br-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <p className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   04
                 </p>
@@ -358,7 +356,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 <p className="mt-[12px] mb-[80px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                   {`/Where Innovation Meets Security\n in the Web3 Space`}
                 </p>
-                <p className="mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:text-[12px] xl:text-[15px]">
+                <p className="mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal lg:pr-[88px] xl:pr-[112px] lg:text-[12px] xl:text-[15px]">
                   {`Vote with or delegate your ELF tokens to \nhelp protect the integrity of the AELF \nprotocol.`}
                 </p>
                 <Link href="/" className="default-button inline-flex items-center gap-[10px]">
@@ -377,7 +375,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
             </div>
           </section>
 
-          <section className="py-[100px] lg:py-[160px] xl:py-[200px] text-center flex flex-col">
+          <section className="py-[100px] lg:pt-[210px] lg:pb-[160px] xl:pt-[263px] xl:pb-[200px]  text-center flex flex-col md:bg-[url(https://cdn.tmrwdao.com/assets/imgs/05C02F412414.webp)] bg-[length:76%_auto] bg-no-repeat bg-center">
             <span className="mb-6 text-[14px] font-Unbounded font-light text-white text-center lg:mb-[17px] lg:text-[12px] xl:mb-[22px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
               Join the movement:
             </span>
@@ -386,7 +384,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               <span className="text-mainColor font-Unbounded">TmrwDAO'</span>'s
             </span>
             <span className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">{`Community \nTransformation`}</span>
-            <div className="flex align-center justify-center mt-[35px] lg:mt-[48.8px] xl:mt-[61px] text-white">
+            <div className="flex align-center justify-center mt-[35px] md:mb-[50px] xl:mb-[63px] lg:mt-[48.8px] xl:mt-[61px] text-white">
               <Link href="/" className="group">
                 <ArrowSymbolIcon className="h-[39px] w-[39.83px] inline-block group-hover:hidden transition-[display] duration-300" />
                 <ArrowFilledIcon className="h-[39px] w-[39.83px] hidden group-hover:inline-block transition-[display] duration-300" />
@@ -481,7 +479,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           <div className="col-12 mb-[25px] md:col-6 lg:col-4" key={index}>
             <div className="flex flex-col">
               <img
-                className="w-[100%] h-[190px] lg:h-[335px] object-fill object-center rounded-[12px] mb-[15px] lg:mb-[12.8px] xl:mb-[16px] md:h-[341px] lg:h-[288px] xl:h-[203px]"
+                className="w-[100%] h-[190px] lg:h-[162px] xl:h-[203px] object-fill object-center rounded-[12px] mb-[15px] lg:mb-[12.8px] xl:mb-[16px] md:h-[341px] lg:h-[288px] xl:h-[203px]"
                 src={img}
                 alt=""
               />
