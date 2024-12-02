@@ -138,7 +138,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
           <section className="py-[56px] md:py-[55px] lg:py-[24px] xl:py-[30px]">
             <div className="flex flex-row items-center gap-[20px] w-full overflow-x-auto lg:overflow-hidden lg:flex-wrap">
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[251px] xl:h-[314px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] box-border transition-all duration-300 xs:w-[335px] lg:flex-row lg:items-end lg:justify-start lg:w-full hover:bg-mainColor">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[251px] xl:h-[314px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-t-[24px] xl:rounded-t-[30px] box-border transition-all duration-300 xs:w-[335px] lg:flex-row lg:items-end lg:justify-start lg:w-full hover:bg-mainColor">
                 <p className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   01
                 </p>
@@ -151,7 +151,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   {`Set up your DAO effortlessly and shape its mission and governance. \nBuild a thriving community where every member has a voice in \ndriving the organization’s success.`}
                 </p>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <p className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   02
                 </p>
@@ -165,7 +165,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   your core team to ensure critical proposals are reviewed by trusted individuals.
                 </p>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <p className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   03
                 </p>
@@ -179,7 +179,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   your community vote and shape the future with collective decision-making.
                 </p>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-br-[24px] xl:rounded-br-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <p className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   04
                 </p>
@@ -322,7 +322,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           <section className="py-[40px] md:py-[55px] lg:py-[80px] xl:py-[100px]">
             <div className="flex flex-col md:flex-row">
               <div className="flex flex-col md:pr-[64px] md:flex-1 lg:pr-[76px] xl:pr-[78px]">
-                <h2 className="mb-[30px] text-[24px] font-Unbounded font-light text-white text-left lg:mb-[45px] lg:text-[38.4px] xl:mb-[56px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-3px] xl:tracking-[-3.84px]">
+                <h2 className="mt-0 mb-[30px] text-[24px] font-Unbounded font-light text-white text-left lg:mb-[16px] lg:text-[38.4px] xl:mb-[21px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-3px] xl:tracking-[-3.84px]">
                   AI Driven DAO
                 </h2>
                 <p className="mt-0 mb-[30px] text-[14px] font-Unbounded font-normal text-white text-right md:mb-[100px] lg:mb-[56px] lg:text-[12px] xl:mb-[70px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
@@ -335,7 +335,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 />
               </div>
 
-              <div className="mt-[30px] md:flex-1">
+              <div className="mt-[30px] md:mt-0 md:flex-1">
                 <Collapse defaultActiveKey={['2', '3']} items={collapseItems} />
               </div>
             </div>
@@ -394,7 +394,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
         <div className="tmrwdao-grid">
           <div className="col-12 box-border">
             <div className="flex flex-row justify-between items-end">
-              <h2 className="m-0 text-[24px] font-Unbounded font-light text-white whitespace-pre-wrap leading-[1] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">{`Built on the aelf \necosystem`}</h2>
+              <h2 className="m-0 text-[24px] lg:text-[38.4px] xl:text-[48px] font-Unbounded font-light text-white whitespace-pre-wrap leading-[1] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">{`Built on the aelf \necosystem`}</h2>
 
               <Link
                 href="/"
