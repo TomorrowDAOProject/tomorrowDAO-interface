@@ -21,7 +21,10 @@ const items: MenuItem[] = [
   {
     key: 'NetworkDAO',
     label: (
-      <Link href={'/'} className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor">
+      <Link
+        href={'/'}
+        className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
+      >
         Network DAO
       </Link>
     ),
@@ -107,7 +110,10 @@ const items: MenuItem[] = [
   {
     key: 'Blog',
     label: (
-      <Link href={'/'} className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor">
+      <Link
+        href={'/'}
+        className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
+      >
         Blog
       </Link>
     ),
