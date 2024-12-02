@@ -381,7 +381,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
             </span>
             <span className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">
               {`Be a part of \n`}
-              <span className="text-mainColor font-Unbounded">TmrwDAO'</span>'s
+              <span className="text-mainColor font-Unbounded">TmrwDAO&apos;</span>s
             </span>
             <span className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">{`Community \nTransformation`}</span>
             <div className="flex align-center justify-center mt-[35px] md:mb-[50px] xl:mb-[63px] lg:mt-[48.8px] xl:mt-[61px] text-white">
