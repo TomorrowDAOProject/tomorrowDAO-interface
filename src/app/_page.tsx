@@ -353,7 +353,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 <h2 className="mt-0 mb-0 text-[24px] font-Unbounded font-light text-white text-left lg:text-[38.4px] xl:text-[48px] leading-[1] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">
                   Network DAO
                 </h2>
-                <p className="mt-[10px] mb-[80px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[112px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
+                <p className="mt-[10px] mb-[74px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[102px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                   {`/Where Innovation Meets Security\n in the Web3 Space`}
                 </p>
                 <p className="mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal lg:pr-[88px] xl:pr-[112px] lg:text-[12px] xl:text-[15px]">
@@ -375,16 +375,16 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
             </div>
           </section>
 
-          <section className="py-[100px] lg:pt-[210px] lg:pb-[160px] xl:pt-[263px] xl:pb-[200px]  text-center flex flex-col md:bg-[url(https://cdn.tmrwdao.com/assets/imgs/05C02F412414.webp)] bg-[length:76%_auto] bg-no-repeat bg-center">
+          <section className="py-[100px] lg:pt-[210px] lg:pb-[160px] xl:pt-[263px] xl:pb-[200px]  text-center flex flex-col md:bg-[url(https://cdn.tmrwdao.com/assets/imgs/05C02F412414.webp)] md:bg-[length:72%_auto] lg:bg-[length:86%_auto] xl:bg-[length:78%_auto] bg-no-repeat bg-center">
             <span className="mb-6 text-[14px] font-Unbounded font-light text-white text-center lg:mb-[17px] lg:text-[12px] xl:mb-[22px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
               Join the movement:
             </span>
             <span className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">
-              {`Be a part of \n`}
+              {`Be a part of&nbsp;\n`}
               <span className="text-mainColor font-Unbounded">TmrwDAO&apos;</span>s
             </span>
             <span className="m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">{`Community \nTransformation`}</span>
-            <div className="flex align-center justify-center mt-[35px] md:mb-[50px] xl:mb-[63px] lg:mt-[48.8px] xl:mt-[61px] text-white">
+            <div className="flex align-center justify-center mt-[35px] md:mb-[20px] xl:mb-[63px] lg:mt-[48.8px] xl:mt-[61px] text-white">
               <Link href="/" className="group">
                 <ArrowSymbolIcon className="h-[39px] w-[39.83px] inline-block group-hover:hidden transition-[display] duration-300" />
                 <ArrowFilledIcon className="h-[39px] w-[39.83px] hidden group-hover:inline-block transition-[display] duration-300" />

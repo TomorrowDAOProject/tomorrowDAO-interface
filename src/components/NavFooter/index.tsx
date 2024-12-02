@@ -27,23 +27,23 @@ const NavFooter = () => {
             </Link>
           </div>
         </div>
-        <div className="flex flex-row justify-between items-start py-[14px]">
+        <div className="flex flex-row justify-between items-center py-[14px]">
           <div className="flex flex-row items-center gap-[12px]">
             <Link
               href="/"
-              className="text-white no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
+              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
             >
               Docs
             </Link>
             <Link
               href="/"
-              className="text-white no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
+              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
             >
               White Paper
             </Link>
             <Link
               href="/"
-              className="text-white no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
+              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
             >
               Send Feedback
             </Link>
@@ -51,7 +51,7 @@ const NavFooter = () => {
 
           <Link
             href="/"
-            className="text-white no-underline text-[11.5px] lg:text-[7px] xl:text-[8.54px]"
+            className="text-white font-Syne no-underline text-[11.5px] lg:text-[7px] xl:text-[8.54px]"
           >
             TMRW DAO@2024
           </Link>
