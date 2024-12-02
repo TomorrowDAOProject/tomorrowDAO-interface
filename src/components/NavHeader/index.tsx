@@ -21,7 +21,7 @@ const items: MenuItem[] = [
   {
     key: 'NetworkDAO',
     label: (
-      <Link href={'/'} className="text-[15px] font-medium text-white no-underline font-Montserrat">
+      <Link href={'/'} className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor">
         Network DAO
       </Link>
     ),
@@ -36,7 +36,7 @@ const items: MenuItem[] = [
         label: (
           <Link
             href={'/'}
-            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+            className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             Github
           </Link>
@@ -47,7 +47,7 @@ const items: MenuItem[] = [
         label: (
           <Link
             href={'/'}
-            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+            className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             Documentation
           </Link>
@@ -65,7 +65,7 @@ const items: MenuItem[] = [
         label: (
           <Link
             href={'/'}
-            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+            className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             <div className="flex items-center gap-[14px]">
               <TwitterIcon className="w-[18px] h-[18px]" />
@@ -79,7 +79,7 @@ const items: MenuItem[] = [
         label: (
           <Link
             href={'/'}
-            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+            className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             <div className="flex items-center gap-[14px]">
               <DiscordIcon className="w-[18px] h-[18px]" />
@@ -93,7 +93,7 @@ const items: MenuItem[] = [
         label: (
           <Link
             href={'/'}
-            className="text-[15px] font-medium text-white no-underline font-Montserrat"
+            className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             <div className="flex items-center gap-[14px]">
               <TelegramIcon className="w-[18px] h-[18px]" />
@@ -107,7 +107,7 @@ const items: MenuItem[] = [
   {
     key: 'Blog',
     label: (
-      <Link href={'/'} className="text-[15px] font-medium text-white no-underline font-Montserrat">
+      <Link href={'/'} className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor">
         Blog
       </Link>
     ),
