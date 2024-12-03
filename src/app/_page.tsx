@@ -148,21 +148,21 @@ const Page = () => {
             </h2>
 
             <div className="flex flex-col gap-[19px] md:flex-row lg:gap-[20px] xl:gap-[32px]">
-              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[7px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
-                <h4 className="m-0 text-[20px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
+              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[7px] lg:rounded-[14px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
+                <h4 className="m-0 text-[20px] lg:text-[21px] xl:text-[26px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
                   Multisig-based DAO
                 </h4>
-                <span className="block m-0 text-[14px] font-Montserrat font-normal text-white leading-[160%]">
+                <span className="block m-0 text-[14px] lg:text-[13px] xl:text-[16px] font-Montserrat font-normal text-white leading-[160%]">
                   In token-based DAOs, If you want certain proposals to be voted on only by members
                   you can add and manage the members of the DAO&apos;s High Council.
                 </span>
               </div>
 
-              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[7px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
-                <h4 className="m-0 text-[20px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
+              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[7px] lg:rounded-[14px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
+                <h4 className="m-0 text-[20px] lg:text-[21px] xl:text-[26px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
                   Token-based DAO
                 </h4>
-                <span className="block m-0 text-[14px] font-Montserrat font-normal text-white leading-[160%]">
+                <span className="block m-0 text-[14px] lg:text-[13px] xl:text-[16px] font-Montserrat font-normal text-white leading-[160%]">
                   Users who hold governance tokens can participate in the DAO&apos;s governance by
                   voting on proposals.
                 </span>
@@ -288,13 +288,13 @@ const Page = () => {
               </div>
 
               <div className="mt-[30px] md:mt-0 md:flex-1">
-                <Collapse defaultActiveKey={['2', '3']} items={AI_DRIVEN_DAO_ITEMS} />
+                <Collapse items={AI_DRIVEN_DAO_ITEMS} />
               </div>
             </div>
           </section>
 
           <section className="py-[60px] lg:py-[67px] xl:py-[84px]">
-            <div className="flex flex-col gap-[20px] md:gap-[25px] md:flex-row bg-mainColor py-[21px] px-[22px] rounded-[12px] xl:p-[32px] md:items-stretch">
+            <div className="flex flex-col gap-[20px] md:gap-[25px] md:flex-row bg-mainColor py-[21px] px-[22px] rounded-[12px] lg:rounded-[24px] xl:rounded-[30px] xl:p-[32px] md:items-stretch">
               <div className="w-full md:flex-1">
                 <h2 className="mt-0 mb-0 text-[24px] font-Unbounded font-light text-white text-left lg:text-[38.4px] xl:text-[48px] leading-[1] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">
                   Network DAO
@@ -321,16 +321,22 @@ const Page = () => {
             </div>
           </section>
 
-          <section className="py-[100px] lg:pt-[210px] lg:pb-[160px] xl:pt-[263px] xl:pb-[200px]  text-center flex flex-col md:bg-[url(https://cdn.tmrwdao.com/assets/imgs/05C02F412414.webp)] md:bg-[length:72%_auto] lg:bg-[length:86%_auto] xl:bg-[length:78%_auto] bg-no-repeat bg-center">
-            <span className="block mb-6 text-[14px] font-Unbounded font-light text-white text-center lg:mb-[17px] lg:text-[12px] xl:mb-[22px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
+          <section className="relative py-[100px] lg:pt-[210px] lg:pb-[160px] xl:pt-[263px] xl:pb-[200px]  text-center flex flex-col overflow-hidden">
+            <img
+              className="absolute hidden md:block w-full h-auto object-cover z-0 md:w-auto md:h-[500px] md:top-[48%] md:left-1/2 md:translate-x-[-50%] md:translate-y-[-50%] lg:h-[728px] lg:top-[54%] xl:top-[50%] xl:h-[862px]"
+              src={require('assets/revamp-imgs/outro.gif').default.src}
+              alt="Banner Animation"
+            />
+
+            <span className="block mb-6 text-[14px] font-Unbounded font-light text-white text-center lg:mb-[17px] lg:text-[12px] xl:mb-[22px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px] z-10">
               Join the movement:
             </span>
-            <span className="block m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">
+            <span className="block m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px] z-10">
               {`Be a part of\n`}&nbsp;
               <span className="text-mainColor font-Unbounded">TmrwDAO&apos;</span>s
             </span>
-            <span className="block m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">{`Community \nTransformation`}</span>
-            <div className="flex align-center justify-center mt-[35px] md:mb-[20px] xl:mb-[63px] lg:mt-[48.8px] xl:mt-[61px] text-white">
+            <span className="block m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px] z-10">{`Community \nTransformation`}</span>
+            <div className="flex align-center justify-center mt-[35px] md:mb-[20px] xl:mb-[63px] lg:mt-[48.8px] xl:mt-[61px] text-white z-10">
               <Link href="/" className="group">
                 <ArrowSymbolIcon className="h-[39px] w-[39.83px] inline-block group-hover:hidden transition-[display] duration-300" />
                 <ArrowFilledIcon className="h-[39px] w-[39.83px] hidden group-hover:inline-block transition-[display] duration-300" />
@@ -348,7 +354,7 @@ const Page = () => {
 
               <Link
                 href="/"
-                className="default-button hidden items-center gap-[10px] md:inline-flex"
+                className="default-button hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
               >
                 About aelf
                 <LinkIcon className="h-[11px] w-[11px]" />
@@ -358,7 +364,7 @@ const Page = () => {
 
           <div className="col-12 box-border">
             <div className="flex flex-row gap-[12px] lg:gap-[20px] overflow-x-auto py-[36px] md:py-[33px] lg:py-[40px] xl:py-[50px] lg:overflow-x-hidden mr-[-1.25rem] md:mr-[-2.5rem] lg:mr-0 pr-[1.25rem] md:pr-[2.5rem] lg:!pr-0">
-              <div className="relative group py-[26px] px-[28px] w-[335px] h-[295px] flex flex-col items-start shrink-0 justify-end rounded-[12px] overflow-hidden lg:rounded-r-none box-border lg:bg-fillBlack15 lg:hover:bg-transparent lg:flex-1 lg:h-[241px] xl:h-[301px]">
+              <div className="relative group py-[26px] px-[28px] w-[335px] h-[295px] flex flex-col items-start shrink-0 justify-end rounded-[15px] lg:rounded-[12px] xl:rounded-[15px] overflow-hidden lg:rounded-r-none xl:rounded-r-none box-border lg:bg-fillBlack15 lg:hover:bg-transparent lg:flex-1 lg:h-[241px] xl:h-[301px]">
                 <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-itemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <div className="absolute top-[29px] right-[22px] w-[124.718px] h-[95px] lg:top-[22px] lg:right-[22px] lg:w-[110px] lg:h-[83px] xl:w-[137px] xl:h-[104px] xl:top-[28px] xl:right-[26px] transition-[opacity] duration-300 bg-[url(https://cdn.tmrwdao.com/assets/imgs/76FE650ED476.webp)] bg-no-repeat bg-cover lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <h4 className="m-0 text-[20px] font-Unbounded font-normal text-white whitespace-pre-wrap lg:text-[16px] xl:text-[20px]">{`AI-powered \nOperational Efficiency`}</h4>
@@ -375,7 +381,7 @@ const Page = () => {
                   {`Aelf's zero Gas fee structure allows \nusers to participate in our projects \nmore easily and cost-effectively.`}
                 </span>
               </div>
-              <div className="relative group py-[26px] px-[28px] w-[335px] h-[295px] flex flex-col items-start shrink-0 justify-end rounded-[12px] overflow-hidden lg:rounded-l-none box-border lg:bg-fillBlack15 lg:hover:bg-transparent lg:flex-1 lg:h-[241px] xl:h-[301px]">
+              <div className="relative group py-[26px] px-[28px] w-[335px] h-[295px] flex flex-col items-start shrink-0 justify-end rounded-[15px] lg:rounded-[12px] xl:rounded-[15px] overflow-hidden lg:rounded-l-none xl:rounded-l-none box-border lg:bg-fillBlack15 lg:hover:bg-transparent lg:flex-1 lg:h-[241px] xl:h-[301px]">
                 <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-itemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <div className="absolute top-[29px] right-[22px] w-[124.718px] h-[95px] lg:top-[22px] lg:right-[22px] lg:w-[110px] lg:h-[83px] xl:w-[137px] xl:h-[104px] xl:top-[28px] xl:right-[26px] transition-[opacity] duration-300 bg-[url(https://cdn.tmrwdao.com/assets/imgs/ACFD1295C8DA.webp)] bg-no-repeat bg-cover opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <h4 className="m-0 text-[20px] font-Unbounded font-normal text-white whitespace-pre-wrap lg:text-[16px] xl:text-[20px]">{`Flexible Architecture`}</h4>
@@ -432,7 +438,7 @@ const Page = () => {
               <span className="block m-0 text-lightGrey text-[12px] font-Montserrat font-normal whitespace-pre-wrap md:text-[10px] lg:text-[12px] xl:text-[14px]">
                 {date}
               </span>
-              <span className="block mt-1 mb-0 heigh-[36px] overflow-hidden line-clamp-2 text-overflow-ellipsis text-[13px] font-Montserrat font-normal text-white whitespace-pre-wrap lg:h-[32px] xl:h-[40px] lg:text-[11.2px] xl:text-[14px]">
+              <span className="block mt-1 mb-0 heigh-[36px] overflow-hidden line-clamp-2 text-overflow-ellipsis text-[15px] font-Montserrat font-normal text-white whitespace-pre-wrap lg:h-[32px] xl:h-[40px] lg:text-[13px] xl:text-[15px]">
                 {description}
               </span>
             </div>
