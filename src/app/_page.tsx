@@ -321,10 +321,10 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 <h2 className="mt-0 mb-0 text-[24px] font-Unbounded font-light text-white text-left lg:text-[38.4px] xl:text-[48px] leading-[1] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">
                   Network DAO
                 </h2>
-                <span className="block mt-[10px] mb-[74px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap md:mb-[80px] lg:mb-[102px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
+                <span className="block mt-[10px] mb-[74px] text-[14px] font-Unbounded font-light text-white text-right whitespace-pre-wrap md:mb-[78px] lg:mb-[107px] xl:mb-[141px] lg:text-[12px] xl:mb-[134px] xl:text-[15px] tracking-[-0.56px] lg:tracking-[-0.48px] xl:tracking-[-0.6px]">
                   {`/Where Innovation Meets Security\n in the Web3 Space`}
                 </span>
-                <span className="block mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left whitespace-pre-wrap lg:whitespace-normal lg:pr-[88px] xl:pr-[112px] lg:text-[12px] xl:text-[15px]">
+                <span className="block mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left leading-[1.6] whitespace-pre-wrap lg:whitespace-normal lg:pr-[88px] xl:pr-[112px] lg:text-[12px] xl:text-[15px]">
                   {`Vote with or delegate your ELF tokens to \nhelp protect the integrity of the AELF \nprotocol.`}
                 </span>
                 <Link href="/" className="default-button inline-flex items-center gap-[10px]">
