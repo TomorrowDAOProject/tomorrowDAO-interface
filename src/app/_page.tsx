@@ -85,7 +85,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
           <section className="py-[56px] md:py-[55px] lg:py-[24px] xl:py-[30px]">
             <div className="flex flex-row items-center gap-[20px] w-full overflow-x-auto lg:overflow-hidden lg:flex-wrap">
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[251px] xl:h-[314px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-t-[24px] xl:rounded-t-[30px] box-border transition-all duration-300 xs:w-[335px] lg:flex-row lg:items-end lg:justify-start lg:w-full hover:bg-mainColor">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[251px] xl:h-[314px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-t-[24px] xl:rounded-t-[30px] box-border transition-all duration-300 md:w-[335px] lg:flex-row lg:items-end lg:justify-start lg:w-full hover:bg-mainColor">
                 <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   01
                 </span>
