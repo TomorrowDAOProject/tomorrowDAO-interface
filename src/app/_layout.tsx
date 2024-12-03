@@ -1,10 +1,15 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { MyProvider } from 'provider/homeProvider';
+import React, { ReactNode, useRef, useState } from 'react';
+import { ScrollProvider } from 'provider/ScrollProvider';
 import NavHeader from 'components/NavHeader';
+import clsx from 'clsx';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+interface ILayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: ILayoutProps) => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [showHeader, setShowHeader] = useState(true);
   const lastPosition = useRef(0);
@@ -25,18 +30,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <MyProvider value={{ onScroll: handleScroll, scrollContainerRef }}>
+    <ScrollProvider value={{ onScroll: handleScroll, scrollContainerRef }}>
       <div
         className="flex flex-col bg-baseBg h-screen overflow-x-hidden overflow-y-auto"
         ref={(ref) => ref && (scrollContainerRef.current = ref)}
       >
         <NavHeader
-          className={showHeader ? 'backdrop-blur-[10px]' : ''}
-          style={{ top: !showHeader ? '-80px' : '0' }}
+          className={clsx(showHeader ? 'top-0' : 'top-[-80px]', {
+            'backdrop-blur-[10px]': showHeader,
+          })}
         />
         {children}
       </div>
-    </MyProvider>
+    </ScrollProvider>
   );
 };
 
