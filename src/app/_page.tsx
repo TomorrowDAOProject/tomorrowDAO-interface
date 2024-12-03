@@ -380,7 +380,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           </div>
 
           <div className="col-12 box-border">
-            <div className="flex flex-row gap-[12px] lg:gap-[20px] overflow-x-auto py-[36px] md:py-[33px] lg:py-[40px] xl:py-[50px] lg:overflow-x-hidden mr-[-1.25rem] md:mr-[-2.5rem] lg:mr-0">
+            <div className="flex flex-row gap-[12px] lg:gap-[20px] overflow-x-auto py-[36px] md:py-[33px] lg:py-[40px] xl:py-[50px] lg:overflow-x-hidden mr-[-1.25rem] md:mr-[-2.5rem] lg:mr-0 pr-[1.25rem] md:pr-[2.5rem] lg:!pr-0">
               <div className="relative group py-[26px] px-[28px] w-[335px] h-[295px] flex flex-col items-start shrink-0 justify-end rounded-[12px] overflow-hidden lg:rounded-r-none box-border lg:bg-fillBlack15 lg:hover:bg-transparent lg:flex-1 lg:h-[241px] xl:h-[301px]">
                 <div className="absolute top-0 right-0 bottom-0 left-0 transition-[opacity] duration-300 bg-itemShadow opacity-100 lg:opacity-0 lg:group-hover:opacity-100"></div>
                 <div className="absolute top-[29px] right-[22px] w-[124.718px] h-[95px] lg:top-[22px] lg:right-[22px] lg:w-[110px] lg:h-[83px] xl:w-[137px] xl:h-[104px] xl:top-[28px] xl:right-[26px] transition-[opacity] duration-300 bg-[url(https://cdn.tmrwdao.com/assets/imgs/76FE650ED476.webp)] bg-no-repeat bg-cover lg:opacity-0 lg:group-hover:opacity-100"></div>
