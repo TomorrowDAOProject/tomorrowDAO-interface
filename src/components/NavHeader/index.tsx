@@ -10,12 +10,12 @@ import clsx from 'clsx';
 import SideMenu from 'components/SideMenu';
 import NavMenuItem from './NavMenuItem';
 
-export type MenuItem = {
+export interface MenuItem {
   key: string;
   label: React.ReactNode;
   icon?: React.ReactNode;
   children?: MenuItem[];
-};
+}
 
 const items: MenuItem[] = [
   {

@@ -6,7 +6,10 @@ const NavMenuItem = ({ item }: { item: MenuItem }) => {
     <div key={item?.key}>
       {item?.children?.length ? (
         <Dropdown menu={item.children}>
-          <a onClick={(e) => e.preventDefault()}>
+          <a
+            onClick={(e) => e.preventDefault()}
+            className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
+          >
             <span className="text-[15px] font-medium text-white no-underline font-Montserrat m-[8px]">
               {item.label}
             </span>
