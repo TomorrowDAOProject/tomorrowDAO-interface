@@ -11,58 +11,15 @@ import { ReactComponent as ForestIcon } from 'assets/revamp-icon/forest.svg';
 import { ReactComponent as PortkeyIcon } from 'assets/revamp-icon/portkey.svg';
 import { ReactComponent as SchordingerIcon } from 'assets/revamp-icon/schordinger.svg';
 import { ReactComponent as LongArrowIcon } from 'assets/revamp-icon/long-arrow.svg';
-import Collapse, { ItemType } from 'components/Collapse';
+import Collapse from 'components/Collapse';
 import Swiper from 'components/Swiper';
 import NavFooter from 'components/NavFooter';
-import clsx from 'clsx';
 import { useEffect, useMemo, useState } from 'react';
 
-type PageProps = {
+interface PageProps {
   parentRef: React.RefObject<HTMLDivElement>;
   onScroll?: () => void;
-};
-
-const collapseItems: ItemType[] = [
-  {
-    key: '1',
-    label: 'AI agents in DAO governance',
-    children:
-      'Drafting proposals, whitepapers, manifestos, and posts, summarizing governance decisions, and onboarding new members through on-chain reputation or credential storage.',
-  },
-  {
-    key: '2',
-    label: 'AI-assisted data analysis',
-    children:
-      'Offering analysis and insights on proposals by leveraging data analytics to identify behavior patterns or voting trends among members, aiding the DAO in making informed decisions about proposals or governance structure changes.',
-  },
-  {
-    key: '3',
-    label: 'Swarm Intelligence',
-    children:
-      'AI agents can act as links or liaisons between DAOs, creating a "swarm intelligence" where agents or DAOs collaborate seamlessly without human facilitation.',
-  },
-];
-
-const posts = [
-  {
-    title: 'Creating your own DAO',
-    description: 'The Ultimate Guide to Creating Your Own DAO',
-    date: 'Apr 15, 2024',
-    img: require('assets/revamp-imgs/Image-1.jpg').default.src,
-  },
-  {
-    title: 'DAOs vs Traditional Organisations',
-    description: 'DAOs vs Traditional Organisations: A Head-to-Head Comparison',
-    date: 'Apr 15, 2024',
-    img: require('assets/revamp-imgs/Image-2.jpg').default.src,
-  },
-  {
-    title: 'Top 10 DAOs',
-    description: 'Best Decentralised Autonomous Organisations (DAO), Ranked by Market Cap',
-    date: 'Apr 15, 2024',
-    img: require('assets/revamp-imgs/Image-3.jpg').default.src,
-  },
-];
+}
 
 const Page = ({ parentRef, onScroll }: PageProps) => {
   const [scrollPercent, setScrollPercent] = useState(0);
@@ -111,7 +68,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               </h1>
               <p className="my-[50px] text-[14px] font-Unbounded font-light text-white text-right tracking-[-.56px] lg:tracking-[-.52px] xl:tracking-[-0.6px] whitespace-pre-wrap sm:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</p>
 
-              <div className="flex flex-col items-start gap-[9.68px] sm:flex-row lg:gap-[6px] xl:gap-[10px]">
+              <div className="flex flex-col items-start gap-[9.68px] sm:flex-row lg:gap-[6px] lg:mt-[48px] xl:mt-[60px] xl:gap-[10px]">
                 <Link href="/" className="primary-button inline-flex items-center gap-[10px]">
                   Create DAO
                   <LinkIcon className="h-[11px] w-[11px]" />
@@ -332,7 +289,29 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               </div>
 
               <div className="mt-[30px] md:mt-0 md:flex-1">
-                <Collapse defaultActiveKey={['2', '3']} items={collapseItems} />
+                <Collapse
+                  defaultActiveKey={['2', '3']}
+                  items={[
+                    {
+                      key: '1',
+                      label: 'AI agents in DAO governance',
+                      children:
+                        'Drafting proposals, whitepapers, manifestos, and posts, summarizing governance decisions, and onboarding new members through on-chain reputation or credential storage.',
+                    },
+                    {
+                      key: '2',
+                      label: 'AI-assisted data analysis',
+                      children:
+                        'Offering analysis and insights on proposals by leveraging data analytics to identify behavior patterns or voting trends among members, aiding the DAO in making informed decisions about proposals or governance structure changes.',
+                    },
+                    {
+                      key: '3',
+                      label: 'Swarm Intelligence',
+                      children:
+                        'AI agents can act as links or liaisons between DAOs, creating a "swarm intelligence" where agents or DAOs collaborate seamlessly without human facilitation.',
+                    },
+                  ]}
+                />
               </div>
             </div>
           </section>
@@ -465,7 +444,26 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
           </div>
         </div>
 
-        {posts.map(({ title, description, img, date }, index) => (
+        {[
+          {
+            title: 'Creating your own DAO',
+            description: 'The Ultimate Guide to Creating Your Own DAO',
+            date: 'Apr 15, 2024',
+            img: require('assets/revamp-imgs/Image-1.jpg').default.src,
+          },
+          {
+            title: 'DAOs vs Traditional Organisations',
+            description: 'DAOs vs Traditional Organisations: A Head-to-Head Comparison',
+            date: 'Apr 15, 2024',
+            img: require('assets/revamp-imgs/Image-2.jpg').default.src,
+          },
+          {
+            title: 'Top 10 DAOs',
+            description: 'Best Decentralised Autonomous Organisations (DAO), Ranked by Market Cap',
+            date: 'Apr 15, 2024',
+            img: require('assets/revamp-imgs/Image-3.jpg').default.src,
+          },
+        ].map(({ title, description, img, date }, index) => (
           <div className="col-12 mb-[25px] md:col-6 lg:col-4" key={index}>
             <div className="flex flex-col">
               <img

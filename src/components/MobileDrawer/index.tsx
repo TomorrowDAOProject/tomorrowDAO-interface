@@ -1,15 +1,15 @@
 // src/components/Drawer.js
 import React from 'react';
 
-type IProps = {
+interface IDrawerProps {
   title: React.ReactNode;
   width?: number;
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
-};
+}
 
-const Drawer = ({ title, width = 249, open, onClose, children }: IProps) => {
+const Drawer = ({ title, width = 249, open, onClose, children }: IDrawerProps) => {
   return (
     <>
       <div
