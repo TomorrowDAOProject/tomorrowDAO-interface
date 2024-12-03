@@ -290,7 +290,6 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
 
               <div className="mt-[30px] md:mt-0 md:flex-1">
                 <Collapse
-                  defaultActiveKey={['2', '3']}
                   items={[
                     {
                       key: '1',
