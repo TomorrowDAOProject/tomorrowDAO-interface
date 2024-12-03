@@ -2,6 +2,7 @@
 
 import 'styles/global.css';
 import 'styles/button.css';
+import 'styles/theme.css';
 import 'aelf-design/css';
 import Provider from 'provider/';
 import Script from 'next/script';
@@ -10,6 +11,7 @@ import { LayoutContent } from './layout-content';
 import { Metadata } from 'next';
 import VconsoleScript from './VconsoleScript';
 import GtagConfigScript from './GtagConfigScript';
+import Layout from './_layout';
 export const metadata: Metadata = {
   title: 'TMRWDAO: Revolutionise Decentralised Governance with AI',
   description:
@@ -52,6 +54,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           `}
         </Script>
         <GtagConfigScript />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body>
         <noscript>
@@ -65,7 +73,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             }}
           ></iframe>
         </noscript>
-        <div id="root">{children}</div>
+        <div id="root">
+          <Provider>
+            <Layout>{children}</Layout>
+          </Provider>
+        </div>
       </body>
     </html>
   );
