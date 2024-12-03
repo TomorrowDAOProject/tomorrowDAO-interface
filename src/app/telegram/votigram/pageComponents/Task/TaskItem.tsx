@@ -36,7 +36,11 @@ const openNewPageWaitPageVisible = async (
   taskId: UserTaskDetail,
   req: () => Promise<ICompleteTaskItemRes>,
 ) => {
-  if (taskId === UserTaskDetail.ExploreJoinTgChannel) {
+  if (
+    taskId === UserTaskDetail.ExploreJoinTgChannel ||
+    taskId === UserTaskDetail.ExploreSchrodinger ||
+    taskId === UserTaskDetail.ExploreJoinVotigram
+  ) {
     // web.telegram.org will destroy the page when openTelegramLink
     // so send complete request before open link
     if (window?.Telegram?.WebApp?.platform === 'weba') {
@@ -116,10 +120,6 @@ const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?
     icon: <XIcon />,
     title: 'Follow TMRWDAO on X',
   },
-  [UserTaskDetail.ExploreJoinDiscord]: {
-    icon: <DiscardIcon />,
-    title: 'Join Discord',
-  },
   [UserTaskDetail.ExploreForwardX]: {
     icon: <XIcon />,
     title: 'RT TMRWDAO Post',
@@ -145,7 +145,8 @@ const needShowTaskProgress: string[] = [
 ];
 
 export const TaskItem = (props: ITaskItemProps) => {
-  const { retweetVotigramPostURL, retweetTmrwdaoPostURL } = useConfig() ?? {};
+  const { retweetVotigramPostURL, retweetTmrwdaoPostURL, discoverTopBannerRedirectURL } =
+    useConfig() ?? {};
 
   const jumpExternalList = [
     {
@@ -169,16 +170,12 @@ export const TaskItem = (props: ITaskItemProps) => {
       url: 'https://x.com/tmrwdao',
     },
     {
-      taskId: UserTaskDetail.ExploreJoinDiscord,
-      url: 'https://discord.com/invite/gTWkeR5pQB',
-    },
-    {
       taskId: UserTaskDetail.ExploreForwardX,
       url: retweetTmrwdaoPostURL || '',
     },
     {
       taskId: UserTaskDetail.ExploreSchrodinger,
-      url: 'https://t.me/scat_game_bot/partner02?startapp=activityCode--A05',
+      url: discoverTopBannerRedirectURL || '',
     },
   ];
   const {
@@ -242,7 +239,6 @@ export const TaskItem = (props: ITaskItemProps) => {
       case UserTaskDetail.ExploreForwardVotigramX:
       case UserTaskDetail.ExploreJoinTgChannel:
       case UserTaskDetail.ExploreFollowX:
-      case UserTaskDetail.ExploreJoinDiscord:
       case UserTaskDetail.ExploreForwardX:
       case UserTaskDetail.ExploreSchrodinger:
         await jumpAndRefresh(taskItem.userTaskDetail);
