@@ -41,9 +41,9 @@ const Dropdown = (props: DropmenuProps) => {
             <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               {menu?.map((item, index) => (
                 <div className="py-[10px] px-[14px]" key={`${item.label}_${index}`}>
-                  <p className="m-0 text-white font-medium text-[15px] leading-[24px] font-Montserrat;">
+                  <span className="block m-0 text-white font-medium text-[15px] leading-[24px] font-Montserrat;">
                     {item.label}
-                  </p>
+                  </span>
                 </div>
               ))}
             </div>
