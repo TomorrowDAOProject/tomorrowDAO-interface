@@ -28,6 +28,7 @@ export enum UserTaskDetail {
   ExploreCumulateFiveInvite = 'ExploreCumulateFiveInvite',
   ExploreCumulateTenInvite = 'ExploreCumulateTenInvite',
   ExploreCumulateTwentyInvite = 'ExploreCumulateTwentyInvite',
+  ExploreSchrodinger = 'ExploreSchrodinger',
 }
 export enum ITabSource {
   Rank = 0,
