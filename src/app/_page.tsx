@@ -98,7 +98,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   {`Set up your DAO effortlessly and shape its mission and governance. \nBuild a thriving community where every member has a voice in \ndriving the organization's success.`}
                 </span>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border md:w-[335px] transition-all duration-300 lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   02
                 </span>
@@ -112,7 +112,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   your core team to ensure critical proposals are reviewed by trusted individuals.
                 </span>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   03
                 </span>
@@ -126,7 +126,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                   your community vote and shape the future with collective decision-making.
                 </span>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-br-[24px] xl:rounded-br-[30px] box-border xs:w-[335px] transition-all duration-300 xs:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-br-[24px] xl:rounded-br-[30px] box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   04
                 </span>
