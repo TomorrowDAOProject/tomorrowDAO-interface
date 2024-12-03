@@ -425,7 +425,7 @@ const Page = () => {
           <div className="col-12 mb-[25px] md:col-6 lg:col-4" key={index}>
             <div className="flex flex-col">
               <img
-                className="w-[100%] h-[190px] lg:h-[162px] xl:h-[203px] object-fill object-center rounded-[12px] mb-[15px] lg:mb-[12.8px] xl:mb-[16px]"
+                className="w-[100%] aspect-[4/3] rounded-[12px] mb-[15px] lg:mb-[12.8px] xl:mb-[16px]"
                 src={img}
                 alt="Recent Updates"
               />
