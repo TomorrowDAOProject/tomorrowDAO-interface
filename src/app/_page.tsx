@@ -66,7 +66,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
                 <br />
                 {`Where Your Vision Fuels \nThe Future`}
               </h1>
-              <span className="block my-[50px] text-[14px] font-Unbounded font-light text-white text-right tracking-[-.56px] lg:tracking-[-.52px] xl:tracking-[-0.6px] whitespace-pre-wrap sm:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</span>
+              <span className="block my-[50px] text-[14px] font-Unbounded font-light text-white text-right tracking-[-.56px] lg:tracking-[-.52px] xl:tracking-[-0.6px] whitespace-pre-wrap md:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</span>
 
               <div className="flex flex-col items-start gap-[9.68px] md:flex-row lg:gap-[6px] xl:gap-[10px]">
                 <Link href="/" className="primary-button inline-flex items-center gap-[10px]">
