@@ -13,16 +13,16 @@ const NavFooter = () => {
           <LogoIcon className="h-[20px] w-[128px]" />
 
           <div className="flex flex-row items-center gap-[12px]">
-            <Link href="/" className="text-transparent">
+            <Link href="/" className="text-transparent hover:text-mainColor active:text-mainColor">
               <DiscordIcon className="h-[28.6px] w-[28.6px] lg:h-[23px] lg:w-[23px] xl:h-[28.6px] xl:w-[28.6px]" />
             </Link>
-            <Link href="/" className="text-transparent">
+            <Link href="/" className="text-transparent hover:text-mainColor active:text-mainColor">
               <TelegramIcon className="h-[28.6px] w-[28.6px] lg:h-[23px] lg:w-[23px] xl:h-[28.6px] xl:w-[28.6px]" />
             </Link>
-            <Link href="/" className="text-transparent">
+            <Link href="/" className="text-transparent hover:text-mainColor active:text-mainColor">
               <GithubIcon className="h-[28.6px] w-[28.6px] lg:h-[23px] lg:w-[23px] xl:h-[28.6px] xl:w-[28.6px]" />
             </Link>
-            <Link href="/" className="text-transparent">
+            <Link href="/" className="text-transparent hover:text-mainColor active:text-mainColor">
               <TwitterIcon className="h-[28.6px] w-[28.6px] lg:h-[23px] lg:w-[23px] xl:h-[28.6px] xl:w-[28.6px]" />
             </Link>
           </div>
@@ -31,19 +31,19 @@ const NavFooter = () => {
           <div className="flex flex-row items-center gap-[12px]">
             <Link
               href="/"
-              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
+              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px] hover:text-mainColor active:text-mainColor"
             >
               Docs
             </Link>
             <Link
               href="/"
-              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
+              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px] hover:text-mainColor active:text-mainColor"
             >
               White Paper
             </Link>
             <Link
               href="/"
-              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px]"
+              className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px] hover:text-mainColor active:text-mainColor"
             >
               Send Feedback
             </Link>
@@ -51,7 +51,7 @@ const NavFooter = () => {
 
           <Link
             href="/"
-            className="text-white font-Syne no-underline text-[11.5px] lg:text-[7px] xl:text-[8.54px]"
+            className="text-white font-Syne no-underline text-[11.5px] lg:text-[7px] xl:text-[8.54px] hover:text-mainColor active:text-mainColor"
           >
             TMRW DAO@2024
           </Link>
