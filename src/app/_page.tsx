@@ -349,7 +349,7 @@ const Page = ({ parentRef, onScroll }: PageProps) => {
               Join the movement:
             </span>
             <span className="block m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">
-              {`Be a part of&nbsp;\n`}
+              {`Be a part of\n`}&nbsp;
               <span className="text-mainColor font-Unbounded">TmrwDAO&apos;</span>s
             </span>
             <span className="block m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px]">{`Community \nTransformation`}</span>
