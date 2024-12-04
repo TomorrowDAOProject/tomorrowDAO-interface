@@ -229,6 +229,7 @@ export const TaskItem = (props: ITaskItemProps) => {
         );
         if (isComplete) return;
         setIsLoading(true);
+        sendCompleteReq(taskId);
       }
     } catch (error) {
       //
