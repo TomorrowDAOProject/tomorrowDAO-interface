@@ -15,6 +15,7 @@ import TrendingList from '../../components/TrendingList';
 import CommunityList from '../../components/CommunityList';
 
 import './index.css';
+import { useUrlPath } from 'hooks/useUrlPath';
 
 const TRENDING_ROW_COUNT = 3;
 const COMMUNITY_ROW_COUNT = 3;
@@ -51,6 +52,7 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
   const [hasMoreTrending, setHasMoreTrending] = useState(false);
   const [hasMoreCommunity, setHasMoreCommunity] = useState(false);
   const { createVotePageTitle, rankingAdsBannerUrl } = useConfig() ?? {};
+  const { isTelegram } = useUrlPath();
 
   const onItemClick = (item: ItemClickParams) => {
     setSelectedItem(item);
@@ -109,14 +111,15 @@ const Rankings = forwardRef<IRankingsRef, IRankingsProps>((props, ref) => {
       const [communityData, trendingData] = await Promise.all([
         fetchRankings(RANKING_TYPE_KEY.COMMUNITY, 0, COMMUNITY_ROW_COUNT, false),
         fetchRankings(RANKING_TYPE_KEY.TRENDING, 0, TRENDING_ROW_COUNT, false),
-        updateTGInfo({
-          telegramId: id.toString(),
-          chainId: curChain,
-          firstName: first_name,
-          lastName: last_name,
-          userName: username,
-          icon: photo_url,
-        }),
+        isTelegram &&
+          updateTGInfo({
+            telegramId: id.toString(),
+            chainId: curChain,
+            firstName: first_name,
+            lastName: last_name,
+            userName: username,
+            icon: photo_url,
+          }),
       ]);
       const completed = await fetchTaskList();
       setHasCompletedAds(completed);
