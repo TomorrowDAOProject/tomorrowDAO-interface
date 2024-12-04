@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { ReactComponent as LogoIcon } from 'assets/revamp-icon/logo.svg';
 import { ReactComponent as TwitterIcon } from 'assets/revamp-icon/twitter.svg';
-import { ReactComponent as DiscordIcon } from 'assets/revamp-icon/discord.svg';
 import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/telegram.svg';
 import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import { DownOutlined } from '@aelf-design/icons';
@@ -73,20 +72,6 @@ const items: MenuItem[] = [
             <div className="flex items-center gap-[14px]">
               <TwitterIcon className="w-[18px] h-[18px]" />
               Twitter
-            </div>
-          </Link>
-        ),
-      },
-      {
-        key: 'Discord',
-        label: (
-          <Link
-            href={'/'}
-            className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
-          >
-            <div className="flex items-center gap-[14px]">
-              <DiscordIcon className="w-[18px] h-[18px]" />
-              Discord
             </div>
           </Link>
         ),

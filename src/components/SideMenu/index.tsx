@@ -1,5 +1,4 @@
 import { ReactComponent as TwitterIcon } from 'assets/revamp-icon/twitter.svg';
-import { ReactComponent as DiscordIcon } from 'assets/revamp-icon/discord.svg';
 import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/telegram.svg';
 import { ReactComponent as MenuIcon } from 'assets/revamp-icon/menu.svg';
 import { ReactComponent as LogoIcon } from 'assets/revamp-icon/logo.svg';
@@ -7,7 +6,6 @@ import React, { useState } from 'react';
 import { MenuItem } from 'components/NavHeader';
 import Drawer from 'components/MobileDrawer';
 import MobileMenu from 'components/MobileMenu';
-import { group } from 'console';
 
 const items: MenuItem[] = [
   {
@@ -37,11 +35,6 @@ const groupItems = [
     key: 'Twitter',
     label: 'Twitter',
     icon: <TwitterIcon className="h-[24px] w-[24px]" />,
-  },
-  {
-    key: 'Discord',
-    label: 'Discord',
-    icon: <DiscordIcon className="h-[24px] w-[24px]" />,
   },
   {
     key: 'Telegram',
