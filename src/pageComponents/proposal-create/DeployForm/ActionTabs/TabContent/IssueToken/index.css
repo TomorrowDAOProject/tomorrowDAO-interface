@@ -2,4 +2,7 @@
   .org-address {
     @apply py-[32px] flex justify-between;
   }
+  .issue-amount-input {
+    @apply w-full text-[16px];
+  }
 }

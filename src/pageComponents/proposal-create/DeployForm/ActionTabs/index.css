@@ -43,6 +43,9 @@
     &.error {
       @apply border-error
     }
+    .TMRWDAO-input-number {
+      @apply w-full;
+    }
   }
   .proposal-custom-action-params-editor {
     * {

@@ -3,7 +3,7 @@ const path = require('path');
 const rewritesConfig = require('./rewrites/index');
 const ROOT = path.resolve(__dirname, '../src/app/network-dao/');
 module.exports = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   async rewrites() {
     return rewritesConfig;
   },
