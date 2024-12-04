@@ -1,5 +1,4 @@
 import { ReactComponent as LogoIcon } from 'assets/revamp-icon/logo.svg';
-import { ReactComponent as DiscordIcon } from 'assets/revamp-icon/icon-discord.svg';
 import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/icon-telegram.svg';
 import { ReactComponent as GithubIcon } from 'assets/revamp-icon/icon-github.svg';
 import { ReactComponent as TwitterIcon } from 'assets/revamp-icon/icon-twitter.svg';
@@ -13,9 +12,6 @@ const NavFooter = () => {
           <LogoIcon className="h-[20px] w-[128px]" />
 
           <div className="flex flex-row items-center gap-[11px] lg:gap-[9px] xl:gap-[11px]">
-            <Link href="/" className="text-transparent hover:text-mainColor active:text-mainColor">
-              <DiscordIcon className="h-[28.6px] w-[28.6px] lg:h-[23px] lg:w-[23px] xl:h-[28.6px] xl:w-[28.6px]" />
-            </Link>
             <Link href="/" className="text-transparent hover:text-mainColor active:text-mainColor">
               <TelegramIcon className="h-[28.6px] w-[28.6px] lg:h-[23px] lg:w-[23px] xl:h-[28.6px] xl:w-[28.6px]" />
             </Link>
