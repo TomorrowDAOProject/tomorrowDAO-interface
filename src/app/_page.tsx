@@ -148,7 +148,7 @@ const Page = () => {
             </h2>
 
             <div className="flex flex-col gap-[19px] md:flex-row lg:gap-[20px] xl:gap-[32px]">
-              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[15px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
+              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[7px] lg:rounded-[14px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
                 <h4 className="m-0 text-[20px] lg:text-[21px] xl:text-[26px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
                   Multisig-based DAO
                 </h4>
@@ -158,7 +158,7 @@ const Page = () => {
                 </span>
               </div>
 
-              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[15px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
+              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[7px] lg:rounded-[14px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
                 <h4 className="m-0 text-[20px] lg:text-[21px] xl:text-[26px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
                   Token-based DAO
                 </h4>
@@ -323,7 +323,7 @@ const Page = () => {
 
           <section className="relative py-[100px] lg:pt-[210px] lg:pb-[160px] xl:pt-[263px] xl:pb-[200px]  text-center flex flex-col overflow-hidden">
             <img
-              className="absolute hidden md:block w-full h-auto object-cover z-0 md:w-auto md:h-[500px] md:top-[48%] md:left-1/2 md:translate-x-[-50%] md:translate-y-[-50%] lg:h-[728px] lg:top-[54%] xl:top-[50%] xl:h-[862px] opacity-15"
+              className="absolute hidden md:block w-full h-auto object-cover z-0 md:w-auto md:h-[500px] md:top-[48%] md:left-1/2 md:translate-x-[-50%] md:translate-y-[-50%] lg:h-[728px] lg:top-[54%] xl:top-[50%] xl:h-[862px]"
               src={require('assets/revamp-imgs/outro.gif').default.src}
               alt="Banner Animation"
             />
@@ -354,7 +354,7 @@ const Page = () => {
 
               <Link
                 href="/"
-                className="font-Montserrat font-medium text-baseText !bg-transparent border-[1px] border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
+                className="default-button hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
               >
                 About aelf
                 <LinkIcon className="h-[11px] w-[11px]" />
