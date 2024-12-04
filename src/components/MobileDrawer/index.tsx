@@ -13,7 +13,7 @@ const Drawer = ({ title, width = 249, open, onClose, children }: IDrawerProps) =
   return (
     <>
       <div
-        className={`fixed top-0 left-0 h-full w-screen bg-fillBlack15 z-50 ${
+        className={`fixed top-0 left-0 h-screen w-screen bg-fillBlack15 z-50 ${
           open ? 'block' : 'hidden'
         }`}
         onClick={onClose}
