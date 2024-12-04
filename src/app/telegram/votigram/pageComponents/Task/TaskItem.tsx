@@ -5,7 +5,6 @@ import {
   TelegramIcon,
   UserAddIcon,
   XIcon,
-  DiscardIcon,
   LoadingIcon,
   DailyTaskIcon,
   CreatePollIcon,
@@ -21,6 +20,7 @@ import './TaskItem.css';
 import clsx from 'clsx';
 import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
 import { useConfig } from 'components/CmsGlobalConfig/type';
+import { useRequest } from 'ahooks';
 
 interface ITaskItemProps {
   taskItem: IUserTaskItemDetail;
@@ -192,23 +192,44 @@ export const TaskItem = (props: ITaskItemProps) => {
   const activeTabWithSource = (target: number) => {
     activeTabItem({ path: target, source: ITabSource.Task });
   };
+  const { run: sendCompleteReq, cancel } = useRequest(
+    async (taskId) => {
+      try {
+        const reportCompleteRes = await completeTaskItem({
+          chainId: curChain,
+          userTask: userTask,
+          userTaskDetail: taskId,
+        });
+        if (reportCompleteRes.data) {
+          onReportComplete(userTask, taskId);
+        }
+        if (reportCompleteRes.data || taskId !== UserTaskDetail.ExploreSchrodinger) {
+          cancel();
+        }
+      } catch (error) {
+        //
+      }
+    },
+    {
+      manual: true,
+      pollingInterval: 3000,
+    },
+  );
+
   const jumpAndRefresh = async (taskId: UserTaskDetail) => {
     try {
       const jumpItem = jumpExternalList.find((item) => item.taskId === taskItem.userTaskDetail);
       if (jumpItem) {
-        const sendCompleteReq = () =>
+        const isComplete = await openNewPageWaitPageVisible(jumpItem.url, taskId, () =>
           completeTaskItem({
             chainId: curChain,
             userTask: userTask,
             userTaskDetail: taskId,
-          });
-        const isComplete = await openNewPageWaitPageVisible(jumpItem.url, taskId, sendCompleteReq);
+          }),
+        );
         if (isComplete) return;
         setIsLoading(true);
-        const reportCompleteRes = await sendCompleteReq();
-        if (reportCompleteRes.data) {
-          onReportComplete(userTask, taskId);
-        }
+        sendCompleteReq(taskId);
       }
     } catch (error) {
       //
