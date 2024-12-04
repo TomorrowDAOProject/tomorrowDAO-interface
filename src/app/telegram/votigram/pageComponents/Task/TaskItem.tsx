@@ -5,7 +5,6 @@ import {
   TelegramIcon,
   UserAddIcon,
   XIcon,
-  DiscardIcon,
   LoadingIcon,
   DailyTaskIcon,
   CreatePollIcon,
@@ -21,7 +20,7 @@ import './TaskItem.css';
 import clsx from 'clsx';
 import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
 import { useConfig } from 'components/CmsGlobalConfig/type';
-import { sleep } from '@portkey/utils';
+import { useRequest } from 'ahooks';
 
 interface ITaskItemProps {
   taskItem: IUserTaskItemDetail;
@@ -193,26 +192,29 @@ export const TaskItem = (props: ITaskItemProps) => {
   const activeTabWithSource = (target: number) => {
     activeTabItem({ path: target, source: ITabSource.Task });
   };
-  const sendCompleteReq = async (taskId: UserTaskDetail) => {
-    try {
-      setIsLoading(true);
-      const reportCompleteRes = await completeTaskItem({
-        chainId: curChain,
-        userTask: userTask,
-        userTaskDetail: taskId,
-      });
-      if (reportCompleteRes.data) {
-        onReportComplete(userTask, taskId);
-      } else if (taskId === UserTaskDetail.ExploreSchrodinger) {
-        await sleep(3000);
-        sendCompleteReq(taskId);
+  const { run: sendCompleteReq, cancel } = useRequest(
+    async (taskId) => {
+      try {
+        const reportCompleteRes = await completeTaskItem({
+          chainId: curChain,
+          userTask: userTask,
+          userTaskDetail: taskId,
+        });
+        if (reportCompleteRes.data) {
+          onReportComplete(userTask, taskId);
+        }
+        if (reportCompleteRes.data || taskId !== UserTaskDetail.ExploreSchrodinger) {
+          cancel();
+        }
+      } catch (error) {
+        //
       }
-    } catch (error) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+    {
+      manual: true,
+      pollingInterval: 3000,
+    },
+  );
 
   const jumpAndRefresh = async (taskId: UserTaskDetail) => {
     try {
