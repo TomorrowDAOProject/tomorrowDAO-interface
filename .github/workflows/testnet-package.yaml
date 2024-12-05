@@ -17,6 +17,23 @@ jobs:
         run: |
           calculatedSha=$(git rev-parse --short ${{ github.sha }})
           echo "short_sha=$calculatedSha" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/iron'
+      - run: npm i -g pnpm@9
+      - name: Install Dependencies
+        run: pnpm i --frozen-lockfile
+      - name: Build
+        run: |
+          NEXT_PUBLIC_ADSGRAM_ID=${{ secrets.MAINNET_NEXT_PUBLIC_ADSGRAM_ID }}
+          NODE_OPTIONS=--max-old-space-size=8192 \
+          NO_DRY_RUN=1 \
+          NEXT_PUBLIC_STANDALONE=1 \
+          APP_ENV=testnet \
+            pnpm build
+
       - name: Create image tag
         id: meta
         uses: docker/metadata-action@v5
