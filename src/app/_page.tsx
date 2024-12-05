@@ -84,7 +84,7 @@ const Page = () => {
 
           <section className="py-[56px] md:py-[55px] lg:py-[24px] xl:py-[30px]">
             <div className="flex flex-row items-center gap-[20px] w-full overflow-x-auto lg:overflow-hidden lg:flex-wrap">
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[251px] xl:h-[314px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-t-[24px] xl:rounded-t-[30px] box-border transition-all duration-300 md:w-[335px] lg:flex-row lg:items-end lg:justify-start lg:w-full hover:bg-mainColor">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[251px] xl:h-[314px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-t-[24px] xl:rounded-t-[30px] box-border transition-all duration-300 md:w-[335px] lg:flex-row lg:items-end lg:justify-start lg:w-full hover:bg-mainColor">
                 <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   01
                 </span>
@@ -97,7 +97,7 @@ const Page = () => {
                   {`Set up your DAO effortlessly and shape its mission and governance. \nBuild a thriving community where every member has a voice in \ndriving the organization's success.`}
                 </span>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border md:w-[335px] transition-all duration-300 lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border md:w-[335px] transition-all duration-300 lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   02
                 </span>
@@ -111,7 +111,7 @@ const Page = () => {
                   your core team to ensure critical proposals are reviewed by trusted individuals.
                 </span>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   03
                 </span>
@@ -125,7 +125,7 @@ const Page = () => {
                   your community vote and shape the future with collective decision-making.
                 </span>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-br-[24px] xl:rounded-br-[30px] box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-br-[24px] xl:rounded-br-[30px] box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
                 <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   04
                 </span>
@@ -148,7 +148,7 @@ const Page = () => {
             </h2>
 
             <div className="flex flex-col gap-[19px] md:flex-row lg:gap-[20px] xl:gap-[32px]">
-              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[7px] lg:rounded-[14px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
+              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[15px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
                 <h4 className="m-0 text-[20px] lg:text-[21px] xl:text-[26px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
                   Multisig-based DAO
                 </h4>
@@ -158,7 +158,7 @@ const Page = () => {
                 </span>
               </div>
 
-              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[7px] lg:rounded-[14px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
+              <div className="flex flex-col items-start justify-between h-[164px] px-[22px] box-border py-[12.77px] bg-mainColor rounded-[15px] xl:rounded-[18px] md:flex-1 lg:p-[26px] lg:h-[180px] xl:p-[32px] xl:h-[225px]">
                 <h4 className="m-0 text-[20px] lg:text-[21px] xl:text-[26px] font-Unbounded font-light text-white tracking-[-0.21px] lg:tracking-[-0.21px] xl:tracking-[-0.26px]">
                   Token-based DAO
                 </h4>
@@ -206,7 +206,7 @@ const Page = () => {
                             src="https://cdn.tmrwdao.com/assets/imgs/B5650D5FCE2B.webp"
                             alt="STEP 1 Symbol"
                           />
-                          <span className="block m-0 text-white font-Unbounded font-light text-[12px]">
+                          <span className="block m-0 text-white font-Unbounded font-light text-[12px] lg:text-[16px] xl:text-[20px]">
                             STEP 1
                           </span>
 
@@ -223,7 +223,7 @@ const Page = () => {
                             src="https://cdn.tmrwdao.com/assets/imgs/A33A05660253.webp"
                             alt="STEP 2 Symbol"
                           />
-                          <span className="block m-0 text-white font-Unbounded font-light text-[12px]">
+                          <span className="block m-0 text-white font-Unbounded font-light text-[12px] lg:text-[16px] xl:text-[20px]">
                             STEP 2
                           </span>
 
@@ -240,7 +240,7 @@ const Page = () => {
                             src="https://cdn.tmrwdao.com/assets/imgs/8F08514716C0.webp"
                             alt="STEP 3 Symbol"
                           />
-                          <span className="block m-0 text-white font-Unbounded font-light text-[12px]">
+                          <span className="block m-0 text-white font-Unbounded font-light text-[12px] lg:text-[16px] xl:text-[20px]">
                             STEP 3
                           </span>
 
@@ -323,7 +323,7 @@ const Page = () => {
 
           <section className="relative py-[100px] lg:pt-[210px] lg:pb-[160px] xl:pt-[263px] xl:pb-[200px]  text-center flex flex-col overflow-hidden">
             <img
-              className="absolute hidden md:block w-full h-auto object-cover z-0 md:w-auto md:h-[500px] md:top-[48%] md:left-1/2 md:translate-x-[-50%] md:translate-y-[-50%] lg:h-[728px] lg:top-[54%] xl:top-[50%] xl:h-[862px]"
+              className="absolute hidden md:block w-full h-auto object-cover z-0 md:w-auto md:h-[500px] md:top-[48%] md:left-1/2 md:translate-x-[-50%] md:translate-y-[-50%] lg:h-[728px] lg:top-[54%] xl:top-[50%] xl:h-[862px] opacity-15"
               src={require('assets/revamp-imgs/outro.gif').default.src}
               alt="Banner Animation"
             />
@@ -354,7 +354,7 @@ const Page = () => {
 
               <Link
                 href="/"
-                className="default-button hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
+                className="font-Montserrat font-medium text-baseText !bg-transparent border-[1px] border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
               >
                 About aelf
                 <LinkIcon className="h-[11px] w-[11px]" />
