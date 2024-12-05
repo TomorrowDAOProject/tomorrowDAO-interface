@@ -16,13 +16,36 @@
       @apply !text-white !bg-[#DF4F5F] border-[#DF4F5F];
     }
   }
-  
-  .abstention-button:not(:disabled)  {
-    @apply !text-white !bg-[#687083] border-[#687083];
-    &:hover {
-      @apply !text-white !bg-[#828898] border-[#828898];
-    }
-    &:active {
-      @apply !text-white !bg-[#5D6579] border-[#5D6579];
-    }
+
+.abstention-button:not(:disabled) {
+  @apply !text-white !bg-[#687083] border-[#687083];
+
+  &:hover {
+    @apply !text-white !bg-[#828898] border-[#828898];
   }
+
+  &:active {
+    @apply !text-white !bg-[#5D6579] border-[#5D6579];
+  }
+}
+
+.primary-button:not(:disabled) {
+  @apply font-Montserrat font-medium !text-baseText !bg-mainColor border-[1px] border-solid border-mainColor px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out;
+
+  &:hover,
+  &:active {
+    @apply !text-mainColor !bg-baseBg;
+  }
+}
+
+.default-button:not(:disabled) {
+  @apply font-Montserrat font-medium text-baseText !bg-transparent border-[1px] border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out;
+
+  &:hover {
+    @apply !text-mainColor !bg-baseBg !border-mainColor;
+  }
+
+  &:active {
+    @apply !text-mainColor !bg-baseBg !border-mainColor;
+  }
+}
