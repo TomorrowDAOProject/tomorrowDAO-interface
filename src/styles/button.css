@@ -51,6 +51,6 @@
   }
 
   &:active {
-    @apply text-mainColor bg-baseBg border-mainColor;
+    @apply !text-mainColor !bg-baseBg !border-mainColor;
   }
 }
