@@ -1,10 +1,10 @@
-name: Build and Push Image
+name: deploy to mainnet
 on:
   push:
     tags:
       - 'v*.*.*'
 jobs:
-  build-and-push-image:
+  deploy-to-mainnet:
     runs-on: tmrwdao-runner
     permissions:
       contents: read
