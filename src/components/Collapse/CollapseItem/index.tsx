@@ -16,7 +16,7 @@ const CollapseItem = ({ item, isOpened }: { item: ItemType; isOpened?: boolean }
         </span>
 
         <LargeArrowIcon
-          className={`w-[14px] h-[12px] lg:w-[16px] lg:h-[14.5px] lg:w-[20px] lg:h-[18px] transition-[transform] ease-in-out duration-300 ${
+          className={`w-[14px] h-[14px] lg:w-[22px] lg:h-[22px] xl:w-[27px] xl:h-[27px] transition-[transform] ease-in-out duration-300 ${
             isOpen ? 'rotate-[-180deg]' : ''
           }`}
         />

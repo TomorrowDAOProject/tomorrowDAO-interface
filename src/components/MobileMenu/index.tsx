@@ -36,7 +36,7 @@ const MunuItem = ({ title, items }: { title: React.ReactNode; items?: MenuItem[]
           <a
             key={index}
             href="/"
-            className="cursor-pointer block font-MontserratMedium flex flex-row items-center justify-start text-white text-[15px] px-[14px] py-[10px] no-underline hover:bg-transparent active:bg-transparent gap-[14px]"
+            className="cursor-pointer block font-Montserrat font-medium flex flex-row items-center justify-start text-white text-[15px] px-[14px] py-[10px] no-underline hover:bg-transparent active:bg-transparent hover:text-mainColor active:text-mainColor gap-[14px]"
           >
             {item.icon}
             {item.label}
@@ -59,7 +59,7 @@ const MobileMenu = ({ menus }: MenuProps) => {
               <a
                 key={index}
                 href="/"
-                className="cursor-pointer block font-MontserratMedium flex flex-row items-center justify-start text-white text-[15px] px-[14px] py-[10px] no-underline hover:bg-transparent active:bg-transparent gap-[14px]"
+                className="cursor-pointer block font-Montserrat font-medium flex flex-row items-center justify-start text-white text-[15px] px-[14px] py-[10px] no-underline hover:bg-transparent active:bg-transparent hover:text-mainColor active:text-mainColor gap-[14px]"
               >
                 {menu.icon}
                 {menu.label}

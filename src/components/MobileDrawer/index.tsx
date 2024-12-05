@@ -13,15 +13,15 @@ const Drawer = ({ title, width = 249, open, onClose, children }: IDrawerProps) =
   return (
     <>
       <div
-        className={`fixed top-0 left-0 h-screen w-screen bg-fillBlack15 z-50 ${
+        className={`fixed top-0 right-0 h-screen w-screen bg-fillBlack15 z-50 ${
           open ? 'block' : 'hidden'
         }`}
         onClick={onClose}
       />
 
       <div
-        className={`fixed top-0 h-screen flex w-[249px] flex-col p-[24px] bg-darkGray z-50 box-border transition-[left] duration-300 ${
-          open ? 'left-0' : 'left-[-100%]'
+        className={`fixed top-0 h-screen flex w-[249px] flex-col p-[24px] bg-darkGray z-50 box-border transition-[right] duration-300 ${
+          open ? 'right-0' : 'right-[-100%]'
         } w-[${width}px]`}
       >
         <div className="shrink-0 py-[20px] px-[14px]">{title}</div>
