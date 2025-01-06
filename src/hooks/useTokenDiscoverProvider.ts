@@ -36,6 +36,7 @@ export default function useDiscoverProvider() {
       signature.s.toString(16, 64),
       `0${signature.recoveryParam.toString()}`,
     ].join('');
+    signature.recoveryParam = Number(signature.recoveryParam);
 
     // recover pubkey by signature
     let publicKey;
