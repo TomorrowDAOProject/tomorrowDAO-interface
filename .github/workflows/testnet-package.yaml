@@ -1,9 +1,9 @@
-name: Build and Push Image
+name: deploy to testnet
 on:
   push:
     branches: ['dev', 'feat/ci-k8s']
 jobs:
-  build-and-push-image:
+  deploy-to-testnet:
     runs-on: tmrwdao-runner
     permissions:
       contents: read
@@ -17,6 +17,23 @@ jobs:
         run: |
           calculatedSha=$(git rev-parse --short ${{ github.sha }})
           echo "short_sha=$calculatedSha" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/iron'
+      - run: npm i -g pnpm@9
+      - name: Install Dependencies
+        run: pnpm i --frozen-lockfile
+      - name: Build
+        run: |
+          NEXT_PUBLIC_ADSGRAM_ID=${{ secrets.MAINNET_NEXT_PUBLIC_ADSGRAM_ID }}
+          NODE_OPTIONS=--max-old-space-size=8192 \
+          NO_DRY_RUN=1 \
+          NEXT_PUBLIC_STANDALONE=1 \
+          APP_ENV=testnet \
+            pnpm build
+
       - name: Create image tag
         id: meta
         uses: docker/metadata-action@v5
@@ -49,7 +66,7 @@ jobs:
             APP_ENV=testnet
   dispatch:
     runs-on: tmrwdao-runner
-    needs: build-and-push-image
+    needs: deploy-to-testnet
     steps:
       - name: Deploy
         uses: actions/github-script@v6
@@ -63,6 +80,6 @@ jobs:
               ref: 'main',
               inputs: {
                 appName: 'tmrwdao-web-server',
-                commit_sha: 'sha-${{ needs.build-and-push-image.outputs.short_sha }}',
+                commit_sha: 'sha-${{ needs.deploy-to-testnet.outputs.short_sha }}',
               }
             })

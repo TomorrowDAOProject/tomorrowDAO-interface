@@ -1,48 +1,4 @@
-FROM node:20-alpine AS base
-
-# Install dependencies only when needed
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci --legacy-peer-deps; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
-
-
-# Rebuild the source code only when needed
-FROM base AS builder
-ARG NEXT_PUBLIC_ADSGRAM_ID
-ARG NEXT_PUBLIC_HASH_PRIVATE_KEY
-ARG NEXT_PUBLIC_PINATA_JWT
-ARG NEXT_PUBLIC_GATEWAY_TOKEN
-ARG APP_ENV
-ENV NEXT_PUBLIC_ADSGRAM_ID=${NEXT_PUBLIC_ADSGRAM_ID}
-ENV NEXT_PUBLIC_HASH_PRIVATE_KEY=${NEXT_PUBLIC_HASH_PRIVATE_KEY}
-ENV NEXT_PUBLIC_PINATA_JWT=${NEXT_PUBLIC_PINATA_JWT}
-ENV NEXT_PUBLIC_GATEWAY_TOKEN=${NEXT_PUBLIC_GATEWAY_TOKEN}
-ENV APP_ENV=${APP_ENV}
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN \
-  if [ -f yarn.lock ]; then APP_ENV=${APP_ENV} yarn run build; \
-  elif [ -f package-lock.json ]; then APP_ENV=${APP_ENV} npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && APP_ENV=${APP_ENV} pnpm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+FROM denoland/deno:alpine-2.1.2 AS base
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -58,32 +14,26 @@ WORKDIR /app
 
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder /app/public ./public
+ENV NEXT_TELEMETRY_DISABLED 1
 
 # Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+RUN mkdir -p .next/static
+RUN chown -R deno .next
+RUN mkdir public
+RUN chown deno public
+RUN ls -asl
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-#COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-#COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder --chown=nextjs:nodejs /app/next.config.js ./next.config.js
-COPY --from=builder --chown=nextjs:nodejs /app/build.config ./build.config
-COPY package.json ./
-RUN yarn install
-USER nextjs
+# https://deno.org/docs/14/pages/api-reference/next-config-js/output
+ADD .next/standalone ./
+ADD public ./public
+ADD .next/static ./.next/static
 
+USER deno
+RUN deno cache server.js
+
+# server.js is created by next build from the NEXT_PUBLIC_STANDALONE output
+# https://deno.org/docs/pages/api-reference/next-config-js/output
 EXPOSE 3000
-
-ENV PORT 3000
-
-# server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD HOSTNAME="0.0.0.0" yarn start
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+CMD ["run", "--allow-run", "--allow-net", "--allow-read", "--allow-env","--allow-write", "--allow-sys", "--unstable-detect-cjs", "server.js"]
