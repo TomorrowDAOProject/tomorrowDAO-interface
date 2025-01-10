@@ -1,4 +1,12 @@
+.dao-steps-box {
+  min-height: calc(100vh - 69.69px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .dao-steps-wrap {
+  align-items: flex-start;
 
   @apply mb-6;
 
@@ -62,6 +70,7 @@
   .login-btn {
     border:  1.5px solid #fff;
     border-radius: 42px;
+    margin-left: auto;
    
     @apply text-white flex items-center gap-[10px] text-[15px] bg-[transparent]  px-[20px] py-[11px];
     span {
@@ -77,7 +86,7 @@
   }
 
   .icon-wrap {
-    @apply  flex items-center justify-center py-[50px] rounded-md;
+    @apply  flex items-center justify-center py-0 md:py-[50px] lg:py-[50px] rounded-md;
   }
 
   .dao-create-preview {
