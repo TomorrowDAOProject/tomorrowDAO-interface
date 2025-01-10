@@ -2,7 +2,7 @@
 
 import { useMachine } from '@xstate/react';
 import { formMachine } from './xstate';
-import { Button, Progress } from 'aelf-design';
+import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { message as antdMessage, FormInstance, Result, Switch, Tag } from 'antd';
 import { useRouter } from 'next/navigation';
@@ -35,6 +35,8 @@ import { FirstScreen } from './FirstScreen';
 import './index.css';
 import { trimAddress } from 'utils/address';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import ProgressBar from 'components/Progress';
+import Button from 'components/Button';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -313,37 +315,33 @@ const CreateDaoPage = () => {
   return isShowSecondScreen ? (
     isConnected ? (
       <>
-        <div className="page-content-bg-border  dao-steps-wrap">
-          <p className="title-wrap">
-            <h3 className="title">Create your DAO</h3>
-            <span className="current-step-number">
-              <span className="current-text">Step {currentStep + 1}</span> / 4
+        <div className="mb-[15px] py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid">
+          <p className="!mb-[22px] flex items-center justify-between">
+            <p className="text-h5 text-white font-Unbounded">Create your DAO</p>
+            <span className="text-descM14 text-white font-Montserrat">
+              <span>Step {currentStep + 1}</span> / 4
             </span>
           </p>
-          <Progress
-            percent={((currentStep + 1) / 4) * 100}
-            showInfo={false}
-            size={['100%', 6]}
-            className="step-progress"
-            strokeColor="#FA9D2B"
-          />
-          <div className="current-step-desc">
+          <ProgressBar percent={((currentStep + 1) / 4) * 100} />
+          <div className="mt-[22px]">
             {currentStep == 0 && (
               <>
-                <h2 className="step-title">Basic Information</h2>
-                <p className="step-subtext">Basic Details.</p>
+                <h2 className="text-descM15 text-white font-Montserrat mb-2">Basic Information</h2>
+                <p className="text-desc12 text-lightGrey font-Montserrat">Basic Details.</p>
               </>
             )}
             {currentStep == 1 && (
               <>
-                <h2 className="step-title">Referendum</h2>
-                <p className="step-subtitle">The primary governance mechanism</p>
+                <h2 className="text-descM15 text-white font-Montserrat mb-2">Referendum</h2>
+                <p className="text-desc12 text-lightGrey font-Montserrat">
+                  The primary governance mechanism
+                </p>
               </>
             )}
             {currentStep == 2 && (
               <>
                 <div className="flex justify-between">
-                  <h2 className="step-title flex items-center">
+                  <h2 className="text-descM15 text-white mb-2 flex items-center">
                     High Council{' '}
                     {/* <Tag color="#F6F6F6" className="h-[30px] ml-2 flex-center">
                       <span className="normal-text-bold text-Neutral-Secondary-Text">Optional</span>
@@ -358,7 +356,7 @@ const CreateDaoPage = () => {
                   />
                 </div>
                 <p className="step-subtitle">A supplementary governance mechanism</p>
-                <p className="step-subtext">
+                <p className="text-desc12 text-lightGrey font-Montserrat">
                   High Council is an optional governance mechanism that supplements Referendum. High
                   Council members are granted authority and the responsibility to partake in DAO
                   governance.
@@ -367,15 +365,15 @@ const CreateDaoPage = () => {
             )}
             {currentStep == 3 && (
               <>
-                <h2 className="step-title">Docs</h2>
-                <p className="step-subtext">
+                <h2 className="text-descM15 text-white mb-2">Docs</h2>
+                <p className="text-desc12 text-lightGrey font-Montserrat">
                   It is recommended to upload at least a project whitepaper and roadmap
                 </p>
               </>
             )}
           </div>
         </div>
-        <div className="page-content-bg-border">
+        <div className="py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid">
           {contextHolder}
           <StepsContext.Provider
             value={{
@@ -396,7 +394,6 @@ const CreateDaoPage = () => {
               {isNotFirstStep && (
                 <Button
                   type="primary"
-                  ghost
                   className="flex-1 lg:w-40 lg:flex-none gap-2"
                   onClick={() => send({ type: 'PREVIOUS' })}
                 >
@@ -425,7 +422,7 @@ const CreateDaoPage = () => {
                   loading={nextLoading}
                 >
                   <span>Next</span>
-                  <ArrowRight />
+                  <LinkIcon className="h-[11px] w-[11px]" />
                 </Button>
               )}
             </div>

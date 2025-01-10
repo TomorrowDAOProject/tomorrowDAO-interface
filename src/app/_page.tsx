@@ -354,7 +354,7 @@ const Page = () => {
 
               <Link
                 href="/"
-                className="font-Montserrat font-medium text-baseText !bg-transparent border-[1px] border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
+                className="font-Montserrat font-medium text-baseText !bg-transparent border border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
               >
                 About aelf
                 <LinkIcon className="h-[11px] w-[11px]" />
@@ -445,8 +445,6 @@ const Page = () => {
           </div>
         ))}
       </div>
-
-      <NavFooter />
     </>
   );
 };
