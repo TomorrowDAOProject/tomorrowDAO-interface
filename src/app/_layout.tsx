@@ -4,6 +4,7 @@ import React, { ReactNode, useRef, useState } from 'react';
 import { ScrollProvider } from 'provider/ScrollProvider';
 import NavHeader from 'components/NavHeader';
 import clsx from 'clsx';
+import NavFooter from 'components/NavFooter';
 
 interface ILayoutProps {
   children: ReactNode;
@@ -41,6 +42,7 @@ const Layout = ({ children }: ILayoutProps) => {
           })}
         />
         {children}
+        <NavFooter />
       </div>
     </ScrollProvider>
   );
