@@ -30,6 +30,69 @@ module.exports = {
         Unbounded: ['Unbounded', 'sans-serif'],
         Syne: ['Syne', 'sans-serif'],
       },
+      fontSize: {
+        h1: ['66px', 'normal'],
+        h2: ['48px', '48px'],
+        h3: ['26px', 'normal'],
+        h4: ['24px', 'normal'],
+        h5: ['20px', 'normal'],
+        h6: ['15px', 'normal'],
+        desc18: [
+          '18px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        descM16: [
+          '16px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc16: ['16px', '160%'],
+        descM15: [
+          '15px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc15: ['15px', 'normal'],
+        descM14: [
+          '14px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc14: ['14px', 'normal'],
+        descM13: [
+          '13px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc13: ['13px', 'normal'],
+        descM12: [
+          '12px',
+          {
+            lineHeight: 'auto',
+            fontWeight: '500',
+          },
+        ],
+        desc12: ['12px', 'normal'],
+        descM10: [
+          '10px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc10: ['10px', 'normal'],
+      },
       animation: {
         vibrate: 'vibrate 100ms linear 4',
         flash: 'flash 1s infinite',
@@ -98,6 +161,8 @@ module.exports = {
         mainColor: 'var(--main-color)',
         darkGray: 'var(--dark-gray)',
         lightGrey: 'var(--light-gray)',
+        darkBg: 'var(--dark-bg)',
+        danger: 'var(--danger)',
       },
       flex: {
         quarter: '1 1 25%',
@@ -106,6 +171,7 @@ module.exports = {
       backgroundImage: {
         itemShadow:
           'linear-gradient(29deg, #5D49F6 9.71%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.2) 100%)',
+        blackToMain: 'linear-gradient(to bottom, rgba(0, 0, 0, 0%), #5D49F6)',
       },
     },
     screens: {

@@ -2,9 +2,8 @@
 
 export default function CreateLayout({ children }: { children: React.ReactNode }) {
   return (
-    <section>
-      <div></div>
-      {children}
+    <section className="tmrwdao-grid z-0">
+      <div className="col-12">{children}</div>
     </section>
   );
 }
