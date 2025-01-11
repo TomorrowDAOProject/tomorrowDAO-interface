@@ -10,6 +10,8 @@
     --main-color: #5D49F6;
     --dark-gray: #222126;
     --light-gray: #989DA0;
+    --dark-bg: #171717;
+    --danger: #FF374D;
 }
 
 .dark-theme {
