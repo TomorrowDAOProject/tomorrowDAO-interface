@@ -11,7 +11,6 @@ import { ReactComponent as ArrowLeft } from 'assets/revamp-icon/arrow-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
 
 import './index.css';
-import NavFooter from 'components/NavFooter';
 
 interface IFirstScreenProps {
   onClick: () => void;
@@ -30,61 +29,58 @@ export const FirstScreen = (props: IFirstScreenProps) => {
   };
 
   return (
-    <div className="dao-steps-box">
-      <div className="tmrwdao-grid z-0 dao-steps-wrap">
-        <div className="col-12 box-border">
-          <div className="md:mt-[67px] lg:mt-[67px] mb-[15px] dao-create-first-header hidden items-center gap-2 md:flex lg:flex">
-            <span className="text-lightGrey text-[15px]">TMRW DAO</span>
-            <ArrowRight />
-            <span className="text-white text-[14px]">Create a DAO</span>
-          </div>
+    <div className="dao-steps-wrap">
+      <div className="col-12 box-border">
+        <div className="md:mt-[67px] lg:mt-[67px] mb-[15px] dao-create-first-header hidden items-center gap-2 md:flex lg:flex">
+          <span className="text-lightGrey text-[15px]">TMRW DAO</span>
+          <ArrowRight />
+          <span className="text-white text-[14px]">Create a DAO</span>
+        </div>
 
-          <div className="md:mt-[67px] lg:mt-[67px] mt-[23px] mb-[30px] dao-create-first-header flex items-center gap-2 md:hidden lg:hidden">
-            <ArrowLeft />
-            <span className="text-white text-[14px]">Back</span>
-          </div>
-          <div className="dao-create-first-screen mb-[55px] flex items-start lg:items-center justify-between flex-col lg:flex-row">
-            <h2 className="dao-create-first-screen-title">Create a DAO with TMRWDAO</h2>
-            <button onClick={onClickFun} className="login-btn lg:mt-0 mt-[24px]">
-              <span>Get Started</span>
-              <GoStart />
-            </button>
-          </div>
-          <div className="dao-create-first-screen">
-            <ul className="dao-create-preview">
-              <li className="dao-create-preview-item">
-                <div className="icon-wrap">
-                  <BaseInfo />
-                </div>
-                <p>Step 1</p>
-                <h3>Basic Information</h3>
-              </li>
-              <li className="dao-create-preview-item">
-                <div className="icon-wrap">
-                  <Dao />
-                </div>
-                <p>Step 2</p>
-                <h3>Referendum</h3>
-              </li>
-              <li className="dao-create-preview-item">
-                <div className="icon-wrap">
-                  <HighCouncil />
-                </div>
-                <p>Step 3</p>
-                <h3>High Council</h3>
-              </li>
-              <li className="dao-create-preview-item">
-                <div className="icon-wrap">
-                  <Docs />
-                </div>
-                <p>Step 4</p>
-                <h3>Docs</h3>
-              </li>
-            </ul>
-          </div>
+        <div className="md:mt-[67px] lg:mt-[67px] mb-[30px] dao-create-first-header flex items-center gap-2 md:hidden lg:hidden">
+          <ArrowLeft />
+          <span className="text-white text-[14px]">Back</span>
+        </div>
+        <div className="dao-create-first-screen mb-[55px] flex items-start lg:items-center md:items-center justify-between flex-col md:flex-row lg:flex-row">
+          <div className="dao-create-first-screen-title">Create a DAO with TMRWDAO</div>
+          <button onClick={onClickFun} className="login-btn lg:mt-0 mt-[12px] md:mt-0">
+            <span>Get Started</span>
+            <GoStart />
+          </button>
+        </div>
+        <div className="dao-create-first-screen">
+          <ul className="dao-create-preview">
+            <li className="dao-create-preview-item">
+              <div className="icon-wrap">
+                <BaseInfo />
+              </div>
+              <span>Step 1</span>
+              <div>Basic Information</div>
+            </li>
+            <li className="dao-create-preview-item">
+              <div className="icon-wrap">
+                <Dao />
+              </div>
+              <span>Step 2</span>
+              <div>Referendum</div>
+            </li>
+            <li className="dao-create-preview-item">
+              <div className="icon-wrap">
+                <HighCouncil />
+              </div>
+              <span>Step 3</span>
+              <div>High Council</div>
+            </li>
+            <li className="dao-create-preview-item">
+              <div className="icon-wrap">
+                <Docs />
+              </div>
+              <span>Step 4</span>
+              <div>Docs</div>
+            </li>
+          </ul>
         </div>
       </div>
-      <NavFooter />
     </div>
   );
 };
