@@ -50,6 +50,7 @@ const Textarea = ({
         ref={textareaRef}
         className={clsx(
           'py-[13px] px-[16px] w-full h-[121px] rounded-[8px] placeholder:font-questrial border border-solid border-fillBg8 bg-transparent text-white text-desc14 font-Montserrat caret-white outline-none resize-none appearance-none',
+
           rootClassName,
         )}
         value={text}
