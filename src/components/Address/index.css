@@ -1,8 +1,8 @@
 .address-container {
   .address {
-    @apply bg-Neutral-Default-BG rounded-md p-3; 
+    @apply border border-fillBg8 border-solid bg-darkBg rounded-[8px] px-[16px] py-[13px] font-Montserrat text-descM14 text-lightGrey;
   }
   .address-info {
-    @apply mt-1 text-Neutral-Secondary-Text text-xs leading-5;
+    @apply mt-2 text-desc12 text-lightGrey font-Montserrat;
   }
 }
