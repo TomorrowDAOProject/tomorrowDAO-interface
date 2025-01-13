@@ -386,7 +386,7 @@ const CreateDaoPage = () => {
 
             <div
               className={clsx(
-                'flex py-6 lg:py-8 border-0 border-t border-solid border-Neutral-Divider',
+                'flex py-6 lg:py-8',
                 isNotFirstStep ? 'gap-3 justify-between' : 'justify-end',
                 isHighCouncilStep && !isShowHighCouncil ? 'border-t-0' : '',
               )}
@@ -394,7 +394,7 @@ const CreateDaoPage = () => {
               {isNotFirstStep && (
                 <Button
                   type="primary"
-                  className="flex-1 lg:w-40 lg:flex-none gap-2"
+                  className="w-40 lg:flex-none gap-2"
                   onClick={() => send({ type: 'PREVIOUS' })}
                 >
                   <ArrowLeft />
@@ -406,7 +406,7 @@ const CreateDaoPage = () => {
                 <SubmitButton
                   buttonProps={{
                     type: 'primary',
-                    className: 'flex-1 lg:w-40 lg:flex-none gap-2',
+                    className: 'w-40 lg:flex-none gap-2',
                   }}
                   onConfirm={handleCreateDao}
                   ref={submitButtonRef}
@@ -417,7 +417,7 @@ const CreateDaoPage = () => {
               ) : (
                 <Button
                   type="primary"
-                  className="flex-1 lg:w-40 lg:flex-none gap-2"
+                  className="w-40 lg:flex-none gap-2"
                   onClick={handleNextStep}
                   loading={nextLoading}
                 >

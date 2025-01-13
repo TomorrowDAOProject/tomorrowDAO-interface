@@ -2,12 +2,12 @@ import React from 'react';
 import clsx from 'clsx';
 
 const buttonStyles = {
-  default: 'bg-gray-200 text-gray-800 hover:bg-transparent hover:border-gray-200',
+  default: 'bg-gray-200 border-gray-200 text-gray-800 hover:bg-transparent hover:border-gray-200',
   primary:
-    'bg-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor',
-  info: 'bg-cyan text-white hover:bg-transparent hover:text-cyan hover:border-cyan',
-  warning: 'bg-yellow text-white hover:bg-transparent hover:text-yellow hover:border-yellow',
-  danger: 'bg-red text-white hover:bg-transparent hover:text-red hover:border-red',
+    'bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor',
+  info: 'bg-cyan border-cyan text-white hover:bg-transparent hover:text-cyan hover:border-cyan',
+  warning: 'bg-yellow border-yellow text-white hover:bg-transparent hover:text-yellow hover:border-yellow',
+  danger: 'bg-red border-red text-white hover:bg-transparent hover:text-red hover:border-red',
   link: 'text-blue-500 hover:underline',
 };
 
@@ -34,7 +34,7 @@ const Button = ({
   return (
     <button
       className={clsx(
-        'py-2 px-[14px] lg:py-[11px] lg:px-5 flex items-center justify-center border border text-descM12 lg:text-descM15 rounded-[42px] focus:outline-none focus:ring-2 focus:ring-offset-2',
+        'py-2 px-[14px] lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid text-descM12 lg:text-descM15 rounded-[42px] appearence-none outline-none transition-[background,color] duration-300 ease-in-out',
         buttonStyles[type],
         className,
       )}

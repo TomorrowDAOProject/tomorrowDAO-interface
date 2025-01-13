@@ -1,6 +1,5 @@
-import { Typography, Tooltip } from 'aelf-design';
 import './index.css';
-import { Form, Radio } from 'antd';
+import { Form } from 'antd';
 import ChainAddress from 'components/Address';
 import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
 import { useState } from 'react';
@@ -15,11 +14,15 @@ import { setToken } from 'redux/reducer/daoCreate';
 import Link from 'next/link';
 import FormMembersItem from 'components/FormMembersItem';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 import { curChain } from 'config';
 import Input from 'components/Input';
 import Textarea from 'components/Textarea';
 import FormItem from 'components/FormItem';
+import Upload from 'components/Upload';
+import Radio from 'components/Radio';
+import Tooltip from 'components/Tooltip';
 
 export const mediaList = [
   ['metadata', 'socialMedia', 'Twitter'],
@@ -34,12 +37,13 @@ const formMembersListNamePath = ['members', 'value'];
 const governanceTokenNamePath = 'governanceToken';
 
 export default function BasicDetails() {
+  const { watch, handleSubmit } = useForm();
   const [form] = Form.useForm();
   const [mediaError, setMediaError] = useState<boolean>(false);
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const elfInfo = useSelector((store: any) => store.elfInfo.elfInfo);
   const { walletInfo: wallet } = useConnectWallet();
-  const daoType = Form.useWatch(governanceMechanismNamePath, form) ?? EDaoGovernanceMechanism.Token;
+  const daoType = watch(governanceMechanismNamePath) ?? EDaoGovernanceMechanism.Token;
   useRegisterForm(form, StepEnum.step0);
   return (
     <div className="basic-detail">
@@ -63,78 +67,58 @@ export default function BasicDetails() {
           >
             <Input placeholder="Enter a name for the DAO" />
           </FormItem>
-          <FormItem
-            // name={['metadata', 'logoUrl']}
-            // valuePropName="fileList"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: 'Logo is required',
-            //   },
-            // ]}
-            label="Logo"
-          >
-            <IPFSUpload
-              maxFileCount={1}
-              needCheckImgSize
-              accept=".png,.jpg,.jpeg"
-              uploadText="Click to Upload"
-              uploadIconColor="#1A1A1A"
-              tips="Formats supported: PNG and JPG. Ratio: 1:1 , less than 1 MB."
-            />
-          </FormItem>
-          <FormItem
-            // validateFirst
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: 'description is required',
-            //   },
-            //   {
-            //     type: 'string',
-            //     max: 240,
-            //     message: 'The description should contain no more than 240 characters.',
-            //   },
-            // ]}
-            // name={['metadata', 'description']}
-            label="Description"
-          >
-            <Textarea
-              rootClassName="Description-textArea"
-              maxLength={240}
-              value={'description'}
-              placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
-              onChange={() => console.log('change')}
-            />
-          </FormItem>
-          <FormItem
-            className="mb-6"
-            // name={['metadata', 'socialMedia', 'title']}
-            // dependencies={mediaList}
-            // rules={[
-            //   ({ getFieldValue }) => ({
-            //     validator() {
-            //       const metadata = mediaList.map((item) => getFieldValue(item));
-            //       const values = Object.values(metadata);
-            //       const checked = values.some((item) => item);
-            //       if (checked) {
-            //         setMediaError(false);
-            //         return Promise.resolve();
-            //       }
-            //       setMediaError(true);
-            //       return Promise.reject(new Error(''));
-            //     },
-            //   }),
-            // ]}
-            label=""
-          >
-            <div className="mt-8" id="baseInfo_metadata_socialMedia_title">
-              <Typography.Title level={6}>Social Media</Typography.Title>
-            </div>
-            <div className={cx('Media-info', mediaError && '!text-Reject-Reject')}>
-              At least one social media is required.
-            </div>
-          </FormItem>
+          <div className="flex flex-col md:flex-row">
+            <FormItem
+              // name={['metadata', 'logoUrl']}
+              // valuePropName="fileList"
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: 'Logo is required',
+              //   },
+              // ]}
+              label="Logo"
+            >
+              <Upload
+                className="mx-auto !w-[250px]"
+                needCheckImgSize
+                uploadText="Upload"
+                tips={`Formats supported: PNG and JPG.\n Ratio: 1:1 , less than 1 MB.`}
+              />
+            </FormItem>
+            <FormItem
+              // validateFirst
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: 'description is required',
+              //   },
+              //   {
+              //     type: 'string',
+              //     max: 240,
+              //     message: 'The description should contain no more than 240 characters.',
+              //   },
+              // ]}
+              // name={['metadata', 'description']}
+              label="Description"
+              className="md:ml-[50px] md:flex-grow"
+            >
+              <Textarea
+                rootClassName="md:h-[250px]"
+                maxLength={240}
+                value={'description'}
+                placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
+                onChange={() => console.log('change')}
+              />
+            </FormItem>
+          </div>
+          <div className="mb-[25px]">
+            <span className="mb-2 block font-Montserrat text-descM16 text-white">Links</span>
+            <span className="font-desc13 font-Montserrat text-white">
+              Links to your DAO&apos;s website, social media profiles, discord, or other places your
+              community gathers.
+            </span>
+          </div>
           <FormItem
             // name={['metadata', 'socialMedia', 'Twitter']}
             // validateFirst
@@ -210,8 +194,10 @@ export default function BasicDetails() {
           >
             <Input placeholder={`Enter the DAO's subreddit link`} />
           </FormItem>
-          <div className="mb-6 pt-8">
-            <span className="card-title">DAO&apos;s Metadata Admin</span>
+          <div className="mb-[15px]">
+            <span className="text-descM16 font-Montserrat text-white">
+              DAO&apos;s Metadata Admin
+            </span>
           </div>
           <div className="mb-8">
             <ChainAddress
@@ -221,16 +207,28 @@ export default function BasicDetails() {
               info="The DAO's metadata admin can modify certain info about the DAO, such as its description, logo, social media, documents, etc."
             />
           </div>
-          <div className={cx('symbol-radio')}>
-            <span className="form-item-title">Governance Participants</span>
-            <div className="dao-type-tip">Who can participate in governance ?</div>
-          </div>
           <FormItem
+            label={
+              <>
+                <span className="mb-2 block text-descM15 font-Montserrat text-white">
+                  Governance Participants
+                </span>
+                <div className="mb-[10px] text-desc13 font-Montserrat text-lightGrey">
+                  Who can participate in governance ?
+                </div>
+              </>
+            }
             // name={governanceMechanismNamePath}
-            required
             // initialValue={EDaoGovernanceMechanism.Token}
           >
-            <Radio.Group className="dao-type-select">
+            <Radio
+              options={[
+                { label: 'Token holders', value: EDaoGovernanceMechanism.Token },
+                { label: 'Multisig Members', value: EDaoGovernanceMechanism.Multisig },
+              ]}
+              value={EDaoGovernanceMechanism.Token}
+            />
+            {/* <Radio.Group className="dao-type-select">
               <div className="dao-type-select-item">
                 <Radio
                   value={EDaoGovernanceMechanism.Token}
@@ -261,38 +259,40 @@ export default function BasicDetails() {
                   <span className="text-[16px] leading-[24px]">Multisig Members </span>
                 </Radio>
               </div>
-            </Radio.Group>
+            </Radio.Group> */}
           </FormItem>
           {daoType === EDaoGovernanceMechanism.Token && (
             <>
-              <div>
-                <Tooltip
-                  title={
-                    <div>
-                      <div>
-                        Using a governance token is essential for enabling the High Council and
-                        facilitating additional voting mechanisms.
-                      </div>
-                      <div>
-                        1. If the High Council is to be enabled, its members are elected from
-                        top-ranked addresses who stake governance tokens and receive votes.
-                      </div>
-                      <div>
-                        2. If a governance token is not used, only one type of proposal voting
-                        mechanism is supported: &quot;1 address = 1 vote&quot;. With the governance
-                        token enabled, DAOs can support an additional mechanism: &quot;1 token = 1
-                        vote&quot;. You can choose the voting mechanism when you create proposals.
-                      </div>
-                    </div>
-                  }
-                >
-                  <span className="flex items-center form-item-title gap-[8px] pb-[8px] w-[max-content]">
-                    Governance Token
-                    <QuestionIcon className="cursor-pointer " width={16} height={16} />
-                  </span>
-                </Tooltip>
-              </div>
               <FormItem
+                label={
+                  <Tooltip
+                    title={
+                      <div>
+                        <div>
+                          Using a governance token is essential for enabling the High Council and
+                          facilitating additional voting mechanisms.
+                        </div>
+                        <div>
+                          1. If the High Council is to be enabled, its members are elected from
+                          top-ranked addresses who stake governance tokens and receive votes.
+                        </div>
+                        <div>
+                          2. If a governance token is not used, only one type of proposal voting
+                          mechanism is supported: &quot;1 address = 1 vote&quot;. With the governance
+                          token enabled, DAOs can support an additional mechanism: &quot;1 token = 1
+                          vote&quot;. You can choose the voting mechanism when you create proposals.
+                        </div>
+                      </div>
+                    }
+                  >
+                    <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
+                      Governance Token
+                      <QuestionIcon className="cursor-pointer " width={16} height={16} />
+                    </span>
+                  </Tooltip>
+                }
+                labelClassName="!mb-[10px]"
+                className="!mb-2"
                 // validateFirst
                 // rules={[
                 //   {
@@ -323,8 +323,6 @@ export default function BasicDetails() {
                 // ]}
                 // validateTrigger="onBlur"
                 // name={governanceTokenNamePath}
-                label=""
-                className="governance-token-item"
               >
                 <Input
                   placeholder="Enter a token symbol"
@@ -334,16 +332,13 @@ export default function BasicDetails() {
                   }}
                 />
               </FormItem>
-              <div className="mb-[20px] ">
-                <Link
-                  href="https://medium.com/@NFT_Forest_NFT/tutorial-how-to-buy-seeds-and-create-tokens-on-symbol-market-de3aa948bcb4"
-                  target="_blank"
-                >
-                  <span className="text-[14px] leading-[20px] text-colorPrimary">
-                    How to create a token?
-                  </span>
-                </Link>
-              </div>
+              <Link
+                href="https://medium.com/@NFT_Forest_NFT/tutorial-how-to-buy-seeds-and-create-tokens-on-symbol-market-de3aa948bcb4"
+                target="_blank"
+                className="text-desc12 text-mainColor"
+              >
+                How to create a token?
+              </Link>
             </>
           )}
           {daoType === EDaoGovernanceMechanism.Multisig && (
