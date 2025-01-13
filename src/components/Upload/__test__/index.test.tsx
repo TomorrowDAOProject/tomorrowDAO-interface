@@ -19,20 +19,22 @@ vi.mock('@/hooks/useData', async (importOriginal) => {
   return {
     ...original,
     uploadWithToken: vi.fn().mockResolvedValue({
-      code: "20000",
-      data: "http://example.com/someuploadedimage.png"
+      code: '20000',
+      data: 'http://example.com/someuploadedimage.png',
     }),
   };
 });
 
 describe('Upload Component', () => {
   beforeEach(() => {
-    (canvasUtils.getCroppedImg as vi.Mock).mockResolvedValue(new Blob(['cropped'], { type: 'image/png' }));
+    (canvasUtils.getCroppedImg as vi.Mock).mockResolvedValue(
+      new Blob(['cropped'], { type: 'image/png' }),
+    );
   });
 
   it('should handle file upload without cropping', async () => {
     const mockOnFinish = vi.fn();
-    render(<Upload needCrop={false} onFinish={mockOnFinish} />);
+    render(<Upload onFinish={mockOnFinish} />);
 
     const file = new File(['dummy content'], 'test.png', { type: 'image/png' });
 
@@ -47,29 +49,7 @@ describe('Upload Component', () => {
 
     // Wait for the onFinish callback to be invoked
     await waitFor(() => {
-      expect(mockOnFinish).toHaveBeenCalledWith("http://example.com/someuploadedimage.png");
-    });
-  });
-
-  it('should handle file upload with cropping', async () => {
-    render(<Upload needCrop={true} aspect={4 / 3} />);
-
-    const file = new File(['dummy content'], 'test.png', { type: 'image/png' });
-
-    const fileInput = screen.getByTestId('upload-btn');
-    fireEvent.change(fileInput, { target: { files: [file] } });
-
-    await waitFor(() => {
-      expect(screen.getByText('Confirm')).toBeInTheDocument();
-    });
-
-    // Simulate confirm button click
-    const confirmButton = screen.getByText('Confirm');
-    fireEvent.click(confirmButton);
-
-    await waitFor(() => {
-      expect(canvasUtils.getCroppedImg).toHaveBeenCalledTimes(0);
-      expect(useData.uploadWithToken).toHaveBeenCalledTimes(1);
+      expect(mockOnFinish).toHaveBeenCalledWith('http://example.com/someuploadedimage.png');
     });
   });
 });

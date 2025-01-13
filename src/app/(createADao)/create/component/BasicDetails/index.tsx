@@ -278,9 +278,10 @@ export default function BasicDetails() {
                         </div>
                         <div>
                           2. If a governance token is not used, only one type of proposal voting
-                          mechanism is supported: &quot;1 address = 1 vote&quot;. With the governance
-                          token enabled, DAOs can support an additional mechanism: &quot;1 token = 1
-                          vote&quot;. You can choose the voting mechanism when you create proposals.
+                          mechanism is supported: &quot;1 address = 1 vote&quot;. With the
+                          governance token enabled, DAOs can support an additional mechanism:
+                          &quot;1 token = 1 vote&quot;. You can choose the voting mechanism when you
+                          create proposals.
                         </div>
                       </div>
                     }
