@@ -3,16 +3,18 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  @media screen and (max-width: 1120px) {
-    min-height: calc(100vh - 69.69px);
-  }
-  @media screen and (min-width: 1121px) {
-    min-height: calc(100vh - 82.09px);
-  }
+ 
 }
 
 .dao-steps-wrap {
+  box-sizing: border-box;
   align-items: flex-start;
+  @media screen and (max-width: 1120px) {
+    min-height: calc(100vh - 69.69px - 169.06px - 67px - 24px);
+  }
+  @media screen and (min-width: 1121px) {
+    min-height: calc(100vh - 82.09px - 169.06px - 67px - 24px);
+  }
 
   @apply mb-6;
 
@@ -71,14 +73,14 @@
 .dao-create-first-screen {
   .dao-create-first-screen-title {
     font-family: Unbounded;
-    @apply font-medium lg:text-[24px] lg:leading-[32px] text-white text-[20px] leading-[28px];
+    @apply font-[300] lg:text-[22px] lg:leading-[32px] md:text-[22px] md:leading-[32px] text-white text-[20px] leading-[28px];
   }
   .login-btn {
     border:  1.5px solid #fff;
     border-radius: 42px;
     margin-left: auto;
    
-    @apply text-white flex items-center gap-[10px] text-[15px] bg-[transparent]  px-[20px] py-[11px];
+    @apply text-white flex items-center gap-[10px] text-[12px] md:text-[15px] lg:text-[15px] bg-[transparent] px-[14px] py-[8px] lg:px-[20px] lg:py-[11px] md:px-[20px] md:py-[11px];
     span {
       font-family: Montserrat;
       font-style: normal;
@@ -93,12 +95,14 @@
 
   .icon-wrap {
     @apply  flex items-center justify-center py-0 md:py-[50px] lg:py-[50px] rounded-md;
+    
   }
 
   .dao-create-preview {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); */
     gap: 18px;
+    @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:w-full md:w-2/3 md:m-auto;
   }
 
 
@@ -106,15 +110,15 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: #171717;
     @apply flex-1 p-[15px] rounded-xl;
-    
-    p {
+    span {
       font-family: Montserrat;
       @apply font-medium text-[14px] leading-[22px] text-lightGrey mt-[10px] mb-[8px];
     }
 
-    h3 {
+    div {
       font-family: Montserrat;
-      @apply font-medium text-[15px] leading-[24px] text-white;
+      @apply font-medium lg:text-[15px] md:text-[15px] text-[14px] leading-[24px] text-white;
     }
+   
   }
 }
