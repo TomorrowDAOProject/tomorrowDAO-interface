@@ -6,7 +6,8 @@ const buttonStyles = {
   primary:
     'bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor',
   info: 'bg-cyan border-cyan text-white hover:bg-transparent hover:text-cyan hover:border-cyan',
-  warning: 'bg-yellow border-yellow text-white hover:bg-transparent hover:text-yellow hover:border-yellow',
+  warning:
+    'bg-yellow border-yellow text-white hover:bg-transparent hover:text-yellow hover:border-yellow',
   danger: 'bg-red border-red text-white hover:bg-transparent hover:text-red hover:border-red',
   link: 'text-blue-500 hover:underline',
 };
