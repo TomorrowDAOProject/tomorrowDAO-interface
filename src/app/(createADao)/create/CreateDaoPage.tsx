@@ -314,8 +314,8 @@ const CreateDaoPage = () => {
 
   return isShowSecondScreen ? (
     isConnected ? (
-      <>
-        <div className="mb-[15px] py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid">
+      <div className="w-full lg:w-[930px] m-auto">
+        <div className="mb-[15px] py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid ">
           <p className="!mb-[22px] flex items-center justify-between">
             <p className="text-h5 text-white font-Unbounded">Create your DAO</p>
             <span className="text-descM14 text-white font-Montserrat">
@@ -428,7 +428,7 @@ const CreateDaoPage = () => {
             </div>
           </StepsContext.Provider>
         </div>
-      </>
+      </div>
     ) : (
       <Result
         className="px-4 lg:px-8"
