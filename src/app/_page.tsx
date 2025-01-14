@@ -13,7 +13,6 @@ import { ReactComponent as SchordingerIcon } from 'assets/revamp-icon/schordinge
 import { ReactComponent as LongArrowIcon } from 'assets/revamp-icon/long-arrow.svg';
 import Collapse from 'components/Collapse';
 import Swiper from 'components/Swiper';
-import NavFooter from 'components/NavFooter';
 import { useEffect, useMemo, useState } from 'react';
 import { IScrollContext, useScrollContext } from 'provider/ScrollProvider';
 import { AI_DRIVEN_DAO_ITEMS, BLOG_POSTS } from 'constants/home';
