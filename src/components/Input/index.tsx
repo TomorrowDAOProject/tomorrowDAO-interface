@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 interface IInputProps {
   value?: string;
@@ -8,6 +8,8 @@ interface IInputProps {
   className?: string;
   placeholder?: string;
   showClearBtn?: boolean;
+  disabled?: boolean;
+  suffix?: ReactNode;
   onChange?: (value: string) => void;
   onBlur?(): void;
 }
@@ -19,6 +21,8 @@ const Input = ({
   className,
   maxLength,
   showClearBtn,
+  disabled,
+  suffix,
   onChange,
   onBlur,
 }: IInputProps) => {
@@ -43,6 +47,7 @@ const Input = ({
       <input
         type="text"
         value={value}
+        disabled={disabled}
         maxLength={maxLength}
         onChange={handleChange}
         className={clsx(
@@ -52,15 +57,18 @@ const Input = ({
         onBlur={onBlur}
         placeholder={placeholder || 'Please Enter...'}
       />
-      {value && showClearBtn && (
-        <button
-          type="button"
-          onClick={clearInput}
-          className="absolute top-1/2 right-[14px] -translate-y-1/2 p-0 m-0 w-[15px] h-[15px] flex items-center justify-center bg-app-icon-border text-tertiary rounded-[50%] flex-none"
-        >
-          <i className="votigram-icon-cancel text-[8px] leading-[8px] text-tertiary" />
-        </button>
-      )}
+      <div className="absolute top-1/2 right-[14px] -translate-y-1/2 flex flex-row gap-2">
+        {value && showClearBtn && (
+          <button
+            type="button"
+            onClick={clearInput}
+            className="p-0 m-0 w-[15px] h-[15px] flex items-center justify-center bg-app-icon-border text-tertiary rounded-[50%] flex-none"
+          >
+            <i className="votigram-icon-cancel text-[8px] leading-[8px] text-tertiary" />
+          </button>
+        )}
+        {suffix && <span className="text-lightGrey text-desc14">{suffix}</span>}
+      </div>
     </div>
   );
 };
