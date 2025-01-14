@@ -1,11 +1,11 @@
 @font-face {
   font-family: "tmrwdao-icon";
-  src: url('tmrwdao-icon.eot?t=1736820474911'); /* IE9*/
-  src: url('tmrwdao-icon.eot?t=1736820474911#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url("tmrwdao-icon.woff2?t=1736820474911") format("woff2"),
-  url("tmrwdao-icon.woff?t=1736820474911") format("woff"),
-  url('tmrwdao-icon.ttf?t=1736820474911') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('tmrwdao-icon.svg?t=1736820474911#tmrwdao-icon') format('svg'); /* iOS 4.1- */
+  src: url('tmrwdao-icon.eot?t=1736756154314'); /* IE9*/
+  src: url('tmrwdao-icon.eot?t=1736756154314#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("tmrwdao-icon.woff2?t=1736756154314") format("woff2"),
+  url("tmrwdao-icon.woff?t=1736756154314") format("woff"),
+  url('tmrwdao-icon.ttf?t=1736756154314') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('tmrwdao-icon.svg?t=1736756154314#tmrwdao-icon') format('svg'); /* iOS 4.1- */
 }
 
 [class^="tmrwdao-icon-"], [class*=" tmrwdao-icon-"] {
@@ -26,17 +26,14 @@
 .tmrwdao-icon-delete:before { content: "\ea08"; }
 .tmrwdao-icon-document:before { content: "\ea09"; }
 .tmrwdao-icon-down-arrow:before { content: "\ea0a"; }
-.tmrwdao-icon-duplicate:before { content: "\ea0b"; }
-.tmrwdao-icon-github:before { content: "\ea0c"; }
-.tmrwdao-icon-percentage:before { content: "\ea0d"; }
-.tmrwdao-icon-profile:before { content: "\ea0e"; }
-.tmrwdao-icon-right-arrow:before { content: "\ea0f"; }
-.tmrwdao-icon-search:before { content: "\ea10"; }
-.tmrwdao-icon-telegram:before { content: "\ea11"; }
-.tmrwdao-icon-tick:before { content: "\ea12"; }
-.tmrwdao-icon-time-clock:before { content: "\ea13"; }
-.tmrwdao-icon-twitter:before { content: "\ea14"; }
-.tmrwdao-icon-upload-document:before { content: "\ea15"; }
-.tmrwdao-icon-upload:before { content: "\ea16"; }
+.tmrwdao-icon-percentage:before { content: "\ea0b"; }
+.tmrwdao-icon-profile:before { content: "\ea0c"; }
+.tmrwdao-icon-right-arrow:before { content: "\ea0d"; }
+.tmrwdao-icon-search-icon:before { content: "\ea0e"; }
+.tmrwdao-icon-search:before { content: "\ea0f"; }
+.tmrwdao-icon-tick:before { content: "\ea10"; }
+.tmrwdao-icon-time-clock:before { content: "\ea11"; }
+.tmrwdao-icon-upload-document:before { content: "\ea12"; }
+.tmrwdao-icon-upload:before { content: "\ea13"; }
 
 
