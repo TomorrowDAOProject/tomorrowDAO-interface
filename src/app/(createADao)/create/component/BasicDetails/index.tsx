@@ -23,6 +23,7 @@ import FormItem from 'components/FormItem';
 import Upload from 'components/Upload';
 import Radio from 'components/Radio';
 import Tooltip from 'components/Tooltip';
+import LinkGroup from '../LinkGroup';
 
 export const mediaList = [
   ['metadata', 'socialMedia', 'Twitter'],
@@ -37,13 +38,13 @@ const formMembersListNamePath = ['members', 'value'];
 const governanceTokenNamePath = 'governanceToken';
 
 export default function BasicDetails() {
-  const { watch, handleSubmit } = useForm();
+  const { watch, control, handleSubmit } = useForm();
   const [form] = Form.useForm();
-  const [mediaError, setMediaError] = useState<boolean>(false);
+  const [mediaData, setMediaData] = useState([{ name: '', value: '' }]);
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const elfInfo = useSelector((store: any) => store.elfInfo.elfInfo);
   const { walletInfo: wallet } = useConnectWallet();
-  const daoType = watch(governanceMechanismNamePath) ?? EDaoGovernanceMechanism.Token;
+  const daoType = watch(governanceMechanismNamePath) ?? EDaoGovernanceMechanism.Multisig;
   useRegisterForm(form, StepEnum.step0);
   return (
     <div className="basic-detail">
@@ -119,6 +120,14 @@ export default function BasicDetails() {
               community gathers.
             </span>
           </div>
+
+          <Controller
+            name="checkbox"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => <LinkGroup links={mediaData} {...field} />}
+          />
+
           <FormItem
             // name={['metadata', 'socialMedia', 'Twitter']}
             // validateFirst
@@ -221,12 +230,19 @@ export default function BasicDetails() {
             // name={governanceMechanismNamePath}
             // initialValue={EDaoGovernanceMechanism.Token}
           >
-            <Radio
-              options={[
-                { label: 'Token holders', value: EDaoGovernanceMechanism.Token },
-                { label: 'Multisig Members', value: EDaoGovernanceMechanism.Multisig },
-              ]}
-              value={EDaoGovernanceMechanism.Token}
+            <Controller
+              name={governanceMechanismNamePath}
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <Radio
+                  options={[
+                    { label: 'Token holders', value: EDaoGovernanceMechanism.Token },
+                    { label: 'Multisig Members', value: EDaoGovernanceMechanism.Multisig },
+                  ]}
+                  {...field}
+                />
+              )}
             />
             {/* <Radio.Group className="dao-type-select">
               <div className="dao-type-select-item">
