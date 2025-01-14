@@ -1,6 +1,6 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, SetStateAction, useState } from 'react';
 // import InputSlideBind from 'components/InputSlideBind';
 // import { ApproveThresholdTip } from 'components/ApproveThresholdTip';
 // import {
@@ -16,6 +16,7 @@ import Input from 'components/Input';
 import './index.css';
 
 import { ReactComponent as QuestionIcon } from 'assets/imgs/questions-icon.svg';
+import Slider from 'components/Slider';
 
 // const minimalApproveThresholdNamePath = 'minimalApproveThreshold';
 
@@ -26,6 +27,11 @@ const GovernanceModel = () => {
   // useRegisterForm(form, StepEnum.step1);
   // const isMultisig = daoInfo?.governanceMechanism === EDaoGovernanceMechanism.Multisig;
   // const minimalApproveThreshold = Form.useWatch(minimalApproveThresholdNamePath, form);
+
+  const [inputValue, setInputValue] = useState('50');
+  const handleSliderChange = (value: { toString: () => SetStateAction<string> }) => {
+    setInputValue(value.toString());
+  };
   return (
     <div className="governance-form">
       <div className="form-list">
@@ -51,7 +57,7 @@ const GovernanceModel = () => {
             </span>
           </Tooltip>
           <div>
-            <Input className="mt-[15px]" placeholder="At least 1 member required" />
+            <Input className="mt-[15px] font-Montserrat" placeholder="At least 1 member required" />
           </div>
         </div>
         <div className="form-item">
@@ -63,8 +69,28 @@ const GovernanceModel = () => {
               <QuestionIcon className="cursor-pointer " width={18} height={18} />
             </span>
           </Tooltip>
-          <Input className="mt-[8px]" placeholder="50%" />
-          <Input className="mt-[15px]" placeholder="Enter a reasonable value" />
+          <div className="flex flex-col items-center lg:flex-row md:flex-row gap-[50px] mt-2">
+            <div className="w-full lg:w-2/5 md:w-2/5 relative">
+              <Input
+                className="font-Montserrat"
+                defaultValue={'50'}
+                value={inputValue}
+                onChange={(value) => setInputValue(value)}
+                placeholder=""
+              />
+              <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
+                %
+              </span>
+            </div>
+            <Slider
+              className="w-full lg:w-3/5 md:w-3/5"
+              min={0}
+              max={100}
+              step={1}
+              value={Number(inputValue)}
+              onChange={handleSliderChange}
+            />
+          </div>
         </div>
         <div className="form-item">
           <Tooltip title="The minimum number of governance tokens a user must hold to initiate a proposal. Entering 0 means that a user can initiate a proposal without holding any governance tokens.">
@@ -73,7 +99,7 @@ const GovernanceModel = () => {
               <QuestionIcon className="cursor-pointer " width={18} height={18} />
             </span>
           </Tooltip>
-          <Input className="mt-[15px]" placeholder="Enter 0 or more" />
+          <Input className="mt-[15px] font-Montserrat" placeholder="Enter 0 or more" />
         </div>
       </div>
     </div>
