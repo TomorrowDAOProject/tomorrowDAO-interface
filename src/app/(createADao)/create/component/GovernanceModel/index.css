@@ -3,6 +3,9 @@
   .TMRWDAO-input-number {
     @apply w-full;
   }
+  .ant-form-item-required {
+    color: #fff
+  }
 
   .form-title-primary {
     @apply text-[20px] leading-[28px] text-neutralTitle font-medium;
