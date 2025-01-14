@@ -15,13 +15,7 @@ interface ISelectProps {
   onChange?(option: SelectOption): void;
 }
 
-const Select: React.FC<ISelectProps> = ({
-  className,
-  label,
-  options,
-  placehoder,
-  onChange,
-}) => {
+const Select: React.FC<ISelectProps> = ({ className, label, options, placehoder, onChange }) => {
   const [selected, setSelected] = useState<SelectOption | undefined>();
   const [isOpen, setIsOpen] = useState(false);
 
