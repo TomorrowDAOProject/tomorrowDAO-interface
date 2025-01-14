@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 const buttonStyles = {
-  default: 'bg-gray-200 border-gray-200 text-gray-800 hover:bg-transparent hover:border-gray-200',
+  default: 'bg-transparent border-fillBg8 text-lightGrey hover:text-white hover:border-white',
   primary:
     'bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor',
   info: 'bg-cyan border-cyan text-white hover:bg-transparent hover:text-cyan hover:border-cyan',
@@ -34,6 +34,7 @@ const Button = ({
 }: IButtonProps) => {
   return (
     <button
+      type="button"
       className={clsx(
         'py-2 px-[14px] lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid text-descM12 lg:text-descM15 rounded-[42px] appearence-none outline-none transition-[background,color] duration-300 ease-in-out',
         buttonStyles[type],
