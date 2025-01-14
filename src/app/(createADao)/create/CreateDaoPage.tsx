@@ -37,6 +37,7 @@ import { trimAddress } from 'utils/address';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import ProgressBar from 'components/Progress';
 import Button from 'components/Button';
+import Navigation from './component/Navigation';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -315,6 +316,7 @@ const CreateDaoPage = () => {
   return isShowSecondScreen ? (
     isConnected ? (
       <div className="w-full lg:w-[930px] m-auto">
+        <Navigation />
         <div className="mb-[15px] py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid ">
           <p className="!mb-[22px] flex items-center justify-between">
             <p className="text-h5 text-white font-Unbounded">Create your DAO</p>
@@ -394,11 +396,10 @@ const CreateDaoPage = () => {
               {isNotFirstStep && (
                 <Button
                   type="primary"
-                  className="w-40 lg:flex-none gap-2"
+                  className="lg:flex-none gap-2 border border-white bg-transparent hover:border-white hover:text-white"
                   onClick={() => send({ type: 'PREVIOUS' })}
                 >
-                  <ArrowLeft />
-                  <span>Back</span>
+                  Back
                 </Button>
               )}
 
@@ -406,7 +407,7 @@ const CreateDaoPage = () => {
                 <SubmitButton
                   buttonProps={{
                     type: 'primary',
-                    className: 'w-40 lg:flex-none gap-2',
+                    className: 'lg:flex-none gap-2',
                   }}
                   onConfirm={handleCreateDao}
                   ref={submitButtonRef}
@@ -417,7 +418,7 @@ const CreateDaoPage = () => {
               ) : (
                 <Button
                   type="primary"
-                  className="w-40 lg:flex-none gap-2"
+                  className="lg:flex-none gap-2"
                   onClick={handleNextStep}
                   loading={nextLoading}
                 >
