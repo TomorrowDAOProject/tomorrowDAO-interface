@@ -8,8 +8,7 @@ import { ReactComponent as GoStart } from 'assets/revamp-icon/go-start.svg';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 import { ReactComponent as ArrowLeft } from 'assets/revamp-icon/arrow-left.svg';
-
-import Navigation from './component/Navigation';
+import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
 
 import './index.css';
 
@@ -32,7 +31,11 @@ export const FirstScreen = (props: IFirstScreenProps) => {
   return (
     <div className="dao-steps-wrap">
       <div className="col-12 box-border">
-        <Navigation />
+        <div className="md:mt-[47px] lg:mt-[67px] mb-[15px] dao-create-first-header hidden items-center gap-2 md:flex lg:flex">
+          <span className="text-lightGrey text-[15px] cursor-pointer">TMRW DAO</span>
+          <ArrowRight />
+          <span className="text-white text-[14px]">Create a DAO</span>
+        </div>
 
         <div className="md:mt-[47px] lg:mt-[67px] mb-[30px] dao-create-first-header flex items-center gap-2 md:hidden lg:hidden">
           <ArrowLeft />
