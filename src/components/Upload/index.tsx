@@ -1,6 +1,7 @@
 import { ReactNode, useRef, useState } from 'react';
+import Image from 'next/image';
 import clsx from 'clsx';
-import LoadingCompo from '../LoadingCompo';
+import LoadingComponent from '../LoadingComponent';
 import pinFileToIPFS from 'components/PinFileToIPFS';
 import { toast } from 'react-toastify';
 import { checkImgSize } from 'utils/checkImgSize';
@@ -125,44 +126,42 @@ const Upload = ({
   };
 
   return (
-    <>
-      <div
-        className={clsx(
-          'relative w-full h-[250px] p-[11px] flex flex-col items-center justify-center bg-fillBg8 rounded-[12px] border-none cursor-pointer overflow-hidden',
-          className,
-        )}
-        onClick={handleClick}
-      >
-        {imageSrc ? (
-          <img src={imageSrc} className="w-full h-full object-cover" alt="Banner" />
-        ) : children ? (
-          children
-        ) : (
-          <>
-            <i className="tmrwdao-icon-upload text-[28px] text-white" />
-            {uploadText && (
-              <span className="mt-[11px] mb-1 font-Unbounded text-[15px] font-light text-white -tracking-[0.6px]">
-                {uploadText}
-              </span>
-            )}
-            {tips && (
-              <span className="font-Montserrat text-center text-[11px] text-lightGrey leading-[17.6px] text-white whitespace-pre-wrap">
-                {tips}
-              </span>
-            )}
-          </>
-        )}
-        <input
-          type="file"
-          ref={fileInputRef}
-          className="hidden"
-          accept=".png, .jpg, .jpeg"
-          onChange={handleFileChange}
-        />
+    <div
+      className={clsx(
+        'relative w-full h-[250px] p-[11px] flex flex-col items-center justify-center bg-fillBg8 rounded-[12px] border-none cursor-pointer overflow-hidden',
+        className,
+      )}
+      onClick={handleClick}
+    >
+      {imageSrc ? (
+        <Image src={imageSrc} className="w-full h-full object-cover" alt="Banner" />
+      ) : children ? (
+        children
+      ) : (
+        <>
+          <i className="tmrwdao-icon-upload text-[28px] text-white" />
+          {uploadText && (
+            <span className="mt-[11px] mb-1 font-Unbounded text-[15px] font-light text-white -tracking-[0.6px]">
+              {uploadText}
+            </span>
+          )}
+          {tips && (
+            <span className="font-Montserrat text-center text-[11px] text-lightGrey leading-[17.6px] text-white whitespace-pre-wrap">
+              {tips}
+            </span>
+          )}
+        </>
+      )}
+      <input
+        type="file"
+        ref={fileInputRef}
+        className="hidden"
+        accept=".png, .jpg, .jpeg"
+        onChange={handleFileChange}
+      />
 
-        {loading && <LoadingCompo className="absolute top-0 left-0 right-0 bottom-0 z-10" />}
-      </div>
-    </>
+      {loading && <LoadingComponent className="absolute top-0 left-0 right-0 bottom-0 z-10" />}
+    </div>
   );
 };
 

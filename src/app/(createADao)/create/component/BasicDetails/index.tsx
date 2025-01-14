@@ -267,23 +267,23 @@ export default function BasicDetails() {
                 label={
                   <Tooltip
                     title={
-                      <div>
-                        <div>
+                      <>
+                        <p className="!mb-4 text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
                           Using a governance token is essential for enabling the High Council and
                           facilitating additional voting mechanisms.
-                        </div>
-                        <div>
+                        </p>
+                        <p className="!mb-4 text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
                           1. If the High Council is to be enabled, its members are elected from
                           top-ranked addresses who stake governance tokens and receive votes.
-                        </div>
-                        <div>
+                        </p>
+                        <p className="text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
                           2. If a governance token is not used, only one type of proposal voting
                           mechanism is supported: &quot;1 address = 1 vote&quot;. With the
                           governance token enabled, DAOs can support an additional mechanism:
                           &quot;1 token = 1 vote&quot;. You can choose the voting mechanism when you
                           create proposals.
-                        </div>
-                      </div>
+                        </p>
+                      </>
                     }
                   >
                     <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
