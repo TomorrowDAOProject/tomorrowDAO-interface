@@ -1,7 +1,6 @@
 'use client';
 
-import { Tooltip } from 'aelf-design';
-import { Form, InputNumber } from 'antd';
+import { Form } from 'antd';
 import { InfoCircleOutlined } from '@aelf-design/icons';
 import { memo, useContext } from 'react';
 import InputSlideBind from 'components/InputSlideBind';
@@ -15,6 +14,8 @@ import {
 } from '../utils';
 import './index.css';
 import { EDaoGovernanceMechanism, StepEnum, StepsContext } from '../../type';
+import Tooltip from 'components/Tooltip';
+import Input from 'components/Input';
 const minimalApproveThresholdNamePath = 'minimalApproveThreshold';
 const GovernanceModel = () => {
   const [form] = Form.useForm();
@@ -109,7 +110,7 @@ const GovernanceModel = () => {
             validateFirst={true}
             rules={min2maxIntegerRule}
           >
-            <InputNumber placeholder="Enter a reasonable value" controls={false} />
+            <Input placeholder="Enter a reasonable value" />
           </Form.Item>
         )}
 
@@ -202,7 +203,7 @@ const GovernanceModel = () => {
               ),
             ]}
           >
-            <InputNumber placeholder="Enter 0 or more" controls={false} />
+            <Input placeholder="Enter 0 or more" />
           </Form.Item>
         )}
       </Form>
