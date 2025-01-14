@@ -4,6 +4,7 @@ import 'styles/global.css';
 import 'styles/button.css';
 import 'styles/theme.css';
 import 'aelf-design/css';
+import 'assets/fonts/tmrwdao-icon.css';
 import Provider from 'provider/';
 import Script from 'next/script';
 import StyleRegistry from './StyleRegistry';

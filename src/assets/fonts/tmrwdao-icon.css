@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "tmrwdao-icon";
+  src: url('tmrwdao-icon.eot?t=1736756154314'); /* IE9*/
+  src: url('tmrwdao-icon.eot?t=1736756154314#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("tmrwdao-icon.woff2?t=1736756154314") format("woff2"),
+  url("tmrwdao-icon.woff?t=1736756154314") format("woff"),
+  url('tmrwdao-icon.ttf?t=1736756154314') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('tmrwdao-icon.svg?t=1736756154314#tmrwdao-icon') format('svg'); /* iOS 4.1- */
+}
+
+[class^="tmrwdao-icon-"], [class*=" tmrwdao-icon-"] {
+  font-family: 'tmrwdao-icon' !important;font-size: undefined;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.tmrwdao-icon-arrow:before { content: "\ea01"; }
+.tmrwdao-icon-calendar:before { content: "\ea02"; }
+.tmrwdao-icon-chat-bubble:before { content: "\ea03"; }
+.tmrwdao-icon-circle-add:before { content: "\ea04"; }
+.tmrwdao-icon-circle-minus:before { content: "\ea05"; }
+.tmrwdao-icon-cross:before { content: "\ea06"; }
+.tmrwdao-icon-default-arrow:before { content: "\ea07"; }
+.tmrwdao-icon-delete:before { content: "\ea08"; }
+.tmrwdao-icon-document:before { content: "\ea09"; }
+.tmrwdao-icon-down-arrow:before { content: "\ea0a"; }
+.tmrwdao-icon-percentage:before { content: "\ea0b"; }
+.tmrwdao-icon-profile:before { content: "\ea0c"; }
+.tmrwdao-icon-right-arrow:before { content: "\ea0d"; }
+.tmrwdao-icon-search-icon:before { content: "\ea0e"; }
+.tmrwdao-icon-search:before { content: "\ea0f"; }
+.tmrwdao-icon-tick:before { content: "\ea10"; }
+.tmrwdao-icon-time-clock:before { content: "\ea11"; }
+.tmrwdao-icon-upload-document:before { content: "\ea12"; }
+.tmrwdao-icon-upload:before { content: "\ea13"; }
+
+

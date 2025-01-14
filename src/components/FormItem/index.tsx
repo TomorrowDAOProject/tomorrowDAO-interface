@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import React from 'react';
 
 interface IFormItemProps {
-  label?: string;
+  label?: React.ReactNode;
   className?: string;
+  labelClassName?: string;
   desc?: string;
   children: React.ReactNode;
   errorText?: string;
@@ -15,13 +16,19 @@ const FormItem: React.FC<IFormItemProps> = ({
   label,
   desc,
   className,
+  labelClassName,
   children,
   errorText,
   required,
 }) => {
   return (
-    <div className={clsx('py-3', className)}>
-      <div className="mb-[12px] flex flex-row items-center justify-between w-full">
+    <div className={clsx('mb-[50px]', className)}>
+      <div
+        className={clsx(
+          'mb-[15px] flex flex-row items-center justify-between w-full',
+          labelClassName,
+        )}
+      >
         {label && (
           <span className="inline-block relative pr-[8px] font-Montserrat text-descM16 text-white">
             {label}
