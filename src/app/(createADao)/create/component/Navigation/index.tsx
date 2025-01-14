@@ -1,11 +1,12 @@
 import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
+import './index.css';
 
 const navigation = () => {
   return (
-    <div className="md:mt-[47px] lg:mt-[67px] mb-[15px] dao-create-first-header hidden items-center gap-2 md:flex lg:flex">
-      <span className="text-lightGrey text-[15px] cursor-pointer">TMRW DAO</span>
+    <div className="md:mt-[63px] lg:mt-[63px] mb-[26px] mt-[24px] items-center gap-2 flex create-dao-navigation">
+      <span className="text-lightGrey text-[15px] cursor-pointer home-text">TMRW DAO</span>
       <ArrowRight />
-      <span className="text-white text-[14px]">Create a DAO</span>
+      <span className="text-white text-[14px] create-dao">Create a DAO</span>
     </div>
   );
 };
