@@ -60,6 +60,7 @@
     "echarts-for-react": "^2.0.14",
     "elliptic": "^6.5.4",
     "eslint-plugin-no-inline-styles": "^1.0.5",
+    "framer-motion": "^11.18.0",
     "garfish": "^1.17.6",
     "graphql": "^16.8.1",
     "js-cookie": "^2.2.0",

@@ -59,16 +59,14 @@ const Textarea = ({
         placeholder={placeholder || 'Please enter...'}
         rows={1}
       />
-      {charCount > 0 && (
-        <span
-          className={clsx(
-            'absolute right-[16px] bottom-[13px] inline-block text-[11px] leading-[17.6px] text-lightGrey',
-            { '!text-danger': charCount === maxLength },
-          )}
-        >
-          {charCount}/{maxLength}
-        </span>
-      )}
+      <span
+        className={clsx(
+          'absolute right-[16px] bottom-[13px] inline-block text-[11px] leading-[17.6px] text-lightGrey',
+          { '!text-danger': charCount === maxLength },
+        )}
+      >
+        {charCount}/{maxLength}
+      </span>
     </div>
   );
 };
