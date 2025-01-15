@@ -2,13 +2,13 @@ import { ReactNode, useContext, useMemo, useState } from 'react';
 import { Flex, Checkbox, CheckboxProps } from 'antd';
 import { FontWeightEnum, Typography, HashAddress } from 'aelf-design';
 import Image from 'next/image';
-import CommonModalSwitchDrawer from 'components/CommonModalSwitchDrawer';
 import CommonDaoLogo, { CommonDaoLogoSizeEnum } from 'components/CommonDaoLogo';
 import { colorfulSocialMediaIconMap } from 'assets/imgs/socialMediaIcon';
 import { useSelector } from 'redux/store';
 import './index.css';
 import { StepsContext, StepEnum, EDaoGovernanceMechanism } from '../../type';
 import { curChain } from 'config';
+import Modal from 'components/Modal';
 
 const { Text, Title } = Typography;
 
@@ -125,15 +125,12 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
 
   const logoUrl = metaData?.metadata?.logoUrl?.[0]?.response?.url;
   return (
-    <CommonModalSwitchDrawer
-      commonClassName="create-preview-modal"
-      title="Confirm"
-      modalWidth={800}
-      footerConfig={{
-        buttonList: [{ children: 'Confirm', onClick: onConfirm, disabled: disabled }],
-      }}
-      open={open}
-      onClose={onClose}
+    <Modal
+      // title="Confirm"
+      // footerConfig={{
+      //   buttonList: [{ children: 'Confirm', onClick: onConfirm, disabled: disabled }],
+      // }}
+      isVisible={open}
     >
       <Flex vertical gap={24}>
         <Flex vertical gap={12}>
@@ -230,6 +227,6 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
           })}
         />
       </Flex>
-    </CommonModalSwitchDrawer>
+    </Modal>
   );
 }
