@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { forwardRef, LegacyRef, ReactNode, useEffect, useState } from 'react';
 
 interface IInputProps {
   value?: string;
@@ -11,21 +11,24 @@ interface IInputProps {
   disabled?: boolean;
   suffix?: ReactNode;
   onChange?: (value: string) => void;
-  onBlur?(): void;
+  onBlur?(value: string): void;
 }
 
-const Input = ({
-  value: parentValue,
-  defaultValue,
-  placeholder,
-  className,
-  maxLength,
-  showClearBtn,
-  disabled,
-  suffix,
-  onChange,
-  onBlur,
-}: IInputProps) => {
+const Input = (
+  {
+    value: parentValue,
+    defaultValue,
+    placeholder,
+    className,
+    maxLength,
+    showClearBtn,
+    disabled,
+    suffix,
+    onChange,
+    onBlur,
+  }: IInputProps,
+  ref: LegacyRef<HTMLInputElement>,
+) => {
   const [value, setValue] = useState(defaultValue || '');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +48,7 @@ const Input = ({
   return (
     <div className="relative w-full">
       <input
+        ref={ref}
         type="text"
         value={value}
         disabled={disabled}
@@ -54,7 +58,7 @@ const Input = ({
           'w-full border border-solid border-fillBg8 rounded-[8px] pl-[16px] pr-10 py-[13px] bg-transparent text-white text-desc14 font-normal leading-[19px] placeholder-lightGrey focus:outline-none transition duration-300 ease-in-out',
           className,
         )}
-        onBlur={onBlur}
+        onBlur={() => onBlur?.(value)}
         placeholder={placeholder || 'Please Enter...'}
       />
       <div className="absolute top-1/2 right-[14px] -translate-y-1/2 flex flex-row gap-2">
@@ -73,4 +77,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default forwardRef(Input);

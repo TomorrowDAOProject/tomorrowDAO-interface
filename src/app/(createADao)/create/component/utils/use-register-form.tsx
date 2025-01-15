@@ -1,6 +1,7 @@
 import { FormInstance } from 'antd';
 import { useContext, useEffect } from 'react';
 import { StepEnum, StepsContext } from '../../type';
+import { UseFormReturn } from 'react-hook-form';
 
 export const useRegisterForm = (form: FormInstance, stepEnum: StepEnum) => {
   const { stepForm, onRegister } = useContext(StepsContext);
