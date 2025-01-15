@@ -68,7 +68,7 @@ export default function BasicDetails() {
           >
             <Input placeholder="Enter a name for the DAO" />
           </FormItem>
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col lg:flex-row">
             <FormItem
               // name={['metadata', 'logoUrl']}
               // valuePropName="fileList"
@@ -102,10 +102,10 @@ export default function BasicDetails() {
               // ]}
               // name={['metadata', 'description']}
               label="Description"
-              className="md:ml-[50px] md:flex-grow"
+              className="lg:ml-[50px] md:flex-grow"
             >
               <Textarea
-                rootClassName="md:h-[250px]"
+                rootClassName="lg:h-[250px]"
                 maxLength={240}
                 value={'description'}
                 placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}

@@ -70,11 +70,11 @@ const LinkGroup: React.FC<ILinkGroupProps> = ({ links, onChange }) => {
   return (
     <div className="mb-[50px]">
       {linkData?.map((link, index) => (
-        <div className="mb-6 flex flex-col md:flex-row gap-6" key={`${link.name}_${index}`}>
+        <div className="mb-6 flex flex-col lg:flex-row gap-6" key={`${link.name}_${index}`}>
           <Select
             label="Name"
             placehoder="Select Social Media"
-            className="w-[250px]"
+            className="lg:w-[250px]"
             options={socialMedia}
             onChange={(option) => handleSelectChange(option, index)}
           />
