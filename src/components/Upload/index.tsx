@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useState } from 'react';
+import { forwardRef, LegacyRef, ReactNode, useRef, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import LoadingComponent from '../LoadingComponent';
@@ -41,16 +41,19 @@ const readFile = (file: File) => {
   });
 };
 
-const Upload = ({
-  className,
-  children,
-  uploadText,
-  tips,
-  fileLimit = '1 MB',
-  needCheckImgSize,
-  fileNameLengthLimit,
-  onFinish,
-}: IUploadProps) => {
+const Upload = (
+  {
+    className,
+    children,
+    uploadText,
+    tips,
+    fileLimit = '1 MB',
+    needCheckImgSize,
+    fileNameLengthLimit,
+    onFinish,
+  }: IUploadProps,
+  ref: LegacyRef<HTMLInputElement>,
+) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState<string>();
@@ -165,4 +168,4 @@ const Upload = ({
   );
 };
 
-export default Upload;
+export default forwardRef(Upload);

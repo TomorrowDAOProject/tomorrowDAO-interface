@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { forwardRef, LegacyRef, useEffect, useRef, useState } from 'react';
 
 interface ITextareaProps {
   value: string;
@@ -11,24 +11,16 @@ interface ITextareaProps {
   onSubmit?: (text: string) => void;
 }
 
-const Textarea = ({
-  value,
-  onChange,
-  placeholder,
-  maxLength = 500,
-  rootClassName,
-}: ITextareaProps) => {
+const Textarea = (
+  { value, onChange, placeholder, maxLength = 500, rootClassName }: ITextareaProps,
+  ref: LegacyRef<HTMLTextAreaElement>,
+) => {
   const [text, setText] = useState(value);
   const [charCount, setCharCount] = useState(0);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setText(value);
     setCharCount(value?.length);
-    const textarea = textareaRef.current;
-    if (!value && textarea) {
-      textarea.style.height = 'auto';
-    }
   }, [value]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -47,7 +39,7 @@ const Textarea = ({
   return (
     <div className="relative rounded-[8px]">
       <textarea
-        ref={textareaRef}
+        ref={ref}
         className={clsx(
           'py-[13px] px-[16px] w-full h-[121px] rounded-[8px] placeholder:font-questrial border border-solid border-fillBg8 bg-transparent text-white text-desc14 font-Montserrat caret-white outline-none resize-none appearance-none',
 
@@ -71,4 +63,4 @@ const Textarea = ({
   );
 };
 
-export default Textarea;
+export default forwardRef(Textarea);
