@@ -26,7 +26,7 @@ const Select: React.FC<ISelectProps> = ({ className, label, options, placehoder,
   };
 
   return (
-    <div className="relative w-64">
+    <div className="relative">
       {label && (
         <span className="block mb-[10px] text-descM14 font-Montserrat text-white">{label}</span>
       )}
