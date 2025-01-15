@@ -32,6 +32,10 @@ const GovernanceModel = () => {
   const handleSliderChange = (value: { toString: () => SetStateAction<string> }) => {
     setInputValue(value.toString());
   };
+
+  const changeValue = (value: string) => {
+    setInputValue(value);
+  };
   return (
     <div className="governance-form">
       <div className="form-list">
@@ -75,8 +79,8 @@ const GovernanceModel = () => {
                 className="font-Montserrat"
                 defaultValue={'50'}
                 value={inputValue}
-                onChange={(value) => setInputValue(value)}
-                placeholder=""
+                onChange={(value) => changeValue(value)}
+                placeholder=" "
               />
               <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
                 %
