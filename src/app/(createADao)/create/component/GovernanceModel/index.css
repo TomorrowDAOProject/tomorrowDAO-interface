@@ -1,10 +1,19 @@
 .governance-form {
-
   .TMRWDAO-input-number {
     @apply w-full;
+  }
+  .ant-form-item-required {
+    color: #fff
   }
 
   .form-title-primary {
     @apply text-[20px] leading-[28px] text-neutralTitle font-medium;
+  }
+  .form-list {
+    @apply flex flex-col gap-[50px]
+  }
+  .form-item-label-text {
+    font-family: Montserrat;
+    @apply text-white leading-4
   }
 }
