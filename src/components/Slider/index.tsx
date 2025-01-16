@@ -6,6 +6,7 @@ interface SliderProps {
   max?: number;
   step?: number;
   value?: number;
+  disabled?: boolean;
   onChange?: (value: number) => void;
   className?: string;
 }
@@ -15,6 +16,7 @@ const Slider: React.FC<SliderProps> = ({
   max = 100,
   step = 1,
   value = 50,
+  disabled,
   onChange,
   className,
 }) => {
@@ -42,6 +44,7 @@ const Slider: React.FC<SliderProps> = ({
         max={max}
         step={step}
         value={value}
+        disabled={disabled}
         onChange={handleChange}
       />
       <div className="flex items-center justify-between text-[12px] text-lightGrey mt-2">

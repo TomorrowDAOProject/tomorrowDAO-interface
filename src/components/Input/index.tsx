@@ -10,6 +10,7 @@ interface IInputProps {
   showClearBtn?: boolean;
   disabled?: boolean;
   suffix?: ReactNode;
+  regExp?: RegExp;
   onChange?: (value: string) => void;
   onBlur?(value: string): void;
 }
@@ -24,6 +25,7 @@ const Input = (
     showClearBtn,
     disabled,
     suffix,
+    regExp,
     onChange,
     onBlur,
   }: IInputProps,
@@ -32,6 +34,7 @@ const Input = (
   const [value, setValue] = useState(defaultValue || '');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (regExp && !regExp?.test(e.target.value)) return;
     setValue(e.target.value || '');
     onChange?.(e.target.value || '');
   };
@@ -42,8 +45,9 @@ const Input = (
   };
 
   useEffect(() => {
+    if (parentValue && regExp && !regExp?.test(parentValue)) return;
     setValue(parentValue || '');
-  }, [parentValue]);
+  }, [parentValue, regExp]);
 
   return (
     <div className="relative w-full">

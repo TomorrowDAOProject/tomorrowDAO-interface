@@ -1,6 +1,5 @@
 'use client';
 
-import { Form } from 'antd';
 import { memo, useContext } from 'react';
 import InputSlideBind from 'components/InputSlideBind';
 import { ApproveThresholdTip } from 'components/ApproveThresholdTip';
@@ -17,25 +16,21 @@ import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 
 import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
+import { useForm } from 'react-hook-form';
 
 const minimalApproveThresholdNamePath = 'minimalApproveThreshold';
 
 const GovernanceModel = () => {
-  const [form] = Form.useForm();
+  const form = useForm();
+  const { watch } = form;
   const { stepForm } = useContext(StepsContext);
   const daoInfo = stepForm[StepEnum.step0].submitedRes;
   useRegisterForm(form, StepEnum.step1);
   const isMultisig = daoInfo?.governanceMechanism === EDaoGovernanceMechanism.Multisig;
-  const minimalApproveThreshold = Form.useWatch(minimalApproveThresholdNamePath, form);
+  const minimalApproveThreshold = watch('minimalApproveThreshold');
   return (
     <div className="governance-form">
-      <Form
-        form={form}
-        layout="vertical"
-        autoComplete="off"
-        requiredMark={false}
-        scrollToFirstError={true}
-      >
+      <form>
         {/* {isMultisig ? (
           <Form.Item
             name={'minimalRequiredThreshold'}
@@ -209,7 +204,7 @@ const GovernanceModel = () => {
             <Input placeholder="Enter 0 or more" />
           </Form.Item>
         )}
-      </Form>
+      </form>
     </div>
   );
 };
