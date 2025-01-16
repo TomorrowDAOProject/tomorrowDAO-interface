@@ -1,22 +1,30 @@
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Typography, FontWeightEnum } from 'aelf-design';
-import { Form } from 'antd';
-import IPFSUpload from 'components/IPFSUpload';
 import './index.css';
-import { StepEnum, StepsContext } from '../../type';
-import { useRegisterForm, validatorCreate } from '../utils';
+import { StepEnum } from '../../type';
+import { useRegisterForm } from '../utils';
+import { Controller, useForm } from 'react-hook-form';
+import FormItem from 'components/FormItem';
+import Upload from 'components/Upload';
 
 const { Title } = Typography;
 
 const FILE_LIMIT = '20 MB';
 const MAX_FILE_COUNT = 20;
-const MAX_FILE_NAME_LENGTH = 128;
 export default function ContractsAndFiles() {
-  const [form] = Form.useForm();
+  const form = useForm({
+    defaultValues: {
+      files: [],
+    },
+  });
+  const {
+    watch,
+    control,
+    formState: { errors },
+  } = form;
   useRegisterForm(form, StepEnum.step3);
-  const { stepForm } = useContext(StepsContext);
 
-  const fileList = Form.useWatch('files', form) ?? [];
+  const fileList = watch('files') ?? [];
 
   const isUploadDisabled = useMemo(() => {
     return fileList.length >= MAX_FILE_COUNT;
@@ -53,47 +61,36 @@ export default function ContractsAndFiles() {
       <Title className="secondary-text">
         It is recommended to upload at least a project whitepaper and roadmap
       </Title>
-      <Form
-        form={form}
-        layout="vertical"
-        autoComplete="off"
-        requiredMark={false}
-        scrollToFirstError={true}
-        onValuesChange={(_a, values) => {
-          stepForm[StepEnum.step3].submitedRes = values;
-        }}
-      >
-        <Form.Item
-          name={'files'}
-          validateFirst={true}
-          rules={[
-            {
-              required: true,
-              type: 'array',
-              message: 'Add at least one documentation',
-            },
-            validatorCreate(
-              (v) => v.length > 20,
-              `You have reached the maximum limit of 20 files. Please consider removing some files before uploading a new one. If you need further assistance, you can join TMRWDAO's Telegram group.`,
-            ),
-          ]}
-          valuePropName="fileList"
-          initialValue={[]}
-        >
-          <IPFSUpload
-            className="upload"
-            isAntd
-            accept=".pdf"
-            fileLimit={FILE_LIMIT}
-            maxCount={MAX_FILE_COUNT}
-            fileNameLengthLimit={MAX_FILE_NAME_LENGTH}
-            uploadIconColor="#1A1A1A"
-            uploadText="Click to Upload"
-            tips={uploadTips}
-            disabled={isUploadDisabled}
+      <form>
+        <FormItem label="Logo" errorText={errors?.files?.message}>
+          <Controller
+            name="files"
+            control={control}
+            rules={{
+              required: 'Add at least one documentation',
+              validate: {
+                validator: (v) =>
+                  v.length <= 20 ||
+                  `You have reached the maximum limit of 20 files. Please consider removing some files before uploading a new one. If you need further assistance, you can join TMRWDAO's Telegram group.`,
+              },
+            }}
+            render={({ field }) => (
+              <Upload
+                accept=".pdf"
+                className="mx-auto"
+                needCheckImgSize
+                fileLimit={FILE_LIMIT}
+                uploadText="Click to Upload"
+                tips={uploadTips}
+                onFinish={({ url }) => {
+                  const newFiles = [...fileList, url];
+                  field.onChange(newFiles);
+                }}
+              />
+            )}
           />
-        </Form.Item>
-      </Form>
+        </FormItem>
+      </form>
     </div>
   );
 }

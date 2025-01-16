@@ -15,8 +15,11 @@ import { ReactComponent as ArrowRight } from 'assets/imgs/arrow-right.svg';
 import { ReactComponent as ArrowLeft } from 'assets/imgs/arrow-left.svg';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import {
+  BasicInfoSubmitedRes,
   EDaoGovernanceMechanism,
+  FilesSubmitedRes,
   IFile,
+  IGovernanceSchemeThreshold,
   IHighCouncilInput,
   IStepsContext,
   StepEnum,
@@ -38,6 +41,7 @@ import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import ProgressBar from 'components/Progress';
 import Button from 'components/Button';
 import Navigation from './component/Navigation';
+import { UseFormReturn } from 'react-hook-form';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -64,15 +68,18 @@ const CreateDaoPage = () => {
     if (form) {
       setNextLoading(true);
       form
-        ?.validateFields()
-        .then((res) => {
+        ?.trigger()
+        .then((isValid: boolean) => {
           setNextLoading(false);
-          stepsFormMapRef.current.stepForm[currentStepString].submitedRes = res;
-          send({ type: 'NEXT' });
+          if (isValid) {
+            const values = form?.getValues();
+            stepsFormMapRef.current.stepForm[currentStepString].submitedRes = values;
+            send({ type: 'NEXT' });
+          }
         })
         .catch((err: IFormValidateError) => {
+          console.error(err);
           setNextLoading(false);
-          formValidateScrollFirstError(form, err);
         });
     } else {
       messageApi.open({
@@ -88,7 +95,11 @@ const CreateDaoPage = () => {
   // };
 
   const onRegisterHandler = useCallback(
-    (ins: FormInstance) => {
+    (
+      ins: UseFormReturn<
+        BasicInfoSubmitedRes | IGovernanceSchemeThreshold | IHighCouncilInput | FilesSubmitedRes
+      >,
+    ) => {
       stepsFormMapRef.current.stepForm[currentStepString].formInstance = ins;
     },
     [currentStepString],
@@ -104,8 +115,7 @@ const CreateDaoPage = () => {
     const form = stepForm[StepEnum.step3].formInstance;
     const isNetworkDaoLocal = localStorage.getItem('is_network_dao');
     if (form) {
-      const res = await form?.validateFields();
-      stepForm[StepEnum.step3].submitedRes = res;
+      await form?.trigger();
       const originMetadata = stepForm[StepEnum.step0].submitedRes;
       const originSocialMedia = (originMetadata?.metadata?.socialMedia ?? {}) as object;
       const socialMedia = Object.keys(originSocialMedia).reduce((acc, key) => {
@@ -151,7 +161,7 @@ const CreateDaoPage = () => {
         if (governanceConfig) {
           governanceConfig = {
             ...governanceConfig,
-            minimalApproveThreshold: governanceConfig.minimalApproveThreshold * 100,
+            minimalApproveThreshold: (governanceConfig?.minimalApproveThreshold || 0) * 100,
             // maximalRejectionThreshold: governanceConfig.maximalRejectionThreshold * 100,
             // maximalAbstentionThreshold: governanceConfig.maximalAbstentionThreshold * 100,
           };
@@ -181,32 +191,16 @@ const CreateDaoPage = () => {
         if (isShowHighCouncil && !isMultisig) {
           let highCouncilForm = stepForm[StepEnum.step2].submitedRes;
           if (highCouncilForm && daoCreateToken?.decimals) {
-            // const stakingAmount = 1;
             const minimalVoteThreshold =
               highCouncilForm.governanceSchemeThreshold.minimalVoteThreshold;
-            // const stakingAmountDecimals = Number(
-            //   timesDecimals(stakingAmount, daoCreateToken.decimals),
-            // );
             highCouncilForm = {
-              // highCouncilConfig: {
-              //   maxHighCouncilMemberCount: 10000,
-              //   stakingAmount: stakingAmountDecimals,
-              //   electionPeriod: Number.MAX_SAFE_INTEGER,
-              //   maxHighCouncilCandidateCount: 10000,
-              // },
               governanceSchemeThreshold: {
                 ...highCouncilForm.governanceSchemeThreshold,
-                // minimalRequiredThreshold:
-                //   highCouncilForm.governanceSchemeThreshold.minimalRequiredThreshold * 100,
                 minimalVoteThreshold: Number(
                   timesDecimals(minimalVoteThreshold, daoCreateToken.decimals),
                 ),
                 minimalApproveThreshold:
-                  highCouncilForm.governanceSchemeThreshold.minimalApproveThreshold * 100,
-                // maximalRejectionThreshold:
-                //   highCouncilForm.governanceSchemeThreshold.maximalRejectionThreshold * 100,
-                // maximalAbstentionThreshold:
-                //   highCouncilForm.governanceSchemeThreshold.maximalAbstentionThreshold * 100,
+                  (highCouncilForm?.governanceSchemeThreshold?.minimalApproveThreshold || 0) * 100,
               },
               highCouncilMembers: {
                 value:
@@ -357,7 +351,9 @@ const CreateDaoPage = () => {
                     value={isShowHighCouncil}
                   />
                 </div>
-                <p className="step-subtitle">A supplementary governance mechanism</p>
+                <p className="mb-2 text-descM13 text-white font-Montserrat">
+                  A supplementary governance mechanism
+                </p>
                 <p className="text-desc12 text-lightGrey font-Montserrat">
                   High Council is an optional governance mechanism that supplements Referendum. High
                   Council members are granted authority and the responsibility to partake in DAO

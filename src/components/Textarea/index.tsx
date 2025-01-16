@@ -3,16 +3,17 @@ import React, { forwardRef, LegacyRef, useEffect, useRef, useState } from 'react
 
 interface ITextareaProps {
   value: string;
-  onChange: (value: string) => void;
   disabled?: boolean;
   placeholder?: string;
   maxLength?: number;
   rootClassName?: string;
+  onBlur?: (value: string) => void;
+  onChange: (value: string) => void;
   onSubmit?: (text: string) => void;
 }
 
 const Textarea = (
-  { value, onChange, placeholder, maxLength = 500, rootClassName }: ITextareaProps,
+  { value, onChange, onBlur, placeholder, maxLength = 500, rootClassName }: ITextareaProps,
   ref: LegacyRef<HTMLTextAreaElement>,
 ) => {
   const [text, setText] = useState(value);
@@ -47,6 +48,7 @@ const Textarea = (
         )}
         value={text}
         maxLength={maxLength}
+        onBlur={() => onBlur?.(text)}
         onChange={handleChange}
         placeholder={placeholder || 'Please enter...'}
         rows={1}
