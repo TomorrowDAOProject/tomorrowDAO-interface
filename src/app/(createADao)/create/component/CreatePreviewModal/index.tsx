@@ -16,7 +16,7 @@ function SocialMediaItem({ name, url }: { name: string; url: string }) {
   return (
     <div className="social-media-item flex items-center gap-2">
       <Image src={(colorfulSocialMediaIconMap as any)[name]} alt="media" width={16} height={16} />
-      <Text>{url}</Text>
+      <span>{url}</span>
     </div>
   );
 }
@@ -33,7 +33,7 @@ function CheckboxItem({
     children?: ReactNode[];
   } | null)[];
   checked?: boolean;
-  onChange?: CheckboxProps['onChange'];
+  onChange?: () => void;
 }) {
   const newDescriptionList = useMemo(() => {
     return descriptionList?.filter(Boolean) as {
@@ -43,7 +43,7 @@ function CheckboxItem({
   }, [descriptionList]);
   return (
     <div className="flex flex-col gap-4 text-white">
-      <div checked={checked} onChange={onChange} className="preview-modal-checkbox">
+      <div onChange={onChange} className="preview-modal-checkbox">
         <div className={`font-[500]`}>{label}</div>
       </div>
       {newDescriptionList?.map(({ content, children }, index) => (
@@ -134,8 +134,8 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       isVisible={open}
       onClose={onClose}
     >
-      <div className="flex flex-col">
-        <div className="flex gap-3">
+      <div className="flex flex-col mt-[30px]">
+        <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2">
             {logoUrl && (
               <CommonDaoLogo
@@ -144,11 +144,9 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
                 size={CommonDaoLogoSizeEnum.Small}
               />
             )}
-            <Title level={5} fontWeight={FontWeightEnum.Medium}>
-              {metaData?.metadata?.name}
-            </Title>
+            <div className="font-[500]">{metaData?.metadata?.name}</div>
           </div>
-          <Text className="text-white">{metaData?.metadata?.description}</Text>
+          <span className="text-white">{metaData?.metadata?.description}</span>
           <div className="flex gap-3 flex-wrap">
             {socialMediaList.map(
               ({ name, url }, index) =>
@@ -160,15 +158,15 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
           <AddressItem isBoldLabel label="Metadata admin" address={walletInfo.address} />
           {metaData?.governanceToken && (
             <div className="flex gap-2 items-center">
-              <Title fontWeight={FontWeightEnum.Medium}>Governance token:</Title>
-              <Text>{metaData?.governanceToken}</Text>
+              <span className="font-[500]">Governance token:</span>
+              <span>{metaData?.governanceToken}</span>
             </div>
           )}
         </div>
         <CheckboxItem
           label="Referendum"
           checked={state[0]}
-          onChange={(e) => setState([e.target.checked, state[1], state[2]])}
+          // setState([e.target.checked, state[1], state[2]])
           descriptionList={[
             !isMultisig
               ? {
@@ -190,7 +188,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
           <CheckboxItem
             label="High Council"
             checked={state[1]}
-            onChange={(e) => setState([state[0], e.target.checked, state[2]])}
+            //  setState([state[0], e.target.checked, state[2]])
             descriptionList={[
               // {
               //   content: `
@@ -219,7 +217,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
         )}
         <CheckboxItem
           checked={state[2]}
-          onChange={(e) => setState([state[0], state[1], e.target.checked])}
+          // setState([state[0], state[1], e.target.checked])
           label={`Documentation ${files?.files?.length ? `(${files?.files?.length})` : ''}`}
           descriptionList={files?.files?.map((item) => {
             return {
