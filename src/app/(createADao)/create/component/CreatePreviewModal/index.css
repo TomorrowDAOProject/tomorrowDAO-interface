@@ -1,12 +1,13 @@
 .create-preview-modal {
+  @apply border border-solid border-[rgba(255,255,255,0.08)] m-auto bg-darkBg rounded-xl py-[30px] px-[28px] md:py-[30px] md:px-[38px] lg:py-[30px] lg:px-[38px] font-Montserrat mx-[20px] md:w-[528px] md:mx-0 lg:w-[740px] lg:mx-0;
   .social-media-item {
-    @apply flex-none px-2 py-1 rounded-md bg-[#F6F6F6];
+    @apply flex-none px-2 py-1 rounded-md;
   }
 
   .address {
     @apply items-center;
 
-    &>span {
+    & > span {
       @apply font-normal hover:text-[#434343] active:text-[#434343];
     }
   }
@@ -16,7 +17,7 @@
   }
 
   .dot {
-    @apply flex-none mt-2 size-[6px] rounded-full bg-[#434343];
+    @apply flex-none mt-1 size-[6px] rounded-full bg-white;
   }
 
   .TMRWDAO-checkbox {

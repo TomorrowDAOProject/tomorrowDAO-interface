@@ -309,7 +309,7 @@ const CreateDaoPage = () => {
 
   return isShowSecondScreen ? (
     isConnected ? (
-      <div className="w-full">
+      <div className="w-full m-auto">
         <Navigation />
         <div className="mb-[15px] py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid ">
           <p className="!mb-[22px] flex items-center justify-between">
