@@ -23,7 +23,7 @@ const HighCouncil = () => {
     defaultValues: {
       minimalVoteThreshold: '',
       governanceSchemeThreshold: {
-        minimalApproveThreshold: '',
+        minimalApproveThreshold: '50',
       },
       highCouncilMembers: { value: [`ELF_${wallet?.address}_${curChain}`] },
     },
