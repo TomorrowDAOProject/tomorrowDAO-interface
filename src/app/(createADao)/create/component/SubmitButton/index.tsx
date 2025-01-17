@@ -21,7 +21,7 @@ type TResultModalConfig = Pick<
 >;
 
 const INIT_PREVIEW_MODAL_CONFIG: TPreviewModalConfig = {
-  open: false,
+  open: true,
 };
 
 const INIT_RESULT_MODAL_CONFIG: TResultModalConfig = {
