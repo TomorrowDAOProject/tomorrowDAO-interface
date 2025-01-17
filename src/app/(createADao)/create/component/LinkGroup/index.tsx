@@ -4,14 +4,9 @@ import Input from 'components/Input';
 import Select, { SelectOption } from 'components/Select';
 import { useState } from 'react';
 
-type LinkItem = {
-  name: string;
-  value: string;
-};
-
 interface ILinkGroupProps {
-  links: LinkItem[];
-  onChange?(links: LinkItem[]): void;
+  onBlur?(links: Record<string, number>): void;
+  onChange?(links: Record<string, number>): void;
 }
 
 const socialMedia = [
@@ -37,42 +32,41 @@ const socialMedia = [
   },
 ];
 
-const LinkGroup: React.FC<ILinkGroupProps> = ({ links, onChange }) => {
-  const [linkData, setLinkData] = useState<LinkItem[]>(links);
+const LinkGroup = ({ onBlur, onChange }: ILinkGroupProps) => {
+  const [linkData, setLinkData] = useState<string[][]>([['', '']]);
   const handleSelectChange = (option: SelectOption, index: number) => {
     const originLinks = [...linkData];
-    originLinks[index].name = option.value;
+    originLinks[index][0] = option.value;
     setLinkData(originLinks);
-    onChange?.(originLinks);
   };
 
   const handleInputChange = (value: string, index: number) => {
     const originLinks = [...linkData];
-    originLinks[index].value = value;
+    originLinks[index][1] = value;
     setLinkData(originLinks);
-    onChange?.(originLinks);
+    const socialMedia = Object.fromEntries(originLinks);
+    onChange?.(socialMedia);
   };
 
   const addLink = () => {
-    const originLinks = [...linkData, { name: '', value: '' }];
+    const originLinks = [...linkData, ['', '']];
     setLinkData(originLinks);
-    onChange?.(originLinks);
   };
 
-  const removeLink = () => {
-    if (links.length <= 1) return;
-    const originLinks = [...links];
-    originLinks.pop();
+  const removeLink = (index: number) => {
+    if (linkData.length <= 1) return;
+    const originLinks = [...linkData];
+    originLinks.splice(index, 1);
     setLinkData(originLinks);
-    onChange?.(originLinks);
   };
 
   return (
-    <div className="mb-[50px]">
+    <>
       {linkData?.map((link, index) => (
-        <div className="mb-6 flex flex-col lg:flex-row gap-6" key={`${link.name}_${index}`}>
+        <div className="mb-6 flex flex-col lg:flex-row gap-6" key={`${link[0]}_${index}`}>
           <Select
             label="Name"
+            value={link[0]}
             placehoder="Select Social Media"
             className="lg:w-[250px]"
             options={socialMedia}
@@ -81,15 +75,19 @@ const LinkGroup: React.FC<ILinkGroupProps> = ({ links, onChange }) => {
           <div className="flex flex-col flex-grow">
             <span className="block mb-[10px] text-descM14 font-Montserrat text-white">Link</span>
             <div className="flex flex-row flex-grow items-center">
-              <Input className="flex-1" onChange={(value) => handleInputChange(value, index)} />
+              <Input
+                className="flex-1"
+                onBlur={() => onBlur?.(Object.fromEntries(linkData))}
+                onChange={(value) => handleInputChange(value, index)}
+              />
               <i
                 className={clsx(
                   'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer',
                   {
-                    'text-darkGray': links.length <= 1,
+                    'text-darkGray': linkData.length <= 1,
                   },
                 )}
-                onClick={removeLink}
+                onClick={() => removeLink(index)}
               />
             </div>
           </div>
@@ -100,7 +98,7 @@ const LinkGroup: React.FC<ILinkGroupProps> = ({ links, onChange }) => {
         <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
         Add link
       </Button>
-    </div>
+    </>
   );
 };
 

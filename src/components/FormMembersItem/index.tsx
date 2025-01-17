@@ -34,7 +34,6 @@ function FormMembersItem(props: IFormMembersProps) {
     disableInput = false,
   } = props;
   const fields = Form.useWatch(name, form);
-  console.log('emptyNode && !fields?.length', name, form, fields);
 
   const showNullWhenEmpty = hiddenExtraWhenEmpty && !fields?.length;
   return (

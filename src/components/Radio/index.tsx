@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, LegacyRef } from 'react';
 import clsx from 'clsx';
 
 export type Option = {
@@ -12,12 +12,13 @@ interface IRadioProps {
   onChange?(value: string | number): void;
 }
 
-const Radio = ({ options, value, onChange }: IRadioProps) => {
+const Radio = ({ options, value, onChange }: IRadioProps, ref: LegacyRef<HTMLInputElement>) => {
   return (
     <div className="flex gap-[10px] flex-col md:flex-row md:gap-[116px]">
       {options.map((option) => (
         <label key={option.value} className="flex items-center cursor-pointer">
           <input
+            ref={ref}
             type="radio"
             className="hidden"
             value={option.value}
@@ -41,4 +42,4 @@ const Radio = ({ options, value, onChange }: IRadioProps) => {
   );
 };
 
-export default Radio;
+export default forwardRef(Radio);
