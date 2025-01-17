@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export interface SelectOption {
   label: string;
@@ -7,6 +7,7 @@ export interface SelectOption {
 }
 
 interface ISelectProps {
+  value?: string;
   className?: string;
   label?: React.ReactNode;
   options: SelectOption[];
@@ -15,15 +16,29 @@ interface ISelectProps {
   onChange?(option: SelectOption): void;
 }
 
-const Select: React.FC<ISelectProps> = ({ className, label, options, placehoder, onChange }) => {
+const Select: React.FC<ISelectProps> = ({
+  className,
+  value,
+  label,
+  options,
+  placehoder,
+  onChange,
+}) => {
   const [selected, setSelected] = useState<SelectOption | undefined>();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelect = (option: SelectOption) => {
     setSelected(option);
-    onChange?.(option);
     setIsOpen(false);
+    onChange?.(option);
   };
+
+  useEffect(() => {
+    if (value) {
+      const currentValue = options.find((option) => option.value === value);
+      setSelected(currentValue);
+    }
+  }, [value]);
 
   return (
     <div className="relative">

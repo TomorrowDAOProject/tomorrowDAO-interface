@@ -1,7 +1,7 @@
 import { ReactNode, useRef, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
-import LoadingComponent from '../LoadingComponent';
+import Spinner from '../Spinner';
 import pinFileToIPFS from 'components/PinFileToIPFS';
 import { toast } from 'react-toastify';
 import { checkImgSize } from 'utils/checkImgSize';
@@ -13,7 +13,8 @@ interface IUploadProps {
   needCheckImgSize?: boolean;
   children?: ReactNode;
   uploadText?: string;
-  tips?: string;
+  accept?: string;
+  tips?: ReactNode;
   fileNameLengthLimit?: number;
   onFinish?(data: { url: string }): void;
 }
@@ -46,6 +47,7 @@ const Upload = ({
   children,
   uploadText,
   tips,
+  accept,
   fileLimit = '1 MB',
   needCheckImgSize,
   fileNameLengthLimit,
@@ -128,13 +130,19 @@ const Upload = ({
   return (
     <div
       className={clsx(
-        'relative w-full h-[250px] p-[11px] flex flex-col items-center justify-center bg-fillBg8 rounded-[12px] border-none cursor-pointer overflow-hidden',
+        'relative w-full h-[250px] flex flex-col items-center justify-center bg-fillBg8 rounded-[12px] border-none cursor-pointer overflow-hidden',
         className,
       )}
       onClick={handleClick}
     >
       {imageSrc ? (
-        <Image src={imageSrc} className="w-full h-full object-cover" alt="Banner" />
+        <Image
+          src={imageSrc}
+          width={250}
+          height={250}
+          className="w-full h-full object-cover"
+          alt="Banner"
+        />
       ) : children ? (
         children
       ) : (
@@ -156,11 +164,11 @@ const Upload = ({
         type="file"
         ref={fileInputRef}
         className="hidden"
-        accept=".png, .jpg, .jpeg"
+        accept={accept || '.png, .jpg, .jpeg'}
         onChange={handleFileChange}
       />
 
-      {loading && <LoadingComponent className="absolute top-0 left-0 right-0 bottom-0 z-10" />}
+      {loading && <Spinner size={60} className="absolute top-0 left-0 right-0 bottom-0 z-10" />}
     </div>
   );
 };
