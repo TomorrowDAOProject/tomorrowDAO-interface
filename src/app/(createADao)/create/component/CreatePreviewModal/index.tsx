@@ -1,6 +1,6 @@
 import { ReactNode, useContext, useMemo, useState } from 'react';
 // import { Flex, Checkbox, CheckboxProps } from 'antd';
-import { FontWeightEnum, Typography, HashAddress } from 'aelf-design';
+import { HashAddress } from 'aelf-design';
 import Image from 'next/image';
 import CommonDaoLogo, { CommonDaoLogoSizeEnum } from 'components/CommonDaoLogo';
 import { colorfulSocialMediaIconMap } from 'assets/imgs/socialMediaIcon';
@@ -9,14 +9,13 @@ import './index.css';
 import { StepsContext, StepEnum, EDaoGovernanceMechanism } from '../../type';
 import { curChain } from 'config';
 import Modal from 'components/Modal';
-
-const { Text, Title } = Typography;
+import Button from 'components/Button';
 
 function SocialMediaItem({ name, url }: { name: string; url: string }) {
   return (
-    <div className="social-media-item flex items-center gap-2">
+    <div className="social-media-item flex items-center gap-2 bg-[rgba(255,255,255,0.08)] rounded-sm">
       <Image src={(colorfulSocialMediaIconMap as any)[name]} alt="media" width={16} height={16} />
-      <span>{url}</span>
+      <span className="text-lightGrey text-[12px]">{url}</span>
     </div>
   );
 }
@@ -42,9 +41,9 @@ function CheckboxItem({
     }[];
   }, [descriptionList]);
   return (
-    <div className="flex flex-col gap-4 text-white">
+    <div className="flex flex-col gap-4 text-white mb-[30px]">
       <div onChange={onChange} className="preview-modal-checkbox">
-        <div className={`font-[500]`}>{label}</div>
+        <div className={`font-[500] text-[15px]`}>{label}</div>
       </div>
       {newDescriptionList?.map(({ content, children }, index) => (
         <div key={index} className="ml-6 flex gap-2 items-start">
@@ -53,11 +52,13 @@ function CheckboxItem({
             <div className="flex gap-2">
               <span className={`font-[500]`}>{content}</span>
               {children.map((item, idx) => (
-                <span key={idx}>{item}</span>
+                <span key={idx} className="text-lightGrey text-[12px]">
+                  {item}
+                </span>
               ))}
             </div>
           ) : (
-            <span>{content}</span>
+            <span className="text-lightGrey text-[12px]">{content}</span>
           )}
         </div>
       ))}
@@ -77,7 +78,7 @@ function AddressItem({
   return (
     <div className={`flex items-center  flex-wrap ${isBoldLabel ? 'gap-2' : 'gap-0'}`}>
       {isBoldLabel ? (
-        <div className="mr-1 text-white font-[500]">{label}:</div>
+        <div className="mr-1 text-white font-[500] text-[15px]">{label}:</div>
       ) : (
         <span className="mr-2 text-white">{label}:</span>
       )}
@@ -102,6 +103,8 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
   const highCouncil = stepForm[StepEnum.step2].submitedRes;
   const files = stepForm[StepEnum.step3].submitedRes;
 
+  console.log('metaData', metaData, governance, highCouncil, files);
+
   const isMultisig = metaData?.governanceMechanism === EDaoGovernanceMechanism.Multisig;
   const disabled =
     state.findIndex((item, index) => {
@@ -121,7 +124,9 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
     };
   });
 
-  const logoUrl = metaData?.metadata?.logoUrl?.[0]?.response?.url;
+  const logoUrl: any = metaData?.metadata?.logoUrl;
+
+  console.log('metaData', metaData);
 
   console.log('open', open);
   return (
@@ -135,7 +140,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       onClose={onClose}
     >
       <div className="flex flex-col mt-[30px]">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             {logoUrl && (
               <CommonDaoLogo
@@ -144,9 +149,9 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
                 size={CommonDaoLogoSizeEnum.Small}
               />
             )}
-            <div className="font-[500]">{metaData?.metadata?.name}</div>
+            <div className="font-[500] text-white text-[18px]">{metaData?.metadata?.name}</div>
           </div>
-          <span className="text-white">{metaData?.metadata?.description}</span>
+          <span className="text-lightGrey text-[13px]">{metaData?.metadata?.description}</span>
           <div className="flex gap-3 flex-wrap">
             {socialMediaList.map(
               ({ name, url }, index) =>
@@ -154,17 +159,18 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
             )}
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-col mt-4">
           <AddressItem isBoldLabel label="Metadata admin" address={walletInfo.address} />
           {metaData?.governanceToken && (
-            <div className="flex gap-2 items-center">
-              <span className="font-[500]">Governance token:</span>
-              <span>{metaData?.governanceToken}</span>
+            <div className="flex gap-2 items-center ">
+              <span className="font-[500] text-[15px] text-white">Governance token:</span>
+              <span className="text-lightGrey text-[12px]">{metaData?.governanceToken}</span>
             </div>
           )}
         </div>
+        <div className="h-[1px] w-full bg-[rgba(255,255,255,0.08)] my-[30px]"></div>
         <CheckboxItem
-          label="Referendum"
+          label="Governance: Referendum"
           checked={state[0]}
           // setState([e.target.checked, state[1], state[2]])
           descriptionList={[
@@ -225,6 +231,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
             };
           })}
         />
+        <Button>Confirm</Button>
       </div>
     </Modal>
   );
