@@ -17,7 +17,7 @@
   }
 
   .dot {
-    @apply flex-none mt-2 size-[6px] rounded-full bg-white;
+    @apply flex-none mt-1 size-[6px] rounded-full bg-white;
   }
 
   .TMRWDAO-checkbox {
