@@ -54,43 +54,43 @@ export default function ContractsAndFiles() {
   }, [isUploadDisabled]);
 
   return (
-    <div className="contracts-and-files">
-      <Title className="primary-text" level={6} fontWeight={FontWeightEnum.Medium}>
-        Documentation
-      </Title>
-      <Title className="secondary-text">
-        It is recommended to upload at least a project whitepaper and roadmap
-      </Title>
-      <form>
-        <FormItem label="Logo" errorText={errors?.files?.message}>
-          <Controller
-            name="files"
-            control={control}
-            rules={{
-              required: 'Add at least one documentation',
-              validate: {
-                validator: (v) =>
-                  v.length <= 20 ||
-                  `You have reached the maximum limit of 20 files. Please consider removing some files before uploading a new one. If you need further assistance, you can join TMRWDAO's Telegram group.`,
-              },
+    <FormItem
+      label={
+        <>
+          <p className="!mb-[15px] text-descM16 text-white font-Montserrat">Documentation</p>
+          <p className="font-Montserrat text-desc12 text-lightGrey font-Montserrat">
+            It is recommended to upload at least a project whitepaper and roadmap
+          </p>
+        </>
+      }
+      errorText={errors?.files?.message}
+    >
+      <Controller
+        name="files"
+        control={control}
+        rules={{
+          required: 'Add at least one documentation',
+          validate: {
+            validator: (v) =>
+              v.length <= 20 ||
+              `You have reached the maximum limit of 20 files. Please consider removing some files before uploading a new one. If you need further assistance, you can join TMRWDAO's Telegram group.`,
+          },
+        }}
+        render={({ field }) => (
+          <Upload
+            accept=".pdf"
+            className="mx-auto"
+            needCheckImgSize
+            fileLimit={FILE_LIMIT}
+            uploadText="Click to Upload"
+            tips={uploadTips}
+            onFinish={(file) => {
+              const newFiles = [...fileList, file];
+              field.onChange(newFiles);
             }}
-            render={({ field }) => (
-              <Upload
-                accept=".pdf"
-                className="mx-auto"
-                needCheckImgSize
-                fileLimit={FILE_LIMIT}
-                uploadText="Click to Upload"
-                tips={uploadTips}
-                onFinish={({ url }) => {
-                  const newFiles = [...fileList, url];
-                  field.onChange(newFiles);
-                }}
-              />
-            )}
           />
-        </FormItem>
-      </form>
-    </div>
+        )}
+      />
+    </FormItem>
   );
 }
