@@ -833,7 +833,7 @@ class VoteContainer extends Component {
       amount: voteAmountInput * ELF_DECIMAL,
       endTimestamp: {
         seconds: lockTime.unix(),
-        nanos: lockTime.valueOf() * 1000000,
+        nanos: lockTime.millseconds() * 1000000,
       },
     };
     const chainIdQuery = getChainIdQuery();
