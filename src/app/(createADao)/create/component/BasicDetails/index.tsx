@@ -1,7 +1,6 @@
 import './index.css';
 import ChainAddress from 'components/Address';
 import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
-import { useState } from 'react';
 import { facebookUrlRegex, twitterUsernameRegex, useRegisterForm } from '../utils';
 import { EDaoGovernanceMechanism, StepEnum } from '../../type';
 import { useSelector } from 'react-redux';
@@ -10,7 +9,7 @@ import { fetchTokenInfo } from 'api/request';
 import { setToken } from 'redux/reducer/daoCreate';
 import Link from 'next/link';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
-import { useForm, Controller, SubmitHandler, UseFormReturn } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 
 import { curChain } from 'config';
 import Input from 'components/Input';
@@ -60,7 +59,6 @@ export default function BasicDetails() {
     trigger,
     setValue,
     getValues,
-    handleSubmit,
   } = form;
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const elfInfo = useSelector((store: any) => store.elfInfo.elfInfo);
@@ -69,15 +67,9 @@ export default function BasicDetails() {
   const membersValue = watch('members.value') ?? [];
   useRegisterForm(form, StepEnum.step0);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
-  console.log('errors', errors);
-
   return (
     <div className="basic-detail">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <FormItem label="Name" errorText={errors?.metadata?.name?.message}>
           <Controller
             name="metadata.name"

@@ -231,7 +231,9 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
             };
           })}
         />
-        <Button>Confirm</Button>
+        <Button disabled={disabled} onClick={onConfirm}>
+          Confirm
+        </Button>
       </div>
     </Modal>
   );
