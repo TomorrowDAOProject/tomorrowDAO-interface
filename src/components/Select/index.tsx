@@ -16,7 +16,14 @@ interface ISelectProps {
   onChange?(option: SelectOption): void;
 }
 
-const Select: React.FC<ISelectProps> = ({ className, value, label, options, placehoder, onChange }) => {
+const Select: React.FC<ISelectProps> = ({
+  className,
+  value,
+  label,
+  options,
+  placehoder,
+  onChange,
+}) => {
   const [selected, setSelected] = useState<SelectOption | undefined>();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,7 +38,7 @@ const Select: React.FC<ISelectProps> = ({ className, value, label, options, plac
       const currentValue = options.find((option) => option.value === value);
       setSelected(currentValue);
     }
-  }, [value])
+  }, [options, value]);
 
   return (
     <div className="relative">
