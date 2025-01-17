@@ -4,7 +4,7 @@ import { useMachine } from '@xstate/react';
 import { formMachine } from './xstate';
 import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { message as antdMessage, FormInstance, Result, Switch, Tag } from 'antd';
+import { Result, Switch } from 'antd';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import SubmitButton, { ISubmitRef } from './component/SubmitButton';
@@ -12,7 +12,6 @@ import { daoCreateContractRequest } from 'contract/daoCreateContract';
 import { useSelector } from 'redux/store';
 import { timesDecimals } from 'utils/calculate';
 import { ReactComponent as ArrowRight } from 'assets/imgs/arrow-right.svg';
-import { ReactComponent as ArrowLeft } from 'assets/imgs/arrow-left.svg';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import {
   BasicInfoSubmitedRes,
@@ -31,7 +30,6 @@ import Link from 'next/link';
 import { IFormValidateError, IContractError } from 'types';
 import { cloneDeep, cloneDeepWith } from 'lodash-es';
 import { NetworkName } from 'config';
-import formValidateScrollFirstError from 'utils/formValidateScrollFirstError';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import breadCrumb from 'utils/breadCrumb';
 import { FirstScreen } from './FirstScreen';
@@ -42,6 +40,7 @@ import ProgressBar from 'components/Progress';
 import Button from 'components/Button';
 import Navigation from './component/Navigation';
 import { UseFormReturn } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -49,7 +48,6 @@ const CreateDaoPage = () => {
   const currentStepString = currentStep.toString() as StepEnum;
 
   const isHighCouncilStep = currentStepString === StepEnum.step2;
-  const [messageApi, contextHolder] = antdMessage.useMessage();
   const daoCreateToken = useSelector((store) => store.daoCreate.token);
   const { isSyncQuery } = useAelfWebLoginSync();
   const submitButtonRef = useRef<ISubmitRef>(null);
@@ -82,17 +80,9 @@ const CreateDaoPage = () => {
           setNextLoading(false);
         });
     } else {
-      messageApi.open({
-        type: 'error',
-        content: 'No registration form',
-      });
+      toast.error('No registration form');
     }
   };
-  // const handleSkip = () => {
-  //   isSkipHighCouncil.current = true;
-  //   stepsFormMapRef.current.stepForm[StepEnum.step2].submitedRes = undefined;
-  //   send({ type: 'NEXT' });
-  // };
 
   const onRegisterHandler = useCallback(
     (
@@ -116,24 +106,16 @@ const CreateDaoPage = () => {
     const isNetworkDaoLocal = localStorage.getItem('is_network_dao');
     if (form) {
       await form?.trigger();
+      const values = form?.getValues();
+      stepForm[StepEnum.step3].submitedRes = values as FilesSubmitedRes;
       const originMetadata = stepForm[StepEnum.step0].submitedRes;
-      const originSocialMedia = (originMetadata?.metadata?.socialMedia ?? {}) as object;
-      const socialMedia = Object.keys(originSocialMedia).reduce((acc, key) => {
-        const k = key as keyof typeof originSocialMedia;
-        if (originSocialMedia[k]) {
-          acc[key] = originSocialMedia[k];
-        }
-        return acc;
-      }, {} as Record<string, string>);
       const metadata = {
         ...originMetadata,
         members: {
-          value: originMetadata?.members?.value?.map((item) => trimAddress(item)) ?? [],
-        },
-        metadata: {
-          ...originMetadata?.metadata,
-          logoUrl: originMetadata?.metadata?.logoUrl?.[0]?.response?.url,
-          socialMedia,
+          value:
+            originMetadata?.members?.value
+              ?.filter((address) => address)
+              ?.map((item) => trimAddress(item)) ?? [],
         },
       };
 
@@ -141,7 +123,6 @@ const CreateDaoPage = () => {
         const files: IFile[] =
           stepForm[StepEnum.step3].submitedRes?.files?.map((file) => {
             const url = new URL(file.response.url);
-            // const url = file.response.url;
             const id = url.pathname.split('/').pop() ?? '';
             return {
               cid: id,
@@ -162,14 +143,7 @@ const CreateDaoPage = () => {
           governanceConfig = {
             ...governanceConfig,
             minimalApproveThreshold: (governanceConfig?.minimalApproveThreshold || 0) * 100,
-            // maximalRejectionThreshold: governanceConfig.maximalRejectionThreshold * 100,
-            // maximalAbstentionThreshold: governanceConfig.maximalAbstentionThreshold * 100,
           };
-          // isMultisig, it is a percentage
-          // if (isMultisig) {
-          //   governanceConfig.minimalRequiredThreshold =
-          //     governanceConfig.minimalRequiredThreshold * 100;
-          // }
         }
         // eslint-disable-next-line prefer-const
         let { proposalThreshold, ...restGovernanceConfig } = governanceConfig ?? {};
@@ -185,7 +159,7 @@ const CreateDaoPage = () => {
           files,
           isNetworkDao: isNetworkDaoLocal
             ? isNetworkDaoLocal === 'true'
-            : metadata.metadata.name === NetworkName,
+            : metadata?.metadata?.name === NetworkName,
         };
         // highCouncil not skip
         if (isShowHighCouncil && !isMultisig) {
@@ -242,11 +216,9 @@ const CreateDaoPage = () => {
                   <Link
                     href={`/explore`}
                     onClick={() => {
-                      antdMessage.open({
-                        type: 'success',
-                        content:
-                          'created successfully, it will appear in the list in a few minutes',
-                      });
+                      toast.error(
+                        'created successfully, it will appear in the list in a few minutes',
+                      );
                     }}
                   >
                     <span className="text-white">View My DAO</span>
@@ -258,10 +230,7 @@ const CreateDaoPage = () => {
         });
       } catch (err) {
         if (typeof err === 'string') {
-          antdMessage.open({
-            type: 'error',
-            content: 'Please check your internet connection and try again. ',
-          });
+          toast.error('Please check your internet connection and try again. ');
           return;
         }
         const error = err as IFormValidateError | IContractError;
@@ -372,7 +341,6 @@ const CreateDaoPage = () => {
           </div>
         </div>
         <div className="py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid">
-          {contextHolder}
           <StepsContext.Provider
             value={{
               ...stepsFormMapRef.current,
@@ -400,14 +368,7 @@ const CreateDaoPage = () => {
               )}
 
               {currentStep === 3 ? (
-                <SubmitButton
-                  buttonProps={{
-                    type: 'primary',
-                    className: 'lg:flex-none gap-2',
-                  }}
-                  onConfirm={handleCreateDao}
-                  ref={submitButtonRef}
-                >
+                <SubmitButton onConfirm={handleCreateDao} ref={submitButtonRef}>
                   <span>Submit</span>
                   <ArrowRight />
                 </SubmitButton>

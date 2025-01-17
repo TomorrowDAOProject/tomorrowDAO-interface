@@ -38,7 +38,7 @@ const Select: React.FC<ISelectProps> = ({
       const currentValue = options.find((option) => option.value === value);
       setSelected(currentValue);
     }
-  }, [value]);
+  }, [options, value]);
 
   return (
     <div className="relative">
