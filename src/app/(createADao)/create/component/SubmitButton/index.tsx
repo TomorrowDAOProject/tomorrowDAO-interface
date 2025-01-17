@@ -1,14 +1,13 @@
 import React, { useCallback, useContext, useState, forwardRef, useImperativeHandle } from 'react';
-import { Button, IButtonProps } from 'aelf-design';
 import CreatePreviewModal, { ICreatePreviewModalProps } from '../CreatePreviewModal';
 import CommonOperationResultModal, {
   CommonOperationResultModalType,
   TCommonOperationResultModalProps,
 } from 'components/CommonOperationResultModal';
 import { StepEnum, StepsContext } from '../../type';
+import Button from 'components/Button';
 
 interface ISubmitButtonProps {
-  buttonProps?: Omit<IButtonProps, 'onClick'>;
   children?: React.ReactNode;
   onConfirm?: () => void;
 }
@@ -21,7 +20,7 @@ type TResultModalConfig = Pick<
 >;
 
 const INIT_PREVIEW_MODAL_CONFIG: TPreviewModalConfig = {
-  open: true,
+  open: false,
 };
 
 const INIT_RESULT_MODAL_CONFIG: TResultModalConfig = {
@@ -35,7 +34,7 @@ export interface ISubmitRef {
   initResultModalConfig: () => void;
 }
 const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
-  ({ buttonProps, children, onConfirm }: ISubmitButtonProps, ref) => {
+  ({ children, onConfirm }: ISubmitButtonProps, ref) => {
     const [previewModalConfig, setPreviewModalConfig] = useState(INIT_PREVIEW_MODAL_CONFIG);
     const [resultModalConfig, setResultModalConfig] = useState(INIT_RESULT_MODAL_CONFIG);
 
@@ -58,7 +57,6 @@ const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
     return (
       <>
         <Button
-          {...buttonProps}
           onClick={() => {
             stepForm[StepEnum.step3].formInstance?.trigger().then(() => {
               setPreviewModalConfig({

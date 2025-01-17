@@ -16,7 +16,7 @@ interface IUploadProps {
   accept?: string;
   tips?: ReactNode;
   fileNameLengthLimit?: number;
-  onFinish?(data: { url: string }): void;
+  onFinish?(data: { url: string; name: string; response: { url: string } }): void;
 }
 
 const handleLimit = (limit: string) => {
@@ -99,8 +99,10 @@ const Upload = ({
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      const imageDataUrl = (await readFile(file)) as string;
-      setImageSrc(imageDataUrl);
+      if (file?.type?.includes('image')) {
+        const imageDataUrl = (await readFile(file)) as string;
+        setImageSrc(imageDataUrl);
+      }
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -119,7 +121,7 @@ const Upload = ({
         return;
       }
       const fileUrl = uploadData?.url ?? '';
-      onFinish?.({ url: fileUrl });
+      onFinish?.({ url: fileUrl, name: file.name, response: { url: fileUrl } });
     } catch (error) {
       toast.error(`Please check your internet connection and try again.`);
     } finally {
