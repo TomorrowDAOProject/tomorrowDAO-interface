@@ -136,6 +136,7 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
   };
 
   const baseConfig = {
+    sideChainId: curChain as TChainId,
     omitTelegramScript: true,
     showVconsole: false,
     networkType: networkType as NetworkEnum,
@@ -152,6 +153,7 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
       chainId: chainId as TChainId,
       autoShowUnlock: true,
       noNeedForConfirm: true,
+      enableAcceleration: true,
     });
   }, []);
   const nightElfWallet = useMemo(() => {

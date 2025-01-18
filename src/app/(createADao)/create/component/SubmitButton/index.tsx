@@ -60,9 +60,10 @@ const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
           type="primary"
           onClick={() => {
             stepForm[StepEnum.step3].formInstance?.trigger().then(() => {
-              setPreviewModalConfig({
-                open: true,
-              });
+              onConfirm?.();
+              // setPreviewModalConfig({
+              //   open: true,
+              // });
             });
           }}
         >
