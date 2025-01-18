@@ -105,8 +105,11 @@ export default function ContractsAndFiles() {
         )}
       />
       <div className="mt-[15px]">
-        {files?.map(({ name }) => (
-          <div className="flex items-center justify-between py-1 px-3 mt-2">
+        {files?.map(({ name }, index) => (
+          <div
+            className="flex items-center justify-between py-1 px-3 mt-2"
+            key={`${name}_${index}`}
+          >
             <div className="flex items-center flex-grow">
               {fileList.filter((item) => item.name === name).length > 0 ? (
                 <i className="text-lightGrey tmrwdao-icon-document text-[20px]" />
