@@ -21,7 +21,10 @@ const Modal: React.FC<IModalProps> = ({ isVisible, children, rootClassName, titl
   return isVisible ? (
     <div className="fixed votigram-grid inset-0 bg-[rgba(0,0,0,0.7)] flex justify-center items-center z-[10000]">
       <motion.div
-        className={clsx(`bg-modal-background rounded-lg shadow-lg w-full`, rootClassName)}
+        className={clsx(
+          `bg-darkBg border border-solid border-fillBg8 rounded-lg shadow-lg w-full max-w-[calc(100vw-40px)]`,
+          rootClassName,
+        )}
         initial="hidden"
         animate="visible"
         exit="hidden"

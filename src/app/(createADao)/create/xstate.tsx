@@ -37,8 +37,8 @@ export const mapNameToView: Record<string, TView> = {
   },
 };
 // todo
-const initialStateName = 'basicDetails';
-// const initialStateName = 'governanceModel';
+// const initialStateName = 'basicDetails';
+const initialStateName = 'contractsAndFiles';
 
 const formMachineConfig = {
   types: {} as {
