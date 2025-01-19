@@ -8,7 +8,8 @@ const buttonStyles = {
   info: 'bg-cyan border-cyan text-white hover:bg-transparent hover:text-cyan hover:border-cyan',
   warning:
     'bg-yellow border-yellow text-white hover:bg-transparent hover:text-yellow hover:border-yellow',
-  danger: 'bg-red border-red text-white hover:bg-transparent hover:text-red hover:border-red',
+  danger:
+    'bg-danger border-danger text-white hover:bg-transparent hover:text-danger hover:border-danger',
   link: 'text-blue-500 hover:underline',
 };
 

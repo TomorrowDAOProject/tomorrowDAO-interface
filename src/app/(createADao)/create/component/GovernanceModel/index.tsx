@@ -53,7 +53,7 @@ const GovernanceModel = () => {
             >
               <span className="form-item-label flex gap-[8px]">
                 <span className="form-item-label-text">Minimum Vote Requirement</span>
-                <QuestionIcon className="cursor-pointer " width={18} height={18} />
+                <i className="tmrwdao-icon-document text-[18px] text-white" />
               </span>
             </Tooltip>
           }
@@ -97,7 +97,7 @@ const GovernanceModel = () => {
           >
             <span className="form-item-label flex gap-[8px]">
               <span className="form-item-label-text">Minimum Approval Rate</span>
-              <QuestionIcon className="cursor-pointer " width={18} height={18} />
+              <i className="tmrwdao-icon-document text-[18px] text-white" />
             </span>
           </Tooltip>
         }
@@ -128,7 +128,7 @@ const GovernanceModel = () => {
             },
           }}
           render={({ field }) => (
-            <div className="flex flex-col items-center lg:flex-row md:flex-row gap-[50px] mt-2">
+            <div className="flex flex-col items-center lg:flex-row md:flex-row gap-[50px] mt-2 ">
               <div className="w-full lg:w-2/5 md:w-2/5 relative">
                 <Input
                   {...field}
@@ -159,7 +159,7 @@ const GovernanceModel = () => {
             <Tooltip title="The minimum number of governance tokens a user must hold to initiate a proposal. Entering 0 means that a user can initiate a proposal without holding any governance tokens.">
               <span className="form-item-label flex gap-[8px]">
                 <span className="form-item-label-text">Minimum Token Proposal Requirement</span>
-                <QuestionIcon className="cursor-pointer " width={18} height={18} />
+                <i className="tmrwdao-icon-document text-[18px] text-white" />
               </span>
             </Tooltip>
           }

@@ -140,10 +140,16 @@ const Treasury: React.FC<IProps> = (props) => {
         footerConfig: {
           buttonList: [
             {
-              onClick: () => {
-                eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-              },
-              children: 'OK',
+              children: (
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                  }}
+                >
+                  OK
+                </Button>
+              ),
             },
           ],
         },

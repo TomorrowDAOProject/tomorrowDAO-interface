@@ -16,6 +16,8 @@ interface IUploadProps {
   accept?: string;
   tips?: ReactNode;
   fileNameLengthLimit?: number;
+  onStart?(): void;
+  onFileChange?(file: File): void;
   onFinish?(data: { url: string; name: string; response: { url: string } }): void;
 }
 
@@ -51,6 +53,8 @@ const Upload = ({
   fileLimit = '1 MB',
   needCheckImgSize,
   fileNameLengthLimit,
+  onStart,
+  onFileChange,
   onFinish,
 }: IUploadProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -99,6 +103,7 @@ const Upload = ({
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+      onFileChange?.(file);
       if (file?.type?.includes('image')) {
         const imageDataUrl = (await readFile(file)) as string;
         setImageSrc(imageDataUrl);
@@ -115,6 +120,7 @@ const Upload = ({
     if (!result) return;
     try {
       setLoading(true);
+      onStart?.();
       const uploadData = await pinFileToIPFS(file as File);
       if (!uploadData.cid) {
         toast.error('upload no hash');

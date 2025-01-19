@@ -19,6 +19,10 @@ const socialMedia = [
     value: 'Facebook',
   },
   {
+    label: 'Github',
+    value: 'Github',
+  },
+  {
     label: 'Discord',
     value: 'Discord',
   },
@@ -29,6 +33,10 @@ const socialMedia = [
   {
     label: 'Reddit',
     value: 'Reddit',
+  },
+  {
+    label: 'Others',
+    value: 'Others',
   },
 ];
 
@@ -84,7 +92,7 @@ const LinkGroup = ({ onBlur, onChange }: ILinkGroupProps) => {
                 className={clsx(
                   'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer',
                   {
-                    'text-darkGray': linkData.length <= 1,
+                    '!text-darkGray': linkData.length <= 1,
                   },
                 )}
                 onClick={() => removeLink(index)}

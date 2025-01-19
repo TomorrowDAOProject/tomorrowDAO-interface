@@ -98,7 +98,7 @@ function FormMembers(props: IFormMembersProps) {
                   className={clsx(
                     'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer',
                     {
-                      'text-darkGray': addressList.length <= 1,
+                      '!text-darkGray': addressList.length <= 1,
                     },
                   )}
                   onClick={() => removeItem(index)}

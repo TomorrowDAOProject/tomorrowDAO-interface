@@ -54,7 +54,7 @@ const HighCouncil = () => {
               >
                 <span className="form-item-label flex gap-[8px]">
                   <span className="form-item-label-text">Minimum Vote Requirement</span>
-                  <QuestionIcon className="cursor-pointer " width={18} height={18} />
+                  <i className="tmrwdao-icon-document text-[18px] text-white" />
                 </span>
               </Tooltip>
             }
@@ -217,7 +217,7 @@ const HighCouncil = () => {
                       className={clsx(
                         'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer',
                         {
-                          'text-darkGray': membersValue.length <= 1,
+                          '!text-darkGray': membersValue.length <= 1,
                         },
                       )}
                       onClick={() => {
@@ -231,7 +231,7 @@ const HighCouncil = () => {
                 )}
               />
             ))}
-            <div className="dynamic-form-buttons text-neutralTitle">
+            <div className="flex items-center gap-[9px]">
               <Button
                 className="!py-[2px] !text-[12px]"
                 type="default"
