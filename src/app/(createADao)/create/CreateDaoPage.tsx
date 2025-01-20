@@ -107,8 +107,6 @@ const CreateDaoPage = () => {
     const isNetworkDaoLocal = localStorage.getItem('is_network_dao');
     if (form) {
       await form?.trigger();
-      const values = form?.getValues();
-      stepForm[StepEnum.step3].submitedRes = values as FilesSubmitedRes;
       const originMetadata = stepForm[StepEnum.step0].submitedRes;
       const metadata = {
         ...originMetadata,
