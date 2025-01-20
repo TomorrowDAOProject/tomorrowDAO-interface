@@ -125,13 +125,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
 
   const logoUrl = metaData?.metadata?.logoUrl?.[0]?.response?.url;
   return (
-    <Modal
-      // title="Confirm"
-      // footerConfig={{
-      //   buttonList: [{ children: 'Confirm', onClick: onConfirm, disabled: disabled }],
-      // }}
-      isVisible={open}
-    >
+    <Modal isVisible={open}>
       <Flex vertical gap={24}>
         <Flex vertical gap={12}>
           <Flex gap={8} align="center">
