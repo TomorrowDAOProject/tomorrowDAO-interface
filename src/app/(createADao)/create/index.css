@@ -16,7 +16,7 @@
     min-height: calc(100vh - 82.09px - 169.06px - 67px - 24px);
   }
 
-  @apply mb-6 xl:w-[930px] lg:w-[750px] md:w-[570px] m-auto;
+  @apply mb-6 xl:w-[930px] lg:w-[750px] m-auto;
 
   .title-wrap {
     @apply flex justify-between items-center;
