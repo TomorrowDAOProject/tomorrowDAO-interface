@@ -37,7 +37,7 @@ module.exports = {
         h4: ['24px', 'normal'],
         h5: ['20px', 'normal'],
         h6: ['15px', 'normal'],
-        desc18: [
+        descM18: [
           '18px',
           {
             lineHeight: 'normal',

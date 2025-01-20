@@ -5,6 +5,7 @@ import CommonOperationResultModal, {
   TCommonOperationResultModalProps,
 } from 'components/CommonOperationResultModal';
 import { eventBus, ResultModal } from 'utils/myEvent';
+import Button from 'components/Button';
 
 type TResultModalConfig = Pick<
   TCommonOperationResultModalProps,
@@ -39,11 +40,43 @@ const ResultModalComponent = () => {
   );
 };
 export const okButtonConfig: IButtonProps = {
-  onClick: () => {
-    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-  },
-  children: 'OK',
-  type: 'primary',
+  children: (
+    <Button
+      type="primary"
+      onClick={() => {
+        eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+      }}
+    >
+      OK
+    </Button>
+  ),
 };
+
+export const WarningButtonList: IButtonProps[] = [
+  {
+    children: (
+      <Button
+        type="default"
+        onClick={() => {
+          eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+        }}
+      >
+        Exit Now
+      </Button>
+    ),
+  },
+  {
+    children: (
+      <Button
+        type="primary"
+        onClick={() => {
+          eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+        }}
+      >
+        No
+      </Button>
+    ),
+  },
+];
 
 export default ResultModalComponent;
