@@ -109,8 +109,6 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
   const highCouncil = stepForm[StepEnum.step2].submitedRes;
   const files = stepForm[StepEnum.step3].submitedRes;
 
-  console.log('files', files);
-
   const isMultisig = metaData?.governanceMechanism === EDaoGovernanceMechanism.Multisig;
   const disabled =
     state.findIndex((item, index) => {
