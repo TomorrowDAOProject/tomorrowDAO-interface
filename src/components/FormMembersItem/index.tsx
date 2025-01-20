@@ -44,7 +44,7 @@ function FormMembersItem(props: IFormMembersProps) {
         ) : (
           <Tooltip
             title={
-              <div>
+              <div className="text-[10px] leading-[12px]">
                 There is no limit on the number of addresses on your multisig. Addresses can create
                 proposals, create and approve transactions, and suggest changes to the DAO settings
                 after creation.

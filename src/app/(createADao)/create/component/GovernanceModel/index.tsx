@@ -38,12 +38,12 @@ const GovernanceModel = () => {
           label={
             <Tooltip
               title={
-                <div>
+                <div className="text-[10px] leading-[12px]">
                   <div>
                     The minimum number of votes required to finalise a proposal, only applicable to
                     the voting mechanism where &quot;1 token = 1 vote&quot;.
                   </div>
-                  <div>
+                  <div className="mt-2">
                     Note: There are two types of voting mechanisms: &quot;1 token = 1 vote&quot; and
                     &quot;1 address = 1 vote&quot;. You can choose the voting mechanism when you
                     create the proposal.
@@ -93,7 +93,11 @@ const GovernanceModel = () => {
       <FormItem
         label={
           <Tooltip
-            title={`The lowest percentage of approve votes required for a proposal to be approved.`}
+            title={
+              <div className="text-[10px] leading-[12px]">
+                The lowest percentage of approve votes required for a proposal to be approved.
+              </div>
+            }
           >
             <span className="form-item-label flex gap-[8px]">
               <span className="form-item-label-text">Minimum Approval Rate</span>
@@ -156,7 +160,15 @@ const GovernanceModel = () => {
       {!isMultisig && (
         <FormItem
           label={
-            <Tooltip title="The minimum number of governance tokens a user must hold to initiate a proposal. Entering 0 means that a user can initiate a proposal without holding any governance tokens.">
+            <Tooltip
+              title={
+                <div className="text-[10px] leading-[12px]">
+                  The minimum number of governance tokens a user must hold to initiate a proposal.
+                  Entering 0 means that a user can initiate a proposal without holding any
+                  governance tokens.
+                </div>
+              }
+            >
               <span className="form-item-label flex gap-[8px]">
                 <span className="form-item-label-text">Minimum Token Proposal Requirement</span>
                 <i className="tmrwdao-icon-document text-[18px] text-white" />
