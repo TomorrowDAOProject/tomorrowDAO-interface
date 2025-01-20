@@ -41,11 +41,9 @@ export default function CommonOperationResultModal({
     <Modal isVisible={open} rootClassName="px-[38px] py-[30px] md:w-[471px]" onClose={onCancel}>
       <div className="flex flex-col items-center">
         <img src={ICON_MAP[type]} alt="icon" width={56} height={56} />
-        <span className="my-4 block text-descM18 text-white font-Montserrat">
-          {primaryContent || 'asdf'}
-        </span>
+        <span className="my-4 block text-descM18 text-white font-Montserrat">{primaryContent}</span>
         <span className="block text-descM18 text-lightGrey font-Montserrat">
-          {secondaryContent || 'asdf'}
+          {secondaryContent}
         </span>
         <div className="flex flex-row items-center gap-4 mt-[48px] w-full">
           {footerConfig?.buttonList?.map(({ children }) => (
