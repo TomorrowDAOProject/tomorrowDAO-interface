@@ -10,7 +10,6 @@ import { StepsContext, StepEnum, EDaoGovernanceMechanism } from '../../type';
 import { curChain } from 'config';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
-import CheckBox from 'components/CheckBox';
 
 function SocialMediaItem({ name, url }: { name: string; url: string }) {
   return (
@@ -43,14 +42,11 @@ function CheckboxItem({
   }, [descriptionList]);
   return (
     <div className="flex flex-col gap-4 text-white mb-[30px]">
-      <CheckBox
-        checked={checked}
-        onChange={onChange}
-        className="preview-modal-checkbox"
-        label={label}
-      />
+      <div onChange={onChange} className="preview-modal-checkbox">
+        <div className={`font-[500] text-[15px]`}>{label}</div>
+      </div>
       {newDescriptionList?.map(({ content, children }, index) => (
-        <div key={index} className="ml-8 flex gap-2 items-start">
+        <div key={index} className="ml-6 flex gap-2 items-start">
           <div className="dot" />
           {children?.length ? (
             <div className="flex gap-2">
@@ -107,7 +103,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
   const highCouncil = stepForm[StepEnum.step2].submitedRes;
   const files = stepForm[StepEnum.step3].submitedRes;
 
-  console.log('metaData', metaData, governance, highCouncil, 'files', files);
+  console.log('metaData', metaData, governance, highCouncil, files);
 
   const isMultisig = metaData?.governanceMechanism === EDaoGovernanceMechanism.Multisig;
   const disabled =
