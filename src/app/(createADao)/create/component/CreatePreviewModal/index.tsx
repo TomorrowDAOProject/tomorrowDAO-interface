@@ -9,9 +9,9 @@ import './index.css';
 import { StepsContext, StepEnum, EDaoGovernanceMechanism } from '../../type';
 import { curChain } from 'config';
 import Modal from 'components/Modal';
-import Button from 'components/Button';
 import SubmitButton from '../SubmitButton';
 import CheckBox from 'components/CheckBox';
+import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 
 function SocialMediaItem({ name, url }: { name: string; url: string }) {
   return (
@@ -228,7 +228,10 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
             };
           })}
         />
-        <SubmitButton />
+        <SubmitButton onConfirm={onConfirm}>
+          <span>Confirm</span>
+          <LinkIcon className="h-[11px] w-[11px]" />
+        </SubmitButton>
       </div>
     </Modal>
   );
