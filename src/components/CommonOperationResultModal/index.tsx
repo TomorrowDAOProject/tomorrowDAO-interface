@@ -3,7 +3,6 @@ import successFilledIcon from 'assets/imgs/successFilled.svg';
 import errorFilledIcon from 'assets/imgs/errorFilled.svg';
 import warningFilledIcon from 'assets/imgs/warningFilled.svg';
 import Modal from 'components/Modal';
-import Button from 'components/Button';
 
 export enum CommonOperationResultModalType {
   Success = 'success',
