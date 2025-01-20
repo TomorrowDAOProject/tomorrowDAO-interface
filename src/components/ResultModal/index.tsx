@@ -52,4 +52,31 @@ export const okButtonConfig: IButtonProps = {
   ),
 };
 
+export const WarningButtonList: IButtonProps[] = [
+  {
+    children: (
+      <Button
+        type="default"
+        onClick={() => {
+          eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+        }}
+      >
+        Exit Now
+      </Button>
+    ),
+  },
+  {
+    children: (
+      <Button
+        type="primary"
+        onClick={() => {
+          eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+        }}
+      >
+        No
+      </Button>
+    ),
+  },
+];
+
 export default ResultModalComponent;

@@ -376,7 +376,7 @@ const CreateDaoPage = () => {
               {currentStep === 3 ? (
                 <SubmitButton onConfirm={handleCreateDao} ref={submitButtonRef}>
                   <span>Submit</span>
-                  <ArrowRight />
+                  <LinkIcon className="h-[11px] w-[11px]" />
                 </SubmitButton>
               ) : (
                 <Button

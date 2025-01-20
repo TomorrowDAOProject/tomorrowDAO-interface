@@ -53,6 +53,7 @@ const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
       <>
         <Button
           type="primary"
+          className="lg:flex-none gap-2"
           onClick={() => {
             stepForm[StepEnum.step3].formInstance?.trigger().then(() => {
               setPreviewModalConfig({
