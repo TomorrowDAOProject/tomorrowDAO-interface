@@ -1,5 +1,5 @@
 import { Form, FormInstance } from 'antd';
-import { AddCircleOutlined, DeleteOutlined, MinusCircleOutlined } from '@aelf-design/icons';
+import { MinusCircleOutlined } from '@aelf-design/icons';
 import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
 import './index.css';
 import { curChain } from 'config';
@@ -44,7 +44,7 @@ function FormMembersItem(props: IFormMembersProps) {
         ) : (
           <Tooltip
             title={
-              <div>
+              <div className="text-[10px] leading-[12px]">
                 There is no limit on the number of addresses on your multisig. Addresses can create
                 proposals, create and approve transactions, and suggest changes to the DAO settings
                 after creation.
