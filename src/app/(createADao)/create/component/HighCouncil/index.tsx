@@ -51,10 +51,15 @@ const HighCouncil = () => {
               <Tooltip
                 title={
                   <div className="text-[10px] leading-[12px]">
-                    The minimum number of votes required to finalise proposals, only applicable to
-                    the voting mechanism where "1 token = 1 vote". Note: There are two types of
-                    voting mechanisms: "1 token = 1 vote" and "1 address = 1 vote". You can choose
-                    the voting mechanism when you create the proposal.
+                    <div>
+                      {`The minimum number of votes required to finalise a proposal, only applicable
+                      to the voting mechanism where 1 token = 1 vote.`}
+                    </div>
+                    <div className="mt-2">
+                      {`Note: There are two types of voting mechanisms: 1 token = 1 vote
+                      and 1 address = 1 vote. You can choose the voting mechanism when
+                      you create the proposal.`}
+                    </div>
                   </div>
                 }
               >

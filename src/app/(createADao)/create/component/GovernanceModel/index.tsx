@@ -37,13 +37,12 @@ const GovernanceModel = () => {
               title={
                 <div className="text-[10px] leading-[12px]">
                   <div>
-                    The minimum number of votes required to finalise a proposal, only applicable to
-                    the voting mechanism where &quot;1 token = 1 vote&quot;.
+                    {`The minimum number of votes required to finalise a proposal, only applicable to
+                    the voting mechanism where 1 token = 1 vote.`}
                   </div>
                   <div className="mt-2">
-                    Note: There are two types of voting mechanisms: &quot;1 token = 1 vote&quot; and
-                    &quot;1 address = 1 vote&quot;. You can choose the voting mechanism when you
-                    create the proposal.
+                    {`Note: There are two types of voting mechanisms: 1 token = 1 vote; and 1 address = 1 vote. You can choose the voting mechanism when you
+                    create the proposal.`}
                   </div>
                 </div>
               }
