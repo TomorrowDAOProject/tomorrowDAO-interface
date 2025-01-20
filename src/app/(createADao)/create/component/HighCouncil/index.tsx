@@ -49,8 +49,14 @@ const HighCouncil = () => {
           <FormItem
             label={
               <Tooltip
-                title={`The minimum number of votes required to finalise proposals, only applicable to the voting mechanism where "1 token = 1 vote".
-          Note: There are two types of voting mechanisms: "1 token = 1 vote" and "1 address = 1 vote". You can choose the voting mechanism when you create the proposal.`}
+                title={
+                  <div className="text-[10px] leading-[12px]">
+                    The minimum number of votes required to finalise proposals, only applicable to
+                    the voting mechanism where "1 token = 1 vote". Note: There are two types of
+                    voting mechanisms: "1 token = 1 vote" and "1 address = 1 vote". You can choose
+                    the voting mechanism when you create the proposal.
+                  </div>
+                }
               >
                 <span className="form-item-label flex gap-[8px]">
                   <span className="form-item-label-text">Minimum Vote Requirement</span>
@@ -99,7 +105,13 @@ const HighCouncil = () => {
           <FormItem
             label={
               <Tooltip
-                title={`The lowest percentage of approve votes required for a proposal to be approved. This is applicable to both voting mechanisms, where "1 token = 1 vote" or "1 address = 1 vote".`}
+                title={
+                  <div className="text-[10px] leading-[12px]">
+                    The lowest percentage of approve votes required for a proposal to be approved.
+                    This is applicable to both voting mechanisms, where "1 token = 1 vote" or "1
+                    address = 1 vote".
+                  </div>
+                }
               >
                 <span className="form-item-label flex gap-[8px]">
                   <span className="form-item-label-text">Minimum Approval Rate</span>
@@ -166,7 +178,7 @@ const HighCouncil = () => {
             label={
               <Tooltip
                 title={
-                  <div>
+                  <div className="text-[10px] leading-[12px]">
                     There is no limit on the number of addresses on your multisig. Addresses can
                     create proposals, create and approve transactions, and suggest changes to the
                     DAO settings after creation.

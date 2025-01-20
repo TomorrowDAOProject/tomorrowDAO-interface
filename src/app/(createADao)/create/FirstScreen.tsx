@@ -9,6 +9,7 @@ import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 import { ReactComponent as ArrowLeft } from 'assets/revamp-icon/arrow-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
+import { useRouter } from 'next/navigation';
 
 import './index.css';
 
@@ -17,6 +18,7 @@ interface IFirstScreenProps {
 }
 export const FirstScreen = (props: IFirstScreenProps) => {
   const { walletInfo: wallet, connectWallet } = useConnectWallet();
+  const nav = useRouter();
 
   const { onClick } = props;
 
@@ -32,14 +34,18 @@ export const FirstScreen = (props: IFirstScreenProps) => {
     <div className="dao-steps-wrap">
       <div className="col-12 box-border">
         <div className="md:mt-[47px] lg:mt-[67px] mb-[15px] dao-create-first-header hidden items-center gap-2 md:flex lg:flex">
-          <span className="text-lightGrey text-[15px] cursor-pointer">TMRW DAO</span>
+          <span className="text-lightGrey text-[15px] cursor-pointer" onClick={() => nav.push('/')}>
+            TMRW DAO
+          </span>
           <ArrowRight />
           <span className="text-white text-[14px]">Create a DAO</span>
         </div>
 
         <div className="md:mt-[47px] lg:mt-[67px] mb-[30px] dao-create-first-header flex items-center gap-2 md:hidden lg:hidden">
           <ArrowLeft />
-          <span className="text-white text-[14px]">Back</span>
+          <span className="text-white text-[14px]" onClick={() => nav.push('/')}>
+            Back
+          </span>
         </div>
         <div className="dao-create-first-screen mb-[30px] md:mb-[55px] lg:mb-[55px] flex items-start lg:items-center md:items-center justify-between flex-col md:flex-row lg:flex-row">
           <div className="dao-create-first-screen-title">Create a DAO with TMRWDAO</div>
