@@ -103,6 +103,8 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
   const highCouncil = stepForm[StepEnum.step2].submitedRes;
   const files = stepForm[StepEnum.step3].submitedRes;
 
+  console.log('files', files);
+
   const isMultisig = metaData?.governanceMechanism === EDaoGovernanceMechanism.Multisig;
   const disabled =
     state.findIndex((item, index) => {
@@ -134,7 +136,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       isVisible={open}
       onClose={onClose}
     >
-      <div className="flex flex-col mt-[30px]">
+      <div className="flex flex-col pt-[30px] max-h-[60vh] overflow-scroll confirm-content">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             {logoUrl && (
