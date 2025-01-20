@@ -25,10 +25,12 @@ import { toast } from 'react-toastify';
 
 export const mediaList = [
   ['metadata', 'socialMedia', 'Twitter'],
+  ['metadata', 'socialMedia', 'Github'],
   ['metadata', 'socialMedia', 'Facebook'],
   ['metadata', 'socialMedia', 'Telegram'],
   ['metadata', 'socialMedia', 'Discord'],
   ['metadata', 'socialMedia', 'Reddit'],
+  ['metadata', 'socialMedia', 'Others'],
 ];
 
 export default function BasicDetails() {
@@ -40,10 +42,12 @@ export default function BasicDetails() {
         description: '',
         socialMedia: {
           Twitter: '',
+          Github: '',
           Facebook: '',
           Discord: '',
           Telegram: '',
           Reddit: '',
+          Others: '',
         },
       },
       governanceMechanism: EDaoGovernanceMechanism.Token,
@@ -356,7 +360,7 @@ export default function BasicDetails() {
                         className={clsx(
                           'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer',
                           {
-                            'text-darkGray': membersValue.length <= 1,
+                            '!text-darkGray': membersValue.length <= 1,
                           },
                         )}
                         onClick={() => {
@@ -370,7 +374,7 @@ export default function BasicDetails() {
                   )}
                 />
               ))}
-              <div className="dynamic-form-buttons text-neutralTitle">
+              <div className="flex items-center gap-[9px]">
                 <Button
                   className="!py-[2px] !text-[12px]"
                   type="default"

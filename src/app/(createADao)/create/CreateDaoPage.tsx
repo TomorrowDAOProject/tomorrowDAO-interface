@@ -4,7 +4,7 @@ import { useMachine } from '@xstate/react';
 import { formMachine } from './xstate';
 import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { Result, Switch } from 'antd';
+import { Result } from 'antd';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import SubmitButton, { ISubmitRef } from './component/SubmitButton';
@@ -41,6 +41,7 @@ import Button from 'components/Button';
 import Navigation from './component/Navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import Switch from 'components/Switch';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -248,10 +249,15 @@ const CreateDaoPage = () => {
           footerConfig: {
             buttonList: [
               {
-                children: 'Back',
-                onClick: () => {
-                  submitButtonRef.current?.initResultModalConfig();
-                },
+                children: (
+                  <Button
+                    type="danger"
+                    className="mt-[48px] w-full"
+                    onClick={() => submitButtonRef.current?.initResultModalConfig()}
+                  >
+                    Back
+                  </Button>
+                ),
               },
             ],
           },
@@ -320,7 +326,7 @@ const CreateDaoPage = () => {
                     value={isShowHighCouncil}
                   />
                 </div>
-                <p className="mb-2 text-descM13 text-white font-Montserrat">
+                <p className="!mb-2 text-descM13 text-white font-Montserrat">
                   A supplementary governance mechanism
                 </p>
                 <p className="text-desc12 text-lightGrey font-Montserrat">
@@ -370,7 +376,7 @@ const CreateDaoPage = () => {
               {currentStep === 3 ? (
                 <SubmitButton onConfirm={handleCreateDao} ref={submitButtonRef}>
                   <span>Submit</span>
-                  <ArrowRight />
+                  <LinkIcon className="h-[11px] w-[11px]" />
                 </SubmitButton>
               ) : (
                 <Button

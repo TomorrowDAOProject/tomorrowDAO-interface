@@ -103,8 +103,6 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
   const highCouncil = stepForm[StepEnum.step2].submitedRes;
   const files = stepForm[StepEnum.step3].submitedRes;
 
-  console.log('metaData', metaData, governance, highCouncil, files);
-
   const isMultisig = metaData?.governanceMechanism === EDaoGovernanceMechanism.Multisig;
   const disabled =
     state.findIndex((item, index) => {
@@ -126,9 +124,6 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
 
   const logoUrl: any = metaData?.metadata?.logoUrl;
 
-  console.log('metaData', metaData);
-
-  console.log('open', open);
   return (
     <Modal
       title="Confirm"

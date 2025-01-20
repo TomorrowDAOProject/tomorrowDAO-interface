@@ -14,23 +14,18 @@ interface ISubmitButtonProps {
 
 type TPreviewModalConfig = Pick<ICreatePreviewModalProps, 'open'>;
 
-type TResultModalConfig = Pick<
-  TCommonOperationResultModalProps,
-  'open' | 'type' | 'primaryContent' | 'secondaryContent' | 'footerConfig'
->;
-
 const INIT_PREVIEW_MODAL_CONFIG: TPreviewModalConfig = {
   open: false,
 };
 
-const INIT_RESULT_MODAL_CONFIG: TResultModalConfig = {
+const INIT_RESULT_MODAL_CONFIG: TCommonOperationResultModalProps = {
   open: false,
   type: CommonOperationResultModalType.Success,
   primaryContent: '',
   secondaryContent: '',
 };
 export interface ISubmitRef {
-  setResultModalConfig: (value: TResultModalConfig) => void;
+  setResultModalConfig: (value: TCommonOperationResultModalProps) => void;
   initResultModalConfig: () => void;
 }
 const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
@@ -58,6 +53,7 @@ const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
       <>
         <Button
           type="primary"
+          className="lg:flex-none gap-2"
           onClick={() => {
             stepForm[StepEnum.step3].formInstance?.trigger().then(() => {
               setPreviewModalConfig({
