@@ -10,6 +10,8 @@ import { StepsContext, StepEnum, EDaoGovernanceMechanism } from '../../type';
 import { curChain } from 'config';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
+import SubmitButton from '../SubmitButton';
+import CheckBox from 'components/CheckBox';
 
 function SocialMediaItem({ name, url }: { name: string; url: string }) {
   return (
@@ -42,9 +44,7 @@ function CheckboxItem({
   }, [descriptionList]);
   return (
     <div className="flex flex-col gap-4 text-white mb-[30px]">
-      <div onChange={onChange} className="preview-modal-checkbox">
-        <div className={`font-[500] text-[15px]`}>{label}</div>
-      </div>
+      <CheckBox label={label} onChange={onChange} className="preview-modal-checkbox" />
       {newDescriptionList?.map(({ content, children }, index) => (
         <div key={index} className="ml-6 flex gap-2 items-start">
           <div className="dot" />
@@ -226,9 +226,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
             };
           })}
         />
-        <Button disabled={disabled} onClick={onConfirm}>
-          Confirm
-        </Button>
+        <SubmitButton />
       </div>
     </Modal>
   );
