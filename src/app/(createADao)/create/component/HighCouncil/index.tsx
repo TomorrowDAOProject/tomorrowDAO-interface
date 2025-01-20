@@ -1,13 +1,11 @@
 'use client';
 
 import { memo, useContext } from 'react';
-import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
 import { useRegisterForm } from '../utils';
 import { StepEnum, StepsContext } from '../../type';
 import { curChain } from 'config/index';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import './index.css';
-import { ApproveThresholdTip } from 'components/ApproveThresholdTip';
 import { Controller, useForm } from 'react-hook-form';
 import FormItem from 'components/FormItem';
 import Tooltip from 'components/Tooltip';
