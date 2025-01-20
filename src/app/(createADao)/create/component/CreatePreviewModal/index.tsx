@@ -9,6 +9,8 @@ import './index.css';
 import { StepsContext, StepEnum, EDaoGovernanceMechanism } from '../../type';
 import { curChain } from 'config';
 import Modal from 'components/Modal';
+import CheckBox from 'components/CheckBox';
+import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import Button from 'components/Button';
 
 function SocialMediaItem({ name, url }: { name: string; url: string }) {
@@ -32,7 +34,7 @@ function CheckboxItem({
     children?: ReactNode[];
   } | null)[];
   checked?: boolean;
-  onChange?: () => void;
+  onChange?: any;
 }) {
   const newDescriptionList = useMemo(() => {
     return descriptionList?.filter(Boolean) as {
@@ -40,11 +42,15 @@ function CheckboxItem({
       children?: ReactNode[];
     }[];
   }, [descriptionList]);
+
   return (
     <div className="flex flex-col gap-4 text-white mb-[30px]">
-      <div onChange={onChange} className="preview-modal-checkbox">
-        <div className={`font-[500] text-[15px]`}>{label}</div>
-      </div>
+      <CheckBox
+        checked={checked}
+        label={label}
+        onChange={onChange}
+        className="preview-modal-checkbox"
+      />
       {newDescriptionList?.map(({ content, children }, index) => (
         <div key={index} className="ml-6 flex gap-2 items-start">
           <div className="dot" />
@@ -124,6 +130,10 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
 
   const logoUrl: any = metaData?.metadata?.logoUrl;
 
+  const isAllChecked = useMemo(() => {
+    return state.filter((item) => item === true).length === state.length;
+  }, [state]);
+
   return (
     <Modal
       title="Confirm"
@@ -134,7 +144,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       isVisible={open}
       onClose={onClose}
     >
-      <div className="flex flex-col mt-[30px]">
+      <div className="flex flex-col pt-[30px] max-h-[60vh] overflow-scroll confirm-content">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             {logoUrl && (
@@ -167,7 +177,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
         <CheckboxItem
           label="Governance: Referendum"
           checked={state[0]}
-          // setState([e.target.checked, state[1], state[2]])
+          onChange={(value: boolean) => setState([value, state[1], state[2]])}
           descriptionList={[
             !isMultisig
               ? {
@@ -189,7 +199,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
           <CheckboxItem
             label="High Council"
             checked={state[1]}
-            //  setState([state[0], e.target.checked, state[2]])
+            onChange={(value: boolean) => setState([state[0], value, state[2]])}
             descriptionList={[
               // {
               //   content: `
@@ -218,7 +228,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
         )}
         <CheckboxItem
           checked={state[2]}
-          // setState([state[0], state[1], e.target.checked])
+          onChange={(value: boolean) => setState([state[0], state[1], value])}
           label={`Documentation ${files?.files?.length ? `(${files?.files?.length})` : ''}`}
           descriptionList={files?.files?.map((item) => {
             return {
@@ -226,10 +236,17 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
             };
           })}
         />
-        <Button disabled={disabled} onClick={onConfirm}>
-          Confirm
-        </Button>
       </div>
+      <Button
+        className={`w-full flex items-center gap-1 ${isAllChecked && '!bg-mainColor text-white'}`}
+        onClick={() => {
+          console.log('state', state);
+          if (isAllChecked) onConfirm();
+        }}
+      >
+        <span>Confirm</span>
+        <LinkIcon className="h-[11px] w-[11px]" />
+      </Button>
     </Modal>
   );
 }

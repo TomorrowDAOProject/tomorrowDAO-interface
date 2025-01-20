@@ -23,4 +23,9 @@
   .TMRWDAO-checkbox {
     @apply scale-75 origin-center;
   }
+  .confirm-content {
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
 }
