@@ -1,15 +1,12 @@
 'use client';
 
 import { memo, useContext } from 'react';
-import { ApproveThresholdTip } from 'components/ApproveThresholdTip';
 import { useRegisterForm } from '../utils';
 
 import { EDaoGovernanceMechanism, StepEnum, StepsContext } from '../../type';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import './index.css';
-
-import { ReactComponent as QuestionIcon } from 'assets/imgs/questions-icon.svg';
 import Slider from 'components/Slider';
 import { Controller, useForm } from 'react-hook-form';
 import FormItem from 'components/FormItem';

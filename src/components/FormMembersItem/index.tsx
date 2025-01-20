@@ -1,5 +1,5 @@
 import { Form, FormInstance } from 'antd';
-import { AddCircleOutlined, DeleteOutlined, MinusCircleOutlined } from '@aelf-design/icons';
+import { MinusCircleOutlined } from '@aelf-design/icons';
 import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
 import './index.css';
 import { curChain } from 'config';
