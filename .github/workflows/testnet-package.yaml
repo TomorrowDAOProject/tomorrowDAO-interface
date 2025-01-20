@@ -1,7 +1,7 @@
 name: Build and Push Image
 on:
   push:
-    branches: ['dev', 'feat/ci-k8s']
+    branches: ['dev', 'feat/tmrwdao-revamp']
 jobs:
   build-and-push-image:
     runs-on: tmrwdao-runner
