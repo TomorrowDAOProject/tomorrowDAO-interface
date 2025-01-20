@@ -1,8 +1,8 @@
+import { useRouter } from 'next/navigation';
 import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
 import './index.css';
-import { useRouter } from 'next/navigation';
 
-const navigation = () => {
+const Navigation = () => {
   const nav = useRouter();
   return (
     <div className="md:mt-[63px] lg:mt-[63px] mb-[26px] mt-[24px] items-center gap-2 flex create-dao-navigation">
@@ -18,4 +18,4 @@ const navigation = () => {
   );
 };
 
-export default navigation;
+export default Navigation;

@@ -110,9 +110,9 @@ const HighCouncil = () => {
               <Tooltip
                 title={
                   <div className="text-[10px] leading-[12px]">
-                    The lowest percentage of approve votes required for a proposal to be approved.
+                    {`The lowest percentage of approve votes required for a proposal to be approved.
                     This is applicable to both voting mechanisms, where "1 token = 1 vote" or "1
-                    address = 1 vote".
+                    address = 1 vote".`}
                   </div>
                 }
               >
