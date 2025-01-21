@@ -9,7 +9,6 @@ import './index.css';
 import { StepsContext, StepEnum, EDaoGovernanceMechanism } from '../../type';
 import { curChain } from 'config';
 import Modal from 'components/Modal';
-
 import CheckBox from 'components/Checkbox';
 import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import Button from 'components/Button';
