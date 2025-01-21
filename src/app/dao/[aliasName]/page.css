@@ -1,5 +1,5 @@
 .dao-detail {
-  @apply w-full block flex-col items-center;
+  @apply mx-[20px] my-[39px] md:w-[688px] lg:w-[904px] xl:w-[1024px] md:m-auto lg:m-auto xl:m-auto xl:my-[70px] lg:my-[67px] md:my-[45px];
 
   .TMRWDAO-select-single {
     @apply h-[32px];
@@ -17,7 +17,7 @@
     }
 
     .dao-detail-content-left-tab {
-      @apply flex-1 bg-white mb-[16px] border border-Neutral-Divider border-solid rounded-lg;
+      @apply flex-1 bg-darkBg mb-[16px] border border-fillBg8 border-solid rounded-lg;
     }
 
     .tab-all-proposals {
