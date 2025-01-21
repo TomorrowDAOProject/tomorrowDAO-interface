@@ -236,9 +236,9 @@ export default function DaoInfo(props: IParams) {
               </div>
             </div>
             <div className="dao-detail-desc px-4 lg:px-8">
-              <div>
-                <h2 className="title">{metadata?.name}</h2>
-                <p className="description">{metadata?.description}</p>
+              <div className="flex flex-col">
+                <span className="title">{metadata?.name}</span>
+                <span className="description">{metadata?.description}</span>
               </div>
               <div className="flex gap-4">
                 {socialMediaList.map(

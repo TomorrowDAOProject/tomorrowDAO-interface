@@ -214,29 +214,29 @@ module.exports = {
           '@apply button-border-normal rounded-lg': {},
         },
         '.normal-text': {
-          '@apply text-[16px] leading-[24px] text-neutralTitle': {},
+          '@apply text-[16px] leading-[24px] text-white': {},
         },
         '.normal-text-bold': {
-          '@apply text-[16px] leading-[24px] text-neutralTitle font-medium': {},
+          '@apply text-[16px] leading-[24px] text-white font-medium': {},
         },
 
         '.form-item-title': {
-          '@apply text-[16px] leading-[24px] text-neutralPrimaryText font-medium': {},
+          '@apply text-[16px] leading-[24px] text-white font-medium': {},
         },
 
         '.dao-detail-card': {
-          '@apply border-0 lg:border lg:mb-[10px] border-Neutral-Divider border-solid rounded-lg bg-white px-4 lg:px-8 lg:py-6 pt-[8px] pb-[24px]':
+          '@apply border-0 lg:border lg:mb-[10px] border-fillBg8 border-solid rounded-lg bg-darkBg px-4 lg:px-8 lg:py-6 pt-[8px] pb-[24px]':
             {},
         },
 
         '.card-title': {
-          '@apply text-[20px] leading-[28px] text-neutralTitle font-medium': {},
+          '@apply text-[20px] leading-[28px] text-white font-medium': {},
         },
         '.card-sm-text': {
           '@apply text-[14px] leading-[22px]': {},
         },
         '.card-sm-text-black': {
-          '@apply text-[14px] leading-[22px] text-neutralTitle': {},
+          '@apply text-[14px] leading-[22px] text-white': {},
         },
         '.card-xsm-text': {
           '@apply text-[12px] leading-[20px]': {},
@@ -246,7 +246,7 @@ module.exports = {
         },
 
         '.card-title-lg': {
-          '@apply text-[24px] leading-[32px] text-neutralTitle font-medium': {},
+          '@apply text-[24px] leading-[32px] text-white font-medium': {},
         },
         '.error-text': {
           '@apply text-error h-[32px] flex items-center': {},
