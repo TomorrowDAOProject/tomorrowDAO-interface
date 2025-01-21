@@ -4,7 +4,7 @@ import CommonOperationResultModal, {
   CommonOperationResultModalType,
   TCommonOperationResultModalProps,
 } from 'components/CommonOperationResultModal';
-import { StepEnum, StepsContext } from '../../type';
+import { FilesSubmitedRes, StepEnum, StepsContext } from '../../type';
 import Button from 'components/Button';
 
 interface ISubmitButtonProps {
@@ -55,10 +55,14 @@ const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
           type="primary"
           className="lg:flex-none gap-2"
           onClick={() => {
-            stepForm[StepEnum.step3].formInstance?.trigger().then(() => {
-              setPreviewModalConfig({
-                open: true,
-              });
+            stepForm[StepEnum.step3].formInstance?.trigger().then((res) => {
+              const values = stepForm[StepEnum.step3].formInstance?.getValues();
+              stepForm[StepEnum.step3].submitedRes = values as FilesSubmitedRes;
+              if (res) {
+                setPreviewModalConfig({
+                  open: true,
+                });
+              }
             });
           }}
         >

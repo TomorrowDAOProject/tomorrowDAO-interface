@@ -26,6 +26,7 @@ export default function ContractsAndFiles() {
     watch,
     control,
     formState: { errors },
+    setValue,
   } = form;
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
@@ -39,6 +40,12 @@ export default function ContractsAndFiles() {
 
   const handleFileChange = (file: File) => {
     setFiles((prev) => [...prev, file]);
+  };
+
+  const handleRemoveFile = (key: string) => {
+    setFiles((prev) => prev.filter((file, index) => `${file.name}_${index}` !== key));
+    const updateList: any = fileList.filter((file, index) => `${file.name}_${index}` !== key);
+    setValue('files', updateList);
   };
 
   const uploadTips = useMemo(() => {
@@ -124,7 +131,10 @@ export default function ContractsAndFiles() {
                 {shortenFileName(name)}
               </span>
             </div>
-            <i className="tmrwdao-icon-delete text-[20px] text-Neutral-Secondary-Text" />
+            <i
+              className="tmrwdao-icon-delete text-[20px] text-Neutral-Secondary-Text"
+              onClick={() => handleRemoveFile(`${name}_${index}`)}
+            />
           </div>
         ))}
       </div>
