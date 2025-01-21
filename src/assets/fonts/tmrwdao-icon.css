@@ -1,11 +1,11 @@
 @font-face {
   font-family: "tmrwdao-icon";
-  src: url('tmrwdao-icon.eot?t=1736820474911'); /* IE9*/
-  src: url('tmrwdao-icon.eot?t=1736820474911#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url("tmrwdao-icon.woff2?t=1736820474911") format("woff2"),
-  url("tmrwdao-icon.woff?t=1736820474911") format("woff"),
-  url('tmrwdao-icon.ttf?t=1736820474911') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('tmrwdao-icon.svg?t=1736820474911#tmrwdao-icon') format('svg'); /* iOS 4.1- */
+  src: url('tmrwdao-icon.eot?t=1737426932330'); /* IE9*/
+  src: url('tmrwdao-icon.eot?t=1737426932330#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("tmrwdao-icon.woff2?t=1737426932330") format("woff2"),
+  url("tmrwdao-icon.woff?t=1737426932330") format("woff"),
+  url('tmrwdao-icon.ttf?t=1737426932330') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('tmrwdao-icon.svg?t=1737426932330#tmrwdao-icon') format('svg'); /* iOS 4.1- */
 }
 
 [class^="tmrwdao-icon-"], [class*=" tmrwdao-icon-"] {

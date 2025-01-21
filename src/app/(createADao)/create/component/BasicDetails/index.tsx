@@ -251,7 +251,7 @@ export default function BasicDetails() {
                 >
                   <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                     Governance Token
-                    <QuestionIcon className="cursor-pointer " width={16} height={16} />
+                    <i className="tmrwdao-icon-document text-[18px] text-white" />
                   </span>
                 </Tooltip>
               }
