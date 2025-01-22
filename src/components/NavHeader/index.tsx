@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { ReactComponent as LogoIcon } from 'assets/revamp-icon/logo.svg';
 import { ReactComponent as TwitterIcon } from 'assets/revamp-icon/twitter.svg';
 import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/telegram.svg';
-import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import { DownOutlined } from '@aelf-design/icons';
 import React, { useMemo } from 'react';
 import clsx from 'clsx';
@@ -16,6 +15,7 @@ import { useSelector } from 'redux/store';
 import useIsNetworkDao from 'hooks/useIsNetworkDao';
 import getChainIdQuery from 'utils/url';
 import Button from 'components/Button';
+import './index.css';
 
 export interface MenuItem {
   key: string;
@@ -168,26 +168,52 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
               menu={[
                 {
                   key: 'HashAddress',
+                  icon: <i className="tmrwdao-icon-wallet text-[18px] text-white" />,
                   label: (
-                    <HashAddress
-                      size="small"
-                      chain={isNetWorkDao ? chainIdQuery.chainId : info.curChain}
-                      address={walletInfo.address}
-                      preLen={8}
-                      endLen={9}
-                    />
+                    <div className="address-contain">
+                      <HashAddress
+                        size="small"
+                        chain={isNetWorkDao ? chainIdQuery.chainId : info.curChain}
+                        address={walletInfo.address}
+                        preLen={8}
+                        endLen={9}
+                      />
+                    </div>
                   ),
                 },
                 {
-                  key: 'HashAddress',
-                  label: <span onClick={() => logout()}>log out</span>,
+                  key: 'myDaos',
+                  icon: <i className="tmrwdao-icon-profile text-[18px] text-white" />,
+                  label: (
+                    <Link
+                      href="/my-daos"
+                      className="block text-descM14 text-white font-Montserrat hover:text-white"
+                    >
+                      My DAOs
+                    </Link>
+                  ),
+                },
+                {
+                  key: 'logout',
+                  icon: <i className="tmrwdao-icon-log-out text-[18px] text-white" />,
+                  label: (
+                    <span
+                      className="block text-descM14 font-Montserrat cursor-pointer"
+                      onClick={() => logout()}
+                    >
+                      Log out
+                    </span>
+                  ),
                 },
               ]}
               align="right"
-              MenuClassName="w-[284px]"
+              MenuClassName="w-[284px] bg-darkBg !px-[6px]"
               showArrow={false}
             >
-              <Button type="primary">{userName}</Button>
+              <Button type="primary">
+                <i className="tmrwdao-icon-profile text-[22px] text-white mr-[6px]" />
+                {userName}
+              </Button>
             </Dropdown>
           )}
 

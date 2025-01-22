@@ -2,7 +2,7 @@
   @apply h-[64px] flex items-center font-normal leading-[24px] font-[400] cursor-pointer;
 
   &.item-selected {
-    @apply text-colorPrimary;
+    @apply text-mainColor;
   }
 
   &.item-disable {

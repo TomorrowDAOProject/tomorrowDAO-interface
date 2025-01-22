@@ -42,7 +42,7 @@ export default function CommonOperationResultModal({
       <div className="flex flex-col items-center">
         <img src={ICON_MAP[type]} alt="icon" width={56} height={56} />
         <span className="my-4 block text-descM18 text-white font-Montserrat">{primaryContent}</span>
-        <span className="block text-descM18 text-lightGrey font-Montserrat">
+        <span className="block font-Montserrat text-desc12 text-center text-lightGrey whitespace-pre-wrap">
           {secondaryContent}
         </span>
         <div className="flex flex-row items-center gap-4 mt-[48px] w-full">

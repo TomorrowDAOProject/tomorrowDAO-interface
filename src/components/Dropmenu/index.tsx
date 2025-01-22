@@ -40,27 +40,20 @@ const Dropdown = (props: DropmenuProps) => {
 
       {isOpen && (
         <div
-          className={clsx(
-            'absolute pt-[10px]',
-            {
-              'origin-top-left left-0': align === 'left',
-              'origin-top-right right-0': align === 'right',
-            },
-            MenuClassName,
-          )}
+          className={clsx('absolute pt-[10px]', {
+            'origin-top-left left-0': align === 'left',
+            'origin-top-right right-0': align === 'right',
+          })}
         >
-          <div className="py-[13px] px-[14px] rounded-[7px] bg-darkGray">
+          <div className={clsx('py-[13px] px-[14px] rounded-[7px] bg-darkGray', MenuClassName)}>
             <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               {menu?.map((item, index) => (
-                <div className="py-[10px] px-[14px]" key={`${item.label}_${index}`}>
-                  <span
-                    className={clsx(
-                      'block m-0 text-white font-medium text-[15px] leading-[24px] font-Montserrat;',
-                      {
-                        'text-right': align === 'right',
-                      },
-                    )}
-                  >
+                <div
+                  className="py-[10px] px-[14px] flex items-center gap-2"
+                  key={`${item.label}_${index}`}
+                >
+                  {item.icon}
+                  <span className="block m-0 text-white font-medium text-[15px] leading-[24px] font-Montserrat;">
                     {item.label}
                   </span>
                 </div>

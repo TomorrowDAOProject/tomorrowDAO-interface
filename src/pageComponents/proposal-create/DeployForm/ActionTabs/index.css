@@ -9,7 +9,7 @@
   .proposal-action-tabs-text {
     @apply ml-2 card-sm-text-bold text-neutralPrimaryText;
     &.active {
-      @apply text-colorPrimary;
+      @apply text-mainColor;
     }
   }
 

@@ -210,18 +210,17 @@ const CreateDaoPage = () => {
         submitButtonRef.current?.setResultModalConfig({
           open: true,
           type: CommonOperationResultModalType.Success,
-          primaryContent: `${originMetadata?.metadata.name} Created Successfully`,
+          primaryContent: `${originMetadata?.metadata.name} is successfully created`,
           secondaryContent: (
             <>
-              Feel free to join Tomorrow DAO&apos;s{' '}
+              {`If you wish to modify the DAO&apos;s display information, \nyou can join the`}{' '}
               <Link
-                className="text-colorPrimary cursor-pointer"
+                className="text-mainColor cursor-pointer"
                 href={'https://t.me/tmrwdao'}
                 target="_blank"
               >
                 Telegram group
-              </Link>{' '}
-              to connect with the team and receive timely assistance
+              </Link>
             </>
           ),
           footerConfig: {
@@ -229,6 +228,7 @@ const CreateDaoPage = () => {
               {
                 children: (
                   <Link
+                    className="py-2 px-[14px] w-full lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid text-descM12 font-Montserrat lg:text-descM15 rounded-[42px] bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor appearence-none outline-none transition-[background,color] duration-300 ease-in-out"
                     href={`/explore`}
                     onClick={() => {
                       toast.error(
@@ -266,7 +266,7 @@ const CreateDaoPage = () => {
                 children: (
                   <Button
                     type="danger"
-                    className="mt-[48px] w-full"
+                    className="w-full"
                     onClick={() => submitButtonRef.current?.initResultModalConfig()}
                   >
                     Back
