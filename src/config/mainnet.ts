@@ -10,8 +10,7 @@ export const rpcUrlAELF = 'https://explorer.aelf.io/chain';
 export const rpcUrlTDVV = 'https://tdvv-explorer.aelf.io/chain';
 export const rpcUrlTDVW = 'https://tdvv-explorer.aelf.io/chain';
 export const connectServer = 'https://auth-portkey.portkey.finance';
-export const graphqlServer =
-  'https://dapp-aa-portkey.portkey.finance/aefinder-v2/api/app/graphql/portkey';
+export const graphqlServer = 'https://indexer-api.aefinder.io/api/app/graphql/portkey';
 export const portkeyServer = 'https://aa-portkey.portkey.finance';
 export const connectUrl = 'https://auth-aa-portkey.portkey.finance';
 

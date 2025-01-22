@@ -87,7 +87,7 @@ export default function ContractsAndFiles() {
         name="files"
         control={control}
         rules={{
-          required: 'Add at least one documentation',
+          required: false,
           validate: {
             validator: (v) =>
               v.length <= 20 ||
