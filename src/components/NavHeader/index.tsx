@@ -195,7 +195,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                 },
                 {
                   key: 'logout',
-                  icon: <i className="tmrwdao-icon-log-out text-[18px] text-white" />,
+                  icon: <i className="tmrwdao-icon-logout text-[18px] text-white" />,
                   label: (
                     <span
                       className="block text-descM14 font-Montserrat cursor-pointer"
