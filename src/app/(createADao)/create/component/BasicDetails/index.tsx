@@ -85,7 +85,13 @@ export default function BasicDetails() {
                 message: 'The name should contain no more than 50 characters.',
               },
             }}
-            render={({ field }) => <Input placeholder="Enter a name for the DAO" {...field} />}
+            render={({ field }) => (
+              <Input
+                {...field}
+                placeholder="Enter a name for the DAO"
+                isError={!!errors?.metadata?.name?.message}
+              />
+            )}
           />
         </FormItem>
         <div className="flex flex-col lg:flex-row">
@@ -128,6 +134,7 @@ export default function BasicDetails() {
                   rootClassName="lg:h-[250px]"
                   maxLength={240}
                   placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
+                  isError={!!errors?.metadata?.name?.message}
                 />
               )}
             />
@@ -137,7 +144,7 @@ export default function BasicDetails() {
           label={
             <div className="mb-[10px]">
               <span className="mb-2 block font-Montserrat text-descM16 text-white">Links</span>
-              <span className="font-desc13 font-Montserrat text-white">
+              <span className="font-desc12 font-Montserrat text-lightGrey">
                 Links to your DAO&apos;s website, social media profiles, discord, or other places
                 your community gathers.
               </span>
@@ -175,7 +182,13 @@ export default function BasicDetails() {
                 },
               },
             }}
-            render={({ field }) => <LinkGroup onBlur={field.onBlur} onChange={field.onChange} />}
+            render={({ field }) => (
+              <LinkGroup
+                onBlur={field.onBlur}
+                onChange={field.onChange}
+                isError={!!errors?.metadata?.socialMedia?.message}
+              />
+            )}
           />
         </FormItem>
         <div className="mb-[15px]">
@@ -251,7 +264,7 @@ export default function BasicDetails() {
                 >
                   <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                     Governance Token
-                    <QuestionIcon className="cursor-pointer " width={16} height={16} />
+                    <i className="tmrwdao-icon-information text-[18px] text-white" />
                   </span>
                 </Tooltip>
               }
@@ -289,6 +302,7 @@ export default function BasicDetails() {
                   <Input
                     {...field}
                     placeholder="Enter a token symbol"
+                    isError={!!errors?.governanceToken?.message}
                     onBlur={() => {
                       const token = getValues('governanceToken');
                       setValue('governanceToken', token?.toUpperCase());
@@ -322,10 +336,11 @@ export default function BasicDetails() {
                 >
                   <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                     Multisig Members Address
-                    <i className="tmrwdao-icon-document text-[18px] text-white" />
+                    <i className="tmrwdao-icon-information text-[18px] text-white" />
                   </span>
                 </Tooltip>
               }
+              errorText={errors?.members?.value?.message}
             >
               {membersValue.map((address, index) => (
                 <Controller
@@ -355,6 +370,7 @@ export default function BasicDetails() {
                           newList[index] = value;
                           field.onChange(newList);
                         }}
+                        isError={!!errors?.members?.value?.message}
                       />
                       <i
                         className={clsx(
