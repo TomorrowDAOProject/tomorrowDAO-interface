@@ -73,7 +73,6 @@ export default function BasicDetails() {
   const daoType = watch('governanceMechanism') ?? EDaoGovernanceMechanism.Token;
   const membersValue = watch('members.value') ?? [];
   const imgsUrl = watch('metadata.logoUrl');
-  console.log('imgsUrl', imgsUrl);
   useRegisterForm(form, StepEnum.step0);
 
   return (
