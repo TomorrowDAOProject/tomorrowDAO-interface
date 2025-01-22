@@ -4,10 +4,18 @@ import { ReactComponent as TwitterIcon } from 'assets/revamp-icon/twitter.svg';
 import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/telegram.svg';
 import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import { DownOutlined } from '@aelf-design/icons';
-import React from 'react';
+import React, { useMemo } from 'react';
 import clsx from 'clsx';
 import SideMenu from 'components/SideMenu';
 import NavMenuItem from './NavMenuItem';
+import Dropdown from 'components/Dropmenu';
+import { HashAddress } from 'aelf-design';
+import { useWalletService } from 'hooks/useWallet';
+import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
+import { useSelector } from 'redux/store';
+import useIsNetworkDao from 'hooks/useIsNetworkDao';
+import getChainIdQuery from 'utils/url';
+import Button from 'components/Button';
 
 export interface MenuItem {
   key: string;
@@ -106,6 +114,25 @@ const items: MenuItem[] = [
 ];
 
 const NavHeader = ({ className, style }: { className?: string; style?: React.CSSProperties }) => {
+  const { login, isLogin, walletType, logout } = useWalletService();
+  console.log('isLogin', isLogin);
+  const { isNetWorkDao } = useIsNetworkDao();
+  const chainIdQuery = getChainIdQuery();
+  const { walletInfo } = useSelector((store: any) => store.userInfo);
+  const info = useSelector((store: any) => store.elfInfo.elfInfo);
+  const userName = useMemo(() => {
+    if (walletInfo) {
+      if (walletType === WalletTypeEnum.discover) {
+        return walletInfo?.discoverInfo?.nickName;
+      } else if (walletType === WalletTypeEnum.aa) {
+        return walletInfo?.portkeyInfo?.nickName;
+      } else if (walletType === WalletTypeEnum.elf) {
+        return walletInfo?.nightElfInfo?.name;
+      }
+      return walletInfo.name;
+    }
+    return '';
+  }, [walletInfo, walletType]);
   return (
     <div
       className={clsx(
@@ -126,10 +153,43 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
         </div>
 
         <div className="flex items-center gap-[13px]">
-          <Link href="/" className="primary-button inline-flex items-center gap-[10px]">
-            Launch App
-            <LinkIcon className="h-[11px] w-[11px]" />
-          </Link>
+          {!isLogin ? (
+            <Button
+              type="primary"
+              onClick={() => {
+                login();
+              }}
+            >
+              Launch App
+              <i className="tmrwdao-icon-default-arrow text-[18px] text-white ml-2" />
+            </Button>
+          ) : (
+            <Dropdown
+              menu={[
+                {
+                  key: 'HashAddress',
+                  label: (
+                    <HashAddress
+                      size="small"
+                      chain={isNetWorkDao ? chainIdQuery.chainId : info.curChain}
+                      address={walletInfo.address}
+                      preLen={8}
+                      endLen={9}
+                    />
+                  ),
+                },
+                {
+                  key: 'HashAddress',
+                  label: <span onClick={() => logout()}>log out</span>,
+                },
+              ]}
+              align="right"
+              MenuClassName="w-[284px]"
+              showArrow={false}
+            >
+              <Button type="primary">{userName}</Button>
+            </Dropdown>
+          )}
 
           <div className="flex items-center gap-[10px] visible lg:hidden">
             <SideMenu />

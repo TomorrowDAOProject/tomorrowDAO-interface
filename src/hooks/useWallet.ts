@@ -69,7 +69,6 @@ export const useCheckLoginAndToken = () => {
   useAsyncEffect(async () => {
     const waitPublicKey =
       walletType === WalletTypeEnum.discover ? true : wallet?.extraInfo?.publicKey;
-    console.log('isConnectWallet', isConnectWallet, wallet, waitPublicKey);
     if (isConnectWallet && wallet && waitPublicKey) {
       if (authManager.isAuthing) return;
       authManager.isAuthing = true;
@@ -158,7 +157,6 @@ export const useWalletInit = () => {
     if (!walletInfo) {
       return;
     }
-    console.log('webLoginContext.isConnected', webLoginContext.isConnected, webLoginContext);
     webLoginInstance.setWebLoginContext(webLoginContext);
   }, [webLoginContext, walletInfo]);
 
