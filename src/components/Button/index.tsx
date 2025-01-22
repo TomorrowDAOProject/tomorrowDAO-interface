@@ -37,7 +37,7 @@ const Button = ({
     <button
       type="button"
       className={clsx(
-        'py-2 px-[14px] lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid text-descM12 lg:text-descM15 rounded-[42px] appearence-none outline-none transition-[background,color] duration-300 ease-in-out',
+        'py-2 px-[14px] lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid text-descM12 font-Montserrat lg:text-descM15 rounded-[42px] appearence-none outline-none transition-[background,color] duration-300 ease-in-out',
         buttonStyles[type],
         className,
       )}

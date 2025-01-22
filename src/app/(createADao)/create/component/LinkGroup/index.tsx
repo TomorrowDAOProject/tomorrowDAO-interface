@@ -5,6 +5,7 @@ import Select, { SelectOption } from 'components/Select';
 import { useState } from 'react';
 
 interface ILinkGroupProps {
+  isError?: boolean;
   onBlur?(links: Record<string, number>): void;
   onChange?(links: Record<string, number>): void;
 }
@@ -40,7 +41,7 @@ const socialMedia = [
   },
 ];
 
-const LinkGroup = ({ onBlur, onChange }: ILinkGroupProps) => {
+const LinkGroup = ({ isError, onBlur, onChange }: ILinkGroupProps) => {
   const [linkData, setLinkData] = useState<string[][]>([['', '']]);
   const handleSelectChange = (option: SelectOption, index: number) => {
     const originLinks = [...linkData];
@@ -87,6 +88,7 @@ const LinkGroup = ({ onBlur, onChange }: ILinkGroupProps) => {
                 className="flex-1"
                 onBlur={() => onBlur?.(Object.fromEntries(linkData))}
                 onChange={(value) => handleInputChange(value, index)}
+                isError={isError}
               />
               <i
                 className={clsx(

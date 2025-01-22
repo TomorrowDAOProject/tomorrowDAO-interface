@@ -7,13 +7,14 @@ interface ITextareaProps {
   placeholder?: string;
   maxLength?: number;
   rootClassName?: string;
+  isError?: boolean;
   onBlur?: (value: string) => void;
   onChange: (value: string) => void;
   onSubmit?: (text: string) => void;
 }
 
 const Textarea = (
-  { value, onChange, onBlur, placeholder, maxLength = 500, rootClassName }: ITextareaProps,
+  { value, onChange, onBlur, placeholder, maxLength = 500, rootClassName, isError }: ITextareaProps,
   ref: LegacyRef<HTMLTextAreaElement>,
 ) => {
   const [text, setText] = useState(value);
@@ -42,8 +43,10 @@ const Textarea = (
       <textarea
         ref={ref}
         className={clsx(
-          'py-[13px] px-[16px] w-full h-[121px] rounded-[8px] placeholder:font-questrial border border-solid border-fillBg8 bg-transparent text-white text-desc14 font-Montserrat caret-white outline-none resize-none appearance-none',
-
+          'py-[13px] px-[16px] w-full h-[121px] rounded-[8px] placeholder:font-Montserrat border border-solid border-fillBg8 bg-transparent text-white text-desc14 font-Montserrat caret-white outline-none resize-none appearance-none',
+          {
+            'border-mainColor': isError,
+          },
           rootClassName,
         )}
         value={text}

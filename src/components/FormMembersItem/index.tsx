@@ -53,7 +53,7 @@ function FormMembersItem(props: IFormMembersProps) {
           >
             <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
               Multisig Members Address
-              <i className="tmrwdao-icon-document text-[18px] text-white" />
+              <i className="tmrwdao-icon-information text-[18px] text-white" />
             </span>
           </Tooltip>
         )}

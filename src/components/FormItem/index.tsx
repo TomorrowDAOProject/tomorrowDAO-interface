@@ -43,8 +43,8 @@ const FormItem: React.FC<IFormItemProps> = ({
       </div>
       {children}
       {errorText && (
-        <span className="mt-[4px] block text-[12px] font-normal leading-[13.2px] text-danger">
-          *{errorText}
+        <span className="mt-[5px] block text-[11px] font-Montserrat leading-[17.6px] text-mainColor">
+          {errorText}
         </span>
       )}
     </div>

@@ -288,7 +288,7 @@ const CreateDaoPage = () => {
           <p className="!mb-[22px] flex items-center justify-between">
             <p className="text-h5 text-white font-Unbounded">Create your DAO</p>
             <span className="text-descM14 text-white font-Montserrat">
-              <span>Step {currentStep + 1}</span> / 4
+              <span>Step {currentStep + 1}</span>
             </span>
           </p>
           <ProgressBar percent={((currentStep + 1) / 4) * 100} />
@@ -296,7 +296,7 @@ const CreateDaoPage = () => {
             {currentStep == 0 && (
               <>
                 <h2 className="text-descM15 text-white font-Montserrat mb-2">Basic Information</h2>
-                <p className="text-desc12 text-lightGrey font-Montserrat">Basic Details.</p>
+                <p className="text-desc12 text-lightGrey font-Montserrat">Basic Details</p>
               </>
             )}
             {currentStep == 1 && (
