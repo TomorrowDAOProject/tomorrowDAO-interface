@@ -49,7 +49,7 @@ const GovernanceModel = () => {
             >
               <span className="form-item-label flex gap-[8px]">
                 <span className="form-item-label-text">Minimum Vote Requirement</span>
-                <i className="tmrwdao-icon-document text-[18px] text-white" />
+                <i className="tmrwdao-icon-information text-[18px] text-white" />
               </span>
             </Tooltip>
           }
@@ -80,7 +80,12 @@ const GovernanceModel = () => {
               },
             }}
             render={({ field }) => (
-              <Input {...field} regExp={/^[0-9\b]+$/} placeholder="At least 1 member required" />
+              <Input
+                {...field}
+                regExp={/^[0-9\b]+$/}
+                placeholder="At least 1 member required"
+                isError={!!errors?.minimalVoteThreshold?.message}
+              />
             )}
           />
         </FormItem>
@@ -97,7 +102,7 @@ const GovernanceModel = () => {
           >
             <span className="form-item-label flex gap-[8px]">
               <span className="form-item-label-text">Minimum Approval Rate</span>
-              <i className="tmrwdao-icon-document text-[18px] text-white" />
+              <i className="tmrwdao-icon-information text-[18px] text-white" />
             </span>
           </Tooltip>
         }
@@ -135,6 +140,7 @@ const GovernanceModel = () => {
                   className="font-Montserrat"
                   placeholder=" "
                   regExp={/^[0-9\b]+$/}
+                  isError={!!errors?.minimalApproveThreshold?.message}
                 />
                 <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
                   %
@@ -167,7 +173,7 @@ const GovernanceModel = () => {
             >
               <span className="form-item-label flex gap-[8px]">
                 <span className="form-item-label-text">Minimum Token Proposal Requirement</span>
-                <i className="tmrwdao-icon-document text-[18px] text-white" />
+                <i className="tmrwdao-icon-information text-[18px] text-white" />
               </span>
             </Tooltip>
           }
@@ -198,7 +204,12 @@ const GovernanceModel = () => {
               },
             }}
             render={({ field }) => (
-              <Input {...field} regExp={/^[0-9\b]+$/} placeholder="Enter 0 or more" />
+              <Input
+                {...field}
+                regExp={/^[0-9\b]+$/}
+                placeholder="Enter 0 or more"
+                isError={!!errors?.proposalThreshold?.message}
+              />
             )}
           />
         </FormItem>

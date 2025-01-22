@@ -22,9 +22,9 @@ function AddMultisigMembers(props: IAddMultisigMembersProps) {
             </div>
           }
         >
-          <span className="flex items-center form-item-title gap-[8px] pb-[8px]  w-[max-content]">
+          <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
             Add Multisig Members Address
-            <QuestionIcon className="cursor-pointer " width={16} height={16} />
+            <i className="tmrwdao-icon-information text-[18px] text-white" />
           </span>
         </Tooltip>
       }

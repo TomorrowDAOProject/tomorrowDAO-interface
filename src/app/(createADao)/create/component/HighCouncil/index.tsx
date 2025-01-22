@@ -63,7 +63,7 @@ const HighCouncil = () => {
               >
                 <span className="form-item-label flex gap-[8px]">
                   <span className="form-item-label-text">Minimum Vote Requirement</span>
-                  <i className="tmrwdao-icon-document text-[18px] text-white" />
+                  <i className="tmrwdao-icon-information text-[18px] text-white" />
                 </span>
               </Tooltip>
             }
@@ -99,6 +99,7 @@ const HighCouncil = () => {
                   disabled={disabled}
                   regExp={/^[0-9\b]+$/}
                   placeholder="At least 1 member required"
+                  isError={!!errors?.minimalVoteThreshold?.message}
                 />
               )}
             />
@@ -118,7 +119,7 @@ const HighCouncil = () => {
               >
                 <span className="form-item-label flex gap-[8px]">
                   <span className="form-item-label-text">Minimum Approval Rate</span>
-                  <i className="tmrwdao-icon-document text-[18px] text-white" />
+                  <i className="tmrwdao-icon-information text-[18px] text-white" />
                 </span>
               </Tooltip>
             }
@@ -158,6 +159,9 @@ const HighCouncil = () => {
                       className="font-Montserrat"
                       placeholder="The suggested percentage is no less than 67%."
                       regExp={/^[0-9\b]+$/}
+                      isError={
+                        !!errors?.governanceSchemeThreshold?.minimalApproveThreshold?.message
+                      }
                     />
                     <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
                       %
@@ -190,7 +194,7 @@ const HighCouncil = () => {
               >
                 <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                   High Council Members&apos; aelf Sidechain Address
-                  <i className="tmrwdao-icon-document text-[18px] text-white" />
+                  <i className="tmrwdao-icon-information text-[18px] text-white" />
                 </span>
               </Tooltip>
             }
@@ -227,6 +231,7 @@ const HighCouncil = () => {
                         newList[index] = value;
                         field.onChange(newList);
                       }}
+                      isError={!!errors?.highCouncilMembers?.value?.message}
                     />
                     <i
                       className={clsx(
