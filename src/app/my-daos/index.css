@@ -21,10 +21,10 @@
   }
 
   .list-body-content-item {
-    @apply border-solid border border-white px-[32px] py-[16px] flex gap-[8px] items-center;
+    @apply py-[16px] flex gap-[14px] items-center font-Montserrat text-[15px] font-[500];
 
     img {
-      @apply w-[32px] h-[32px] rounded-full;
+      @apply w-[30px] h-[30px] rounded-full;
     }
   }
 

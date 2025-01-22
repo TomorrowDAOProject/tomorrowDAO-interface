@@ -14,6 +14,7 @@ import NoData from 'components/NoData';
 import useResponsive from 'hooks/useResponsive';
 import { useWalletService } from 'hooks/useWallet';
 import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
+import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right-white.svg';
 
 const MaxResultCount = 5;
 interface IFetchResult {
@@ -126,7 +127,10 @@ const MyDaosPage = () => {
                     >
                       <li className="list-body-content-item" key={item.daoId}>
                         <img src={item.logo} alt="" />
-                        <span className="normal-text-bold">{item.name}</span>
+                        <span className="text-[14px] text-white font-Montserrat font-[500]">
+                          {item.name}
+                        </span>
+                        <ArrowRight className="ml-auto" />
                       </li>
                     </Link>
                   );
@@ -164,7 +168,9 @@ const MyDaosPage = () => {
                     >
                       <li className="list-body-content-item" key={item.daoId}>
                         <img src={item.logo} alt="" />
-                        <span className="normal-text-bold">{item.name}</span>
+                        <span className="text-[14px] text-white font-Montserrat font-[500]">
+                          {item.name}
+                        </span>
                       </li>
                     </Link>
                   );
