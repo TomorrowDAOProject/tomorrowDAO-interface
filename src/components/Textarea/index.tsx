@@ -1,11 +1,12 @@
 import clsx from 'clsx';
-import React, { forwardRef, LegacyRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, LegacyRef, useEffect, useState } from 'react';
 
 interface ITextareaProps {
   value: string;
   disabled?: boolean;
   placeholder?: string;
   maxLength?: number;
+  containerClassName?: string;
   rootClassName?: string;
   isError?: boolean;
   onBlur?: (value: string) => void;
@@ -14,7 +15,16 @@ interface ITextareaProps {
 }
 
 const Textarea = (
-  { value, onChange, onBlur, placeholder, maxLength = 500, rootClassName, isError }: ITextareaProps,
+  {
+    value,
+    onChange,
+    onBlur,
+    placeholder,
+    maxLength = 500,
+    rootClassName,
+    containerClassName,
+    isError,
+  }: ITextareaProps,
   ref: LegacyRef<HTMLTextAreaElement>,
 ) => {
   const [text, setText] = useState(value);
@@ -39,7 +49,7 @@ const Textarea = (
   };
 
   return (
-    <div className="relative rounded-[8px]">
+    <div className={clsx('relative rounded-[8px]', containerClassName)}>
       <textarea
         ref={ref}
         className={clsx(

@@ -13,6 +13,7 @@ interface ISelectProps {
   options: SelectOption[];
   placehoder?: string;
   defaultValue?: SelectOption;
+  isError?: boolean;
   onChange?(option: SelectOption): void;
 }
 
@@ -22,6 +23,7 @@ const Select: React.FC<ISelectProps> = ({
   label,
   options,
   placehoder,
+  isError,
   onChange,
 }) => {
   const [selected, setSelected] = useState<SelectOption | undefined>();
@@ -51,6 +53,7 @@ const Select: React.FC<ISelectProps> = ({
           className,
           {
             'border-lightGrey': isOpen,
+            '!border-mainColor': isError,
           },
         )}
         onClick={() => setIsOpen(!isOpen)}
