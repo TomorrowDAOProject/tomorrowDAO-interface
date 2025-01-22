@@ -80,7 +80,12 @@ const GovernanceModel = () => {
               },
             }}
             render={({ field }) => (
-              <Input {...field} regExp={/^[0-9\b]+$/} placeholder="At least 1 member required" />
+              <Input
+                {...field}
+                regExp={/^[0-9\b]+$/}
+                placeholder="At least 1 member required"
+                isError={!!errors?.minimalVoteThreshold?.message}
+              />
             )}
           />
         </FormItem>
@@ -135,6 +140,7 @@ const GovernanceModel = () => {
                   className="font-Montserrat"
                   placeholder=" "
                   regExp={/^[0-9\b]+$/}
+                  isError={!!errors?.minimalApproveThreshold?.message}
                 />
                 <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
                   %
@@ -198,7 +204,12 @@ const GovernanceModel = () => {
               },
             }}
             render={({ field }) => (
-              <Input {...field} regExp={/^[0-9\b]+$/} placeholder="Enter 0 or more" />
+              <Input
+                {...field}
+                regExp={/^[0-9\b]+$/}
+                placeholder="Enter 0 or more"
+                isError={!!errors?.proposalThreshold?.message}
+              />
             )}
           />
         </FormItem>
