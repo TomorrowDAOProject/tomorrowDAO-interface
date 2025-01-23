@@ -92,6 +92,7 @@ const LinkGroup = ({ errorText, onBlur, onChange }: ILinkGroupProps) => {
             <div className="flex flex-row flex-grow items-center">
               <Input
                 className="flex-1"
+                placeholder={link[0] === 'Twitter' ? "Enter the DAO's X handle, starting with @" : 'https://'}
                 onBlur={() => onBlur?.(Object.fromEntries(linkData))}
                 onChange={(value) => handleInputChange(value, index)}
                 isError={!!errorText}

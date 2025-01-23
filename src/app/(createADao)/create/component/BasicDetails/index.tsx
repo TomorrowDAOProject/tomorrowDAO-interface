@@ -172,7 +172,7 @@ export default function BasicDetails() {
           label={
             <div className="mb-[10px]">
               <span className="mb-2 block font-Montserrat text-descM16 text-white">Links</span>
-              <span className="font-desc12 font-Montserrat text-lightGrey">
+              <span className="text-desc13 font-Montserrat text-lightGrey">
                 Links to your DAO&apos;s website, social media profiles, discord, or other places
                 your community gathers.
               </span>
@@ -228,7 +228,7 @@ export default function BasicDetails() {
                 Governance Participants
               </span>
               <div className="mb-[10px] text-desc13 font-Montserrat text-lightGrey">
-                Who can participate in governance ?
+                Who can participate in governance?
               </div>
             </>
           }

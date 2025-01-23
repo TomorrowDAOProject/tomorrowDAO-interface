@@ -61,7 +61,7 @@ export default function DAOList(props: IDAOListProps) {
       ) : (
         <Empty description="No results found" className="mb-[30px]" />
       )}
-      <div className="col-12">
+      <div className="col-12 mt-[50px]">
         <span className="font-Unbounded text-[15px] font-light text-white -tracking-[0.6px]">
           Community DAOs
         </span>

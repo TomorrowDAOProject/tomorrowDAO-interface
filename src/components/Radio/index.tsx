@@ -35,7 +35,7 @@ const Radio = ({ options, value, onChange }: IRadioProps, ref: LegacyRef<HTMLInp
               },
             )}
           />
-          <span className="text-white">{option.label}</span>
+          <span className="text-white font-Montserrat text-desc15">{option.label}</span>
         </label>
       ))}
     </div>
