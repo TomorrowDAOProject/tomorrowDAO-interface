@@ -97,7 +97,7 @@ const HighCouncil = () => {
                 <Input
                   {...field}
                   disabled={disabled}
-                  regExp={/^[0-9\b]+$/}
+                  regExp={/^([0-9\b]*)$/}
                   placeholder="At least 1 member required"
                   isError={!!errors?.minimalVoteThreshold?.message}
                 />
@@ -158,7 +158,7 @@ const HighCouncil = () => {
                       disabled={disabled}
                       className="font-Montserrat"
                       placeholder="The suggested percentage is no less than 67%."
-                      regExp={/^[0-9\b]+$/}
+                      regExp={/^([0-9\b]*)$/}
                       isError={
                         !!errors?.governanceSchemeThreshold?.minimalApproveThreshold?.message
                       }

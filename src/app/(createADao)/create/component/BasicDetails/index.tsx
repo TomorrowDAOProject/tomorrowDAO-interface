@@ -187,12 +187,6 @@ export default function BasicDetails() {
               validate: {
                 validator: (socialMedia) => {
                   const value = Object.values(socialMedia).filter((item) => item);
-                  const invalidValues = Object.values(socialMedia).filter(
-                    (item) => item && !facebookUrlRegex.test(item),
-                  );
-                  if (value.length < 1) {
-                    return 'At least one social media is required.';
-                  }
                   if (socialMedia.Twitter) {
                     if (!twitterUsernameRegex.test(socialMedia.Twitter)) {
                       return 'Please enter a correct X handle, starting with @.';
@@ -200,8 +194,6 @@ export default function BasicDetails() {
                     if (socialMedia.Twitter.length > 15) {
                       return 'The X (Twitter) user name should be shorter than 15 characters.';
                     }
-                  } else if (invalidValues.length > 0) {
-                    return 'Please enter a correct link. Shortened URLs are not supported.';
                   } else if (value?.filter((item) => item.length > 128).length > 0) {
                     return 'The URL should be shorter than 128 characters.';
                   }
