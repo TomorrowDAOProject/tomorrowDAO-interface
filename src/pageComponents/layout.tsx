@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation';
 import ResultModal from 'components/ResultModal';
 import './layout.css';
 import DAOHeader from './home/components/DAOHeader';
-import useResponsive from 'hooks/useResponsive';
 import NavHeader from 'components/NavHeader';
 import NavFooter from 'components/NavFooter';
 import clsx from 'clsx';
@@ -36,8 +35,7 @@ const Layout = (props: React.PropsWithChildren<{}>) => {
   };
   const { children } = props;
   const pathName = usePathname();
-  const isExolore = pathName === '/explore';
-  const { isLG } = useResponsive();
+  const isExplore = pathName === '/explore';
 
   return (
     <ScrollProvider value={{ onScroll: handleScroll, scrollContainerRef }}>
@@ -50,7 +48,7 @@ const Layout = (props: React.PropsWithChildren<{}>) => {
             'backdrop-blur-[10px]': showHeader,
           })}
         />
-        {isLG && isExolore && <DAOHeader />}
+        {isExplore && <DAOHeader />}
         {children}
         <NavFooter />
         <PageLoading />

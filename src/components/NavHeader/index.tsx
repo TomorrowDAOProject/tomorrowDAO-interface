@@ -14,6 +14,7 @@ import useIsNetworkDao from 'hooks/useIsNetworkDao';
 import getChainIdQuery from 'utils/url';
 import Button from 'components/Button';
 import './index.css';
+import { useUrlPath } from 'hooks/useUrlPath';
 
 export interface MenuItem {
   key: string;
@@ -114,6 +115,8 @@ const items: MenuItem[] = [
 const NavHeader = ({ className, style }: { className?: string; style?: React.CSSProperties }) => {
   const { login, isLogin, walletType, logout } = useWalletService();
   const { isNetWorkDao } = useIsNetworkDao();
+  const { isHome } = useUrlPath();
+
   const chainIdQuery = getChainIdQuery();
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const info = useSelector((store: any) => store.elfInfo.elfInfo);
@@ -150,15 +153,19 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
         </div>
 
         <div className="flex items-center gap-[13px]">
-          {!isLogin ? (
+          {isHome ? (
+            <Link href="/explore" className="primary-button inline-flex items-center gap-[10px]">
+              Launch App
+              <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
+            </Link>
+          ) : !isLogin ? (
             <Button
               type="primary"
               onClick={() => {
                 login();
               }}
             >
-              Launch App
-              <i className="tmrwdao-icon-default-arrow text-[18px] ml-2 text-inherit" />
+              Log In
             </Button>
           ) : (
             <Dropdown

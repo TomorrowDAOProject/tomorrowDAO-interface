@@ -1,20 +1,15 @@
 import DAOListItem from 'components/DAOListItem';
 import Link from 'next/link';
-import { useInfiniteScroll } from 'ahooks';
 import { Empty } from 'antd';
 import { fetchDaoList } from 'api/request';
-import { SkeletonList } from 'components/Skeleton';
 import { curChain } from 'config';
 
 import './index.css';
 import LoadMoreButton from 'components/LoadMoreButton';
 import { useEffect, useState } from 'react';
-import { set } from 'js-cookie';
+import Button from 'components/Button';
+import Spinner from 'components/Spinner';
 
-interface IFetchResult {
-  list: IDaoItem[];
-  hasData: boolean;
-}
 interface IDAOListProps {
   ssrData: {
     daoList: IDaoItem[];
@@ -40,52 +35,63 @@ export default function DAOList(props: IDAOListProps) {
     setHasData(renderList.length + res.data.items.length < res.data.totalCount);
     setLoading(false);
   };
-  useEffect(() => {
-    console.log('ssr daoList', ssrData);
-  }, []);
+
   return (
-    <div className="dao-list">
-      <h3 className="normal-text-bold mb-[24px]">Verified DAOs</h3>
+    <>
+      <div className="col-12">
+        <span className="font-Unbounded text-[15px] font-light text-white -tracking-[0.6px]">
+          Verified DAOs
+        </span>
+      </div>
       {verifiedDaoList ? (
-        <div className="dao-list-container mb-0">
+        <>
           {verifiedDaoList?.map((item) => {
             return (
-              <Link
-                key={item.daoId}
-                href={item.isNetworkDAO ? `/network-dao` : `/dao/${item.alias}`}
-                prefetch={true}
-              >
-                <DAOListItem item={item} />
-              </Link>
+              <div className="col-12 md:col-6" key={item.daoId}>
+                <Link
+                  href={item.isNetworkDAO ? `/network-dao` : `/dao/${item.alias}`}
+                  prefetch={true}
+                >
+                  <DAOListItem item={item} />
+                </Link>
+              </div>
             );
           })}
-        </div>
+        </>
       ) : (
         <Empty description="No results found" className="mb-[30px]" />
       )}
-      <h3 className="normal-text-bold my-[24px]">Community DAOs</h3>
+      <div className="col-12 mt-[50px]">
+        <span className="font-Unbounded text-[15px] font-light text-white -tracking-[0.6px]">
+          Community DAOs
+        </span>
+      </div>
       {renderList ? (
-        <div className="dao-list-container">
+        <>
           {renderList?.map((item) => {
             return (
-              <Link
-                key={item.daoId}
-                href={item.isNetworkDAO ? `/network-dao` : `/dao/${item.alias}`}
-                prefetch={true}
-              >
-                <DAOListItem item={item} />
-              </Link>
+              <div className="col-12 md:col-6" key={item.daoId}>
+                <Link
+                  href={item.isNetworkDAO ? `/network-dao` : `/dao/${item.alias}`}
+                  prefetch={true}
+                >
+                  <DAOListItem item={item} />
+                </Link>
+              </div>
             );
           })}
-        </div>
+        </>
       ) : (
         <Empty description="No results found" className="mb-[30px]" />
       )}
       {hasData && (
-        <div className="dao-more">
-          <LoadMoreButton onClick={loadMore} loadingMore={loading} />
+        <div className="col-12 flex items-center justify-center">
+          <Button type="link" className="!py-0 gap-2" onClick={loadMore} disabled={loading}>
+            {loading && <Spinner size={32} />}
+            View More
+          </Button>
         </div>
       )}
-    </div>
+    </>
   );
 }
