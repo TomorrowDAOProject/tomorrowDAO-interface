@@ -1,5 +1,5 @@
 .treasury-wrap {
-  @apply mb-[25px];
+  @apply min-h-[398px] mb-[16px];
 
   .token img {
     @apply pr-[4px];
@@ -56,11 +56,11 @@
   }
 
   .treasury-icon {
-    @apply mt-0;
+    @apply mt-6;
   }
 
   .assets-title {
-    @apply font-[500] text-[18px] leading-[28px] mt-6 font-Montserrat text-white;
+    @apply font-[500] text-[20px] leading-[28px] mt-6;
   }
 
   .text-14-22-500 {
@@ -68,7 +68,7 @@
   }
 
   .assets-help-message {
-    @apply font-normal text-[12px] mt-[8px] text-lightGrey text-center font-Montserrat leading-[16px];
+    @apply font-normal text-[14px] leading-[22px] mt-[8px] text-Neutral-Secondary-Text text-center;
   }
 
   .assets-help-message-text-wrap {

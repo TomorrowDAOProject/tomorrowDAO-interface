@@ -1,6 +1,4 @@
 .my-daos {
-  @apply mx-[20px] my-[39px] md:w-[688px] lg:w-[904px] xl:w-[1024px] md:m-auto lg:m-auto xl:m-auto xl:my-[70px] lg:my-[67px] md:my-[45px];
-
   .fix-bottom-button {
     @apply fixed bottom-0 left-0 right-0 px-[16px] py-[24px] bg-white flex items-center justify-center;
     button {
@@ -9,22 +7,24 @@
   }
 
   .list-header {
-    @apply font-Montserrat h-[56px] py-[17px] px-[32px] text-white text-[15px] font-[500] border-0 border-solid border-b border-fillBg8;
+    @apply bg-white border-Neutral-Divider border-solid border rounded-t-lg  px-[24px] py-[32px];
   }
 
   .list-body {
-    @apply py-[24px] px-[32px];
+    @apply bg-white border-Neutral-Divider border-solid border rounded-b-lg border-t-0;
+
   }
 
   .sub-title {
     @apply px-[32px] py-[14px] text-[14px] leading-[20px] text-Neutral-Secondary-Text;
   }
 
+
   .list-body-content-item {
-    @apply py-[16px] flex gap-[14px] items-center font-Montserrat text-[15px] font-[500];
+    @apply border-Neutral-Divider border-solid border border-l-0 border-b-0 border-r-0 px-[32px] py-[16px] flex gap-[8px] items-center;
 
     img {
-      @apply w-[30px] h-[30px] rounded-full;
+      @apply w-[32px] h-[32px] rounded-full;
     }
   }
 
@@ -33,6 +33,7 @@
   }
 
   .more-button {
+
     button {
       @apply w-[152px] h-[40px];
     }

@@ -1,8 +1,12 @@
 import { ReactNode } from 'react';
+import { Flex } from 'antd';
+import { FontWeightEnum, Typography } from 'aelf-design';
+import CommonModal, { TCommonModalProps } from 'components/CommonModal';
 import successFilledIcon from 'assets/imgs/successFilled.svg';
 import errorFilledIcon from 'assets/imgs/errorFilled.svg';
 import warningFilledIcon from 'assets/imgs/warningFilled.svg';
-import Modal from 'components/Modal';
+
+const { Text, Title } = Typography;
 
 export enum CommonOperationResultModalType {
   Success = 'success',
@@ -16,41 +20,30 @@ const ICON_MAP = {
   [CommonOperationResultModalType.Warning]: warningFilledIcon,
 };
 
-type ButtonItem = {
-  children: React.ReactNode;
-};
-
-export interface TCommonOperationResultModalProps {
+export type TCommonOperationResultModalProps = Pick<
+  TCommonModalProps,
+  'footerConfig' | 'open' | 'onCancel' | 'viewTransactionId'
+> & {
   type: CommonOperationResultModalType;
-  open: boolean;
-  footerConfig?: { buttonList: ButtonItem[] };
   primaryContent: ReactNode;
   secondaryContent?: ReactNode;
-  onCancel?(): void;
-}
+};
 
 export default function CommonOperationResultModal({
   type = CommonOperationResultModalType.Success,
-  open,
   primaryContent,
   secondaryContent,
-  onCancel,
-  footerConfig,
+  ...modalProps
 }: TCommonOperationResultModalProps) {
   return (
-    <Modal isVisible={open} rootClassName="px-[38px] py-[30px] md:w-[471px]" onClose={onCancel}>
-      <div className="flex flex-col items-center">
+    <CommonModal {...modalProps}>
+      <Flex vertical align="center" gap={16}>
         <img src={ICON_MAP[type]} alt="icon" width={56} height={56} />
-        <span className="my-4 block text-descM18 text-white font-Montserrat">{primaryContent}</span>
-        <span className="block text-descM18 text-lightGrey font-Montserrat">
-          {secondaryContent}
-        </span>
-        <div className="flex flex-row items-center gap-4 mt-[48px] w-full">
-          {footerConfig?.buttonList?.map(({ children }) => (
-            <>{children}</>
-          ))}
-        </div>
-      </div>
-    </Modal>
+        <Title className="text-center" level={6} fontWeight={FontWeightEnum.Medium}>
+          {primaryContent}
+        </Title>
+        <Text className="text-center text-[#919191]">{secondaryContent}</Text>
+      </Flex>
+    </CommonModal>
   );
 }

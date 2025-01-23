@@ -33,14 +33,13 @@
   .error-message {
     @apply card-sm-text text-error;
   }
-  .send-button.disabled,
-  .send-button.disabled:hover,
-  .TMRWDAO-btn-primary.disabled:not(:disabled):not(.TMRWDAO-btn-disabled):hover {
-    @apply cursor-not-allowed bg-Neutral-Hover-BG text-white shadow-none;
+  .send-button.disabled,  .send-button.disabled:hover, .TMRWDAO-btn-primary.disabled:not(:disabled):not(.TMRWDAO-btn-disabled):hover{
+    @apply cursor-not-allowed bg-Neutral-Hover-BG text-Neutral-Disable-Text shadow-none;
   }
   .loading-more-wrap {
     @apply w-full flex justify-center pb-[24px];
   }
+
 }
 .send-tool-tip .TMRWDAO-tooltip-inner {
   @apply flex items-center;

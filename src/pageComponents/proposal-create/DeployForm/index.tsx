@@ -36,7 +36,6 @@ import { SkeletonForm } from 'components/Skeleton';
 import { replaceUrlParams } from 'utils/url';
 import dayjs from 'dayjs';
 import { proposalTypeList } from 'types';
-import Button from 'components/Button';
 
 const convertParams = async (address: string, methodName: string, originParams: any) => {
   const contractInfo = await getContract(address);
@@ -107,15 +106,10 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
       footerConfig: {
         buttonList: [
           {
-            children: (
-              <Button
-                type="danger"
-                className="mt-[48px] w-full"
-                onClick={() => setResultModalConfig(INIT_RESULT_MODAL_CONFIG)}
-              >
-                Back
-              </Button>
-            ),
+            children: 'Back',
+            onClick: () => {
+              setResultModalConfig(INIT_RESULT_MODAL_CONFIG);
+            },
           },
         ],
       },
@@ -375,22 +369,25 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
         footerConfig: {
           buttonList: [
             {
-              children: (
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    antdMessage.open({
-                      type: 'success',
-                      content: 'created successfully, it will appear in the list in a few minutes',
-                    });
-                    nextRouter.push(isNetWorkDao ? `/network-dao` : `/dao/${aliasName}`);
-                  }}
-                >
-                  OK
-                </Button>
-              ),
+              children: 'OK',
+              onClick: () => {
+                antdMessage.open({
+                  type: 'success',
+                  content: 'created successfully, it will appear in the list in a few minutes',
+                });
+                nextRouter.push(isNetWorkDao ? `/network-dao` : `/dao/${aliasName}`);
+              },
             },
           ],
+          childrenNode: (
+            // <Link
+            //   href={`/proposal/${createRes.proposalId}`}
+            //   className="color-[colorPrimary] font-500 leading-[22px] text-[14px] "
+            // >
+            //   View Proposal Details
+            // </Link>
+            <span></span>
+          ),
         },
       });
     } catch (err) {

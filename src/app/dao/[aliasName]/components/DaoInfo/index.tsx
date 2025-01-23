@@ -225,9 +225,9 @@ export default function DaoInfo(props: IParams) {
                     }
                     className="mr-[10px]"
                   >
-                    <div className="flex items-center justify-center bg-fillBg8 px-3 py-[3px] leading-8 rounded-[25px] cursor-pointer">
+                    <div className="flex items-center justify-center h-8 bg-Neutral-Default-BG px-2 leading-8 rounded-md cursor-pointer">
                       <Image width={14} height={14} src={settingSrc} alt=""></Image>
-                      {!isSM && <span className="ml-1 text-lightGrey text-[12px]">Settings</span>}
+                      {!isSM && <span className="ml-1 text-neutralPrimaryText">Settings</span>}
                     </div>
                   </Link>
                 )}
@@ -236,9 +236,9 @@ export default function DaoInfo(props: IParams) {
               </div>
             </div>
             <div className="dao-detail-desc px-4 lg:px-8">
-              <div className="flex flex-col">
-                <span className="title">{metadata?.name}</span>
-                <span className="description">{metadata?.description}</span>
+              <div>
+                <h2 className="title">{metadata?.name}</h2>
+                <p className="description">{metadata?.description}</p>
               </div>
               <div className="flex gap-4">
                 {socialMediaList.map(

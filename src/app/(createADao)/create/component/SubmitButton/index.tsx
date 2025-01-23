@@ -1,35 +1,41 @@
 import React, { useCallback, useContext, useState, forwardRef, useImperativeHandle } from 'react';
+import { Button, IButtonProps } from 'aelf-design';
 import CreatePreviewModal, { ICreatePreviewModalProps } from '../CreatePreviewModal';
 import CommonOperationResultModal, {
   CommonOperationResultModalType,
   TCommonOperationResultModalProps,
 } from 'components/CommonOperationResultModal';
-import { FilesSubmitedRes, StepEnum, StepsContext } from '../../type';
-import Button from 'components/Button';
+import { StepEnum, StepsContext } from '../../type';
 
 interface ISubmitButtonProps {
+  buttonProps?: Omit<IButtonProps, 'onClick'>;
   children?: React.ReactNode;
   onConfirm?: () => void;
 }
 
 type TPreviewModalConfig = Pick<ICreatePreviewModalProps, 'open'>;
 
+type TResultModalConfig = Pick<
+  TCommonOperationResultModalProps,
+  'open' | 'type' | 'primaryContent' | 'secondaryContent' | 'footerConfig'
+>;
+
 const INIT_PREVIEW_MODAL_CONFIG: TPreviewModalConfig = {
   open: false,
 };
 
-const INIT_RESULT_MODAL_CONFIG: TCommonOperationResultModalProps = {
+const INIT_RESULT_MODAL_CONFIG: TResultModalConfig = {
   open: false,
   type: CommonOperationResultModalType.Success,
   primaryContent: '',
   secondaryContent: '',
 };
 export interface ISubmitRef {
-  setResultModalConfig: (value: TCommonOperationResultModalProps) => void;
+  setResultModalConfig: (value: TResultModalConfig) => void;
   initResultModalConfig: () => void;
 }
 const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
-  ({ children, onConfirm }: ISubmitButtonProps, ref) => {
+  ({ buttonProps, children, onConfirm }: ISubmitButtonProps, ref) => {
     const [previewModalConfig, setPreviewModalConfig] = useState(INIT_PREVIEW_MODAL_CONFIG);
     const [resultModalConfig, setResultModalConfig] = useState(INIT_RESULT_MODAL_CONFIG);
 
@@ -52,17 +58,12 @@ const SubmitButton = forwardRef<ISubmitRef, ISubmitButtonProps>(
     return (
       <>
         <Button
-          type="primary"
-          className="lg:flex-none gap-2"
+          {...buttonProps}
           onClick={() => {
-            stepForm[StepEnum.step3].formInstance?.trigger().then((res) => {
-              const values = stepForm[StepEnum.step3].formInstance?.getValues();
-              stepForm[StepEnum.step3].submitedRes = values as FilesSubmitedRes;
-              if (res) {
-                setPreviewModalConfig({
-                  open: true,
-                });
-              }
+            stepForm[StepEnum.step3].formInstance?.validateFields().then(() => {
+              setPreviewModalConfig({
+                open: true,
+              });
             });
           }}
         >
