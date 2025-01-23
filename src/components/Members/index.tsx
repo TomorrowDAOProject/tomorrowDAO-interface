@@ -48,9 +48,11 @@ const Members: React.FC<IProps> = (props) => {
         <SkeletonLine />
       ) : (
         <div>
-          <h3 className="card-title mb-[24px]">{cardTitle}</h3>
+          <div className="text-white font-[500] text-[18px] font-Montserrat mb-[20px]">
+            {cardTitle}
+          </div>
           <div className="flex justify-between items-start lg:items-center lg:flex-row flex-col">
-            <div>{descriptionNode}</div>
+            <div className="text-[15px]">{descriptionNode}</div>
             {managerUrl ? (
               <Link href={managerUrl}>{ManageButton}</Link>
             ) : (

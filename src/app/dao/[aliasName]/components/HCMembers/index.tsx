@@ -75,7 +75,9 @@ const DaoMembers: React.FC<IProps> = (props) => {
       createButtonLoading={createProposalLoading}
       descriptionNode={
         <>
-          <h2 className="card-title-lg mb-[4px]">{totalCount} Members</h2>
+          <span className="text-[15px] text-white font-Montserrat mb-[4px]">
+            {totalCount} Members
+          </span>
         </>
       }
     />

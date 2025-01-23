@@ -64,7 +64,7 @@
 }
 
 .dao-collapse-panel {
-  @apply font-[300] text-[16px] leading-[24px] text-white font-Unbounded;
+  @apply font-[300] text-[15px] leading-[24px] text-white font-Unbounded;
 }
 
 .dao-collapse-panel-label {

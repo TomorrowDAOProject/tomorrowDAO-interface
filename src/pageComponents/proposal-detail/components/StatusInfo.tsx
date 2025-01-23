@@ -30,15 +30,9 @@ const StatusInfo = (props: IStatusInfoProps) => {
   });
 
   return (
-    <div className="card-shape py-6">
-      <Typography.Title
-        className="proposal-status-title"
-        level={6}
-        fontWeight={FontWeightEnum.Medium}
-      >
-        Status
-      </Typography.Title>
-      <div className="proposal-status-content">
+    <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
+      <div className="text-[18px] font-[500] font-Montserrat text-white mb-[20px]">Status</div>
+      <div className="">
         <Steps
           current={stepItmes?.length ? stepItmes?.length - 1 : 0}
           items={stepItmes}

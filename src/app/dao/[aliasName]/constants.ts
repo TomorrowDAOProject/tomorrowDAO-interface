@@ -38,8 +38,8 @@ export const tagMap = {
 
 export const tagColorMap = {
   [AllProposalStatusString.Approved]: {
-    bgColor: '#EBF3FF',
-    textColor: '#3888FF',
+    bgColor: 'rgba(255,174,0,0.20)',
+    textColor: '#FFAE00',
     firstText: 'Availabe to be executed before',
     secondText: 'Approved on',
   },
