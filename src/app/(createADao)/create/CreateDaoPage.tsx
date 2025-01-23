@@ -389,8 +389,8 @@ const CreateDaoPage = () => {
 
               {currentStep === 3 ? (
                 <SubmitButton onConfirm={handleCreateDao} ref={submitButtonRef}>
-                  <span>Submit</span>
-                  <LinkIcon className="h-[11px] w-[11px]" />
+                  <span>Submit</span>{' '}
+                  <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </SubmitButton>
               ) : (
                 <Button
@@ -400,7 +400,7 @@ const CreateDaoPage = () => {
                   loading={nextLoading}
                 >
                   <span>Next</span>
-                  <LinkIcon className="h-[11px] w-[11px]" />
+                  <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </Button>
               )}
             </div>

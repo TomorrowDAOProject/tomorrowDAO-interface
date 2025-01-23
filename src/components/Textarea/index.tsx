@@ -68,7 +68,7 @@ const Textarea = (
       />
       <span
         className={clsx(
-          'absolute right-[16px] bottom-[13px] inline-block text-[11px] leading-[17.6px] text-lightGrey',
+          'absolute right-[16px] bottom-[13px] inline-block font-Montserrat text-[11px] leading-[17.6px] text-lightGrey',
           { '!text-danger': charCount === maxLength },
         )}
       >

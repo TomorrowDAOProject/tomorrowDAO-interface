@@ -1,4 +1,4 @@
-import { forwardRef, ReactNode, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import Spinner from '../Spinner';
@@ -15,6 +15,7 @@ interface IUploadProps {
   uploadText?: string;
   accept?: string;
   tips?: ReactNode;
+  value?: string;
   fileNameLengthLimit?: number;
   onStart?(): void;
   onFileChange?(file: File): void;
@@ -56,6 +57,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
       uploadText,
       tips,
       accept,
+      value,
       fileLimit = '1 MB',
       needCheckImgSize,
       fileNameLengthLimit,
@@ -67,7 +69,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
   ) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [loading, setLoading] = useState(false);
-    const [imageSrc, setImageSrc] = useState<string>();
+    const [imageSrc, setImageSrc] = useState<string>(value || '');
 
     const handleClick = () => {
       if (!loading && fileInputRef.current) {
@@ -76,23 +78,21 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
     };
 
     const onBeforeUpload = async (file: File) => {
-      let result = true;
-
       const isLteLimit = file.size <= handleLimit(fileLimit);
       if (!isLteLimit) {
         const contentType = needCheckImgSize ? 'Image' : 'File';
         toast.error(
           `${contentType} too large. Please upload an ${contentType} no larger than ${fileLimit}`,
         );
+        return false;
       }
-      result = isLteLimit;
 
       if (needCheckImgSize) {
         const checkSize = await checkImgSize(file);
         if (!checkSize) {
           toast.error('Please upload an image with the same width and height.');
+          return false;
         }
-        result = result && checkSize;
       }
 
       if (fileNameLengthLimit) {
@@ -101,21 +101,17 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
           toast.error(
             `The filename is too long, please shorten it to ${fileNameLengthLimit} characters.`,
           );
+          return false;
         }
-        result = result && isLengthLteLimit;
       }
 
-      return result;
+      return true;
     };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length > 0) {
         const file = e.target.files[0];
         onFileChange?.(file);
-        if (file?.type?.includes('image')) {
-          const imageDataUrl = (await readFile(file)) as string;
-          setImageSrc(imageDataUrl);
-        }
         if (fileInputRef.current) {
           fileInputRef.current.value = '';
         }
@@ -124,8 +120,12 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
     };
 
     const handleUpload = async (file: File) => {
-      const result = onBeforeUpload(file);
+      const result = await onBeforeUpload(file);
       if (!result) return;
+      if (file?.type?.includes('image')) {
+        const imageDataUrl = (await readFile(file)) as string;
+        setImageSrc(imageDataUrl);
+      }
       try {
         setLoading(true);
         onStart?.();
@@ -142,6 +142,10 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
         setLoading(false);
       }
     };
+
+    useEffect(() => {
+      setImageSrc(value || '');
+    }, [value])
 
     useImperativeHandle(ref, () => ({
       reset: () => setImageSrc(''),
@@ -174,7 +178,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
               </span>
             )}
             {tips && (
-              <span className="font-Montserrat text-center text-[11px] text-lightGrey leading-[17.6px] text-white whitespace-pre-wrap">
+              <span className="font-Montserrat text-center text-[11px] text-lightGrey leading-[17.6px] whitespace-pre-wrap">
                 {tips}
               </span>
             )}
