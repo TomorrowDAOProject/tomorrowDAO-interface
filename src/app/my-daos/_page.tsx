@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import Button from 'components/Button';
+import { Button } from 'aelf-design';
 import { useInfiniteScroll } from 'ahooks';
 import { fetchMyDaoList } from 'api/request';
 import { curChain } from 'config';
@@ -13,8 +13,6 @@ import { EMyDAOType } from 'types/dao';
 import NoData from 'components/NoData';
 import useResponsive from 'hooks/useResponsive';
 import { useWalletService } from 'hooks/useWallet';
-import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
-import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right-white.svg';
 
 const MaxResultCount = 5;
 interface IFetchResult {
@@ -94,7 +92,7 @@ const MyDaosPage = () => {
     <div className="flex flex-col items-center">
       <NoData></NoData>
       <Link href="/explore">
-        <Button className="h-[32px] !py-2 !px-[14px] mt-[20px] !text-[12px] font-Montserrat text-white border border-white border-solid">
+        <Button className="w-[152px] my-[14px]" size="medium">
           Explore
         </Button>
       </Link>
@@ -102,92 +100,88 @@ const MyDaosPage = () => {
   );
   return (
     <div className="my-daos">
-      <div className="mb-[15px] py-[25px] px-[30px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid flex items-center justify-between">
-        <p className="text-white text-[20px] leading-[40px] font-Unbounded">My DAOs</p>
-        <Link href="/create" className="primary-button flex items-center gap-2">
-          <span className="font-Montserrat text-[12px]">Create DAO</span>
-          <LinkIcon className="h-[11px] w-[11px]" />
+      <div className="page-content-bg-border flex items-center justify-between py-[16px] lg:py-[24px]">
+        <p className="text-Primary-Text text-[32px] leading-[40px] font-medium">My DAOs</p>
+        <Link href="/create" className={isLG ? 'fix-bottom-button' : ''}>
+          <Button type="primary">Create a DAO</Button>
         </Link>
       </div>
-      <div className="flex flex-col rounded-[8px] bg-darkBg border-fillBg8 border border-solid overflow-hidden">
-        <span className="list-header">My own DAOs</span>
-        <div className="list-body">
-          {ownLoading ? (
-            <SkeletonDaoItemList />
-          ) : (
-            <>
-              <span className="text-lightGrey text-Montserrat text-[15px]">Name</span>
-              <ul className="mt-4">
-                {!ownData?.list.length && EmptyNode}
-                {ownData?.list.map((item) => {
-                  return (
-                    <Link
-                      key={item.daoId}
-                      href={item.isNetworkDAO ? `/network-dao` : `/dao/${item.alias}`}
-                    >
-                      <li className="list-body-content-item" key={item.daoId}>
-                        <img src={item.logo} alt="" />
-                        <span className="text-[14px] text-white font-Montserrat font-[500]">
-                          {item.name}
-                        </span>
-                        <ArrowRight className="ml-auto" />
-                      </li>
-                    </Link>
-                  );
-                })}
-              </ul>
-            </>
-          )}
-          {ownData?.hasData && (
-            <div className="loading-more-wrap">
-              <LoadMoreButton
-                onClick={() => {
-                  wrapConnectCheck(ownLoadMore);
-                }}
-                loadingMore={ownLoadingMore}
-              />
-            </div>
-          )}
+      <div className="flex flex-col mt-[24px]">
+        <div className="flex flex-col ">
+          <p className="list-header card-title-lg">My own DAOs</p>
+          <div className="list-body">
+            {ownLoading ? (
+              <SkeletonDaoItemList />
+            ) : (
+              <>
+                <p className="sub-title">Name</p>
+                <ul className="list-body-content">
+                  {!ownData?.list.length && EmptyNode}
+                  {ownData?.list.map((item) => {
+                    return (
+                      <Link
+                        key={item.daoId}
+                        href={item.isNetworkDAO ? `/network-dao` : `/dao/${item.alias}`}
+                      >
+                        <li className="list-body-content-item" key={item.daoId}>
+                          <img src={item.logo} alt="" />
+                          <span className="normal-text-bold">{item.name}</span>
+                        </li>
+                      </Link>
+                    );
+                  })}
+                </ul>
+              </>
+            )}
+            {ownData?.hasData && (
+              <div className="loading-more-wrap">
+                <LoadMoreButton
+                  onClick={() => {
+                    wrapConnectCheck(ownLoadMore);
+                  }}
+                  loadingMore={ownLoadingMore}
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col mt-[25px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid overflow-hidden">
-        <span className="list-header">Participated DAOs</span>
-        <div className="list-body">
-          {participatedLoading ? (
-            <SkeletonDaoItemList />
-          ) : (
-            <>
-              <span className="text-lightGrey text-Montserrat text-[15px]">Name</span>
-              <ul className="mt-4">
-                {!participatedData?.list.length && EmptyNode}
-                {participatedData?.list.map((item) => {
-                  return (
-                    <Link
-                      key={item.daoId}
-                      href={item.isNetworkDAO ? `/network-dao` : `/dao/${item.alias}`}
-                    >
-                      <li className="list-body-content-item" key={item.daoId}>
-                        <img src={item.logo} alt="" />
-                        <span className="text-[14px] text-white font-Montserrat font-[500]">
-                          {item.name}
-                        </span>
-                      </li>
-                    </Link>
-                  );
-                })}
-              </ul>
-            </>
-          )}
-          {participatedData?.hasData && (
-            <div className="loading-more-wrap">
-              <LoadMoreButton
-                onClick={() => {
-                  wrapConnectCheck(participatedLoadMore);
-                }}
-                loadingMore={participatedLoadingMore}
-              />
-            </div>
-          )}
+        <div className="flex flex-col mt-[24px]">
+          <p className="list-header card-title-lg">Participated DAOs</p>
+          <div className="list-body">
+            {participatedLoading ? (
+              <SkeletonDaoItemList />
+            ) : (
+              <>
+                <p className="sub-title">Name</p>
+                <ul className="list-body-content">
+                  {!participatedData?.list.length && EmptyNode}
+                  {participatedData?.list.map((item) => {
+                    return (
+                      <Link
+                        key={item.daoId}
+                        href={item.isNetworkDAO ? `/network-dao` : `/dao/${item.alias}`}
+                      >
+                        <li className="list-body-content-item" key={item.daoId}>
+                          <img src={item.logo} alt="" />
+                          <span className="normal-text-bold">{item.name}</span>
+                        </li>
+                      </Link>
+                    );
+                  })}
+                </ul>
+              </>
+            )}
+            {participatedData?.hasData && (
+              <div className="loading-more-wrap">
+                <LoadMoreButton
+                  onClick={() => {
+                    wrapConnectCheck(participatedLoadMore);
+                  }}
+                  loadingMore={participatedLoadingMore}
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,23 +1,23 @@
 .dao-detail {
-  @apply mx-[20px] my-[39px] md:w-[688px] lg:w-[904px] xl:w-[1024px] md:m-auto lg:m-auto xl:m-auto xl:my-[70px] lg:my-[67px] md:my-[45px];
+  @apply w-full block flex-col items-center;
 
   .TMRWDAO-select-single {
     @apply h-[32px];
   }
 
   .dao-detail-content {
-    @apply flex my-[25px];
+    @apply flex my-6;
     &.network-dao {
       @apply mt-0;
     }
 
     .dao-detail-content-left {
       @apply flex-1;
-      width: calc(100% - 354px);
+      width: calc(100% - 462px);
     }
 
     .dao-detail-content-left-tab {
-      @apply flex-1 bg-darkBg mb-[25px] border border-fillBg8 border-solid rounded-lg;
+      @apply flex-1 bg-white mb-[16px] border border-Neutral-Divider border-solid rounded-lg;
     }
 
     .tab-all-proposals {
@@ -38,7 +38,7 @@
     }
 
     .dao-detail-content-right {
-      @apply w-[354px] ml-[20px];
+      @apply w-[437px] ml-6;
     }
   }
 

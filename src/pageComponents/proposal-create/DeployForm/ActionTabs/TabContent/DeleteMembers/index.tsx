@@ -67,16 +67,16 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
         titleNode={
           <Tooltip
             title={
-              <div className="text-[10px] leading-[12px]">
+              <div>
                 There is no limit on the number of addresses on your multisig. Addresses can create
                 proposals, create and approve transactions, and suggest changes to the DAO settings
                 after creation.
               </div>
             }
           >
-            <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
+            <span className="flex items-center form-item-title gap-[8px] pb-[8px]  w-[max-content]">
               Delete Multisig Members Address
-              <i className="tmrwdao-icon-information text-[18px] text-white" />
+              <QuestionIcon className="cursor-pointer " width={16} height={16} />
             </span>
           </Tooltip>
         }

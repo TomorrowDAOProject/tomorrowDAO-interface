@@ -55,7 +55,7 @@ export default function ProposalsItem(props: IProposalsItemProps) {
   return (
     <div className="proposal-item">
       <div className="proposal-item-left">
-        <div className="flex items-center gap-4">
+        <div>
           <DetailTag
             customStyle={{
               text: getProposalStatusText(proposalStatus),

@@ -1,6 +1,5 @@
-import { UploadFile } from 'antd';
+import { FormInstance, UploadFile } from 'antd';
 import { createContext } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 
 export enum GovernanceModelType {
   Fixed = 'Fixed',
@@ -8,12 +7,12 @@ export enum GovernanceModelType {
 }
 
 export interface IGovernanceSchemeThreshold {
-  minimalRequiredThreshold?: number;
-  minimalVoteThreshold?: number;
-  minimalApproveThreshold?: number; // percentage
-  maximalRejectionThreshold?: number; // percentage
-  maximalAbstentionThreshold?: number; // percentage
-  proposalThreshold?: number;
+  minimalRequiredThreshold: number;
+  minimalVoteThreshold: number;
+  minimalApproveThreshold: number; // percentage
+  maximalRejectionThreshold: number; // percentage
+  maximalAbstentionThreshold: number; // percentage
+  proposalThreshold: number;
 }
 
 export interface IHighCouncilConfig {
@@ -77,27 +76,19 @@ export interface FilesSubmitedRes {
 interface StepsFormMap {
   [StepEnum.step0]: {
     submitedRes?: BasicInfoSubmitedRes;
-    formInstance?: UseFormReturn<
-      BasicInfoSubmitedRes | IGovernanceSchemeThreshold | IHighCouncilInput | FilesSubmitedRes
-    >;
+    formInstance?: FormInstance;
   };
   [StepEnum.step1]: {
     submitedRes?: IGovernanceSchemeThreshold;
-    formInstance?: UseFormReturn<
-      BasicInfoSubmitedRes | IGovernanceSchemeThreshold | IHighCouncilInput | FilesSubmitedRes
-    >;
+    formInstance?: FormInstance;
   };
   [StepEnum.step2]: {
     submitedRes?: IHighCouncilInput;
-    formInstance?: UseFormReturn<
-      BasicInfoSubmitedRes | IGovernanceSchemeThreshold | IHighCouncilInput | FilesSubmitedRes
-    >;
+    formInstance?: FormInstance;
   };
   [StepEnum.step3]: {
     submitedRes?: FilesSubmitedRes;
-    formInstance?: UseFormReturn<
-      BasicInfoSubmitedRes | IGovernanceSchemeThreshold | IHighCouncilInput | FilesSubmitedRes
-    >;
+    formInstance?: FormInstance;
   };
 }
 // todo
@@ -113,11 +104,7 @@ export const defaultStepsFormMap = {
 };
 export interface IStepsContext {
   stepForm: StepsFormMap;
-  onRegister: (
-    ins: UseFormReturn<
-      BasicInfoSubmitedRes | IGovernanceSchemeThreshold | IHighCouncilInput | FilesSubmitedRes
-    >,
-  ) => void;
+  onRegister: (ins: FormInstance) => void;
   isShowHighCouncil: boolean;
 }
 

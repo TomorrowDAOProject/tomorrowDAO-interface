@@ -30,22 +30,3 @@ export const preloadImages = (imageUrls: string[]) => {
     img.src = url;
   });
 };
-
-export const shortenFileName = (filename: string, maxLength = 20) => {
-  const regex = /(.+)(\.[^.]+)$/;
-
-  const match = filename.match(regex);
-  if (!match) return filename;
-
-  const name = match[1];
-  const extension = match[2];
-
-  if (name.length > maxLength) {
-    const keep = Math.floor((maxLength - 3) / 2);
-    const start = name.slice(0, keep);
-    const end = name.slice(-keep);
-    return `${start}...${end}${extension}`;
-  }
-
-  return filename;
-};

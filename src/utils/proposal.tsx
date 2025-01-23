@@ -3,7 +3,7 @@ import { GetBalanceByContract, GetTokenInfo } from 'contract/callContract';
 import { curChain } from 'config';
 import { divDecimals } from './calculate';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
-import { WarningButtonList } from 'components/ResultModal';
+import { okButtonConfig } from 'components/ResultModal';
 import { AllProposalStatusString, ProposalStatusReplaceMap } from 'types';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import { fetchDaoExistMembers } from 'api/request';
@@ -26,13 +26,13 @@ export const checkMultisigProposal = async (daoData: IDaoInfoRes, address: strin
       type: CommonOperationResultModalType.Warning,
       primaryContent: "You can't create a proposal",
       secondaryContent: (
-        <>
+        <div>
           You are not a member. Creating proposals in {daoData.data.metadata.name} can only be done
           by addresses that have been added to its member list.
-        </>
+        </div>
       ),
       footerConfig: {
-        buttonList: WarningButtonList,
+        buttonList: [okButtonConfig],
       },
     });
     return false;
@@ -81,7 +81,7 @@ export const checkTokenProposal = async (daoData: IDaoInfoRes, address: string) 
         </div>
       ),
       footerConfig: {
-        buttonList: WarningButtonList,
+        buttonList: [okButtonConfig],
       },
     });
     return false;

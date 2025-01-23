@@ -697,17 +697,12 @@ const CreateProposal = () => {
           </div>,
           footerConfig: {
             buttonList: [{
-              children: (
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    router.push(`/?${chainIdQuery.chainIdQueryString}`);
-                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-                  }}
-                >
-                  OK
-                </Button>
-              ),
+              onClick: () => {
+                router.push(`/?${chainIdQuery.chainIdQueryString}`);
+                eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+              },
+              children: 'OK',
+              type: 'primary',
             }],
           },
         });
