@@ -13,7 +13,6 @@ import { EMyDAOType } from 'types/dao';
 import NoData from 'components/NoData';
 import useResponsive from 'hooks/useResponsive';
 import { useWalletService } from 'hooks/useWallet';
-import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right-white.svg';
 
 const MaxResultCount = 5;
@@ -93,10 +92,11 @@ const MyDaosPage = () => {
   const EmptyNode = (
     <div className="flex flex-col items-center">
       <NoData></NoData>
-      <Link href="/explore">
-        <Button className="h-[32px] !py-2 !px-[14px] mt-[20px] !text-[12px] font-Montserrat text-white border border-white border-solid">
-          Explore
-        </Button>
+      <Link
+        href="/explore"
+        className="h-[32px] !py-2 !px-[14px] mt-[20px] !text-[12px] font-Montserrat text-white border border-white border-solid"
+      >
+        Explore
       </Link>
     </div>
   );
@@ -106,7 +106,7 @@ const MyDaosPage = () => {
         <p className="text-white text-[20px] leading-[40px] font-Unbounded">My DAOs</p>
         <Link href="/create" className="primary-button flex items-center gap-2">
           <span className="font-Montserrat text-[12px]">Create DAO</span>
-          <LinkIcon className="h-[11px] w-[11px]" />
+          <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
         </Link>
       </div>
       <div className="flex flex-col rounded-[8px] bg-darkBg border-fillBg8 border border-solid overflow-hidden">

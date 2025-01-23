@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { ReactComponent as LogoIcon } from 'assets/revamp-icon/logo.svg';
-import { ReactComponent as TwitterIcon } from 'assets/revamp-icon/twitter.svg';
-import { ReactComponent as TelegramIcon } from 'assets/revamp-icon/telegram.svg';
 import { DownOutlined } from '@aelf-design/icons';
 import React, { useMemo } from 'react';
 import clsx from 'clsx';
@@ -29,7 +27,7 @@ const items: MenuItem[] = [
     key: 'NetworkDAO',
     label: (
       <Link
-        href={'/'}
+        href="/network-dao"
         className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
       >
         Network DAO
@@ -45,7 +43,7 @@ const items: MenuItem[] = [
         key: 'Github',
         label: (
           <Link
-            href={'/'}
+            href="https://github.com/TomorrowDAOProject"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             Github
@@ -56,7 +54,7 @@ const items: MenuItem[] = [
         key: 'Documentation',
         label: (
           <Link
-            href={'/'}
+            href="https://docs.tmrwdao.com"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             Documentation
@@ -67,18 +65,18 @@ const items: MenuItem[] = [
   },
   {
     key: 'grp',
-    label: 'Group',
+    label: 'Social Media',
     icon: <DownOutlined />,
     children: [
       {
         key: 'Twitter',
         label: (
           <Link
-            href={'/'}
+            href="https://x.com/tmrwdao"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             <div className="flex items-center gap-[14px]">
-              <TwitterIcon className="w-[18px] h-[18px]" />
+              <i className="tmrwdao-icon-twitter text-[16px] text-white" />
               Twitter
             </div>
           </Link>
@@ -88,11 +86,11 @@ const items: MenuItem[] = [
         key: 'Telegram',
         label: (
           <Link
-            href={'/'}
+            href="https://t.me/tmrwdao"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             <div className="flex items-center gap-[14px]">
-              <TelegramIcon className="w-[18px] h-[18px]" />
+              <i className="tmrwdao-icon-telegram text-[16px] text-white" />
               Telegram
             </div>
           </Link>
@@ -160,7 +158,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
               }}
             >
               Launch App
-              <i className="tmrwdao-icon-default-arrow text-[18px] text-white ml-2" />
+              <i className="tmrwdao-icon-default-arrow text-[18px] ml-2 text-inherit" />
             </Button>
           ) : (
             <Dropdown
