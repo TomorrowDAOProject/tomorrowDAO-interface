@@ -18,7 +18,7 @@ export default function DetailTag(props: {
   };
   return (
     <div
-      className={`inline-block px-2 rounded leading-5 font-medium ${props.className}`}
+      className={`inline-block px-2 py-1 rounded-[4px] font-medium text-[12px] !h-auto font-Montserrat ${props.className}`}
       style={{ ...style }}
     >
       {customStyle.text}

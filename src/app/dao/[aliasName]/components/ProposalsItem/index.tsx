@@ -64,18 +64,16 @@ export default function ProposalsItem(props: IProposalsItemProps) {
               bgColor: tagColorMap[proposalStatus]?.bgColor,
             }}
           />
-          <Typography.Text
-            className="proposal-item-time"
-            size="small"
-            fontWeight={FontWeightEnum.Regular}
-          >
+          <div className="text-[12px] text-lightGrey font-Montserrat">
             <ProposalStatusDesc proposalItem={data} />
             {/* {getTimeDesc(proposalStatus, data)} */}
-          </Typography.Text>
+          </div>
         </div>
         <div className="proposal-item-title normal-text-bold break-words">
           {data.proposalTitle ? (
-            <span className="max-w-full">{data.proposalTitle}</span>
+            <span className="max-w-full font-Montserrat font-[500] text-[16px]">
+              {data.proposalTitle}
+            </span>
           ) : (
             <>
               Proposal ID: {data.proposalId}
@@ -96,13 +94,13 @@ export default function ProposalsItem(props: IProposalsItemProps) {
       {isLG && <Divider></Divider>}
 
       <div className="vote vote-data-analysis flex flex-col justify-between">
-        <div className="vote-top">
-          <div className="h-[22px] vote-top-title normal-text-bold">
+        <div className="vote-top font-Montserrat">
+          <div className="h-[22px] vote-top-title normal-text-bold text-[14px] font-[500]">
             {is1t1v ? data.votesAmount : data.voterCount} {capitalizeFirstLetter(voteTextPluralize)}{' '}
             in Total
           </div>
           {governanceMechanism === EDaoGovernanceMechanism.Token && (
-            <div className="vote-dis text-[14px]">
+            <div className="vote-dis text-[11px]">
               {is1t1v
                 ? renderVoteInfo(data.votesAmount, data.minimalVoteThreshold)
                 : renderVoteInfo(data.voterCount, data.minimalRequiredThreshold)}
