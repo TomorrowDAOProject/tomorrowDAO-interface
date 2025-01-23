@@ -1,7 +1,7 @@
-import { Typography, FontWeightEnum, Progress } from 'aelf-design';
+import { Typography, FontWeightEnum } from 'aelf-design';
 import MyInfo from 'app/dao/[aliasName]/components/MyInfo';
 import BoxWrapper from './BoxWrapper';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { EVoteMechanismNameType } from 'pageComponents/proposal-create/type';
 import { fetchDaoInfo } from 'api/request';
 import { curChain } from 'config';
@@ -10,6 +10,7 @@ import { useRequest } from 'ahooks';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import { useParams } from 'next/navigation';
 import { SkeletonLine } from 'components/Skeleton';
+import ProgressBar from 'components/Progress';
 
 interface IHeaderInfoProps {
   proposalDetailData?: IProposalDetailData;
@@ -61,63 +62,55 @@ const VoteStaticData = (props: VoteStaticDataProps) => {
           <div>
             <div className="text-[18px] font-[500] text-white">Current Votes</div>
 
-            <div className="flex flex-col gap-8 pt-6">
+            <div className="flex flex-col gap-8 py-5">
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between">
-                  <Typography.Text
-                    className="text-Light-Mode-Brand-Brand"
-                    fontWeight={FontWeightEnum.Medium}
-                  >
-                    Approved
-                  </Typography.Text>
-                  <Typography.Text className="text-Neutral-Secondary-Text">
+                  <div className="text-mainColor font-Montserrat font-[500]">Approved</div>
+                  <div className="text-lightGrey font-Montserrat text-[12px]">
                     {proposalDetailData?.approvedCount}
                     <span className="px-[4px]">Votes</span>
                     {approvePercent}%
-                  </Typography.Text>
+                  </div>
                 </div>
-                <Progress percent={approvePercent} strokeColor="#3888FF" />
+                <ProgressBar percent={approvePercent} />
               </div>
 
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between">
-                  <Typography.Text className="text-rejection" fontWeight={FontWeightEnum.Medium}>
-                    Rejected
-                  </Typography.Text>
-                  <Typography.Text className="text-Neutral-Secondary-Text">
+                  <div className="text-[#FF485D] font-Montserrat font-[500]">Rejected</div>
+                  <div className="text-lightGrey font-Montserrat text-[12px]">
                     {proposalDetailData?.rejectionCount}
                     <span className="px-[4px]">Votes</span>
                     {rejectPercent}%
-                  </Typography.Text>
+                  </div>
                 </div>
-                <Progress percent={rejectPercent} strokeColor="#F55D6E" />
+                <ProgressBar percent={rejectPercent} className="bg-[#FF485D]" />
               </div>
 
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between">
-                  <Typography.Text className="text-abstention" fontWeight={FontWeightEnum.Medium}>
-                    Abstained
-                  </Typography.Text>
-                  <Typography.Text className="text-Neutral-Secondary-Text">
+                  <div className="text-abstention font-Montserrat font-[500]">Abstained</div>
+                  <div className="text-lightGrey font-Montserrat text-[12px]">
                     {proposalDetailData?.abstentionCount}
-                    <span className="px-[4px]">Votes</span> {abstainPercent}%
-                  </Typography.Text>
+                    <span className="px-[4px]">Votes</span>
+                    {abstainPercent}%
+                  </div>
                 </div>
-                <Progress percent={abstainPercent} strokeColor="#687083" />
+                <ProgressBar percent={abstainPercent} className="bg-[#687083]" />
               </div>
             </div>
           </div>
 
-          <div className="votes-total-count border-0 border-solid border-Neutral-Divider flex flex-col pt-8 pb-4">
+          <div className="border-0 border-t border-solid border-fillBg8 flex flex-col pt-5">
             <div>
-              <Typography.Text fontWeight={FontWeightEnum.Medium} className="text-Primary-Text">
+              <div className="text-white font-Montserrat">
                 <span className="pr-[4px]">{proposalDetailData?.votesAmount}</span>
                 {proposalDetailData?.votesAmount > 1 ? 'Votes' : 'Vote'} in Total
-              </Typography.Text>
+              </div>
             </div>
             {governanceMechanism === EDaoGovernanceMechanism.Token && (
               <div>
-                <Typography.Text size="small" className="text-Neutral-Secondary-Text">
+                <div className="text-lightGrey text-[11px] font-Montserrat mt-1">
                   Minimum {is1t1v ? 'votes' : 'voter'} requirement met
                   <span className="px-[4px]">
                     {is1t1v ? (
@@ -132,7 +125,7 @@ const VoteStaticData = (props: VoteStaticDataProps) => {
                       </span>
                     )}
                   </span>
-                </Typography.Text>
+                </div>
               </div>
             )}
           </div>

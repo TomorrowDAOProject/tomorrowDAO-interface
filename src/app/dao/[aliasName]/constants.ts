@@ -38,19 +38,20 @@ export const tagMap = {
 
 export const tagColorMap = {
   [AllProposalStatusString.Approved]: {
-    bgColor: 'rgba(255,174,0,0.20)',
-    textColor: '#FFAE00',
+    
+    bgColor: 'rgba(0, 200, 77, 0.25)',
+    textColor: '#00C84D',
     firstText: 'Availabe to be executed before',
     secondText: 'Approved on',
   },
   [AllProposalStatusString.Defeated]: {
-    bgColor: '#FEEFF1',
-    textColor: '#F55D6E',
+    bgColor: 'rgba(255, 55, 77, 0.15)',
+    textColor: '#FF485D',
     firstText: 'Rejected on',
   },
   [AllProposalStatusString.Expired]: {
-    bgColor: '#EDEDED',
-    textColor: '#919191',
+    bgColor: 'rgba(185, 185, 185, 0.15)',
+    textColor: '#B9B9B9',
     firstText: 'Availabe to be executed before',
     secondText: 'Approved on',
   },
@@ -63,8 +64,8 @@ export const tagColorMap = {
     textColor: '#F8B042',
   },
   [AllProposalStatusString.PendingVote]: {
-    bgColor: '#FEF7EC',
-    textColor: '#F8B042',
+    bgColor: 'rgba(255, 174, 0, 0.20)',
+    textColor: '#FFAE00',
   },
   [AllProposalStatusString.Challenged]: {
     bgColor: '#F2EEFF',
