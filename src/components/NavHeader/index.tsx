@@ -166,7 +166,6 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
               }}
             >
               Log In
-              <i className="tmrwdao-icon-default-arrow text-[18px] ml-2 text-inherit" />
             </Button>
           ) : (
             <Dropdown
