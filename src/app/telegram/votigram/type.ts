@@ -15,8 +15,12 @@ export enum UserTaskDetail {
   DailyVote = 'DailyVote',
   DailyFirstInvite = 'DailyFirstInvite',
   DailyViewAsset = 'DailyViewAsset',
+  DailyCreatePoll = 'DailyCreatePoll',
 
   // Explore
+  ExploreJoinVotigram = 'ExploreJoinVotigram',
+  ExploreFollowVotigramX = 'ExploreFollowVotigramX',
+  ExploreForwardVotigramX = 'ExploreForwardVotigramX',
   ExploreJoinTgChannel = 'ExploreJoinTgChannel',
   ExploreFollowX = 'ExploreFollowX',
   ExploreJoinDiscord = 'ExploreJoinDiscord',
@@ -24,6 +28,7 @@ export enum UserTaskDetail {
   ExploreCumulateFiveInvite = 'ExploreCumulateFiveInvite',
   ExploreCumulateTenInvite = 'ExploreCumulateTenInvite',
   ExploreCumulateTwentyInvite = 'ExploreCumulateTwentyInvite',
+  ExploreSchrodinger = 'ExploreSchrodinger',
 }
 export enum ITabSource {
   Rank = 0,

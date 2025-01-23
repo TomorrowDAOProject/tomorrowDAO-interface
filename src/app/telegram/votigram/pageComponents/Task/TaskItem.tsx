@@ -5,9 +5,10 @@ import {
   TelegramIcon,
   UserAddIcon,
   XIcon,
-  DiscardIcon,
   LoadingIcon,
   DailyTaskIcon,
+  CreatePollIcon,
+  SchrodingerIcon,
 } from 'components/Icons';
 import { useRef, useState } from 'react';
 import { completeTaskItem } from 'api/request';
@@ -18,6 +19,8 @@ import Image from 'next/image';
 import './TaskItem.css';
 import clsx from 'clsx';
 import AdsGram, { IAdsGramRef } from '../../components/AdsGram';
+import { useConfig } from 'components/CmsGlobalConfig/type';
+import { useRequest } from 'ahooks';
 
 interface ITaskItemProps {
   taskItem: IUserTaskItemDetail;
@@ -25,6 +28,7 @@ interface ITaskItemProps {
   userTask: string;
   getTaskListFn: () => void;
   onReportComplete: (task: string, taskDetail: string) => void;
+  toggleNewListDrawerOpen: () => void;
 }
 
 const openNewPageWaitPageVisible = async (
@@ -32,7 +36,11 @@ const openNewPageWaitPageVisible = async (
   taskId: UserTaskDetail,
   req: () => Promise<ICompleteTaskItemRes>,
 ) => {
-  if (taskId === UserTaskDetail.ExploreJoinTgChannel) {
+  if (
+    taskId === UserTaskDetail.ExploreJoinTgChannel ||
+    taskId === UserTaskDetail.ExploreSchrodinger ||
+    taskId === UserTaskDetail.ExploreJoinVotigram
+  ) {
     // web.telegram.org will destroy the page when openTelegramLink
     // so send complete request before open link
     if (window?.Telegram?.WebApp?.platform === 'weba') {
@@ -84,21 +92,37 @@ const taskItemMap: Record<string, { icon: React.ReactNode; title: string; event?
     icon: <WalletOutlined />,
     title: 'View your assets',
   },
+  [UserTaskDetail.DailyCreatePoll]: {
+    icon: <CreatePollIcon />,
+    title: 'Create your poll',
+  },
+  [UserTaskDetail.ExploreSchrodinger]: {
+    icon: <SchrodingerIcon />,
+    title: "Join Schrodinger's cat",
+  },
+  [UserTaskDetail.ExploreJoinVotigram]: {
+    icon: <TelegramIcon />,
+    title: 'Join Votigram channel',
+  },
+  [UserTaskDetail.ExploreFollowVotigramX]: {
+    icon: <XIcon />,
+    title: 'Follow Votigram on X',
+  },
+  [UserTaskDetail.ExploreForwardVotigramX]: {
+    icon: <XIcon />,
+    title: 'RT Votigram Post',
+  },
   [UserTaskDetail.ExploreJoinTgChannel]: {
     icon: <TelegramIcon />,
-    title: 'Join channel',
+    title: 'Join TMRWDAO channel',
   },
   [UserTaskDetail.ExploreFollowX]: {
     icon: <XIcon />,
-    title: 'Follow us on X',
-  },
-  [UserTaskDetail.ExploreJoinDiscord]: {
-    icon: <DiscardIcon />,
-    title: 'Join Discord',
+    title: 'Follow TMRWDAO on X',
   },
   [UserTaskDetail.ExploreForwardX]: {
     icon: <XIcon />,
-    title: 'RT Post',
+    title: 'RT TMRWDAO Post',
   },
   [UserTaskDetail.ExploreCumulateFiveInvite]: {
     icon: <UserAddIcon />,
@@ -119,49 +143,93 @@ const needShowTaskProgress: string[] = [
   UserTaskDetail.ExploreCumulateTenInvite,
   UserTaskDetail.ExploreCumulateTwentyInvite,
 ];
-const jumpExternalList = [
-  {
-    taskId: UserTaskDetail.ExploreJoinTgChannel,
-    url: 'https://t.me/tmrwdao',
-  },
-  {
-    taskId: UserTaskDetail.ExploreFollowX,
-    url: 'https://x.com/tmrwdao',
-  },
-  {
-    taskId: UserTaskDetail.ExploreJoinDiscord,
-    url: 'https://discord.com/invite/gTWkeR5pQB',
-  },
-  {
-    taskId: UserTaskDetail.ExploreForwardX,
-    url: 'https://x.com/tmrwdao/status/1827955375070650747',
-  },
-];
+
 export const TaskItem = (props: ITaskItemProps) => {
-  const { taskItem, activeTabItem, userTask, onReportComplete, getTaskListFn } = props;
+  const { retweetVotigramPostURL, retweetTmrwdaoPostURL, discoverTopBannerRedirectURL } =
+    useConfig() ?? {};
+
+  const jumpExternalList = [
+    {
+      taskId: UserTaskDetail.ExploreJoinVotigram,
+      url: 'https://t.me/votigram',
+    },
+    {
+      taskId: UserTaskDetail.ExploreFollowVotigramX,
+      url: 'https://x.com/votigram',
+    },
+    {
+      taskId: UserTaskDetail.ExploreForwardVotigramX,
+      url: retweetVotigramPostURL || '',
+    },
+    {
+      taskId: UserTaskDetail.ExploreJoinTgChannel,
+      url: 'https://t.me/tmrwdao',
+    },
+    {
+      taskId: UserTaskDetail.ExploreFollowX,
+      url: 'https://x.com/tmrwdao',
+    },
+    {
+      taskId: UserTaskDetail.ExploreForwardX,
+      url: retweetTmrwdaoPostURL || '',
+    },
+    {
+      taskId: UserTaskDetail.ExploreSchrodinger,
+      url: discoverTopBannerRedirectURL || '',
+    },
+  ];
+  const {
+    taskItem,
+    activeTabItem,
+    userTask,
+    onReportComplete,
+    getTaskListFn,
+    toggleNewListDrawerOpen,
+  } = props;
   const [isLoading, setIsLoading] = useState(false);
   const adsGramRef = useRef<IAdsGramRef>(null);
 
   const activeTabWithSource = (target: number) => {
     activeTabItem({ path: target, source: ITabSource.Task });
   };
+  const { run: sendCompleteReq, cancel } = useRequest(
+    async (taskId) => {
+      try {
+        const reportCompleteRes = await completeTaskItem({
+          chainId: curChain,
+          userTask: userTask,
+          userTaskDetail: taskId,
+        });
+        if (reportCompleteRes.data) {
+          onReportComplete(userTask, taskId);
+        }
+        if (reportCompleteRes.data || taskId !== UserTaskDetail.ExploreSchrodinger) {
+          cancel();
+        }
+      } catch (error) {
+        //
+      }
+    },
+    {
+      manual: true,
+      pollingInterval: 3000,
+    },
+  );
+
   const jumpAndRefresh = async (taskId: UserTaskDetail) => {
     try {
       const jumpItem = jumpExternalList.find((item) => item.taskId === taskItem.userTaskDetail);
       if (jumpItem) {
-        const sendCompleteReq = () =>
+        const isComplete = await openNewPageWaitPageVisible(jumpItem.url, taskId, () =>
           completeTaskItem({
             chainId: curChain,
             userTask: userTask,
             userTaskDetail: taskId,
-          });
-        const isComplete = await openNewPageWaitPageVisible(jumpItem.url, taskId, sendCompleteReq);
+          }),
+        );
         if (isComplete) return;
         setIsLoading(true);
-        const reportCompleteRes = await sendCompleteReq();
-        if (reportCompleteRes.data) {
-          onReportComplete(userTask, taskId);
-        }
+        sendCompleteReq(taskId);
       }
     } catch (error) {
       //
@@ -184,10 +252,16 @@ export const TaskItem = (props: ITaskItemProps) => {
       case UserTaskDetail.DailyViewAsset:
         activeTabWithSource(ITabSource.Asset);
         break;
+      case UserTaskDetail.DailyCreatePoll:
+        toggleNewListDrawerOpen();
+        break;
+      case UserTaskDetail.ExploreJoinVotigram:
+      case UserTaskDetail.ExploreFollowVotigramX:
+      case UserTaskDetail.ExploreForwardVotigramX:
       case UserTaskDetail.ExploreJoinTgChannel:
       case UserTaskDetail.ExploreFollowX:
-      case UserTaskDetail.ExploreJoinDiscord:
       case UserTaskDetail.ExploreForwardX:
+      case UserTaskDetail.ExploreSchrodinger:
         await jumpAndRefresh(taskItem.userTaskDetail);
         break;
       case UserTaskDetail.ExploreCumulateFiveInvite:

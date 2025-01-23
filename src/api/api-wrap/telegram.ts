@@ -167,6 +167,7 @@ export const getRankings = async (params: {
   skipCount: number;
   type: number;
   maxResultCount: number;
+  isShowMore: boolean;
 }): Promise<IRankingsRes> => {
   return apiServer.get(rankingsUrl, {
     ...params,
@@ -201,6 +202,7 @@ export const updateAdsView = async (params: {
 };
 
 export const updateTGInfo = async (params: {
+  telegramId: string;
   chainId: string;
   firstName: string;
   lastName: string;
