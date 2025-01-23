@@ -23,7 +23,7 @@
 
   .item-selected {
     .label-text {
-      @apply text-colorPrimary;
+      @apply text-mainColor;
     }
   }
 }

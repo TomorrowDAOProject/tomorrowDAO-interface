@@ -11,7 +11,6 @@ import SubmitButton, { ISubmitRef } from './component/SubmitButton';
 import { daoCreateContractRequest } from 'contract/daoCreateContract';
 import { useSelector } from 'redux/store';
 import { timesDecimals } from 'utils/calculate';
-import { ReactComponent as ArrowRight } from 'assets/imgs/arrow-right.svg';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import {
   BasicInfoSubmitedRes,
@@ -29,7 +28,7 @@ import { emitLoading } from 'utils/myEvent';
 import Link from 'next/link';
 import { IFormValidateError, IContractError } from 'types';
 import { cloneDeep, cloneDeepWith } from 'lodash-es';
-import { NetworkName } from 'config';
+import { curChain, daoAddress, NetworkName } from 'config';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import breadCrumb from 'utils/breadCrumb';
 import { FirstScreen } from './FirstScreen';
@@ -42,6 +41,9 @@ import Navigation from './component/Navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Switch from 'components/Switch';
+import { formatErrorMsg } from 'contract/util';
+import { sleep } from 'utils/common';
+import { getTxResult } from 'utils/getTxResult';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -60,7 +62,7 @@ const CreateDaoPage = () => {
   const [isShowSecondScreen, setIsShowSecondScreen] = useState(false);
 
   const stepsFormMapRef = useRef<IStepsContext>(cloneDeepWith(defaultStepsFormMap));
-  const { isConnected } = useConnectWallet();
+  const { isConnected, callSendMethod } = useConnectWallet();
 
   const handleNextStep = () => {
     const form = stepsFormMapRef.current.stepForm[currentStepString].formInstance;
@@ -189,23 +191,36 @@ const CreateDaoPage = () => {
           };
         }
         emitLoading(true, 'The transaction is being processed...');
-        await daoCreateContractRequest('CreateDAO', params);
+        const res = await callSendMethod({
+          contractAddress: daoAddress,
+          methodName: 'CreateDAO',
+          args: params,
+          chainId: curChain,
+        });
+        const result = res as IContractError;
+        if (result?.error || result?.code || result?.Error) {
+          throw formatErrorMsg(result);
+        }
+
+        const { transactionId, TransactionId } = result.result || result;
+        const resTransactionId = TransactionId || transactionId;
+        await sleep(1000);
+        await getTxResult(resTransactionId!, curChain as Chain);
         emitLoading(false);
         submitButtonRef.current?.setResultModalConfig({
           open: true,
           type: CommonOperationResultModalType.Success,
-          primaryContent: `${originMetadata?.metadata.name} Created Successfully`,
+          primaryContent: `${originMetadata?.metadata.name} is successfully created`,
           secondaryContent: (
             <>
-              Feel free to join Tomorrow DAO&apos;s{' '}
+              {`If you wish to modify the DAO&apos;s display information, \nyou can join the`}{' '}
               <Link
-                className="text-colorPrimary cursor-pointer"
+                className="text-mainColor cursor-pointer"
                 href={'https://t.me/tmrwdao'}
                 target="_blank"
               >
                 Telegram group
-              </Link>{' '}
-              to connect with the team and receive timely assistance
+              </Link>
             </>
           ),
           footerConfig: {
@@ -213,6 +228,7 @@ const CreateDaoPage = () => {
               {
                 children: (
                   <Link
+                    className="py-2 px-[14px] w-full lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid text-descM12 font-Montserrat lg:text-descM15 rounded-[42px] bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor appearence-none outline-none transition-[background,color] duration-300 ease-in-out"
                     href={`/explore`}
                     onClick={() => {
                       toast.error(
@@ -250,7 +266,7 @@ const CreateDaoPage = () => {
                 children: (
                   <Button
                     type="danger"
-                    className="mt-[48px] w-full"
+                    className="w-full"
                     onClick={() => submitButtonRef.current?.initResultModalConfig()}
                   >
                     Back

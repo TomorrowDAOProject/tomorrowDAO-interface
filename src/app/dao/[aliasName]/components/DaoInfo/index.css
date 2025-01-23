@@ -44,7 +44,7 @@
       @apply mr-1;
     }
     .dis-common-span-cursor {
-      @apply text-colorPrimary mr-1 cursor-pointer;
+      @apply text-mainColor mr-1 cursor-pointer;
     }
   }
 

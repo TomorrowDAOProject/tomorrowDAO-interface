@@ -35,7 +35,7 @@
   }
 
   .title {
-    @apply font-medium text-[16px] leading-[24px] text-colorPrimary;
+    @apply font-medium text-[16px] leading-[24px] text-mainColor;
   }
 
   .step-title {
@@ -51,7 +51,7 @@
   }
 
   .current-text {
-    @apply text-colorPrimary;
+    @apply text-mainColor;
   }
 }
 

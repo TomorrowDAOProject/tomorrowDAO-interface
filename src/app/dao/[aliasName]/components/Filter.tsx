@@ -184,7 +184,7 @@ export default function Filter(props: TPropsType) {
             })}
             {tags.length > 0 && (
               <span
-                className="mr-1.5 font-medium text-colorPrimary px-4 py-1 "
+                className="mr-1.5 font-medium text-mainColor px-4 py-1 "
                 onClick={handleCloseAll}
               >
                 Clear All
@@ -228,7 +228,7 @@ export default function Filter(props: TPropsType) {
 function TagCom(props: { label: string; onCloseTag: () => void }) {
   const { label, onCloseTag } = props;
   return (
-    <Tag bordered={false} className="bg-[#FFF5EA] text-colorPrimary px-4 py-1 flex">
+    <Tag bordered={false} className="bg-[#FFF5EA] text-mainColor px-4 py-1 flex">
       <span className="mr-1.5 font-medium">{label}</span>
       <Image
         src={CloseTag}

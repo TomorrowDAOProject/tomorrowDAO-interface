@@ -240,7 +240,6 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       <Button
         className={`w-full flex items-center gap-1 ${isAllChecked && '!bg-mainColor text-white'}`}
         onClick={() => {
-          console.log('state', state);
           if (isAllChecked) onConfirm();
         }}
       >

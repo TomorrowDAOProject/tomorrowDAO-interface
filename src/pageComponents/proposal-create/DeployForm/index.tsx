@@ -110,7 +110,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             children: (
               <Button
                 type="danger"
-                className="mt-[48px] w-full"
+                className="w-full"
                 onClick={() => setResultModalConfig(INIT_RESULT_MODAL_CONFIG)}
               >
                 Back

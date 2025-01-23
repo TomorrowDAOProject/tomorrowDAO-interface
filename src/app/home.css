@@ -60,7 +60,7 @@
      @apply homePc:w-[39%] w-full flex flex-col homePc:items-start items-center;
 
      h2 {
-       @apply text-colorPrimary homePc:font-[700] homePc:text-[48px] homePc:leading-[56px] text-[40px] leading-[48px] font-medium text-center homePc:text-left;
+       @apply text-mainColor homePc:font-[700] homePc:text-[48px] homePc:leading-[56px] text-[40px] leading-[48px] font-medium text-center homePc:text-left;
      }
 
      p {

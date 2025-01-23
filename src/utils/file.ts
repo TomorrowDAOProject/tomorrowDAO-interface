@@ -31,21 +31,13 @@ export const preloadImages = (imageUrls: string[]) => {
   });
 };
 
-export const shortenFileName = (filename: string, maxLength = 20) => {
-  const regex = /(.+)(\.[^.]+)$/;
-
-  const match = filename.match(regex);
-  if (!match) return filename;
-
-  const name = match[1];
-  const extension = match[2];
-
-  if (name.length > maxLength) {
-    const keep = Math.floor((maxLength - 3) / 2);
-    const start = name.slice(0, keep);
-    const end = name.slice(-keep);
-    return `${start}...${end}${extension}`;
+export const shortenFileName = (str: string, maxLength = 20) => {
+  if (str.length <= maxLength) {
+    return str;
   }
 
-  return filename;
+  const frontChars = str.slice(0, 5);
+  const backChars = str.slice(-5);
+
+  return `${frontChars}...${backChars}`;
 };

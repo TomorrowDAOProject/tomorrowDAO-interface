@@ -1,5 +1,4 @@
 'use client';
-import { NetworkType } from '@portkey/did-ui-react';
 import { NetworkDaoHomePathName, TELEGRAM_BOT_ID } from 'config';
 import getChainIdQuery from 'utils/url';
 import { usePathname } from 'next/navigation';
@@ -9,7 +8,7 @@ import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-di
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
-import { init, WebLoginProvider } from '@aelf-web-login/wallet-adapter-react';
+import { WebLoginProvider } from '@aelf-web-login/wallet-adapter-react';
 import {
   connectServer,
   connectUrl,
@@ -125,6 +124,10 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
       baseURL: addBasePath(server || ''),
     },
     socialLogin: {
+      Portkey: {
+        websiteName: APP_NAME,
+        websiteIcon: '',
+      },
       Telegram: {
         botId: TELEGRAM_BOT_ID,
       },
@@ -187,10 +190,9 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
     wallets,
   };
 
-  const bridgeAPI = init(config); // upper config
   useEffect(() => {
     aaWallet.setChainId(chainId as TChainId);
   }, [aaWallet, chainId]);
 
-  return <WebLoginProvider bridgeAPI={bridgeAPI}>{children}</WebLoginProvider>;
+  return <WebLoginProvider config={config}>{children}</WebLoginProvider>;
 }

@@ -15,13 +15,15 @@ import { curChain } from 'config';
 import Input from 'components/Input';
 import Textarea from 'components/Textarea';
 import FormItem from 'components/FormItem';
-import Upload from 'components/Upload';
+import Upload, { IRefHandle } from 'components/Upload';
 import Radio from 'components/Radio';
 import Tooltip from 'components/Tooltip';
 import LinkGroup from '../LinkGroup';
 import Button from 'components/Button';
 import clsx from 'clsx';
 import { toast } from 'react-toastify';
+import { shortenFileName } from 'utils/file';
+import { useRef } from 'react';
 
 export const mediaList = [
   ['metadata', 'socialMedia', 'Twitter'],
@@ -64,11 +66,13 @@ export default function BasicDetails() {
     setValue,
     getValues,
   } = form;
+  const uploadRef = useRef<IRefHandle | null>(null);
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const elfInfo = useSelector((store: any) => store.elfInfo.elfInfo);
   const { walletInfo: wallet } = useConnectWallet();
   const daoType = watch('governanceMechanism') ?? EDaoGovernanceMechanism.Token;
   const membersValue = watch('members.value') ?? [];
+  const imgsUrl = watch('metadata.logoUrl');
   useRegisterForm(form, StepEnum.step0);
 
   return (
@@ -94,8 +98,8 @@ export default function BasicDetails() {
             )}
           />
         </FormItem>
-        <div className="flex flex-col lg:flex-row">
-          <FormItem label="Logo" errorText={errors?.metadata?.logoUrl?.message}>
+        <div className="flex flex-col lg:flex-row mb-[50px]">
+          <FormItem label="Logo" className="lg:mb-0" errorText={errors?.metadata?.logoUrl?.message}>
             <Controller
               name="metadata.logoUrl"
               control={control}
@@ -103,19 +107,40 @@ export default function BasicDetails() {
                 required: 'Logo is required',
               }}
               render={({ field }) => (
-                <Upload
-                  className="mx-auto !w-[250px]"
-                  needCheckImgSize
-                  uploadText="Upload"
-                  tips={`Formats supported: PNG and JPG.\n Ratio: 1:1 , less than 1 MB.`}
-                  onFinish={({ url }) => field.onChange(url)}
-                />
+                <>
+                  <Upload
+                    ref={uploadRef}
+                    className="mx-auto !w-[250px]"
+                    needCheckImgSize
+                    uploadText="Upload"
+                    tips={`Formats supported: PNG and JPG.\n Ratio: 1:1 , less than 1 MB.`}
+                    onFinish={({ url }) => field.onChange(url)}
+                  />
+
+                  {imgsUrl && (
+                    <div className="flex items-center justify-between py-1 px-3 mt-[15px] w-[250px] mx-auto">
+                      <div className="flex items-center flex-grow">
+                        <i className="text-lightGrey tmrwdao-icon-upload-document text-[20px]" />
+                        <span className="ml-2 text-lightGrey text-desc14 font-Montserrat">
+                          {shortenFileName(imgsUrl)}
+                        </span>
+                      </div>
+                      <i
+                        className="tmrwdao-icon-circle-minus text-[22px] ml-[6px] cursor-pointer text-Neutral-Secondary-Text"
+                        onClick={() => {
+                          setValue('metadata.logoUrl', '');
+                          uploadRef.current?.reset();
+                        }}
+                      />
+                    </div>
+                  )}
+                </>
               )}
             />
           </FormItem>
           <FormItem
             label="Description"
-            className="lg:ml-[50px] md:flex-grow"
+            className="lg:ml-[50px] lg:mb-0 md:flex-grow"
             errorText={errors?.metadata?.description?.message}
           >
             <Controller
@@ -131,7 +156,8 @@ export default function BasicDetails() {
               render={({ field }) => (
                 <Textarea
                   {...field}
-                  rootClassName="lg:h-[250px]"
+                  containerClassName="lg:h-[calc(100%-34px)]"
+                  rootClassName="lg:h-full"
                   maxLength={240}
                   placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
                   isError={!!errors?.metadata?.name?.message}
