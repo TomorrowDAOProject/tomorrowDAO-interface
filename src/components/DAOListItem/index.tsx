@@ -41,7 +41,9 @@ export default function DAOListItem(props: IDAOListItemProps) {
         {item.isNetworkDAO ? (
           <div className="flex items-center gap-2 w-1/2 lg:w-1/3">
             <span className="text-desc14 text-lightGrey font-Montserrat">BP</span>
-            <span className="text-descM14 text-white font-Montserrat">{item.highCouncilMemberCount}</span>
+            <span className="text-descM14 text-white font-Montserrat">
+              {item.highCouncilMemberCount}
+            </span>
           </div>
         ) : (
           <div className="flex items-center gap-2 w-1/2 lg:w-1/3">
