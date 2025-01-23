@@ -225,9 +225,9 @@ export default function DaoInfo(props: IParams) {
                     }
                     className="mr-[10px]"
                   >
-                    <div className="flex items-center justify-center h-8 bg-Neutral-Default-BG px-2 leading-8 rounded-md cursor-pointer">
+                    <div className="flex items-center justify-center bg-fillBg8 px-3 py-[3px] leading-8 rounded-[25px] cursor-pointer">
                       <Image width={14} height={14} src={settingSrc} alt=""></Image>
-                      {!isSM && <span className="ml-1 text-neutralPrimaryText">Settings</span>}
+                      {!isSM && <span className="ml-1 text-lightGrey text-[12px]">Settings</span>}
                     </div>
                   </Link>
                 )}
