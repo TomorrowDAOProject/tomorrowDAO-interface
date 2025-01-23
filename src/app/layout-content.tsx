@@ -9,6 +9,8 @@ import AELFDProviderWrap from 'provider/AELFDProviderWrap';
 import AELFDTelegramProviderWrap from 'provider/AELFDTelegramProviderWrap';
 import { ToastContainer } from 'react-toastify';
 
+import '../assets/fonts/tmrwdao-icon.css';
+
 const WalletInit = dynamicReq(
   async () => {
     return () => {
