@@ -165,6 +165,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                 login();
               }}
             >
+              <i className="tmrwdao-icon-profile text-[22px] text-white mr-[6px]" />
               Log In
             </Button>
           ) : (
