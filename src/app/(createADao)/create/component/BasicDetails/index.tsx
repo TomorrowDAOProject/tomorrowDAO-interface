@@ -118,7 +118,7 @@ export default function BasicDetails() {
                   />
 
                   {imgsUrl && (
-                    <div className="flex items-center justify-between py-1 px-3 mt-[15px] w-[250px] mx-auto">
+                    <div className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto">
                       <div className="flex items-center flex-grow">
                         <i className="text-lightGrey tmrwdao-icon-upload-document text-[20px]" />
                         <span className="ml-2 text-lightGrey text-desc14 font-Montserrat">
@@ -156,7 +156,9 @@ export default function BasicDetails() {
               render={({ field }) => (
                 <Textarea
                   {...field}
-                  containerClassName="lg:h-[calc(100%-34px)]"
+                  containerClassName={clsx('lg:h-[calc(100%-34px)]', {
+                    'lg:!h-[calc(100%-57px)]': !!errors?.metadata?.logoUrl?.message,
+                  })}
                   rootClassName="lg:h-full"
                   maxLength={240}
                   placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
@@ -176,7 +178,6 @@ export default function BasicDetails() {
               </span>
             </div>
           }
-          errorText={errors?.metadata?.socialMedia?.message}
         >
           <Controller
             name="metadata.socialMedia"
@@ -212,7 +213,7 @@ export default function BasicDetails() {
               <LinkGroup
                 onBlur={field.onBlur}
                 onChange={field.onChange}
-                isError={!!errors?.metadata?.socialMedia?.message}
+                errorText={errors?.metadata?.socialMedia?.message}
               />
             )}
           />
