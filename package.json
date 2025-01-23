@@ -29,7 +29,7 @@
     "@microsoft/signalr": "^8.0.7",
     "@monaco-editor/react": "^4.6.0",
     "@portkey/contracts": "2.19.0-alpha.11",
-    "@portkey/detect-provider": "^2.19.0-alpha.11",
+    "@portkey/detect-provider": "^2.4.0-alpha.8",
     "@portkey/did-ui-react": "2.19.0-alpha.11",
     "@portkey/provider-types": "^2.19.0-alpha.11",
     "@portkey/request": "2.19.0-alpha.11",
