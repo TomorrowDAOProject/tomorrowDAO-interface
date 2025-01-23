@@ -20,6 +20,7 @@ const Layout = (props: React.PropsWithChildren<{}>) => {
   const lastPosition = useRef(0);
 
   const handleScroll = () => {
+    console.log('lastPosition.current', lastPosition.current);
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
       const position = scrollContainer.scrollTop;
