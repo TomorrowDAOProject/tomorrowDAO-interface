@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import { ReactComponent as LargeArrowIcon } from 'assets/revamp-icon/arrow-large.svg';
 import { ReactComponent as ArrowSymbolIcon } from 'assets/revamp-icon/arrow-symbol.svg';
 import { ReactComponent as ArrowFilledIcon } from 'assets/revamp-icon/arrow-filled.svg';
@@ -67,13 +66,19 @@ const Page = () => {
               <span className="block my-[50px] text-[14px] font-Unbounded font-light text-white text-right tracking-[-.56px] lg:tracking-[-.52px] xl:tracking-[-0.6px] whitespace-pre-wrap md:whitespace-normal lg:text-[13px] lg:mt-[-30px] lg:mb-[60px] xl:mb-[75px] xl:text-[15px]">{`/Empowering Communities,\n Shaping the Future`}</span>
 
               <div className="flex flex-col items-start gap-[9.68px] md:flex-row lg:gap-[6px] xl:gap-[10px]">
-                <Link href="/" className="primary-button inline-flex items-center gap-[10px]">
-                  Create DAO
-                  <LinkIcon className="h-[11px] w-[11px]" />
+                <Link
+                  href="/explore"
+                  className="primary-button inline-flex items-center gap-[10px]"
+                >
+                  Explore
+                  <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </Link>
-                <Link href="/" className="default-button inline-flex items-center gap-[10px]">
+                <Link
+                  href="https://docs.tmrwdao.com/"
+                  className="default-button inline-flex items-center gap-[10px]"
+                >
                   View Documentations
-                  <LinkIcon className="h-[11px] w-[11px]" />
+                  <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </Link>
               </div>
             </div>
@@ -181,11 +186,11 @@ const Page = () => {
                       /It is just that easy!
                     </span>
                     <Link
-                      href="/"
+                      href="/create"
                       className="primary-button items-center gap-[10px] hidden md:inline-flex"
                     >
                       Create DAO
-                      <LinkIcon className="h-[11px] w-[11px]" />
+                      <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                     </Link>
                   </div>
                 </div>
@@ -263,9 +268,9 @@ const Page = () => {
             </div>
 
             <div className="flex items-center justify-center mt-[30px] md:hidden">
-              <Link href="/" className="primary-button items-center gap-[10px] inline-flex">
+              <Link href="/create" className="primary-button items-center gap-[10px] inline-flex">
                 Create DAO
-                <LinkIcon className="h-[11px] w-[11px]" />
+                <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
               </Link>
             </div>
           </section>
@@ -304,9 +309,12 @@ const Page = () => {
                 <span className="block mt-0 mb-[12px] lg:mb-[19px] xl:mb-[24px] text-[14px] font-Montserrat font-normal text-white text-left leading-[1.6] whitespace-pre-wrap lg:whitespace-normal lg:pr-[88px] xl:pr-[112px] lg:text-[12px] xl:text-[15px]">
                   {`Vote with or delegate your ELF tokens to \nhelp protect the integrity of the AELF \nprotocol.`}
                 </span>
-                <Link href="/" className="default-button inline-flex items-center gap-[10px]">
+                <Link
+                  href="/network-dao"
+                  className="font-Montserrat font-medium text-baseText !bg-transparent border border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
+                >
                   Find out more
-                  <LinkIcon className="h-[11px] w-[11px]" />
+                  <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </Link>
               </div>
 
@@ -336,7 +344,7 @@ const Page = () => {
             </span>
             <span className="block m-0 text-[36px] font-Unbounded font-light text-white text-center whitespace-pre-wrap md:whitespace-normal lg:text-[52.8px] xl:text-[66px] tracking-[-2.88px] lg:tracking-[-4.32px] xl:tracking-[-5.28px] z-10">{`Community \nTransformation`}</span>
             <div className="flex align-center justify-center mt-[35px] md:mb-[20px] xl:mb-[63px] lg:mt-[48.8px] xl:mt-[61px] text-white z-10">
-              <Link href="/" className="group">
+              <Link href="/explore" className="group">
                 <ArrowSymbolIcon className="h-[39px] w-[39.83px] inline-block group-hover:hidden transition-[display] duration-300" />
                 <ArrowFilledIcon className="h-[39px] w-[39.83px] hidden group-hover:inline-block transition-[display] duration-300" />
               </Link>
@@ -352,11 +360,11 @@ const Page = () => {
               <h2 className="m-0 text-[24px] lg:text-[38.4px] xl:text-[48px] font-Unbounded font-light text-white whitespace-pre-wrap leading-[1] tracking-[-0.48px] lg:tracking-[-0.78px] xl:tracking-[-0.96px]">{`Built on the aelf \necosystem`}</h2>
 
               <Link
-                href="/"
+                href="https://aelf.com"
                 className="font-Montserrat font-medium text-baseText !bg-transparent border border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
               >
                 About aelf
-                <LinkIcon className="h-[11px] w-[11px]" />
+                <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
               </Link>
             </div>
           </div>
@@ -393,20 +401,34 @@ const Page = () => {
             <div className="flex flex-row items-center justify-center mb-[35px] md:hidden">
               <Link href="/" className="default-button inline-flex items-center gap-[10px]">
                 About aelf
-                <LinkIcon className="h-[11px] w-[11px]" />
+                <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
               </Link>
             </div>
           </div>
 
           <div className="col-12 box-border">
             <div className="flex flex-row justify-center flex-wrap lg:px-[164px] xl:px-[200px]">
-              <PortkeyIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
-              <SchordingerIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
-              <AwakenIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
-              <BridgeIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
-              <EtransferIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
-              <BeangoIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
-              <ForestIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
+              <Link href="https://portkey.finance">
+                <PortkeyIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
+              </Link>
+              <Link href="https://schrodingernft.ai">
+                <SchordingerIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
+              </Link>
+              <Link href="https://awaken.finance">
+                <AwakenIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
+              </Link>
+              <Link href="https://ebridge.exchange/bridge">
+                <BridgeIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
+              </Link>
+              <Link href="https://etransfer.exchange/">
+                <EtransferIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
+              </Link>
+              <Link href="https://beangotown.com/login">
+                <BeangoIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
+              </Link>
+              <Link href="https://www.eforest.finance/">
+                <ForestIcon className="w-[83.75px] h-[36px] lg:w-[139.5px] lg:h-[60px] xl:w-[175px] xl:h-[75px]" />
+              </Link>
             </div>
           </div>
         </div>
@@ -421,7 +443,7 @@ const Page = () => {
 
             <Link href="/" className="default-button hidden items-center gap-[10px] lg:inline-flex">
               View More
-              <LinkIcon className="h-[11px] w-[11px]" />
+              <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
             </Link>
           </div>
         </div>
