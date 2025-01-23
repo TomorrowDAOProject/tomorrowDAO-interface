@@ -17,10 +17,6 @@ const items: MenuItem[] = [
     label: 'Blog',
   },
   {
-    key: 'Votigram',
-    label: 'Votigram',
-  },
-  {
     key: 'Resources',
     label: 'Resources',
     children: [

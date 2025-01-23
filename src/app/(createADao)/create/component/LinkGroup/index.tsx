@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Select, { SelectOption } from 'components/Select';
+import { LINK_TYPE } from 'constants/dao';
 import { useState } from 'react';
 
 interface ILinkGroupProps {
@@ -13,31 +14,31 @@ interface ILinkGroupProps {
 const socialMedia = [
   {
     label: 'X (Twitter)',
-    value: 'Twitter',
+    value: LINK_TYPE.TWITTER,
   },
   {
     label: 'Facebook',
-    value: 'Facebook',
+    value: LINK_TYPE.FACEBOOK,
   },
   {
     label: 'Github',
-    value: 'Github',
+    value: LINK_TYPE.GITHUB,
   },
   {
     label: 'Discord',
-    value: 'Discord',
+    value: LINK_TYPE.DISCORD,
   },
   {
     label: 'Telegram',
-    value: 'Telegram',
+    value: LINK_TYPE.TELEGRAM,
   },
   {
     label: 'Reddit',
-    value: 'Reddit',
+    value: LINK_TYPE.REDDIT,
   },
   {
     label: 'Others',
-    value: 'Others',
+    value: LINK_TYPE.OTHERS,
   },
 ];
 
@@ -92,7 +93,11 @@ const LinkGroup = ({ errorText, onBlur, onChange }: ILinkGroupProps) => {
             <div className="flex flex-row flex-grow items-center">
               <Input
                 className="flex-1"
-                placeholder={link[0] === 'Twitter' ? "Enter the DAO's X handle, starting with @" : 'https://'}
+                placeholder={
+                  link[0] === LINK_TYPE.TWITTER
+                    ? "Enter the DAO's X handle, starting with @"
+                    : 'https://'
+                }
                 onBlur={() => onBlur?.(Object.fromEntries(linkData))}
                 onChange={(value) => handleInputChange(value, index)}
                 isError={!!errorText}

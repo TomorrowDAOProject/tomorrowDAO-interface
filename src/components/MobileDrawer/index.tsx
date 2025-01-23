@@ -25,7 +25,7 @@ const Drawer = ({ title, width = 249, open, onClose, children }: IDrawerProps) =
         } w-[${width}px]`}
       >
         <div className="shrink-0 py-[20px] px-[14px]">{title}</div>
-        <div className="flex-1 pt-[34px]">{children}</div>
+        <div className="flex-grow pt-[34px]">{children}</div>
       </div>
     </>
   );

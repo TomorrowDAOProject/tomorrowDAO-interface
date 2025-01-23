@@ -35,7 +35,7 @@ const Layout = (props: React.PropsWithChildren<{}>) => {
   };
   const { children } = props;
   const pathName = usePathname();
-  const isExolore = pathName === '/explore';
+  const isExplore = pathName === '/explore';
 
   return (
     <ScrollProvider value={{ onScroll: handleScroll, scrollContainerRef }}>
@@ -48,7 +48,7 @@ const Layout = (props: React.PropsWithChildren<{}>) => {
             'backdrop-blur-[10px]': showHeader,
           })}
         />
-        {isExolore && <DAOHeader />}
+        {isExplore && <DAOHeader />}
         {children}
         <NavFooter />
         <PageLoading />
