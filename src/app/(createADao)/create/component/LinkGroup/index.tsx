@@ -5,7 +5,7 @@ import Select, { SelectOption } from 'components/Select';
 import { useState } from 'react';
 
 interface ILinkGroupProps {
-  isError?: boolean;
+  errorText?: string;
   onBlur?(links: Record<string, number>): void;
   onChange?(links: Record<string, number>): void;
 }
@@ -41,7 +41,7 @@ const socialMedia = [
   },
 ];
 
-const LinkGroup = ({ isError, onBlur, onChange }: ILinkGroupProps) => {
+const LinkGroup = ({ errorText, onBlur, onChange }: ILinkGroupProps) => {
   const [linkData, setLinkData] = useState<string[][]>([['', '']]);
   const handleSelectChange = (option: SelectOption, index: number) => {
     const originLinks = [...linkData];
@@ -72,7 +72,12 @@ const LinkGroup = ({ isError, onBlur, onChange }: ILinkGroupProps) => {
   return (
     <>
       {linkData?.map((link, index) => (
-        <div className="mb-6 flex flex-col lg:flex-row gap-6" key={`${link[0]}_${index}`}>
+        <div
+          className={clsx('flex flex-col lg:flex-row gap-6', {
+            'mb-6': index < linkData.length - 1,
+          })}
+          key={`${link[0]}_${index}`}
+        >
           <Select
             label="Name"
             value={link[0]}
@@ -80,6 +85,7 @@ const LinkGroup = ({ isError, onBlur, onChange }: ILinkGroupProps) => {
             className="lg:w-[250px]"
             options={socialMedia}
             onChange={(option) => handleSelectChange(option, index)}
+            isError={!!errorText}
           />
           <div className="flex flex-col flex-grow">
             <span className="block mb-[10px] text-descM14 font-Montserrat text-white">Link</span>
@@ -88,7 +94,7 @@ const LinkGroup = ({ isError, onBlur, onChange }: ILinkGroupProps) => {
                 className="flex-1"
                 onBlur={() => onBlur?.(Object.fromEntries(linkData))}
                 onChange={(value) => handleInputChange(value, index)}
-                isError={isError}
+                isError={!!errorText}
               />
               <i
                 className={clsx(
@@ -103,8 +109,13 @@ const LinkGroup = ({ isError, onBlur, onChange }: ILinkGroupProps) => {
           </div>
         </div>
       ))}
+      {errorText && (
+        <span className="mt-[5px] block text-[11px] font-Montserrat leading-[17.6px] text-mainColor">
+          {errorText}
+        </span>
+      )}
 
-      <Button className="!py-[2px] !text-[12px]" onClick={addLink}>
+      <Button className="mt-4 !py-[2px] !text-[12px]" onClick={addLink}>
         <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
         Add link
       </Button>

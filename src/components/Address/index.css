@@ -1,9 +1,13 @@
 .address-container {
   .address {
-    @apply border border-fillBg8 border-solid bg-darkBg rounded-[8px] px-[16px] py-[13px] font-Montserrat text-descM14 text-lightGrey;
+    @apply border border-fillBg8 border-solid bg-darkBg rounded-[8px] px-[16px] py-[13px] font-Montserrat !text-descM14 text-lightGrey;
 
     & > div {
       @apply flex items-center justify-between;
+    }
+    
+    & * {
+      @apply font-Montserrat !text-descM14 text-lightGrey;
     }
 
     &:hover * {
