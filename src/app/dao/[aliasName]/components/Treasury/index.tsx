@@ -140,10 +140,16 @@ const Treasury: React.FC<IProps> = (props) => {
         footerConfig: {
           buttonList: [
             {
-              onClick: () => {
-                eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-              },
-              children: 'OK',
+              children: (
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                  }}
+                >
+                  OK
+                </Button>
+              ),
             },
           ],
         },
@@ -174,7 +180,7 @@ const Treasury: React.FC<IProps> = (props) => {
       run();
     }
   }, [run, treasuryAddress]);
-  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[10px] border-Neutral-Divider border-solid rounded-lg bg-white px-4 lg:px-8  lg:py-6`;
+  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[10px] border-fillBg8 border-solid rounded-lg bg-darkBg px-4 lg:px-6 lg:py-[25px]`;
   const existTransaction = Boolean(transferList?.length);
   return (
     <div className={cls}>

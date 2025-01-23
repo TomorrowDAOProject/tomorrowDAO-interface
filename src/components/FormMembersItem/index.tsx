@@ -1,9 +1,11 @@
 import { Form, FormInstance } from 'antd';
-import { Input, Tooltip, Button } from 'aelf-design';
-import { AddCircleOutlined, DeleteOutlined, MinusCircleOutlined } from '@aelf-design/icons';
+import { MinusCircleOutlined } from '@aelf-design/icons';
 import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
 import './index.css';
 import { curChain } from 'config';
+import Button from 'components/Button';
+import Tooltip from 'components/Tooltip';
+import Input from 'components/Input';
 
 interface ValidatorRule {
   validator: (rule: any, value: any) => Promise<void>;
@@ -42,16 +44,16 @@ function FormMembersItem(props: IFormMembersProps) {
         ) : (
           <Tooltip
             title={
-              <div>
+              <div className="text-[10px] leading-[12px]">
                 There is no limit on the number of addresses on your multisig. Addresses can create
                 proposals, create and approve transactions, and suggest changes to the DAO settings
                 after creation.
               </div>
             }
           >
-            <span className="flex items-center form-item-title gap-[8px] pb-[8px]  w-[max-content]">
+            <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
               Multisig Members Address
-              <QuestionIcon className="cursor-pointer " width={16} height={16} />
+              <i className="tmrwdao-icon-information text-[18px] text-white" />
             </span>
           </Tooltip>
         )}
@@ -123,25 +125,19 @@ function FormMembersItem(props: IFormMembersProps) {
                 footNode
               ) : (
                 <>
-                  <Button
-                    className="dynamic-form-buttons-item"
-                    type="default"
-                    size="medium"
-                    onClick={() => add()}
-                    icon={<AddCircleOutlined className="text-[16px] " />}
-                  >
-                    <span className="card-sm-text-bold ">Add address</span>
+                  <Button className="!py-[2px] !text-[12px]" type="default" onClick={() => add()}>
+                    <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
+                    Add Address
                   </Button>
                   <Button
+                    className="!py-[2px] !text-[12px]"
                     type="default"
-                    size="medium"
                     onClick={() => {
                       form.setFieldValue(name, []);
                     }}
-                    className="dynamic-form-buttons-item"
-                    icon={<DeleteOutlined className="text-[16px]" />}
                   >
-                    <span className="card-sm-text-bold ">Delete all</span>
+                    <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
+                    Delete All
                   </Button>
                 </>
               )}
@@ -157,14 +153,14 @@ function FormMembersItem(props: IFormMembersProps) {
       {showNullWhenEmpty ? null : (
         <div className="mt-[32px]">
           <div className="flex justify-between">
-            <span className="flex items-center form-item-title pb-[8px] justify-between">
+            <span className="flex items-center pb-[8px] justify-between text-descM15 text-white font-Montserrat">
               Total Addresses
             </span>
-            <span className="text-[16px] leading-[24px] font-medium text-neutralPrimaryText">
+            <span className="text-descM16 text-white font-Montserrat">
               {fields?.length ?? initialValue.length}
             </span>
           </div>
-          <div className="text-[12px] leading-[20px] text-Neutral-Secondary-Text mb-[32px]">
+          <div className="text-descM12 text-Neutral-Secondary-Text mb-[32px]">
             Your connected wallet has been automatically added to the list. You can remove it if
             you&apos;d like.
           </div>

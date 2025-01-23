@@ -26,12 +26,79 @@ module.exports = {
           'Arial',
           'sans-serif',
         ],
+        Montserrat: ['Montserrat', 'sans-serif'],
+        Unbounded: ['Unbounded', 'sans-serif'],
+        Syne: ['Syne', 'sans-serif'],
+      },
+      fontSize: {
+        h1: ['66px', 'normal'],
+        h2: ['48px', '48px'],
+        h3: ['26px', 'normal'],
+        h4: ['24px', 'normal'],
+        h5: ['20px', 'normal'],
+        h6: ['15px', 'normal'],
+        descM18: [
+          '18px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        descM16: [
+          '16px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc16: ['16px', '160%'],
+        descM15: [
+          '15px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc15: ['15px', 'normal'],
+        descM14: [
+          '14px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc14: ['14px', 'normal'],
+        descM13: [
+          '13px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc13: ['13px', 'normal'],
+        descM12: [
+          '12px',
+          {
+            lineHeight: 'auto',
+            fontWeight: '500',
+          },
+        ],
+        desc12: ['12px', 'normal'],
+        descM10: [
+          '10px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc10: ['10px', 'normal'],
       },
       animation: {
         vibrate: 'vibrate 100ms linear 4',
         flash: 'flash 1s infinite',
         skeleton: 'skeleton 1.5s ease-in-out infinite',
         'scroll-left': 'scroll-left 10s linear infinite',
+        'up-down': 'upDown 3s ease-in-out infinite',
       },
       keyframes: {
         vibrate: {
@@ -51,6 +118,10 @@ module.exports = {
         skeleton: {
           '0%, 100%': { backgroundColor: '#353535' },
           '50%': { backgroundColor: '#1c1a1a' },
+        },
+        upDown: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-15px)' },
         },
       },
       colors: {
@@ -81,18 +152,33 @@ module.exports = {
         'Reject-Reject': '#F55D6E',
         'Light-Mode-Brand-Brand': '#127FFF',
         link: '#5b8ef4',
+        baseBg: 'var(--base-bg)',
+        baseText: 'var(--base-text)',
+        fillBg: 'var(--fill-bg)',
+        fillBg8: 'var(--fill-bg-8)',
+        fillBg40: 'var(--fill-bg-40)',
+        fillBlack15: 'var(--fill-black-15)',
+        mainColor: 'var(--main-color)',
+        darkGray: 'var(--dark-gray)',
+        lightGrey: 'var(--light-gray)',
+        darkBg: 'var(--dark-bg)',
+        danger: 'var(--danger)',
       },
       flex: {
         quarter: '1 1 25%',
         half: '1 1 50%',
       },
+      backgroundImage: {
+        itemShadow:
+          'linear-gradient(29deg, #5D49F6 9.71%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.2) 100%)',
+        blackToMain: 'linear-gradient(to bottom, rgba(0, 0, 0, 0%), #5D49F6)',
+      },
     },
     screens: {
-      xs: '480px',
-      sm: '641px',
-      md: '769px',
-      lg: '1025px',
-      xl: '1281px',
+      sm: '375px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
       '2xl': '1537',
       homePc: '768px',
     },
@@ -128,29 +214,29 @@ module.exports = {
           '@apply button-border-normal rounded-lg': {},
         },
         '.normal-text': {
-          '@apply text-[16px] leading-[24px] text-neutralTitle': {},
+          '@apply text-[16px] leading-[24px] text-white': {},
         },
         '.normal-text-bold': {
-          '@apply text-[16px] leading-[24px] text-neutralTitle font-medium': {},
+          '@apply text-[16px] leading-[24px] text-white font-medium': {},
         },
 
         '.form-item-title': {
-          '@apply text-[16px] leading-[24px] text-neutralPrimaryText font-medium': {},
+          '@apply text-[16px] leading-[24px] text-white font-medium': {},
         },
 
         '.dao-detail-card': {
-          '@apply border-0 lg:border lg:mb-[10px] border-Neutral-Divider border-solid rounded-lg bg-white px-4 lg:px-8 lg:py-6 pt-[8px] pb-[24px]':
+          '@apply border-0 lg:border lg:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg px-4 lg:px-6 lg:py-[25px] pt-[8px] pb-[24px]':
             {},
         },
 
         '.card-title': {
-          '@apply text-[20px] leading-[28px] text-neutralTitle font-medium': {},
+          '@apply text-[20px] leading-[28px] text-white font-medium': {},
         },
         '.card-sm-text': {
           '@apply text-[14px] leading-[22px]': {},
         },
         '.card-sm-text-black': {
-          '@apply text-[14px] leading-[22px] text-neutralTitle': {},
+          '@apply text-[14px] leading-[22px] text-white': {},
         },
         '.card-xsm-text': {
           '@apply text-[12px] leading-[20px]': {},
@@ -160,7 +246,7 @@ module.exports = {
         },
 
         '.card-title-lg': {
-          '@apply text-[24px] leading-[32px] text-neutralTitle font-medium': {},
+          '@apply text-[24px] leading-[32px] text-white font-medium': {},
         },
         '.error-text': {
           '@apply text-error h-[32px] flex items-center': {},
@@ -179,6 +265,41 @@ module.exports = {
         },
       });
     }),
+    ({ addComponents }) => {
+      addComponents({
+        '.tmrwdao-grid': {
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
+          gap: '0.375rem',
+          margin: '0 auto',
+          width: '100%',
+          maxWidth: '1120px',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '0 1.25rem',
+          boxSizing: 'border-box',
+          '@screen md': {
+            padding: '0 2.5rem',
+          },
+          '@screen lg': {
+            padding: '0 3.75rem',
+            gap: '1.25rem',
+          },
+          '@screen xl': {
+            padding: '0',
+          },
+        },
+        ...Array.from({ length: 12 }, (_, i) => i + 1).reduce((acc, col) => {
+          acc[`.col-${col}`] = {
+            gridColumn: `span ${col} / span ${col}`,
+          };
+          acc[`.offset-${col}`] = {
+            gridColumnStart: `${col + 1} !important`,
+          };
+          return acc;
+        }, {}),
+      });
+    },
   ],
   corePlugins: {
     preflight: false,

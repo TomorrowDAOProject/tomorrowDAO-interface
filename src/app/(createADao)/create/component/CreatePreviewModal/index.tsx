@@ -1,23 +1,24 @@
 import { ReactNode, useContext, useMemo, useState } from 'react';
-import { Flex, Checkbox, CheckboxProps } from 'antd';
-import { FontWeightEnum, Typography, HashAddress } from 'aelf-design';
+// import { Flex, Checkbox, CheckboxProps } from 'antd';
+import { HashAddress } from 'aelf-design';
 import Image from 'next/image';
-import CommonModalSwitchDrawer from 'components/CommonModalSwitchDrawer';
 import CommonDaoLogo, { CommonDaoLogoSizeEnum } from 'components/CommonDaoLogo';
 import { colorfulSocialMediaIconMap } from 'assets/imgs/socialMediaIcon';
 import { useSelector } from 'redux/store';
 import './index.css';
 import { StepsContext, StepEnum, EDaoGovernanceMechanism } from '../../type';
 import { curChain } from 'config';
-
-const { Text, Title } = Typography;
+import Modal from 'components/Modal';
+import CheckBox from 'components/Checkbox';
+import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
+import Button from 'components/Button';
 
 function SocialMediaItem({ name, url }: { name: string; url: string }) {
   return (
-    <Flex className="social-media-item" gap={8} align="center">
+    <div className="social-media-item flex items-center gap-2 bg-[rgba(255,255,255,0.08)] rounded-sm">
       <Image src={(colorfulSocialMediaIconMap as any)[name]} alt="media" width={16} height={16} />
-      <Text>{url}</Text>
-    </Flex>
+      <span className="text-lightGrey text-[12px]">{url}</span>
+    </div>
   );
 }
 
@@ -33,7 +34,7 @@ function CheckboxItem({
     children?: ReactNode[];
   } | null)[];
   checked?: boolean;
-  onChange?: CheckboxProps['onChange'];
+  onChange?: any;
 }) {
   const newDescriptionList = useMemo(() => {
     return descriptionList?.filter(Boolean) as {
@@ -41,27 +42,33 @@ function CheckboxItem({
       children?: ReactNode[];
     }[];
   }, [descriptionList]);
+
   return (
-    <Flex vertical gap={16}>
-      <Checkbox checked={checked} onChange={onChange} className="preview-modal-checkbox">
-        <Title fontWeight={FontWeightEnum.Medium}>{label}</Title>
-      </Checkbox>
+    <div className="flex flex-col gap-4 text-white mb-[30px]">
+      <CheckBox
+        checked={checked}
+        label={label}
+        onChange={onChange}
+        className="preview-modal-checkbox"
+      />
       {newDescriptionList?.map(({ content, children }, index) => (
-        <Flex key={index} className="ml-6" gap={8}>
+        <div key={index} className="ml-6 flex gap-2 items-start">
           <div className="dot" />
           {children?.length ? (
-            <Flex vertical gap={4}>
-              <Text fontWeight={FontWeightEnum.Medium}>{content}</Text>
+            <div className="flex gap-2">
+              <span className={`font-[500]`}>{content}</span>
               {children.map((item, idx) => (
-                <Text key={idx}>{item}</Text>
+                <span key={idx} className="text-lightGrey text-[12px]">
+                  {item}
+                </span>
               ))}
-            </Flex>
+            </div>
           ) : (
-            <Text>{content}</Text>
+            <span className="text-lightGrey text-[12px]">{content}</span>
           )}
-        </Flex>
+        </div>
       ))}
-    </Flex>
+    </div>
   );
 }
 
@@ -75,16 +82,14 @@ function AddressItem({
   isBoldLabel?: boolean;
 }) {
   return (
-    <Flex gap={isBoldLabel ? 4 : 0} align="center" wrap="wrap">
+    <div className={`flex items-center  flex-wrap ${isBoldLabel ? 'gap-2' : 'gap-0'}`}>
       {isBoldLabel ? (
-        <Title className="mr-1" fontWeight={FontWeightEnum.Medium}>
-          {label}:
-        </Title>
+        <div className="mr-1 text-white font-[500] text-[15px]">{label}:</div>
       ) : (
-        <Text className="mr-2">{label}:</Text>
+        <span className="mr-2 text-white">{label}:</span>
       )}
-      <HashAddress className="address" ignoreEvent address={address} chain={curChain} />
-    </Flex>
+      <HashAddress className="address text-white" ignoreEvent address={address} chain={curChain} />
+    </div>
   );
 }
 
@@ -123,21 +128,25 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
     };
   });
 
-  const logoUrl = metaData?.metadata?.logoUrl?.[0]?.response?.url;
+  const logoUrl: any = metaData?.metadata?.logoUrl;
+
+  const isAllChecked = useMemo(() => {
+    return state.filter((item) => item === true).length === state.length;
+  }, [state]);
+
   return (
-    <CommonModalSwitchDrawer
-      commonClassName="create-preview-modal"
+    <Modal
       title="Confirm"
-      modalWidth={800}
-      footerConfig={{
-        buttonList: [{ children: 'Confirm', onClick: onConfirm, disabled: disabled }],
-      }}
-      open={open}
+      // footerConfig={{
+      //   buttonList: [{ children: 'Confirm', onClick: onConfirm, disabled: disabled }],
+      // }}
+      rootClassName="create-preview-modal"
+      isVisible={open}
       onClose={onClose}
     >
-      <Flex vertical gap={24}>
-        <Flex vertical gap={12}>
-          <Flex gap={8} align="center">
+      <div className="flex flex-col pt-[30px] max-h-[60vh] overflow-scroll confirm-content">
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2">
             {logoUrl && (
               <CommonDaoLogo
                 src={logoUrl}
@@ -145,32 +154,30 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
                 size={CommonDaoLogoSizeEnum.Small}
               />
             )}
-            <Title level={5} fontWeight={FontWeightEnum.Medium}>
-              {metaData?.metadata?.name}
-            </Title>
-          </Flex>
-          <Text>{metaData?.metadata.description}</Text>
-          <Flex gap={12} wrap="wrap">
+            <div className="font-[500] text-white text-[18px]">{metaData?.metadata?.name}</div>
+          </div>
+          <span className="text-lightGrey text-[13px]">{metaData?.metadata?.description}</span>
+          <div className="flex gap-3 flex-wrap">
             {socialMediaList.map(
               ({ name, url }, index) =>
                 url && <SocialMediaItem key={index} name={name as string} url={url ?? ''} />,
             )}
-          </Flex>
-        </Flex>
-        <Flex vertical gap={16}>
+          </div>
+        </div>
+        <div className="flex gap-4 flex-col mt-4">
           <AddressItem isBoldLabel label="Metadata admin" address={walletInfo.address} />
           {metaData?.governanceToken && (
-            <Flex gap={8} align="center">
-              <Title fontWeight={FontWeightEnum.Medium}>Governance token:</Title>
-              <Text>{metaData?.governanceToken}</Text>
-            </Flex>
+            <div className="flex gap-2 items-center ">
+              <span className="font-[500] text-[15px] text-white">Governance token:</span>
+              <span className="text-lightGrey text-[12px]">{metaData?.governanceToken}</span>
+            </div>
           )}
-        </Flex>
-        <div className="divider" />
+        </div>
+        <div className="h-[1px] w-full bg-[rgba(255,255,255,0.08)] my-[30px]"></div>
         <CheckboxItem
-          label="Referendum"
+          label="Governance: Referendum"
           checked={state[0]}
-          onChange={(e) => setState([e.target.checked, state[1], state[2]])}
+          onChange={(value: boolean) => setState([value, state[1], state[2]])}
           descriptionList={[
             !isMultisig
               ? {
@@ -192,7 +199,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
           <CheckboxItem
             label="High Council"
             checked={state[1]}
-            onChange={(e) => setState([state[0], e.target.checked, state[2]])}
+            onChange={(value: boolean) => setState([state[0], value, state[2]])}
             descriptionList={[
               // {
               //   content: `
@@ -221,7 +228,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
         )}
         <CheckboxItem
           checked={state[2]}
-          onChange={(e) => setState([state[0], state[1], e.target.checked])}
+          onChange={(value: boolean) => setState([state[0], state[1], value])}
           label={`Documentation ${files?.files?.length ? `(${files?.files?.length})` : ''}`}
           descriptionList={files?.files?.map((item) => {
             return {
@@ -229,7 +236,17 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
             };
           })}
         />
-      </Flex>
-    </CommonModalSwitchDrawer>
+      </div>
+      <Button
+        className={`w-full flex items-center gap-1 ${isAllChecked && '!bg-mainColor text-white'}`}
+        onClick={() => {
+          console.log('state', state);
+          if (isAllChecked) onConfirm();
+        }}
+      >
+        <span>Confirm</span>
+        <LinkIcon className="h-[11px] w-[11px]" />
+      </Button>
+    </Modal>
   );
 }

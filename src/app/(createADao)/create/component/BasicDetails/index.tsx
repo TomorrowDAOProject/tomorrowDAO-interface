@@ -1,367 +1,436 @@
-import { Input, Typography, Tooltip } from 'aelf-design';
 import './index.css';
-import { Form, Radio } from 'antd';
 import ChainAddress from 'components/Address';
 import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
-import { useState } from 'react';
-import { cx } from 'antd-style';
-import { mediaValidatorMap, useRegisterForm } from '../utils';
-import IPFSUpload from 'components/IPFSUpload';
+import { facebookUrlRegex, twitterUsernameRegex, useRegisterForm } from '../utils';
 import { EDaoGovernanceMechanism, StepEnum } from '../../type';
 import { useSelector } from 'react-redux';
 import { dispatch } from 'redux/store';
 import { fetchTokenInfo } from 'api/request';
 import { setToken } from 'redux/reducer/daoCreate';
 import Link from 'next/link';
-import FormMembersItem from 'components/FormMembersItem';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import { useForm, Controller } from 'react-hook-form';
 
 import { curChain } from 'config';
+import Input from 'components/Input';
+import Textarea from 'components/Textarea';
+import FormItem from 'components/FormItem';
+import Upload from 'components/Upload';
+import Radio from 'components/Radio';
+import Tooltip from 'components/Tooltip';
+import LinkGroup from '../LinkGroup';
+import Button from 'components/Button';
+import clsx from 'clsx';
+import { toast } from 'react-toastify';
 
 export const mediaList = [
   ['metadata', 'socialMedia', 'Twitter'],
+  ['metadata', 'socialMedia', 'Github'],
   ['metadata', 'socialMedia', 'Facebook'],
   ['metadata', 'socialMedia', 'Telegram'],
   ['metadata', 'socialMedia', 'Discord'],
   ['metadata', 'socialMedia', 'Reddit'],
+  ['metadata', 'socialMedia', 'Others'],
 ];
 
-const governanceMechanismNamePath = 'governanceMechanism';
-const formMembersListNamePath = ['members', 'value'];
-const governanceTokenNamePath = 'governanceToken';
-
 export default function BasicDetails() {
-  const [form] = Form.useForm();
-  const [mediaError, setMediaError] = useState<boolean>(false);
+  const form = useForm({
+    defaultValues: {
+      metadata: {
+        name: '',
+        logoUrl: '',
+        description: '',
+        socialMedia: {
+          Twitter: '',
+          Github: '',
+          Facebook: '',
+          Discord: '',
+          Telegram: '',
+          Reddit: '',
+          Others: '',
+        },
+      },
+      governanceMechanism: EDaoGovernanceMechanism.Token,
+      members: { value: [''] },
+      governanceToken: '',
+    },
+    mode: 'onBlur',
+  });
+  const {
+    watch,
+    control,
+    formState: { errors },
+    trigger,
+    setValue,
+    getValues,
+  } = form;
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const elfInfo = useSelector((store: any) => store.elfInfo.elfInfo);
   const { walletInfo: wallet } = useConnectWallet();
-  const daoType = Form.useWatch(governanceMechanismNamePath, form) ?? EDaoGovernanceMechanism.Token;
+  const daoType = watch('governanceMechanism') ?? EDaoGovernanceMechanism.Token;
+  const membersValue = watch('members.value') ?? [];
   useRegisterForm(form, StepEnum.step0);
+
   return (
     <div className="basic-detail">
-      <div>
-        <Form
-          layout="vertical"
-          name="baseInfo"
-          scrollToFirstError={true}
-          autoComplete="off"
-          form={form}
-          requiredMark={false}
-        >
-          <Form.Item
-            name={['metadata', 'name']}
-            validateFirst
-            rules={[
-              {
-                required: true,
-                message: 'The name is required',
-              },
-              {
-                type: 'string',
-                max: 50,
+      <form>
+        <FormItem label="Name" errorText={errors?.metadata?.name?.message}>
+          <Controller
+            name="metadata.name"
+            control={control}
+            rules={{
+              required: 'The name is required',
+              maxLength: {
+                value: 50,
                 message: 'The name should contain no more than 50 characters.',
               },
-            ]}
-            label="Name"
-          >
-            <Input placeholder="Enter a name for the DAO" />
-          </Form.Item>
-          <Form.Item
-            name={['metadata', 'logoUrl']}
-            valuePropName="fileList"
-            rules={[
-              {
-                required: true,
-                message: 'Logo is required',
-              },
-            ]}
-            label="Logo"
-          >
-            <IPFSUpload
-              maxFileCount={1}
-              needCheckImgSize
-              accept=".png,.jpg,.jpeg"
-              uploadText="Click to Upload"
-              uploadIconColor="#1A1A1A"
-              tips="Formats supported: PNG and JPG. Ratio: 1:1 , less than 1 MB."
+            }}
+            render={({ field }) => (
+              <Input
+                {...field}
+                placeholder="Enter a name for the DAO"
+                isError={!!errors?.metadata?.name?.message}
+              />
+            )}
+          />
+        </FormItem>
+        <div className="flex flex-col lg:flex-row">
+          <FormItem label="Logo" errorText={errors?.metadata?.logoUrl?.message}>
+            <Controller
+              name="metadata.logoUrl"
+              control={control}
+              rules={{
+                required: 'Logo is required',
+              }}
+              render={({ field }) => (
+                <Upload
+                  className="mx-auto !w-[250px]"
+                  needCheckImgSize
+                  uploadText="Upload"
+                  tips={`Formats supported: PNG and JPG.\n Ratio: 1:1 , less than 1 MB.`}
+                  onFinish={({ url }) => field.onChange(url)}
+                />
+              )}
             />
-          </Form.Item>
-          <Form.Item
-            validateFirst
-            rules={[
-              {
-                required: true,
-                message: 'description is required',
-              },
-              {
-                type: 'string',
-                max: 240,
-                message: 'The description should contain no more than 240 characters.',
-              },
-            ]}
-            name={['metadata', 'description']}
+          </FormItem>
+          <FormItem
             label="Description"
+            className="lg:ml-[50px] md:flex-grow"
+            errorText={errors?.metadata?.description?.message}
           >
-            <Input.TextArea
-              className="Description-textArea"
-              showCount
-              maxLength={240}
-              // eslint-disable-next-line no-inline-styles/no-inline-styles
-              style={{ height: 116 }}
-              placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
-            />
-          </Form.Item>
-          <Form.Item
-            className="mb-6"
-            name={['metadata', 'socialMedia', 'title']}
-            dependencies={mediaList}
-            rules={[
-              ({ getFieldValue }) => ({
-                validator() {
-                  const metadata = mediaList.map((item) => getFieldValue(item));
-                  const values = Object.values(metadata);
-                  const checked = values.some((item) => item);
-                  if (checked) {
-                    setMediaError(false);
-                    return Promise.resolve();
-                  }
-                  setMediaError(true);
-                  return Promise.reject(new Error(''));
+            <Controller
+              name="metadata.description"
+              control={control}
+              rules={{
+                required: 'description is required',
+                maxLength: {
+                  value: 240,
+                  message: 'The description should contain no more than 240 characters.',
                 },
-              }),
-            ]}
-            label=""
-          >
-            <div className="mt-8" id="baseInfo_metadata_socialMedia_title">
-              <Typography.Title level={6}>Social Media</Typography.Title>
-            </div>
-            <div className={cx('Media-info', mediaError && '!text-Reject-Reject')}>
-              At least one social media is required.
-            </div>
-          </Form.Item>
-          <Form.Item
-            name={['metadata', 'socialMedia', 'Twitter']}
-            validateFirst
-            rules={[
-              ...mediaValidatorMap.Twitter.validator,
-              {
-                type: 'string',
-                max: 16,
-                message: 'The X (Twitter) user name should be shorter than 15 characters.',
-              },
-            ]}
-            label="X (Twitter)"
-          >
-            <Input placeholder={`Enter the DAO's X handle, starting with @`} />
-          </Form.Item>
-          <Form.Item
-            name={['metadata', 'socialMedia', 'Facebook']}
-            validateFirst
-            rules={[
-              ...mediaValidatorMap.Other.validator,
-              {
-                type: 'string',
-                max: 128,
-                message: 'The URL should be shorter than 128 characters.',
-              },
-            ]}
-            label="Facebook"
-          >
-            <Input placeholder={`Enter the DAO's Facebook link`} />
-          </Form.Item>
-          <Form.Item
-            name={['metadata', 'socialMedia', 'Discord']}
-            validateFirst
-            rules={[
-              ...mediaValidatorMap.Other.validator,
-              {
-                type: 'string',
-                max: 128,
-                message: 'The URL should be shorter than 128 characters.',
-              },
-            ]}
-            label="Discord"
-          >
-            <Input placeholder={`Enter the DAO's Discord community link`} />
-          </Form.Item>
-          <Form.Item
-            name={['metadata', 'socialMedia', 'Telegram']}
-            validateFirst
-            rules={[
-              ...mediaValidatorMap.Other.validator,
-              {
-                type: 'string',
-                max: 128,
-                message: 'The URL should be shorter than 128 characters.',
-              },
-            ]}
-            label="Telegram"
-          >
-            <Input placeholder={`Enter the DAO's Telegram community link`} />
-          </Form.Item>
-          <Form.Item
-            name={['metadata', 'socialMedia', 'Reddit']}
-            validateFirst
-            rules={[
-              ...mediaValidatorMap.Other.validator,
-              {
-                type: 'string',
-                max: 128,
-                message: 'The URL should be shorter than 128 characters.',
-              },
-            ]}
-            label="Reddit"
-          >
-            <Input placeholder={`Enter the DAO's subreddit link`} />
-          </Form.Item>
-          <div className="mb-6 pt-8">
-            <span className="card-title">DAO&apos;s Metadata Admin</span>
-          </div>
-          <div className="mb-8">
-            <ChainAddress
-              size="large"
-              address={walletInfo.address}
-              chain={elfInfo.curChain}
-              info="The DAO's metadata admin can modify certain info about the DAO, such as its description, logo, social media, documents, etc."
+              }}
+              render={({ field }) => (
+                <Textarea
+                  {...field}
+                  rootClassName="lg:h-[250px]"
+                  maxLength={240}
+                  placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
+                  isError={!!errors?.metadata?.name?.message}
+                />
+              )}
             />
-          </div>
-          <div className={cx('symbol-radio')}>
-            <span className="form-item-title">Governance Participants</span>
-            <div className="dao-type-tip">Who can participate in governance ?</div>
-          </div>
-          <Form.Item
-            name={governanceMechanismNamePath}
-            required
-            initialValue={EDaoGovernanceMechanism.Token}
-          >
-            <Radio.Group className="dao-type-select">
-              <div className="dao-type-select-item">
-                <Radio
-                  value={EDaoGovernanceMechanism.Token}
-                  onClick={() => {
-                    if (daoType === EDaoGovernanceMechanism.Token) {
-                      return;
+          </FormItem>
+        </div>
+        <FormItem
+          label={
+            <div className="mb-[10px]">
+              <span className="mb-2 block font-Montserrat text-descM16 text-white">Links</span>
+              <span className="font-desc12 font-Montserrat text-lightGrey">
+                Links to your DAO&apos;s website, social media profiles, discord, or other places
+                your community gathers.
+              </span>
+            </div>
+          }
+          errorText={errors?.metadata?.socialMedia?.message}
+        >
+          <Controller
+            name="metadata.socialMedia"
+            control={control}
+            rules={{
+              required: true,
+              validate: {
+                validator: (socialMedia) => {
+                  const value = Object.values(socialMedia).filter((item) => item);
+                  const invalidValues = Object.values(socialMedia).filter(
+                    (item) => item && !facebookUrlRegex.test(item),
+                  );
+                  if (value.length < 1) {
+                    return 'At least one social media is required.';
+                  }
+                  if (socialMedia.Twitter) {
+                    if (!twitterUsernameRegex.test(socialMedia.Twitter)) {
+                      return 'Please enter a correct X handle, starting with @.';
                     }
-                    form.setFieldValue(governanceTokenNamePath, '');
-                  }}
-                  className="dao-type-select-radio"
-                >
-                  <span className="text-[16px] leading-[24px]">Token holders</span>
-                </Radio>
-              </div>
-              <div className="dao-type-select-item">
-                <Radio
-                  value={EDaoGovernanceMechanism.Multisig}
-                  className="dao-type-select-radio"
-                  onClick={() => {
-                    if (daoType === EDaoGovernanceMechanism.Multisig) {
-                      return;
+                    if (socialMedia.Twitter.length > 15) {
+                      return 'The X (Twitter) user name should be shorter than 15 characters.';
                     }
-                    form.setFieldValue(formMembersListNamePath, [
-                      `ELF_${wallet?.address}_${curChain}`,
-                    ]);
-                  }}
-                >
-                  <span className="text-[16px] leading-[24px]">Multisig Members </span>
-                </Radio>
-              </div>
-            </Radio.Group>
-          </Form.Item>
-          {daoType === EDaoGovernanceMechanism.Token && (
+                  } else if (invalidValues.length > 0) {
+                    return 'Please enter a correct link. Shortened URLs are not supported.';
+                  } else if (value?.filter((item) => item.length > 128).length > 0) {
+                    return 'The URL should be shorter than 128 characters.';
+                  }
+                  return true;
+                },
+              },
+            }}
+            render={({ field }) => (
+              <LinkGroup
+                onBlur={field.onBlur}
+                onChange={field.onChange}
+                isError={!!errors?.metadata?.socialMedia?.message}
+              />
+            )}
+          />
+        </FormItem>
+        <div className="mb-[15px]">
+          <span className="text-descM16 font-Montserrat text-white">DAO&apos;s Metadata Admin</span>
+        </div>
+        <div className="mb-8">
+          <ChainAddress
+            size="large"
+            address={walletInfo.address}
+            chain={elfInfo.curChain}
+            info="The DAO's metadata admin can modify certain info about the DAO, such as its description, logo, social media, documents, etc."
+          />
+        </div>
+        <FormItem
+          label={
             <>
-              <div>
+              <span className="mb-2 block text-descM15 font-Montserrat text-white">
+                Governance Participants
+              </span>
+              <div className="mb-[10px] text-desc13 font-Montserrat text-lightGrey">
+                Who can participate in governance ?
+              </div>
+            </>
+          }
+        >
+          <Controller
+            name="governanceMechanism"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Radio
+                {...field}
+                options={[
+                  { label: 'Token holders', value: EDaoGovernanceMechanism.Token },
+                  { label: 'Multisig Members', value: EDaoGovernanceMechanism.Multisig },
+                ]}
+                onChange={(value) => {
+                  field.onChange(value);
+                  setValue('governanceToken', '');
+                  if (value === EDaoGovernanceMechanism.Multisig) {
+                    setValue('members.value', [`ELF_${wallet?.address}_${curChain}`]);
+                  } else {
+                    setValue('members.value', []);
+                  }
+                }}
+              />
+            )}
+          />
+        </FormItem>
+        {daoType === EDaoGovernanceMechanism.Token && (
+          <>
+            <FormItem
+              label={
                 <Tooltip
                   title={
-                    <div>
-                      <div>
+                    <>
+                      <p className="!mb-4 text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
                         Using a governance token is essential for enabling the High Council and
                         facilitating additional voting mechanisms.
-                      </div>
-                      <div>
+                      </p>
+                      <p className="!mb-4 text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
                         1. If the High Council is to be enabled, its members are elected from
                         top-ranked addresses who stake governance tokens and receive votes.
-                      </div>
-                      <div>
+                      </p>
+                      <p className="text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
                         2. If a governance token is not used, only one type of proposal voting
                         mechanism is supported: &quot;1 address = 1 vote&quot;. With the governance
                         token enabled, DAOs can support an additional mechanism: &quot;1 token = 1
                         vote&quot;. You can choose the voting mechanism when you create proposals.
-                      </div>
+                      </p>
+                    </>
+                  }
+                >
+                  <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
+                    Governance Token
+                    <i className="tmrwdao-icon-information text-[18px] text-white" />
+                  </span>
+                </Tooltip>
+              }
+              labelClassName="!mb-[10px]"
+              className="!mb-2"
+              errorText={errors?.governanceToken?.message}
+            >
+              <Controller
+                name="governanceToken"
+                control={control}
+                rules={{
+                  required: 'governance_token is required',
+                  validate: {
+                    validator: async (value) => {
+                      try {
+                        const reqParams = {
+                          symbol: value ?? '',
+                          chainId: elfInfo.curChain,
+                        };
+                        const { data } = await fetchTokenInfo(reqParams);
+                        dispatch(setToken(data));
+                        if (!data.name) {
+                          toast.error('The token has not yet been issued');
+                          return false;
+                        }
+                        return true;
+                      } catch (error) {
+                        toast.error('The token has not yet been issued.');
+                        return false;
+                      }
+                    },
+                  },
+                }}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    placeholder="Enter a token symbol"
+                    isError={!!errors?.governanceToken?.message}
+                    onBlur={() => {
+                      const token = getValues('governanceToken');
+                      setValue('governanceToken', token?.toUpperCase());
+                      trigger('governanceToken');
+                    }}
+                  />
+                )}
+              />
+            </FormItem>
+            <Link
+              href="https://medium.com/@NFT_Forest_NFT/tutorial-how-to-buy-seeds-and-create-tokens-on-symbol-market-de3aa948bcb4"
+              target="_blank"
+              className="text-desc12 text-mainColor"
+            >
+              How to create a token?
+            </Link>
+          </>
+        )}
+        {daoType === EDaoGovernanceMechanism.Multisig && (
+          <>
+            <FormItem
+              label={
+                <Tooltip
+                  title={
+                    <div className="text-[10px] leading-[12px]">
+                      There is no limit on the number of addresses on your multisig. Addresses can
+                      create proposals, create and approve transactions, and suggest changes to the
+                      DAO settings after creation.
                     </div>
                   }
                 >
-                  <span className="flex items-center form-item-title gap-[8px] pb-[8px] w-[max-content]">
-                    Governance Token
-                    <QuestionIcon className="cursor-pointer " width={16} height={16} />
+                  <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
+                    Multisig Members Address
+                    <i className="tmrwdao-icon-information text-[18px] text-white" />
                   </span>
                 </Tooltip>
-              </div>
-              <Form.Item
-                validateFirst
-                rules={[
-                  {
-                    required: true,
-                    message: 'governance_token is required',
-                  },
-                  {
-                    validator: (_, value) => {
-                      const reqParams = {
-                        symbol: value ?? '',
-                        chainId: elfInfo.curChain,
-                      };
-                      return new Promise<void>((resolve, reject) => {
-                        fetchTokenInfo(reqParams)
-                          .then((res) => {
-                            dispatch(setToken(res.data));
-                            if (!res.data.name) {
-                              reject(new Error('The token has not yet been issued'));
-                            }
-                            resolve();
-                          })
-                          .catch(() => {
-                            reject(new Error('The token has not yet been issued.'));
-                          });
-                      });
+              }
+              errorText={errors?.members?.value?.message}
+            >
+              {membersValue.map((address, index) => (
+                <Controller
+                  key={`${address}_${index}`}
+                  name="members.value"
+                  control={control}
+                  rules={{
+                    required: 'Address is required',
+                    validate: {
+                      validator: (value) => {
+                        if (value[index].endsWith(`AELF`)) {
+                          return 'Must be a SideChain address';
+                        }
+                        if (!value[index].startsWith(`ELF`) || !value[index].endsWith(curChain)) {
+                          return 'Must be a valid address';
+                        }
+                      },
                     },
-                  },
-                ]}
-                validateTrigger="onBlur"
-                name={governanceTokenNamePath}
-                label=""
-                className="governance-token-item"
-              >
-                <Input
-                  placeholder="Enter a token symbol"
-                  onBlur={() => {
-                    const token = form.getFieldValue('governanceToken');
-                    form.setFieldValue('governanceToken', token?.toUpperCase());
                   }}
+                  render={({ field }) => (
+                    <div className="flex items-center mb-4">
+                      <Input
+                        value={address}
+                        placeholder={`Enter ELF_..._${curChain}`}
+                        onBlur={(value) => {
+                          const newList = [...membersValue];
+                          newList[index] = value;
+                          field.onChange(newList);
+                        }}
+                        isError={!!errors?.members?.value?.message}
+                      />
+                      <i
+                        className={clsx(
+                          'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer',
+                          {
+                            '!text-darkGray': membersValue.length <= 1,
+                          },
+                        )}
+                        onClick={() => {
+                          if (membersValue.length <= 1) return;
+                          const originList = [...membersValue];
+                          originList.splice(index, 1);
+                          setValue('members.value', originList);
+                        }}
+                      />
+                    </div>
+                  )}
                 />
-              </Form.Item>
-              <div className="mb-[20px] ">
-                <Link
-                  href="https://medium.com/@NFT_Forest_NFT/tutorial-how-to-buy-seeds-and-create-tokens-on-symbol-market-de3aa948bcb4"
-                  target="_blank"
+              ))}
+              <div className="flex items-center gap-[9px]">
+                <Button
+                  className="!py-[2px] !text-[12px]"
+                  type="default"
+                  onClick={() => {
+                    const originList = [...membersValue, ''];
+                    setValue('members.value', originList);
+                  }}
                 >
-                  <span className="text-[14px] leading-[20px] text-colorPrimary">
-                    How to create a token?
-                  </span>
-                </Link>
+                  <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
+                  Add Address
+                </Button>
+                <Button
+                  className="!py-[2px] !text-[12px]"
+                  type="default"
+                  onClick={() => {
+                    setValue('members.value', ['']);
+                  }}
+                >
+                  <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
+                  Delete All
+                </Button>
               </div>
-            </>
-          )}
-          {daoType === EDaoGovernanceMechanism.Multisig && (
-            <>
-              <FormMembersItem
-                name={formMembersListNamePath}
-                initialValue={[`ELF_${wallet?.address}_${curChain}`]}
-                form={form}
-              />
-            </>
-          )}
-        </Form>
-      </div>
+            </FormItem>
+            <div className="mt-[32px]">
+              <div className="flex justify-between">
+                <span className="flex items-center pb-[8px] justify-between text-descM15 text-white font-Montserrat">
+                  Total Addresses
+                </span>
+                <span className="text-descM16 text-white font-Montserrat">
+                  {membersValue?.length}
+                </span>
+              </div>
+              <div className="text-descM12 text-Neutral-Secondary-Text mb-[32px]">
+                Your connected wallet has been automatically added to the list. You can remove it if
+                you&apos;d like.
+              </div>
+            </div>
+          </>
+        )}
+      </form>
     </div>
   );
 }

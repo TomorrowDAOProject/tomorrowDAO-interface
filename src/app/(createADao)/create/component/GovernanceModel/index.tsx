@@ -1,211 +1,219 @@
 'use client';
 
-import { Tooltip } from 'aelf-design';
-import { Form, InputNumber } from 'antd';
-import { InfoCircleOutlined } from '@aelf-design/icons';
 import { memo, useContext } from 'react';
-import InputSlideBind from 'components/InputSlideBind';
-import { ApproveThresholdTip } from 'components/ApproveThresholdTip';
-import {
-  integerRule,
-  min2maxIntegerRule,
-  percentRule,
-  useRegisterForm,
-  validatorCreate,
-} from '../utils';
-import './index.css';
+import { useRegisterForm } from '../utils';
+
 import { EDaoGovernanceMechanism, StepEnum, StepsContext } from '../../type';
-const minimalApproveThresholdNamePath = 'minimalApproveThreshold';
+import Tooltip from 'components/Tooltip';
+import Input from 'components/Input';
+import './index.css';
+import Slider from 'components/Slider';
+import { Controller, useForm } from 'react-hook-form';
+import FormItem from 'components/FormItem';
+
 const GovernanceModel = () => {
-  const [form] = Form.useForm();
+  const form = useForm({
+    defaultValues: {
+      minimalVoteThreshold: '',
+      minimalApproveThreshold: '50',
+      proposalThreshold: '',
+    },
+  });
+  const {
+    control,
+    formState: { errors },
+  } = form;
   const { stepForm } = useContext(StepsContext);
   const daoInfo = stepForm[StepEnum.step0].submitedRes;
   useRegisterForm(form, StepEnum.step1);
   const isMultisig = daoInfo?.governanceMechanism === EDaoGovernanceMechanism.Multisig;
-  const minimalApproveThreshold = Form.useWatch(minimalApproveThresholdNamePath, form);
+
   return (
     <div className="governance-form">
-      <Form
-        form={form}
-        layout="vertical"
-        autoComplete="off"
-        requiredMark={false}
-        scrollToFirstError={true}
+      {!isMultisig && (
+        <FormItem
+          label={
+            <Tooltip
+              title={
+                <div className="text-[10px] leading-[12px]">
+                  <div>
+                    {`The minimum number of votes required to finalise a proposal, only applicable to
+                    the voting mechanism where 1 token = 1 vote.`}
+                  </div>
+                  <div className="mt-2">
+                    {`Note: There are two types of voting mechanisms: 1 token = 1 vote; and 1 address = 1 vote. You can choose the voting mechanism when you
+                    create the proposal.`}
+                  </div>
+                </div>
+              }
+            >
+              <span className="form-item-label flex gap-[8px]">
+                <span className="form-item-label-text">Minimum Vote Requirement</span>
+                <i className="tmrwdao-icon-information text-[18px] text-white" />
+              </span>
+            </Tooltip>
+          }
+          errorText={errors?.minimalVoteThreshold?.message}
+        >
+          <Controller
+            name="minimalVoteThreshold"
+            control={control}
+            rules={{
+              required: 'The Minimum Vote is required',
+              validate: {
+                validator: (value) => {
+                  const num = Number(value);
+                  if (isNaN(num)) {
+                    return 'Please input a positive number';
+                  }
+                  if (!Number.isInteger(num)) {
+                    return 'Please input a integer number';
+                  }
+                  if (num < 1) {
+                    return 'Please input a number not smaller than 1.';
+                  }
+                  if (num > Number.MAX_SAFE_INTEGER) {
+                    return `Please input a number not larger than ${Number.MAX_SAFE_INTEGER}`;
+                  }
+                  return true;
+                },
+              },
+            }}
+            render={({ field }) => (
+              <Input
+                {...field}
+                regExp={/^[0-9\b]+$/}
+                placeholder="At least 1 member required"
+                isError={!!errors?.minimalVoteThreshold?.message}
+              />
+            )}
+          />
+        </FormItem>
+      )}
+
+      <FormItem
+        label={
+          <Tooltip
+            title={
+              <div className="text-[10px] leading-[12px]">
+                The lowest percentage of approve votes required for a proposal to be approved.
+              </div>
+            }
+          >
+            <span className="form-item-label flex gap-[8px]">
+              <span className="form-item-label-text">Minimum Approval Rate</span>
+              <i className="tmrwdao-icon-information text-[18px] text-white" />
+            </span>
+          </Tooltip>
+        }
+        errorText={errors?.minimalApproveThreshold?.message}
       >
-        {/* {isMultisig ? (
-          <Form.Item
-            name={'minimalRequiredThreshold'}
-            label={
-              <Tooltip
-                title={
-                  <div>
-                    The minimum percentage of multisig member addresses required to participate in
-                    voting on proposals.
-                  </div>
+        <Controller
+          name="minimalApproveThreshold"
+          control={control}
+          rules={{
+            required: 'The Minimum Approval Rate is required',
+            validate: {
+              validator: (value) => {
+                const num = Number(value);
+                if (isNaN(num)) {
+                  return 'Please input a positive number';
                 }
-              >
-                <span className="form-item-label">
-                  Minimum Participation Rate
-                  <InfoCircleOutlined className="cursor-pointer label-icon" />
-                </span>
-              </Tooltip>
-            }
-            initialValue={75}
-            validateFirst={true}
-            rules={percentRule}
-          >
-            <InputSlideBind type="approve" placeholder={''} />
-          </Form.Item>
-        ) : (
-          <Form.Item
-            name={'minimalRequiredThreshold'}
-            label={
-              <Tooltip title="The minimum number of voters (addresses) required to participate in voting on proposals, at least 1.">
-                <span className="form-item-label">
-                  Minimum Voter Requirement
-                  <InfoCircleOutlined className="cursor-pointer label-icon" />
-                </span>
-              </Tooltip>
-            }
-            validateFirst={true}
-            rules={[
-              integerRule,
-              validatorCreate((v) => v < 1, 'Please input a number not smaller than 1'),
-              validatorCreate(
-                (v) => v >= 100000000000,
-                'Please input a number  not larger than 100,000,000,000',
-              ),
-            ]}
-          >
-            <InputNumber placeholder="Enter 1 or more" controls={false} />
-          </Form.Item>
-        )} */}
-
-        {!isMultisig && (
-          <Form.Item
-            name={'minimalVoteThreshold'}
-            label={
-              <Tooltip
-                title={
-                  <div>
-                    <div>
-                      The minimum number of votes required to finalise a proposal, only applicable
-                      to the voting mechanism where &quot;1 token = 1 vote&quot;.
-                    </div>
-                    <div>
-                      Note: There are two types of voting mechanisms: &quot;1 token = 1 vote&quot;
-                      and &quot;1 address = 1 vote&quot;. You can choose the voting mechanism when
-                      you create the proposal.
-                    </div>
-                  </div>
+                if (!Number.isInteger(num)) {
+                  return 'Please input a integer number';
                 }
-              >
-                <span className="form-item-label">
-                  Minimum Vote Requirement
-                  <InfoCircleOutlined className="cursor-pointer label-icon" />
+                if (num <= 0) {
+                  return 'Please input a number larger than 0';
+                }
+                if (num > 100) {
+                  return 'Please input a number smaller than 100';
+                }
+                return true;
+              },
+            },
+          }}
+          render={({ field }) => (
+            <div className="flex flex-col items-center lg:flex-row md:flex-row gap-[50px] mt-2 ">
+              <div className="w-full lg:w-2/5 md:w-2/5 relative">
+                <Input
+                  {...field}
+                  className="font-Montserrat"
+                  placeholder=" "
+                  regExp={/^[0-9\b]+$/}
+                  isError={!!errors?.minimalApproveThreshold?.message}
+                />
+                <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
+                  %
                 </span>
-              </Tooltip>
-            }
-            validateFirst={true}
-            rules={min2maxIntegerRule}
-          >
-            <InputNumber placeholder="Enter a reasonable value" controls={false} />
-          </Form.Item>
-        )}
+              </div>
+              <Slider
+                className="w-full lg:w-3/5 md:w-3/5"
+                min={0}
+                max={100}
+                step={1}
+                value={Number(field.value)}
+                onChange={field.onChange}
+              />
+            </div>
+          )}
+        />
+      </FormItem>
 
-        {/* approve rejection abstention */}
-        <Form.Item
-          name={minimalApproveThresholdNamePath}
+      {!isMultisig && (
+        <FormItem
           label={
             <Tooltip
-              title={`The lowest percentage of approve votes required for a proposal to be approved.`}
+              title={
+                <div className="text-[10px] leading-[12px]">
+                  The minimum number of governance tokens a user must hold to initiate a proposal.
+                  Entering 0 means that a user can initiate a proposal without holding any
+                  governance tokens.
+                </div>
+              }
             >
-              <span className="form-item-label">
-                Minimum Approval Rate
-                <InfoCircleOutlined className="cursor-pointer label-icon" />
+              <span className="form-item-label flex gap-[8px]">
+                <span className="form-item-label-text">Minimum Token Proposal Requirement</span>
+                <i className="tmrwdao-icon-information text-[18px] text-white" />
               </span>
             </Tooltip>
           }
-          extra={<ApproveThresholdTip percent={minimalApproveThreshold} />}
-          initialValue={50}
-          validateFirst={true}
-          rules={percentRule}
+          errorText={errors?.proposalThreshold?.message}
         >
-          <InputSlideBind
-            type="approve"
-            placeholder={'The suggested percentage is no less than 50%.'}
+          <Controller
+            name="proposalThreshold"
+            control={control}
+            rules={{
+              required: 'The Minimum Token Proposal is required',
+              validate: {
+                validator: (value) => {
+                  const num = Number(value);
+                  if (isNaN(num)) {
+                    return 'Please input a positive number';
+                  }
+                  if (!Number.isInteger(num)) {
+                    return 'Please input a integer number';
+                  }
+                  if (num < 0) {
+                    return 'Please input a number not smaller than 0';
+                  }
+                  if (num > Number.MAX_SAFE_INTEGER) {
+                    return `Please input a number not larger than ${Number.MAX_SAFE_INTEGER}`;
+                  }
+                  return true;
+                },
+              },
+            }}
+            render={({ field }) => (
+              <Input
+                {...field}
+                regExp={/^[0-9\b]+$/}
+                placeholder="Enter 0 or more"
+                isError={!!errors?.proposalThreshold?.message}
+              />
+            )}
           />
-        </Form.Item>
-
-        {/* <Form.Item
-          name={'maximalRejectionThreshold'}
-          label={
-            <Tooltip
-              title={`The percentage of reject votes at which a proposal would be rejected. This is applicable to both voting mechanisms, where "1 token = 1 vote" or "1 address = 1 vote".
-            Note: If the rejection threshold and other thresholds are met simultaneously, the proposal will be rejected. `}
-            >
-              <span className="form-item-label">
-                Minimum Rejection Rate
-                <InfoCircleOutlined className="cursor-pointer label-icon" />
-              </span>
-            </Tooltip>
-          }
-          initialValue={20}
-          validateFirst={true}
-          rules={percentRule}
-        >
-          <InputSlideBind
-            type="rejection"
-            placeholder={'The suggested percentage is no greater than 20%.'}
-          />
-        </Form.Item> */}
-        {/* <Form.Item
-          name={'maximalAbstentionThreshold'}
-          label={
-            <Tooltip
-              title={`The percentage of abstain votes at which a proposal would be classified as abstained. This is applicable to both voting mechanisms, where "1 token = 1 vote" or "1 address = 1 vote".
-            Note: If the abstain threshold and approval threshold are met simultaneously, the proposal will be classified as abstained. `}
-            >
-              <span className="form-item-label">
-                Minimum Abstain Rate
-                <InfoCircleOutlined className="cursor-pointer label-icon" />
-              </span>
-            </Tooltip>
-          }
-          initialValue={20}
-          validateFirst={true}
-          rules={percentRule}
-        >
-          <InputSlideBind
-            type="abstention"
-            placeholder={'The suggested percentage is no greater than 20%.'}
-          />
-        </Form.Item> */}
-        {!isMultisig && (
-          <Form.Item
-            name={'proposalThreshold'}
-            label={
-              <Tooltip title="The minimum number of governance tokens a user must hold to initiate a proposal. Entering 0 means that a user can initiate a proposal without holding any governance tokens.">
-                <span className="form-item-label">
-                  Minimum Token Proposal Requirement
-                  <InfoCircleOutlined className="cursor-pointer label-icon" />
-                </span>
-              </Tooltip>
-            }
-            validateFirst={true}
-            rules={[
-              integerRule,
-              validatorCreate((v) => v < 0, 'Please input a number not smaller than 0'),
-              validatorCreate(
-                (v) => v >= Number.MAX_SAFE_INTEGER,
-                `Please input a number  not larger than ${Number.MAX_SAFE_INTEGER}`,
-              ),
-            ]}
-          >
-            <InputNumber placeholder="Enter 0 or more" controls={false} />
-          </Form.Item>
-        )}
-      </Form>
+        </FormItem>
+      )}
     </div>
   );
 };
