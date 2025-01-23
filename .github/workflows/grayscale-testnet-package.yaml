@@ -1,7 +1,7 @@
 name: Build and Push Image
 on:
   push:
-    branches: ['feat/tmrwdao-revamp']
+    branches: ['feat/tmrwdao-revamp-rewritten']
 jobs:
   build-and-push-image:
     runs-on: tmrwdao-runner
