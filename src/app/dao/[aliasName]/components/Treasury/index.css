@@ -68,7 +68,7 @@
   }
 
   .assets-help-message {
-    @apply font-normal text-[12px] mt-[8px] text-lightGrey text-center font-Montserrat;
+    @apply font-normal text-[12px] mt-[8px] text-lightGrey text-center font-Montserrat leading-[16px];
   }
 
   .assets-help-message-text-wrap {
