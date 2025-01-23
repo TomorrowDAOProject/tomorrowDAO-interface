@@ -1,4 +1,5 @@
 .proposal-details-wrapper {
+   @apply mx-[20px] my-[39px] md:w-[688px] lg:w-[904px] xl:w-[1024px] md:m-auto lg:m-auto xl:m-auto xl:my-[70px] lg:my-[67px] md:my-[45px] font-Montserrat;
    .title-tag-button-wrap {
       @apply relative;
    }

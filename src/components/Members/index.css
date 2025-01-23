@@ -3,7 +3,7 @@
 }
 
 .dao-members-manage {
-  @apply w-[154px] lg:mt-0 mt-[16px];
+  @apply !px-[14px] !py-2 lg:mt-0 mt-[16px] !text-[12px] !rounded-[42px] bg-mainColor !h-auto;
 }
 
 .dao-members-wrap {

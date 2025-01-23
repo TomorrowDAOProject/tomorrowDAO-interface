@@ -136,9 +136,11 @@ const VoteResultTable = (props: IVoteResultTableProps) => {
     run();
   }, [run, tableParams]);
   return (
-    <div className="card-shape vote-result-table-wrap">
-      <div className="flex justify-between px-8 py-6 title">
-        <h3 className="card-title">Voting Results</h3>
+    <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
+      <div className="flex justify-between">
+        <span className="text-[18px] font-[500] font-Montserrat text-white mb-[20px]">
+          Voting Results
+        </span>
       </div>
       <ConfigProvider renderEmpty={() => <NoData></NoData>}>
         <Table

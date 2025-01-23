@@ -28,6 +28,7 @@ import './page.css';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import { checkCreateProposal } from 'utils/proposal';
 import NoData from 'components/NoData';
+import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
 
 interface IProps {
   ssrData: {
@@ -147,6 +148,7 @@ export default function DeoDetails(props: IProps) {
       <ButtonCheckLogin
         size="medium"
         type="primary"
+        className="bg-mainColor !rounded-[42px] py-2 px-[14px]"
         loading={createProposalLoading}
         onClick={() => {
           handleCreateProposalRef.current?.();
@@ -163,7 +165,7 @@ export default function DeoDetails(props: IProps) {
         children: (
           <div className={`tab-all-proposals `}>
             <div className={`tab-all-proposals-header `}>
-              <h3 className="title">Proposals</h3>
+              <span className="text-white text-[18px] font-Montserrat font-[500]">Proposals</span>
               {CreateButton}
             </div>
             <Filter
@@ -293,6 +295,23 @@ export default function DeoDetails(props: IProps) {
 
   return (
     <div className="dao-detail">
+      <div className="text-white font-Montserrat flex items-center gap-2 pb-[25px]">
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() => router.push('/')}
+        >
+          Home
+        </span>
+        <ArrowRight />
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() => router.push('/explore')}
+        >
+          Explore
+        </span>
+        <ArrowRight />
+        <span className="text-[14px]">{daoData?.data?.metadata?.name}</span>
+      </div>
       <div>
         <DaoInfo
           data={(daoData?.data ?? {}) as IDaoInfoData}

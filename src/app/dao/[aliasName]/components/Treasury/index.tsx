@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form, TableProps, Table, Skeleton, message } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
-import { Button, HashAddress } from 'aelf-design';
+import { HashAddress } from 'aelf-design';
 import { callContract } from 'contract/callContract';
 import CommonModal from 'components/CommonModal';
 import { emitLoading, eventBus, ResultModal } from 'utils/myEvent';
@@ -27,6 +27,7 @@ import BigNumber from 'bignumber.js';
 import Symbol from 'components/Symbol';
 import { checkCreateProposal } from 'utils/proposal';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
+import Button from 'components/Button';
 interface IProps {
   clssName?: string;
   daoRes?: IDaoInfoRes | null;
@@ -196,7 +197,11 @@ const Treasury: React.FC<IProps> = (props) => {
                 The treasury function is not currently enabled for this DAO.
               </p>
               {wallet?.address === creator && (
-                <Button className="w-[172px] mt-6" type="primary" onClick={initTreasury}>
+                <Button
+                  className="bg-mainColor !rounded-[42px] py-2 px-[14px] mt-6"
+                  type="primary"
+                  onClick={initTreasury}
+                >
                   Enable Treasury
                 </Button>
               )}
@@ -208,7 +213,11 @@ const Treasury: React.FC<IProps> = (props) => {
                 <div className="flex items-center justify-between">
                   <h2 className="card-title">Treasury Assets</h2>
                   <Link href={`/dao/${aliasName}/treasury`} prefetch={true}>
-                    <Button size="medium" type="primary" className="small-button">
+                    <Button
+                      size="medium"
+                      type="primary"
+                      className="bg-mainColor !rounded-[42px] py-2 px-[14px] mt-6"
+                    >
                       View all
                     </Button>
                   </Link>
@@ -226,7 +235,7 @@ const Treasury: React.FC<IProps> = (props) => {
                     onClick={() => {
                       setChoiceOpen(true);
                     }}
-                    className="small-button"
+                    className="bg-mainColor !rounded-[42px]"
                     size="medium"
                   >
                     New transfer

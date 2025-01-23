@@ -51,7 +51,7 @@ const VoteStaticData = (props: VoteStaticDataProps) => {
 
   const is1t1v = proposalDetailData?.voteMechanismName === EVoteMechanismNameType.TokenBallot;
   return (
-    <BoxWrapper className="lg:flex-1 lg:mr-[24px] order-last lg:order-first py-[16px] flex flex-col h-[402px] justify-between">
+    <BoxWrapper className="lg:flex-1 lg:mr-[24px] order-last lg:order-first py-[25px] !px-[24px] flex flex-col justify-between">
       {!proposalDetailData ? (
         <div className="w-full h-full items-center flex">
           <SkeletonLine className="w-full" />
@@ -59,9 +59,7 @@ const VoteStaticData = (props: VoteStaticDataProps) => {
       ) : (
         <>
           <div>
-            <Typography.Title level={6} fontWeight={FontWeightEnum.Medium}>
-              Current Votes
-            </Typography.Title>
+            <div className="text-[18px] font-[500] text-white">Current Votes</div>
 
             <div className="flex flex-col gap-8 pt-6">
               <div className="flex flex-col gap-2">

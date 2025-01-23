@@ -144,7 +144,7 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
       <div className="proposal-detail-key-value border-0 border-t border-solid border-Neutral-Divider flex pt-6 gap-y-4 gap-x-0 lg:gap-x-16 lg:gap-y-0 lg:flex-row flex-col flex-wrap">
         {proposalDetailData.proposalType === ProposalTypeString.Veto && (
           <div className="flex items-center gap-4">
-            <span className="text-Neutral-Secondary-Text card-sm-text">Veto Proposal:</span>
+            <span className="text-lightGrey card-sm-text">Veto Proposal:</span>
             <Link href={`/dao/${aliasName}/proposal/${proposalDetailData.vetoProposalId}`}>
               <HashAddress
                 preLen={8}
@@ -157,7 +157,7 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
           </div>
         )}
         <div className="flex items-center gap-4">
-          <span className="text-Neutral-Secondary-Text card-sm-text">Poster:</span>
+          <span className="text-lightGrey text-[13px]">Poster:</span>
           <a
             href={`${explorer}/address/${proposalDetailData.proposer}`}
             target="_blank"
@@ -167,24 +167,24 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
               preLen={8}
               endLen={9}
               address={proposalDetailData.proposer}
-              className="card-sm-text-bold"
+              className="text-white text-[13px]"
               chain={sideChainSuffix}
             ></HashAddress>
           </a>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-Neutral-Secondary-Text card-sm-text">Proposal ID:</span>
+          <span className="text-lightGrey text-[13px]">Proposal ID:</span>
           <HashAddress
             preLen={8}
             endLen={9}
             ignorePrefixSuffix={true}
             address={proposalDetailData.proposalId ?? '-'}
-            className="card-sm-text-bold"
+            className="text-white text-[13px]"
           ></HashAddress>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-Neutral-Secondary-Text card-sm-text">Published:</span>
-          <span className="card-sm-text">
+          <span className="text-lightGrey text-[13px]">Published:</span>
+          <span className="text-white text-[13px]">
             {proposalDetailData.deployTime
               ? dayjs(proposalDetailData.deployTime).format('YYYY-MM-DD HH:mm:ss')
               : '-'}

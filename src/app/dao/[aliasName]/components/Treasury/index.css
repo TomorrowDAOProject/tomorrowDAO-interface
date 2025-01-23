@@ -76,11 +76,11 @@
   }
 
   .card-title {
-    @apply font-[500] text-[20px] leading-[28px];
+    @apply font-[500] text-[18px] leading-[28px] font-Montserrat;
   }
 
   .usd-value {
-    @apply font-[500] text-[24px] leading-[32px] flex-1;
+    @apply font-[500] text-[24px] leading-[32px] flex-1 text-white;
   }
 
   .treasury-info-item-line-1 {
