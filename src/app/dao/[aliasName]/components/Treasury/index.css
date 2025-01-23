@@ -1,5 +1,5 @@
 .treasury-wrap {
-  @apply min-h-[398px] mb-[16px];
+  @apply mb-[25px];
 
   .token img {
     @apply pr-[4px];
@@ -56,7 +56,7 @@
   }
 
   .treasury-icon {
-    @apply mt-6;
+    @apply mt-0;
   }
 
   .assets-title {

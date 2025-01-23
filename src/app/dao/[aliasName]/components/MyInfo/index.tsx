@@ -225,7 +225,7 @@ export default function MyInfo(props: TInfoTypes) {
 
   return (
     <div
-      className={`my-info-wrap flex flex-col border border-fillBg8 border-solid rounded-lg bg-darkBg lg:px-8 px-[16px] py-6 ${clssName}`}
+      className={`my-info-wrap flex flex-col border border-fillBg8 border-solid rounded-lg bg-darkBg lg:px-6 px-[16px] py-[25px] ${clssName}`}
       style={{
         height: height || 'auto',
       }}
