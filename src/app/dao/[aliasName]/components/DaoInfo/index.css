@@ -3,7 +3,7 @@
 }
 
 .dao-detail-dis {
-  @apply border border-Neutral-Divider border-solid rounded-lg bg-white pt-6;
+  @apply border border-fillBg8 border-solid rounded-lg bg-darkBg pt-6;
 
   .TMRWDAO-descriptions .TMRWDAO-descriptions-row>td {
     @apply pb-[12px];
@@ -25,11 +25,11 @@
     @apply lg:order-1 order-2;
 
     .title {
-      @apply font-[500] lg:text-[40px] lg:leading-[48px] text-[24px] leading-[32px] text-neutralTitle lg:pt-[0px] pt-[8px];
+      @apply font-[300] lg:leading-[48px] text-[24px] lg:text-[30px] -tracking-[0.24px] leading-[32px] text-white lg:pt-[0px] pt-[8px] font-Unbounded;
     }
 
     .description {
-      @apply font-[400] lg:text-[16px] lg:leading-[24px] text-[14px] leading-[22px] lg:pt-[8px] pt-[16px] lg:mb-[24px] mb-[16px] text-neutralTitle;
+      @apply font-[400] lg:text-[15px] lg:leading-[24px] text-[14px] leading-[22px] lg:pt-[8px] pt-[16px] lg:mb-[24px] mb-[16px] text-white font-Montserrat;
     }
 
     .social-media-item-logo {
@@ -64,13 +64,13 @@
 }
 
 .dao-collapse-panel {
-  @apply font-[500] text-[16px] leading-[24px] text-neutralTitle;
+  @apply font-[300] text-[16px] leading-[24px] text-white font-Unbounded;
 }
 
 .dao-collapse-panel-label {
-  @apply font-[400] text-[14px] leading-[22px] text-Neutral-Secondary-Text;
+  @apply font-[300] text-[14px] leading-[22px] text-lightGrey font-Unbounded;
 }
 
 .dao-collapse-panel-child {
-  @apply font-[500] text-[14px] leading-[22px] text-neutralTitle;
+  @apply font-[500] text-[14px] leading-[22px] text-white font-Montserrat;
 }

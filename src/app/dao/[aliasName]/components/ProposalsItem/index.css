@@ -1,5 +1,5 @@
 .proposal-item {
-  @apply block lg:flex justify-between border-solid border-[1px] border-Neutral-Divider rounded-lg px-[16px] lg:px-8 py-6 bg-white mb-4;
+  @apply block lg:flex justify-between border-solid border-[1px] border-fillBg8 rounded-lg px-[16px] lg:px-8 py-6 bg-darkBg mb-[25px];
   .proposal-item-left {
     @apply lg:proposal-item-left-width;
   }
@@ -26,7 +26,7 @@
     }
   }
 
-  .proposal-tag+.proposal-tag {
-    @apply ml-[8px]
+  .proposal-tag + .proposal-tag {
+    @apply ml-[8px];
   }
 }
