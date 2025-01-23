@@ -327,10 +327,10 @@ const CreateDaoPage = () => {
               <>
                 <div className="flex justify-between">
                   <h2 className="text-descM15 text-white mb-2 flex items-center">
-                    High Council{' '}
-                    {/* <Tag color="#F6F6F6" className="h-[30px] ml-2 flex-center">
-                      <span className="normal-text-bold text-Neutral-Secondary-Text">Optional</span>
-                    </Tag> */}
+                    High Council
+                    <span className="ml-[10px] px-3 py-[3px] bg-fillBg8 rounded-[25px] inline-block text-descM12 font-Montserrat text-lightGrey">
+                      Optional
+                    </span>
                   </h2>
                   <Switch
                     disabled={isMultisig}
