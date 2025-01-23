@@ -115,7 +115,6 @@ const items: MenuItem[] = [
 
 const NavHeader = ({ className, style }: { className?: string; style?: React.CSSProperties }) => {
   const { login, isLogin, walletType, logout } = useWalletService();
-  console.log('isLogin', isLogin);
   const { isNetWorkDao } = useIsNetworkDao();
   const chainIdQuery = getChainIdQuery();
   const { walletInfo } = useSelector((store: any) => store.userInfo);

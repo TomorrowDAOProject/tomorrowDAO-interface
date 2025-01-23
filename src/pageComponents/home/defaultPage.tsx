@@ -20,8 +20,8 @@ export default function Home(props: IProps) {
   }, []);
   const { isLG } = useResponsive();
   return (
-    <div className="home-container">
-      <div className="home-header-container">
+    <div className="tmrwdao-grid">
+      <div className="col-12">
         {!isLG && <DAOHeader />}
         {/* <DAOHeader /> */}
         <DAOList ssrData={ssrData} />

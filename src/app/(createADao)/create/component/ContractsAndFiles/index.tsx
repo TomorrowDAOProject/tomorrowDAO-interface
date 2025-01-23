@@ -75,7 +75,12 @@ export default function ContractsAndFiles() {
     <FormItem
       label={
         <>
-          <p className="!mb-[15px] text-descM16 text-white font-Montserrat">Documentation</p>
+          <p className="flex item-center !mb-[15px] text-descM16 text-white font-Montserrat">
+            Documentation
+            <span className="ml-[10px] px-3 py-[3px] bg-fillBg8 rounded-[25px] inline-block text-descM12 font-Montserrat text-lightGrey">
+              Optional
+            </span>
+          </p>
           <p className="font-Montserrat text-desc12 text-lightGrey font-Montserrat">
             It is recommended to upload at least a project whitepaper and roadmap
           </p>
