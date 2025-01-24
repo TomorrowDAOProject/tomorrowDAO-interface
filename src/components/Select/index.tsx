@@ -56,6 +56,14 @@ const Select: React.FC<ISelectProps> = ({
   }, []);
 
   useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
     console.log('value', value);
     if (value) {
       const currentValue = options.find((option) => option.value === value);
