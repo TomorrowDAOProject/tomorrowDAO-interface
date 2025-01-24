@@ -8,8 +8,8 @@
 }
 
 .dropdown-menu {
+  @apply bg-darkBg border border-solid border-fillBg8;
   position: fixed;
-  background-color: #333;
   border-radius: 8px;
   z-index: 1000;
   min-width: 160px;

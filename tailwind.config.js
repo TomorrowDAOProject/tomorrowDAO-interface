@@ -197,7 +197,7 @@ module.exports = {
         },
 
         '.page-content-bg-border': {
-          '@apply bg-darkBg rounded-lg border border-solid border-fillBg8 px-4 lg:px-8 py-4 lg:py-8':
+          '@apply bg-darkBg rounded-lg border border-solid border-fillBg8 p-[22px] lg:px-[25px] lg:py-6':
             {},
         },
 
