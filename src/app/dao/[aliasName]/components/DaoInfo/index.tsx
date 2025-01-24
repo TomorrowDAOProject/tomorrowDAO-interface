@@ -90,7 +90,7 @@ export default function DaoInfo(props: IParams) {
               <HashAddress
                 preLen={8}
                 endLen={11}
-                className="address text-white"
+                className="address text-white hover:text-white"
                 address={address as string}
                 chain={curChain}
               ></HashAddress>
@@ -110,7 +110,7 @@ export default function DaoInfo(props: IParams) {
             <a href={`${explorer}/address/${data?.creator}`} target="_blank" rel="noreferrer">
               <span className="dao-collapse-panel-child">
                 <HashAddress
-                  className="address"
+                  className="address text-white"
                   preLen={8}
                   endLen={11}
                   chain={curChain}

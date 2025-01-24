@@ -164,8 +164,12 @@ input[type='number'] {
 
   .TMRWDAO-table-tbody > tr > td,
   .TMRWDAO-hash-address > span {
-    @apply text-[12px] leading-[20px] font-normal text-neutralTitle;
+    @apply text-[12px] leading-[20px] font-normal text-white;
   }
+}
+
+.TMRWDAO-hash-address > span {
+  @apply text-[14px] leading-[20px] font-normal text-white;
 }
 
 .table-header-normal {
@@ -181,7 +185,7 @@ input[type='number'] {
 .table-td-sm {
   .TMRWDAO-table-tbody > tr > td,
   .TMRWDAO-hash-address > span {
-    @apply text-[14px] leading-[22px] font-normal;
+    @apply text-[14px] leading-[22px] font-normal text-white;
   }
 }
 
