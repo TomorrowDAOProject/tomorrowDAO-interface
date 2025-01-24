@@ -3,9 +3,13 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import Select, { SelectOption } from 'components/Select';
 import { LINK_TYPE } from 'constants/dao';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { facebookUrlRegex, twitterUsernameRegex } from '../utils';
+import { validate } from 'graphql';
+import { SocialMedia } from 'types/dao';
 
 interface ILinkGroupProps {
+  value: SocialMedia;
   errorText?: string;
   onBlur?(links: Record<string, number>): void;
   onChange?(links: Record<string, number>): void;
@@ -42,12 +46,14 @@ const socialMedia = [
   },
 ];
 
-const LinkGroup = ({ errorText, onBlur, onChange }: ILinkGroupProps) => {
+const LinkGroup = ({ value, errorText, onBlur, onChange }: ILinkGroupProps) => {
   const [linkData, setLinkData] = useState<string[][]>([['', '']]);
   const handleSelectChange = (option: SelectOption, index: number) => {
     const originLinks = [...linkData];
     originLinks[index][0] = option.value;
     setLinkData(originLinks);
+    const socialMedia = Object.fromEntries(originLinks);
+    onChange?.(socialMedia);
   };
 
   const handleInputChange = (value: string, index: number) => {
@@ -70,6 +76,14 @@ const LinkGroup = ({ errorText, onBlur, onChange }: ILinkGroupProps) => {
     setLinkData(originLinks);
   };
 
+  useEffect(() => {
+    const values: string[][] = [];
+    Object.entries(value).forEach(([key, val]) => {
+      values.push([key, val]);
+    });
+    setLinkData(values);
+  }, [value]);
+
   return (
     <>
       {linkData?.map((link, index) => (
@@ -86,7 +100,7 @@ const LinkGroup = ({ errorText, onBlur, onChange }: ILinkGroupProps) => {
             className="lg:w-[250px]"
             options={socialMedia}
             onChange={(option) => handleSelectChange(option, index)}
-            isError={!!errorText}
+            isError={!link[0] && !!link[1]}
           />
           <div className="flex flex-col flex-grow">
             <span className="block mb-[10px] text-descM14 font-Montserrat text-white">Link</span>
@@ -98,9 +112,15 @@ const LinkGroup = ({ errorText, onBlur, onChange }: ILinkGroupProps) => {
                     ? "Enter the DAO's X handle, starting with @"
                     : 'https://'
                 }
+                value={link[1]}
                 onBlur={() => onBlur?.(Object.fromEntries(linkData))}
                 onChange={(value) => handleInputChange(value, index)}
-                isError={!!errorText}
+                isError={
+                  !!link[0] &&
+                  !!link[1] &&
+                  ((link[0] === LINK_TYPE.TWITTER && !twitterUsernameRegex.test(link[1])) ||
+                    (link[0] !== LINK_TYPE.TWITTER && !facebookUrlRegex.test(link[1])))
+                }
               />
               <i
                 className={clsx(

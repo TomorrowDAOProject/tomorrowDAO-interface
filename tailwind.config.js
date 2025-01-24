@@ -156,6 +156,7 @@ module.exports = {
         baseText: 'var(--base-text)',
         fillBg: 'var(--fill-bg)',
         fillBg8: 'var(--fill-bg-8)',
+        fillBg16: 'var(--fill-bg-16)',
         fillBg40: 'var(--fill-bg-40)',
         fillBlack15: 'var(--fill-black-15)',
         mainColor: 'var(--main-color)',

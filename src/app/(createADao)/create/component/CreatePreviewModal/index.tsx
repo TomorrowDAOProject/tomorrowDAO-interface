@@ -244,7 +244,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
         }}
       >
         <span>Confirm</span>
-        <LinkIcon className="h-[11px] w-[11px]" />
+        <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
       </Button>
     </Modal>
   );

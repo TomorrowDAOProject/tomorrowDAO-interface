@@ -35,7 +35,13 @@ export const LayoutContent = ({ children }: { children: React.ReactNode }) => {
           {isNetWorkDao || isTelegram ? <div>{children}</div> : <Layout>{children}</Layout>}
         </AELFDProviderWrap>
       )}
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        hideProgressBar
+        closeButton={false}
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };

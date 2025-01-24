@@ -24,6 +24,8 @@ import clsx from 'clsx';
 import { toast } from 'react-toastify';
 import { shortenFileName } from 'utils/file';
 import { useRef } from 'react';
+import { SocialMedia } from 'types/dao';
+import { LINK_TYPE } from 'constants/dao';
 
 export const mediaList = [
   ['metadata', 'socialMedia', 'Twitter'],
@@ -43,14 +45,8 @@ export default function BasicDetails() {
         logoUrl: '',
         description: '',
         socialMedia: {
-          Twitter: '',
-          Github: '',
-          Facebook: '',
-          Discord: '',
-          Telegram: '',
-          Reddit: '',
-          Others: '',
-        },
+          '': '',
+        } as SocialMedia,
       },
       governanceMechanism: EDaoGovernanceMechanism.Token,
       members: { value: [''] },
@@ -112,6 +108,7 @@ export default function BasicDetails() {
                     ref={uploadRef}
                     className="mx-auto !w-[250px]"
                     needCheckImgSize
+                    value={field.value}
                     uploadText="Upload"
                     tips={`Formats supported: PNG and JPG.\n Ratio: 1:1 , less than 1 MB.`}
                     onFinish={({ url }) => field.onChange(url)}
@@ -186,16 +183,23 @@ export default function BasicDetails() {
               required: true,
               validate: {
                 validator: (socialMedia) => {
-                  const value = Object.values(socialMedia).filter((item) => item);
-                  if (socialMedia.Twitter) {
-                    if (!twitterUsernameRegex.test(socialMedia.Twitter)) {
-                      return 'Please enter a correct X handle, starting with @.';
+                  for (const key in socialMedia) {
+                    const val = socialMedia[key as LINK_TYPE] as string;
+                    if (!key && !!val) return 'Name is required';
+                    if (val?.length > 0) {
+                      if (key === LINK_TYPE.TWITTER) {
+                        if (!twitterUsernameRegex.test(socialMedia.Twitter as string)) {
+                          return 'Please enter a correct X handle, starting with @.';
+                        }
+                        if ((socialMedia.Twitter as string).length > 15) {
+                          return 'The X (Twitter) user name should be shorter than 15 characters.';
+                        }
+                      } else if (!facebookUrlRegex.test(socialMedia[key as LINK_TYPE] as string)) {
+                        return 'Please enter a correct link. Shortened URLs are not supported.';
+                      } else if (val.length > 128) {
+                        return 'The URL should be shorter than 128 characters.';
+                      }
                     }
-                    if (socialMedia.Twitter.length > 15) {
-                      return 'The X (Twitter) user name should be shorter than 15 characters.';
-                    }
-                  } else if (value?.filter((item) => item.length > 128).length > 0) {
-                    return 'The URL should be shorter than 128 characters.';
                   }
                   return true;
                 },
@@ -203,6 +207,7 @@ export default function BasicDetails() {
             }}
             render={({ field }) => (
               <LinkGroup
+                value={field.value as SocialMedia}
                 onBlur={field.onBlur}
                 onChange={field.onChange}
                 errorText={errors?.metadata?.socialMedia?.message}
@@ -215,9 +220,7 @@ export default function BasicDetails() {
         </div>
         <div className="mb-8">
           <ChainAddress
-            size="large"
             address={walletInfo.address}
-            chain={elfInfo.curChain}
             info="The DAO's metadata admin can modify certain info about the DAO, such as its description, logo, social media, documents, etc."
           />
         </div>
@@ -283,7 +286,7 @@ export default function BasicDetails() {
                 >
                   <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                     Governance Token
-                    <i className="tmrwdao-icon-information text-[18px] text-white" />
+                    <i className="tmrwdao-icon-information text-[18px]" />
                   </span>
                 </Tooltip>
               }
@@ -334,7 +337,7 @@ export default function BasicDetails() {
             <Link
               href="https://medium.com/@NFT_Forest_NFT/tutorial-how-to-buy-seeds-and-create-tokens-on-symbol-market-de3aa948bcb4"
               target="_blank"
-              className="text-desc12 text-mainColor"
+              className="text-desc12 text-mainColor font-Montserrat"
             >
               How to create a token?
             </Link>
@@ -442,7 +445,7 @@ export default function BasicDetails() {
                   {membersValue?.length}
                 </span>
               </div>
-              <div className="text-descM12 text-Neutral-Secondary-Text mb-[32px]">
+              <div className="text-descM12 text-Neutral-Secondary-Text mb-[32px] font-Montserrat">
                 Your connected wallet has been automatically added to the list. You can remove it if
                 you&apos;d like.
               </div>
