@@ -98,7 +98,7 @@ export default function Transparent(props: ITransparentProps) {
     <div className="treasury-page-content">
       <div className="card-shape pt-6">
         <div className="flex justify-between lg:flex-row flex-col card-px">
-          <span className="text-Primary-Text leading-[32px] font-[500] text-[24px]">{title}</span>
+          <span className="text-Primary-Text leading-[32px] font-medium text-[24px]">{title}</span>
           <span className="flex lg:flex-row flex-col">
             <span className="text-Neutral-Secondary-Text leading-[22px] text-[14px] flex pr-[4px]">
               Treasury Assets Address:

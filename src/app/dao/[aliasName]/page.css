@@ -41,7 +41,7 @@
       @apply xl:w-[354px] lg:w-[288px] ml-[20px];
     }
   }
-  .pagination-warp {
+  .pagination-wrap {
     .TMRWDAO-pagination-container {
       @apply flex justify-between flex-col lg:!flex-row xl:!flex-row md:!flex-row;
       .TMRWDAO-pagesize-label {

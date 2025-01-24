@@ -60,12 +60,12 @@ const VoteStaticData = (props: VoteStaticDataProps) => {
       ) : (
         <>
           <div>
-            <div className="text-[18px] font-[500] text-white">Current Votes</div>
+            <div className="text-[18px] font-medium text-white">Current Votes</div>
 
             <div className="flex flex-col gap-8 py-5">
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between">
-                  <div className="text-mainColor font-Montserrat font-[500]">Approved</div>
+                  <div className="text-mainColor font-Montserrat font-medium">Approved</div>
                   <div className="text-lightGrey font-Montserrat text-[12px]">
                     {proposalDetailData?.approvedCount}
                     <span className="px-[4px]">Votes</span>
@@ -77,7 +77,7 @@ const VoteStaticData = (props: VoteStaticDataProps) => {
 
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between">
-                  <div className="text-[#FF485D] font-Montserrat font-[500]">Rejected</div>
+                  <div className="text-[#FF485D] font-Montserrat font-medium">Rejected</div>
                   <div className="text-lightGrey font-Montserrat text-[12px]">
                     {proposalDetailData?.rejectionCount}
                     <span className="px-[4px]">Votes</span>
@@ -89,7 +89,7 @@ const VoteStaticData = (props: VoteStaticDataProps) => {
 
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between">
-                  <div className="text-abstention font-Montserrat font-[500]">Abstained</div>
+                  <div className="text-abstention font-Montserrat font-medium">Abstained</div>
                   <div className="text-lightGrey font-Montserrat text-[12px]">
                     {proposalDetailData?.abstentionCount}
                     <span className="px-[4px]">Votes</span>

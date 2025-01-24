@@ -118,7 +118,7 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
             onClick={handleShare}
           >
             <Image src={colorfulSocialMediaIconMap.Twitter} alt="x" width={13} height={13} />
-            <span className="pl-[8px] text-white text-[12px] font-[500] font-Montserrat">
+            <span className="pl-[8px] text-white text-[12px] font-medium font-Montserrat">
               {isLG ? 'Share' : 'Share on X'}
             </span>
           </div>

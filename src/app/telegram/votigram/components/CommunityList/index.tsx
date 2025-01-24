@@ -31,7 +31,7 @@ const CommunityList = ({
 }: ICommunityList) => {
   return (
     <div className="votigram-communiy-list">
-      <span className="tracking-[1px] leading-[16px] text-[16px] font-[500] title">COMMUNITY</span>
+      <span className="tracking-[1px] leading-[16px] text-[16px] font-medium title">COMMUNITY</span>
       <div className="flex flex-col gap-[10px] mb-[10px]">
         {data?.map(
           ({ proposalId, activeEndEpochTime, labelType, proposalTitle, totalVoteAmount }) => {

@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pagination } from 'aelf-design';
 import Tabs from 'components/Tabs';
-// import { Form, message } from 'antd';
 import { useSelector } from 'react-redux';
 import { SkeletonList } from 'components/Skeleton';
 import useResponsive from 'hooks/useResponsive';
@@ -19,7 +18,6 @@ import { fetchProposalList } from 'api/request';
 import { curChain } from 'config';
 import { ALL, DEFAULT_PAGESIZE, createOptionsDaoAlias } from './constants';
 import Link from 'next/link';
-import ErrorResult from 'components/ErrorResult';
 import { useRouter } from 'next/navigation';
 import { ButtonCheckLogin } from 'components/ButtonCheckLogin';
 import breadCrumb from 'utils/breadCrumb';
@@ -29,7 +27,6 @@ import './page.css';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import { checkCreateProposal } from 'utils/proposal';
 import NoData from 'components/NoData';
-import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
 
 interface IProps {
   ssrData: {
@@ -178,7 +175,7 @@ export default function DeoDetails(props: IProps) {
         children: (
           <div className="tab-all-proposals">
             <div className={`tab-all-proposals-header `}>
-              <span className="text-white text-[18px] font-Montserrat font-[500]">Proposals</span>
+              <span className="text-white text-[18px] font-Montserrat font-medium">Proposals</span>
               {CreateButton}
             </div>
             <Filter tableParams={tableParams} onChangeTableParams={handleParamsChange} />
@@ -303,14 +300,14 @@ export default function DeoDetails(props: IProps) {
         >
           Home
         </span>
-        <ArrowRight />
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
         <span
           className="text-lightGrey text-[15px] cursor-pointer"
           onClick={() => router.push('/explore')}
         >
           Explore
         </span>
-        <ArrowRight />
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
         <span className="text-[14px]">{daoData?.data?.metadata?.name}</span>
       </div>
       <div>
@@ -332,11 +329,11 @@ export default function DeoDetails(props: IProps) {
                   <SkeletonList />
                 ) : proposalError ? (
                   <div className="text-white font-Montserrat text-center mb-[30px] h-[100px] flex flex-col items-center justify-center">
-                    <div className="text-white text-[15px] font-[500] mb-[10px]">
-                      something went wrong
+                    <div className="text-white text-[15px] font-medium mb-[10px]">
+                      Something went wrong
                     </div>
                     <div className="text-lightGrey text-[12px]">
-                      Please check your network connection, Try again later.
+                      Please check your network connection, try again later.
                     </div>
                   </div>
                 ) : proposalData?.items?.length ? (
@@ -361,7 +358,7 @@ export default function DeoDetails(props: IProps) {
                     <NoData />
                   </div>
                 )}
-                <div className="pagination-warp">
+                <div className="pagination-wrap">
                   <Pagination
                     {...tableParams.pagination}
                     total={proposalData?.totalCount ?? 0}

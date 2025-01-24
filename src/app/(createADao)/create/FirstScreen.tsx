@@ -7,8 +7,6 @@ import { ReactComponent as Docs } from 'assets/revamp-icon/docs.svg';
 import { ReactComponent as GoStart } from 'assets/revamp-icon/go-start.svg';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
-import { ReactComponent as ArrowLeft } from 'assets/revamp-icon/arrow-left.svg';
-import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
 import { useRouter } from 'next/navigation';
 
 import './index.css';
@@ -37,13 +35,13 @@ export const FirstScreen = (props: IFirstScreenProps) => {
           <span className="text-lightGrey text-[15px] cursor-pointer" onClick={() => nav.push('/')}>
             TMRW DAO
           </span>
-          <ArrowRight />
+          <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
           <span className="text-white text-[14px]">Create a DAO</span>
         </div>
 
         <div className="md:mt-[47px] lg:mt-[67px] mb-[30px] dao-create-first-header flex items-center gap-2 md:hidden lg:hidden">
-          <ArrowLeft />
-          <span className="text-white text-[14px]" onClick={() => nav.push('/')}>
+          <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey rotate-180" />
+          <span className="text-white text-[14px] cursor-auto" onClick={() => nav.push('/')}>
             Back
           </span>
         </div>

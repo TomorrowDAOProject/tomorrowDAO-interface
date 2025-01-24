@@ -71,7 +71,7 @@ export default function ProposalsItem(props: IProposalsItemProps) {
         </div>
         <div className="proposal-item-title normal-text-bold break-words">
           {data.proposalTitle ? (
-            <span className="max-w-full font-Montserrat font-[500] text-[16px]">
+            <span className="max-w-full font-Montserrat font-medium text-[16px]">
               {data.proposalTitle}
             </span>
           ) : (
@@ -95,7 +95,7 @@ export default function ProposalsItem(props: IProposalsItemProps) {
 
       <div className="vote vote-data-analysis flex flex-col justify-between">
         <div className="vote-top font-Montserrat">
-          <div className="h-[22px] vote-top-title normal-text-bold text-[14px] font-[500]">
+          <div className="h-[22px] vote-top-title normal-text-bold text-[14px] font-medium">
             {is1t1v ? data.votesAmount : data.voterCount} {capitalizeFirstLetter(voteTextPluralize)}{' '}
             in Total
           </div>

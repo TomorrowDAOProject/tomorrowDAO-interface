@@ -3,7 +3,7 @@
 }
 
 .treasury-no-tx-title {
-  @apply font-[500] text-[20px] leading-[28px] mt-6;
+  @apply font-medium text-[20px] leading-[28px] mt-6;
 }
 
 .treasury-no-tx-help-message {
