@@ -235,7 +235,7 @@ const Treasury: React.FC<IProps> = (props) => {
                     onClick={() => {
                       setChoiceOpen(true);
                     }}
-                    className="bg-mainColor !rounded-[42px]"
+                    className="bg-mainColor !rounded-[42px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
                     size="medium"
                   >
                     New transfer

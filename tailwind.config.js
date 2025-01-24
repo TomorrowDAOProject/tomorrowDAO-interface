@@ -197,7 +197,7 @@ module.exports = {
         },
 
         '.page-content-bg-border': {
-          '@apply bg-white rounded-lg border border-solid border-Neutral-Divider px-4 lg:px-8 py-4 lg:py-8':
+          '@apply bg-darkBg rounded-lg border border-solid border-fillBg8 px-4 lg:px-8 py-4 lg:py-8':
             {},
         },
 
@@ -231,7 +231,7 @@ module.exports = {
         },
 
         '.card-title': {
-          '@apply text-[20px] leading-[28px] text-white font-medium': {},
+          '@apply font-Montserrat text-[18px] leading-[28px] text-white font-medium': {},
         },
         '.card-sm-text': {
           '@apply text-[14px] leading-[22px]': {},
