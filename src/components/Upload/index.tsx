@@ -145,7 +145,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
 
     useEffect(() => {
       setImageSrc(value || '');
-    }, [value])
+    }, [value]);
 
     useImperativeHandle(ref, () => ({
       reset: () => setImageSrc(''),
