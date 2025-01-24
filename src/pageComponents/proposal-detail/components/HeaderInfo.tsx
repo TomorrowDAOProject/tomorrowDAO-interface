@@ -108,27 +108,27 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
             }}
             className="max-content"
           />
-          <span className="text-Neutral-Secondary-Text card-xsm-text">
+          <span className="text-lightGrey card-xsm-text">
             <ProposalStatusDesc proposalItem={proposalDetailData as unknown as IProposalsItem} />
           </span>
         </div>
         <div className="flex gap-6">
           <div
-            className="h-8 cursor-pointer bg-Neutral-Default-BG rounded-md flex justify-center items-center px-[16px]"
+            className="cursor-pointer bg-darkGray border border-solid border-fillBg8 rounded-[25px] text-white flex justify-center leading-[15px] items-center py-[3px] px-[12px]"
             onClick={handleShare}
           >
-            <Image src={colorfulSocialMediaIconMap.Twitter} alt="x" width={14} height={14} />
-            <span className="pl-[10px] card-xsm-text font-medium">
+            <Image src={colorfulSocialMediaIconMap.Twitter} alt="x" width={13} height={13} />
+            <span className="pl-[8px] text-white text-[12px] font-medium font-Montserrat">
               {isLG ? 'Share' : 'Share on X'}
             </span>
           </div>
         </div>
       </div>
       <div className="title-tag-button-wrap">
-        <div className="pt-4 pb-3">
+        <div className="py-[22px]">
           <span className="card-title-lg break-words">{proposalDetailData.proposalTitle}</span>
         </div>
-        <div className="flex gap-2 pb-6">
+        <div className="flex gap-2 pb-[22px]">
           <ProposalTag
             proposalType={proposalDetailData.proposalType}
             proposalSource={proposalDetailData.proposalSource}
@@ -141,23 +141,23 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
           </ButtonCheckLogin>
         )}
       </div>
-      <div className="proposal-detail-key-value border-0 border-t border-solid border-Neutral-Divider flex pt-6 gap-y-4 gap-x-0 lg:gap-x-16 lg:gap-y-0 lg:flex-row flex-col flex-wrap">
+      <div className="proposal-detail-key-value border-0 border-t border-solid border-fillBg8 flex pt-[22px] gap-y-4 gap-x-0 lg:gap-x-16 lg:gap-y-0 lg:flex-row flex-col flex-wrap">
         {proposalDetailData.proposalType === ProposalTypeString.Veto && (
           <div className="flex items-center gap-4">
-            <span className="text-Neutral-Secondary-Text card-sm-text">Veto Proposal:</span>
+            <span className="text-lightGrey card-sm-text">Veto Proposal:</span>
             <Link href={`/dao/${aliasName}/proposal/${proposalDetailData.vetoProposalId}`}>
               <HashAddress
                 preLen={8}
                 endLen={9}
                 ignorePrefixSuffix={true}
-                className="hash-link-color card-sm-text-bold"
+                className="hash-link-color card-sm-text-bold text-[13px]"
                 address={proposalDetailData.vetoProposalId ?? '-'}
               ></HashAddress>
             </Link>
           </div>
         )}
         <div className="flex items-center gap-4">
-          <span className="text-Neutral-Secondary-Text card-sm-text">Poster:</span>
+          <span className="text-lightGrey text-[13px]">Poster:</span>
           <a
             href={`${explorer}/address/${proposalDetailData.proposer}`}
             target="_blank"
@@ -167,24 +167,24 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
               preLen={8}
               endLen={9}
               address={proposalDetailData.proposer}
-              className="card-sm-text-bold"
+              className="text-white !text-[13px]"
               chain={sideChainSuffix}
             ></HashAddress>
           </a>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-Neutral-Secondary-Text card-sm-text">Proposal ID:</span>
+          <span className="text-lightGrey text-[13px]">Proposal ID:</span>
           <HashAddress
             preLen={8}
             endLen={9}
             ignorePrefixSuffix={true}
             address={proposalDetailData.proposalId ?? '-'}
-            className="card-sm-text-bold"
+            className="text-white text-[13px]"
           ></HashAddress>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-Neutral-Secondary-Text card-sm-text">Published:</span>
-          <span className="card-sm-text">
+          <span className="text-lightGrey text-[13px]">Published:</span>
+          <span className="text-white text-[13px]">
             {proposalDetailData.deployTime
               ? dayjs(proposalDetailData.deployTime).format('YYYY-MM-DD HH:mm:ss')
               : '-'}

@@ -2,9 +2,11 @@ import React from 'react';
 import { curChain, explorer } from 'config';
 import { SkeletonLine } from 'components/Skeleton';
 import { ButtonCheckLogin } from 'components/ButtonCheckLogin';
-import { Button, HashAddress } from 'aelf-design';
+import { HashAddress } from 'aelf-design';
 import Link from 'next/link';
 import './index.css';
+
+import Button from 'components/Button';
 
 interface IProps {
   lists: string[];
@@ -32,13 +34,7 @@ const Members: React.FC<IProps> = (props) => {
     managerUrl,
   } = props;
   const ManageButton = (
-    <Button
-      type="primary"
-      size="medium"
-      className="dao-members-manage"
-      onClick={onCreatePoposal}
-      loading={createButtonLoading}
-    >
+    <Button className="dao-members-manage" onClick={onCreatePoposal} loading={createButtonLoading}>
       Manage members
     </Button>
   );
@@ -48,16 +44,18 @@ const Members: React.FC<IProps> = (props) => {
         <SkeletonLine />
       ) : (
         <div>
-          <h3 className="card-title mb-[24px]">{cardTitle}</h3>
+          <div className="text-white font-medium text-[18px] font-Montserrat mb-[20px]">
+            {cardTitle}
+          </div>
           <div className="flex justify-between items-start lg:items-center lg:flex-row flex-col">
-            <div>{descriptionNode}</div>
+            <div className="text-[15px]">{descriptionNode}</div>
             {managerUrl ? (
               <Link href={managerUrl}>{ManageButton}</Link>
             ) : (
               <ButtonCheckLogin
                 type="primary"
                 size="medium"
-                className="dao-members-manage"
+                className="dao-members-manage font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
                 onClick={onCreatePoposal}
                 loading={createButtonLoading}
               >

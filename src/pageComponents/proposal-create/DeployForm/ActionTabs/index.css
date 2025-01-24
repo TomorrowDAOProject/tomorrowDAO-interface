@@ -1,6 +1,6 @@
 .proposal-action-tabs {
   .proposal-action-tabs-label {
-    @apply flex items-center font-[500];
+    @apply flex items-center font-medium;
     .TMRWDAO-icon {
       @apply text-[16px];
     }

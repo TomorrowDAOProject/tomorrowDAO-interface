@@ -9,7 +9,7 @@ import { curChain, explorer, sideChainSuffix } from 'config';
 import NoData from 'components/NoData';
 import { fetchVoteHistory } from 'api/request';
 import { useRequest } from 'ahooks';
-import { EVoteOption } from 'types/vote';
+import { EVoteOption, EVoteOptionLabel } from 'types/vote';
 import BigNumber from 'bignumber.js';
 
 const columns: ColumnsType<IVoteHistoryItem> = [
@@ -25,7 +25,7 @@ const columns: ColumnsType<IVoteHistoryItem> = [
             preLen={8}
             endLen={9}
             chain={sideChainSuffix}
-            className="card-sm-text-bold"
+            className="card-sm-text-bold text-white text-[10px]"
           />
         </a>
       );
@@ -39,7 +39,7 @@ const columns: ColumnsType<IVoteHistoryItem> = [
       return (
         <Link href={`${explorer}/tx/${text}`} target="_blank">
           <HashAddress
-            className="card-sm-text-bold"
+            className="card-sm-text-bold text-white text-[10px]"
             ignorePrefixSuffix={true}
             preLen={8}
             endLen={9}
@@ -53,19 +53,31 @@ const columns: ColumnsType<IVoteHistoryItem> = [
     width: 224,
     title: 'Result',
     dataIndex: 'myOption',
-    render: (text) => {
+    render: (text: 0 | 1 | 2) => {
+      console.log('text', text);
       return (
         <span
           className={clsx(
-            'card-sm-text-bold',
+            'px-2 py-1 rounded-[4px]',
             text === EVoteOption.APPROVED
-              ? 'text-approve'
+              ? 'bg-[rgba(0,200,77,0.25)]'
               : text === EVoteOption.REJECTED
-              ? 'text-rejection'
-              : 'text-abstention',
+              ? 'text-[rgba(255,55,77,0.15)]'
+              : 'text-[rgba(185,185,185,0.15)]',
           )}
         >
-          {EVoteOption[text]}
+          <span
+            className={clsx(
+              'card-sm-text-bold text-[12px]',
+              text === EVoteOption.APPROVED
+                ? 'text-[#00C84D]'
+                : text === EVoteOption.REJECTED
+                ? 'text-[#FF485D]'
+                : 'text-[#687083]',
+            )}
+          >
+            {EVoteOptionLabel[text]}
+          </span>
         </span>
       );
     },
@@ -136,24 +148,29 @@ const VoteResultTable = (props: IVoteResultTableProps) => {
     run();
   }, [run, tableParams]);
   return (
-    <div className="card-shape vote-result-table-wrap">
-      <div className="flex justify-between px-8 py-6 title">
-        <h3 className="card-title">Voting Results</h3>
+    <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
+      <div className="flex justify-between">
+        <span className="text-[18px] font-medium font-Montserrat text-white mb-[20px]">
+          Voting Results
+        </span>
       </div>
-      <ConfigProvider renderEmpty={() => <NoData></NoData>}>
-        <Table
-          rowKey={'transactionId'}
-          columns={columns as any}
-          scroll={{ x: 'max-content' }}
-          pagination={{
-            ...tableParams,
-            total: voteHistoryData?.data?.totalCount ?? 0,
-            onChange: pageChange,
-          }}
-          loading={voteHistoryLoading}
-          dataSource={voteHistoryData?.data?.items}
-        ></Table>
-      </ConfigProvider>
+      <div className="voting-table">
+        <ConfigProvider renderEmpty={() => <NoData></NoData>}>
+          <Table
+            bordered={false}
+            rowKey={'transactionId'}
+            columns={columns as any}
+            scroll={{ x: 'max-content' }}
+            pagination={{
+              ...tableParams,
+              total: voteHistoryData?.data?.totalCount ?? 0,
+              onChange: pageChange,
+            }}
+            loading={voteHistoryLoading}
+            dataSource={voteHistoryData?.data?.items}
+          ></Table>
+        </ConfigProvider>
+      </div>
     </div>
   );
 };

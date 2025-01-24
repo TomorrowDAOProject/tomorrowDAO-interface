@@ -18,7 +18,7 @@
       @apply card-sm-text-bold;
     }
     .user-info-time {
-      @apply card-xsm-text text-Neutral-Secondary-Text;
+      @apply card-xsm-text text-white;
     }
   }
   .body {

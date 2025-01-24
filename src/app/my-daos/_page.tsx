@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect } from 'react';
-import Button from 'components/Button';
 import { useInfiniteScroll } from 'ahooks';
 import { fetchMyDaoList } from 'api/request';
 import { curChain } from 'config';
@@ -11,9 +10,7 @@ import { SkeletonDaoItemList } from 'components/Skeleton';
 import './index.css';
 import { EMyDAOType } from 'types/dao';
 import NoData from 'components/NoData';
-import useResponsive from 'hooks/useResponsive';
 import { useWalletService } from 'hooks/useWallet';
-import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right-white.svg';
 
 const MaxResultCount = 5;
 interface IFetchResult {
@@ -88,13 +85,13 @@ const MyDaosPage = () => {
       participatedReload();
     }
   }, [ownReload, participatedReload, wallet?.address, isLogin]);
-  const { isLG } = useResponsive();
+
   const EmptyNode = (
     <div className="flex flex-col items-center">
       <NoData></NoData>
       <Link
         href="/explore"
-        className="h-[32px] !py-2 !px-[14px] mt-[20px] !text-[12px] font-Montserrat text-white border border-white border-solid"
+        className="h-[32px] !py-2 !px-[14px] mt-[20px] !text-[12px] font-Montserrat font-medium text-white rounded-[42px] bg-mainColor hover:text-mainColor hover:bg-transparent hover:border hover:border-solid hover:border-mainColor"
       >
         Explore
       </Link>
@@ -127,10 +124,10 @@ const MyDaosPage = () => {
                     >
                       <li className="list-body-content-item" key={item.daoId}>
                         <img src={item.logo} alt="" />
-                        <span className="text-[14px] text-white font-Montserrat font-[500]">
+                        <span className="text-[14px] text-white font-Montserrat font-medium">
                           {item.name}
                         </span>
-                        <ArrowRight className="ml-auto" />
+                        <i className="tmrwdao-icon-arrow text-[16px] text-white ml-auto" />
                       </li>
                     </Link>
                   );
@@ -168,7 +165,7 @@ const MyDaosPage = () => {
                     >
                       <li className="list-body-content-item" key={item.daoId}>
                         <img src={item.logo} alt="" />
-                        <span className="text-[14px] text-white font-Montserrat font-[500]">
+                        <span className="text-[14px] text-white font-Montserrat font-medium">
                           {item.name}
                         </span>
                       </li>

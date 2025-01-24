@@ -38,45 +38,45 @@ export const tagMap = {
 
 export const tagColorMap = {
   [AllProposalStatusString.Approved]: {
-    bgColor: '#EBF3FF',
-    textColor: '#3888FF',
+    bgColor: 'rgba(0, 200, 77, 0.25)',
+    textColor: '#00C84D',
     firstText: 'Availabe to be executed before',
     secondText: 'Approved on',
   },
   [AllProposalStatusString.Defeated]: {
-    bgColor: '#FEEFF1',
-    textColor: '#F55D6E',
+    bgColor: 'rgba(255, 55, 77, 0.15)',
+    textColor: '#FF485D',
     firstText: 'Rejected on',
   },
   [AllProposalStatusString.Expired]: {
-    bgColor: '#EDEDED',
-    textColor: '#919191',
+    bgColor: 'rgba(255, 255, 255, 0.08)',
+    textColor: '#B9B9B9',
     firstText: 'Availabe to be executed before',
     secondText: 'Approved on',
   },
   [AllProposalStatusString.Executed]: {
-    bgColor: '#E4F8F5',
-    textColor: '#05C4A2',
+    bgColor: 'rgba(255, 255, 255, 0.08)',
+    textColor: '#B9B9B9',
   },
   [AllProposalStatusString.BelowThreshold]: {
     bgColor: '#FEF7EC',
     textColor: '#F8B042',
   },
   [AllProposalStatusString.PendingVote]: {
-    bgColor: '#FEF7EC',
-    textColor: '#F8B042',
+    bgColor: 'rgba(255, 174, 0, 0.20)',
+    textColor: '#FFAE00',
   },
   [AllProposalStatusString.Challenged]: {
     bgColor: '#F2EEFF',
     textColor: '#764DF1',
   },
   [AllProposalStatusString.Vetoed]: {
-    bgColor: '#F0F1F3',
-    textColor: '#687083',
+    bgColor: 'rgba(255, 255, 255, 0.08)',
+    textColor: '#B9B9B9',
   },
   [AllProposalStatusString.Published]: {
-    bgColor: '#F0F5FF',
-    textColor: '#597EF7',
+    bgColor: 'rgba(93, 73, 246, 0.60)',
+    textColor: '#C0B8FF',
   },
 };
 // the proposal is created by network dao, not tmrw dao

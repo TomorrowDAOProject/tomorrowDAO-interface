@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Tabs, Pagination } from 'aelf-design';
-import { Form, message } from 'antd';
+import { Pagination } from 'aelf-design';
+import Tabs from 'components/Tabs';
 import { useSelector } from 'react-redux';
 import { SkeletonList } from 'components/Skeleton';
 import useResponsive from 'hooks/useResponsive';
@@ -18,7 +18,6 @@ import { fetchProposalList } from 'api/request';
 import { curChain } from 'config';
 import { ALL, DEFAULT_PAGESIZE, createOptionsDaoAlias } from './constants';
 import Link from 'next/link';
-import ErrorResult from 'components/ErrorResult';
 import { useRouter } from 'next/navigation';
 import { ButtonCheckLogin } from 'components/ButtonCheckLogin';
 import breadCrumb from 'utils/breadCrumb';
@@ -55,7 +54,7 @@ export default function DeoDetails(props: IProps) {
   const { daoInfo: daoData, ProposalListResData } = ssrData;
   const { isLG } = useResponsive();
 
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   const [tabKey, setTabKey] = useState(TabKey.PROPOSALS);
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   // const [daoDetail, setDaoDetail] = useState<IDaoDetail>(data);
@@ -73,7 +72,7 @@ export default function DeoDetails(props: IProps) {
   const fetchProposalListWithParams = async (newTableParams: IProposalTableParams) => {
     const { proposalType, proposalStatus } = newTableParams;
     if (!aliasName) {
-      message.error('aliasName is required');
+      // message.error('aliasName is required');
       return null;
     }
     const params: IProposalListReq = {
@@ -142,11 +141,24 @@ export default function DeoDetails(props: IProps) {
     },
     [run, setTableParams],
   );
+
+  const handleParamsChange = (params: IProposalTableParams) => {
+    handleTableParamsChange({
+      ...params,
+      pagination: tableParams.pagination ?? {
+        current: 1,
+        pageSize: DEFAULT_PAGESIZE,
+        total: 0,
+      },
+    });
+  };
+
   const tabItems = useMemo(() => {
     const CreateButton = (
       <ButtonCheckLogin
         size="medium"
         type="primary"
+        className="bg-mainColor !rounded-[42px] py-2 px-[14px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
         loading={createProposalLoading}
         onClick={() => {
           handleCreateProposalRef.current?.();
@@ -161,16 +173,12 @@ export default function DeoDetails(props: IProps) {
         key: TabKey.PROPOSALS,
         label: 'All Proposals',
         children: (
-          <div className={`tab-all-proposals `}>
+          <div className="tab-all-proposals">
             <div className={`tab-all-proposals-header `}>
-              <h3 className="title">Proposals</h3>
+              <span className="text-white text-[18px] font-Montserrat font-medium">Proposals</span>
               {CreateButton}
             </div>
-            <Filter
-              form={form}
-              tableParams={tableParams}
-              onChangeTableParams={handleTableParamsChange}
-            />
+            <Filter tableParams={tableParams} onChangeTableParams={handleParamsChange} />
           </div>
         ),
       },
@@ -187,7 +195,7 @@ export default function DeoDetails(props: IProps) {
             <MyInfoContent
               daoId={daoId}
               isTokenGovernanceMechanism={isTokenGovernanceMechanism}
-              className="border-0  px-[16px] pt-[8px] pb-[24px] lg:mb-[16px] mb-0"
+              className="border-0 p-[22px] xl:px-[32px] xl:py-[24px] xl:mb-[16px] lg:px-[32px] lg:py-[24px] lg:mb-[16px] md:px-[32px] md:py-[24px] md:mb-[16px] mb-0"
             />
           ),
         });
@@ -225,7 +233,6 @@ export default function DeoDetails(props: IProps) {
   }, [
     createProposalLoading,
     daoData,
-    form,
     tableParams,
     isLG,
     handleTableParamsChange,
@@ -275,14 +282,7 @@ export default function DeoDetails(props: IProps) {
   }, []);
 
   const tabCom = useMemo(() => {
-    return (
-      <Tabs
-        size={isLG ? 'small' : 'middle'}
-        activeKey={tabKey}
-        items={tabItems}
-        onChange={handleTabChange}
-      />
-    );
+    return <Tabs activeKey={tabKey} items={tabItems} onChange={handleTabChange} />;
   }, [isLG, tabItems, tabKey]);
 
   useEffect(() => {
@@ -293,6 +293,23 @@ export default function DeoDetails(props: IProps) {
 
   return (
     <div className="dao-detail">
+      <div className="text-white font-Montserrat flex items-center gap-2 pb-[25px]">
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() => router.push('/')}
+        >
+          Home
+        </span>
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() => router.push('/explore')}
+        >
+          Explore
+        </span>
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
+        <span className="text-[14px]">{daoData?.data?.metadata?.name}</span>
+      </div>
       <div>
         <DaoInfo
           data={(daoData?.data ?? {}) as IDaoInfoData}
@@ -311,8 +328,13 @@ export default function DeoDetails(props: IProps) {
                 {proposalLoading ? (
                   <SkeletonList />
                 ) : proposalError ? (
-                  <div>
-                    <ErrorResult />
+                  <div className="text-white font-Montserrat text-center mb-[30px] h-[100px] flex flex-col items-center justify-center">
+                    <div className="text-white text-[15px] font-medium mb-[10px]">
+                      Something went wrong
+                    </div>
+                    <div className="text-lightGrey text-[12px]">
+                      Please check your network connection, try again later.
+                    </div>
                   </div>
                 ) : proposalData?.items?.length ? (
                   proposalData?.items?.map((item) => {
@@ -332,15 +354,19 @@ export default function DeoDetails(props: IProps) {
                     );
                   })
                 ) : (
-                  <NoData />
+                  <div className="mb-[30px]">
+                    <NoData />
+                  </div>
                 )}
-                <Pagination
-                  {...tableParams.pagination}
-                  total={proposalData?.totalCount ?? 0}
-                  pageChange={pageChange}
-                  pageSizeChange={pageSizeChange}
-                  defaultPageSize={DEFAULT_PAGESIZE}
-                />
+                <div className="pagination-wrap">
+                  <Pagination
+                    {...tableParams.pagination}
+                    total={proposalData?.totalCount ?? 0}
+                    pageChange={pageChange}
+                    pageSizeChange={pageSizeChange}
+                    defaultPageSize={DEFAULT_PAGESIZE}
+                  />
+                </div>
               </div>
             )}
             {/* < 1024 */}

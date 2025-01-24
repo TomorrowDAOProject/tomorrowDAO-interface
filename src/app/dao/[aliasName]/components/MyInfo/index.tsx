@@ -1,5 +1,5 @@
 import { Descriptions, Divider, Form, InputNumber, message } from 'antd';
-import { HashAddress, Button, Tooltip } from 'aelf-design';
+import { HashAddress, Tooltip } from 'aelf-design';
 import { InfoCircleOutlined } from '@aelf-design/icons';
 import React, { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
 import CommonModal from 'components/CommonModal';
@@ -19,6 +19,7 @@ import { okButtonConfig } from 'components/ResultModal';
 import Symbol from 'components/Symbol';
 import { useParams } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import Button from 'components/Button';
 
 type TInfoTypes = {
   height?: number | string;
@@ -225,12 +226,14 @@ export default function MyInfo(props: TInfoTypes) {
 
   return (
     <div
-      className={`my-info-wrap flex flex-col border border-fillBg8 border-solid rounded-lg bg-darkBg lg:px-6 px-[16px] py-[25px] ${clssName}`}
+      className={`my-info-wrap flex flex-col border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px] ${clssName}`}
       style={{
         height: height || 'auto',
       }}
     >
-      <div className="card-title mb-[24px]">{titleNode ?? 'My Info'}</div>
+      <div className="text-[18px] text-white font-Montserrat mb-[20px]">
+        {titleNode ?? 'My Info'}
+      </div>
       {isLogin ? (
         isLoading || isExtraDataLoading ? (
           <SkeletonLine lines={6} />
@@ -246,13 +249,12 @@ export default function MyInfo(props: TInfoTypes) {
                     <div className="card-sm-text text-Neutral-Secondary-Text mb-1">
                       Available for Unstaking
                     </div>
-                    <div className="text-Primary-Text  card-sm-text-bold">
+                    <div className="text-white card-sm-text-bold">
                       {info?.availableUnStakeAmount} {info?.symbol}
                     </div>
                   </div>
                   <Button
-                    type="primary"
-                    size="medium"
+                    className="!rounded-[42px]"
                     onClick={() => {
                       if (info?.availableUnStakeAmount === 0) {
                         message.info('Available for Unstaking is 0');
@@ -332,7 +334,7 @@ export default function MyInfo(props: TInfoTypes) {
                     }
                   />
                 </Form.Item>
-                <Button className="mx-auto" type="primary" htmlType="submit">
+                <Button className="mx-auto" type="primary">
                   Unstake
                 </Button>
               </Form>
@@ -364,10 +366,16 @@ export default function MyInfo(props: TInfoTypes) {
         )
       ) : (
         <div>
-          <Button className="w-full mb-4" type="primary" onClick={login}>
+          <Button
+            className="w-full mb-4 !rounded-[42px] bg-mainColor !h-auto !py-2"
+            type="primary"
+            onClick={login}
+          >
             Log in
           </Button>
-          <div className="text-center text-Neutral-Secondary-Text">{notLoginTip}</div>
+          <div className="text-center text-lightGrey font-Montserrat text-[12px]">
+            {notLoginTip}
+          </div>
         </div>
       )}
       <div>{props.children}</div>

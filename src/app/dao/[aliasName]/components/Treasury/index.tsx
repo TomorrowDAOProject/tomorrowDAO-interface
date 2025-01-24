@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form, TableProps, Table, Skeleton, message } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
-import { Button, HashAddress } from 'aelf-design';
+import { HashAddress } from 'aelf-design';
 import { callContract } from 'contract/callContract';
 import CommonModal from 'components/CommonModal';
 import { emitLoading, eventBus, ResultModal } from 'utils/myEvent';
@@ -27,6 +27,7 @@ import BigNumber from 'bignumber.js';
 import Symbol from 'components/Symbol';
 import { checkCreateProposal } from 'utils/proposal';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
+import Button from 'components/Button';
 interface IProps {
   clssName?: string;
   daoRes?: IDaoInfoRes | null;
@@ -180,7 +181,7 @@ const Treasury: React.FC<IProps> = (props) => {
       run();
     }
   }, [run, treasuryAddress]);
-  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[10px] border-fillBg8 border-solid rounded-lg bg-darkBg px-4 lg:px-6 lg:py-[25px]`;
+  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[25px] xl:mb-[25px] md:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg p-[22px] lg:px-[32px] lg:py-[24px] xl:px-[32px] xl:py-[24px] md:px-[32px] md:py-[24px]`;
   const existTransaction = Boolean(transferList?.length);
   return (
     <div className={cls}>
@@ -196,7 +197,11 @@ const Treasury: React.FC<IProps> = (props) => {
                 The treasury function is not currently enabled for this DAO.
               </p>
               {wallet?.address === creator && (
-                <Button className="w-[172px] mt-6" type="primary" onClick={initTreasury}>
+                <Button
+                  className="bg-mainColor !rounded-[42px] py-2 px-[14px] mt-6"
+                  type="primary"
+                  onClick={initTreasury}
+                >
                   Enable Treasury
                 </Button>
               )}
@@ -208,7 +213,11 @@ const Treasury: React.FC<IProps> = (props) => {
                 <div className="flex items-center justify-between">
                   <h2 className="card-title">Treasury Assets</h2>
                   <Link href={`/dao/${aliasName}/treasury`} prefetch={true}>
-                    <Button size="medium" type="primary" className="small-button">
+                    <Button
+                      size="medium"
+                      type="primary"
+                      className="bg-mainColor !rounded-[42px] py-2 px-[14px] mt-6"
+                    >
                       View all
                     </Button>
                   </Link>
@@ -226,7 +235,7 @@ const Treasury: React.FC<IProps> = (props) => {
                     onClick={() => {
                       setChoiceOpen(true);
                     }}
-                    className="small-button"
+                    className="bg-mainColor !rounded-[42px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
                     size="medium"
                   >
                     New transfer
@@ -239,7 +248,7 @@ const Treasury: React.FC<IProps> = (props) => {
                     <Table
                       className="token-list-table"
                       columns={tokenListColumns}
-                      bordered
+                      bordered={false}
                       dataSource={tokenList}
                       pagination={false}
                       scroll={{ x: true }}
@@ -257,21 +266,24 @@ const Treasury: React.FC<IProps> = (props) => {
                       {transferList?.slice(0, LoadCount).map((item) => {
                         const isOut = treasuryAddress === item.fromAddress;
                         return (
-                          <li className="treasury-info-item" key={item.transactionId}>
-                            <div className="flex justify-between treasury-info-item-line-1 ">
-                              <span className="">
+                          <li
+                            className="treasury-info-item font-Montserrat"
+                            key={item.transactionId}
+                          >
+                            <div className="flex justify-between treasury-info-item-line-1 lg:flex-col xl:flex-col md:flex-row flex-col">
+                              <span className="text-[14px]">
                                 {dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')}{' '}
                                 {isOut ? 'Withdraw' : 'Deposit'}
                               </span>
-                              <span>
+                              <span className="text-[14px] text-white">
                                 {numberFormatter(item.amountAfterDecimals)} {item.symbol}
                               </span>
                             </div>
-                            <div className="treasury-info-item-line-2 text-14-22-500">
+                            <div className="treasury-info-item-line-2 text-14-22-500 lg:flex-col xl:flex-col md:flex-row flex-col">
                               <span>Transaction ID:</span>
                               <Link href={`${explorer}/tx/${item.transactionId}`} target="_blank">
                                 <HashAddress
-                                  className="pl-[4px]"
+                                  className="pl-[4px] text-white"
                                   ignorePrefixSuffix={true}
                                   preLen={8}
                                   endLen={11}
@@ -279,7 +291,7 @@ const Treasury: React.FC<IProps> = (props) => {
                                 ></HashAddress>
                               </Link>
                             </div>
-                            <div className="treasury-info-item-line-3 text-14-22-500">
+                            <div className="treasury-info-item-line-3 text-14-22-500 lg:flex-col xl:flex-col md:flex-row flex-col">
                               <span>Address:</span>
                               <Link
                                 href={`${explorer}/address/${
@@ -288,7 +300,7 @@ const Treasury: React.FC<IProps> = (props) => {
                                 target="_blank"
                               >
                                 <HashAddress
-                                  className="pl-[4px]"
+                                  className="pl-[4px] text-white"
                                   preLen={8}
                                   endLen={11}
                                   address={isOut ? item.toAddress : item.fromAddress}

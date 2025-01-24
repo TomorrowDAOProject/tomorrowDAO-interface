@@ -1,10 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 import useResponsive from 'hooks/useResponsive';
-import { Dropdown } from 'aelf-design';
+// import { Dropdown } from 'aelf-design';
+import Dropdown from 'components/Dropdown';
 import { List, type MenuProps } from 'antd';
-import Image from 'next/image';
 import Link from 'next/link';
-import ProposalDetailFile from 'assets/imgs/proposal-detail-file.svg';
 import CommonDrawer from 'components/CommonDrawer';
 
 type TPropsType = {
@@ -16,7 +15,7 @@ export default function PreviewFile(props: TPropsType) {
 
   const [showDrawerModal, setShowDrawerModal] = useState(false);
 
-  const fileItems: MenuProps['items'] =
+  const fileItems =
     list?.map((item, index) => {
       return {
         ...item,
@@ -39,9 +38,13 @@ export default function PreviewFile(props: TPropsType) {
 
   const btnCom = useMemo(() => {
     return (
-      <div className="flex items-center justify-center h-8 bg-Neutral-Default-BG px-2 leading-8 rounded-md cursor-pointer">
-        <Image width={14} height={14} src={ProposalDetailFile} alt="" onClick={handleClick}></Image>
-        {!isSM && <span className="ml-1">Documentation</span>}
+      <div className="flex items-center justify-center h-8 bg-fillBg8 px-2 leading-8 rounded-xl cursor-pointer">
+        {/* <Image width={14} height={14} src={ProposalDetailFile} alt="" onClick={handleClick}></Image> */}
+        {/* {!isSM && <span className="ml-1">Documentation</span>} */}
+        <span className="ml-1 text-lightGrey font-Montserrat font-medium flex items-center gap-2">
+          <i className="text-lightGrey tmrwdao-icon-document text-[20px]" />
+          <span className="text-[12px]">Documentation</span>
+        </span>
       </div>
     );
   }, [handleClick, isSM]);
@@ -52,12 +55,8 @@ export default function PreviewFile(props: TPropsType) {
 
   return (
     <div>
-      {isSM ? (
-        btnCom
-      ) : (
-        <Dropdown menu={{ items: fileItems }} placement="bottomRight">
-          {btnCom}
-        </Dropdown>
+      {isSM ? null : (
+        <Dropdown placement="bottomRight" items={fileItems} trigger={<>{btnCom}</>}></Dropdown>
       )}
       <CommonDrawer title="Documentation" open={showDrawerModal} onClose={handleClose}>
         <List

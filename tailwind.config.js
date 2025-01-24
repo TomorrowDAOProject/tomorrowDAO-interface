@@ -197,7 +197,7 @@ module.exports = {
         },
 
         '.page-content-bg-border': {
-          '@apply bg-white rounded-lg border border-solid border-Neutral-Divider px-4 lg:px-8 py-4 lg:py-8':
+          '@apply bg-darkBg rounded-lg border border-solid border-fillBg8 px-4 lg:px-8 py-4 lg:py-8':
             {},
         },
 
@@ -208,7 +208,7 @@ module.exports = {
           '@apply px-4 lg:px-8': {},
         },
         '.tabpanel-content-padding': {
-          '@apply px-4 lg:px-8 pb-4': {},
+          '@apply p-[22px] lg:px-[38px] py-[24px]': {},
         },
 
         '.dao-border-round': {
@@ -226,12 +226,12 @@ module.exports = {
         },
 
         '.dao-detail-card': {
-          '@apply border-0 lg:border lg:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg px-4 lg:px-6 lg:py-[25px] pt-[8px] pb-[24px]':
+          '@apply border-0 lg:border lg:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg xl:px-[32px] xl:py-[24px] lg:px-[32px] lg:py-[24px] md:px-[32px] md:py-[24px] p-[22px]':
             {},
         },
 
         '.card-title': {
-          '@apply text-[20px] leading-[28px] text-white font-medium': {},
+          '@apply font-Montserrat text-[18px] leading-[28px] text-white font-medium': {},
         },
         '.card-sm-text': {
           '@apply text-[14px] leading-[22px]': {},

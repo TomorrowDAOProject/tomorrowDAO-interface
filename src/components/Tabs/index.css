@@ -1,0 +1,25 @@
+.tabs-container {
+ @apply font-Montserrat;
+}
+
+.tabs-header-box {
+  @apply w-full border-0 border-solid border-b border-fillBg8;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none
+  }
+}
+
+.tabs-header {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.tab-item {
+  @apply py-[12px] px-[22px] xl:py-[17px] xl:px-[32px] lg:py-[17px] lg:px-[32px] md:py-[17px] md:px-[32px] cursor-pointer text-lightGrey;
+  flex: 0 0 auto;
+}
+
+.tab-item.active {
+  @apply border-0 border-b border-solid border-mainColor text-white;
+}

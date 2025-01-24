@@ -1,5 +1,4 @@
 import { useRouter } from 'next/navigation';
-import { ReactComponent as ArrowRight } from 'assets/revamp-icon/arrow-right.svg';
 import './index.css';
 
 const Navigation = () => {
@@ -12,7 +11,7 @@ const Navigation = () => {
       >
         TMRW DAO
       </span>
-      <ArrowRight />
+      <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
       <span className="text-white text-[14px] create-dao">Create a DAO</span>
     </div>
   );

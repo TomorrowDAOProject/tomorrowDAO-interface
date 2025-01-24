@@ -1,7 +1,7 @@
-import { Input, Button, HashAddress, Tooltip } from 'aelf-design';
+import { HashAddress, Tooltip } from 'aelf-design';
 import Link from 'next/link';
 import { curChain, explorer, treasuryContractAddress } from 'config';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
 import { useInfiniteScroll, useRequest } from 'ahooks';
 import {
   addCommentReq,
@@ -23,6 +23,10 @@ import clsx from 'clsx';
 import { xssFilter } from 'utils/xss';
 import useResponsive from 'hooks/useResponsive';
 import LoadMoreButton from 'components/LoadMoreButton';
+import Image from 'next/image';
+import Button from 'components/Button';
+import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
+import Input from 'components/Input';
 
 dayjs.extend(relativeTime);
 interface IDiscussionProps {
@@ -67,7 +71,7 @@ const CommentContent = ({ comment }: { comment: string }) => {
   const filtedContent = useMemo(() => xssFilter(comment), [comment]);
   return (
     <pre
-      className="body"
+      className="body text-white text-[15px]"
       dangerouslySetInnerHTML={{
         __html: filtedContent,
       }}
@@ -85,14 +89,13 @@ export default function Discussion(props: IDiscussionProps) {
   const { isLG } = useResponsive();
 
   const addToRenderQueueRef = useRef<AddToRenderQueueFn>();
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleChange = (value: string) => {
     if (value.length > maxLen) {
       setErrorMessage('Supports a maximum input of 10,000 characters.');
     } else {
       setErrorMessage('');
     }
-    setContent(e.target.value);
+    setContent(value);
   };
   const fetchCommentListsAPI: (data?: IFetchResult) => Promise<IFetchResult> = async (data) => {
     const preList = renderCommentLists;
@@ -243,21 +246,21 @@ export default function Discussion(props: IDiscussionProps) {
     checkSendStatus();
   }, [wallet?.address, checkSendStatus]);
   return (
-    <div className="discussion-wrap">
-      <h2 className="card-title">
+    <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
+      <div className="text-[18px] font-medium font-Montserrat text-white mb-[20px]">
         Discussion
         {total > 0 && <span> ({total})</span>}
-      </h2>
-      <div className="input-wrap">
+      </div>
+      <div className="input-wrap flex items-center justify-between gap-[20px]">
         <Input
           placeholder="Thoughts?..."
           className="input-box"
           onChange={handleChange}
-          status={errorMessage ? 'error' : ''}
+          // status={errorMessage ? 'error' : ''}
           value={content}
         />
         <Tooltip
-          className="send-tool-tip"
+          className="send-tool-tip shrink-0"
           title={sendButtonStatus?.message}
           trigger={isLG ? 'click' : 'hover'}
           overlayClassName="send-tool-tip"
@@ -266,12 +269,13 @@ export default function Discussion(props: IDiscussionProps) {
             <Button
               type="primary"
               onClick={handleSendComment}
-              className={clsx('send-button', {
+              className={clsx('send-button flex gap-[10px]', {
                 disabled: disabled,
               })}
               loading={addCommentLoading}
             >
-              Send it
+              <span>Send it</span>
+              <LinkIcon className="h-[11px] w-[11px]" />
             </Button>
           </div>
         </Tooltip>
@@ -279,21 +283,29 @@ export default function Discussion(props: IDiscussionProps) {
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       <ul className="message-lists">
         {renderCommentLists.map((commentItem) => {
+          console.log('commentItem', commentItem);
           return (
             <li className="message-lists-item" key={commentItem.id} data-id={commentItem.id}>
-              <div className="user">
-                {/* <Avatar /> */}
+              <div className="user flex items-center gap-4 mt-8 mb-[16px]">
+                {commentItem?.commenterPhoto ? (
+                  <Image src={commentItem?.commenterPhoto || ''} width={33} height={33} alt="" />
+                ) : (
+                  <div className="w-[33px] h-[33px] rounded-full bg-white"></div>
+                )}
+
                 <div className="user-info">
                   <Link href={`${explorer}/address/${commentItem.commenter}`}>
                     <HashAddress
                       preLen={8}
                       endLen={11}
-                      className="user-info-address"
+                      className="user-info-address text-white text-[13px]"
                       address={commentItem.commenter}
                       chain={curChain}
                     />
                   </Link>
-                  <p className="user-info-time">{getShortTimeDesc(commentItem.createTime)}</p>
+                  <p className="user-info-time text-lightGrey text-[12px]">
+                    {getShortTimeDesc(commentItem.createTime)}
+                  </p>
                 </div>
               </div>
               <CommentContent comment={commentItem.comment} />

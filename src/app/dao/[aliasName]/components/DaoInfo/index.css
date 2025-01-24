@@ -3,7 +3,7 @@
 }
 
 .dao-detail-dis {
-  @apply border border-fillBg8 border-solid rounded-lg bg-darkBg pt-6;
+  @apply border border-fillBg8 border-solid rounded-lg bg-darkBg px-[30px] py-[32px];
 
   .TMRWDAO-descriptions .TMRWDAO-descriptions-row>td {
     @apply pb-[12px];
@@ -64,7 +64,7 @@
 }
 
 .dao-collapse-panel {
-  @apply font-[300] text-[16px] leading-[24px] text-white font-Unbounded;
+  @apply font-[300] text-[15px] leading-[24px] text-white font-Unbounded;
 }
 
 .dao-collapse-panel-label {
@@ -72,5 +72,22 @@
 }
 
 .dao-collapse-panel-child {
-  @apply font-[500] text-[14px] leading-[22px] text-white font-Montserrat;
+  @apply font-medium text-[14px] leading-[22px] text-white font-Montserrat;
+  .TMRWDAO-hash-address {
+    >span {
+      @apply text-white;
+
+    }
+    .TMRWDAO-icon {
+      @apply text-white hover:text-white;
+    }
+  }
+}
+.dao-detail-dis .ant-collapse-header {
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+.dao-detail-dis .ant-collapse-content-box {
+  padding-left: 0!important;
+  padding-right: 0!important;
 }
