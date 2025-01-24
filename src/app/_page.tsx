@@ -276,8 +276,8 @@ const Page = () => {
           </section>
 
           <section className="py-[40px] md:py-[55px] lg:py-[80px] xl:py-[100px]">
-            <div className="flex flex-col md:flex-row">
-              <div className="flex flex-col md:pr-[64px] md:flex-1 lg:pr-[76px] xl:pr-[78px]">
+            <div className="flex flex-col md:flex-row md:gap-[18px]">
+              <div className="flex flex-col md:pr-[64px] md:w-1/2 lg:pr-[76px] xl:pr-[78px] box-border">
                 <h2 className="mt-0 mb-[30px] text-[24px] font-Unbounded font-light text-white text-left lg:mb-[16px] lg:text-[38.4px] xl:mb-[21px] xl:text-[48px] tracking-[-0.48px] lg:tracking-[-3px] xl:tracking-[-3.84px]">
                   AI Driven DAO
                 </h2>
@@ -291,7 +291,7 @@ const Page = () => {
                 />
               </div>
 
-              <div className="mt-[30px] md:mt-0 md:flex-1">
+              <div className="mt-[30px] md:mt-0 md:w-1/2">
                 <Collapse items={AI_DRIVEN_DAO_ITEMS} />
               </div>
             </div>
@@ -311,7 +311,7 @@ const Page = () => {
                 </span>
                 <Link
                   href="/network-dao"
-                  className="font-Montserrat font-medium text-baseText !bg-transparent border border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out hidden items-center gap-[10px] md:inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
+                  className="font-Montserrat font-medium text-baseText !bg-transparent border border-solid border-baseText px-[19.37px] py-[10.65px] lg:px-[16px] lg:py-[8.8px] xl:px-[20px] xl:py-[11px] rounded-[42px] no-underline transition-all duration-300 ease-in-out items-center gap-[10px] inline-flex hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
                 >
                   Find out more
                   <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />

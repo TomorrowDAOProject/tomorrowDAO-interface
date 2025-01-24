@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface SelectOption {
   label: string;
@@ -28,12 +28,27 @@ const Select: React.FC<ISelectProps> = ({
 }) => {
   const [selected, setSelected] = useState<SelectOption | undefined>();
   const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef<HTMLDivElement | null>(null);
 
   const handleSelect = (option: SelectOption) => {
     setSelected(option);
     setIsOpen(false);
     onChange?.(option);
   };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (value) {
@@ -43,7 +58,7 @@ const Select: React.FC<ISelectProps> = ({
   }, [options, value]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={selectRef}>
       {label && (
         <span className="block mb-[10px] text-descM14 font-Montserrat text-white">{label}</span>
       )}
