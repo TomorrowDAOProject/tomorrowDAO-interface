@@ -1,7 +1,8 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Tabs, Pagination } from 'aelf-design';
-import { Form, message } from 'antd';
+import { Pagination } from 'aelf-design';
+import Tabs from 'components/Tabs';
+// import { Form, message } from 'antd';
 import { useSelector } from 'react-redux';
 import { SkeletonList } from 'components/Skeleton';
 import useResponsive from 'hooks/useResponsive';
@@ -56,7 +57,7 @@ export default function DeoDetails(props: IProps) {
   const { daoInfo: daoData, ProposalListResData } = ssrData;
   const { isLG } = useResponsive();
 
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   const [tabKey, setTabKey] = useState(TabKey.PROPOSALS);
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   // const [daoDetail, setDaoDetail] = useState<IDaoDetail>(data);
@@ -74,7 +75,7 @@ export default function DeoDetails(props: IProps) {
   const fetchProposalListWithParams = async (newTableParams: IProposalTableParams) => {
     const { proposalType, proposalStatus } = newTableParams;
     if (!aliasName) {
-      message.error('aliasName is required');
+      // message.error('aliasName is required');
       return null;
     }
     const params: IProposalListReq = {
@@ -143,6 +144,18 @@ export default function DeoDetails(props: IProps) {
     },
     [run, setTableParams],
   );
+
+  const handleParamsChange = (params: IProposalTableParams) => {
+    handleTableParamsChange({
+      ...params,
+      pagination: tableParams.pagination ?? {
+        current: 1,
+        pageSize: DEFAULT_PAGESIZE,
+        total: 0,
+      },
+    });
+  };
+
   const tabItems = useMemo(() => {
     const CreateButton = (
       <ButtonCheckLogin
@@ -163,16 +176,12 @@ export default function DeoDetails(props: IProps) {
         key: TabKey.PROPOSALS,
         label: 'All Proposals',
         children: (
-          <div className={`tab-all-proposals `}>
+          <div className="tab-all-proposals">
             <div className={`tab-all-proposals-header `}>
               <span className="text-white text-[18px] font-Montserrat font-[500]">Proposals</span>
               {CreateButton}
             </div>
-            <Filter
-              form={form}
-              tableParams={tableParams}
-              onChangeTableParams={handleTableParamsChange}
-            />
+            <Filter tableParams={tableParams} onChangeTableParams={handleParamsChange} />
           </div>
         ),
       },
@@ -189,7 +198,7 @@ export default function DeoDetails(props: IProps) {
             <MyInfoContent
               daoId={daoId}
               isTokenGovernanceMechanism={isTokenGovernanceMechanism}
-              className="border-0  px-[16px] pt-[8px] pb-[24px] lg:mb-[16px] mb-0"
+              className="border-0 p-[22px] xl:px-[32px] xl:py-[24px] xl:mb-[16px] lg:px-[32px] lg:py-[24px] lg:mb-[16px] md:px-[32px] md:py-[24px] md:mb-[16px] mb-0"
             />
           ),
         });
@@ -227,7 +236,6 @@ export default function DeoDetails(props: IProps) {
   }, [
     createProposalLoading,
     daoData,
-    form,
     tableParams,
     isLG,
     handleTableParamsChange,
@@ -277,14 +285,7 @@ export default function DeoDetails(props: IProps) {
   }, []);
 
   const tabCom = useMemo(() => {
-    return (
-      <Tabs
-        size={isLG ? 'small' : 'middle'}
-        activeKey={tabKey}
-        items={tabItems}
-        onChange={handleTabChange}
-      />
-    );
+    return <Tabs activeKey={tabKey} items={tabItems} onChange={handleTabChange} />;
   }, [isLG, tabItems, tabKey]);
 
   useEffect(() => {
@@ -330,8 +331,13 @@ export default function DeoDetails(props: IProps) {
                 {proposalLoading ? (
                   <SkeletonList />
                 ) : proposalError ? (
-                  <div>
-                    <ErrorResult />
+                  <div className="text-white font-Montserrat text-center mb-[30px] h-[100px] flex flex-col items-center justify-center">
+                    <div className="text-white text-[15px] font-[500] mb-[10px]">
+                      something went wrong
+                    </div>
+                    <div className="text-lightGrey text-[12px]">
+                      Please check your network connection, Try again later.
+                    </div>
                   </div>
                 ) : proposalData?.items?.length ? (
                   proposalData?.items?.map((item) => {
@@ -351,15 +357,19 @@ export default function DeoDetails(props: IProps) {
                     );
                   })
                 ) : (
-                  <NoData />
+                  <div className="mb-[30px]">
+                    <NoData />
+                  </div>
                 )}
-                <Pagination
-                  {...tableParams.pagination}
-                  total={proposalData?.totalCount ?? 0}
-                  pageChange={pageChange}
-                  pageSizeChange={pageSizeChange}
-                  defaultPageSize={DEFAULT_PAGESIZE}
-                />
+                <div className="pagination-warp">
+                  <Pagination
+                    {...tableParams.pagination}
+                    total={proposalData?.totalCount ?? 0}
+                    pageChange={pageChange}
+                    pageSizeChange={pageSizeChange}
+                    defaultPageSize={DEFAULT_PAGESIZE}
+                  />
+                </div>
               </div>
             )}
             {/* < 1024 */}

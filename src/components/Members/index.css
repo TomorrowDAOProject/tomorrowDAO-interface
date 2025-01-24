@@ -11,6 +11,5 @@
 }
 
 .dao-members-item {
-  @apply h-[62px] flex items-center;
-  border-bottom: 1px solid #EDEDED;
+  @apply h-[62px] flex items-center font-Montserrat text-white;
 }

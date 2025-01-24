@@ -3,7 +3,7 @@
 }
 
 .dao-detail-dis {
-  @apply border border-fillBg8 border-solid rounded-lg bg-darkBg pt-6;
+  @apply border border-fillBg8 border-solid rounded-lg bg-darkBg px-[30px] py-[32px];
 
   .TMRWDAO-descriptions .TMRWDAO-descriptions-row>td {
     @apply pb-[12px];
@@ -73,4 +73,12 @@
 
 .dao-collapse-panel-child {
   @apply font-[500] text-[14px] leading-[22px] text-white font-Montserrat;
+}
+.dao-detail-dis .ant-collapse-header {
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+.dao-detail-dis .ant-collapse-content-box {
+  padding-left: 0!important;
+  padding-right: 0!important;
 }

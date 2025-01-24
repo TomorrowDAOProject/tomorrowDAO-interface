@@ -1,6 +1,4 @@
 .treasury-wrap {
-  @apply mb-[25px];
-
   .token img {
     @apply pr-[4px];
   }
@@ -84,15 +82,15 @@
   }
 
   .treasury-info-item-line-1 {
-    @apply text-Neutral-Secondary-Text text-[12px] leading-[20px] mb-1;
+    @apply text-lightGrey text-[12px] leading-[20px] mb-1;
   }
 
   .treasury-info-item-line-2 {
-    @apply text-Neutral-Primary-Text mb-1 flex justify-between;
+    @apply text-lightGrey mb-1 flex justify-between;
   }
 
   .treasury-info-item-line-3 {
-    @apply text-Neutral-Primary-Text flex justify-between;
+    @apply text-lightGrey flex justify-between;
   }
 }
 

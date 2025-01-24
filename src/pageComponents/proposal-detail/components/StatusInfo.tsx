@@ -19,14 +19,15 @@ const StatusInfo = (props: IStatusInfoProps) => {
     const proposalStatus = item.proposalStatus as AllProposalStatusString;
     return (
       <>
-        <div className="flex items-center gap-4">
-          {index == 0 ? (
+        <div className="flex items-center gap-4 shrink-0">
+          {(proposalDetailData?.proposalLifeList.length == 2 && index == 0) ||
+          (proposalDetailData?.proposalLifeList.length == 3 && (index == 0 || index == 1)) ? (
             <>
               <Published />
             </>
           ) : (
-            <div className="bg-mainColor w-[30px] h-[30px] rounded-full flex items-center justify-center font-Montserrat text-[14px] font-[500] text-white">
-              2
+            <div className="bg-mainColor w-[30px] h-[30px] m-[4px] rounded-full flex items-center justify-center font-Montserrat text-[14px] font-[500] text-white">
+              {index + 1}
             </div>
           )}
 
@@ -37,9 +38,13 @@ const StatusInfo = (props: IStatusInfoProps) => {
             </div>
           </div>
         </div>
-        {index == 0 && (
-          <div className="h-0 w-[calc(100%-300px)] border border-t border-solid border-mainColor bg-mainColor"></div>
-        )}
+        {(proposalDetailData?.proposalLifeList.length == 2 && index == 0) ||
+        (proposalDetailData?.proposalLifeList.length == 3 && (index == 0 || index == 1)) ? (
+          <>
+            <div className="h-0 w-[calc(100%-300px)] border border-t border-solid border-mainColor bg-mainColor hidden lg:block"></div>
+            <div className="h-[36px] w-0 border border-l border-solid border-mainColor bg-mainColor ml-[17px] lg:hidden"></div>
+          </>
+        ) : null}
       </>
     );
   });
@@ -47,14 +52,8 @@ const StatusInfo = (props: IStatusInfoProps) => {
   return (
     <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
       <div className="text-[18px] font-[500] font-Montserrat text-white mb-[20px]">Status</div>
-      <div className="flex items-center justify-between">
+      <div className="flex lg:items-center justify-between flex-col lg:flex-row gap-[6px]">
         {stepItmes}
-        {/* <Steps
-          current={stepItmes?.length ? stepItmes?.length - 1 : 0}
-          items={stepItmes}
-          labelPlacement={isLG ? 'vertical' : 'horizontal'}
-          className="font-Montserrat"
-        /> */}
       </div>
     </div>
   );
