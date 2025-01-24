@@ -47,10 +47,17 @@ export const showErrorModal = (primaryContent: string, secondaryContent: string)
     footerConfig: {
       buttonList: [
         {
-          children: <span>OK</span>,
-          onClick: () => {
-            eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-          },
+          children: (
+            <Button
+              type="primary"
+              className="w-full"
+              onClick={() => {
+                eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+              }}
+            >
+              OK
+            </Button>
+          ),
         },
       ],
     },

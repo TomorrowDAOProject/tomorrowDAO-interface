@@ -1,29 +1,29 @@
 import { fetchDaoInfo } from 'api/request';
-import { TBreadcrumbItems } from 'components/Breadcrumb';
+import { TBreadcrumbItem } from 'components/Breads';
 import { curChain } from 'config';
-type TUpdateCallBack = (items: TBreadcrumbItems) => void;
+type TUpdateCallBack = (items: TBreadcrumbItem[]) => void;
 
-const homePage: TBreadcrumbItems = [
+const homePage: TBreadcrumbItem[] = [
   {
     title: 'Home',
     href: '/',
   },
 ];
-const explorePage: TBreadcrumbItems = [
+const explorePage: TBreadcrumbItem[] = [
   ...homePage,
   {
     title: 'Explore',
     href: '/explore',
   },
 ];
-const createDaoPage: TBreadcrumbItems = [
+const createDaoPage: TBreadcrumbItem[] = [
   ...homePage,
   {
     title: 'Create a DAO',
   },
 ];
 export const defaultDaoName = 'DAO Information';
-type TBreadcrumbFn = (daoAliasName?: string, daoName?: string) => TBreadcrumbItems;
+type TBreadcrumbFn = (daoAliasName?: string, daoName?: string) => TBreadcrumbItem[];
 // ------- href: /dao/:daoAliasName
 const daoDetailPage: TBreadcrumbFn = (daoAliasName, daoName) => {
   return [

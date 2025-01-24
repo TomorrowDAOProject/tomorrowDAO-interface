@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 
 export interface SelectOption {
-  label: string;
-  value: string;
+  label: React.ReactNode;
+  desc?: React.ReactNode;
+  value: string | number;
 }
 
 interface ISelectProps {
@@ -14,6 +15,8 @@ interface ISelectProps {
   placehoder?: string;
   defaultValue?: SelectOption;
   isError?: boolean;
+  overlayClassName?: string;
+  overlayItemClassName?: string;
   onChange?(option: SelectOption): void;
 }
 
@@ -24,6 +27,8 @@ const Select: React.FC<ISelectProps> = ({
   options,
   placehoder,
   isError,
+  overlayClassName,
+  overlayItemClassName,
   onChange,
 }) => {
   const [selected, setSelected] = useState<SelectOption | undefined>();
@@ -51,6 +56,7 @@ const Select: React.FC<ISelectProps> = ({
   }, []);
 
   useEffect(() => {
+    console.log('value', value);
     if (value) {
       const currentValue = options.find((option) => option.value === value);
       setSelected(currentValue);
@@ -81,14 +87,27 @@ const Select: React.FC<ISelectProps> = ({
         <span className="tmrwdao-icon-down-arrow text-[20px] text-lightGrey" />
       </div>
       {isOpen && (
-        <ul className="absolute max-h-[190px] overflow-y-auto w-full mt-1 py-4 bg-darkBg border border-solid border-fillBg8 rounded-[8px] shadow-lg z-10">
+        <ul
+          className={clsx(
+            'absolute max-h-[190px] overflow-y-auto w-full mt-1 py-4 bg-darkBg border border-solid border-fillBg8 rounded-[8px] shadow-lg z-10',
+            overlayClassName,
+          )}
+        >
           {options.map((option) => (
             <li
               key={option.value}
-              className="py-2 px-4 font-Montserrat text-DescM14 text-lightGrey hover:text-white hover:bg-fillBg8 cursor-pointer"
+              className={clsx(
+                'py-2 px-4 font-Montserrat text-DescM14 text-lightGrey hover:text-white hover:bg-fillBg8 cursor-pointer',
+                overlayItemClassName,
+              )}
               onClick={() => handleSelect(option)}
             >
               {option.label}
+              {option.desc && (
+                <span className="block text-desc14 text-lightGrey font-Montserrat">
+                  {option.desc}
+                </span>
+              )}
             </li>
           ))}
         </ul>

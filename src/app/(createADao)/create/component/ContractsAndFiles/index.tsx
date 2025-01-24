@@ -104,7 +104,6 @@ export default function ContractsAndFiles() {
           <Upload
             accept=".pdf"
             className="mx-auto"
-            needCheckImgSize
             fileLimit={FILE_LIMIT}
             uploadText="Click to Upload"
             tips={uploadTips}

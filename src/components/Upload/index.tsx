@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Spinner from '../Spinner';
 import pinFileToIPFS from 'components/PinFileToIPFS';
 import { toast } from 'react-toastify';
-import { checkImgSize } from 'utils/checkImgSize';
+import { checkImgRatio, checkImgSize } from 'utils/checkImgSize';
 
 interface IUploadProps {
   extensions?: string[];
@@ -16,6 +16,8 @@ interface IUploadProps {
   accept?: string;
   tips?: ReactNode;
   value?: string;
+  ratio?: number | [number, number];
+  ratioErrorText?: string;
   fileNameLengthLimit?: number;
   onStart?(): void;
   onFileChange?(file: File): void;
@@ -58,6 +60,8 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
       tips,
       accept,
       value,
+      ratio,
+      ratioErrorText,
       fileLimit = '1 MB',
       needCheckImgSize,
       fileNameLengthLimit,
@@ -88,10 +92,18 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
       }
 
       if (needCheckImgSize) {
-        const checkSize = await checkImgSize(file);
-        if (!checkSize) {
-          toast.error('Please upload an image with the same width and height.');
-          return false;
+        if (ratio) {
+          const checkSize = await checkImgRatio(file, ratio ?? 0);
+          if (!checkSize) {
+            toast.error(ratioErrorText ?? 'Please upload an image with a aspect ratio.');
+            return false;
+          }
+        } else {
+          const checkSize = await checkImgSize(file);
+          if (!checkSize) {
+            toast.error('Please upload an image with the same width and height.');
+            return false;
+          }
         }
       }
 
@@ -121,6 +133,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
 
     const handleUpload = async (file: File) => {
       const result = await onBeforeUpload(file);
+      console.log('result', result);
       if (!result) return;
       if (file?.type?.includes('image')) {
         const imageDataUrl = (await readFile(file)) as string;
