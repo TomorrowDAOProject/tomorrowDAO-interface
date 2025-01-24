@@ -38,8 +38,12 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
   }, []);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
   };
 
   const handleItemClick = (key: string) => {
@@ -76,10 +80,13 @@ const Dropdown: React.FC<DropdownProps> = ({
   }, [isOpen, placement]);
 
   return (
-    <div className="dropdown" ref={dropdownRef}>
-      <div className="dropdown-trigger" onClick={toggleDropdown}>
-        {trigger}
-      </div>
+    <div
+      className="dropdown"
+      ref={dropdownRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="dropdown-trigger">{trigger}</div>
 
       {isOpen && (
         <div className="dropdown-menu" ref={menuRef}>
