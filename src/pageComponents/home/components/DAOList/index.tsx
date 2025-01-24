@@ -6,9 +6,10 @@ import { curChain } from 'config';
 
 import './index.css';
 import LoadMoreButton from 'components/LoadMoreButton';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Button from 'components/Button';
 import Spinner from 'components/Spinner';
+import { useLandingPageResponsive } from 'hooks/useResponsive';
 
 interface IDAOListProps {
   ssrData: {
@@ -23,6 +24,8 @@ export default function DAOList(props: IDAOListProps) {
   const [renderList, setRenderList] = useState<IDaoItem[]>(daoList);
   const [hasData, setHasData] = useState(daoHasData);
   const [loading, setLoading] = useState(false);
+  const [showAll, setShowAll] = useState(false);
+  const { isPhone } = useLandingPageResponsive();
   const loadMore = async () => {
     setLoading(true);
     const res = await fetchDaoList({
@@ -36,6 +39,11 @@ export default function DAOList(props: IDAOListProps) {
     setLoading(false);
   };
 
+  const verifiedDaos = useMemo(
+    () => verifiedDaoList?.slice(0, isPhone && !showAll ? 3 : verifiedDaoList.length) || [],
+    [isPhone, showAll, verifiedDaoList],
+  );
+
   return (
     <>
       <div className="col-12">
@@ -43,9 +51,9 @@ export default function DAOList(props: IDAOListProps) {
           Verified DAOs
         </span>
       </div>
-      {verifiedDaoList ? (
+      {verifiedDaos.length > 0 ? (
         <>
-          {verifiedDaoList?.map((item) => {
+          {verifiedDaos?.map((item) => {
             return (
               <div className="col-12 md:col-6" key={item.daoId}>
                 <Link
@@ -60,6 +68,17 @@ export default function DAOList(props: IDAOListProps) {
         </>
       ) : (
         <Empty description="No results found" className="mb-[30px]" />
+      )}
+      {isPhone && !showAll && verifiedDaos.length > 0 && (
+        <div className="col-12 flex items-center justify-center">
+          <Button
+            type="link"
+            className="!py-0 gap-2 !text-descM14"
+            onClick={() => setShowAll(true)}
+          >
+            View More
+          </Button>
+        </div>
       )}
       <div className="col-12 mt-[50px]">
         <span className="font-Unbounded text-[15px] font-light text-white -tracking-[0.6px]">

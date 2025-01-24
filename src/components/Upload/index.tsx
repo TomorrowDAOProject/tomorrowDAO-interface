@@ -1,10 +1,10 @@
 import { forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
-import Spinner from '../Spinner';
 import pinFileToIPFS from 'components/PinFileToIPFS';
 import { toast } from 'react-toastify';
 import { checkImgRatio, checkImgSize } from 'utils/checkImgSize';
+import { emitLoading } from 'utils/myEvent';
 
 interface IUploadProps {
   extensions?: string[];
@@ -141,6 +141,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
       }
       try {
         setLoading(true);
+        emitLoading(true, 'Loading.....');
         onStart?.();
         const uploadData = await pinFileToIPFS(file as File);
         if (!uploadData.cid) {
@@ -152,6 +153,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
       } catch (error) {
         toast.error(`Please check your internet connection and try again.`);
       } finally {
+        emitLoading(false);
         setLoading(false);
       }
     };
@@ -204,8 +206,6 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
           accept={accept || '.png, .jpg, .jpeg'}
           onChange={handleFileChange}
         />
-
-        {loading && <Spinner size={60} className="absolute top-0 left-0 right-0 bottom-0 z-10" />}
       </div>
     );
   },

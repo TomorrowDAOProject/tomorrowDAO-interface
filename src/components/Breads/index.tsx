@@ -55,7 +55,7 @@ const Breads = ({ className }: IBreadsProps) => {
   return (
     <div className={clsx('flex items-center gap-2', className)}>
       {renderItems?.map((item, index) => (
-        <span className="flex items-center gap-2">
+        <span className="flex items-center gap-2" key={`${item.title}_${index}`}>
           <span
             className={clsx('text-lightGrey text-[15px] font-Montserrat', {
               '!text-desc14 !text-white': index === renderItems.length - 1,

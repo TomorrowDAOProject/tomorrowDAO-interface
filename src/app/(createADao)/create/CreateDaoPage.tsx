@@ -2,13 +2,11 @@
 
 import { useMachine } from '@xstate/react';
 import { formMachine } from './xstate';
-import { ReactComponent as LinkIcon } from 'assets/revamp-icon/link.svg';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Result } from 'antd';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import SubmitButton, { ISubmitRef } from './component/SubmitButton';
-import { daoCreateContractRequest } from 'contract/daoCreateContract';
 import { useSelector } from 'redux/store';
 import { timesDecimals } from 'utils/calculate';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
@@ -220,14 +218,15 @@ const CreateDaoPage = () => {
           primaryContent: `${originMetadata?.metadata.name} is successfully created`,
           secondaryContent: (
             <>
-              {`If you wish to modify the DAO&apos;s display information, \nyou can join the`}{' '}
+              {`If you wish to modify the DAO's display information, \nyou can join the`}{' '}
               <Link
-                className="text-mainColor cursor-pointer"
+                className="text-mainColor cursor-pointer underline"
                 href={'https://t.me/tmrwdao'}
                 target="_blank"
               >
                 Telegram group
               </Link>
+              {`.`}
             </>
           ),
           footerConfig: {
@@ -379,7 +378,7 @@ const CreateDaoPage = () => {
 
             <div
               className={clsx(
-                'flex py-6 lg:py-8',
+                'flex mt-[50px]',
                 isNotFirstStep ? 'gap-3 justify-between' : 'justify-end',
                 isHighCouncilStep && !isShowHighCouncil ? 'border-t-0' : '',
               )}

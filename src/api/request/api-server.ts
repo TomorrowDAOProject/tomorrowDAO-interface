@@ -1,13 +1,13 @@
 import queryString from 'query-string';
 import * as Sentry from '@sentry/nextjs';
 import { eventBus, UnAuth } from 'utils/myEvent';
-import { message } from 'antd';
 import { apiServerBase, networkType } from 'config';
 import { runTimeEnv } from 'utils/env';
 import { SentryEvents } from 'types/sentry';
 import { telegramNeedAuthList } from '../api-wrap/telegram';
 import { tmrwNeedAuthList } from '../url/tmrw';
 import { tokenIssueUrl } from 'api/url/tmrw';
+import { toast } from 'react-toastify';
 export const apiServerBaseURL = apiServerBase + '/api/app';
 const defaultServerError = 'The API has an error. Please refresh and retry.';
 export const LoginExpiredTip = 'Login expired, please log in again';
@@ -105,7 +105,7 @@ class RequestFetch {
         return json as T;
       }
       if (typeof window !== 'undefined') {
-        message.error(errorMessage);
+        toast.error(errorMessage);
       } else {
         Sentry.captureMessage(SentryEvents.SERVER_API_REQUEST_ERROR, {
           level: 'info',
@@ -150,7 +150,7 @@ class RequestFetch {
       }
 
       if (typeof window !== 'undefined') {
-        message.error(errMessage);
+        toast.error(errMessage);
       } else {
         Sentry.captureMessage(SentryEvents.SERVER_API_REQUEST_ERROR, {
           level: 'info',
