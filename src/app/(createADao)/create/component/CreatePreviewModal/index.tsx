@@ -56,7 +56,7 @@ function CheckboxItem({
           <div className="dot" />
           {children?.length ? (
             <div className="flex gap-2">
-              <span className={`font-[500]`}>{content}</span>
+              <span className={`font-medium`}>{content}</span>
               {children.map((item, idx) => (
                 <span key={idx} className="text-lightGrey text-[12px]">
                   {item}
@@ -84,7 +84,7 @@ function AddressItem({
   return (
     <div className={`flex items-center  flex-wrap ${isBoldLabel ? 'gap-2' : 'gap-0'}`}>
       {isBoldLabel ? (
-        <div className="mr-1 text-white font-[500] text-[15px]">{label}:</div>
+        <div className="mr-1 text-white font-medium text-[15px]">{label}:</div>
       ) : (
         <span className="mr-2 text-white">{label}:</span>
       )}
@@ -154,7 +154,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
                 size={CommonDaoLogoSizeEnum.Small}
               />
             )}
-            <div className="font-[500] text-white text-[18px]">{metaData?.metadata?.name}</div>
+            <div className="font-medium text-white text-[18px]">{metaData?.metadata?.name}</div>
           </div>
           <span className="text-lightGrey text-[13px]">{metaData?.metadata?.description}</span>
           <div className="flex gap-3 flex-wrap">
@@ -168,7 +168,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
           <AddressItem isBoldLabel label="Metadata admin" address={walletInfo.address} />
           {metaData?.governanceToken && (
             <div className="flex gap-2 items-center ">
-              <span className="font-[500] text-[15px] text-white">Governance token:</span>
+              <span className="font-medium text-[15px] text-white">Governance token:</span>
               <span className="text-lightGrey text-[12px]">{metaData?.governanceToken}</span>
             </div>
           )}

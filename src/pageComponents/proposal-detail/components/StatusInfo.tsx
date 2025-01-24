@@ -26,7 +26,7 @@ const StatusInfo = (props: IStatusInfoProps) => {
               <Published />
             </>
           ) : (
-            <div className="bg-mainColor w-[30px] h-[30px] m-[4px] rounded-full flex items-center justify-center font-Montserrat text-[14px] font-[500] text-white">
+            <div className="bg-mainColor w-[30px] h-[30px] m-[4px] rounded-full flex items-center justify-center font-Montserrat text-[14px] font-medium text-white">
               {index + 1}
             </div>
           )}
@@ -51,7 +51,7 @@ const StatusInfo = (props: IStatusInfoProps) => {
 
   return (
     <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
-      <div className="text-[18px] font-[500] font-Montserrat text-white mb-[20px]">Status</div>
+      <div className="text-[18px] font-medium font-Montserrat text-white mb-[20px]">Status</div>
       <div className="flex lg:items-center justify-between flex-col lg:flex-row gap-[6px]">
         {stepItmes}
       </div>

@@ -247,7 +247,7 @@ export default function Discussion(props: IDiscussionProps) {
   }, [wallet?.address, checkSendStatus]);
   return (
     <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
-      <div className="text-[18px] font-[500] font-Montserrat text-white mb-[20px]">
+      <div className="text-[18px] font-medium font-Montserrat text-white mb-[20px]">
         Discussion
         {total > 0 && <span> ({total})</span>}
       </div>

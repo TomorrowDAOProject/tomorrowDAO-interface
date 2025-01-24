@@ -44,7 +44,7 @@ const Members: React.FC<IProps> = (props) => {
         <SkeletonLine />
       ) : (
         <div>
-          <div className="text-white font-[500] text-[18px] font-Montserrat mb-[20px]">
+          <div className="text-white font-medium text-[18px] font-Montserrat mb-[20px]">
             {cardTitle}
           </div>
           <div className="flex justify-between items-start lg:items-center lg:flex-row flex-col">

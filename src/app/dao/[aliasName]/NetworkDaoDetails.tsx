@@ -77,7 +77,7 @@ export default function DeoDetails(props: IProps) {
         key: TabKey.PROPOSALS,
         label: 'All Proposals',
         children: (
-          <div className={`tab-all-proposals`}>
+          <div className="tab-all-proposals">
             <div className={`tab-all-proposals-header `}>
               <h3 className="title">Proposals</h3>
               {CreateButton}

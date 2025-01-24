@@ -150,7 +150,7 @@ const VoteResultTable = (props: IVoteResultTableProps) => {
   return (
     <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
       <div className="flex justify-between">
-        <span className="text-[18px] font-[500] font-Montserrat text-white mb-[20px]">
+        <span className="text-[18px] font-medium font-Montserrat text-white mb-[20px]">
           Voting Results
         </span>
       </div>

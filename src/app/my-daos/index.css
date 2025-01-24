@@ -9,7 +9,7 @@
   }
 
   .list-header {
-    @apply font-Montserrat h-[56px] py-[17px] px-[32px] text-white text-[15px] font-[500] border-0 border-solid border-b border-fillBg8;
+    @apply font-Montserrat h-[56px] py-[17px] px-[32px] text-white text-[15px] font-medium border-0 border-solid border-b border-fillBg8;
   }
 
   .list-body {
@@ -21,7 +21,7 @@
   }
 
   .list-body-content-item {
-    @apply py-[16px] flex gap-[14px] items-center font-Montserrat text-[15px] font-[500];
+    @apply py-[16px] flex gap-[14px] items-center font-Montserrat text-[15px] font-medium;
 
     img {
       @apply w-[30px] h-[30px] rounded-full;

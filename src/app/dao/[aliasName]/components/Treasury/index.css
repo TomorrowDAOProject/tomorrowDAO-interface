@@ -51,11 +51,11 @@
   }
 
   .assets-title {
-    @apply font-[500] text-[18px] leading-[28px] mt-6 font-Montserrat text-white;
+    @apply font-medium text-[18px] leading-[28px] mt-6 font-Montserrat text-white;
   }
 
   .text-14-22-500 {
-    @apply text-[14px] leading-[22px] font-[500];
+    @apply text-[14px] leading-[22px] font-medium;
   }
 
   .assets-help-message {
@@ -67,11 +67,11 @@
   }
 
   .card-title {
-    @apply font-[500] text-[18px] leading-[28px] font-Montserrat;
+    @apply font-medium text-[18px] leading-[28px] font-Montserrat;
   }
 
   .usd-value {
-    @apply font-[500] text-[24px] leading-[32px] flex-1 text-white;
+    @apply font-medium text-[24px] leading-[32px] flex-1 text-white;
   }
 
   .treasury-info-item-line-1 {
