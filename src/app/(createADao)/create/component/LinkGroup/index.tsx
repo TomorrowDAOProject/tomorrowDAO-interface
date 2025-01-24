@@ -122,7 +122,9 @@ const LinkGroup = ({ value, errorText, onBlur, onChange }: ILinkGroupProps) => {
                 }
               />
               <i
-                className={"tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer"}
+                className={
+                  'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer'
+                }
                 onClick={() => removeLink(index)}
               />
             </div>
