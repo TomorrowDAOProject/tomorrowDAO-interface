@@ -25,7 +25,7 @@ Expired. Insufficient voters/ In sufficient votes.
 Vetoed on {24 Dec, 2023}.
 Failed to be executed, expired on {24 December, 2023}.
  */
-const dateFormat = 'YYYY-MM-DD';
+const dateFormat = 'MMM D, YYYY';
 const getDate = (date: string) => (date ? dayjs(date).format(dateFormat) : '');
 export default function ProposalStatusDesc(props: IProposalStatusDescProps) {
   const { proposalItem } = props;

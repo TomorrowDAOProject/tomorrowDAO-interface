@@ -181,7 +181,7 @@ const Treasury: React.FC<IProps> = (props) => {
       run();
     }
   }, [run, treasuryAddress]);
-  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[10px] border-fillBg8 border-solid rounded-lg bg-darkBg px-4 lg:px-6 lg:py-[25px]`;
+  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[25px] xl:mb-[25px] md:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg p-[22px] lg:px-[32px] lg:py-[24px] xl:px-[32px] xl:py-[24px] md:px-[32px] md:py-[24px]`;
   const existTransaction = Boolean(transferList?.length);
   return (
     <div className={cls}>
@@ -266,21 +266,24 @@ const Treasury: React.FC<IProps> = (props) => {
                       {transferList?.slice(0, LoadCount).map((item) => {
                         const isOut = treasuryAddress === item.fromAddress;
                         return (
-                          <li className="treasury-info-item" key={item.transactionId}>
-                            <div className="flex justify-between treasury-info-item-line-1 ">
-                              <span className="">
+                          <li
+                            className="treasury-info-item font-Montserrat"
+                            key={item.transactionId}
+                          >
+                            <div className="flex justify-between treasury-info-item-line-1 lg:flex-col xl:flex-col md:flex-row flex-col">
+                              <span className="text-[14px]">
                                 {dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')}{' '}
                                 {isOut ? 'Withdraw' : 'Deposit'}
                               </span>
-                              <span>
+                              <span className="text-[14px] text-white">
                                 {numberFormatter(item.amountAfterDecimals)} {item.symbol}
                               </span>
                             </div>
-                            <div className="treasury-info-item-line-2 text-14-22-500">
+                            <div className="treasury-info-item-line-2 text-14-22-500 lg:flex-col xl:flex-col md:flex-row flex-col">
                               <span>Transaction ID:</span>
                               <Link href={`${explorer}/tx/${item.transactionId}`} target="_blank">
                                 <HashAddress
-                                  className="pl-[4px]"
+                                  className="pl-[4px] text-white"
                                   ignorePrefixSuffix={true}
                                   preLen={8}
                                   endLen={11}
@@ -288,7 +291,7 @@ const Treasury: React.FC<IProps> = (props) => {
                                 ></HashAddress>
                               </Link>
                             </div>
-                            <div className="treasury-info-item-line-3 text-14-22-500">
+                            <div className="treasury-info-item-line-3 text-14-22-500 lg:flex-col xl:flex-col md:flex-row flex-col">
                               <span>Address:</span>
                               <Link
                                 href={`${explorer}/address/${
@@ -297,7 +300,7 @@ const Treasury: React.FC<IProps> = (props) => {
                                 target="_blank"
                               >
                                 <HashAddress
-                                  className="pl-[4px]"
+                                  className="pl-[4px] text-white"
                                   preLen={8}
                                   endLen={11}
                                   address={isOut ? item.toAddress : item.fromAddress}

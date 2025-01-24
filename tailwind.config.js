@@ -208,7 +208,7 @@ module.exports = {
           '@apply px-4 lg:px-8': {},
         },
         '.tabpanel-content-padding': {
-          '@apply px-4 lg:px-8 pb-4': {},
+          '@apply p-[22px] lg:px-[38px] py-[24px]': {},
         },
 
         '.dao-border-round': {
@@ -226,7 +226,7 @@ module.exports = {
         },
 
         '.dao-detail-card': {
-          '@apply border-0 lg:border lg:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg px-4 lg:px-6 lg:py-[25px] pt-[8px] pb-[24px]':
+          '@apply border-0 lg:border lg:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg xl:px-[32px] xl:py-[24px] lg:px-[32px] lg:py-[24px] md:px-[32px] md:py-[24px] p-[22px]':
             {},
         },
 

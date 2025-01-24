@@ -76,6 +76,7 @@ interface ICommentListsItem {
   commentStatus: string;
   createTime: number;
   modificationTime: number;
+  commenterPhoto: string;
 }
 interface ICommentListsRes {
   code: string;

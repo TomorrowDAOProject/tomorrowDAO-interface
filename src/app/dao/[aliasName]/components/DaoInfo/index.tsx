@@ -1,6 +1,5 @@
-import { Collapse, HashAddress } from 'aelf-design';
+import { HashAddress } from 'aelf-design';
 import Image from 'next/image';
-import { Divider, Descriptions, DescriptionsProps } from 'antd';
 import useResponsive from 'hooks/useResponsive';
 import PreviewFile from 'components/PreviewFile';
 import { Skeleton } from 'components/Skeleton';
@@ -16,6 +15,9 @@ import { curChain, explorer, NetworkDaoHomePathName } from 'config';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import ImageWithPlaceHolder from 'components/ImageWithPlaceHolder';
+
+import { ReactComponent as ArrowDown } from 'assets/revamp-icon/arrow-down.svg';
+import { useState } from 'react';
 
 const firstLetterToLowerCase = (str: string) => {
   return str.charAt(0).toLowerCase() + str.slice(1);
@@ -88,7 +90,7 @@ export default function DaoInfo(props: IParams) {
               <HashAddress
                 preLen={8}
                 endLen={11}
-                className="address"
+                className="address text-white"
                 address={address as string}
                 chain={curChain}
               ></HashAddress>
@@ -97,9 +99,9 @@ export default function DaoInfo(props: IParams) {
         ),
       };
     })
-    .filter(Boolean) as DescriptionsProps['items'];
+    .filter(Boolean);
 
-  const items: DescriptionsProps['items'] | Array<null> = [
+  const items = [
     !isNetworkDAO
       ? {
           key: '1',
@@ -192,7 +194,9 @@ export default function DaoInfo(props: IParams) {
     //     </div>
     //   ),
     // },
-  ].filter(Boolean) as DescriptionsProps['items'];
+  ].filter(Boolean);
+
+  const [activePanel, setActivePanel] = useState<boolean>(true);
 
   return (
     <div className="dao-detail-dis">
@@ -205,7 +209,7 @@ export default function DaoInfo(props: IParams) {
       ) : (
         <>
           <div className="dao-basic-info">
-            <div className="dao-detail-logo px-4 lg:px-8">
+            <div className="dao-detail-logo">
               <div className="dao-detail-logo-content">
                 <ImageWithPlaceHolder
                   alias={aliasName ?? ''}
@@ -235,7 +239,7 @@ export default function DaoInfo(props: IParams) {
                 <PreviewFile list={fileInfoList} />
               </div>
             </div>
-            <div className="dao-detail-desc px-4 lg:px-8">
+            <div className="dao-detail-desc">
               <div className="flex flex-col">
                 <span className="title">{metadata?.name}</span>
                 <span className="description">{metadata?.description}</span>
@@ -258,20 +262,31 @@ export default function DaoInfo(props: IParams) {
               </div>
             </div>
           </div>
-          <Divider className="mb-0" />
-          <Collapse defaultActiveKey={isNetworkDAO ? [] : ['1']} ghost>
-            <Collapse.Panel
-              className="dao-info-collapse-panel"
-              header={<h3 className="dao-collapse-panel">Dao Information</h3>}
-              key="1"
+          <div className="h-0 w-full border-0 border-t border-solid border-fillBg8 my-[22px]"></div>
+          <div>
+            <div
+              className="dao-collapse-panel flex items-center justify-between cursor-pointer"
+              onClick={() => setActivePanel((preValue: boolean) => (preValue = !preValue))}
             >
-              <Descriptions
-                layout={isLG ? 'vertical' : 'horizontal'}
-                items={items}
-                column={{ xs: 1, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }}
-              />
-            </Collapse.Panel>
-          </Collapse>
+              <span>Dao Information</span>
+              <ArrowDown className={`transition-all ${activePanel ? 'rotate-180' : 'rotate-0'}`} />
+            </div>
+            {activePanel && (
+              <div className="grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 pt-[30px] gap-4">
+                {items.map((list, index) => {
+                  return (
+                    <div
+                      className="flex flex-col xl:flex-row lg:flex-row md:flex-row gap-[5px]"
+                      key={list?.key || index}
+                    >
+                      <div className="text-lightGrey">{list?.label}:</div>
+                      <div>{list?.children}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </>
       )}
     </div>

@@ -50,14 +50,14 @@ export const tagColorMap = {
     firstText: 'Rejected on',
   },
   [AllProposalStatusString.Expired]: {
-    bgColor: 'rgba(185, 185, 185, 0.15)',
+    bgColor: 'rgba(255, 255, 255, 0.08)',
     textColor: '#B9B9B9',
     firstText: 'Availabe to be executed before',
     secondText: 'Approved on',
   },
   [AllProposalStatusString.Executed]: {
-    bgColor: '#E4F8F5',
-    textColor: '#05C4A2',
+    bgColor: 'rgba(255, 255, 255, 0.08)',
+    textColor: '#B9B9B9',
   },
   [AllProposalStatusString.BelowThreshold]: {
     bgColor: '#FEF7EC',
@@ -72,12 +72,12 @@ export const tagColorMap = {
     textColor: '#764DF1',
   },
   [AllProposalStatusString.Vetoed]: {
-    bgColor: '#F0F1F3',
-    textColor: '#687083',
+    bgColor: 'rgba(255, 255, 255, 0.08)',
+    textColor: '#B9B9B9',
   },
   [AllProposalStatusString.Published]: {
-    bgColor: '#F0F5FF',
-    textColor: '#597EF7',
+    bgColor: 'rgba(93, 73, 246, 0.60)',
+    textColor: '#C0B8FF',
   },
 };
 // the proposal is created by network dao, not tmrw dao

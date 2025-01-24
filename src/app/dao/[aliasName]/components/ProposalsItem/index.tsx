@@ -91,7 +91,7 @@ export default function ProposalsItem(props: IProposalsItemProps) {
           </Space>
         </div>
       </div>
-      {isLG && <Divider></Divider>}
+      {isLG && <div className="border-0 border-t border-solid border-fillBg8 my-[22px]"></div>}
 
       <div className="vote vote-data-analysis flex flex-col justify-between">
         <div className="vote-top font-Montserrat">

@@ -1,9 +1,10 @@
 import { HashAddress } from 'aelf-design';
-import { Tabs } from 'aelf-design';
+// import { Tabs } from 'aelf-design';
+import Tabs from 'components/Tabs';
 import { getContract } from 'pageComponents/proposal-create/util';
 import { MarkdownPreview } from 'components/MarkdownEditor';
 import { curChain } from 'config';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { ProposalTypeString } from 'types';
 import base64ToHex from 'utils/base64ToHex';
 
@@ -58,7 +59,7 @@ const ProposalTab = (props: IProposalTabProps) => {
         </span>
       ),
       children: (
-        <div className="text-base	tabpanel-content-padding tab-contract-info">
+        <div className="text-base	tabpanel-content-padding tab-contract-info text-white">
           <div className="flex flex-col gap-2 pb-8">
             <div className="card-sm-text-bold">Call Method</div>
             <div className="card-sm-text text-[#808080]">
@@ -78,7 +79,7 @@ const ProposalTab = (props: IProposalTabProps) => {
           </div>
           <div className="flex flex-col gap-2">
             <div className="card-sm-text-bold">Contract Params</div>
-            <div className="p-4 rounded-md bg-[#F8F8F8] card-sm-text text-[#808080]">
+            <div className="p-4 rounded-md bg-fillBg8 card-sm-text text-white">
               <ContractParams
                 address={proposalDetailData?.transaction?.toAddress}
                 methodName={proposalDetailData?.transaction?.contractMethodName}
@@ -90,6 +91,12 @@ const ProposalTab = (props: IProposalTabProps) => {
       ),
     });
   }
-  return <Tabs items={tabItems} />;
+
+  const [activeTab, setActiveTab] = useState('1');
+
+  const changeTab = (value: SetStateAction<string>) => {
+    setActiveTab(value);
+  };
+  return <Tabs items={tabItems} activeKey={activeTab} onChange={changeTab} />;
 };
 export { ProposalTab };

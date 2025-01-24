@@ -1,11 +1,11 @@
 .proposal-item {
   @apply block lg:flex justify-between border-solid border-[1px] border-fillBg8 rounded-lg px-[16px] lg:px-8 py-6 bg-darkBg mb-[25px];
-  .proposal-item-left {
+  /* .proposal-item-left {
     @apply lg:proposal-item-left-width;
-  }
+  } */
 
   .vote-data-analysis {
-    @apply lg:w-[266px] lg:ml-[48px] lg:shrink-0 lg:gap-0 gap-[16px];
+    @apply lg:w-[266px] lg:ml-[48px] lg:shrink-0 lg:gap-0;
   }
 
   .proposal-item-time {
