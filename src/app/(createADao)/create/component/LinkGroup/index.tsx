@@ -11,8 +11,8 @@ import { SocialMedia } from 'types/dao';
 interface ILinkGroupProps {
   value: SocialMedia;
   errorText?: string;
-  onBlur?(links: Record<string, number>): void;
-  onChange?(links: Record<string, number>): void;
+  onBlur?(links: [string, string][]): void;
+  onChange?(links: [string, string][]): void;
 }
 
 const socialMedia = [
@@ -47,41 +47,41 @@ const socialMedia = [
 ];
 
 const LinkGroup = ({ value, errorText, onBlur, onChange }: ILinkGroupProps) => {
-  const [linkData, setLinkData] = useState<string[][]>([['', '']]);
+  const [linkData, setLinkData] = useState<[string, string][]>([['', '']]);
   const handleSelectChange = (option: SelectOption, index: number) => {
     const originLinks = [...linkData];
     originLinks[index][0] = option.value;
     setLinkData(originLinks);
-    const socialMedia = Object.fromEntries(originLinks);
-    onChange?.(socialMedia);
+    onChange?.(originLinks);
   };
 
   const handleInputChange = (value: string, index: number) => {
     const originLinks = [...linkData];
     originLinks[index][1] = value;
     setLinkData(originLinks);
-    const socialMedia = Object.fromEntries(originLinks);
-    onChange?.(socialMedia);
+    onChange?.(originLinks);
   };
 
   const addLink = () => {
-    const originLinks = [...linkData, ['', '']];
+    const originLinks: [string, string][] = [...linkData, ['', '']];
     setLinkData(originLinks);
   };
 
   const removeLink = (index: number) => {
-    if (linkData.length <= 1) return;
-    const originLinks = [...linkData];
-    originLinks.splice(index, 1);
+    let originLinks = [...linkData];
+    if (linkData.length === 1) {
+      originLinks = [['', '']];
+    } else {
+      originLinks.splice(index, 1);
+    }
     setLinkData(originLinks);
+    onChange?.(originLinks);
   };
 
   useEffect(() => {
-    const values: string[][] = [];
-    Object.entries(value).forEach(([key, val]) => {
-      values.push([key, val]);
-    });
-    setLinkData(values);
+    if (Array.isArray(value)) {
+      setLinkData(value);
+    }
   }, [value]);
 
   return (
@@ -113,22 +113,18 @@ const LinkGroup = ({ value, errorText, onBlur, onChange }: ILinkGroupProps) => {
                     : 'https://'
                 }
                 value={link[1]}
-                onBlur={() => onBlur?.(Object.fromEntries(linkData))}
+                onBlur={() => onBlur?.(linkData)}
                 onChange={(value) => handleInputChange(value, index)}
                 isError={
                   !!link[0] &&
-                  !!link[1] &&
                   ((link[0] === LINK_TYPE.TWITTER && !twitterUsernameRegex.test(link[1])) ||
                     (link[0] !== LINK_TYPE.TWITTER && !facebookUrlRegex.test(link[1])))
                 }
               />
               <i
-                className={clsx(
-                  'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer',
-                  {
-                    '!text-darkGray': linkData.length <= 1,
-                  },
-                )}
+                className={
+                  'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer'
+                }
                 onClick={() => removeLink(index)}
               />
             </div>

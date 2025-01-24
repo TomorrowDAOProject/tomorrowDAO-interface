@@ -44,9 +44,7 @@ export default function BasicDetails() {
         name: '',
         logoUrl: '',
         description: '',
-        socialMedia: {
-          '': '',
-        } as SocialMedia,
+        socialMedia: [['', '']] as [string, string][],
       },
       governanceMechanism: EDaoGovernanceMechanism.Token,
       members: { value: [''] },
@@ -144,7 +142,7 @@ export default function BasicDetails() {
               name="metadata.description"
               control={control}
               rules={{
-                required: 'description is required',
+                required: 'Description is required',
                 maxLength: {
                   value: 240,
                   message: 'The description should contain no more than 240 characters.',
@@ -159,7 +157,7 @@ export default function BasicDetails() {
                   rootClassName="lg:h-full"
                   maxLength={240}
                   placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
-                  isError={!!errors?.metadata?.name?.message}
+                  isError={!!errors?.metadata?.description?.message}
                 />
               )}
             />
@@ -183,22 +181,21 @@ export default function BasicDetails() {
               required: true,
               validate: {
                 validator: (socialMedia) => {
-                  for (const key in socialMedia) {
-                    const val = socialMedia[key as LINK_TYPE] as string;
-                    if (!key && !!val) return 'Name is required';
-                    if (val?.length > 0) {
-                      if (key === LINK_TYPE.TWITTER) {
-                        if (!twitterUsernameRegex.test(socialMedia.Twitter as string)) {
-                          return 'Please enter a correct X handle, starting with @.';
-                        }
-                        if ((socialMedia.Twitter as string).length > 15) {
-                          return 'The X (Twitter) user name should be shorter than 15 characters.';
-                        }
-                      } else if (!facebookUrlRegex.test(socialMedia[key as LINK_TYPE] as string)) {
-                        return 'Please enter a correct link. Shortened URLs are not supported.';
-                      } else if (val.length > 128) {
-                        return 'The URL should be shorter than 128 characters.';
+                  for (const [key, value] of socialMedia) {
+                    if (!key && !!value) {
+                      return 'Name is required';
+                    }
+                    if (key === LINK_TYPE.TWITTER) {
+                      if (!twitterUsernameRegex.test(value)) {
+                        return 'Please enter a correct X handle, starting with @.';
                       }
+                      if (value.length > 15) {
+                        return 'The X (Twitter) user name should be shorter than 15 characters.';
+                      }
+                    } else if (!!key && !facebookUrlRegex.test(value)) {
+                      return 'Please enter a correct link. Shortened URLs are not supported.';
+                    } else if (!!key && value.length > 128) {
+                      return 'The URL should be shorter than 128 characters.';
                     }
                   }
                   return true;
@@ -298,7 +295,7 @@ export default function BasicDetails() {
                 name="governanceToken"
                 control={control}
                 rules={{
-                  required: 'governance_token is required',
+                  required: 'Governance_token is required',
                   validate: {
                     validator: async (value) => {
                       try {

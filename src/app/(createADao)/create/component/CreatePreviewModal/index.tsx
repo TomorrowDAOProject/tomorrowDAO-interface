@@ -121,12 +121,10 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       }
     }) > -1;
 
-  const socialMediaList = Object.keys(metaData?.metadata?.socialMedia ?? {}).map((key) => {
-    return {
-      name: key,
-      url: metaData?.metadata.socialMedia[key],
-    };
-  });
+  const socialMediaList = metaData?.metadata?.socialMedia?.map(([key, value]) => ({
+    name: key,
+    url: value,
+  }));
 
   const logoUrl: any = metaData?.metadata?.logoUrl;
 
@@ -158,7 +156,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
           </div>
           <span className="text-lightGrey text-[13px]">{metaData?.metadata?.description}</span>
           <div className="flex gap-3 flex-wrap">
-            {socialMediaList.map(
+            {socialMediaList?.map(
               ({ name, url }, index) =>
                 url && <SocialMediaItem key={index} name={name as string} url={url ?? ''} />,
             )}
