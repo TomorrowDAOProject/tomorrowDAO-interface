@@ -1,24 +1,25 @@
 import Dropdown from 'components/Dropmenu';
 import { MenuItem } from '..';
+import { Fragment } from 'react';
 
 const NavMenuItem = ({ item }: { item: MenuItem }) => {
   return (
-    <div key={item?.key}>
+    <Fragment key={item?.key}>
       {item?.children?.length ? (
         <Dropdown menu={item.children}>
-          <a
+          <div
             onClick={(e) => e.preventDefault()}
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             <span className="text-[15px] font-medium text-white no-underline font-Montserrat m-[8px]">
               {item.label}
             </span>
-          </a>
+          </div>
         </Dropdown>
       ) : (
         item?.label
       )}
-    </div>
+    </Fragment>
   );
 };
 

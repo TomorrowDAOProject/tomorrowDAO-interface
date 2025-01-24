@@ -29,6 +29,7 @@ const items: MenuItem[] = [
     label: (
       <Link
         href="/network-dao"
+        target="_blank"
         className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
       >
         Network DAO
@@ -44,6 +45,7 @@ const items: MenuItem[] = [
         key: 'Github',
         label: (
           <Link
+            target="_blank"
             href="https://github.com/TomorrowDAOProject"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
@@ -55,6 +57,7 @@ const items: MenuItem[] = [
         key: 'Documentation',
         label: (
           <Link
+            target="_blank"
             href="https://docs.tmrwdao.com"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
@@ -73,6 +76,7 @@ const items: MenuItem[] = [
         key: 'Twitter',
         label: (
           <Link
+            target="_blank"
             href="https://x.com/tmrwdao"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
@@ -87,6 +91,7 @@ const items: MenuItem[] = [
         key: 'Telegram',
         label: (
           <Link
+            target="_blank"
             href="https://t.me/tmrwdao"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
@@ -103,7 +108,8 @@ const items: MenuItem[] = [
     key: 'Blog',
     label: (
       <Link
-        href={'/'}
+        target="_blank"
+        href="https://tomorrows-blog-11efd04933cccea6450d0c87.webflow.io"
         className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
       >
         Blog
@@ -142,11 +148,11 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
       style={style}
     >
       <div className="max-w-[1280px] mx-auto px-[20px] py-[25px] flex justify-between items-center box-border md:px-[40px] lg:px-[84px] lg:py-[17px] xl:px-[35px] xl:py-[21px]">
-        <Link target="_blank" href="/">
+        <Link href="/">
           <LogoIcon className="h-[19px] w-[117.22px] lg:h-[19.6px] lg:w-[121px] xl:h-[24.5px] xl:w-[151px]" />
         </Link>
 
-        <div className="flex items-center gap-[40px] hidden lg:flex">
+        <div className="items-center gap-[40px] hidden lg:flex">
           {items.map((item) => (
             <NavMenuItem item={item} key={item?.key} />
           ))}
@@ -159,12 +165,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
               <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
             </Link>
           ) : !isLogin ? (
-            <Button
-              type="primary"
-              onClick={() => {
-                login();
-              }}
-            >
+            <Button type="primary" onClick={login}>
               <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]" />
               Log In
             </Button>

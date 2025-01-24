@@ -6,22 +6,61 @@ import React, { useState } from 'react';
 import { MenuItem } from 'components/NavHeader';
 import Drawer from 'components/MobileDrawer';
 import MobileMenu from 'components/MobileMenu';
+import Link from 'next/link';
 
 const items: MenuItem[] = [
   {
     key: 'NetworkDAO',
-    label: 'Network DAO',
+    label: (
+      <Link
+        target="_blank"
+        href="/network-dao"
+        className="text-[15px] px-[14px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
+      >
+        Network DAO
+      </Link>
+    ),
   },
   {
     key: 'Blog',
-    label: 'Blog',
+    label: (
+      <Link
+        target="_blank"
+        href="https://tomorrows-blog-11efd04933cccea6450d0c87.webflow.io/"
+        className="text-[15px] px-[14px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
+      >
+        Blog
+      </Link>
+    ),
   },
   {
     key: 'Resources',
     label: 'Resources',
     children: [
-      { key: 'Github', label: 'Github' },
-      { key: 'Documentation', label: 'Documentation' },
+      {
+        key: 'Github',
+        label: (
+          <Link
+            target="_blank"
+            href="https://github.com/TomorrowDAOProject"
+            className="text-[15px] px-[14px] py-[10px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
+          >
+            Github
+          </Link>
+        ),
+      },
+      {
+        key: 'Documentation',
+        label: (
+          <Link
+            target="_blank"
+            href="https://docs.tmrwdao.com"
+            className="text-[15px] px-[14px] py-[10px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
+          >
+            Documentation
+          </Link>
+        ),
+      },
     ],
   },
 ];
@@ -29,13 +68,29 @@ const items: MenuItem[] = [
 const groupItems = [
   {
     key: 'Twitter',
-    label: 'Twitter',
-    icon: <TwitterIcon className="h-[24px] w-[24px]" />,
+    label: (
+      <Link
+        target="_blank"
+        href="https://x.com/tmrwdao"
+        className="cursor-pointer px-[14px] font-Montserrat font-medium flex flex-row items-center justify-start text-white text-[15px] no-underline hover:bg-transparent active:bg-transparent hover:text-mainColor active:text-mainColor gap-[14px]"
+      >
+        <TwitterIcon className="h-[24px] w-[24px]" />
+        Twitter
+      </Link>
+    ),
   },
   {
     key: 'Telegram',
-    label: 'Telegram',
-    icon: <TelegramIcon className="h-[24px] w-[24px]" />,
+    label: (
+      <Link
+        target="_blank"
+        href="https://t.me/tmrwdao"
+        className="cursor-pointer px-[14px] font-Montserrat font-medium flex flex-row items-center justify-start text-white text-[15px] no-underline hover:bg-transparent active:bg-transparent hover:text-mainColor active:text-mainColor gap-[14px]"
+      >
+        <TelegramIcon className="h-[24px] w-[24px]" />
+        Telegram
+      </Link>
+    ),
   },
 ];
 

@@ -101,8 +101,8 @@ const Page = () => {
                   {`Set up your DAO effortlessly and shape its mission and governance. \nBuild a thriving community where every member has a voice in \ndriving the organization's success.`}
                 </span>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border md:w-[335px] transition-all duration-300 lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
-                <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-bl-[24px] xl:rounded-bl-[30px] box-border md:w-[335px] transition-all duration-300 lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+                <span className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   02
                 </span>
                 <LargeArrowIcon className="absolute top-[16px] right-[16px] xl:right-[20px] xl:top-[20px] w-[18px] h-[20px] rotate-[-135deg] transition-[opacity] duration-300 opacity-0 lg:group-hover:opacity-100" />
@@ -115,8 +115,8 @@ const Page = () => {
                   your core team to ensure critical proposals are reviewed by trusted individuals.
                 </span>
               </div>
-              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
-                <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
+              <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
+                <span className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   03
                 </span>
                 <LargeArrowIcon className="absolute top-[16px] right-[16px] xl:right-[20px] xl:top-[20px] w-[18px] h-[20px] rotate-[-135deg] transition-[opacity] duration-300 opacity-0 lg:group-hover:opacity-100" />
@@ -130,7 +130,7 @@ const Page = () => {
                 </span>
               </div>
               <div className="relative overflow-hidden group flex flex-col items-start justify-end w-full h-[246px] lg:h-[239px] xl:h-[298px] shrink-0 py-[14px] px-[22px] lg:py-[8px] xl:py-[10px] lg:hover:py-[27px] lg:hover:py-[33px] bg-darkGray rounded-[15px] lg:rounded-none lg:rounded-br-[24px] xl:rounded-br-[30px] box-border transition-all duration-300 md:w-[335px] lg:hover:bg-mainColor lg:w-[calc((100%-40px)/3)]">
-                <span className="block absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
+                <span className="absolute top-[30px] left-[26px] xl:left-[33px] xl:top-[37px] m-0 text-[12px] font-Unbounded font-light text-white xl:text-[15px] transition-[opacity] duration-300 lg:opacity-100 lg:group-hover:opacity-0 hidden lg:block">
                   04
                 </span>
                 <LargeArrowIcon className="absolute top-[16px] right-[16px] xl:right-[20px] xl:top-[20px] w-[18px] h-[20px] rotate-[-135deg] transition-[opacity] duration-300 opacity-0 lg:group-hover:opacity-100" />
@@ -320,7 +320,7 @@ const Page = () => {
 
               <div className="w-full md:flex-1">
                 <img
-                  className="w-full h-[199px] lg:h-[270px] object-cover object-center rounded-[12px] md:h-[265px] lg:h-[278.58px] xl:h-[348.22px] align-top"
+                  className="w-full h-[199px] object-cover object-center rounded-[12px] md:h-[265px] lg:h-[278.58px] xl:h-[348.22px] align-top"
                   src={require('assets/revamp-imgs/NetworkDAO.gif').default.src}
                   alt="Network DAO"
                 />
@@ -444,7 +444,10 @@ const Page = () => {
               Recent Updates
             </h2>
 
-            <Link href="/" className="default-button hidden items-center gap-[10px] lg:inline-flex">
+            <Link
+              href="https://tomorrows-blog-11efd04933cccea6450d0c87.webflow.io"
+              className="default-button hidden items-center gap-[10px] lg:inline-flex"
+            >
               View More
               <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
             </Link>
