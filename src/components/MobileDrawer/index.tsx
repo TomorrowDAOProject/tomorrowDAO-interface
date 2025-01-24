@@ -20,7 +20,7 @@ const Drawer = ({ title, width = 249, open, onClose, children }: IDrawerProps) =
       />
 
       <div
-        className={`fixed top-0 h-screen flex w-[249px] flex-col p-[24px] bg-darkGray z-50 box-border transition-[right] duration-300 ${
+        className={`fixed top-0 h-dvh flex w-[249px] flex-col p-[24px] bg-darkGray z-50 box-border transition-[right] duration-300 ${
           open ? 'right-0' : 'right-[-100%]'
         } w-[${width}px]`}
       >
