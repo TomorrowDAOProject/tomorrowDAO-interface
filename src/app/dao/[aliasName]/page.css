@@ -42,35 +42,35 @@
     }
   }
   .pagination-warp {
-    .ant-pagination-container {
+    .TMRWDAO-pagination-container {
       @apply flex justify-between flex-col lg:!flex-row xl:!flex-row md:!flex-row;
-      .ant-pagesize-label {
+      .TMRWDAO-pagesize-label {
         @apply text-white text-[10px] font-Montserrat;
       }
-      .ant-page-container {
-        .ant-btn {
+      .TMRWDAO-page-container {
+        .TMRWDAO-btn {
           @apply text-lightGrey text-[10px] font-Montserrat;
         }
       }
-      .ant-pageNumber-container {
-        @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-lightGrey;
+      .TMRWDAO-pageNumber-container {
+        @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-lightGrey bg-transparent;
       }
-      .ant-btn-background-ghost:disabled {
+      .TMRWDAO-btn-background-ghost:disabled {
         @apply border-fillBg8;
       }
-      .ant-btn-primary {
+      .TMRWDAO-btn-primary {
         @apply border-lightGrey hover:border-lightGrey;
       }
-      .ant-select {
+      .TMRWDAO-select {
         @apply focus:border-lightGrey hover:border-lightGrey;
-        .ant-select-selector {
+        .TMRWDAO-select-selector {
           @apply bg-fillBg8;
-          .ant-select-selection-item {
+          .TMRWDAO-select-selection-item {
             @apply !text-white font-Montserrat text-[10px];
   
           }
-          .ant-select-arrow {
-            .ant-icon {
+          .TMRWDAO-select-arrow {
+            .TMRWDAO-icon {
               @apply text-white;
             }
           }

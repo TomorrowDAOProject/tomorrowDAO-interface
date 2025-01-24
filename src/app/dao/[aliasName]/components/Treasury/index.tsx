@@ -248,7 +248,7 @@ const Treasury: React.FC<IProps> = (props) => {
                     <Table
                       className="token-list-table"
                       columns={tokenListColumns}
-                      bordered
+                      bordered={false}
                       dataSource={tokenList}
                       pagination={false}
                       scroll={{ x: true }}

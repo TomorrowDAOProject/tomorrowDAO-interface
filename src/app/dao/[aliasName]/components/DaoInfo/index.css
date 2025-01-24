@@ -73,6 +73,15 @@
 
 .dao-collapse-panel-child {
   @apply font-[500] text-[14px] leading-[22px] text-white font-Montserrat;
+  .TMRWDAO-hash-address {
+    >span {
+      @apply text-white;
+
+    }
+    .TMRWDAO-icon {
+      @apply text-white hover:text-white;
+    }
+  }
 }
 .dao-detail-dis .ant-collapse-header {
   padding-left: 0!important;
