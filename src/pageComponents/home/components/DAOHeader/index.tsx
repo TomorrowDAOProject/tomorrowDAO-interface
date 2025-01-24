@@ -17,7 +17,7 @@ export default function DAOHeader() {
           <div className="text-right">
             <Link
               href="/create"
-              className="md:mt-0 primary-button text-descM12 font-Montserrat inline-flex items-center gap-[10px] whitespace-nowrap"
+              className="md:mt-0 primary-button text-descM12 xl:text-descM15 font-Montserrat inline-flex items-center gap-[10px] whitespace-nowrap"
             >
               Create DAO
               <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />

@@ -110,8 +110,15 @@ const CreateDaoPage = () => {
     if (form) {
       await form?.trigger();
       const originMetadata = stepForm[StepEnum.step0].submitedRes;
+      const socialMedia =
+        Array.isArray(originMetadata?.metadata?.socialMedia) &&
+        Object.fromEntries(originMetadata?.metadata?.socialMedia);
       const metadata = {
         ...originMetadata,
+        metadata: {
+          ...originMetadata?.metadata,
+          socialMedia,
+        },
         members: {
           value:
             originMetadata?.members?.value

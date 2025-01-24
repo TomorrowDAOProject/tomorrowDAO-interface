@@ -33,7 +33,7 @@ export interface IMetadata {
   logoUrl: UploadFile[];
   description: string; // 240
   // title does not need to be submitted
-  socialMedia: Record<string, string>; // Twitter, Facebook, Discord, Telegram, Reddit, title
+  socialMedia: [string, string][]; // Twitter, Facebook, Discord, Telegram, Reddit, title
 }
 export interface IFile {
   cid: string; // id
