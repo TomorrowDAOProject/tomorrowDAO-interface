@@ -165,7 +165,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                 login();
               }}
             >
-              <i className="tmrwdao-icon-profile text-[22px] text-white mr-[6px]" />
+              <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]" />
               Log In
             </Button>
           ) : (
@@ -216,7 +216,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
               showArrow={false}
             >
               <Button type="primary">
-                <i className="tmrwdao-icon-profile text-[22px] text-white mr-[6px]" />
+                <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]" />
                 {userName}
               </Button>
             </Dropdown>
