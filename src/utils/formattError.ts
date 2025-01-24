@@ -31,7 +31,7 @@ export enum TargetErrorType {
   Error7 = UserDeniedMessage,
 }
 
-export const matchErrorMsg = <T>(message: T, method?: string) => {
+export const matchErrorMsg = <T>(message: T, _method?: string) => {
   // console.log('errorMsg', message);
   if (typeof message === 'string') {
     const sourceErrors = [
