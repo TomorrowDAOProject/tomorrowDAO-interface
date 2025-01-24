@@ -399,7 +399,10 @@ const Page = () => {
             </div>
 
             <div className="flex flex-row items-center justify-center mb-[35px] md:hidden">
-              <Link href="/" className="default-button inline-flex items-center gap-[10px]">
+              <Link
+                href="https://aelf.com"
+                className="font-Montserrat font-medium text-baseText !bg-transparent border border-solid border-baseText px-[19.37px] py-[10.65px] rounded-[42px] no-underline transition-all duration-300 ease-in-out inline-flex items-center gap-[10px] md:hidden hover:!border-baseBg hover:!bg-baseBg hover:!text-baseBg hover:!bg-transparent"
+              >
                 About aelf
                 <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
               </Link>

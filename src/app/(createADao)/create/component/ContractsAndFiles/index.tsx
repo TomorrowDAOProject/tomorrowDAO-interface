@@ -82,7 +82,8 @@ export default function ContractsAndFiles() {
             </span>
           </p>
           <p className="font-Montserrat text-desc12 text-lightGrey font-Montserrat">
-            It is recommended to upload at least a project whitepaper and roadmap
+            A comprehensive guide detailing the technical specifications, usage, and integration
+            processes for the project.
           </p>
         </>
       }
@@ -103,7 +104,6 @@ export default function ContractsAndFiles() {
           <Upload
             accept=".pdf"
             className="mx-auto"
-            needCheckImgSize
             fileLimit={FILE_LIMIT}
             uploadText="Click to Upload"
             tips={uploadTips}

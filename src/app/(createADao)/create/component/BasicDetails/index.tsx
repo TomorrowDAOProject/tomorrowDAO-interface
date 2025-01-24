@@ -50,7 +50,7 @@ export default function BasicDetails() {
       members: { value: [''] },
       governanceToken: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   });
   const {
     watch,
@@ -108,7 +108,7 @@ export default function BasicDetails() {
                     needCheckImgSize
                     value={field.value}
                     uploadText="Upload"
-                    tips={`Formats supported: PNG and JPG.\n Ratio: 1:1 , less than 1 MB.`}
+                    tips={`Formats supported: PNG, JPG, JPEG \nRatio: 1:1 , less than 1 MB`}
                     onFinish={({ url }) => field.onChange(url)}
                   />
 
@@ -218,6 +218,7 @@ export default function BasicDetails() {
         <div className="mb-8">
           <ChainAddress
             address={walletInfo.address}
+            chainId={curChain}
             info="The DAO's metadata admin can modify certain info about the DAO, such as its description, logo, social media, documents, etc."
           />
         </div>
@@ -306,12 +307,10 @@ export default function BasicDetails() {
                         const { data } = await fetchTokenInfo(reqParams);
                         dispatch(setToken(data));
                         if (!data.name) {
-                          toast.error('The token has not yet been issued');
                           return false;
                         }
                         return true;
                       } catch (error) {
-                        toast.error('The token has not yet been issued.');
                         return false;
                       }
                     },
@@ -319,13 +318,11 @@ export default function BasicDetails() {
                 }}
                 render={({ field }) => (
                   <Input
-                    {...field}
+                    value={field.value}
                     placeholder="Enter a token symbol"
                     isError={!!errors?.governanceToken?.message}
-                    onBlur={() => {
-                      const token = getValues('governanceToken');
-                      setValue('governanceToken', token?.toUpperCase());
-                      trigger('governanceToken');
+                    onBlur={(value) => {
+                      field.onChange(value?.toUpperCase());
                     }}
                   />
                 )}
@@ -389,7 +386,11 @@ export default function BasicDetails() {
                           newList[index] = value;
                           field.onChange(newList);
                         }}
-                        isError={!!errors?.members?.value?.message}
+                        isError={
+                          address.endsWith(`AELF`) ||
+                          !address.startsWith(`ELF`) ||
+                          !address.endsWith(curChain)
+                        }
                       />
                       <i
                         className={clsx(
@@ -411,7 +412,7 @@ export default function BasicDetails() {
               ))}
               <div className="flex items-center gap-[9px]">
                 <Button
-                  className="!py-[2px] !text-[12px]"
+                  className="!py-1 !text-[12px]"
                   type="default"
                   onClick={() => {
                     const originList = [...membersValue, ''];
@@ -422,7 +423,7 @@ export default function BasicDetails() {
                   Add Address
                 </Button>
                 <Button
-                  className="!py-[2px] !text-[12px]"
+                  className="!py-1 !text-[12px]"
                   type="default"
                   onClick={() => {
                     setValue('members.value', ['']);

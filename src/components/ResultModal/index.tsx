@@ -43,6 +43,7 @@ export const okButtonConfig: IButtonProps = {
   children: (
     <Button
       type="primary"
+      className="w-full"
       onClick={() => {
         eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
       }}
@@ -57,6 +58,7 @@ export const WarningButtonList: IButtonProps[] = [
     children: (
       <Button
         type="default"
+        className="flex-1"
         onClick={() => {
           eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
         }}
@@ -69,6 +71,7 @@ export const WarningButtonList: IButtonProps[] = [
     children: (
       <Button
         type="primary"
+        className="flex-1"
         onClick={() => {
           eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
         }}

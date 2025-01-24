@@ -6,7 +6,7 @@ export enum EOptionType {
 export const proposalTypeList: Array<IProposalTypeListItem> = [
   {
     label: 'Quick Start',
-    desc: `Quickly create a simple voting list.`,
+    desc: `Quickly create a simple voting list`,
     value: EOptionType.simple,
   },
   {

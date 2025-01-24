@@ -3,20 +3,21 @@ import './index.css';
 import { toast } from 'react-toastify';
 interface IAddress {
   address: string;
+  chainId: string;
   info?: string;
 }
 
-export default function Address({ address, info }: IAddress) {
+export default function Address({ address, info, chainId }: IAddress) {
   const [, setCopied] = useCopyToClipboard();
   const handleCopy = () => {
-    setCopied(address);
+    setCopied(`ELF_${address}_${chainId}`);
     toast.success('Copy success');
   };
   return (
     <>
       <div className="w-full flex flex-row items-center justify-between border border-solid border-fillBg16 rounded-[8px] px-[16px] py-[13px] bg-fillBg8">
         <span className="inline-block max-w-[calc(100%-60px)] whitespace-normal break-words text-lightGrey text-descM14 font-Montserrat font-normal">
-          {address}
+          {`ELF_${address}_${chainId}`}
         </span>
         <i
           className="tmrwdao-icon-duplicate text-white text-[20px] cursor-pointer"
