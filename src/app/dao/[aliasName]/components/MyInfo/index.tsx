@@ -1,5 +1,5 @@
 import { Descriptions, Divider, Form, InputNumber, message } from 'antd';
-import { HashAddress, Button, Tooltip } from 'aelf-design';
+import { HashAddress, Tooltip } from 'aelf-design';
 import { InfoCircleOutlined } from '@aelf-design/icons';
 import React, { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
 import CommonModal from 'components/CommonModal';
@@ -19,6 +19,7 @@ import { okButtonConfig } from 'components/ResultModal';
 import Symbol from 'components/Symbol';
 import { useParams } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import Button from 'components/Button';
 
 type TInfoTypes = {
   height?: number | string;
@@ -248,13 +249,11 @@ export default function MyInfo(props: TInfoTypes) {
                     <div className="card-sm-text text-Neutral-Secondary-Text mb-1">
                       Available for Unstaking
                     </div>
-                    <div className="text-Primary-Text  card-sm-text-bold">
+                    <div className="text-white card-sm-text-bold">
                       {info?.availableUnStakeAmount} {info?.symbol}
                     </div>
                   </div>
                   <Button
-                    type="primary"
-                    size="medium"
                     className="!rounded-[42px]"
                     onClick={() => {
                       if (info?.availableUnStakeAmount === 0) {
@@ -335,7 +334,7 @@ export default function MyInfo(props: TInfoTypes) {
                     }
                   />
                 </Form.Item>
-                <Button className="mx-auto" type="primary" htmlType="submit">
+                <Button className="mx-auto" type="primary">
                   Unstake
                 </Button>
               </Form>

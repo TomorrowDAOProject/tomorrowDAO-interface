@@ -165,9 +165,15 @@ input[type='number'] {
   }
 }
 
-.TMRWDAO-hash-address > span {
-  @apply text-[14px] leading-[20px] font-normal text-white;
-}
+.TMRWDAO-hash-address {
+  @apply pl-0;
+  > span {
+    @apply text-[14px] leading-[20px] font-normal !text-white;
+  }
+  .TMRWDAO-icon {
+    @apply hover:!text-white;
+  }
+} 
 
 .table-header-normal {
   .TMRWDAO-table-thead > tr > th {
