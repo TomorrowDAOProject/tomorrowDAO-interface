@@ -7,12 +7,20 @@ interface DropmenuProps {
   align?: 'left' | 'right';
   showArrow?: boolean;
   MenuClassName?: string;
+  MenuItemClassName?: string;
   children: React.ReactNode;
   menu?: MenuItem[];
 }
 
 const Dropdown = (props: DropmenuProps) => {
-  const { showArrow = true, align = 'left', MenuClassName, children, menu = [] } = props;
+  const {
+    showArrow = true,
+    align = 'left',
+    MenuClassName,
+    MenuItemClassName,
+    children,
+    menu = [],
+  } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMouseEnter = () => {
@@ -49,7 +57,7 @@ const Dropdown = (props: DropmenuProps) => {
             <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               {menu?.map((item, index) => (
                 <div
-                  className="py-[10px] px-[14px] flex items-center gap-2"
+                  className={clsx('py-[10px] px-[14px] flex items-center gap-2', MenuItemClassName)}
                   key={`${item.label}_${index}`}
                 >
                   {item.icon}

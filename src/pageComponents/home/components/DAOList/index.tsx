@@ -86,7 +86,7 @@ export default function DAOList(props: IDAOListProps) {
       )}
       {hasData && (
         <div className="col-12 flex items-center justify-center">
-          <Button type="link" className="!py-0 gap-2" onClick={loadMore} disabled={loading}>
+          <Button type="link" className="!py-0 gap-2 !text-descM14" onClick={loadMore} disabled={loading}>
             {loading && <Spinner size={32} />}
             View More
           </Button>

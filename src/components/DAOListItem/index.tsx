@@ -6,7 +6,7 @@ interface IDAOListItemProps {
 export default function DAOListItem(props: IDAOListItemProps) {
   const { item } = props;
   return (
-    <div className="p-[26px] flex flex-col bg-darkBg border border-solid border-fillBg8 rounded-[8px]">
+    <div className="p-[26px] flex flex-col bg-darkBg border border-solid border-fillBg8 rounded-[8px] hover:border-lightGrey">
       <div className="flex flex-row items-center gap-[14px]">
         <div className="w-10 h-10">
           <ImageWithPlaceHolder
@@ -22,7 +22,7 @@ export default function DAOListItem(props: IDAOListItemProps) {
         <div className="max-w-[70%] whitespace-nowrap overflow-hidden text-ellipsis text-white">
           <span className="text-h5 font-Unbounded font-light">{item.name}</span>
         </div>
-        {item.verifiedType && <VerifiedIcon verifiedType={item.verifiedType} />}
+        {item.verifiedType && <VerifiedIcon />}
       </div>
       <div className="h-[44px] mt-4 mb-[18px]">
         <span className="text-white line-clamp-2 text-desc14 md:text-desc12 lg:text-desc14 font-Montserrat">

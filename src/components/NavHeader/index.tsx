@@ -212,7 +212,8 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                 },
               ]}
               align="right"
-              MenuClassName="w-[284px] bg-darkBg !px-[6px]"
+              MenuClassName="w-[284px] bg-darkBg !px-0"
+              MenuItemClassName="px-[20px] transition-all duration-300 ease-in-out hover:bg-fillBg8"
               showArrow={false}
             >
               <Button type="primary">
