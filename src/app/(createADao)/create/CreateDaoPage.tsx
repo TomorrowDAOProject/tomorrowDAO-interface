@@ -378,7 +378,7 @@ const CreateDaoPage = () => {
 
             <div
               className={clsx(
-                'flex mt-[50px]',
+                'flex',
                 isNotFirstStep ? 'gap-3 justify-between' : 'justify-end',
                 isHighCouncilStep && !isShowHighCouncil ? 'border-t-0' : '',
               )}
