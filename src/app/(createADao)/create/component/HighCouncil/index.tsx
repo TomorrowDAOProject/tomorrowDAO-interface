@@ -275,7 +275,7 @@ const HighCouncil = () => {
               </Button>
             </div>
           </FormItem>
-          <div className="mt-[32px]">
+          <div className="mt-[32px] mb-[50px]">
             <div className="flex justify-between">
               <span className="flex items-center pb-[8px] justify-between text-descM15 text-white font-Montserrat">
                 Total Addresses

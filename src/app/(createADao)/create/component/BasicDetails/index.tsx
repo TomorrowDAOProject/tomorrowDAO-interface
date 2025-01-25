@@ -156,7 +156,7 @@ export default function BasicDetails() {
                   })}
                   rootClassName="lg:h-full"
                   maxLength={240}
-                  placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
+                  placeholder={`Enter the mission and vision of the DAO`}
                   isError={!!errors?.metadata?.description?.message}
                 />
               )}
@@ -331,7 +331,7 @@ export default function BasicDetails() {
             <Link
               href="https://medium.com/@NFT_Forest_NFT/tutorial-how-to-buy-seeds-and-create-tokens-on-symbol-market-de3aa948bcb4"
               target="_blank"
-              className="text-desc12 text-mainColor font-Montserrat"
+              className="mb-[50px] inline-block text-desc12 text-mainColor font-Montserrat"
             >
               How to create a token?
             </Link>
@@ -434,7 +434,7 @@ export default function BasicDetails() {
                 </Button>
               </div>
             </FormItem>
-            <div className="mt-[32px]">
+            <div className="mb-[50px] mt-[32px]">
               <div className="flex justify-between">
                 <span className="flex items-center pb-[8px] justify-between text-descM15 text-white font-Montserrat">
                   Total Addresses
@@ -443,7 +443,7 @@ export default function BasicDetails() {
                   {membersValue?.length}
                 </span>
               </div>
-              <div className="text-descM12 text-Neutral-Secondary-Text mb-[32px] font-Montserrat">
+              <div className="text-descM12 text-Neutral-Secondary-Text font-Montserrat">
                 Your connected wallet has been automatically added to the list. You can remove it if
                 you&apos;d like.
               </div>
