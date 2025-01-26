@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React, { forwardRef, LegacyRef, useEffect, useState } from 'react';
 
 interface ITextareaProps {
-  value: string;
+  value?: string;
   disabled?: boolean;
   placeholder?: string;
   maxLength?: number;
@@ -32,7 +32,7 @@ const Textarea = (
 
   useEffect(() => {
     setText(value);
-    setCharCount(value?.length);
+    setCharCount(value?.length || 0);
   }, [value]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,7 +61,7 @@ const Textarea = (
         )}
         value={text}
         maxLength={maxLength}
-        onBlur={() => onBlur?.(text)}
+        onBlur={() => onBlur?.(text || '')}
         onChange={handleChange}
         placeholder={placeholder || 'Please enter...'}
         rows={1}

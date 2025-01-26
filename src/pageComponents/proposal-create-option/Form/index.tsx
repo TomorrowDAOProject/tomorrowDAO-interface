@@ -1,9 +1,6 @@
-import { Form, message as antdMessage } from 'antd';
-import { Input } from 'aelf-design';
+import { message as antdMessage } from 'antd';
 import OptionDynamicList from './OptionDynamicList';
-import AWSUpload from 'components/S3Upload';
-import formValidateScrollFirstError from 'utils/formValidateScrollFirstError';
-import { IContractError, IFormValidateError } from 'types';
+import { IContractError } from 'types';
 import { useRouter } from 'next/navigation';
 import { emitLoading } from 'utils/myEvent';
 import { voterAndExecuteNamePath } from 'pageComponents/proposal-create/DeployForm/constant';
@@ -12,7 +9,7 @@ import { proposalCreateContractRequest } from 'contract/proposalCreateContract';
 import { useAsyncEffect } from 'ahooks';
 import { fetchGovernanceMechanismList } from 'api/request';
 import { curChain } from 'config';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ButtonCheckLogin } from 'components/ButtonCheckLogin';
 import { ProposalType as ProposalTypeEnum } from 'types';
 import { EOptionType, ESourceType } from '../type';
@@ -21,6 +18,16 @@ import { saveVoteOptions, fetchVoteSchemeList } from 'api/request';
 import { formmatDescription } from '../utils';
 import { getProposalTimeParams } from 'utils/getProposalTime';
 import TimeRange from 'pageComponents/proposal-create/DeployForm/TimeRange';
+import FormItem from 'components/FormItem';
+import { Controller, useForm } from 'react-hook-form';
+import Input from 'components/Input';
+import Upload, { IRefHandle } from 'components/Upload';
+import { shortenFileName } from 'utils/file';
+import LinkGroup from 'app/(createADao)/create/component/LinkGroup';
+import { SocialMedia } from 'types/dao';
+import Select from 'components/Select';
+import Button from 'components/Button';
+import clsx from 'clsx';
 interface IFormPageProps {
   daoId: string;
   optionType: EOptionType;
@@ -29,8 +36,34 @@ interface IFormPageProps {
 export default function Page(props: IFormPageProps) {
   const { daoId, optionType, aliasName } = props;
   const nextRouter = useRouter();
-  const [form] = Form.useForm();
-  const proposalType = Form.useWatch('proposalType', form);
+
+  const form = useForm({
+    defaultValues: {
+      proposalType: optionType,
+      proposalBasicInfo: {
+        proposalTitle: '',
+        schemeAddress: '',
+        activeStartTime: 0,
+        activeEndTime: 0,
+      },
+      banner: '',
+      options: [''],
+    },
+  });
+  const {
+    watch,
+    control,
+    formState: { errors },
+    trigger,
+    setValue,
+    getValues,
+  } = form;
+  const uploadRef = useRef<IRefHandle | null>(null);
+
+  const banner = watch('banner');
+  const proposalType = watch('proposalType');
+  const options = watch('options') ?? [];
+
   const [governanceMechanismList, setGovernanceMechanismList] = useState<TGovernanceSchemeList>();
   const governanceMechanismOptions = useMemo(() => {
     return governanceMechanismList?.map((item) => {
@@ -52,7 +85,8 @@ export default function Page(props: IFormPageProps) {
   }, [daoId]);
   const handleSubmit = async () => {
     try {
-      const res = await form.validateFields();
+      await trigger();
+      const res = getValues();
       emitLoading(true, 'Publishing the proposal...');
       console.log('res', res);
       const saveReqApps: ISaveAppListReq['apps'] = res.options.map((item: any) => {
@@ -63,7 +97,7 @@ export default function Page(props: IFormPageProps) {
           sourceType: ESourceType.TomorrowDao,
         };
       });
-      const bannerUrl = res?.banner?.[0]?.url;
+      const bannerUrl = res?.banner;
       if (bannerUrl) {
         saveReqApps.push({
           title: 'TomorrowDaoBanner',
@@ -138,12 +172,7 @@ export default function Page(props: IFormPageProps) {
       });
     } catch (err) {
       emitLoading(false);
-      const error = err as IFormValidateError | IContractError;
-      // form Error
-      if (typeof error === 'object' && 'errorFields' in error) {
-        formValidateScrollFirstError(form, error);
-        return;
-      }
+      const error = err as IContractError;
       const msg =
         (error?.errorMessage?.message || error?.message || err?.toString()) ?? 'Unknown error';
       showErrorModal('Error', msg);
@@ -152,94 +181,122 @@ export default function Page(props: IFormPageProps) {
   return (
     <div className="deploy-proposal-options-form">
       <h3 className="card-title lg:mb-[32px] mb-[24px]">Create a List</h3>
-      <Form
-        form={form}
-        layout="vertical"
-        autoComplete="off"
-        requiredMark={true}
-        scrollToFirstError={true}
-        name="dynamic_form_item"
-      >
-        <Form.Item
-          name={['proposalBasicInfo', 'proposalTitle']}
-          label={<span>Title</span>}
-          validateFirst
-          rules={[
-            {
-              required: true,
-              message: 'The proposal title is required',
-            },
-            {
-              min: 0,
-              max: 300,
-              message: 'The proposal title supports a maximum of 300 characters',
-            },
-          ]}
-        >
-          <Input type="text" placeholder="Enter the title of the list (300 characters max). " />
-        </Form.Item>
-        {optionType === EOptionType.advanced && (
-          <Form.Item name={'banner'} label={<span>Banner</span>} valuePropName="fileList">
-            <AWSUpload
-              accept=".png,.jpg,.jpeg"
-              maxFileCount={1}
-              needCheckImgSize
-              ratio={[2.9, 3]}
-              fileLimit="10 MB"
-              ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 3:1"
-              tips={'Formats supported: PNG and JPG. Ratio: 3:1, less than 10 MB.'}
-              needCrop
-            />
-          </Form.Item>
-        )}
-
-        <OptionDynamicList
-          name={'options'}
-          form={form}
-          rules={[
-            {
-              validator: (_, value) => {
-                return new Promise<void>((resolve, reject) => {
-                  if (!value || !value?.length || value?.length < 2) {
-                    reject('There should be more than 1 option, please add more options.');
-                  }
-                  resolve();
-                });
+      <form>
+        <FormItem label="Name" errorText={errors?.proposalBasicInfo?.proposalTitle?.message}>
+          <Controller
+            name="proposalBasicInfo.proposalTitle"
+            control={control}
+            rules={{
+              required: 'The proposal title is required',
+              maxLength: {
+                value: 300,
+                message: 'The proposal title supports a maximum of 300 characters',
               },
-            },
-          ]}
-          optionType={optionType}
-          initialValue={[
-            {
-              title: '',
-            },
-            {
-              title: '',
-            },
-          ]}
-        />
-        <div className="card-title divide-title">Proposal Information</div>
-        <Form.Item
-          name={voterAndExecuteNamePath}
-          required
-          label={<span>Voters and executors</span>}
-          rules={[
-            {
-              required: true,
-              message: 'voters and executors is required',
-            },
-          ]}
-        >
-          <ResponsiveSelect
-            drawerProps={{
-              title: 'Proposal Type',
             }}
-            options={governanceMechanismOptions}
-            optionLabelProp="label"
-          ></ResponsiveSelect>
-        </Form.Item>
+            render={({ field }) => (
+              <Input
+                {...field}
+                placeholder="Enter the title of the list (300 characters max)"
+                isError={!!errors?.proposalBasicInfo?.proposalTitle?.message}
+              />
+            )}
+          />
+        </FormItem>
+        {optionType === EOptionType.advanced && (
+          <FormItem label="Banner" className="lg:mb-0" errorText={errors?.banner?.message}>
+            <Controller
+              name="banner"
+              control={control}
+              rules={{
+                required: 'Banner is required',
+              }}
+              render={({ field }) => (
+                <>
+                  <Upload
+                    ref={uploadRef}
+                    accept=".png,.jpg,.jpeg"
+                    needCheckImgSize
+                    ratio={[2.9, 3]}
+                    fileLimit="10 MB"
+                    ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 3:1"
+                    tips={'Formats supported: PNG and JPG. Ratio: 3:1, less than 10 MB.'}
+                    onFinish={({ url }) => field.onChange(url)}
+                    // needCrop
+                  />
+
+                  {banner && (
+                    <div className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto">
+                      <div className="flex items-center flex-grow">
+                        <i className="text-lightGrey tmrwdao-icon-upload-document text-[20px]" />
+                        <span className="ml-2 text-lightGrey text-desc14 font-Montserrat">
+                          {shortenFileName(banner)}
+                        </span>
+                      </div>
+                      <i
+                        className="tmrwdao-icon-circle-minus text-[22px] ml-[6px] cursor-pointer text-Neutral-Secondary-Text"
+                        onClick={() => {
+                          setValue('banner', '');
+                          uploadRef.current?.reset();
+                        }}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
+            />
+          </FormItem>
+        )}
+        <FormItem label="Options" errorText={errors?.options?.message}>
+          <Controller
+            name="options"
+            control={control}
+            rules={{
+              required: 'Option is required',
+              minLength: {
+                value: 1,
+                message: 'There should be more than 1 option, please add more options.',
+              },
+            }}
+            render={({ field }) => (
+              <OptionDynamicList
+                optionType={optionType}
+                initialValue={[
+                  {
+                    title: '',
+                  },
+                  {
+                    title: '',
+                  },
+                ]}
+                onChange={field.onChange}
+              />
+            )}
+          />
+        </FormItem>
+        <div className="card-title divide-title">Proposal Information</div>
+        <FormItem
+          label="Voters and executors"
+          errorText={errors.proposalBasicInfo?.schemeAddress?.message}
+        >
+          <Controller
+            name="proposalBasicInfo.schemeAddress"
+            control={control}
+            rules={{
+              required: 'voters and executors is required',
+            }}
+            render={({ field }) => (
+              <Select
+                {...field}
+                label="Name"
+                placehoder="Select Social Media"
+                options={governanceMechanismOptions}
+                isError={!!errors.proposalBasicInfo?.schemeAddress?.message}
+              />
+            )}
+          />
+        </FormItem>
         <TimeRange />
-      </Form>
+      </form>
 
       <div className="flex justify-end mt-[32px]">
         <ButtonCheckLogin

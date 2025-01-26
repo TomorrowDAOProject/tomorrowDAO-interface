@@ -42,6 +42,7 @@ import Switch from 'components/Switch';
 import { formatErrorMsg } from 'contract/util';
 import { sleep } from 'utils/common';
 import { getTxResult } from 'utils/getTxResult';
+import { filterInvalidFields } from 'utils/parseJSON';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -111,11 +112,12 @@ const CreateDaoPage = () => {
       const socialMedia =
         Array.isArray(originMetadata?.metadata?.socialMedia) &&
         Object.fromEntries(originMetadata?.metadata?.socialMedia);
+      console.log('socialMedia', socialMedia);
       const metadata = {
         ...originMetadata,
         metadata: {
           ...originMetadata?.metadata,
-          socialMedia,
+          socialMedia: socialMedia ? filterInvalidFields(socialMedia) : {},
         },
         members: {
           value:
@@ -124,6 +126,7 @@ const CreateDaoPage = () => {
               ?.map((item) => trimAddress(item)) ?? [],
         },
       };
+      console.log('metadata', metadata);
 
       try {
         const files: IFile[] =

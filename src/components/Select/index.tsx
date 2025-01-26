@@ -11,7 +11,7 @@ interface ISelectProps {
   value?: string;
   className?: string;
   label?: React.ReactNode;
-  options: SelectOption[];
+  options?: SelectOption[];
   placehoder?: string;
   defaultValue?: SelectOption;
   isError?: boolean;
@@ -57,7 +57,7 @@ const Select: React.FC<ISelectProps> = ({
 
   useEffect(() => {
     if (value) {
-      const currentValue = options.find((option) => option.value === value);
+      const currentValue = options?.find((option) => option.value === value);
       setSelected(currentValue);
     }
   }, [options, value]);
@@ -92,7 +92,7 @@ const Select: React.FC<ISelectProps> = ({
             overlayClassName,
           )}
         >
-          {options.map((option) => (
+          {options?.map((option) => (
             <li
               key={option.value}
               className={clsx(
