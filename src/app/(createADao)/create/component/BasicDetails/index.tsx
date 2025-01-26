@@ -1,7 +1,6 @@
 import './index.css';
 import ChainAddress from 'components/Address';
-import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
-import { facebookUrlRegex, twitterUsernameRegex, useRegisterForm } from '../utils';
+import { urlRegex, twitterUsernameRegex, useRegisterForm } from '../utils';
 import { EDaoGovernanceMechanism, StepEnum } from '../../type';
 import { useSelector } from 'react-redux';
 import { dispatch } from 'redux/store';
@@ -192,7 +191,7 @@ export default function BasicDetails() {
                       if (value.length > 15) {
                         return 'The X (Twitter) user name should be shorter than 15 characters.';
                       }
-                    } else if (!!key && !facebookUrlRegex.test(value)) {
+                    } else if (!!key && !urlRegex.test(value)) {
                       return 'Please enter a correct link. Shortened URLs are not supported.';
                     } else if (!!key && value.length > 128) {
                       return 'The URL should be shorter than 128 characters.';

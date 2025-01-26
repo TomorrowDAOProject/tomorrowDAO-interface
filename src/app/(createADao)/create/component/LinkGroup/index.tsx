@@ -4,8 +4,7 @@ import Input from 'components/Input';
 import Select, { SelectOption } from 'components/Select';
 import { LINK_TYPE } from 'constants/dao';
 import { useEffect, useState } from 'react';
-import { facebookUrlRegex, twitterUsernameRegex } from '../utils';
-import { validate } from 'graphql';
+import { urlRegex, twitterUsernameRegex } from '../utils';
 import { SocialMedia } from 'types/dao';
 
 interface ILinkGroupProps {
@@ -118,7 +117,7 @@ const LinkGroup = ({ value, errorText, onBlur, onChange }: ILinkGroupProps) => {
                 isError={
                   !!link[0] &&
                   ((link[0] === LINK_TYPE.TWITTER && !twitterUsernameRegex.test(link[1])) ||
-                    (link[0] !== LINK_TYPE.TWITTER && !facebookUrlRegex.test(link[1])))
+                    (link[0] !== LINK_TYPE.TWITTER && !urlRegex.test(link[1])))
                 }
               />
               <i
