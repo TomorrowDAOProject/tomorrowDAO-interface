@@ -10,6 +10,7 @@ interface IUploadProps {
   extensions?: string[];
   fileLimit?: string;
   className?: string;
+  needCrop?: boolean;
   needCheckImgSize?: boolean;
   children?: ReactNode;
   uploadText?: string;

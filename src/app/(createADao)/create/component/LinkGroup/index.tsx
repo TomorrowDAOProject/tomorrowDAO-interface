@@ -50,7 +50,7 @@ const LinkGroup = ({ value, errorText, onBlur, onChange }: ILinkGroupProps) => {
   const [linkData, setLinkData] = useState<[string, string][]>([['', '']]);
   const handleSelectChange = (option: SelectOption, index: number) => {
     const originLinks = [...linkData];
-    originLinks[index][0] = option.value;
+    originLinks[index][0] = option.value as string;
     setLinkData(originLinks);
     onChange?.(originLinks);
   };

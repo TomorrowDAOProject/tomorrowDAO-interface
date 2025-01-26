@@ -42,6 +42,7 @@ import Switch from 'components/Switch';
 import { formatErrorMsg } from 'contract/util';
 import { sleep } from 'utils/common';
 import { getTxResult } from 'utils/getTxResult';
+import { filterInvalidFields } from 'utils/parseJSON';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -115,7 +116,7 @@ const CreateDaoPage = () => {
         ...originMetadata,
         metadata: {
           ...originMetadata?.metadata,
-          socialMedia,
+          socialMedia: socialMedia ? filterInvalidFields(socialMedia) : {},
         },
         members: {
           value:
