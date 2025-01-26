@@ -59,6 +59,7 @@ export const min2maxIntegerRule: Rule[] = [
 export const twitterUsernameRegex = /^@[A-Za-z0-9_]+$/;
 export const facebookUrlRegex =
   /^(https:\/\/)?(www\.)?(facebook\.com|discord\.com|t\.me|reddit\.com)\/.*/;
+export const urlRegex = /^https:\/\/.+/;
 
 export const mediaValidatorMap = {
   Twitter: {
