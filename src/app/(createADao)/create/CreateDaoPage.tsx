@@ -112,7 +112,6 @@ const CreateDaoPage = () => {
       const socialMedia =
         Array.isArray(originMetadata?.metadata?.socialMedia) &&
         Object.fromEntries(originMetadata?.metadata?.socialMedia);
-      console.log('socialMedia', socialMedia);
       const metadata = {
         ...originMetadata,
         metadata: {
@@ -126,7 +125,6 @@ const CreateDaoPage = () => {
               ?.map((item) => trimAddress(item)) ?? [],
         },
       };
-      console.log('metadata', metadata);
 
       try {
         const files: IFile[] =
