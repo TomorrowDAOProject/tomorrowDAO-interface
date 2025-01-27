@@ -143,33 +143,29 @@ export default function MyInfo(props: TInfoTypes) {
     },
     {
       key: '1',
-      label: (
-        <span className="card-sm-text text-Neutral-Secondary-Text">
-          {info?.symbol || 'ELF'} Balance
-        </span>
-      ),
+      label: <span className="card-sm-text text-lightGrey">{info?.symbol || 'ELF'} Balance</span>,
       children: (
-        <div className="w-full text-right card-sm-text-bold">
+        <div className="w-full text-right card-sm-text-bold text-white">
           {elfBalance} <SymbolText symbol={info?.symbol || 'ELF'} />
         </div>
       ),
     },
     {
       key: '2',
-      label: (
-        <span className="card-sm-text text-Neutral-Secondary-Text">{info?.symbol} Staked</span>
-      ),
+      label: <span className="card-sm-text text-lightGrey">{info?.symbol} Staked</span>,
       children: (
-        <div className="w-full text-right card-sm-text-bold">
+        <div className="w-full text-right card-sm-text-bold text-white">
           {info?.stakeAmount} <SymbolText symbol={info?.symbol || 'ELF'} />
         </div>
       ),
     },
     {
       key: '3',
-      label: <span className="card-sm-text text-Neutral-Secondary-Text">Votes</span>,
+      label: <span className="card-sm-text text-lightGrey">Votes</span>,
       children: (
-        <div className="w-full text-right card-sm-text-bold">{info?.votesAmount} Votes</div>
+        <div className="w-full text-right card-sm-text-bold text-white">
+          {info?.votesAmount} Votes
+        </div>
       ),
     },
   ];
@@ -241,12 +237,18 @@ export default function MyInfo(props: TInfoTypes) {
           <>
             {!isOnlyShowVoteOption && (
               <>
-                <Descriptions colon={false} title="" items={myInfoItems} column={1} />
+                <Descriptions
+                  colon={false}
+                  title=""
+                  className="font-Montserrat"
+                  items={myInfoItems}
+                  column={1}
+                />
                 {/* cliam */}
-                <Divider className="my-0" />
-                <div className="flex justify-between items-start my-[16px]">
+                <div className="h-0 w-full border-0 border-t border-solid border-fillBg8"></div>
+                <div className="flex justify-between items-center my-[16px]">
                   <div>
-                    <div className="card-sm-text text-Neutral-Secondary-Text mb-1">
+                    <div className="card-sm-text text-lightGrey mb-1 font-Montserrat">
                       Available for Unstaking
                     </div>
                     <div className="text-white card-sm-text-bold">
@@ -254,6 +256,7 @@ export default function MyInfo(props: TInfoTypes) {
                     </div>
                   </div>
                   <Button
+                    type="primary"
                     className="!rounded-[42px]"
                     onClick={() => {
                       if (info?.availableUnStakeAmount === 0) {
