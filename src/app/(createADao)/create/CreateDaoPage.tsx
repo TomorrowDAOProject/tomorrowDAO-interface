@@ -238,7 +238,7 @@ const CreateDaoPage = () => {
                     className="py-2 px-[14px] w-full lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid text-descM12 font-Montserrat lg:text-descM15 rounded-[42px] bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor appearence-none outline-none transition-[background,color] duration-300 ease-in-out"
                     href={`/explore`}
                     onClick={() => {
-                      toast.error(
+                      toast.success(
                         'created successfully, it will appear in the list in a few minutes',
                       );
                     }}
