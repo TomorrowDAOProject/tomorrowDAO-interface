@@ -1,19 +1,19 @@
-import { DownOutlined, UpOutlined, MinusCircleOutlined } from '@aelf-design/icons';
+import { Form, FormInstance } from 'antd';
+import { Input, Button } from 'aelf-design';
+import {
+  AddCircleOutlined,
+  DeleteOutlined,
+  DownOutlined,
+  UpOutlined,
+  MinusCircleOutlined,
+} from '@aelf-design/icons';
 import './index.css';
-import { useEffect, useRef, useState } from 'react';
+import { FormListFieldData } from 'antd/lib/form/FormList';
+import { useState } from 'react';
 import AWSUpload from 'components/S3Upload';
 import { FormListProps } from 'antd/es/form/FormList';
 import { NamePath } from 'antd/es/form/interface';
 import { EOptionType } from '../type';
-import { Controller, useForm, useWatch } from 'react-hook-form';
-import FormItem from 'components/FormItem';
-import Input from 'components/Input';
-import Textarea from 'components/Textarea';
-import Button from 'components/Button';
-import Upload, { IRefHandle } from 'components/Upload';
-import { shortenFileName } from 'utils/file';
-import clsx from 'clsx';
-import { useAsyncEffect } from 'ahooks';
 
 interface IFormListFullItemValue {
   title: string;
@@ -24,47 +24,24 @@ interface IFormListFullItemValue {
   screenshots?: string[];
 }
 interface IFormListDymanicProps {
+  name: NamePath;
   initialValue: IFormListFullItemValue[];
+  form: FormInstance;
+  rules?: FormListProps['rules'];
   optionType?: EOptionType;
-  onChange?(options: IFormListFullItemValue[]): void;
 }
 interface IFormItemsProps {
-  field: IFormListFullItemValue;
+  field: FormListFieldData;
   total: number;
   index: number;
   onRemove?: () => void;
-  onChange?(options: IFormListFullItemValue): void;
 }
-
 function FormListFullItems(props: IFormItemsProps) {
-  const { field, onRemove, total, index, onChange } = props;
-  const {
-    control,
-    watch,
-    trigger,
-    getValues,
-    formState: { errors },
-  } = useForm({
-    defaultValues: field,
-    mode: 'onChange',
-  });
-  const formValues = useWatch({ control });
-
-  useAsyncEffect(async () => {
-    const res = await trigger();
-    if (res) {
-      const values = getValues();
-      onChange?.(values);
-    }
-  }, [formValues]);
-
+  const { field, onRemove, total, index } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const uploadRef = useRef<IRefHandle | null>(null);
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
-  const icon = watch('icon');
-
   return (
     <div className="dynamic-option-item w-full card-shape p-[24px]">
       {total > 1 && (
@@ -75,245 +52,142 @@ function FormListFullItems(props: IFormItemsProps) {
           </span>
         </div>
       )}
-      <FormItem label="Name" errorText={errors?.title?.message}>
-        <Controller
-          name="title"
-          control={control}
-          rules={{
-            required: 'The name is required',
-            maxLength: {
-              value: 20,
-              message: 'The name should contain no more than 20 characters.',
-            },
-          }}
-          render={({ field }) => (
-            <Input
-              {...field}
-              placeholder="Enter a name for the option (20 characters max)"
-              isError={!!errors?.title?.message}
-            />
-          )}
-        />
-      </FormItem>
+      <Form.Item
+        name={[field.name, 'title']}
+        label="Name"
+        required
+        labelCol={{
+          span: 4,
+        }}
+        rules={[
+          {
+            required: true,
+            message: 'The name is required',
+          },
+          {
+            type: 'string',
+            max: 20,
+            message: 'The name should contain no more than 20 characters.',
+          },
+        ]}
+      >
+        <Input placeholder={`Enter a name for the option(20 characters max). `} />
+      </Form.Item>
       <div onClick={handleOpen} className="flex-center my-[16px] cursor-pointer">
         <span className="pr-[4px]">Optional</span> {isOpen ? <UpOutlined /> : <DownOutlined />}
       </div>
       <div className={`${isOpen ? 'block' : 'hidden'}`}>
-        <FormItem label="Logo" className="lg:mb-0" errorText={errors?.icon?.message}>
-          <Controller
-            name="icon"
-            control={control}
-            rules={{
-              required: 'Logo is required',
-            }}
-            render={({ field }) => (
-              <>
-                <Upload
-                  ref={uploadRef}
-                  className="mx-auto !w-[250px]"
-                  fileLimit="10 MB"
-                  value={field.value}
-                  ratio={1}
-                  uploadText="Upload"
-                  tips={`Formats supported: PNG, JPG, JPEG. \nRatio 1:1, less than 1 MB.`}
-                  ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
-                  onFinish={({ url }) => field.onChange(url)}
-                  needCrop
-                  needCheckImgSize
-                />
-
-                {icon && (
-                  <div className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto">
-                    <div className="flex items-center flex-grow">
-                      <i className="text-lightGrey tmrwdao-icon-upload-document text-[20px]" />
-                      <span className="ml-2 text-lightGrey text-desc14 font-Montserrat">
-                        {shortenFileName(icon)}
-                      </span>
-                    </div>
-                    <i
-                      className="tmrwdao-icon-circle-minus text-[22px] ml-[6px] cursor-pointer text-Neutral-Secondary-Text"
-                      onClick={() => {
-                        field.onChange('');
-                        uploadRef.current?.reset();
-                      }}
-                    />
-                  </div>
-                )}
-              </>
-            )}
+        <Form.Item
+          name={[field.name, 'icon']}
+          label={'Logo'}
+          valuePropName="fileList"
+          labelCol={{
+            span: 4,
+          }}
+        >
+          <AWSUpload
+            accept=".png,.jpg,.jpeg"
+            maxFileCount={1}
+            tips="Formats supported: PNG and JPG. Ratio: 1:1, less than 10 MB"
+            needCheckImgSize
+            ratio={1}
+            needCrop
+            fileLimit="10 MB"
+            ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
           />
-        </FormItem>
-        <FormItem
+        </Form.Item>
+        <Form.Item
+          validateFirst
+          rules={[
+            {
+              type: 'string',
+              max: 80,
+              message: 'The summary should contain no more than 80 characters.',
+            },
+          ]}
+          name={[field.name, 'description']}
           label="Summary"
-          className="lg:ml-[50px] lg:mb-0 md:flex-grow"
-          errorText={errors?.description?.message}
+          labelCol={{
+            span: 4,
+          }}
         >
-          <Controller
-            name="description"
-            control={control}
-            rules={{
-              required: 'Summary is required',
-              maxLength: {
-                value: 80,
-                message: 'The summary should contain no more than 80 characters.',
-              },
-            }}
-            render={({ field }) => (
-              <Textarea
-                {...field}
-                containerClassName={clsx('lg:h-[calc(100%-34px)]', {
-                  'lg:!h-[calc(100%-57px)]': !!errors?.description?.message,
-                })}
-                rootClassName="lg:h-full"
-                maxLength={80}
-                placeholder={`Enter a description for the option (80 characters max)`}
-                isError={!!errors?.description?.message}
-              />
-            )}
-          />
-        </FormItem>
-        <FormItem
+          <Input.TextArea placeholder={`Enter a summary for the option(80 characters max). `} />
+        </Form.Item>
+        <Form.Item
+          validateFirst
+          rules={[
+            {
+              type: 'string',
+              max: 1000,
+              message: 'Enter a description for the option(1000 characters max).',
+            },
+          ]}
+          name={[field.name, 'longDescription']}
           label="Description"
-          className="lg:ml-[50px] lg:mb-0 md:flex-grow"
-          errorText={errors?.description?.message}
+          labelCol={{
+            span: 4,
+          }}
         >
-          <Controller
-            name="longDescription"
-            control={control}
-            rules={{
-              required: 'Description is required',
-              maxLength: {
-                value: 80,
-                message: 'The description should contain no more than 1000 characters.',
-              },
-            }}
-            render={({ field }) => (
-              <Textarea
-                {...field}
-                containerClassName={clsx('lg:h-[calc(100%-34px)]', {
-                  'lg:!h-[calc(100%-57px)]': !!errors?.description?.message,
-                })}
-                rootClassName="lg:h-full"
-                maxLength={1000}
-                placeholder={`Enter a description for the option (1000 characters max)`}
-                isError={!!errors?.description?.message}
-              />
-            )}
+          <Input.TextArea
+            placeholder={`Enter a description for the option(1000 characters max). `}
           />
-        </FormItem>
-        <FormItem label="Name" errorText={errors?.url?.message}>
-          <Controller
-            name="url"
-            control={control}
-            rules={{
-              validate: {
-                validator: (value) => !value || 'Please enter a correct link.',
-              },
-            }}
-            render={({ field }) => (
-              <Input
-                {...field}
-                placeholder="Enter a link for the option"
-                isError={!!errors?.url?.message}
-              />
-            )}
+        </Form.Item>
+        <Form.Item
+          name={[field.name, 'url']}
+          label="URL"
+          labelCol={{
+            span: 4,
+          }}
+          rules={[
+            {
+              type: 'url',
+              message: 'Please enter a correct link.',
+            },
+          ]}
+        >
+          <Input placeholder={`Enter a link for the option. `} />
+        </Form.Item>
+        <Form.Item
+          name={[field.name, 'screenshots']}
+          label="Image"
+          valuePropName="fileList"
+          labelCol={{
+            span: 4,
+          }}
+          className="dymaic-form-item-screenshots"
+        >
+          <AWSUpload
+            accept=".png,.jpg,.jpeg"
+            maxFileCount={9}
+            fileLimit="10 MB"
+            tips="Formats supported: PNG and JPG. less than 10 MB."
           />
-        </FormItem>
-        <FormItem label="Image" className="lg:mb-0" errorText={errors?.icon?.message}>
-          <Controller
-            name="screenshots"
-            control={control}
-            rules={{
-              required: 'Image is required',
-            }}
-            render={({ field }) => (
-              <>
-                <Upload
-                  ref={uploadRef}
-                  className="mx-auto !w-[250px]"
-                  fileLimit="10 MB"
-                  ratio={1}
-                  uploadText="Upload"
-                  tips={`Formats supported: PNG, JPG, JPEG. \nRatio 1:1, less than 1 MB.`}
-                  ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
-                  onFinish={({ url }) => field.onChange(url)}
-                  needCrop
-                  needCheckImgSize
-                />
-
-                {icon && (
-                  <div className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto">
-                    <div className="flex items-center flex-grow">
-                      <i className="text-lightGrey tmrwdao-icon-upload-document text-[20px]" />
-                      <span className="ml-2 text-lightGrey text-desc14 font-Montserrat">
-                        {shortenFileName(icon)}
-                      </span>
-                    </div>
-                    <i
-                      className="tmrwdao-icon-circle-minus text-[22px] ml-[6px] cursor-pointer text-Neutral-Secondary-Text"
-                      onClick={() => {
-                        field.onChange('');
-                        uploadRef.current?.reset();
-                      }}
-                    />
-                  </div>
-                )}
-              </>
-            )}
-          />
-        </FormItem>
+        </Form.Item>
       </div>
     </div>
   );
 }
 function FormListSimpleItems(props: IFormItemsProps) {
-  const { field, onRemove, onChange } = props;
-  const [init, setInit] = useState(true);
-  const {
-    control,
-    trigger,
-    getValues,
-    formState: { errors },
-  } = useForm({
-    defaultValues: field,
-    mode: 'onChange',
-  });
-  const formValues = useWatch({ control });
-
-  useAsyncEffect(async () => {
-    if (init) {
-      setInit(false);
-      return;
-    }
-    const res = await trigger();
-    if (res) {
-      const values = getValues();
-      onChange?.(values);
-    }
-  }, [formValues]);
-
+  const { field, onRemove, index } = props;
   return (
     <div className="dynamic-option-simple-item w-full">
-      <FormItem errorText={errors?.title?.message}>
-        <Controller
-          name="title"
-          control={control}
-          rules={{
-            required: 'The name is required',
-            maxLength: {
-              value: 20,
-              message: 'The name should contain no more than 20 characters.',
-            },
-          }}
-          render={({ field }) => (
-            <Input
-              {...field}
-              placeholder="Enter a name for the option (20 characters max)"
-              isError={!!errors?.title?.message}
-            />
-          )}
-        />
-      </FormItem>
+      <Form.Item
+        name={[field.name, 'title']}
+        required
+        rules={[
+          {
+            required: true,
+            message: 'The name is required',
+          },
+          {
+            type: 'string',
+            max: 20,
+            message: 'The name should contain no more than 20 characters.',
+          },
+        ]}
+      >
+        <Input placeholder={`Enter a name for the option(20 characters max). `} />
+      </Form.Item>
       <div className="flex justify-between">
         <span onClick={onRemove} className="cursor-pointer">
           <MinusCircleOutlined className=" delete-dynamic-form-item-icon-with-hover delete-dynamic-form-item-icon-small" />
@@ -323,74 +197,78 @@ function FormListSimpleItems(props: IFormItemsProps) {
   );
 }
 function FormListDymanic(props: IFormListDymanicProps) {
-  const { onChange, initialValue, optionType } = props;
-  const [options, setOptions] = useState(initialValue || []);
-
-  const handleRemove = (index: number) => {
-    let originLinks = [...options];
-    if (options.length === 1) {
-      originLinks = [{ title: '' }];
-    } else {
-      originLinks.splice(index, 1);
-    }
-    setOptions(originLinks);
-    onChange?.(originLinks);
-  };
-
-  const handleChange = (index: number, values: IFormListFullItemValue) => {
-    const opts = [...options];
-    opts[index] = values;
-    onChange?.(opts);
-  };
+  const { name, initialValue, form, rules, optionType } = props;
 
   return (
     <div className="dynamic-form-list">
-      {options?.map((field, index) => (
-        <div key={`${field.title}_${index}`}>
-          {optionType === EOptionType.advanced ? (
-            <FormListFullItems
-              field={field}
-              total={options.length}
-              onRemove={() => handleRemove(index)}
-              onChange={(values) => handleChange(index, values)}
-              index={index}
-            />
-          ) : (
-            <FormListSimpleItems
-              field={field}
-              total={options.length}
-              onRemove={() => handleRemove(index)}
-              onChange={(values) => handleChange(index, values)}
-              index={index}
-            />
-          )}
-        </div>
-      ))}
-      <div className="flex items-center gap-[9px]">
-        <Button
-          className="!py-1 !text-[12px]"
-          type="default"
-          onClick={() => {
-            const originList = [...options, { title: '' }];
-            setOptions(originList);
-            onChange?.(originList);
+      <Form.Item required label="Options">
+        <Form.List name={name} initialValue={initialValue} rules={[...(rules ?? [])]}>
+          {(fields, { add, remove }, { errors }) => {
+            return (
+              <>
+                {fields.map((field, index) => (
+                  <Form.Item key={field.key} className={`${optionType} dynamic-form-item-wrap`}>
+                    {optionType === EOptionType.advanced ? (
+                      <FormListFullItems
+                        field={field}
+                        total={fields.length}
+                        onRemove={() => {
+                          remove(field.name);
+                        }}
+                        index={index}
+                      />
+                    ) : (
+                      <FormListSimpleItems
+                        field={field}
+                        total={fields.length}
+                        onRemove={() => {
+                          remove(field.name);
+                        }}
+                        index={index}
+                      />
+                    )}
+                  </Form.Item>
+                ))}
+
+                <div className="flex justify-between lg:items-center items-start lg:flex-row flex-col">
+                  <div className="dynamic-form-buttons text-neutralTitle">
+                    <Button
+                      className="dynamic-form-buttons-item"
+                      type="default"
+                      size="medium"
+                      onClick={() => add()}
+                      icon={<AddCircleOutlined className="text-[16px] " />}
+                    >
+                      <span className="card-sm-text-bold ">Add option</span>
+                    </Button>
+                    <Button
+                      type="default"
+                      size="medium"
+                      onClick={() => {
+                        form.setFieldValue(name, []);
+                        form.validateFields([name]);
+                      }}
+                      className="dynamic-form-buttons-item"
+                      icon={<DeleteOutlined className="text-[16px]" />}
+                    >
+                      <span className="card-sm-text-bold ">Delete all</span>
+                    </Button>
+                  </div>
+                  <div className="card-sm-text text-Disable-Text lg:mt-0 mt-[16px]">
+                    <span className="text-neutralPrimaryText">{fields.length}</span> Options in
+                    Total
+                  </div>
+                </div>
+                {!!errors.length && (
+                  <div className="error-text">
+                    <Form.ErrorList errors={errors} />
+                  </div>
+                )}
+              </>
+            );
           }}
-        >
-          <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
-          Add Address
-        </Button>
-        <Button
-          className="!py-1 !text-[12px]"
-          type="default"
-          onClick={() => {
-            setOptions([{ title: '' }]);
-            onChange?.([{ title: '' }]);
-          }}
-        >
-          <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
-          Delete All
-        </Button>
-      </div>
+        </Form.List>
+      </Form.Item>
     </div>
   );
 }
