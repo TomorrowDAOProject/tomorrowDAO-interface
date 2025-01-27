@@ -68,7 +68,7 @@
 }
 
 .dao-collapse-panel-label {
-  @apply font-[300] text-[14px] leading-[22px] text-lightGrey font-Unbounded;
+  @apply font-[300] text-[14px] leading-[22px] text-lightGrey font-Montserrat;
 }
 
 .dao-collapse-panel-child {

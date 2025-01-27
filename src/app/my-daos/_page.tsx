@@ -101,9 +101,12 @@ const MyDaosPage = () => {
     <div className="my-daos">
       <div className="mb-[15px] py-[25px] px-[30px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid flex items-center justify-between">
         <p className="text-white text-[20px] leading-[40px] font-Unbounded">My DAOs</p>
-        <Link href="/create" className="primary-button flex items-center gap-2">
-          <span className="font-Montserrat text-[12px]">Create DAO</span>
-          <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
+        <Link
+          href="/create"
+          className="primary-button w-[118px] flex items-center gap-[6px] !py-2 !px-[14px]"
+        >
+          <span className="font-Montserrat text-[12px] font-medium">Create DAO</span>
+          <i className="tmrwdao-icon-default-arrow text-[10px] text-inherit" />
         </Link>
       </div>
       <div className="flex flex-col rounded-[8px] bg-darkBg border-fillBg8 border border-solid overflow-hidden">

@@ -22,7 +22,7 @@ export default function PreviewFile(props: TPropsType) {
         key: `${index}`,
         label: (
           <div className="min-w-36">
-            <Link href={item.file.url} target="_blank">
+            <Link className="hover:text-mainColor" href={item.file.url} target="_blank">
               {item.file.name}
             </Link>
           </div>
