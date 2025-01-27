@@ -284,7 +284,7 @@ const HighCouncil = () => {
                 {membersValue?.length}
               </span>
             </div>
-            <div className="text-descM12 text-Neutral-Secondary-Text">
+            <div className="text-descM12 font-Montserrat text-Neutral-Secondary-Text">
               Your connected wallet has been automatically added to the list. You can remove it if
               you&apos;d like.
             </div>
