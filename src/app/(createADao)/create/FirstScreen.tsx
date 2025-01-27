@@ -49,7 +49,7 @@ export const FirstScreen = (props: IFirstScreenProps) => {
           <div className="dao-create-first-screen-title">Create a DAO with TMRWDAO</div>
           <button onClick={onClickFun} className="login-btn lg:mt-0 mt-[12px] md:mt-0">
             <span>Get Started</span>
-            <GoStart />
+            <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
           </button>
         </div>
         <div className="dao-create-first-screen">
