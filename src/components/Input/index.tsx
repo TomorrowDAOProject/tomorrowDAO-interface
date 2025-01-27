@@ -52,7 +52,7 @@ const Input = (
   }, [parentValue, regExp]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative flex-grow">
       <input
         ref={ref}
         type="text"

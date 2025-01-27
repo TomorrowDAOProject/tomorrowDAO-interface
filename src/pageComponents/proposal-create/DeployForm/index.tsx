@@ -32,11 +32,12 @@ import {
 import { timesDecimals } from 'utils/calculate';
 import { trimAddress } from 'utils/address';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
-import { SkeletonForm } from 'components/Skeleton';
 import { replaceUrlParams } from 'utils/url';
 import dayjs from 'dayjs';
 import { proposalTypeList } from 'types';
 import Button from 'components/Button';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const convertParams = async (address: string, methodName: string, originParams: any) => {
   const contractInfo = await getContract(address);
@@ -70,7 +71,52 @@ const INIT_RESULT_MODAL_CONFIG: TResultModalConfig = {
   secondaryContent: '',
 };
 const GovernanceModel = (props: IGovernanceModelProps) => {
-  const [form] = Form.useForm();
+  const form = useForm({
+    defaultValues: {
+      proposalType: ProposalTypeEnum.GOVERNANCE,
+      treasury: {
+        recipient: '',
+        amountInfo: {
+          symbol: '',
+          amount: 0,
+        },
+      },
+      transaction: {
+        params: '{}',
+        toAddress: '',
+        to_address: '',
+        contractMethodName: '',
+      },
+      removeMembers: {
+        value: [''],
+      },
+      addMembers: {
+        value: [''],
+      },
+      removeHighCouncils: {
+        value: [''],
+      },
+      addHighCouncils: {
+        value: [''],
+      },
+      issueObj: { symbol: '', to: '', decimals: '', amount: 0 },
+      proposalBasicInfo: {
+        proposalTitle: '',
+        proposalDescription: '',
+        schemeAddress: '',
+        activeStartTime: 1,
+        activeEndTime: 1,
+      },
+      banner: '',
+      options: [''],
+    },
+  });
+  const {
+    watch,
+    trigger,
+    setValue,
+    getValues,
+  } = form;
   const searchParams = useSearchParams();
   const tab = searchParams.get('tab');
   const router = useNetworkDaoRouter();
@@ -95,6 +141,14 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
     return fetchDaoInfo({ chainId: curChain, alias: aliasName });
   });
   const daoId = daoData?.data?.id;
+
+  const to_address = watch('transaction.to_address');
+
+  useEffect(() => {
+    setValue('transaction.contractMethodName', '');
+    setValue('transaction.params', '');
+  }, [to_address]);
+
   const openErrorModal = (
     primaryContent = 'Failed to Create the proposal',
     secondaryContent = 'Failed to Create the proposal',
@@ -122,7 +176,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
     });
   };
   const handleNext = () => {
-    const proposalType = form.getFieldValue('proposalType');
+    const proposalType = getValues('proposalType');
     if (proposalType === NetworkDaoProposalOnChain.label) {
       router.push(`/apply`);
     } else {
@@ -161,14 +215,16 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
       }
 
       setIsValidating(true);
-      const res = await form.validateFields();
+      const result = await trigger();
+      if (!result) return;
+      const res = getValues();
       setIsValidating(false);
       console.log('res', res);
       emitLoading(true, 'Publishing the proposal...');
       const voteSchemeList = await fetchVoteSchemeList({ chainId: curChain, daoId: daoId });
       const voteSchemeId = voteSchemeList?.data?.voteSchemeList?.[0]?.voteSchemeId;
       if (!voteSchemeId) {
-        message.error('The voting scheme for this DAO cannot be found');
+        toast.error('The voting scheme for this DAO cannot be found');
         emitLoading(false);
         return;
       }
@@ -240,6 +296,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
           proposalBasicInfo: {
             ...basicInfo,
           },
+          transaction: {},
         };
         if (res.proposalType === ProposalTypeEnum.GOVERNANCE) {
           if (activeTab === EProposalActionTabs.IssueToken) {
@@ -402,12 +459,8 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
         });
         return;
       }
-      const error = err as IFormValidateError | IContractError;
+      const error = err as IContractError;
       // form Error
-      if ('errorFields' in error) {
-        formValidateScrollFirstError(form, error);
-        return;
-      }
       const message = error?.errorMessage?.message || error?.message;
       emitLoading(false);
       openErrorModal(undefined, message);
@@ -416,19 +469,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
 
   return (
     <div className="deploy-proposal-form mt-[24px] mb-[24px]">
-      <Form
-        form={form}
-        layout="vertical"
-        autoComplete="off"
-        requiredMark={false}
-        scrollToFirstError={true}
-        onValuesChange={(changedValues) => {
-          if (changedValues?.transaction?.to_address) {
-            form.setFieldValue(['transaction', 'contractMethodName'], '');
-            form.setFieldValue(['transaction', 'params'], '');
-          }
-        }}
-      >
+      <form>
         <ProposalType
           className={clsx({ hidden: isNext })}
           next={handleNext}
@@ -441,27 +482,24 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             </div>
           }
         />
-        {daoLoading && isNext ? (
-          <SkeletonForm />
-        ) : (
-          daoId && (
-            <ProposalInfo
-              isValidating={isValidating}
-              className={clsx({ hidden: !isNext })}
-              daoData={daoData?.data}
-              daoId={daoId}
-              onSubmit={handleSubmit}
-              onTabChange={(key: string) => {
-                replaceUrlParams('tab', key);
-                setActiveTab(key);
-              }}
-              activeTab={activeTab}
-              treasuryAssetsData={treasuryAssetsData?.data}
-              daoDataLoading={daoLoading}
-            />
-          )
+        {isNext && daoId && (
+          <ProposalInfo
+            form={form}
+            isValidating={isValidating}
+            className={clsx({ hidden: !isNext })}
+            daoData={daoData?.data}
+            daoId={daoId}
+            onSubmit={handleSubmit}
+            onTabChange={(key: string) => {
+              replaceUrlParams('tab', key);
+              setActiveTab(key);
+            }}
+            activeTab={activeTab}
+            treasuryAssetsData={treasuryAssetsData?.data}
+            daoDataLoading={daoLoading}
+          />
         )}
-      </Form>
+      </form>
       <CommonOperationResultModal
         {...resultModalConfig}
         onCancel={() => {

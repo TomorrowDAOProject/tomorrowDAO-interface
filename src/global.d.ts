@@ -49,3 +49,4 @@ declare module '*.svg' {
 }
 declare module 'socket.io-client';
 declare module 'alloyfinger';
+declare module 'react-flatpickr';

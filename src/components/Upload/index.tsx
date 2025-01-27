@@ -21,6 +21,7 @@ interface IUploadProps {
   ratioErrorText?: string;
   fileNameLengthLimit?: number;
   onStart?(): void;
+  verify?(): boolean;
   onFileChange?(file: File): void;
   onFinish?(data: { url: string; name: string; response: { url: string } }): void;
 }
@@ -67,6 +68,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
       needCheckImgSize,
       fileNameLengthLimit,
       onStart,
+      verify,
       onFileChange,
       onFinish,
     },
@@ -77,6 +79,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
     const [imageSrc, setImageSrc] = useState<string>(value || '');
 
     const handleClick = () => {
+      if (verify && !verify()) return;
       if (!loading && fileInputRef.current) {
         fileInputRef.current.click();
       }
@@ -134,7 +137,6 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
 
     const handleUpload = async (file: File) => {
       const result = await onBeforeUpload(file);
-      console.log('result', result);
       if (!result) return;
       if (file?.type?.includes('image')) {
         const imageDataUrl = (await readFile(file)) as string;

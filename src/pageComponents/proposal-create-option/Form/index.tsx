@@ -3,8 +3,6 @@ import OptionDynamicList from './OptionDynamicList';
 import { IContractError } from 'types';
 import { useRouter } from 'next/navigation';
 import { emitLoading } from 'utils/myEvent';
-import { voterAndExecuteNamePath } from 'pageComponents/proposal-create/DeployForm/constant';
-import { ResponsiveSelect } from 'components/ResponsiveSelect';
 import { proposalCreateContractRequest } from 'contract/proposalCreateContract';
 import { useAsyncEffect } from 'ahooks';
 import { fetchGovernanceMechanismList } from 'api/request';
@@ -17,17 +15,22 @@ import { showSuccessModal, showErrorModal } from 'utils/globalModal';
 import { saveVoteOptions, fetchVoteSchemeList } from 'api/request';
 import { formmatDescription } from '../utils';
 import { getProposalTimeParams } from 'utils/getProposalTime';
-import TimeRange from 'pageComponents/proposal-create/DeployForm/TimeRange';
 import FormItem from 'components/FormItem';
 import { Controller, useForm } from 'react-hook-form';
 import Input from 'components/Input';
 import Upload, { IRefHandle } from 'components/Upload';
 import { shortenFileName } from 'utils/file';
-import LinkGroup from 'app/(createADao)/create/component/LinkGroup';
-import { SocialMedia } from 'types/dao';
 import Select from 'components/Select';
-import Button from 'components/Button';
-import clsx from 'clsx';
+import Radio from 'components/Radio';
+import Tooltip from 'components/Tooltip';
+import { TIME_OPTIONS } from 'constants/proposal';
+import Flatpickr from 'react-flatpickr';
+import 'flatpickr/dist/themes/dark.css';
+import dayjs from 'dayjs';
+import './index.css';
+import SimpleDatePicker from 'components/SimpleDatePicker';
+import SimpleTimePicker from 'components/SimpleTimePicker';
+import { combineDateAndTime } from 'utils/time';
 interface IFormPageProps {
   daoId: string;
   optionType: EOptionType;
@@ -43,8 +46,8 @@ export default function Page(props: IFormPageProps) {
       proposalBasicInfo: {
         proposalTitle: '',
         schemeAddress: '',
-        activeStartTime: 0,
-        activeEndTime: 0,
+        activeStartTime: 1,
+        activeEndTime: 1,
       },
       banner: '',
       options: [''],
@@ -59,10 +62,12 @@ export default function Page(props: IFormPageProps) {
     getValues,
   } = form;
   const uploadRef = useRef<IRefHandle | null>(null);
-
+  const [startTime, setStartTime] = useState<TIME_OPTIONS>(TIME_OPTIONS.Now);
+  const [endTime, setEndTime] = useState<TIME_OPTIONS>(TIME_OPTIONS.Now);
+  const [date, setDate] = useState(new Date());
   const banner = watch('banner');
-  const proposalType = watch('proposalType');
-  const options = watch('options') ?? [];
+  const activeStartTime = watch('proposalBasicInfo.activeStartTime');
+  const activeEndTime = watch('proposalBasicInfo.activeEndTime');
 
   const [governanceMechanismList, setGovernanceMechanismList] = useState<TGovernanceSchemeList>();
   const governanceMechanismOptions = useMemo(() => {
@@ -72,7 +77,7 @@ export default function Page(props: IFormPageProps) {
         value: item.schemeAddress,
       };
     });
-  }, [governanceMechanismList, proposalType]);
+  }, [governanceMechanismList]);
   useAsyncEffect(async () => {
     if (!daoId) {
       return;
@@ -203,7 +208,7 @@ export default function Page(props: IFormPageProps) {
           />
         </FormItem>
         {optionType === EOptionType.advanced && (
-          <FormItem label="Banner" className="lg:mb-0" errorText={errors?.banner?.message}>
+          <FormItem label="Banner" errorText={errors?.banner?.message}>
             <Controller
               name="banner"
               control={control}
@@ -273,7 +278,9 @@ export default function Page(props: IFormPageProps) {
             )}
           />
         </FormItem>
-        <div className="card-title divide-title">Proposal Information</div>
+        <span className="block mb-[50px] pt-[50px] border-0 border-solid border-t-[1px] border-fillBg8 text-[20px] font-light font-Unbounded text-white">
+          Proposal Information
+        </span>
         <FormItem
           label="Voters and executors"
           errorText={errors.proposalBasicInfo?.schemeAddress?.message}
@@ -287,25 +294,148 @@ export default function Page(props: IFormPageProps) {
             render={({ field }) => (
               <Select
                 {...field}
-                label="Name"
-                placehoder="Select Social Media"
                 options={governanceMechanismOptions}
                 isError={!!errors.proposalBasicInfo?.schemeAddress?.message}
+                onChange={({ value }) => field.onChange(value)}
               />
             )}
           />
         </FormItem>
-        <TimeRange />
+        <FormItem
+          label={
+            <Tooltip
+              title={
+                <p className="text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
+                  Define when a proposal should be active to receive approvals. If now is selected,
+                  the proposal is immediately active after publishing.
+                </p>
+              }
+            >
+              <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
+                Voting start time
+                <i className="tmrwdao-icon-information text-[18px]" />
+              </span>
+            </Tooltip>
+          }
+          labelClassName="!mb-[25px]"
+        >
+          <Controller
+            name="proposalBasicInfo.activeStartTime"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <>
+                <Radio
+                  value={startTime}
+                  options={[
+                    { label: 'Now', value: TIME_OPTIONS.Now },
+                    { label: 'Specific date & time', value: TIME_OPTIONS.Specific },
+                  ]}
+                  onChange={(value) => {
+                    setStartTime(value as TIME_OPTIONS);
+                    if (value === TIME_OPTIONS.Now) {
+                      field.onChange(value);
+                    }
+                  }}
+                />
+                {startTime === TIME_OPTIONS.Specific && (
+                  <div className="flex flex-row items-center flex-wrap gap-[9px] mt-[32px]">
+                    <SimpleDatePicker
+                      className="flex-1"
+                      disabled={{
+                        before: dayjs().add(1, 'day').toDate(),
+                      }}
+                      onChange={(day) =>
+                        field.onChange(combineDateAndTime(day, activeStartTime as number))
+                      }
+                    />
+                    <SimpleTimePicker
+                      className="flex-1"
+                      onChange={(time) => field.onChange(combineDateAndTime(activeStartTime, time))}
+                    />
+                  </div>
+                )}
+              </>
+            )}
+          />
+        </FormItem>
+        <FormItem
+          label={
+            <Tooltip
+              title={
+                <p className="!mb-4 text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
+                  Define how long the voting should last in days, or add an exact date and time for
+                  it to conclude.
+                </p>
+              }
+            >
+              <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
+                Voting end time
+                <i className="tmrwdao-icon-information text-[18px]" />
+              </span>
+            </Tooltip>
+          }
+          labelClassName="!mb-[25px]"
+        >
+          <Controller
+            name="proposalBasicInfo.activeEndTime"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <>
+                <Radio
+                  value={endTime}
+                  options={[
+                    { label: 'Duration', value: TIME_OPTIONS.Now },
+                    { label: 'Specific date & time', value: TIME_OPTIONS.Specific },
+                  ]}
+                  onChange={(value) => setEndTime(value as TIME_OPTIONS)}
+                />
+                {endTime === TIME_OPTIONS.Now ? (
+                  <div className="mt-[25px] flex flex-col lg:flex-row items-center gap-[25px]">
+                    <div className="flex flex-col gap-2 w-full">
+                      <span className="text-descM12 font-Montserrat text-lightGrey">Minutes</span>
+                      <Input placeholder="0" regExp={/^([0-9\b]*)$/} defaultValue="0" />
+                    </div>
+                    <div className="flex flex-col gap-2 w-full">
+                      <span className="text-descM12 font-Montserrat text-lightGrey">Hours</span>
+                      <Input placeholder="0" regExp={/^([0-9\b]*)$/} defaultValue="0" />
+                    </div>
+                    <div className="flex flex-col gap-2 w-full">
+                      <span className="text-descM12 font-Montserrat text-lightGrey">Days</span>
+                      <Input placeholder="0" regExp={/^([0-9\b]*)$/} defaultValue="1" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-row items-center flex-wrap gap-[9px] mt-[32px]">
+                    <SimpleDatePicker
+                      className="flex-1"
+                      disabled={{
+                        before:
+                          activeStartTime === 1
+                            ? dayjs().add(1, 'day').toDate()
+                            : dayjs(activeStartTime).add(1, 'day').toDate(),
+                      }}
+                      onChange={(day) =>
+                        field.onChange(combineDateAndTime(day, activeEndTime as number))
+                      }
+                    />
+                    <SimpleTimePicker
+                      className="flex-1"
+                      onChange={(time) =>
+                        field.onChange(combineDateAndTime(activeEndTime as number, time))
+                      }
+                    />
+                  </div>
+                )}
+              </>
+            )}
+          />
+        </FormItem>
       </form>
 
       <div className="flex justify-end mt-[32px]">
-        <ButtonCheckLogin
-          type="primary"
-          className="lg:w-[156px] w-full"
-          // disabled={!title || !description}
-          onClick={handleSubmit}
-          loading={false}
-        >
+        <ButtonCheckLogin type="primary" onClick={handleSubmit}>
           Submit
         </ButtonCheckLogin>
       </div>

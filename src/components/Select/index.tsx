@@ -12,7 +12,7 @@ interface ISelectProps {
   className?: string;
   label?: React.ReactNode;
   options?: SelectOption[];
-  placehoder?: string;
+  placeholder?: string;
   defaultValue?: SelectOption;
   isError?: boolean;
   overlayClassName?: string;
@@ -25,7 +25,7 @@ const Select: React.FC<ISelectProps> = ({
   value,
   label,
   options,
-  placehoder,
+  placeholder,
   isError,
   overlayClassName,
   overlayItemClassName,
@@ -81,7 +81,7 @@ const Select: React.FC<ISelectProps> = ({
         {selected ? (
           <span className="text-white text-desc14 font-Montserrat">{selected?.label}</span>
         ) : (
-          <span className="text-lightGrey text-desc14 font-Montserrat">{placehoder ?? ''}</span>
+          <span className="text-lightGrey text-desc14 font-Montserrat">{placeholder ?? ''}</span>
         )}
         <span className="tmrwdao-icon-down-arrow text-[20px] text-lightGrey" />
       </div>
