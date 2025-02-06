@@ -109,7 +109,7 @@ const items: MenuItem[] = [
     label: (
       <Link
         target="_blank"
-        href="https://tomorrows-blog-11efd04933cccea6450d0c87.webflow.io"
+        href="https://tomorrows-blogs.webflow.io/"
         className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
       >
         Blog
