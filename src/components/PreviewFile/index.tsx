@@ -42,7 +42,7 @@ export default function PreviewFile(props: TPropsType) {
         {/* <Image width={14} height={14} src={ProposalDetailFile} alt="" onClick={handleClick}></Image> */}
         {/* {!isSM && <span className="ml-1">Documentation</span>} */}
         <span className="ml-1 text-lightGrey font-Montserrat font-medium flex items-center gap-2">
-          <i className="text-lightGrey tmrwdao-icon-document text-[20px]" />
+          <i className="text-lightGrey tmrwdao-icon-document text-[13px]" />
           <span className="text-[12px]">Documentation</span>
         </span>
       </div>

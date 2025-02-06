@@ -4,7 +4,6 @@ import useResponsive from 'hooks/useResponsive';
 import PreviewFile from 'components/PreviewFile';
 import { Skeleton } from 'components/Skeleton';
 import { colorfulSocialMediaIconMap } from 'assets/imgs/socialMediaIcon';
-import settingSrc from 'assets/imgs/setting-icon.svg';
 import DaoLogo from 'assets/imgs/dao-logo.svg';
 import ErrorResult from 'components/ErrorResult';
 import Link from 'next/link';
@@ -17,6 +16,8 @@ import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import ImageWithPlaceHolder from 'components/ImageWithPlaceHolder';
 
 import { ReactComponent as ArrowDown } from 'assets/revamp-icon/arrow-down.svg';
+import { ReactComponent as Settings } from 'assets/revamp-icon/settings.svg';
+
 import { useState } from 'react';
 
 const firstLetterToLowerCase = (str: string) => {
@@ -93,6 +94,10 @@ export default function DaoInfo(props: IParams) {
                 className="address text-white hover:text-white"
                 address={address as string}
                 chain={curChain}
+                size={'small'}
+                primaryIconColor={'#989DA0'}
+                addressHoverColor={'white'}
+                addressActiveColor={'white'}
               ></HashAddress>
             </Link>
           </span>
@@ -115,6 +120,9 @@ export default function DaoInfo(props: IParams) {
                   endLen={11}
                   chain={curChain}
                   address={data?.creator ?? '-'}
+                  primaryIconColor={'#989DA0'}
+                  addressHoverColor={'white'}
+                  addressActiveColor={'white'}
                 ></HashAddress>
               </span>
             </a>
@@ -229,12 +237,10 @@ export default function DaoInfo(props: IParams) {
                     }
                     className="mr-[10px]"
                   >
-                    <div className="flex items-center justify-center bg-fillBg8 h-[32px] px-[14px] rounded-xl cursor-pointer">
-                      <Image width={20} height={20} src={settingSrc} alt=""></Image>
+                    <div className="flex items-center justify-center bg-fillBg8 h-[32px] px-[14px] rounded-xl cursor-pointer gap-2">
+                      <Settings />
                       {!isSM && (
-                        <span className="ml-1 text-lightGrey text-[12px] font-Montserrat">
-                          Settings
-                        </span>
+                        <span className="text-lightGrey text-[12px] font-Montserrat">Settings</span>
                       )}
                     </div>
                   </Link>
