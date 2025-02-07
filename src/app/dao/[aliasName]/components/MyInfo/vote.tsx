@@ -183,7 +183,7 @@ function Vote(props: TVoteTypes) {
         type="primary"
         size="medium"
         millisecondOfDebounce={1000}
-        className="approve-button flex-1"
+        className="!bg-mainColor flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.APPROVED)}
         disabled={!canVote}
       >
@@ -192,7 +192,7 @@ function Vote(props: TVoteTypes) {
       <Button
         type="primary"
         size="medium"
-        className="reject-button flex-1"
+        className="bg-[#FF485D] hover:!bg-[#FF485D] flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
         millisecondOfDebounce={1000}
         onClick={() => handlerModal(EVoteOption.REJECTED)}
         disabled={!canVote}
@@ -203,7 +203,7 @@ function Vote(props: TVoteTypes) {
         type="primary"
         size="medium"
         millisecondOfDebounce={1000}
-        className="abstention-button flex-1"
+        className="bg-fillBg8 text-lightGrey hover:!bg-fillBg8 flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.ABSTAINED)}
         disabled={!canVote}
       >

@@ -152,6 +152,9 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
                 ignorePrefixSuffix={true}
                 className="hash-link-color card-sm-text-bold text-[13px]"
                 address={proposalDetailData.vetoProposalId ?? '-'}
+                primaryIconColor={'#989DA0'}
+                addressHoverColor={'white'}
+                addressActiveColor={'white'}
               ></HashAddress>
             </Link>
           </div>
@@ -169,6 +172,9 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
               address={proposalDetailData.proposer}
               className="text-white !text-[13px]"
               chain={sideChainSuffix}
+              primaryIconColor={'#989DA0'}
+              addressHoverColor={'white'}
+              addressActiveColor={'white'}
             ></HashAddress>
           </a>
         </div>
@@ -180,6 +186,9 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
             ignorePrefixSuffix={true}
             address={proposalDetailData.proposalId ?? '-'}
             className="text-white text-[13px]"
+            primaryIconColor={'#989DA0'}
+            addressHoverColor={'white'}
+            addressActiveColor={'white'}
           ></HashAddress>
         </div>
         <div className="flex items-center gap-4">

@@ -234,16 +234,16 @@ module.exports = {
           '@apply font-Montserrat text-[18px] leading-[28px] text-white font-medium': {},
         },
         '.card-sm-text': {
-          '@apply text-[14px] leading-[22px]': {},
+          '@apply text-[12px] leading-[22px]': {},
         },
         '.card-sm-text-black': {
-          '@apply text-[14px] leading-[22px] text-white': {},
+          '@apply text-[12px] leading-[22px] text-white': {},
         },
         '.card-xsm-text': {
           '@apply text-[12px] leading-[20px]': {},
         },
         '.card-sm-text-bold': {
-          '@apply text-[14px] leading-[22px] font-medium': {},
+          '@apply text-[12px] leading-[22px] font-medium': {},
         },
 
         '.card-title-lg': {

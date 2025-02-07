@@ -13,7 +13,7 @@
   }
 
   .proposal-item-title {
-    @apply flex items-center mt-2 mb-6 min-h-[62px];
+    @apply mt-2 mb-6;
   }
 
   .vote {

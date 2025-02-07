@@ -16,7 +16,10 @@ import Button from 'components/Button';
 function SocialMediaItem({ name, url }: { name: string; url: string }) {
   return (
     <div className="social-media-item flex items-center gap-2 bg-[rgba(255,255,255,0.08)] rounded-sm">
-      <Image src={(colorfulSocialMediaIconMap as any)[name]} alt="media" width={16} height={16} />
+      {(colorfulSocialMediaIconMap as any)[name] && (
+        <Image src={(colorfulSocialMediaIconMap as any)[name]} alt="media" width={16} height={16} />
+      )}
+
       <span className="text-lightGrey text-[12px]">{url}</span>
     </div>
   );
@@ -88,7 +91,15 @@ function AddressItem({
       ) : (
         <span className="mr-2 text-white">{label}:</span>
       )}
-      <HashAddress className="address text-white" ignoreEvent address={address} chain={curChain} />
+      <HashAddress
+        className="address text-lightGrey"
+        ignoreEvent
+        address={address}
+        chain={curChain}
+        primaryIconColor={'#989DA0'}
+        addressHoverColor={'white'}
+        addressActiveColor={'white'}
+      />
     </div>
   );
 }
@@ -236,10 +247,14 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
         />
       </div>
       <Button
-        className={`w-full flex items-center gap-1 ${isAllChecked && '!bg-mainColor text-white'}`}
+        type="default"
+        className={`w-full flex items-center gap-1 hover:!border-fillBg8 ${
+          isAllChecked && '!bg-mainColor text-white'
+        }`}
         onClick={() => {
           if (isAllChecked) onConfirm();
         }}
+        disabled={!isAllChecked}
       >
         <span>Confirm</span>
         <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />

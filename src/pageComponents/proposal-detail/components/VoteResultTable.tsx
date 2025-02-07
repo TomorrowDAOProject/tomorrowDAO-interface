@@ -26,6 +26,9 @@ const columns: ColumnsType<IVoteHistoryItem> = [
             endLen={9}
             chain={sideChainSuffix}
             className="card-sm-text-bold text-white text-[10px]"
+            primaryIconColor={'#989DA0'}
+            addressHoverColor={'white'}
+            addressActiveColor={'white'}
           />
         </a>
       );
@@ -44,6 +47,9 @@ const columns: ColumnsType<IVoteHistoryItem> = [
             preLen={8}
             endLen={9}
             address={text}
+            primaryIconColor={'#989DA0'}
+            addressHoverColor={'white'}
+            addressActiveColor={'white'}
           />
         </Link>
       );

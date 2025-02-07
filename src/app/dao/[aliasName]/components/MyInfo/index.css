@@ -3,7 +3,7 @@
     @apply w-[24px] h-[24px] mr-[8px];
   }
   .token-text {
-    @apply text-[16px] leading-[24px] text-Neutral-Disable-Text;
+    @apply text-[16px] leading-[24px] text-lightGrey;
   }
 }
 .my-info-wrap {
@@ -11,3 +11,23 @@
     @apply m-0;
   }
 }
+
+.TMRWDAO-descriptions-view {
+  .TMRWDAO-descriptions-item-content {
+    @apply w-full;
+    .TMRWDAO-hash-address {
+      @apply flex items-center justify-between;
+      >a{
+        @apply w-full;
+      }
+      >span{
+        color: #989DA0!important;
+        &:hover {
+          color: white!important;
+        }
+      }
+    }
+  }
+ 
+}
+
