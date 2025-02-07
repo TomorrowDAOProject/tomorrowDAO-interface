@@ -226,7 +226,7 @@ module.exports = {
         },
 
         '.dao-detail-card': {
-          '@apply border-0 lg:border lg:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg xl:px-[32px] xl:py-[24px] lg:px-[32px] lg:py-[24px] md:px-[32px] md:py-[24px] p-[22px]':
+          '@apply border-0 lg:border lg:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg xl:px-[25px] xl:py-[24px] lg:px-[25px] lg:py-[24px] md:px-[25px] md:py-[24px] p-[22px]':
             {},
         },
 

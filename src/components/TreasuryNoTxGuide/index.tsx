@@ -2,7 +2,8 @@ import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import { Form, InputNumber } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
-import { Button, Input } from 'aelf-design';
+import { Input } from 'aelf-design';
+import Button from 'components/Button';
 
 import { callContract } from 'contract/callContract';
 import CommonModal from 'components/CommonModal';
@@ -121,18 +122,19 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           <div className="treasury-no-tx-button-wrap">
             <ButtonCheckLogin
               type="primary"
-              className="treasury-no-tx-button-item"
+              className="!text-[12px] w-[120px] !h-[40px] py-[8px] !rounded-[42px] bg-mainColor hover:!bg-transparent hover:!text-mainColor hover:!border-mainColor font-Montserrat !px-[20px]"
               onClick={() => {
                 setDepoistOpen(true);
               }}
             >
               Deposit
             </ButtonCheckLogin>
-            <Button className="treasury-no-tx-button-item">
+            <Button type="primary" className="h-[40px] w-[120px]">
               <a
                 href="https://medium.com/@tmrwdao/how-to-enable-and-manage-a-dao-treasury-with-tmrwdao-ead8168d4c9a"
                 target="_blank"
                 rel="noreferrer"
+                className="text-white hover:text-mainColor font-Montserrat text-[12px] py-[8px]"
               >
                 Learn More
               </a>

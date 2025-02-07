@@ -230,7 +230,7 @@ export default function MyInfo(props: TInfoTypes) {
         height: height || 'auto',
       }}
     >
-      <div className="text-[18px] text-white font-Montserrat mb-[20px]">
+      <div className="text-[18px] text-white font-Montserrat mb-[20px] font-medium">
         {titleNode ?? 'My Info'}
       </div>
       {isLogin ? (
@@ -254,7 +254,7 @@ export default function MyInfo(props: TInfoTypes) {
                     <div className="card-sm-text text-lightGrey mb-1 font-Montserrat">
                       Available for Unstaking
                     </div>
-                    <div className="text-white card-sm-text-bold">
+                    <div className="text-white card-sm-text-bold font-Montserrat">
                       {info?.availableUnStakeAmount} {info?.symbol}
                     </div>
                   </div>

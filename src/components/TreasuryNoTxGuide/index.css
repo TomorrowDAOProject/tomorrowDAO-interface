@@ -3,11 +3,11 @@
 }
 
 .treasury-no-tx-title {
-  @apply font-medium text-[20px] leading-[28px] mt-6;
+  @apply font-medium text-[18px] leading-[28px] mt-6 text-white font-Montserrat;
 }
 
 .treasury-no-tx-help-message {
-  @apply font-normal text-[14px] leading-[22px] mt-[8px] text-Neutral-Secondary-Text text-center;
+  @apply font-normal text-[12px] leading-[22px] mt-[8px] text-lightGrey text-center font-Montserrat;
 }
 
 .treasury-no-tx-modal {
@@ -17,9 +17,9 @@
 }
 
 .treasury-no-tx-button-item {
-  @apply lg:w-[138px] w-full;
+  @apply w-full hover:border-lightGrey;
 }
 
 .treasury-no-tx-button-wrap {
-  @apply flex mt-6 gap-[16px] lg:flex-row flex-col w-full justify-center;
+  @apply w-full flex items-center justify-center mt-6 gap-[16px];
 }
