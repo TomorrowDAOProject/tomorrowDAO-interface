@@ -181,7 +181,7 @@ const Treasury: React.FC<IProps> = (props) => {
       run();
     }
   }, [run, treasuryAddress]);
-  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[25px] xl:mb-[25px] md:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg p-[22px] lg:px-[32px] lg:py-[24px] xl:px-[32px] xl:py-[24px] md:px-[32px] md:py-[24px]`;
+  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[25px] xl:mb-[25px] md:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg p-[22px] lg:px-[24px] lg:py-[24px] xl:px-[24px] xl:py-[24px] md:px-[24px] md:py-[24px]`;
   const existTransaction = Boolean(transferList?.length);
   return (
     <div className={cls}>
@@ -216,7 +216,7 @@ const Treasury: React.FC<IProps> = (props) => {
                     <Button
                       size="medium"
                       type="primary"
-                      className="bg-mainColor !rounded-[42px] py-2 px-[14px] mt-6"
+                      className="bg-mainColor !rounded-[42px] py-2 px-[14px]"
                     >
                       View all
                     </Button>
@@ -270,29 +270,32 @@ const Treasury: React.FC<IProps> = (props) => {
                             className="treasury-info-item font-Montserrat"
                             key={item.transactionId}
                           >
-                            <div className="flex justify-between treasury-info-item-line-1 lg:flex-col xl:flex-col md:flex-row flex-col">
-                              <span className="text-[14px]">
+                            <div className="flex justify-between treasury-info-item-line-1 flex-row">
+                              <span className="text-[11px]">
                                 {dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')}{' '}
                                 {isOut ? 'Withdraw' : 'Deposit'}
                               </span>
-                              <span className="text-[14px] text-white">
+                              <span className="text-[11px]">
                                 {numberFormatter(item.amountAfterDecimals)} {item.symbol}
                               </span>
                             </div>
-                            <div className="treasury-info-item-line-2 text-14-22-500 lg:flex-col xl:flex-col md:flex-row flex-col">
-                              <span>Transaction ID:</span>
+                            <div className="treasury-info-item-line-2 text-14-22-500 flex-row">
+                              <span className="text-white text-[13px]">Transaction ID:</span>
                               <Link href={`${explorer}/tx/${item.transactionId}`} target="_blank">
                                 <HashAddress
-                                  className="pl-[4px] text-white"
+                                  className="pl-[4px] text-white !text-[12px]"
                                   ignorePrefixSuffix={true}
                                   preLen={8}
                                   endLen={11}
                                   address={item.transactionId}
+                                  primaryIconColor={'#989DA0'}
+                                  addressHoverColor={'white'}
+                                  addressActiveColor={'white'}
                                 ></HashAddress>
                               </Link>
                             </div>
-                            <div className="treasury-info-item-line-3 text-14-22-500 lg:flex-col xl:flex-col md:flex-row flex-col">
-                              <span>Address:</span>
+                            <div className="treasury-info-item-line-3 text-14-22-500 flex-row">
+                              <span className="text-white">Address:</span>
                               <Link
                                 href={`${explorer}/address/${
                                   isOut ? item.toAddress : item.fromAddress
@@ -305,6 +308,9 @@ const Treasury: React.FC<IProps> = (props) => {
                                   endLen={11}
                                   address={isOut ? item.toAddress : item.fromAddress}
                                   chain={curChain}
+                                  primaryIconColor={'#989DA0'}
+                                  addressHoverColor={'white'}
+                                  addressActiveColor={'white'}
                                 ></HashAddress>
                               </Link>
                             </div>

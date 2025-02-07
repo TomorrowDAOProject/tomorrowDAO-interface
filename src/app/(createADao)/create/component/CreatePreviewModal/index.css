@@ -28,4 +28,11 @@
       display: none;
     }
   }
+
+  .TMRWDAO-hash-address > span {
+    @apply !text-lightGrey;
+    &:hover {
+      @apply !text-white;
+    }
+  }
 }

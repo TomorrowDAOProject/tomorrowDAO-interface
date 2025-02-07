@@ -135,8 +135,11 @@ export default function MyInfo(props: TInfoTypes) {
             preLen={8}
             endLen={11}
             address={wallet?.address ?? ''}
-            className="form-item-title"
+            className="form-item-title !text-lightGrey"
             chain={sideChainSuffix}
+            primaryIconColor={'#989DA0'}
+            addressHoverColor={'white'}
+            addressActiveColor={'white'}
           ></HashAddress>
         </a>
       ),

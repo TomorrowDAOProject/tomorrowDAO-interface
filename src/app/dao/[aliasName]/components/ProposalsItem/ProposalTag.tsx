@@ -20,7 +20,7 @@ export default function ProposalTag(props: IProposalTagProps) {
     <>
       {tagList.map((item: any) => (
         <DetailTag
-          className="proposal-tag rounded-lg border border-solid !border-fillBg8 !px-2 !h-auto !py-1 !text-[10px]"
+          className="proposal-tag rounded-[4px] border border-solid !border-fillBg8 !px-2 !h-auto !py-1 !text-[10px]"
           key={item}
           customStyle={{
             text: item,

@@ -38,7 +38,7 @@
   }
 
   .dis-item {
-    @apply flex items-center text-neutralTitle;
+    @apply flex items-center text-white;
 
     .dis-common-span {
       @apply mr-1;
@@ -74,12 +74,16 @@
 .dao-collapse-panel-child {
   @apply font-medium text-[14px] leading-[22px] text-white font-Montserrat;
   .TMRWDAO-hash-address {
+    @apply flex items-center;
     >span {
       @apply text-white;
 
     }
     .TMRWDAO-icon {
-      @apply text-white hover:text-white;
+      @apply w-[12px] h-[12px];
+      svg{
+        @apply w-[12px] h-[12px];
+      }
     }
   }
 }

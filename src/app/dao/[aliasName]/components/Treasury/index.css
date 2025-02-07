@@ -12,7 +12,7 @@
       @apply bg-darkBg font-Montserrat border border-solid border-fillBg8 rounded-[6px];
       .TMRWDAO-table-thead {
         .TMRWDAO-table-cell {
-          @apply bg-darkBg text-lightGrey font-[400];
+          @apply bg-darkBg text-white font-medium text-[13px];
         }
         > tr > th {
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -20,14 +20,14 @@
       }
       .TMRWDAO-table-tbody {
         .TMRWDAO-table-cell {
-          @apply bg-darkBg text-white;
+          @apply bg-darkBg text-lightGrey text-[12px];
         }
         > tr > td {
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
       }
       .TMRWDAO-hash-address > span {
-        @apply text-white;
+        @apply text-white !text-[12px];
       }
       .TMRWDAO-table-thead
         > tr
@@ -44,6 +44,12 @@
 
   .treasury-info-item + .treasury-info-item {
     @apply mt-6;
+  }
+
+  .treasury-info-item{
+    .TMRWDAO-hash-address > span {
+      @apply text-white !text-[12px];
+    }
   }
 
   .treasury-icon {
@@ -71,7 +77,7 @@
   }
 
   .usd-value {
-    @apply font-medium text-[24px] leading-[32px] flex-1 text-white;
+    @apply font-medium text-[18px] leading-[32px] flex-1 text-white font-Montserrat;
   }
 
   .treasury-info-item-line-1 {

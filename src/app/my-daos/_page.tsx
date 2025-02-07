@@ -91,7 +91,7 @@ const MyDaosPage = () => {
       <NoData></NoData>
       <Link
         href="/explore"
-        className="h-[32px] !py-2 !px-[14px] mt-[20px] !text-[12px] font-Montserrat font-medium text-white rounded-[42px] bg-mainColor hover:text-mainColor hover:bg-transparent hover:border hover:border-solid hover:border-mainColor"
+        className="h-[32px] !py-2 !px-[14px] mt-[22px] !text-[12px] font-Montserrat font-medium text-white rounded-[42px] bg-mainColor hover:text-mainColor hover:bg-transparent hover:border hover:border-solid hover:border-mainColor"
       >
         Explore
       </Link>
@@ -171,6 +171,7 @@ const MyDaosPage = () => {
                         <span className="text-[14px] text-white font-Montserrat font-medium">
                           {item.name}
                         </span>
+                        <i className="tmrwdao-icon-arrow text-[16px] text-white ml-auto" />
                       </li>
                     </Link>
                   );

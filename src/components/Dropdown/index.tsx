@@ -88,7 +88,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     >
       <div className="dropdown-trigger">{trigger}</div>
 
-      {isOpen && (
+      {isOpen && items.length > 0 && (
         <div className="dropdown-menu" ref={menuRef}>
           {items.map((item) => (
             <div key={item.key} className="dropdown-item" onClick={() => handleItemClick(item.key)}>

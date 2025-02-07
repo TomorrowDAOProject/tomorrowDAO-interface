@@ -21,7 +21,7 @@
   }
 
   .list-body-content-item {
-    @apply py-[16px] flex gap-[14px] items-center font-Montserrat text-[15px] font-medium;
+    @apply py-[16px] flex gap-[14px] items-center font-Montserrat text-[15px] font-medium border-0 border-solid border-t border-fillBg8;
 
     img {
       @apply w-[30px] h-[30px] rounded-full;

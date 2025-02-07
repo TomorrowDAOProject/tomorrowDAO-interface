@@ -1,5 +1,5 @@
-import { Divider, Space } from 'antd';
-import { Typography, FontWeightEnum, HashAddress, Progress } from 'aelf-design';
+import { Space } from 'antd';
+import { HashAddress } from 'aelf-design';
 import Image from 'next/image';
 import WarningGrayIcon from 'assets/imgs/warning-gray.svg';
 import CheckedIcon from 'assets/imgs/checked.svg';

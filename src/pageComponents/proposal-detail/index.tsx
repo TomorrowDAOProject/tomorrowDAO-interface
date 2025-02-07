@@ -58,7 +58,17 @@ const ProposalDetails = (props: IProposalDetailsProps) => {
               Explore
             </span>
             <ArrowRight />
-            <span className="text-[14px]">{proposalDetailData?.alias}</span>
+            <span
+              className="text-lightGrey text-[15px] cursor-pointer"
+              onClick={() => router.push(`/dao/${proposalDetailData?.alias}`)}
+            >
+              {proposalDetailData?.alias
+                .split('-')
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ')}
+            </span>
+            <ArrowRight />
+            <span className="text-[14px]">Proposal</span>
           </div>
           {proposalDetailData && (
             <HeaderInfo proposalDetailData={proposalDetailData} proposalId={proposalId} />
