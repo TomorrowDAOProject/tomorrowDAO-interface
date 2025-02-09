@@ -66,7 +66,11 @@ export default function MyRecords(props: IProps) {
         <SkeletonLine />
       ) : (
         <>
-          {!dataLen && <NoData />}
+          {!dataLen && (
+            <div className="text-lightGrey text-center font-Montserrat text-[12px]">
+              No results found
+            </div>
+          )}
           <div className="flex flex-col gap-[32px]">
             {voteHistoryData?.data?.items?.slice(0, 5)?.map((item, i) => {
               return (
