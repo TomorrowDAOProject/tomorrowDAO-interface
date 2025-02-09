@@ -67,17 +67,25 @@ const Members: React.FC<IProps> = (props) => {
             <ul className="dao-members-wrap mt-[24px]">
               {lists?.slice(0, 5)?.map((item) => {
                 return (
-                  <Link key={item} href={`${explorer}/address/${item}`} target="_blank">
-                    <li className="dao-members-item">
+                  <li className="dao-members-item">
+                    <Link
+                      key={item}
+                      href={`${explorer}/address/${item}`}
+                      target="_blank"
+                      className="w-full"
+                    >
                       <HashAddress
                         className="dao-members-normal-text TMRWDAO-members-hash-address"
                         preLen={8}
                         endLen={11}
                         address={item}
                         chain={curChain}
+                        primaryIconColor={'#989DA0'}
+                        addressHoverColor={'white'}
+                        addressActiveColor={'white'}
                       ></HashAddress>
-                    </li>
-                  </Link>
+                    </Link>
+                  </li>
                 );
               })}
             </ul>

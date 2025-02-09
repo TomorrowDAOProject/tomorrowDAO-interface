@@ -11,5 +11,11 @@
 }
 
 .dao-members-item {
-  @apply h-[62px] flex items-center font-Montserrat text-white;
+  @apply h-[62px] flex items-center font-Montserrat text-white border-0 border-b border-solid border-[#404040];
+  &:last-child {
+    @apply border-none;
+  }
+  .TMRWDAO-members-hash-address .TMRWDAO-icon {
+    @apply text-[16px];
+  }
 }
