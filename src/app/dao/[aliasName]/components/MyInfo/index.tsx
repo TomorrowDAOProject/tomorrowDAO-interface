@@ -251,7 +251,7 @@ export default function MyInfo(props: TInfoTypes) {
                 <div className="h-0 w-full border-0 border-t border-solid border-fillBg8"></div>
                 <div className="flex justify-between items-center my-[16px]">
                   <div>
-                    <div className="card-sm-text text-lightGrey mb-1 font-Montserrat">
+                    <div className="text-lightGrey mb-1 font-Montserrat">
                       Available for Unstaking
                     </div>
                     <div className="text-white card-sm-text-bold font-Montserrat">
@@ -290,21 +290,26 @@ export default function MyInfo(props: TInfoTypes) {
 
             {/* Claim Modal  */}
             <CommonModal
+              className="claim-modal"
               open={isModalOpen}
-              title={<div className="text-center">Unstake {info?.symbol} on aelf SideChain</div>}
+              title={
+                <div className="text-center text-white font-Unbounded !font-[300] xl:text-[20px] md:text-[20px] lg:text-[20px] text-[16px]">
+                  Unstake {info?.symbol} on aelf SideChain
+                </div>
+              }
               destroyOnClose
               onCancel={() => {
                 form.setFieldValue('unStakeAmount', 0);
                 setIsModalOpen(false);
               }}
             >
-              <div className="text-center color-text-Primary-Text font-medium">
-                <span className="text-[32px] leading-[40px] font-medium">
+              <div className="text-center color-white font-medium">
+                <span className="text-[18px] leading-[40px] font-medium text-white font-Montserrat">
                   {info?.availableUnStakeAmount}
                 </span>
-                <span className="normal-text-bold pl-[8px]">{info.symbol}</span>
+                <span className="text-white font-medium pl-[10px] text-[18px]">{info.symbol}</span>
               </div>
-              <div className="text-center card-sm-text text-Neutral-Secondary-Text mb-[24px]">
+              <div className="text-center text-[12px] text-lightGrey mb-[30px]">
                 Available for Unstaking
               </div>
               <Form form={form} layout="vertical" variant="filled" onFinish={handleClaim}>
@@ -312,15 +317,17 @@ export default function MyInfo(props: TInfoTypes) {
                   label={
                     <Tooltip
                       title={
-                        <div>
+                        <div className="font-Montserrat">
                           Currently, the only supported method is to unstake all the available{' '}
                           {info.symbol} in one time.
                         </div>
                       }
                     >
                       <div className="flex items-center">
-                        <span className="form-item-title font-normal ">Unstake Amount</span>
-                        <InfoCircleOutlined className="cursor-pointer pl-[8px] text-Neutral-Disable-Text" />
+                        <span className="text-[13px] text-white font-medium font-Montserrat">
+                          Unstake Amount
+                        </span>
+                        {/* <InfoCircleOutlined className="cursor-pointer pl-[8px] text-Neutral-Disable-Text" /> */}
                       </div>
                     </Tooltip>
                   }
@@ -328,19 +335,19 @@ export default function MyInfo(props: TInfoTypes) {
                   className=""
                 >
                   <InputNumber
-                    className="w-full"
+                    className="w-full border border-solid border-fillBg8 text-white"
                     placeholder="pleas input Unstake Amount"
                     defaultValue={info?.availableUnStakeAmount}
                     disabled
                     prefix={
                       <div className="flex items-center">
-                        <Symbol symbol={info.symbol} className="unstake-form-token" />
+                        <span className="text-lightGrey text-[14px]">{info.symbol}</span>
                         <Divider type="vertical" />
                       </div>
                     }
                   />
                 </Form.Item>
-                <Button className="mx-auto" type="primary">
+                <Button className="w-full" type="primary">
                   Unstake
                 </Button>
               </Form>

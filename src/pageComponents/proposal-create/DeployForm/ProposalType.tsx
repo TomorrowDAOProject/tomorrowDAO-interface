@@ -37,8 +37,12 @@ const ProposalType = (props: ProposalTypeProps) => {
           )}
         ></ResponsiveSelect>
       </Form.Item>
-      <div className="flex justify-end mt-[200px]">
-        <ButtonCheckLogin type="primary" className="w-[156px]" onClick={next}>
+      <div className="flex justify-end mt-[50px]">
+        <ButtonCheckLogin
+          type="primary"
+          className="w-[156px] text-[15px] bg-mainColor hover:!text-mainColor hover:!bg-transparent border border-solid border-mainColor font-Montserrat !rounded-[42px]"
+          onClick={next}
+        >
           Continue
         </ButtonCheckLogin>
       </div>

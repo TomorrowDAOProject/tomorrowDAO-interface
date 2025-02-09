@@ -46,9 +46,9 @@ export default function MyRecords(props: IProps) {
   }, [run, wallet?.address]);
 
   const LoadMoreButton = (
-    <span className="text-[12px] flex items-center text-neutralTitle hover:text-link">
-      <span className="card-sm-text pr-[8px]">View More</span>
-      <RightOutlined />
+    <span className="text-[12px] flex items-center gap-1 text-lightGrey hover:text-white font-Montserrat">
+      <span>View More</span>
+      <i className="tmrwdao-icon-arrow ml-auto"></i>
     </span>
   );
   const dataLen = voteHistoryData?.data?.items?.length ?? 0;

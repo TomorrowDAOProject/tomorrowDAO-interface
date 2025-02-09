@@ -25,7 +25,7 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
     breadCrumb.updateTreasuryPage(aliasName);
   }, [aliasName]);
   return (
-    <div>
+    <div className="mx-[20px] my-[39px] md:w-[840px] lg:w-[1056px] xl:w-[1120px] md:m-auto lg:m-auto xl:m-auto xl:my-[51px] lg:my-[51px] md:my-[51px]">
       <Treasury
         aliasName={aliasName}
         address={ssrData?.treasuryAddress}

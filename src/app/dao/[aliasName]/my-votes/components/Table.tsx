@@ -14,6 +14,7 @@ import Link from 'next/link';
 import breadCrumb from 'utils/breadCrumb';
 import BigNumber from 'bignumber.js';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import LoadingComponent from 'components/LoadingComponent';
 
 const defaultPageSize = 20;
 const allValue = 'All';
@@ -63,15 +64,21 @@ export default function RecordTable() {
       },
       defaultSortOrder: 'descend',
       render(time) {
-        return <span>{dayjs(time).format('YYYY-MM-DD HH:mm:ss')}</span>;
+        return (
+          <span className="font-Montserrat text-white font-medium">
+            {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}
+          </span>
+        );
       },
     },
     {
       title: 'Proposal Name',
       dataIndex: 'proposalTitle',
-      width: 576,
+      width: 200,
       render: (text, record) => {
-        const renderProposalNode = <div className="text-neutralPrimaryText font-bold">{text}</div>;
+        const renderProposalNode = (
+          <div className="text-white font-medium font-Montserrat">{text}</div>
+        );
         return (
           <Link href={`/dao/${aliasName}/proposal/${record.proposalId}`}>{renderProposalNode}</Link>
         );
@@ -96,7 +103,12 @@ export default function RecordTable() {
         return record.myOption === value;
       },
       render(option) {
-        return <span className={`vote-record-${option} font-bold`}>{EVoteOption[option]}</span>;
+        return (
+          <span className={`vote-record-${option} font-medium`}>
+            {EVoteOption[option].toLocaleLowerCase().charAt(0).toUpperCase() +
+              EVoteOption[option].toLocaleLowerCase().slice(1)}
+          </span>
+        );
       },
     },
     {
@@ -104,7 +116,11 @@ export default function RecordTable() {
       dataIndex: 'voteNumAfterDecimals',
       width: 206,
       render(voteNum) {
-        return <span>{BigNumber(voteNum).toFormat()}</span>;
+        return (
+          <span className="text-white font-medium font-Montserrat">
+            {BigNumber(voteNum).toFormat()}
+          </span>
+        );
       },
     },
     {
@@ -119,6 +135,9 @@ export default function RecordTable() {
               preLen={8}
               endLen={11}
               address={transactionId}
+              primaryIconColor={'#989DA0'}
+              addressHoverColor={'white'}
+              addressActiveColor={'white'}
             ></HashAddress>
           </Link>
         );
@@ -146,9 +165,18 @@ export default function RecordTable() {
     <ConfigProvider renderEmpty={() => <NoData></NoData>}>
       <Table
         scroll={{ x: 'max-content' }}
-        className="custom-table-style full-table table-header-normal table-td-sm clear-table-padding table-padding-large"
+        className="custom-table-style"
         columns={columns as any}
-        loading={voteHistoryLoading}
+        loading={{
+          spinning: voteHistoryLoading,
+          indicator: (
+            <LoadingComponent
+              className="-my-3 md:my-0 scale-[0.7] md:scale-[1.0]"
+              size={36}
+              strokeWidth={4}
+            />
+          ),
+        }}
         pagination={{
           ...tableParams,
           total: voteHistoryData?.data?.totalCount ?? 0,

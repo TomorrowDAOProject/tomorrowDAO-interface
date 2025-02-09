@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Table, HashAddress, IHashAddressProps } from 'aelf-design';
-import { ConfigProvider, Tag, Tooltip } from 'antd';
+import { ConfigProvider, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import Link from 'next/link';
 // import NoData from './NoData';
@@ -14,6 +14,8 @@ import NoData from 'components/NoData';
 import { checkIsOut } from 'utils/transaction';
 import { isSideChain } from 'utils/chain';
 import Symbol from 'components/Symbol';
+import LoadingComponent from 'components/LoadingComponent';
+import { Mask } from 'antd-mobile';
 
 const defaultPageSize = 20;
 interface IRecordTableProps {
@@ -137,7 +139,7 @@ export default function RecordTable(props: IRecordTableProps) {
       },
     },
     {
-      title: 'Interacted With (To )',
+      title: 'Interacted With (To)',
       dataIndex: 'to',
       width: 198,
       className: 'interactive-withto',
@@ -211,12 +213,21 @@ export default function RecordTable(props: IRecordTableProps) {
   };
 
   return (
-    <ConfigProvider renderEmpty={() => <NoData></NoData>}>
+    <ConfigProvider renderEmpty={() => <NoData />}>
       <Table
         scroll={{ x: 'max-content' }}
-        className="custom-table-style full-table normal-table clear-table-padding"
+        className="custom-table-style full-table normal-table clear-table-padding no-mask"
         columns={columns as any}
-        loading={transferListLoading}
+        loading={{
+          spinning: transferListLoading,
+          indicator: (
+            <LoadingComponent
+              className="-my-3 md:my-0 scale-[0.7] md:scale-[1.0]"
+              size={36}
+              strokeWidth={4}
+            />
+          ),
+        }}
         pagination={{
           ...tableParams,
           total: transferListData?.data?.total ?? 0,

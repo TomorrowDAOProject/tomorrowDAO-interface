@@ -1,6 +1,6 @@
 'use client';
 
-import { Input, Tooltip, Button } from 'aelf-design';
+import { Tooltip, Button } from 'aelf-design';
 import { InfoCircleOutlined } from '@aelf-design/icons';
 import { Form } from 'antd';
 import { memo, useMemo, useState } from 'react';
@@ -19,6 +19,8 @@ import { SkeletonTab } from 'components/Skeleton';
 import { getTimeMilliseconds } from '../util/time';
 import { activeEndTimeName, activeStartTimeName, voterAndExecuteNamePath } from './constant';
 import TimeRange from './TimeRange';
+
+import Input from 'components/Input';
 
 const periodName = ['proposalBasicInfo', 'activeTimePeriod'];
 
@@ -103,13 +105,17 @@ const ProposalInfo = (props: ProposalInfoProps) => {
   }, [daoId]);
   return (
     <div className={`${className} proposal-form`}>
-      <h2 className="text-[20px] leading-[28px] font-weight">Create a Proposal</h2>
-      <p className=" text-[16px] leading-[24px] text-Neutral-Secondary-Text font-normal mt-[8px] mb-[64px]">
+      <div className="text-[20px] text-white font-Unbounded leading-[28px]">Create a Proposal</div>
+      {/* <p className=" text-[16px] leading-[24px] text-Neutral-Secondary-Text font-normal mt-[8px] mb-[64px]">
         {proposalDetailDesc}
-      </p>
+      </p> */}
       <Form.Item
         name={['proposalBasicInfo', 'proposalTitle']}
-        label={<span className="form-item-label">Title</span>}
+        label={
+          <span className="text-white mt-[50px] font-Montserrat text-[16px] font-medium">
+            Title
+          </span>
+        }
         validateFirst
         rules={[
           {
@@ -123,11 +129,15 @@ const ProposalInfo = (props: ProposalInfoProps) => {
           },
         ]}
       >
-        <Input type="text" placeholder="Enter the title of the proposal (300 characters max)" />
+        <Input placeholder="Enter the title of the proposal (300 characters max)" />
       </Form.Item>
       <Form.Item
         name={['proposalBasicInfo', 'proposalDescription']}
-        label={<span className="form-item-label">Description</span>}
+        label={
+          <span className="text-white mt-[50px] font-Montserrat text-[16px] font-medium">
+            Description
+          </span>
+        }
         validateFirst
         rules={[
           {
@@ -145,9 +155,9 @@ const ProposalInfo = (props: ProposalInfoProps) => {
       </Form.Item>
 
       {/* Discussion on forum */}
-      <h2 className="title-primary mb-[24px]">
+      <div className="text-white mt-[50px] font-Montserrat text-[16px] font-medium">
         {isGovernance ? 'Governance Information' : 'Proposal Information'}
-      </h2>
+      </div>
       {/* <Form.Item
         name={['proposalBasicInfo', 'forumUrl']}
         label={

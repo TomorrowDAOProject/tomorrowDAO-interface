@@ -10,17 +10,19 @@
     @apply h-[32px];
   }
 
+}
+.custom-table-style {
   .vote-record-0 {
-    @apply text-approve;
+    @apply text-[#00C84D] bg-[rgba(0,200,77,0.25)] px-2 py-1 rounded-[4px] text-[12px] border border-solid border-fillBg8;
   }
 
   .vote-record-1 {
-    @apply text-rejection;
+    @apply text-[#FF485D] bg-[rgba(255,55,77,0.15)] px-2 py-1 rounded-[4px] text-[12px] border border-solid border-fillBg8;
 
   }
 
   .vote-record-2 {
-    @apply text-abstention;
+    @apply text-[#B9B9B9] bg-[rgba(185,185,185,0.15)] px-2 py-1 rounded-[4px] text-[12px] border border-solid border-fillBg8;
   }
   .vote-option-column {
     .TMRWDAO-table-filter-column {
@@ -29,7 +31,59 @@
   }
   .my-record-tx-hash {
     &.TMRWDAO-hash-address > span {
-      @apply font-bold;
+      @apply font-medium text-[12px];
+    }
+  }
+  .TMRWDAO-table {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-table-placeholder {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-table-cell {
+    @apply !bg-transparent;
+    &::before {
+      @apply !bg-transparent;
+    }
+  }
+  .TMRWDAO-table-thead {
+    @apply font-Montserrat !bg-transparent text-lightGrey;
+    >tr>th {
+      @apply !bg-transparent text-[12px] font-medium border-fillBg8 !rounded-none;
+      &:first-child {
+        @apply pl-[12px];
+      }
+    }
+  }
+  .TMRWDAO-table-tbody {
+    >tr>td {
+      @apply !bg-transparent text-white text-[12px] font-normal border-fillBg8 font-Montserrat;
+      &:first-child {
+        @apply pl-[12px];
+      }
+    }
+  }
+}
+.TMRWDAO-pagination-container {
+  @apply text-white px-0 font-Montserrat flex justify-between flex-wrap;
+  .TMRWDAO-pagesize-label {
+    @apply text-lightGrey;
+  }
+  .TMRWDAO-pagination-button {
+    @apply border border-solid border-lightGrey rounded-[4px] bg-fillBg8 disabled:border-fillBg8 hover:!border-lightGrey max-w-[60px];
+    span {
+      @apply text-lightGrey font-Montserrat;
+    }
+  }
+  .TMRWDAO-pageNumber-container {
+    @apply bg-fillBg8 text-lightGrey rounded-[4px] max-w-[200px];
+  }
+  .TMRWDAO-select {
+    .TMRWDAO-select-selector {
+      @apply bg-fillBg8 text-lightGrey !border-fillBg8 max-w-[60px];
+    }
+    .TMRWDAO-select-arrow svg {
+      @apply max-w-[10px]
     }
   }
 }

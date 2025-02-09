@@ -143,6 +143,7 @@ const Treasury: React.FC<IProps> = (props) => {
             {
               children: (
                 <Button
+                  className="!w-full"
                   type="primary"
                   onClick={() => {
                     eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
@@ -166,7 +167,11 @@ const Treasury: React.FC<IProps> = (props) => {
         footerConfig: {
           buttonList: [
             {
-              children: <span>OK</span>,
+              children: (
+                <Button className="!w-full text-white" type="danger">
+                  OK
+                </Button>
+              ),
               onClick: () => {
                 eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
               },
@@ -184,7 +189,7 @@ const Treasury: React.FC<IProps> = (props) => {
   const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[25px] xl:mb-[25px] md:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg p-[22px] lg:px-[24px] lg:py-[24px] xl:px-[24px] xl:py-[24px] md:px-[24px] md:py-[24px]`;
   const existTransaction = Boolean(transferList?.length);
   return (
-    <div className={cls}>
+    <div className={`${cls} min-w-[288px]`}>
       {treasuryAddressLoading || transferListLoading ? (
         <SkeletonLine />
       ) : (
@@ -213,13 +218,10 @@ const Treasury: React.FC<IProps> = (props) => {
                 <div className="flex items-center justify-between">
                   <h2 className="card-title">Treasury Assets</h2>
                   <Link href={`/dao/${aliasName}/treasury`} prefetch={true}>
-                    <Button
-                      size="medium"
-                      type="primary"
-                      className="bg-mainColor !rounded-[42px] py-2 px-[14px]"
-                    >
-                      View all
-                    </Button>
+                    <span className="text-[12px] flex items-center gap-1 text-lightGrey hover:text-white font-Montserrat">
+                      <span>View More</span>
+                      <i className="tmrwdao-icon-arrow ml-auto"></i>
+                    </span>
                   </Link>
                 </div>
                 <div className="flex items-center mt-6 mb-[32px]">
@@ -334,7 +336,7 @@ const Treasury: React.FC<IProps> = (props) => {
       {/* choice: Deposit /  WithDraw*/}
       <CommonModal
         open={choiceOpen}
-        title={<div className="text-center">New transfer</div>}
+        title={<div className="text-center text-white font-Unbounded font-[300]">New transfer</div>}
         wrapClassName="choice-modal-wrap"
         destroyOnClose
         onCancel={() => {
@@ -344,7 +346,9 @@ const Treasury: React.FC<IProps> = (props) => {
       >
         <ul className="choice-items">
           <li className="choice-item">
-            <p className="choice-item-text-subtitle">Send assets to the DAO treasury</p>
+            <p className="text-white font-Montserrat font-medium text-[15px]">
+              Send assets to the DAO treasury
+            </p>
             <Button
               type="primary"
               onClick={() => {
@@ -352,17 +356,19 @@ const Treasury: React.FC<IProps> = (props) => {
                 treasuryNoTxGuideref.current?.setDepoistOpen(true);
                 setChoiceOpen(false);
               }}
-              className="choice-item-btn"
+              className="w-[120px] h-[32px] !text-[12px] flex-shrink-0"
             >
               Deposit
             </Button>
           </li>
           <li className="choice-item">
-            <p className="choice-item-text-subtitle">Create a proposal to withdraw assets</p>
+            <p className="text-white font-Montserrat font-medium text-[15px]">
+              Create a proposal to withdraw assets
+            </p>
             <Button
               loading={createProposalLoading}
               onClick={handleCreateProposal}
-              className="choice-item-btn"
+              className="w-[120px] h-[32px] !text-[12px] flex-shrink-0"
             >
               Withdraw
             </Button>

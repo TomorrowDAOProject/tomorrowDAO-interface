@@ -415,59 +415,95 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
   };
 
   return (
-    <div className="deploy-proposal-form mt-[24px] mb-[24px]">
-      <Form
-        form={form}
-        layout="vertical"
-        autoComplete="off"
-        requiredMark={false}
-        scrollToFirstError={true}
-        onValuesChange={(changedValues) => {
-          if (changedValues?.transaction?.to_address) {
-            form.setFieldValue(['transaction', 'contractMethodName'], '');
-            form.setFieldValue(['transaction', 'params'], '');
-          }
-        }}
-      >
-        <ProposalType
-          className={clsx({ hidden: isNext })}
-          next={handleNext}
-          options={proposalTypeList}
-          titleNode={<h2 className="title-primary">Choose Proposal Type</h2>}
-          descriptionNode={
-            <div className="proposal-type-select-desc mb-[64px] text-[16px] leading-[24px] text-Neutral-Secondary-Text font-normal mt-[8px]">
-              When creating a proposal, please choose the appropriate type based on its purpose and
-              impact.
-            </div>
-          }
+    <div className="xl:mt-[70px] lg:mt-[70px] md:mt-[39px] sm:mt-[39px]">
+      <div className="text-white font-Montserrat flex items-center gap-2 pb-[25px] flex-wrap">
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() => nextRouter.push('/')}
+        >
+          Home
+        </span>
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() => nextRouter.push('/explore')}
+        >
+          Explore
+        </span>
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
+        <span
+          className="text-lightGrey text-[14px] cursor-pointer"
+          onClick={() => {
+            const url = daoData?.data?.metadata?.name
+              .split(' ')
+              .map((list) => list.toLocaleLowerCase())
+              .join('-');
+            nextRouter.push(`/dao/${url}`);
+          }}
+        >
+          {daoData?.data?.metadata?.name}
+        </span>
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
+        <span className="text-white text-[15px] cursor-pointer">Create a List</span>
+      </div>
+      <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg xl:px-[30px] xl:py-[32px] lg:px-[30px] lg:py-[32px] md:px-[30px] md:py-[32px] sm:py-[30px] sm:px-[22px]">
+        <Form
+          form={form}
+          layout="vertical"
+          autoComplete="off"
+          requiredMark={false}
+          scrollToFirstError={true}
+          onValuesChange={(changedValues) => {
+            if (changedValues?.transaction?.to_address) {
+              form.setFieldValue(['transaction', 'contractMethodName'], '');
+              form.setFieldValue(['transaction', 'params'], '');
+            }
+          }}
+        >
+          <ProposalType
+            className={clsx({ hidden: isNext })}
+            next={handleNext}
+            options={proposalTypeList}
+            titleNode={
+              <div className="text-white text-[18px] font-Unbounded mb-[50px]">
+                Choose Proposal Type
+              </div>
+            }
+            // descriptionNode={
+            //   <div className="proposal-type-select-desc mb-[50px] text-[14px] leading-[24px] text-lightGrey font-normal mt-[8px] font-Montserrat">
+            //     When creating a proposal, please choose the appropriate type based on its purpose
+            //     and impact.
+            //   </div>
+            // }
+          />
+          {daoLoading && isNext ? (
+            <SkeletonForm />
+          ) : (
+            daoId && (
+              <ProposalInfo
+                isValidating={isValidating}
+                className={clsx({ hidden: !isNext })}
+                daoData={daoData?.data}
+                daoId={daoId}
+                onSubmit={handleSubmit}
+                onTabChange={(key: string) => {
+                  replaceUrlParams('tab', key);
+                  setActiveTab(key);
+                }}
+                activeTab={activeTab}
+                treasuryAssetsData={treasuryAssetsData?.data}
+                daoDataLoading={daoLoading}
+              />
+            )
+          )}
+        </Form>
+        <CommonOperationResultModal
+          {...resultModalConfig}
+          onCancel={() => {
+            setResultModalConfig(INIT_RESULT_MODAL_CONFIG);
+          }}
         />
-        {daoLoading && isNext ? (
-          <SkeletonForm />
-        ) : (
-          daoId && (
-            <ProposalInfo
-              isValidating={isValidating}
-              className={clsx({ hidden: !isNext })}
-              daoData={daoData?.data}
-              daoId={daoId}
-              onSubmit={handleSubmit}
-              onTabChange={(key: string) => {
-                replaceUrlParams('tab', key);
-                setActiveTab(key);
-              }}
-              activeTab={activeTab}
-              treasuryAssetsData={treasuryAssetsData?.data}
-              daoDataLoading={daoLoading}
-            />
-          )
-        )}
-      </Form>
-      <CommonOperationResultModal
-        {...resultModalConfig}
-        onCancel={() => {
-          setResultModalConfig(INIT_RESULT_MODAL_CONFIG);
-        }}
-      />
+      </div>
     </div>
   );
 };

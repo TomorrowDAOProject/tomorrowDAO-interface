@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { message, Form } from 'antd';
 import { useRequest } from 'ahooks';
-import { Typography } from 'aelf-design';
+import { Input, Typography } from 'aelf-design';
 import { SkeletonList } from 'components/Skeleton';
 import { fetchDaoInfo } from 'api/request';
-import Upload from 'components/Upload';
 import IPFSUpload from 'components/IPFSUpload';
 import { emitLoading, eventBus, ResultModal } from 'utils/myEvent';
 import { curChain, daoAddress, NetworkDaoHomePathName } from 'config';
@@ -21,9 +20,6 @@ import Link from 'next/link';
 import { INIT_RESULT_MODAL_CONFIG } from 'components/ResultModal';
 import formValidateScrollFirstError from 'utils/formValidateScrollFirstError';
 import breadCrumb from 'utils/breadCrumb';
-import Input from 'components/Input';
-import TextArea from 'components/Textarea';
-import FormItem from 'components/FormItem';
 
 interface IEditDaoProps {
   daoId?: string;
@@ -237,7 +233,6 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
             form={form}
           >
             <Form.Item
-              className="mb-[50px]"
               name={['metadata', 'name']}
               validateFirst
               rules={[
@@ -255,55 +250,51 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
             >
               <Input placeholder="Enter a name for the DAO" disabled />
             </Form.Item>
-            <div className="flex items-start justify-between flex-col md:flex-row lg:flex-row xl:flex-row md:gap-[50px] lg:gap-[50px] xl:gap-[50px] mb-[18px]">
-              <Form.Item
-                className="w-full md:w-[250px] lg:w-[250px] xl:w-[250px]"
-                name={['metadata', 'logoUrl']}
-                valuePropName="fileList"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Logo is required',
-                  },
-                ]}
-                label={<span id="baseInfo_metadata_logoUrl">Logo</span>}
-              >
-                <Upload
-                  className="w-full md:w-[250px] lg:w-[250px] xl:w-[250px] h-[250px]"
-                  needCheckImgSize
-                  accept=".png,.jpg"
-                  uploadText="Click to Upload"
-                  tips={`Formats supported: PNG, JPG, JPEG \nRatio: 1:1 , less than 1 MB`}
-                />
-              </Form.Item>
-              <Form.Item
-                className="w-full"
-                validateFirst
-                rules={[
-                  {
-                    required: true,
-                    message: 'description is required',
-                  },
-                  {
-                    type: 'string',
-                    max: 240,
-                    message: 'The description should contain no more than 240 characters.',
-                  },
-                ]}
-                name={['metadata', 'description']}
-                label="Description"
-              >
-                <TextArea
-                  containerClassName="Description-textArea"
-                  maxLength={240}
-                  placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
-                  onChange={(value) => {
-                    console.log(value);
-                  }}
-                />
-              </Form.Item>
-            </div>
-
+            <Form.Item
+              name={['metadata', 'logoUrl']}
+              valuePropName="fileList"
+              rules={[
+                {
+                  required: true,
+                  message: 'Logo is required',
+                },
+              ]}
+              label={<span id="baseInfo_metadata_logoUrl">Logo</span>}
+            >
+              <IPFSUpload
+                maxFileCount={1}
+                needCheckImgSize
+                accept=".png,.jpg"
+                uploadText="Click to Upload"
+                uploadIconColor="#1A1A1A"
+                tips="Formats supported: PNG and JPG. Ratio: 1:1 , less than 1 MB."
+              />
+            </Form.Item>
+            <Form.Item
+              validateFirst
+              rules={[
+                {
+                  required: true,
+                  message: 'description is required',
+                },
+                {
+                  type: 'string',
+                  max: 240,
+                  message: 'The description should contain no more than 240 characters.',
+                },
+              ]}
+              name={['metadata', 'description']}
+              label="Description"
+            >
+              <Input.TextArea
+                className="Description-textArea"
+                showCount
+                maxLength={240}
+                // eslint-disable-next-line no-inline-styles/no-inline-styles
+                style={{ height: 116 }}
+                placeholder={`Enter the mission and vision of the DAO (240 characters max). This can be modified after DAO is created.`}
+              />
+            </Form.Item>
             <Form.Item
               className="mb-6"
               name={['metadata', 'socialMedia', 'title']}
@@ -325,19 +316,11 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               ]}
               label=""
             >
-              {/* <div
-                className="mt-8 text-white font-Montserrat"
-                id="baseInfo_metadata_socialMedia_title"
-              >
-                Social Media
+              <div className="mt-8" id="baseInfo_metadata_socialMedia_title">
+                <Typography.Title level={6}>Social Media</Typography.Title>
               </div>
               <div className={cx('Media-info', mediaError && '!text-Reject-Reject')}>
                 At least one social media is required.
-              </div> */}
-              <div className="text-white font-Montserrat text-[16px] font-medium">Links</div>
-              <div className="text-lightGrey text-[13px] my-[25px] font-Montserrat">
-                Links to your DAO’s website, social media profiles, discord, or other places your
-                community gathers.
               </div>
             </Form.Item>
             <Form.Item
@@ -415,41 +398,58 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
             >
               <Input placeholder={`Enter the DAO's subreddit link`} />
             </Form.Item>
-            <div className="text-white text-[16px] font-medium font-Montserrat">Documentation</div>
-            <div
-              className={cx(
-                'text-lightGrey my-[15px] text-[12px] font-Montserrat',
-                mediaError && '!text-Reject-Reject',
-              )}
-            >
+            <Typography.Title level={6}>Documentation</Typography.Title>
+            <div className={cx('Media-info mb-6', mediaError && '!text-Reject-Reject')}>
               It is recommended to upload at least a project whitepaper and roadmap
             </div>
             <Form.Item
               name="files"
               validateFirst
               className="mb-8"
+              rules={[
+                {
+                  required: true,
+                  type: 'array',
+                  message: 'Add at least one documentation',
+                },
+                {
+                  validator(rule, value) {
+                    if (value.length > 20) {
+                      return Promise.reject(
+                        "You have reached the maximum limit of 20 files. Please consider removing some files before uploading a new one. If you need further assistance, you can join TMRWDAO's Telegram group.",
+                      );
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
               valuePropName="fileList"
               initialValue={[]}
             >
-              <Upload
+              <IPFSUpload
                 className="upload"
+                isAntd
                 accept=".pdf"
                 fileLimit={FILE_LIMIT}
+                maxCount={MAX_FILE_COUNT}
                 fileNameLengthLimit={MAX_FILE_NAME_LENGTH}
+                uploadIconColor="#1A1A1A"
                 uploadText="Click to Upload"
                 tips={uploadTips}
+                disabled={isUploadDisabled}
+                onRemove={(item) => {
+                  if (item.url) {
+                    const url = new URL(item.url);
+                    const id = url.pathname.split('/').pop() ?? '';
+                    setDeletedFile([...deletedFile, id]);
+                  }
+                }}
               />
             </Form.Item>
           </Form>
-          <div className="flex justify-end">
-            <ButtonCheckLogin
-              className="font-Montserrat !text-[15px] !h-[40px] text-white bg-mainColor border border-solid hover:!bg-transparent hover:!border-mainColor hover:!text-mainColor !rounded-[42px]"
-              onClick={handleSave}
-              type="primary"
-            >
-              Save changes
-            </ButtonCheckLogin>
-          </div>
+          <ButtonCheckLogin onClick={handleSave} type="primary">
+            Save changes
+          </ButtonCheckLogin>
         </>
       )}
     </div>

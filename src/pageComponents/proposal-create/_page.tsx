@@ -21,7 +21,7 @@ const ProposalDeploy = () => {
     </div>
   ) : (
     <Result
-      className="px-4 lg:px-8"
+      className="px-4 lg:px-8 !font-Montserrat !text-white"
       status="warning"
       title="Please log in before creating a proposal"
     />

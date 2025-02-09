@@ -53,7 +53,9 @@ export default function CommonOperationResultModal({
         </span>
         <div className="flex flex-row items-center gap-4 mt-[48px] w-full">
           {footerConfig?.buttonList?.map(({ children }) => (
-            <>{children}</>
+            <div className="w-full" onClick={onCancel}>
+              {children}
+            </div>
           ))}
         </div>
       </div>
