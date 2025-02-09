@@ -2,7 +2,8 @@ import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import { Form, InputNumber } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
-import { Button, Input } from 'aelf-design';
+// import { Input } from 'aelf-design';
+import Button from 'components/Button';
 
 import { callContract } from 'contract/callContract';
 import CommonModal from 'components/CommonModal';
@@ -19,6 +20,7 @@ import { timesDecimals } from 'utils/calculate';
 import { ButtonCheckLogin } from 'components/ButtonCheckLogin';
 import { getExploreLink } from 'utils/common';
 import './index.css';
+import Input from 'components/Input';
 
 const formSymbol = 'symbol';
 const formAmount = 'amount';
@@ -121,18 +123,19 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           <div className="treasury-no-tx-button-wrap">
             <ButtonCheckLogin
               type="primary"
-              className="treasury-no-tx-button-item"
+              className="!text-[12px] w-[120px] !h-[40px] py-[8px] !rounded-[42px] bg-mainColor hover:!bg-transparent hover:!text-mainColor hover:!border-mainColor font-Montserrat !px-[20px]"
               onClick={() => {
                 setDepoistOpen(true);
               }}
             >
               Deposit
             </ButtonCheckLogin>
-            <Button className="treasury-no-tx-button-item">
+            <Button type="default" className="h-[40px] w-[120px]">
               <a
                 href="https://medium.com/@tmrwdao/how-to-enable-and-manage-a-dao-treasury-with-tmrwdao-ead8168d4c9a"
                 target="_blank"
                 rel="noreferrer"
+                className="text-white hover:text-white font-Montserrat text-[12px] py-[8px]"
               >
                 Learn More
               </a>
@@ -143,7 +146,7 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           open={depoistOpen}
           destroyOnClose={true}
           wrapClassName="treasury-no-tx-modal"
-          title={<div className="text-center">Deposit</div>}
+          title={<div className="text-center text-white font-Unbounded font-[300]">Deposit</div>}
           onCancel={() => {
             setDepoistOpen(false);
           }}
@@ -202,6 +205,7 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
                     const token = form.getFieldValue('symbol');
                     form.setFieldValue('symbol', token?.toUpperCase());
                   }}
+                  className="text-[14px]"
                 />
               </Form.Item>
               <Form.Item
@@ -270,16 +274,21 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
                 ]}
                 label={<span className="treasury-no-tx-label">Amount</span>}
               >
-                <InputNumber
+                <Input
                   placeholder="Please enter the amount you want to deposit"
-                  className="w-full"
-                  controls={false}
+                  className="w-full text-[14px]"
                 />
               </Form.Item>
             </Form>
             <div className="flex justify-center">
-              <Button type="primary" size="medium" onClick={handleDeposit} loading={depositLoading}>
-                Submit
+              <Button
+                className="w-full"
+                type="primary"
+                size="medium"
+                onClick={handleDeposit}
+                loading={depositLoading}
+              >
+                <span className=" text-[15px] font-medium">Submit</span>
               </Button>
             </div>
           </div>

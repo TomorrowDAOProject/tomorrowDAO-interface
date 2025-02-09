@@ -1,4 +1,4 @@
-import { Typography, FontWeightEnum, Button, HashAddress } from 'aelf-design';
+import { Typography, FontWeightEnum, HashAddress } from 'aelf-design';
 import CommonModal from 'components/CommonModal';
 import { useRef, useState } from 'react';
 import Info from '../Info';
@@ -14,6 +14,7 @@ import NoData from 'components/NoData';
 import useIsNetworkDao from 'hooks/useIsNetworkDao';
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
+import Button from 'components/Button';
 
 type TmodalInfoType = {
   title: string;
@@ -110,25 +111,32 @@ export default function ExecutdProposals(props: IExecutdProposals) {
     <div className="page-content-bg-border">
       <div className="card-title mb-[24px]">To be executed proposals</div>
       <div className="proposal-execute-lists">
-        {!executableListData?.data?.items?.length && <NoData />}
+        {!executableListData?.data?.items?.length && (
+          <div className="w-full flex items-center text-[12px] justify-center text-lightGrey text-center font-Montserrat">
+            No results found
+          </div>
+        )}
         {executableListData?.data?.items.map((item, index) => {
           return (
             <div className="flex justify-between items-center max-h-80 mb-8" key={index}>
               <div>
-                <div className="block lg:flex items-center">
-                  <Typography.Text fontWeight={FontWeightEnum.Medium}>Proposal ID:</Typography.Text>
+                <div className="block lg:flex items-center font-Montserrat text-white">
+                  <div className="text-white text-[12px] font-medium">Proposal ID:</div>
                   <Link href={`/dao/${aliasName}/proposal/${item.proposalId}`}>
                     <HashAddress
                       ignorePrefixSuffix
                       preLen={8}
                       endLen={11}
                       address={item.proposalId}
+                      primaryIconColor={'#989DA0'}
+                      addressHoverColor={'white'}
+                      addressActiveColor={'white'}
                     ></HashAddress>
                   </Link>
                 </div>
-                <Typography.Text className="text-Neutral-Secondary-Text">
+                <div className="text-lightGrey text-[12px] font-Montserrat">
                   Expires On {dayjs(item.executeEndTime).format('YYYY-MM-DD HH:mm:ss')}
-                </Typography.Text>
+                </div>
               </div>
               <Button
                 type="primary"
@@ -146,7 +154,12 @@ export default function ExecutdProposals(props: IExecutdProposals) {
       <CommonModal
         open={showModal}
         onCancel={handleClose}
-        title="This proposal needs to be executed"
+        title={
+          <span className="text-white font-Unbounded font-[300]">
+            This proposal needs to be executed
+          </span>
+        }
+        className="executed-modal"
       >
         {/* <Typography.Text>
           As a member of this organisation， you need to initiate a request to this organisation to
@@ -155,12 +168,12 @@ export default function ExecutdProposals(props: IExecutdProposals) {
         <Button type="link" className="!px-0">
           Click here to view how to execute a proposal
         </Button> */}
-        <Typography.Text>
+        <div className="text-white font-Montserrat">
           Once you mark this proposal as executed, it wil be tagged as executed status meaning that
           other addresses within your organisation will no longer be able to execute this proposal.
           Please ensure that you have completed the execution of this proposal before marking its
           status.
-        </Typography.Text>
+        </div>
         <div className="flex mt-6 flex-col  execute-confirm-buttons-group">
           <Button
             className="order-1 lg:order-2 execute-confirm-button"
@@ -172,8 +185,7 @@ export default function ExecutdProposals(props: IExecutdProposals) {
           </Button>
           <Button
             className="order-2 lg:order-1 execute-confirm-button"
-            type="primary"
-            danger
+            type="danger"
             onClick={() => {
               handleMaskExecuted();
             }}
@@ -182,7 +194,11 @@ export default function ExecutdProposals(props: IExecutdProposals) {
           </Button>
         </div>
       </CommonModal>
-      <CommonModal open={showInfoModal} onCancel={handleCloseInfo}>
+      <CommonModal
+        open={showInfoModal}
+        onCancel={handleCloseInfo}
+        className="executed-confirm-modal"
+      >
         <Info
           title={modalInfo.title}
           type={modalInfo.type}
@@ -191,8 +207,8 @@ export default function ExecutdProposals(props: IExecutdProposals) {
           firstText={modalInfo.firstText}
         ></Info>
         {modalInfo.txId && (
-          <Link href={`${explorer}/tx/${modalInfo.txId}`}>
-            <Button className="mx-auto" type="link">
+          <Link href={`${explorer}/tx/${modalInfo.txId}`} className="w-full">
+            <Button className="mx-auto w-full" type="link">
               View Transaction Details
             </Button>
           </Link>

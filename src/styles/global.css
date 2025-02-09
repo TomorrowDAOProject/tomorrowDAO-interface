@@ -224,7 +224,7 @@ input[type='number'] {
 }
 
 .TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
-  @apply mt-[8px];
+  @apply mt-[8px] font-Montserrat text-[12px];
 }
 
 /* .TMRWDAO-form-item-margin-offset {

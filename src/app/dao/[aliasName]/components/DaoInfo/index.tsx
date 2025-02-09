@@ -229,7 +229,7 @@ export default function DaoInfo(props: IParams) {
                   }}
                 />
               </div>
-              <div className="flex mt-[24px]">
+              <div className="flex xl:mt-[24px] lg:mt-[24px]">
                 {wallet?.address === data?.creator && (
                   <Link
                     href={
