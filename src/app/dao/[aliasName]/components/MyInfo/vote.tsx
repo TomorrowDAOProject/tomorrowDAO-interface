@@ -307,17 +307,17 @@ function Vote(props: TVoteTypes) {
       <CommonModal
         className="vote-modal"
         open={showVoteModal}
-        title={<div className="text-center">{currentTitle}</div>}
+        title={
+          <div className="text-center text-white font-Unbounded font-[300]">{currentTitle}</div>
+        }
         onCancel={() => {
           setShowVoteModal(false);
         }}
         footer={null}
       >
-        <div className="card-sm-text text-center text-Neutral-Primary-Text mb-6">
-          {currentMessage}
-        </div>
+        <div className="card-sm-text text-center text-lightGrey mb-6">{currentMessage}</div>
         <Button
-          className="mx-auto"
+          className="mx-auto !h-[40px] font-Montserrat !text-[15px] mt-[50px] bg-mainColor w-full !rounded-[42px] text-white hover:!bg-transparent hover:border hover:border-solid hover:border-mainColor hover:!text-mainColor"
           type="primary"
           size="medium"
           onClick={() => {

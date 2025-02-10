@@ -218,10 +218,9 @@ const Treasury: React.FC<IProps> = (props) => {
                 <div className="flex items-center justify-between">
                   <h2 className="card-title">Treasury Assets</h2>
                   <Link href={`/dao/${aliasName}/treasury`} prefetch={true}>
-                    <span className="text-[12px] flex items-center gap-1 text-lightGrey hover:text-white font-Montserrat">
-                      <span>View More</span>
-                      <i className="tmrwdao-icon-arrow ml-auto"></i>
-                    </span>
+                    <Button type="primary" size="small" className="!h-[32px]">
+                      <span className="text-[12px] font-medium">View More</span>
+                    </Button>
                   </Link>
                 </div>
                 <div className="flex items-center mt-6 mb-[32px]">
@@ -237,10 +236,10 @@ const Treasury: React.FC<IProps> = (props) => {
                     onClick={() => {
                       setChoiceOpen(true);
                     }}
-                    className="bg-mainColor !rounded-[42px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+                    className="bg-mainColor !h-[32px] !rounded-[42px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
                     size="medium"
                   >
-                    New transfer
+                    <span className="text-[12px] font-medium">New transfer</span>
                   </ButtonCheckLogin>
                 </div>
                 {tokenListLoading ? (
@@ -368,7 +367,7 @@ const Treasury: React.FC<IProps> = (props) => {
             <Button
               loading={createProposalLoading}
               onClick={handleCreateProposal}
-              className="w-[120px] h-[32px] !text-[12px] flex-shrink-0"
+              className="w-[120px] h-[32px] !text-[12px] flex-shrink-0 text-white border-white font-medium"
             >
               Withdraw
             </Button>

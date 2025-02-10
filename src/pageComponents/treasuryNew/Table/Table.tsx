@@ -24,7 +24,7 @@ interface IRecordTableProps {
 }
 export default function RecordTable(props: IRecordTableProps) {
   const { address, currentChain, isNft } = props;
-  const [timeFormat, setTimeFormat] = useState('Age');
+  const [timeFormat, setTimeFormat] = useState('Timestamp');
   // const { isLG } = useResponsive();
 
   const [tableParams, setTableParams] = useState<{ page: number; pageSize: number }>({
@@ -122,6 +122,9 @@ export default function RecordTable(props: IRecordTableProps) {
                 address={from}
                 preLen={8}
                 endLen={9}
+                primaryIconColor={'#989DA0'}
+                addressHoverColor={'white'}
+                addressActiveColor={'white'}
               />
             </Link>
           </div>
@@ -160,6 +163,9 @@ export default function RecordTable(props: IRecordTableProps) {
                 address={to}
                 preLen={8}
                 endLen={9}
+                primaryIconColor={'#989DA0'}
+                addressHoverColor={'white'}
+                addressActiveColor={'white'}
               />
             </Link>
           </div>

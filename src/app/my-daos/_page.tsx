@@ -11,6 +11,7 @@ import './index.css';
 import { EMyDAOType } from 'types/dao';
 import NoData from 'components/NoData';
 import { useWalletService } from 'hooks/useWallet';
+import { ReactComponent as VerifiedIcon } from 'assets/revamp-icon/verified.svg';
 
 const MaxResultCount = 5;
 interface IFetchResult {
@@ -103,10 +104,10 @@ const MyDaosPage = () => {
         <p className="text-white text-[20px] leading-[40px] font-Unbounded">My DAOs</p>
         <Link
           href="/create"
-          className="primary-button w-[118px] flex items-center gap-[6px] !py-2 !px-[14px]"
+          className="primary-button w-[117px] h-[32px] flex items-center gap-[6px] !py-2 !px-[14px]"
         >
           <span className="font-Montserrat text-[12px] font-medium">Create DAO</span>
-          <i className="tmrwdao-icon-default-arrow text-[10px] text-inherit" />
+          <i className="tmrwdao-icon-default-arrow text-[9px] text-inherit" />
         </Link>
       </div>
       <div className="flex flex-col rounded-[8px] bg-darkBg border-fillBg8 border border-solid overflow-hidden">
@@ -161,6 +162,7 @@ const MyDaosPage = () => {
               <ul className="mt-4">
                 {!participatedData?.list.length && EmptyNode}
                 {participatedData?.list.map((item) => {
+                  console.log('item', item);
                   return (
                     <Link
                       key={item.daoId}
@@ -168,8 +170,9 @@ const MyDaosPage = () => {
                     >
                       <li className="list-body-content-item" key={item.daoId}>
                         <img src={item.logo} alt="" />
-                        <span className="text-[14px] text-white font-Montserrat font-medium">
+                        <span className="text-[14px] text-white font-Montserrat font-medium flex items-center gap-[14px]">
                           {item.name}
+                          <VerifiedIcon width={20} height={20} />
                         </span>
                         <i className="tmrwdao-icon-arrow text-[16px] text-white ml-auto" />
                       </li>

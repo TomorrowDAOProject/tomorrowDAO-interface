@@ -17,18 +17,17 @@
     @apply w-full;
     .TMRWDAO-hash-address {
       @apply flex items-center justify-between;
-      >a{
+      > a {
         @apply w-full;
       }
-      >span{
-        color: #989DA0!important;
+      > span {
+        color: white;
         &:hover {
-          color: white!important;
+          color: white !important;
         }
       }
     }
   }
- 
 }
 
 .claim-modal,
@@ -38,7 +37,7 @@
     @apply bg-darkBg xl:!px-[38px] xl:!py-[30px] lg:!px-[38px] lg:!py-[30px] md:!px-[38px] md:!py-[30px] !p-[22px] border border-solid border-fillBg8;
   }
   .TMRWDAO-modal-header {
-    @apply bg-darkBg text-white !p-0 ;
+    @apply bg-darkBg text-white !p-0;
     .common-header {
       @apply border-0 border-b border-solid border-fillBg8 !h-auto xl:pb-[30px] lg:pb-[30px] md:pb-[30px] pb-[22px];
     }
@@ -55,11 +54,12 @@
   .TMRWDAO-input-number-filled:focus-within {
     @apply !bg-transparent;
   }
-  .TMRWDAO-input-number-filled.TMRWDAO-input-number-status-error:not(.TMRWDAO-input-number-disabled) {
+  .TMRWDAO-input-number-filled.TMRWDAO-input-number-status-error:not(
+      .TMRWDAO-input-number-disabled
+    ) {
     @apply !bg-transparent;
   }
   .TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
     @apply text-[#FF485D];
   }
 }
-

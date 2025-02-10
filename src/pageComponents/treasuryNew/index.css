@@ -17,7 +17,7 @@
 
 .treasury-tab {
   .TMRWDAO-tabs-nav {
-    margin: 0!important;
+    margin: 0 !important;
   }
   .TMRWDAO-tabs-tab:first-child {
     @apply !m-0;
@@ -32,48 +32,47 @@
     background: rgba(0, 200, 77, 0.25);
   }
   &.out {
-    color: #FFAE00;
+    color: #ffae00;
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 174, 0, 0.20);
+    background: rgba(255, 174, 0, 0.2);
   }
 }
 .revamp-dao {
   .treasury-page-content {
     @apply font-Montserrat;
-    .method-tag { 
+    .method-tag {
       @apply w-[96px] h-[24px] text-center leading-[24px] truncate px-[8px] text-white bg-[rgba(185,185,185,0.15)] border-fillBg8 border border-solid rounded-[4px];
     }
     .treasury-token {
-      @apply text-[12px] leading-[20px] font-normal text-white; 
+      @apply text-[12px] leading-[20px] font-normal text-white;
     }
     .treasury-token-list-table {
-      .TMRWDAO-table-tbody>tr:last-child>td {
+      .TMRWDAO-table-tbody > tr:last-child > td {
         @apply border-b-0;
-     }
-     .token-pair {
-      .token-text {
-        @apply !text-white;
       }
-      .token-logo {
-        @apply w-[32px] h-[32px] pr-[8px];
+      .token-pair {
+        .token-text {
+          @apply !text-white;
+        }
+        .token-logo {
+          @apply w-[32px] h-[32px] pr-[8px];
+        }
       }
-     }
     }
     .treasury-address {
       @apply flex items-center;
-      >span {
+      > span {
         @apply text-[12px];
       }
-      >div {
+      > div {
         @apply ml-[4px];
       }
     }
   }
 }
 
-
-.revamp-dao{
+.revamp-dao {
   .treasury-page-content {
     .TMRWDAO-table {
       @apply !bg-transparent;
@@ -89,7 +88,7 @@
     }
     .TMRWDAO-table-thead {
       @apply font-Montserrat !bg-transparent text-lightGrey;
-      >tr>th {
+      > tr > th {
         @apply !bg-transparent text-[12px] font-medium border-fillBg8 !rounded-none;
         &:first-child {
           @apply pl-[12px];
@@ -97,21 +96,21 @@
       }
     }
     .TMRWDAO-table-tbody {
-      >tr>td {
+      > tr > td {
         @apply !bg-transparent text-white text-[12px] font-normal border-fillBg8 font-Montserrat;
         &:first-child {
           @apply pl-[12px];
         }
         .TMRWDAO-hash-address {
-          >span {
+          > span {
             @apply text-white;
           }
         }
       }
     }
-  
+
     .TMRWDAO-pagination-container {
-      @apply text-white px-0 font-Montserrat flex items-center justify-between;
+      @apply text-white px-0 font-Montserrat flex justify-between;
       .TMRWDAO-pagesize-label {
         @apply text-lightGrey;
       }
@@ -129,17 +128,14 @@
           @apply bg-fillBg8 text-lightGrey !border-fillBg8 max-w-[60px];
         }
         .TMRWDAO-select-arrow svg {
-          @apply max-w-[10px]
+          @apply max-w-[10px];
         }
       }
-       
     }
     .TMRWDAO-hash-address {
-      >span {
+      > span {
         @apply text-white;
       }
     }
-  
   }
 }
-

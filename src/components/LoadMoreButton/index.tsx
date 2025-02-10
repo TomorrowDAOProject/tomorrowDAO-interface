@@ -17,7 +17,7 @@ export default function LoadMoreButton(props: ILoadMoreButtonProps) {
           strokeWidth={2}
         />
       ) : (
-        <div className="more-button font-Montserrat" onClick={props.onClick}>
+        <div className="more-button font-Montserrat !border-white" onClick={props.onClick}>
           <span className="more-text text-white text-[12px]">Load More</span>
         </div>
       )}

@@ -193,7 +193,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
             },
           ]}
         >
-          <Input type="text" placeholder="Enter the veto proposal id" />
+          <Input placeholder="Enter the veto proposal id" />
         </Form.Item>
       )}
 

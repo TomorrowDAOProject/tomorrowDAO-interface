@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import { Form, InputNumber } from 'antd';
+import { Form, Button as ButtonAntd } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
 // import { Input } from 'aelf-design';
@@ -285,15 +285,14 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
               </Form.Item>
             </Form>
             <div className="flex justify-center">
-              <Button
-                className="w-full"
+              <ButtonAntd
+                className="w-full bg-mainColor font-Montserrat !rounded-[42px] hover:!text-mainColor hover:!bg-transparent hover:border-mainColor"
                 type="primary"
-                size="medium"
                 onClick={handleDeposit}
                 loading={depositLoading}
               >
-                <span className=" text-[15px] font-medium">Submit</span>
-              </Button>
+                <span className="text-[15px] font-medium">Submit</span>
+              </ButtonAntd>
             </div>
           </div>
         </CommonModal>

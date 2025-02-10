@@ -7,12 +7,19 @@
   .TMRWDAO-form-item-required {
     @apply font-Montserrat !text-white text-[16px] font-medium;
     &::before {
-      content: ''!important;
+      content: '' !important;
     }
   }
   .Description-textArea {
     textarea {
       @apply h-[250px];
+    }
+  }
+
+  .upload {
+    @apply !bg-[#2E2E2E];
+    .TMRWDAO-upload-button {
+      @apply !bg-[#2E2E2E] border-0 font-Montserrat !text-white;
     }
   }
 }
