@@ -67,7 +67,7 @@ export default function DAOList(props: IDAOListProps) {
           })}
         </>
       ) : (
-        <Empty description="No results found" className="mb-[30px]" />
+        <Empty description="No Results found" className="mb-[30px]" />
       )}
       {isPhone && !showAll && verifiedDaos.length > 0 && (
         <div className="col-12 flex items-center justify-center">
@@ -101,7 +101,7 @@ export default function DAOList(props: IDAOListProps) {
           })}
         </>
       ) : (
-        <Empty description="No results found" className="mb-[30px]" />
+        <Empty description="No Results found" className="mb-[30px]" />
       )}
       {hasData && (
         <div className="col-12 flex items-center justify-center">

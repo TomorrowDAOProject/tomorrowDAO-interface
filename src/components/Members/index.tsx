@@ -34,7 +34,11 @@ const Members: React.FC<IProps> = (props) => {
     managerUrl,
   } = props;
   const ManageButton = (
-    <Button className="dao-members-manage" onClick={onCreatePoposal} loading={createButtonLoading}>
+    <Button
+      className="dao-members-manage text-white hover:!border-mainColor hover:!text-mainColor hover:!bg-transparent"
+      onClick={onCreatePoposal}
+      loading={createButtonLoading}
+    >
       Manage members
     </Button>
   );
@@ -48,7 +52,7 @@ const Members: React.FC<IProps> = (props) => {
             {cardTitle}
           </div>
           <div className="flex justify-between items-start lg:items-center lg:flex-row flex-col">
-            <div className="text-[15px]">{descriptionNode}</div>
+            <div className="text-[15px] font-Montserrat">{descriptionNode}</div>
             {managerUrl ? (
               <Link href={managerUrl}>{ManageButton}</Link>
             ) : (
@@ -88,8 +92,11 @@ const Members: React.FC<IProps> = (props) => {
           {(totalCount ?? 0) > LoadCount && (
             <div className="flex justify-center mt-[20px]">
               <Link href={loadMoreUrl}>
-                <Button size="medium" className="dao-members-manage">
-                  <span className="dao-members-normal-text font-medium">Load More</span>
+                <Button
+                  size="medium"
+                  className="dao-members-manage text-white border-white !bg-transparent !h-[40px]"
+                >
+                  <span className="text-[12px] font-medium">Load More</span>
                 </Button>
               </Link>
             </div>

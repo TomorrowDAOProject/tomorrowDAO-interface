@@ -129,8 +129,13 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                 eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
               },
               children: (
-                <Link href={isNetworkDAO ? `${NetworkDaoHomePathName}` : `/dao/${aliasName}`}>
-                  <span className="text-white">View The DAO</span>
+                <Link
+                  className="w-full"
+                  href={isNetworkDAO ? `${NetworkDaoHomePathName}` : `/dao/${aliasName}`}
+                >
+                  <Button type="primary" className="text-white w-full">
+                    View The DAO
+                  </Button>
                 </Link>
               ),
             },
@@ -273,12 +278,21 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                 ]}
                 label={<span id="baseInfo_metadata_logoUrl">Logo</span>}
               >
-                <Upload
+                {/* <Upload
                   className="w-full md:w-[250px] lg:w-[250px] xl:w-[250px] h-[250px]"
                   needCheckImgSize
                   accept=".png,.jpg"
                   uploadText="Click to Upload"
                   tips={`Formats supported: PNG, JPG, JPEG \nRatio: 1:1 , less than 1 MB`}
+                /> */}
+
+                <IPFSUpload
+                  maxFileCount={1}
+                  needCheckImgSize
+                  accept=".png,.jpg"
+                  uploadText="Click to Upload"
+                  uploadIconColor="#1A1A1A"
+                  tips="Formats supported: PNG and JPG. Ratio: 1:1 , less than 1 MB."
                 />
               </Form.Item>
               <Form.Item
@@ -356,7 +370,11 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                   message: 'The X (Twitter) user name should be shorter than 15 characters.',
                 },
               ]}
-              label="X (Twitter)"
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">
+                  X (Twitter)
+                </span>
+              }
             >
               <Input placeholder={`Enter the DAO's X handle, starting with @`} />
             </Form.Item>
@@ -371,7 +389,9 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                   message: 'The URL should be shorter than 128 characters.',
                 },
               ]}
-              label="Facebook"
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">Facebook</span>
+              }
             >
               <Input placeholder={`Enter the DAO's Facebook link`} />
             </Form.Item>
@@ -386,7 +406,9 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                   message: 'The URL should be shorter than 128 characters.',
                 },
               ]}
-              label="Discord"
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">Discord</span>
+              }
             >
               <Input placeholder={`Enter the DAO's Discord community link`} />
             </Form.Item>
@@ -401,7 +423,9 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                   message: 'The URL should be shorter than 128 characters.',
                 },
               ]}
-              label="Telegram"
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">Telegram</span>
+              }
             >
               <Input placeholder={`Enter the DAO's Telegram community link`} />
             </Form.Item>
@@ -416,7 +440,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                   message: 'The URL should be shorter than 128 characters.',
                 },
               ]}
-              label="Reddit"
+              label={<span className="font-Montserrat text-white text-[14px]">Reddit</span>}
             >
               <Input placeholder={`Enter the DAO's subreddit link`} />
             </Form.Item>
@@ -436,13 +460,33 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               valuePropName="fileList"
               initialValue={[]}
             >
-              <Upload
+              {/* <Upload
                 className="upload"
                 accept=".pdf"
                 fileLimit={FILE_LIMIT}
                 fileNameLengthLimit={MAX_FILE_NAME_LENGTH}
                 uploadText="Click to Upload"
                 tips={uploadTips}
+              /> */}
+
+              <IPFSUpload
+                className="upload"
+                isAntd
+                accept=".pdf"
+                fileLimit={FILE_LIMIT}
+                maxCount={MAX_FILE_COUNT}
+                fileNameLengthLimit={MAX_FILE_NAME_LENGTH}
+                uploadIconColor="#1A1A1A"
+                uploadText="Click to Upload"
+                tips={uploadTips}
+                disabled={isUploadDisabled}
+                onRemove={(item) => {
+                  if (item.url) {
+                    const url = new URL(item.url);
+                    const id = url.pathname.split('/').pop() ?? '';
+                    setDeletedFile([...deletedFile, id]);
+                  }
+                }}
               />
             </Form.Item>
           </Form>

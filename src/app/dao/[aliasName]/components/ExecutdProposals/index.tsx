@@ -113,7 +113,7 @@ export default function ExecutdProposals(props: IExecutdProposals) {
       <div className="proposal-execute-lists">
         {!executableListData?.data?.items?.length && (
           <div className="w-full flex items-center text-[12px] justify-center text-lightGrey text-center font-Montserrat">
-            No results found
+            No Results found
           </div>
         )}
         {executableListData?.data?.items.map((item, index) => {

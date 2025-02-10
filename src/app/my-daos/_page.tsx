@@ -110,7 +110,7 @@ const MyDaosPage = () => {
         </Link>
       </div>
       <div className="flex flex-col rounded-[8px] bg-darkBg border-fillBg8 border border-solid overflow-hidden">
-        <span className="list-header">My own DAOs</span>
+        <span className="list-header">My Own DAOs</span>
         <div className="list-body">
           {ownLoading ? (
             <SkeletonDaoItemList />
