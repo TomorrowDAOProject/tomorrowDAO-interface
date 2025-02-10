@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { INIT_RESULT_MODAL_CONFIG } from 'components/ResultModal';
 import formValidateScrollFirstError from 'utils/formValidateScrollFirstError';
 import breadCrumb from 'utils/breadCrumb';
+import Button from 'components/Button';
 
 interface IEditDaoProps {
   daoId?: string;
@@ -143,7 +144,11 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
         footerConfig: {
           buttonList: [
             {
-              children: <span>OK</span>,
+              children: (
+                <Button className="w-full" type="primary">
+                  OK
+                </Button>
+              ),
               onClick: () => {
                 eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
               },

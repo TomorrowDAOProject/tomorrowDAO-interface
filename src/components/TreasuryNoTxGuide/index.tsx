@@ -98,7 +98,11 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           footerConfig: {
             buttonList: [
               {
-                children: <span>OK</span>,
+                children: (
+                  <Button className="w-full" type="primary">
+                    OK
+                  </Button>
+                ),
                 onClick: () => {
                   eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
                 },
