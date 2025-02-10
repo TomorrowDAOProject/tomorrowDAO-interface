@@ -31,7 +31,8 @@
  
 }
 
-.claim-modal {
+.claim-modal,
+.vote-modal {
   @apply md:!w-[540px] lg:!w-[540px] xl:!w-[540px] font-Montserrat border border-solid border-fillBg8 rounded-[8px];
   .TMRWDAO-modal-content {
     @apply bg-darkBg xl:!px-[38px] xl:!py-[30px] lg:!px-[38px] lg:!py-[30px] md:!px-[38px] md:!py-[30px] !p-[22px] border border-solid border-fillBg8;
@@ -50,6 +51,15 @@
   }
   .TMRWDAO-input-number-input {
     @apply text-white font-Montserrat text-[14px] rounded-l-none border-0 border-solid border-l border-fillBg8 !pl-[16px];
+  }
+  .TMRWDAO-input-number-filled:focus-within {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-input-number-filled.TMRWDAO-input-number-status-error:not(.TMRWDAO-input-number-disabled) {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
+    @apply text-[#FF485D];
   }
 }
 

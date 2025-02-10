@@ -18,6 +18,7 @@ import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import { okButtonConfig } from 'components/ResultModal';
+import { ReactComponent as Info } from 'assets/revamp-icon/info.svg';
 
 type TVoteTypes = {
   proposalId: string;
@@ -183,7 +184,7 @@ function Vote(props: TVoteTypes) {
         type="primary"
         size="medium"
         millisecondOfDebounce={1000}
-        className="!bg-mainColor flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
+        className="!bg-mainColor flex-1 font-Montserrat hover:!bg-transparent hover:!border-mainColor hover:!text-mainColor disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.APPROVED)}
         disabled={!canVote}
       >
@@ -192,7 +193,7 @@ function Vote(props: TVoteTypes) {
       <Button
         type="primary"
         size="medium"
-        className="bg-[#FF485D] hover:!bg-[#FF485D] flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
+        className="bg-[#FF485D] hover:!bg-[#FF485D] flex-1 hover:!bg-transparent hover:!border-[#FF485D] hover:!text-[#FF485D] font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
         millisecondOfDebounce={1000}
         onClick={() => handlerModal(EVoteOption.REJECTED)}
         disabled={!canVote}
@@ -212,17 +213,20 @@ function Vote(props: TVoteTypes) {
 
       {/* vote TokenBallot 1t1v Modal  */}
       <CommonModal
+        className="vote-modal"
         open={showTokenBallotModal}
         destroyOnClose
-        title={<div className="text-center">{currentTitle}</div>}
+        title={
+          <div className="text-center text-white font-Unbounded font-[300]">{currentTitle}</div>
+        }
         onCancel={() => {
           form.setFieldValue('stakeAmount', 1);
           setShowTokenBallotModal(false);
         }}
       >
         <div className="text-center color-text-Primary-Text font-medium">
-          <span className="text-[32px] mr-1">{elfBalance}</span>
-          <span>{symbol}</span>
+          <span className="text-[34px] mr-1 text-white font-Montserrat">{elfBalance}</span>
+          <span className="text-lightGrey font-normal">{symbol}</span>
         </div>
         {/* <div className="text-center text-Neutral-Secondary-Text">Available for Unstaking</div> */}
         <Form
@@ -234,11 +238,23 @@ function Vote(props: TVoteTypes) {
           requiredMark={false}
         >
           <Form.Item<TFieldType>
-            label="Stake and Vote"
+            label={
+              <span className="text-white font-medium font-Montserrat !text-[15px]">
+                Stake and Vote
+              </span>
+            }
             name="stakeAmount"
             validateFirst
             initialValue={1}
-            tooltip={`Currently, the only supported method is to unstake all the available ${symbol} in one time.`}
+            tooltip={{
+              title: (
+                <span className="font-Montserrat">
+                  Currently, the only supported method is to unstake all the available ${symbol} in
+                  one time.
+                </span>
+              ),
+              icon: <Info />,
+            }}
             rules={[
               { required: true, message: 'Please input stake amount' },
               {
@@ -261,22 +277,27 @@ function Vote(props: TVoteTypes) {
             ]}
           >
             <InputNumber
-              className="w-full"
+              className="w-full !border-fillBg8 !rounded-[8px] input-number"
               placeholder="Please input stake amount"
+              controls={false}
               autoFocus
               prefix={
                 <div className="flex items-center">
                   {TokenIconMap[symbol] && (
                     <Image width={24} height={24} src={TokenIconMap[symbol]} alt="" />
                   )}
-                  <span className="text-Neutral-Secondary-Text ml-1">{symbol}</span>
+                  <span className="text-lightGrey ml-[6px] font-Montserrat">{symbol}</span>
                   <Divider type="vertical" />
                 </div>
               }
             />
           </Form.Item>
           <div>
-            <Button className="mx-auto mt-[24px]" type="primary" htmlType="submit">
+            <Button
+              className="mx-auto !h-[40px] font-Montserrat !text-[15px] mt-[50px] bg-mainColor w-full !rounded-[42px] text-white hover:!bg-transparent hover:border hover:border-solid hover:border-mainColor hover:!text-mainColor"
+              type="primary"
+              htmlType="submit"
+            >
               Stake and Vote
             </Button>
           </div>
@@ -284,6 +305,7 @@ function Vote(props: TVoteTypes) {
       </CommonModal>
       {/* UniqueVote vote 1a1v 1 approve  2 Reject  3 Abstain  */}
       <CommonModal
+        className="vote-modal"
         open={showVoteModal}
         title={<div className="text-center">{currentTitle}</div>}
         onCancel={() => {

@@ -24,6 +24,7 @@ import breadCrumb from 'utils/breadCrumb';
 import Input from 'components/Input';
 import TextArea from 'components/Textarea';
 import FormItem from 'components/FormItem';
+import Button from 'components/Button';
 
 interface IEditDaoProps {
   daoId?: string;
@@ -147,7 +148,11 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
         footerConfig: {
           buttonList: [
             {
-              children: <span>OK</span>,
+              children: (
+                <Button className="w-full" type="primary">
+                  OK
+                </Button>
+              ),
               onClick: () => {
                 eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
               },

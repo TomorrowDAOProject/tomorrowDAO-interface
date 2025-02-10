@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { message } from 'antd';
-import Treasury from 'pageComponents/treasury';
+import Treasury from 'pageComponents/treasuryNew';
 import { curChain } from 'config';
 import { useRequest } from 'ahooks';
 import breadCrumb from 'utils/breadCrumb';
@@ -25,7 +25,7 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
     breadCrumb.updateTreasuryPage(aliasName);
   }, [aliasName]);
   return (
-    <div className="mx-[20px] my-[39px] md:w-[840px] lg:w-[1056px] xl:w-[1120px] md:m-auto lg:m-auto xl:m-auto xl:my-[51px] lg:my-[51px] md:my-[51px]">
+    <div className="mx-[20px] my-[39px] md:w-[840px] lg:w-[1056px] xl:w-[1120px] md:m-auto lg:m-auto xl:m-auto xl:my-[51px] lg:my-[51px] md:my-[51px] revamp-dao">
       <Treasury
         aliasName={aliasName}
         address={ssrData?.treasuryAddress}
