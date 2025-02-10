@@ -23,6 +23,7 @@ export const showSuccessModal = (params: ShowSuccessModalParams) => {
           children: (
             <Button
               type="primary"
+              className="w-full"
               onClick={() => {
                 eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
                 params.onOk?.();
@@ -49,13 +50,13 @@ export const showErrorModal = (primaryContent: string, secondaryContent: string)
         {
           children: (
             <Button
-              type="primary"
+              type="danger"
               className="w-full"
               onClick={() => {
                 eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
               }}
             >
-              OK
+              Back
             </Button>
           ),
         },

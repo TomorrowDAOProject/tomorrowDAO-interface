@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './index.css';
 
 interface SliderProps {
@@ -7,6 +7,7 @@ interface SliderProps {
   step?: number;
   value?: number;
   disabled?: boolean;
+  showValue?: boolean;
   onChange?: (value: number) => void;
   className?: string;
 }
@@ -17,6 +18,7 @@ const Slider: React.FC<SliderProps> = ({
   step = 1,
   value = 50,
   disabled,
+  showValue = true,
   onChange,
   className,
 }) => {
@@ -47,10 +49,12 @@ const Slider: React.FC<SliderProps> = ({
         disabled={disabled}
         onChange={handleChange}
       />
-      <div className="flex items-center justify-between text-[12px] text-lightGrey mt-2">
-        <span className="font-Montserrat">{min}%</span>
-        <span className="font-Montserrat">{max}%</span>
-      </div>
+      {showValue && (
+        <div className="flex items-center justify-between text-[12px] text-lightGrey mt-2">
+          <span className="font-Montserrat">{min}%</span>
+          <span className="font-Montserrat">{max}%</span>
+        </div>
+      )}
     </div>
   );
 };

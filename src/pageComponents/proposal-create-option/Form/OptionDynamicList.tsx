@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import { EOptionType } from '../type';
 import { Controller, useForm } from 'react-hook-form';
 import FormItem from 'components/FormItem';
@@ -9,6 +9,7 @@ import Upload, { IRefHandle } from 'components/Upload';
 import { shortenFileName } from 'utils/file';
 import clsx from 'clsx';
 import { urlRegex } from 'app/(createADao)/create/component/utils';
+import { useLandingPageResponsive } from 'hooks/useResponsive';
 
 interface IFormListFullItemValue {
   title: string;
@@ -30,7 +31,123 @@ interface IFormItemsProps {
   onChange?(options: IFormListFullItemValue): void;
 }
 
-function FormListFullItems(props: IFormItemsProps) {
+export interface IFormListDymanicRef {
+  validate(): Promise<boolean>;
+  getValues(): IFormListFullItemValue[];
+}
+
+interface IFormRef {
+  trigger: () => Promise<boolean>;
+  getValues: () => IFormListFullItemValue;
+}
+
+interface IFormItemsRefProps extends IFormItemsProps {
+  ref?: (instance: IFormRef | null) => void;
+}
+
+const FormListDymanic = forwardRef<IFormListDymanicRef, IFormListDymanicProps>((props, ref) => {
+  const { onChange, initialValue, optionType } = props;
+  const [options, setOptions] = useState(initialValue || []);
+  const formRefs = useRef<Array<IFormRef | null>>([]);
+
+  useImperativeHandle(ref, () => ({
+    async validate() {
+      const results = await Promise.all(
+        formRefs.current.map(async (formRef) => {
+          if (formRef?.trigger) {
+            const isValid = await formRef.trigger();
+            return isValid;
+          }
+          return true;
+        }),
+      );
+      return results.every(Boolean);
+    },
+    getValues() {
+      return options;
+    },
+  }));
+
+  const handleRemove = (index: number) => {
+    let originLinks = [...options];
+    if (options.length === 1) {
+      originLinks = [{ title: '' }];
+    } else {
+      originLinks.splice(index, 1);
+    }
+    setOptions(originLinks);
+    onChange?.(originLinks);
+  };
+
+  const handleChange = (index: number, values: IFormListFullItemValue) => {
+    const opts = [...options];
+    opts[index] = values;
+    setOptions(opts);
+    onChange?.(opts);
+  };
+
+  return (
+    <>
+      {options?.map((field, index) => (
+        <div key={`${field.title}_${index}`}>
+          {optionType === EOptionType.advanced ? (
+            <FormListFullItems
+              field={field}
+              onRemove={() => handleRemove(index)}
+              onChange={(values) => handleChange(index, values)}
+              index={index}
+              ref={(el) => {
+                formRefs.current[index] = el;
+              }}
+            />
+          ) : (
+            <FormListSimpleItems
+              field={field}
+              onRemove={() => handleRemove(index)}
+              onChange={(values) => handleChange(index, values)}
+              index={index}
+              ref={(el) => {
+                formRefs.current[index] = el;
+              }}
+            />
+          )}
+        </div>
+      ))}
+      <div className="flex md:items-center md:justify-between md:flex-row flex-col gap-4">
+        <div className="flex items-center gap-[9px]">
+          <Button
+            className="!py-1 !text-[12px]"
+            type="default"
+            onClick={() => {
+              const originList = [...options, { title: '' }];
+              setOptions(originList);
+              onChange?.(originList);
+            }}
+          >
+            <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
+            Add option
+          </Button>
+          <Button
+            className="!py-1 !text-[12px]"
+            type="default"
+            onClick={() => {
+              setOptions([{ title: '' }]);
+              onChange?.([{ title: '' }]);
+            }}
+          >
+            <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
+            Delete All
+          </Button>
+        </div>
+        <span className="block text-right font-Montserrat text-desc12 text-lightGrey">
+          <span className="text-white">{options.length}</span> Options in Total
+        </span>
+      </div>
+    </>
+  );
+});
+
+const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => {
   const { field, onRemove, index, onChange } = props;
   const {
     control,
@@ -38,7 +155,7 @@ function FormListFullItems(props: IFormItemsProps) {
     watch,
     getValues,
     formState: { errors },
-  } = useForm({
+  } = useForm<IFormListFullItemValue>({
     defaultValues: field,
     mode: 'onChange',
   });
@@ -51,11 +168,19 @@ function FormListFullItems(props: IFormItemsProps) {
   const icon = watch('icon');
   const screenshots = watch('screenshots') ?? [];
 
+  console.log('screenshots', screenshots);
+  const { isPhone } = useLandingPageResponsive();
+
   const onBlur = async () => {
     const values = getValues();
     onChange?.(values);
     trigger();
   };
+
+  useImperativeHandle(ref, () => ({
+    trigger,
+    getValues,
+  }));
 
   return (
     <div className="mb-[15px] p-5 border border-solid border-fillBg8 rounded-[8px]">
@@ -70,7 +195,7 @@ function FormListFullItems(props: IFormItemsProps) {
         label="Name"
         className="!mb-[15px]"
         errorText={errors?.title?.message}
-        layout="horizontal"
+        layout={isPhone ? 'vertical' : 'horizontal'}
       >
         <Controller
           name="title"
@@ -106,17 +231,22 @@ function FormListFullItems(props: IFormItemsProps) {
         </div>
       </div>
       <div className={`${isOpen ? 'block' : 'hidden'}`}>
-        <FormItem label="Logo" errorText={errors?.icon?.message} layout="horizontal">
+        <FormItem
+          label="Logo"
+          errorText={errors?.icon?.message}
+          layout={isPhone ? 'vertical' : 'horizontal'}
+        >
           <Controller
             name="icon"
             control={control}
             render={({ field }) => (
-              <>
+              <div className="flex flex-col gap-2">
                 <Upload
                   ref={uploadRef}
                   className="!w-[250px]"
                   value={field.value}
                   ratio={1}
+                  aspect={1}
                   uploadText="Upload"
                   tips={`Formats supported: PNG, JPG, JPEG. \nRatio 1:1, less than 1 MB.`}
                   ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
@@ -145,11 +275,15 @@ function FormListFullItems(props: IFormItemsProps) {
                     />
                   </div>
                 )}
-              </>
+              </div>
             )}
           />
         </FormItem>
-        <FormItem label="Summary" errorText={errors?.description?.message} layout="horizontal">
+        <FormItem
+          label="Summary"
+          errorText={errors?.description?.message}
+          layout={isPhone ? 'vertical' : 'horizontal'}
+        >
           <Controller
             name="description"
             control={control}
@@ -172,7 +306,11 @@ function FormListFullItems(props: IFormItemsProps) {
             )}
           />
         </FormItem>
-        <FormItem label="Description" errorText={errors?.description?.message} layout="horizontal">
+        <FormItem
+          label="Description"
+          errorText={errors?.description?.message}
+          layout={isPhone ? 'vertical' : 'horizontal'}
+        >
           <Controller
             name="longDescription"
             control={control}
@@ -195,7 +333,11 @@ function FormListFullItems(props: IFormItemsProps) {
             )}
           />
         </FormItem>
-        <FormItem label="Name" errorText={errors?.url?.message} layout="horizontal">
+        <FormItem
+          label="URL"
+          errorText={errors?.url?.message}
+          layout={isPhone ? 'vertical' : 'horizontal'}
+        >
           <Controller
             name="url"
             control={control}
@@ -215,65 +357,78 @@ function FormListFullItems(props: IFormItemsProps) {
             )}
           />
         </FormItem>
-        <FormItem label="Image" errorText={errors?.icon?.message} layout="horizontal">
+        <FormItem
+          label="Image"
+          errorText={errors?.icon?.message}
+          layout={isPhone ? 'vertical' : 'horizontal'}
+        >
           <Controller
             name="screenshots"
             control={control}
             render={({ field }) => (
-              <>
+              <div className="flex flex-col gap-2 flex-grow">
                 {screenshots.length <= 9 && (
                   <Upload
                     ref={uploadRef}
-                    className="!w-[250px]"
-                    ratio={1}
                     uploadText="Upload"
-                    tips={`Formats supported: PNG, JPG, JPEG. \nRatio 1:1, less than 1 MB.`}
+                    tips={`Formats supported: PNG, JPG, JPEG. \nless than 1 MB.`}
                     ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
                     onFinish={({ url }) => {
-                      field.onChange(url);
+                      field.onChange([...screenshots, url]);
                       onBlur();
                     }}
-                    needCrop
+                    preview={false}
                     needCheckImgSize
                   />
                 )}
 
-                {icon && (
-                  <div className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto">
+                {screenshots?.map((item, index) => (
+                  <div
+                    className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto"
+                    key={`${item}_${index}`}
+                  >
                     <div className="flex items-center flex-grow">
                       <i className="text-lightGrey tmrwdao-icon-upload-document text-[20px]" />
                       <span className="ml-2 text-lightGrey text-desc14 font-Montserrat">
-                        {shortenFileName(icon)}
+                        {shortenFileName(item)}
                       </span>
                     </div>
                     <i
                       className="tmrwdao-icon-circle-minus text-[22px] ml-[6px] cursor-pointer text-Neutral-Secondary-Text"
                       onClick={() => {
-                        field.onChange('');
-                        uploadRef.current?.reset();
+                        const newScreenshots = [...screenshots];
+                        newScreenshots.splice(index, 1);
+                        field.onChange(newScreenshots);
+                        onBlur();
                       }}
                     />
                   </div>
-                )}
-              </>
+                ))}
+              </div>
             )}
           />
         </FormItem>
       </div>
     </div>
   );
-}
-function FormListSimpleItems(props: IFormItemsProps) {
-  const { field, onRemove, onChange } = props;
+});
+
+const FormListSimpleItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => {
+  const { field, onRemove, onChange, index } = props;
   const {
     control,
     trigger,
     getValues,
     formState: { errors },
-  } = useForm({
+  } = useForm<IFormListFullItemValue>({
     defaultValues: field,
     mode: 'onChange',
   });
+
+  useImperativeHandle(ref, () => ({
+    trigger,
+    getValues,
+  }));
 
   const onBlur = () => {
     const values = getValues();
@@ -317,82 +472,6 @@ function FormListSimpleItems(props: IFormItemsProps) {
       </FormItem>
     </div>
   );
-}
-function FormListDymanic(props: IFormListDymanicProps) {
-  const { onChange, initialValue, optionType } = props;
-  const [options, setOptions] = useState(initialValue || []);
-
-  const handleRemove = (index: number) => {
-    let originLinks = [...options];
-    if (options.length === 1) {
-      originLinks = [{ title: '' }];
-    } else {
-      originLinks.splice(index, 1);
-    }
-    setOptions(originLinks);
-    onChange?.(originLinks);
-  };
-
-  const handleChange = (index: number, values: IFormListFullItemValue) => {
-    const opts = [...options];
-    opts[index] = values;
-    setOptions(opts);
-    onChange?.(opts);
-  };
-
-  return (
-    <>
-      {options?.map((field, index) => (
-        <div key={`${field.title}_${index}`}>
-          {optionType === EOptionType.advanced ? (
-            <FormListFullItems
-              field={field}
-              onRemove={() => handleRemove(index)}
-              onChange={(values) => handleChange(index, values)}
-              index={index}
-            />
-          ) : (
-            <FormListSimpleItems
-              field={field}
-              onRemove={() => handleRemove(index)}
-              onChange={(values) => handleChange(index, values)}
-              index={index}
-            />
-          )}
-        </div>
-      ))}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-[9px]">
-          <Button
-            className="!py-1 !text-[12px]"
-            type="default"
-            onClick={() => {
-              const originList = [...options, { title: '' }];
-              setOptions(originList);
-              onChange?.(originList);
-            }}
-          >
-            <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
-            Add option
-          </Button>
-          <Button
-            className="!py-1 !text-[12px]"
-            type="default"
-            onClick={() => {
-              setOptions([{ title: '' }]);
-              onChange?.([{ title: '' }]);
-            }}
-          >
-            <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
-            Delete All
-          </Button>
-        </div>
-        <span className="font-Montserrat text-desc12 text-lightGrey">
-          <span className="text-white">{options.length}</span> Options in Total
-        </span>
-      </div>
-    </>
-  );
-}
+});
 
 export default FormListDymanic;

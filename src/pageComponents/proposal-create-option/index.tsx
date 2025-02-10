@@ -43,7 +43,7 @@ const ProposalDeploy = () => {
   return (
     <>
       <Breads className="mb-[27px] mt-[24px] md:mt-[67px]" />
-      <div className="py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid">
+      <div className="py-[25px] px-[22px] md:px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid">
         {!isNext ? (
           <form>
             <FormItem

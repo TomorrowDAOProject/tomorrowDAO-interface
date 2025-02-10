@@ -1,5 +1,4 @@
-import { message as antdMessage } from 'antd';
-import OptionDynamicList from './OptionDynamicList';
+import OptionDynamicList, { IFormListDymanicRef } from './OptionDynamicList';
 import { IContractError } from 'types';
 import { useRouter } from 'next/navigation';
 import { emitLoading } from 'utils/myEvent';
@@ -24,13 +23,14 @@ import Select from 'components/Select';
 import Radio from 'components/Radio';
 import Tooltip from 'components/Tooltip';
 import { TIME_OPTIONS } from 'constants/proposal';
-import Flatpickr from 'react-flatpickr';
-import 'flatpickr/dist/themes/dark.css';
 import dayjs from 'dayjs';
 import './index.css';
 import SimpleDatePicker from 'components/SimpleDatePicker';
 import SimpleTimePicker from 'components/SimpleTimePicker';
 import { combineDateAndTime } from 'utils/time';
+import ButtonRadio from 'components/ButtonRadio';
+import { DURATION_RANGE } from 'constants/time-picker';
+import { toast } from 'react-toastify';
 interface IFormPageProps {
   daoId: string;
   optionType: EOptionType;
@@ -39,6 +39,7 @@ interface IFormPageProps {
 export default function Page(props: IFormPageProps) {
   const { daoId, optionType, aliasName } = props;
   const nextRouter = useRouter();
+  const formListRef = useRef<IFormListDymanicRef>(null);
 
   const form = useForm({
     defaultValues: {
@@ -47,10 +48,10 @@ export default function Page(props: IFormPageProps) {
         proposalTitle: '',
         schemeAddress: '',
         activeStartTime: 1,
-        activeEndTime: 1,
+        activeEndTime: 0,
       },
       banner: '',
-      options: [''],
+      options: [{ title: '' }],
     },
   });
   const {
@@ -64,7 +65,6 @@ export default function Page(props: IFormPageProps) {
   const uploadRef = useRef<IRefHandle | null>(null);
   const [startTime, setStartTime] = useState<TIME_OPTIONS>(TIME_OPTIONS.Now);
   const [endTime, setEndTime] = useState<TIME_OPTIONS>(TIME_OPTIONS.Now);
-  const [date, setDate] = useState(new Date());
   const banner = watch('banner');
   const activeStartTime = watch('proposalBasicInfo.activeStartTime');
   const activeEndTime = watch('proposalBasicInfo.activeEndTime');
@@ -90,15 +90,17 @@ export default function Page(props: IFormPageProps) {
   }, [daoId]);
   const handleSubmit = async () => {
     try {
-      await trigger();
+      const isTrigger = await trigger();
+      const optionsTrigger = await formListRef.current?.validate();
+      if (!isTrigger || !optionsTrigger) {
+        return;
+      }
       const res = getValues();
       emitLoading(true, 'Publishing the proposal...');
       console.log('res', res);
       const saveReqApps: ISaveAppListReq['apps'] = res.options.map((item: any) => {
         return {
           ...item,
-          icon: item.icon?.[0]?.url,
-          screenshots: item.screenshots?.map((screenshot: any) => screenshot.url),
           sourceType: ESourceType.TomorrowDao,
         };
       });
@@ -168,10 +170,7 @@ export default function Page(props: IFormPageProps) {
         primaryContent: 'Proposal Published',
         secondaryContent: res.proposalBasicInfo.proposalTitle,
         onOk: () => {
-          antdMessage.open({
-            type: 'success',
-            content: 'created successfully, it will appear in the list in a few minutes',
-          });
+          toast.success('created successfully, it will appear in the list in a few minutes');
           nextRouter.push(`/dao/${aliasName}`);
         },
       });
@@ -220,21 +219,21 @@ export default function Page(props: IFormPageProps) {
                   <Upload
                     ref={uploadRef}
                     accept=".png,.jpg,.jpeg"
+                    aspect={3 / 1}
                     needCheckImgSize
-                    ratio={[2.9, 3]}
                     fileLimit="10 MB"
                     ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 3:1"
-                    tips={'Formats supported: PNG and JPG. Ratio: 3:1, less than 10 MB.'}
+                    tips={'Formats supported: PNG and JPG. \nRatio: 3:1, less than 10 MB.'}
                     onFinish={({ url }) => field.onChange(url)}
-                    // needCrop
+                    needCrop
                   />
 
                   {banner && (
-                    <div className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto">
+                    <div className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto w-full">
                       <div className="flex items-center flex-grow">
                         <i className="text-lightGrey tmrwdao-icon-upload-document text-[20px]" />
                         <span className="ml-2 text-lightGrey text-desc14 font-Montserrat">
-                          {shortenFileName(banner)}
+                          {shortenFileName(banner, 30)}
                         </span>
                       </div>
                       <i
@@ -264,6 +263,7 @@ export default function Page(props: IFormPageProps) {
             }}
             render={({ field }) => (
               <OptionDynamicList
+                ref={formListRef}
                 optionType={optionType}
                 initialValue={[
                   {
@@ -376,11 +376,17 @@ export default function Page(props: IFormPageProps) {
             </Tooltip>
           }
           labelClassName="!mb-[25px]"
+          errorText={errors.proposalBasicInfo?.activeEndTime?.message}
         >
           <Controller
             name="proposalBasicInfo.activeEndTime"
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: 'Voting end time is required',
+              validate: {
+                validator: (value) => !!value || 'Voting end time is required',
+              },
+            }}
             render={({ field }) => (
               <>
                 <Radio
@@ -392,20 +398,15 @@ export default function Page(props: IFormPageProps) {
                   onChange={(value) => setEndTime(value as TIME_OPTIONS)}
                 />
                 {endTime === TIME_OPTIONS.Now ? (
-                  <div className="mt-[25px] flex flex-col lg:flex-row items-center gap-[25px]">
-                    <div className="flex flex-col gap-2 w-full">
-                      <span className="text-descM12 font-Montserrat text-lightGrey">Minutes</span>
-                      <Input placeholder="0" regExp={/^([0-9\b]*)$/} defaultValue="0" />
-                    </div>
-                    <div className="flex flex-col gap-2 w-full">
-                      <span className="text-descM12 font-Montserrat text-lightGrey">Hours</span>
-                      <Input placeholder="0" regExp={/^([0-9\b]*)$/} defaultValue="0" />
-                    </div>
-                    <div className="flex flex-col gap-2 w-full">
-                      <span className="text-descM12 font-Montserrat text-lightGrey">Days</span>
-                      <Input placeholder="0" regExp={/^([0-9\b]*)$/} defaultValue="1" />
-                    </div>
-                  </div>
+                  <ButtonRadio
+                    className="mt-[30px]"
+                    options={DURATION_RANGE}
+                    onChange={({ value }) => {
+                      const now = activeStartTime === 1 ? dayjs() : dayjs(activeStartTime);
+                      const endTime = now.add(value, 'seconds');
+                      field.onChange(endTime.valueOf());
+                    }}
+                  />
                 ) : (
                   <div className="flex flex-row items-center flex-wrap gap-[9px] mt-[32px]">
                     <SimpleDatePicker

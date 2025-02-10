@@ -111,12 +111,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
       options: [''],
     },
   });
-  const {
-    watch,
-    trigger,
-    setValue,
-    getValues,
-  } = form;
+  const { watch, trigger, setValue, getValues } = form;
   const searchParams = useSearchParams();
   const tab = searchParams.get('tab');
   const router = useNetworkDaoRouter();
@@ -129,11 +124,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
   const [resultModalConfig, setResultModalConfig] = useState(INIT_RESULT_MODAL_CONFIG);
   const { isSyncQuery } = useAelfWebLoginSync();
   const { aliasName } = props;
-  const {
-    data: daoData,
-    error: daoError,
-    loading: daoLoading,
-  } = useRequest(async () => {
+  const { data: daoData, loading: daoLoading } = useRequest(async () => {
     if (!aliasName) {
       message.error('aliasName is required');
       return null;
@@ -147,7 +138,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
   useEffect(() => {
     setValue('transaction.contractMethodName', '');
     setValue('transaction.params', '');
-  }, [to_address]);
+  }, [setValue, to_address]);
 
   const openErrorModal = (
     primaryContent = 'Failed to Create the proposal',

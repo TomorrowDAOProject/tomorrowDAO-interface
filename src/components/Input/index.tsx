@@ -64,6 +64,7 @@ const Input = (
           'w-full border border-solid border-fillBg8 rounded-[8px] pl-[16px] pr-10 py-[13px] bg-transparent text-white text-desc14 font-Montserrat font-normal leading-[19px] placeholder-lightGrey focus:outline-none transition duration-300 ease-in-out',
           {
             'border-mainColor': isError,
+            '!pr-[16px]': !suffix,
           },
           className,
         )}
