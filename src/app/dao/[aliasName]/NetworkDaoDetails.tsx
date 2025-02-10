@@ -138,7 +138,7 @@ export default function DeoDetails(props: IProps) {
 
         <div className="dao-detail-content network-dao">
           <div className={`dao-detail-content-left`}>
-            <div className={`dao-detail-content-left-tab`}>{tabCom}</div>
+            <div className={`dao-detail-content-left-tab !bg-white`}>{tabCom}</div>
             {tabKey === TabKey.PROPOSALS && <ExplorerProposalList />}
           </div>
         </div>

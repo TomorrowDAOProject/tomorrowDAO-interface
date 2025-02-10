@@ -83,7 +83,7 @@ const Layout = dynamicReq(
                   <div>
                     <div
                       className={
-                        clsx('flex-1 max-w-[1440px] mx-auto pt-4 lg:pt-6 mb-6 lg:px-10 px-4 page-content-wrap', {
+                        clsx('flex-1 max-w-[1440px] mx-auto pt-4 lg:pt-6 mb-6 lg:px-10 px-4 page-content-wrap network-dao', {
                           'max-w-[898px]': isProposalApply
                         })
                       }

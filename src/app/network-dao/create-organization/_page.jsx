@@ -549,7 +549,7 @@ const CreateOrganization = () => {
   );
 
   return (
-    <div className="create-organization page-content-bg-border">
+    <div className="create-organization page-content-bg-border !bg-white">
       {contextHolder}
       <div className="create-organization-header">
         <div className="create-organization-header-title">

@@ -179,7 +179,7 @@ export default class ResourceAElfWallet extends PureComponent {
         <Spin tip="loading...." size="large" spinning={loading}>
           <div className="resource-wallet-header resource-header">
             <WalletOutlined className="resource-icon" />
-            <span className="resource-title">{propsTile}</span>
+            <span className="resource-title !text-[#000] !font-sans">{propsTile}</span>
           </div>
           <div className="resource-sub-container">
             <Row className="resource-wallet-address">
