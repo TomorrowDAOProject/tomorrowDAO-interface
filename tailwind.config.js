@@ -164,6 +164,8 @@ module.exports = {
         lightGrey: 'var(--light-gray)',
         darkBg: 'var(--dark-bg)',
         danger: 'var(--danger)',
+        neutralHoverBg: 'var(--neutral-hover-bg)',
+        borderColor: 'var(--border-color)',
       },
       flex: {
         quarter: '1 1 25%',

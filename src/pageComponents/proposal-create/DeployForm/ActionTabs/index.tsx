@@ -28,10 +28,12 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import { divDecimals } from 'utils/calculate';
 import { IssueIcon } from './TabContent/IssueToken/Icon';
 import IssueToken from './TabContent/IssueToken';
-
-const contractMethodNamePath = ['transaction', 'contractMethodName'];
+import { Controller } from 'react-hook-form';
+import FormItem from 'components/FormItem';
+import Select from 'components/Select';
 
 interface IActionTabsProps {
+  form: any;
   daoId: string;
   onTabChange?: (activeKey: string) => void;
   activeTab?: string;
@@ -41,12 +43,25 @@ interface IActionTabsProps {
 }
 // const emptyTabItem = (...([]));
 export default function TabsCom(props: IActionTabsProps) {
-  const { daoId, onTabChange, activeTab, treasuryAssetsData, daoData, governanceMechanismList } =
-    props;
+  const {
+    form,
+    daoId,
+    onTabChange,
+    activeTab,
+    treasuryAssetsData,
+    daoData,
+    governanceMechanismList,
+  } = props;
+  const {
+    watch,
+    setValue,
+    getValues,
+    control,
+    formState: { errors },
+  } = form;
   const onTabChangeRef = useRef<(activeKey: string) => void>();
   onTabChangeRef.current = onTabChange;
-  const form = Form.useFormInstance();
-  const contractAddress = Form.useWatch(['transaction', 'toAddress'], form);
+  const contractAddress = watch('transaction.toAddress');
   const [contractInfo, setContractInfo] = useState<IContractInfoListData>();
   const contractInfoOptions = useMemo(() => {
     return contractInfo?.contractInfoList.map((item) => {
@@ -94,11 +109,12 @@ export default function TabsCom(props: IActionTabsProps) {
   }, [daoId]);
   // reset Method Name if Contract Address change
   useEffect(() => {
-    const methodName = form.getFieldValue(contractMethodNamePath);
+    const methodName = getValues('transaction.contractMethodName');
     if (!contractInfo?.contractInfoList.includes(methodName)) {
-      form.setFieldValue(contractMethodNamePath, undefined);
+      setValue('transaction.contractMethodName', undefined);
     }
   }, [contractAddress, form, contractInfo]);
+
   const tabItems = useMemo(() => {
     const initItems = [
       treasuryAssetsData?.length
@@ -330,45 +346,56 @@ export default function TabsCom(props: IActionTabsProps) {
         key: EProposalActionTabs.CUSTOM_ACTION,
         children: (
           <>
-            <Form.Item
-              name={['transaction', 'toAddress']}
-              rules={[
-                {
-                  required: true,
-                  message: 'contract address is required',
-                },
-              ]}
-              label={<span className="form-item-label">Contract Address</span>}
+            <FormItem
+              label={
+                <span className="mb-2 block text-descM15 font-Montserrat text-white">
+                  Contract Address
+                </span>
+              }
+              errorText={errors?.transaction?.contractMethodName?.message}
             >
-              <ResponsiveSelect
-                drawerProps={{
-                  title: 'Contract Address',
-                }}
-                options={contractInfoOptions}
-                optionLabelProp="label"
-                placeholder="Select a contract"
-              ></ResponsiveSelect>
-            </Form.Item>
-            <Form.Item
-              name={contractMethodNamePath}
-              label={<span className="form-item-label">Method Name</span>}
-              dependencies={['transaction', 'toAddress']}
-              rules={[
-                {
-                  required: true,
-                  message: 'method name is required',
-                },
-              ]}
+              <Controller
+                name="transaction.toAddress"
+                control={control}
+                rules={{ required: 'contract address is required' }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    placeholder="Select a contract"
+                    overlayClassName="!py-3"
+                    overlayItemClassName="flex flex-col gap-2 !py-3 text-white text-descM16 font-Montserrat"
+                    options={contractInfoOptions}
+                    isError={!!errors?.transaction?.toAddress?.message}
+                    onChange={(option) => field.onChange(option.value)}
+                  />
+                )}
+              />
+            </FormItem>
+            <FormItem
+              label={
+                <span className="mb-2 block text-descM15 font-Montserrat text-white">
+                  Method Name
+                </span>
+              }
+              errorText={errors?.transaction?.contractMethodName?.message}
             >
-              <ResponsiveSelect
-                drawerProps={{
-                  title: 'Method Name',
-                }}
-                options={contractMethodOptions}
-                optionLabelProp="label"
-                placeholder="Select a method name"
-              ></ResponsiveSelect>
-            </Form.Item>
+              <Controller
+                name="transaction.contractMethodName"
+                control={control}
+                rules={{ required: 'method name is required' }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    placeholder="Select a method name"
+                    overlayClassName="!py-3"
+                    overlayItemClassName="flex flex-col gap-2 !py-3 text-white text-descM16 font-Montserrat"
+                    options={contractMethodOptions}
+                    isError={!!errors?.transaction?.contractMethodName?.message}
+                    onChange={(option) => field.onChange(option.value)}
+                  />
+                )}
+              />
+            </FormItem>
             <ErrorBoundary
               errorMsg={
                 <p className="text-error">
@@ -377,34 +404,36 @@ export default function TabsCom(props: IActionTabsProps) {
                 </p>
               }
             >
-              <Form.Item
-                name={['transaction', 'params']}
-                label={<span className="form-item-label">Method Parameter</span>}
-                rules={[
-                  {
-                    required: true,
-                    message: 'method params is required',
-                  },
-                ]}
-                initialValue={JSON.stringify(
-                  {
-                    'parameter name': 'Please enter the content of your parameter.',
-                  },
-                  null,
-                  2,
-                )}
+              <FormItem
+                label="Method Parameter"
+                errorText={errors?.transaction?.contractMethodName?.message}
               >
-                <Editor
-                  defaultLanguage="json"
-                  className="proposal-custom-action-params-editor"
-                  height={176}
-                  options={{
-                    minimap: {
-                      enabled: false,
-                    },
-                  }}
+                <Controller
+                  name="transaction.params"
+                  control={control}
+                  rules={{ required: 'method params is required' }}
+                  render={({ field }) => (
+                    <Editor
+                      {...field}
+                      defaultValue={JSON.stringify(
+                        {
+                          'parameter name': 'Please enter the content of your parameter.',
+                        },
+                        null,
+                        2,
+                      )}
+                      defaultLanguage="json"
+                      className="proposal-custom-action-params-editor"
+                      height={176}
+                      options={{
+                        minimap: {
+                          enabled: false,
+                        },
+                      }}
+                    />
+                  )}
                 />
-              </Form.Item>
+              </FormItem>
             </ErrorBoundary>
           </>
         ),

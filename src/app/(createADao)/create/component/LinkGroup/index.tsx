@@ -95,7 +95,7 @@ const LinkGroup = ({ value, errorText, onBlur, onChange }: ILinkGroupProps) => {
           <Select
             label="Name"
             value={link[0]}
-            placehoder="Select Social Media"
+            placeholder="Select Social Media"
             className="lg:w-[250px]"
             options={socialMedia}
             onChange={(option) => handleSelectChange(option, index)}

@@ -8,7 +8,7 @@ export type Option = {
 
 interface IRadioProps {
   options: Option[];
-  value: string | number;
+  value?: string | number;
   onChange?(value: string | number): void;
 }
 

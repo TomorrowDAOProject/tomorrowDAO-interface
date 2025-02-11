@@ -41,6 +41,7 @@ export const LayoutContent = ({ children }: { children: React.ReactNode }) => {
         closeButton={false}
         pauseOnHover
         theme="dark"
+        autoClose={2000}
       />
     </>
   );
