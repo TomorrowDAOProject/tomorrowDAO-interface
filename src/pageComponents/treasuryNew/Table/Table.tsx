@@ -15,7 +15,6 @@ import { checkIsOut } from 'utils/transaction';
 import { isSideChain } from 'utils/chain';
 import Symbol from 'components/Symbol';
 import LoadingComponent from 'components/LoadingComponent';
-import { Mask } from 'antd-mobile';
 
 const defaultPageSize = 20;
 interface IRecordTableProps {
@@ -25,7 +24,7 @@ interface IRecordTableProps {
 }
 export default function RecordTable(props: IRecordTableProps) {
   const { address, currentChain, isNft } = props;
-  const [timeFormat, setTimeFormat] = useState('Age');
+  const [timeFormat, setTimeFormat] = useState('Timestamp');
   // const { isLG } = useResponsive();
 
   const [tableParams, setTableParams] = useState<{ page: number; pageSize: number }>({
@@ -102,6 +101,7 @@ export default function RecordTable(props: IRecordTableProps) {
       width: 144,
       title: <div className="time">{timeFormat}</div>,
       render: (text) => {
+        console.log('text', text, timeFormat, getFormattedDate(text, timeFormat));
         return <div>{getFormattedDate(text, timeFormat)}</div>;
       },
     },
@@ -122,6 +122,9 @@ export default function RecordTable(props: IRecordTableProps) {
                 address={from}
                 preLen={8}
                 endLen={9}
+                primaryIconColor={'#989DA0'}
+                addressHoverColor={'white'}
+                addressActiveColor={'white'}
               />
             </Link>
           </div>
@@ -160,6 +163,9 @@ export default function RecordTable(props: IRecordTableProps) {
                 address={to}
                 preLen={8}
                 endLen={9}
+                primaryIconColor={'#989DA0'}
+                addressHoverColor={'white'}
+                addressActiveColor={'white'}
               />
             </Link>
           </div>
@@ -215,8 +221,10 @@ export default function RecordTable(props: IRecordTableProps) {
     return 'customRow';
   };
 
+  console.log('columns', columns);
+
   return (
-    <ConfigProvider renderEmpty={() => <NoData />}>
+    <ConfigProvider renderEmpty={() => <NoData></NoData>}>
       <Table
         scroll={{ x: 'max-content' }}
         className="custom-table-style full-table normal-table clear-table-padding no-mask"

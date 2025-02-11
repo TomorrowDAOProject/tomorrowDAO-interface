@@ -92,7 +92,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         <div className="dropdown-menu" ref={menuRef}>
           {items.map((item) => (
             <div key={item.key} className="dropdown-item" onClick={() => handleItemClick(item.key)}>
-              {item.label}
+              <span className="text-mainColor font-Montserrat">{item.label}</span>
             </div>
           ))}
         </div>

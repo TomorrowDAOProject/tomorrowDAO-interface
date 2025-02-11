@@ -158,14 +158,14 @@ export default function DeoDetails(props: IProps) {
       <ButtonCheckLogin
         size="medium"
         type="primary"
-        className="bg-mainColor !rounded-[42px] py-2 px-[14px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+        className="bg-mainColor !h-[32px] !rounded-[42px] py-2 px-[14px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
         loading={createProposalLoading}
         onClick={() => {
           handleCreateProposalRef.current?.();
         }}
         disabled={!daoData.data.id}
       >
-        Create a Proposal
+        <span className="font-medium text-[12px]">Create a Proposal</span>
       </ButtonCheckLogin>
     );
     const items = [

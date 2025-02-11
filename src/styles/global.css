@@ -173,7 +173,7 @@ input[type='number'] {
   > span {
     @apply text-[14px] leading-[20px] font-normal;
   }
-} 
+}
 
 .table-header-normal {
   .TMRWDAO-table-thead > tr > th {

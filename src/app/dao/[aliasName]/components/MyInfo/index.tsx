@@ -130,7 +130,12 @@ export default function MyInfo(props: TInfoTypes) {
       key: '0',
       label: '',
       children: info && (
-        <a href={`${explorer}/address/${wallet?.address}`} target="_blank" rel="noreferrer">
+        <a
+          className="w-full"
+          href={`${explorer}/address/${wallet?.address}`}
+          target="_blank"
+          rel="noreferrer"
+        >
           <HashAddress
             preLen={8}
             endLen={11}
@@ -260,7 +265,7 @@ export default function MyInfo(props: TInfoTypes) {
                   </div>
                   <Button
                     type="primary"
-                    className="!rounded-[42px]"
+                    className="!rounded-[42px] !h-[32px]"
                     onClick={() => {
                       if (info?.availableUnStakeAmount === 0) {
                         message.info('Available for Unstaking is 0');
@@ -269,7 +274,7 @@ export default function MyInfo(props: TInfoTypes) {
                       }
                     }}
                   >
-                    Unstake
+                    <span className="text-[12px]">Unstake</span>
                   </Button>
                 </div>
               </>

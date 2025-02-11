@@ -17,7 +17,7 @@ function SocialMediaItem({ name, url }: { name: string; url: string }) {
   return (
     <div className="social-media-item flex items-center gap-2 bg-[rgba(255,255,255,0.08)] rounded-sm">
       {(colorfulSocialMediaIconMap as any)[name] && (
-        <Image src={(colorfulSocialMediaIconMap as any)[name]} alt="media" width={16} height={16} />
+        <Image src={(colorfulSocialMediaIconMap as any)[name]} alt="media" width={14} height={14} />
       )}
 
       <span className="text-lightGrey text-[12px]">{url}</span>
@@ -248,7 +248,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       </div>
       <Button
         type="default"
-        className={`w-full flex items-center gap-1 hover:!border-fillBg8 ${
+        className={`w-full flex items-center gap-1 hover:!border-lightGrey disabled:border-lightGrey  ${
           isAllChecked && '!bg-mainColor text-white'
         }`}
         onClick={() => {
