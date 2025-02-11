@@ -72,7 +72,7 @@ const SimpleTimePicker = ({ value, className, onChange }: ISimpleTimePickerProps
         isVisible={isVisible}
         direction="bottom"
         onClose={setIsVisible}
-        rootClassName="px-[16px] pt-5 pb-7 bg-tertiary"
+        rootClassName="px-[16px] pt-5 pb-7 bg-tertiary md:border md:border-solid md:border-borderColor"
         canClose
       >
         <div className="flex flex-row">
@@ -87,7 +87,7 @@ const SimpleTimePicker = ({ value, className, onChange }: ISimpleTimePickerProps
           >
             {HOUR_RANGE.map((item) => (
               <Picker.Item
-                className="text-[15px]"
+                className="!text-[15px] !font-Montserrat !text-lightGrey "
                 value={item}
                 key={`hours${item}`}
                 data-testid={`hour-${item}`}
@@ -106,7 +106,7 @@ const SimpleTimePicker = ({ value, className, onChange }: ISimpleTimePickerProps
           >
             {MINUTE_RANGE.map((item) => (
               <Picker.Item
-                className="text-[15px]"
+                className="!text-[15px] !font-Montserrat !text-lightGrey"
                 value={item}
                 key={`minutes${item}`}
                 data-testid={`minute-${item}`}
@@ -125,7 +125,7 @@ const SimpleTimePicker = ({ value, className, onChange }: ISimpleTimePickerProps
           >
             {PERIOD_RANGE.map((item) => (
               <Picker.Item
-                className="text-[15px]"
+                className="!text-[15px] !font-Montserrat !text-lightGrey"
                 value={item}
                 key={`periods${item}`}
                 data-testid={`period-${item}`}

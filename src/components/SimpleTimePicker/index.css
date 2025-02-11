@@ -29,6 +29,6 @@
   }
 
   .m-style-picker-item-selected {
-    @apply text-white;
+    @apply !text-white font-medium;
   }
 }

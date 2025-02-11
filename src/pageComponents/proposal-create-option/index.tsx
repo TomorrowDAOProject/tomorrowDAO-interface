@@ -48,7 +48,7 @@ const ProposalDeploy = () => {
           <form>
             <FormItem
               label={
-                <span className="mb-2 block text-descM15 font-Montserrat text-white">
+                <span className="mb-[35px] block text-[20px] font-Unbounded font-light text-white">
                   Choose List Type
                 </span>
               }

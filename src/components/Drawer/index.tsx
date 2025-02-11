@@ -82,7 +82,7 @@ const Drawer = ({
               direction === 'top' || direction === 'bottom' ? 'left-0' : 'top-0',
               direction === 'left' || direction === 'right'
                 ? 'h-full'
-                : 'w-full md:rounded-b-[35px] md:!top-1/2 md:!bottom-auto md:!left-1/2 md:!right-auto md:w-[430px] md:!-translate-x-1/2 md:!-translate-y-1/2',
+                : 'w-full md:rounded-b-[35px] md:!top-1/2 md:!bottom-auto md:!left-1/2 md:!right-auto md:w-[420px] md:!-translate-x-1/2 md:!-translate-y-1/2',
             )}
           >
             {children}

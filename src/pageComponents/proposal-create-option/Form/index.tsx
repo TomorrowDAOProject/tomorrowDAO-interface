@@ -24,7 +24,6 @@ import Radio from 'components/Radio';
 import Tooltip from 'components/Tooltip';
 import { TIME_OPTIONS } from 'constants/proposal';
 import dayjs from 'dayjs';
-import './index.css';
 import SimpleDatePicker from 'components/SimpleDatePicker';
 import SimpleTimePicker from 'components/SimpleTimePicker';
 import { combineDateAndTime } from 'utils/time';
@@ -53,6 +52,7 @@ export default function Page(props: IFormPageProps) {
       banner: '',
       options: [{ title: '' }],
     },
+    mode: 'onChange',
   });
   const {
     watch,
@@ -149,21 +149,7 @@ export default function Page(props: IFormPageProps) {
         proposalType: ProposalTypeEnum.ADVISORY,
         proposalBasicInfo: proposalBasicInfo,
       };
-      /**
-      {
-    "proposalType": 2,
-    "proposalBasicInfo": {
-      "proposalTitle": "title",
-      "proposalDescription": "1",
-      "schemeAddress": "nwKhRXz5tZXe6PDDznqcxNuBPjk7DnHn8vVQDjbUnCy3MZJXN",
-      "activeStartTime": 0,
-      "activeEndTime": 0,
-      "activeTimePeriod": 86400,
-      "daoId": "9d929173f8244c1a5195098e027c687498c132f48d9ad640efe2ed958147d5eb",
-      "voteSchemeId": "934d1295190d97e81bc6c2265f74e589750285aacc2c906c7c4c3c32bd996a64"
-    }
-  },
-       */
+
       await proposalCreateContractRequest(methodName, contractParams);
       emitLoading(false);
       showSuccessModal({
@@ -184,7 +170,7 @@ export default function Page(props: IFormPageProps) {
   };
   return (
     <div className="deploy-proposal-options-form">
-      <h3 className="card-title lg:mb-[32px] mb-[24px]">Create a List</h3>
+      <h3 className="mb-[50px] font-Unbounded font-light text-[20px] text-white">Create a List</h3>
       <form>
         <FormItem label="Name" errorText={errors?.proposalBasicInfo?.proposalTitle?.message}>
           <Controller
@@ -200,6 +186,7 @@ export default function Page(props: IFormPageProps) {
             render={({ field }) => (
               <Input
                 {...field}
+                maxLength={300}
                 placeholder="Enter the title of the list (300 characters max)"
                 isError={!!errors?.proposalBasicInfo?.proposalTitle?.message}
               />

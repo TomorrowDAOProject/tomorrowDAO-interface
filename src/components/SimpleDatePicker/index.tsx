@@ -74,7 +74,7 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
         isVisible={isVisible}
         direction="bottom"
         onClose={setIsVisible}
-        rootClassName="px-[17.5px] pt-5 pb-7 bg-tertiary"
+        rootClassName="px-[17.5px] pt-5 pb-7 bg-tertiary md:border md:border-solid md:border-borderColor"
         role="dialog"
         canClose
       >
@@ -96,12 +96,7 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
           className="simple-date-picker"
           {...dayPickerProps}
         />
-        <Button
-          type="primary"
-          className="!mt-4 !w-full"
-          disabled={!selected}
-          onClick={handleConfirm}
-        >
+        <Button type="primary" className="!w-full" disabled={!selected} onClick={handleConfirm}>
           Confirm
         </Button>
       </Drawer>

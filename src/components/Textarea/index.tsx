@@ -9,6 +9,7 @@ interface ITextareaProps {
   containerClassName?: string;
   rootClassName?: string;
   isError?: boolean;
+  showLimit?: boolean;
   onBlur?: (value: string) => void;
   onChange: (value: string) => void;
   onSubmit?: (text: string) => void;
@@ -19,6 +20,7 @@ const Textarea = (
     value,
     onChange,
     onBlur,
+    showLimit = true,
     placeholder,
     maxLength = 500,
     rootClassName,
@@ -66,14 +68,16 @@ const Textarea = (
         placeholder={placeholder || 'Please enter...'}
         rows={1}
       />
-      <span
-        className={clsx(
-          'absolute right-[16px] bottom-[13px] inline-block font-Montserrat text-[11px] leading-[17.6px] text-lightGrey',
-          { '!text-danger': charCount === maxLength },
-        )}
-      >
-        {charCount}/{maxLength}
-      </span>
+      {showLimit && (
+        <span
+          className={clsx(
+            'absolute right-[16px] bottom-[13px] inline-block font-Montserrat text-[11px] leading-[17.6px] text-lightGrey',
+            { '!text-danger': charCount === maxLength },
+          )}
+        >
+          {charCount}/{maxLength}
+        </span>
+      )}
     </div>
   );
 };

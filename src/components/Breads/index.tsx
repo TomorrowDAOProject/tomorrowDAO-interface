@@ -53,7 +53,7 @@ const Breads = ({ className }: IBreadsProps) => {
     });
   }, [items]);
   return (
-    <div className={clsx('flex items-center gap-2', className)}>
+    <div className={clsx('flex items-center gap-2 flex-wrap md:flex-nowrap', className)}>
       {renderItems?.map((item, index) => (
         <span className="flex items-center gap-2" key={`${item.title}_${index}`}>
           <span

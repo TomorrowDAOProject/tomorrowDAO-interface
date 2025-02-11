@@ -264,7 +264,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
           isVisible={cropping}
           direction="bottom"
           onClose={() => setCropping(false)}
-          rootClassName="p-6 md:!w-[668px] h-[534px] bg-darkBg h-screen rounded-none"
+          rootClassName="p-6 md:!w-[668px] !h-[534px] bg-darkBg h-screen rounded-none"
         >
           <div className="w-full h-full">
             <span className="mb-6 block font-Montserrat text-descM16 text-white text-center">
@@ -283,9 +283,9 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
                 onZoomChange={setZoom}
               />
             </div>
-            <div className="flex items-center justify-center mt-6 mb-8">
+            <div className="flex items-center justify-center gap-3 mt-6 mb-8">
               <i
-                className="tmrwdao-icon-circle-minus text-[20px] text-white cursor-pointer"
+                className="tmrwdao-icon-minus text-[20px] text-white cursor-pointer"
                 onClick={() => setZoom((prev) => (prev <= 5 ? 1 : prev - 5))}
               />
               <Slider
@@ -298,7 +298,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
                 onChange={setZoom}
               />
               <i
-                className="tmrwdao-icon-circle-add text-[20px] text-white cursor-pointer"
+                className="tmrwdao-icon-plus text-[20px] text-white cursor-pointer"
                 onClick={() => setZoom((prev) => (prev > 95 ? 100 : prev + 5))}
               />
             </div>

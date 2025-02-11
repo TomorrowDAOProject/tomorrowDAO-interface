@@ -113,7 +113,7 @@ const FormListDymanic = forwardRef<IFormListDymanicRef, IFormListDymanicProps>((
           )}
         </div>
       ))}
-      <div className="flex md:items-center md:justify-between md:flex-row flex-col gap-4">
+      <div className="flex md:items-center justify-between md:flex-row flex-col gap-4">
         <div className="flex items-center gap-[9px]">
           <Button
             className="!py-1 !text-[12px]"
@@ -210,6 +210,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
           render={({ field }) => (
             <Input
               {...field}
+              maxLength={20}
               placeholder="Enter a name for the option (20 characters max)"
               isError={!!errors?.title?.message}
               onBlur={onBlur}
@@ -217,7 +218,11 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
           )}
         />
       </FormItem>
-      <div className="flex items-center justify-center mb-[15px]">
+      <div
+        className={clsx('flex items-center justify-center', {
+          'mb-[15px]': isOpen,
+        })}
+      >
         <div onClick={handleOpen} className="mx-auto inline-flex items-center cursor-pointer">
           <span className="text-descM14 text-white font-Montserrat">Optional</span>
           <i
@@ -233,6 +238,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
       <div className={`${isOpen ? 'block' : 'hidden'}`}>
         <FormItem
           label="Logo"
+          className="!mb-[15px]"
           errorText={errors?.icon?.message}
           layout={isPhone ? 'vertical' : 'horizontal'}
         >
@@ -259,7 +265,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
                 />
 
                 {icon && (
-                  <div className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto">
+                  <div className="flex items-stretch justify-between py-1 md:px-3 mt-[7px] mx-auto w-[250px]">
                     <div className="flex items-center flex-grow">
                       <i className="text-lightGrey tmrwdao-icon-upload-document text-[20px]" />
                       <span className="ml-2 text-lightGrey text-desc14 font-Montserrat">
@@ -281,6 +287,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
         </FormItem>
         <FormItem
           label="Summary"
+          className="!mb-[15px]"
           errorText={errors?.description?.message}
           layout={isPhone ? 'vertical' : 'horizontal'}
         >
@@ -296,9 +303,10 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
             render={({ field }) => (
               <Textarea
                 {...field}
-                rootClassName="lg:h-full"
+                rootClassName="lg:h-full min-h-[61px]"
                 containerClassName="flex-grow"
                 maxLength={80}
+                showLimit={false}
                 placeholder={`Enter a description for the option (80 characters max)`}
                 isError={!!errors?.description?.message}
                 onBlur={onBlur}
@@ -308,6 +316,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
         </FormItem>
         <FormItem
           label="Description"
+          className="!mb-[15px]"
           errorText={errors?.description?.message}
           layout={isPhone ? 'vertical' : 'horizontal'}
         >
@@ -323,9 +332,10 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
             render={({ field }) => (
               <Textarea
                 {...field}
-                rootClassName="lg:h-full"
+                rootClassName="lg:h-full min-h-[61px]"
                 containerClassName="flex-grow"
                 maxLength={1000}
+                showLimit={false}
                 placeholder={`Enter a description for the option (1000 characters max)`}
                 isError={!!errors?.description?.message}
                 onBlur={onBlur}
@@ -335,6 +345,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
         </FormItem>
         <FormItem
           label="URL"
+          className="!mb-[15px]"
           errorText={errors?.url?.message}
           layout={isPhone ? 'vertical' : 'horizontal'}
         >
@@ -359,6 +370,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
         </FormItem>
         <FormItem
           label="Image"
+          className="!mb-0"
           errorText={errors?.icon?.message}
           layout={isPhone ? 'vertical' : 'horizontal'}
         >
@@ -384,7 +396,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
 
                 {screenshots?.map((item, index) => (
                   <div
-                    className="flex items-center justify-between py-1 md:px-3 mt-[15px] mx-auto"
+                    className="flex items-center justify-between py-1 md:px-3 mt-[7px] mx-auto w-full"
                     key={`${item}_${index}`}
                   >
                     <div className="flex items-center flex-grow">
@@ -414,7 +426,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
 });
 
 const FormListSimpleItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => {
-  const { field, onRemove, onChange, index } = props;
+  const { field, onRemove, onChange } = props;
   const {
     control,
     trigger,
@@ -458,6 +470,7 @@ const FormListSimpleItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) =
             <>
               <Input
                 {...field}
+                maxLength={20}
                 placeholder="Enter a name for the option (20 characters max)"
                 isError={!!errors?.title?.message}
                 onBlur={onBlur}
