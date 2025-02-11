@@ -29,7 +29,6 @@
 
       .title {
         @apply text-[20px] font-medium leading-[28px] text-neutralTitle;
-
       }
     }
 
@@ -64,10 +63,9 @@
       .TMRWDAO-select {
         @apply focus:border-lightGrey hover:border-lightGrey;
         .TMRWDAO-select-selector {
-          @apply bg-fillBg8;
+          @apply bg-fillBg8 text-lightGrey !border-fillBg8 max-w-[60px];
           .TMRWDAO-select-selection-item {
             @apply !text-white font-Montserrat text-[10px];
-  
           }
           .TMRWDAO-select-arrow {
             .TMRWDAO-icon {
@@ -76,9 +74,6 @@
           }
         }
       }
-      
     }
-   
   }
-
 }

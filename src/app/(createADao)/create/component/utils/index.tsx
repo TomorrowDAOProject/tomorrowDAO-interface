@@ -78,5 +78,13 @@ export const mediaValidatorMap = {
       ),
     ],
   },
+  Link: {
+    validator: [
+      validatorCreate(
+        (v) => v && !urlRegex.test(v),
+        'Please enter a correct link. Shortened URLs are not supported.',
+      ),
+    ],
+  },
 };
 export * from './use-register-form';

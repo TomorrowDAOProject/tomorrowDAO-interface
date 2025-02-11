@@ -63,10 +63,11 @@ export default function RecordTable() {
         return dayjs(a.timeStamp).unix() - dayjs(b.timeStamp).unix();
       },
       defaultSortOrder: 'descend',
+      showSorterTooltip: false,
       render(time) {
         return (
           <span className="font-Montserrat text-white font-medium">
-            {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}
+            {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}222
           </span>
         );
       },

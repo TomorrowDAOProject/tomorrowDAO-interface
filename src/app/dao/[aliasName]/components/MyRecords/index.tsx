@@ -68,7 +68,7 @@ export default function MyRecords(props: IProps) {
         <>
           {!dataLen && (
             <div className="text-lightGrey text-center font-Montserrat text-[12px]">
-              No results found
+              No Results found
             </div>
           )}
           <div className="flex flex-col gap-[32px]">

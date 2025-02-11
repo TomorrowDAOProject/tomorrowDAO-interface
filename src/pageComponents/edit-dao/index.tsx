@@ -42,7 +42,6 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
   const [deletedFile, setDeletedFile] = useState<string[]>([]);
   const [mediaError, setMediaError] = useState<boolean>(false);
   const [form] = Form.useForm();
-  const fileList = Form.useWatch('files', form) ?? [];
   const {
     data: daoData,
     error: daoError,
@@ -84,6 +83,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
       .map((item: Record<string, string>) => {
         const url = new URL(item.url);
         const id = url.pathname.split('/').pop() ?? '';
+        console.log('ididid', id);
         return {
           cid: id,
           name: item.name,
@@ -91,8 +91,10 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
         };
       });
 
+    console.log('newFile2111', newFile);
+
     try {
-      console.log(daoAddress);
+      console.log('deletedFile', deletedFile);
       emitLoading(true, 'The changes is being processed...');
       if (deletedFile.length > 0) {
         await callContract(
@@ -129,8 +131,13 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                 eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
               },
               children: (
-                <Link href={isNetworkDAO ? `${NetworkDaoHomePathName}` : `/dao/${aliasName}`}>
-                  <span className="text-white">View The DAO</span>
+                <Link
+                  className="w-full"
+                  href={isNetworkDAO ? `${NetworkDaoHomePathName}` : `/dao/${aliasName}`}
+                >
+                  <Button type="primary" className="text-white w-full">
+                    View The DAO
+                  </Button>
                 </Link>
               ),
             },
@@ -199,6 +206,22 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
       })),
     });
   }, [form, daoData]);
+
+  const fileList = Form.useWatch('files', form) ?? [];
+
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    setFiles(fileList);
+  }, [fileList]);
+
+  const metadata = Form.useWatch('metadata', form);
+
+  const [metaData, setMetaData] = useState({ logoUrl: [{ url: '' }] });
+
+  useEffect(() => {
+    setMetaData(metadata);
+  }, [metadata]);
 
   const isUploadDisabled = useMemo(() => {
     return fileList.length >= MAX_FILE_COUNT;
@@ -277,9 +300,28 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                   className="w-full md:w-[250px] lg:w-[250px] xl:w-[250px] h-[250px]"
                   needCheckImgSize
                   accept=".png,.jpg"
+                  value={metaData?.logoUrl[0]?.url}
                   uploadText="Click to Upload"
                   tips={`Formats supported: PNG, JPG, JPEG \nRatio: 1:1 , less than 1 MB`}
+                  onFinish={(file) => {
+                    console.log('file', file);
+                    form.setFieldsValue({
+                      metadata: {
+                        logoUrl: [{ url: file.url }],
+                      },
+                    });
+                  }}
                 />
+
+                {/* <IPFSUpload
+                  className="w-full md:w-[250px] lg:w-[250px] xl:w-[250px] h-[250px] flex-shrink-0 !bg-transparent"
+                  maxFileCount={1}
+                  needCheckImgSize
+                  accept=".png,.jpg"
+                  uploadText="Click to Upload"
+                  uploadIconColor="#1A1A1A"
+                  tips="Formats supported: PNG and JPG. Ratio: 1:1 , less than 1 MB."
+                /> */}
               </Form.Item>
               <Form.Item
                 className="w-full"
@@ -356,7 +398,11 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                   message: 'The X (Twitter) user name should be shorter than 15 characters.',
                 },
               ]}
-              label="X (Twitter)"
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">
+                  X (Twitter)
+                </span>
+              }
             >
               <Input placeholder={`Enter the DAO's X handle, starting with @`} />
             </Form.Item>
@@ -364,14 +410,16 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               name={['metadata', 'socialMedia', 'Facebook']}
               validateFirst
               rules={[
-                ...mediaValidatorMap.Other.validator,
+                ...mediaValidatorMap.Link.validator,
                 {
                   type: 'string',
                   max: 128,
                   message: 'The URL should be shorter than 128 characters.',
                 },
               ]}
-              label="Facebook"
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">Facebook</span>
+              }
             >
               <Input placeholder={`Enter the DAO's Facebook link`} />
             </Form.Item>
@@ -379,14 +427,16 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               name={['metadata', 'socialMedia', 'Discord']}
               validateFirst
               rules={[
-                ...mediaValidatorMap.Other.validator,
+                ...mediaValidatorMap.Link.validator,
                 {
                   type: 'string',
                   max: 128,
                   message: 'The URL should be shorter than 128 characters.',
                 },
               ]}
-              label="Discord"
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">Discord</span>
+              }
             >
               <Input placeholder={`Enter the DAO's Discord community link`} />
             </Form.Item>
@@ -394,14 +444,16 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               name={['metadata', 'socialMedia', 'Telegram']}
               validateFirst
               rules={[
-                ...mediaValidatorMap.Other.validator,
+                ...mediaValidatorMap.Link.validator,
                 {
                   type: 'string',
                   max: 128,
                   message: 'The URL should be shorter than 128 characters.',
                 },
               ]}
-              label="Telegram"
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">Telegram</span>
+              }
             >
               <Input placeholder={`Enter the DAO's Telegram community link`} />
             </Form.Item>
@@ -409,17 +461,51 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               name={['metadata', 'socialMedia', 'Reddit']}
               validateFirst
               rules={[
-                ...mediaValidatorMap.Other.validator,
+                ...mediaValidatorMap.Link.validator,
                 {
                   type: 'string',
                   max: 128,
                   message: 'The URL should be shorter than 128 characters.',
                 },
               ]}
-              label="Reddit"
+              label={<span className="font-Montserrat text-white text-[14px]">Reddit</span>}
             >
               <Input placeholder={`Enter the DAO's subreddit link`} />
             </Form.Item>
+            {/* <Form.Item
+              name={['metadata', 'socialMedia', 'Github']}
+              validateFirst
+              rules={[
+                ...mediaValidatorMap.Link.validator,
+                {
+                  type: 'string',
+                  max: 128,
+                  message: 'The URL should be shorter than 128 characters.',
+                },
+              ]}
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">Github</span>
+              }
+            >
+              <Input placeholder={`Enter the DAO's Github link`} />
+            </Form.Item>
+            <Form.Item
+              name={['metadata', 'socialMedia', 'Others']}
+              validateFirst
+              rules={[
+                ...mediaValidatorMap.Link.validator,
+                {
+                  type: 'string',
+                  max: 128,
+                  message: 'The URL should be shorter than 128 characters.',
+                },
+              ]}
+              label={
+                <span className="font-Montserrat text-white text-[14px] font-medium">Others</span>
+              }
+            >
+              <Input placeholder={`Enter the DAO's Others link`} />
+            </Form.Item> */}
             <div className="text-white text-[16px] font-medium font-Montserrat">Documentation</div>
             <div
               className={cx(
@@ -436,14 +522,95 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               valuePropName="fileList"
               initialValue={[]}
             >
-              <Upload
-                className="upload"
+              <div>
+                <Upload
+                  className="upload"
+                  accept=".pdf"
+                  fileLimit={FILE_LIMIT}
+                  fileNameLengthLimit={MAX_FILE_NAME_LENGTH}
+                  uploadText="Click to Upload"
+                  tips={uploadTips}
+                  onFinish={(file) => {
+                    const currentValues = fileList;
+
+                    const regex = /\/ipfs\/([^/?]+)/;
+                    const match = file.url.match(regex);
+
+                    const realFile = {
+                      name: file.name,
+                      vid: match && match[1],
+                      url: file.url,
+                      status: 'done',
+                    };
+
+                    form.setFieldsValue({
+                      files: [...currentValues, realFile],
+                    });
+                  }}
+                />
+                {files.length > 0 &&
+                  files.map(
+                    (
+                      file: {
+                        cid: string;
+                        vid: string;
+                        uid: string;
+                        name: string;
+                        url: string;
+                      },
+                      index,
+                    ) => {
+                      return (
+                        <div
+                          key={index}
+                          className="text-white font-Montserrat flex items-center justify-between py-1 px-2 mt-2"
+                        >
+                          <div className="flex items-center gap-1">
+                            <i className="text-lightGrey tmrwdao-icon-document text-[20px]"></i>
+                            <span>{file.name}</span>
+                          </div>
+                          <i
+                            className="tmrwdao-icon-delete text-[22px] text-Neutral-Secondary-Text"
+                            onClick={() => {
+                              if (file) {
+                                if (file.cid) {
+                                  setDeletedFile([...deletedFile, file.cid]);
+                                }
+                                const newFiles = fileList.filter(
+                                  (list: { url: string }) => list.url !== file.url,
+                                );
+
+                                form.setFieldsValue({
+                                  files: newFiles,
+                                });
+                              }
+                            }}
+                          ></i>
+                        </div>
+                      );
+                    },
+                  )}
+              </div>
+
+              {/* <IPFSUpload
+                className="upload bg-black"
+                isAntd
                 accept=".pdf"
                 fileLimit={FILE_LIMIT}
+                maxCount={MAX_FILE_COUNT}
                 fileNameLengthLimit={MAX_FILE_NAME_LENGTH}
-                uploadText="Click to Upload"
+                uploadIconColor="#1A1A1A"
+                uploadText={'Click to Upload'}
                 tips={uploadTips}
-              />
+                disabled={isUploadDisabled}
+                onRemove={(item) => {
+                  if (item.url) {
+                    const url = new URL(item.url);
+                    const id = url.pathname.split('/').pop() ?? '';
+                    setDeletedFile([...deletedFile, id]);
+                  }
+                }}
+              /> */}
             </Form.Item>
           </Form>
           <div className="flex justify-end">

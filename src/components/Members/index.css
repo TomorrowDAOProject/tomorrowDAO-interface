@@ -15,7 +15,11 @@
   &:last-child {
     @apply border-none;
   }
-  .TMRWDAO-members-hash-address .TMRWDAO-icon {
+  .TMRWDAO-members-hash-address
+    >span {
+      @apply text-white;
+    }
+   .TMRWDAO-icon {
     @apply text-[16px];
   }
 }

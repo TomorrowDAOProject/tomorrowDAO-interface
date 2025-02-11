@@ -14,7 +14,7 @@ import BigNumber from 'bignumber.js';
 
 const columns: ColumnsType<IVoteHistoryItem> = [
   {
-    width: 328,
+    width: 228,
     title: 'Voter',
     dataIndex: 'voter',
     render: (text) => {
@@ -35,7 +35,7 @@ const columns: ColumnsType<IVoteHistoryItem> = [
     },
   },
   {
-    width: 344,
+    width: 244,
     title: 'Transaction ID',
     dataIndex: 'transactionId',
     render: (text) => {
@@ -56,7 +56,7 @@ const columns: ColumnsType<IVoteHistoryItem> = [
     },
   },
   {
-    width: 224,
+    width: 124,
     title: 'Result',
     dataIndex: 'myOption',
     render: (text: 0 | 1 | 2) => {
@@ -89,7 +89,7 @@ const columns: ColumnsType<IVoteHistoryItem> = [
     },
   },
   {
-    width: 224,
+    width: 124,
     title: 'Votes',
     dataIndex: 'amount',
     render: (_, record) => {
@@ -101,6 +101,7 @@ const columns: ColumnsType<IVoteHistoryItem> = [
     },
   },
   {
+    width: 124,
     title: 'Time',
     dataIndex: 'timeStamp',
     align: 'right',

@@ -40,6 +40,7 @@ export default function Transparent(props: ITransparentProps) {
       align: 'left',
       className: 'treasury-table-column-clear-pl',
       render(token) {
+        console.log('token', token);
         return (
           <span className="token-pair">
             <Symbol symbol={token} />
@@ -64,6 +65,7 @@ export default function Transparent(props: ITransparentProps) {
       title: 'Value',
       dataIndex: 'usdValue',
       defaultSortOrder: 'descend',
+      showSorterTooltip: false,
       // sortIcon,
       sorter: (a, b) => Number(a.usdValue) - Number(b.usdValue),
       render(value) {
