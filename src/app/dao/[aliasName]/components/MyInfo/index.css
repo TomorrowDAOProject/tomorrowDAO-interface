@@ -62,4 +62,7 @@
   .TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
     @apply text-[#FF485D];
   }
+  .TMRWDAO-form-item .TMRWDAO-form-item-label > label .TMRWDAO-form-item-tooltip {
+    @apply cursor-pointer;
+  }
 }
