@@ -56,7 +56,7 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
         )}
       </div>
       <div className="page-content-bg-border px-0 py-0 members-lists">
-        <div className="py-[17px] font-Montserrat text-white text-[16px] font-medium px-[32px] border-0 border-b border-solid border-fillBg8">
+        <div className="py-[17px] font-Unbounded text-white text-[15px] font-[300] px-[32px] border-0 border-b border-solid border-fillBg8">
           Address
         </div>
         <ul>

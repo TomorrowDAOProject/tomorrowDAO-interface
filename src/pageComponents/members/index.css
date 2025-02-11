@@ -10,10 +10,10 @@
   }
   .TMRWDAO-members-hash-address {
     > span {
-      @apply normal-text-bold font-Montserrat !text-[12px];
+      @apply font-medium font-Montserrat !text-[14px];
     }
     .TMRWDAO-icon {
-      @apply text-[12px];
+      @apply text-[14px];
     }
   }
 }
