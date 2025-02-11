@@ -65,6 +65,7 @@ export default function Transparent(props: ITransparentProps) {
       title: 'Value',
       dataIndex: 'usdValue',
       defaultSortOrder: 'descend',
+      showSorterTooltip: false,
       // sortIcon,
       sorter: (a, b) => Number(a.usdValue) - Number(b.usdValue),
       render(value) {

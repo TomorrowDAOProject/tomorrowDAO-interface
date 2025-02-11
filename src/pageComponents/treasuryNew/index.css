@@ -128,7 +128,7 @@
           @apply bg-fillBg8 text-lightGrey !border-fillBg8 max-w-[60px];
         }
         .TMRWDAO-select-arrow svg {
-          @apply max-w-[10px];
+          @apply max-w-[10px] text-white;
         }
       }
     }
@@ -137,5 +137,29 @@
         @apply text-white;
       }
     }
+
+    .TMRWDAO-table-column-sorter-up,
+    .TMRWDAO-table-column-sorter-down {
+      @apply !text-lightGrey !text-[10px];
+    }
+    .TMRWDAO-table-column-sorter-up.active,
+    .TMRWDAO-table-column-sorter-down.active {
+      @apply !text-white !text-[10px];
+    }
+  }
+}
+.TMRWDAO-select-dropdown {
+  @apply bg-darkGray;
+  .TMRWDAO-select-item {
+    @apply text-white;
+  }
+  .TMRWDAO-select-item-option-active {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected {
+    @apply text-mainColor active:!bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected:not(.TMRWDAO-select-item-option-disabled) {
+    @apply !bg-transparent !text-mainColor;
   }
 }
