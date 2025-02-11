@@ -1,8 +1,5 @@
 'use client';
-import React, { Suspense, useRef, useState } from 'react';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
-import DynamicBreadCrumb from 'components/DynamicBreadCrumb';
+import React, { useRef, useState } from 'react';
 import PageLoading from 'components/Loading';
 import { usePathname } from 'next/navigation';
 import ResultModal from 'components/ResultModal';

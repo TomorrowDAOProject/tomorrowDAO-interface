@@ -1,47 +1,13 @@
-.dynamic-form-list {
-  @apply lg:mt-[32px] mt-[24px];
+.flat-picker {
+  @apply w-full border border-solid border-fillBg8 rounded-[8px] pl-[16px] pr-10 py-[13px] bg-transparent text-white text-desc14 font-Montserrat font-normal leading-[19px] placeholder-lightGrey focus:outline-none transition duration-300 ease-in-out;
 }
-.dynamic-option-item {
-  .TMRWDAO-form-item:not(.TMRWDAO-form-item-horizontal) .TMRWDAO-form-item-row {
-    @apply lg:flex-row flex-col;
-  }
-  .TMRWDAO-form-item:not(.TMRWDAO-form-item-horizontal) .TMRWDAO-form-item-control {
-    @apply lg:w-auto w-full;
-  }
-  .dymaic-form-item-screenshots.TMRWDAO-form-item:not(.TMRWDAO-form-item-horizontal) .TMRWDAO-form-item-control
-   {
-    @apply lg:w-[calc(100%-17%)];
-  }
-  .TMRWDAO-form-item:not(.TMRWDAO-form-item-horizontal) .TMRWDAO-form-item-label {
-    @apply lg:pb-0;
-  }
-  .TMRWDAO-form-item:not(.TMRWDAO-form-item-horizontal) .TMRWDAO-form-item-label>label {
-    @apply lg:h-[48px];
-  }
+
+.flatpickr-calendar {
+  @apply p-5 w-auto bg-darkGray border border-solid border-fillBg8 rounded-[8px];
 }
-.dynamic-option-simple-item {
-  @apply flex gap-[16px] items-center;
-  .TMRWDAO-form-item {
-    @apply flex-grow mb-0;
-  }
-}
-.deploy-proposal-options-form {
-  .divide-title {
-    @apply my-[32px] pt-[32px];
-    border-top: 1px solid var(--Neutral-Divider, #EDEDED);
-  }
-  & .TMRWDAO-form > .TMRWDAO-form-item {
-    @apply lg:mt-[32px] mt-[24px];
-  }
-  .form-item-label {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-  }
-}
-.dynamic-form-item-wrap {
-  &.simple {
-    @apply mb-[16px];
-  }
+
+.flatpickr-months .flatpickr-month,
+.flatpickr-monthDropdown-months,
+.flatpickr-weekdaycontainer {
+  @apply bg-transparent;
 }

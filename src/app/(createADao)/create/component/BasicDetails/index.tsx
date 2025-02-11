@@ -20,7 +20,6 @@ import Tooltip from 'components/Tooltip';
 import LinkGroup from '../LinkGroup';
 import Button from 'components/Button';
 import clsx from 'clsx';
-import { toast } from 'react-toastify';
 import { shortenFileName } from 'utils/file';
 import { useRef } from 'react';
 import { SocialMedia } from 'types/dao';
@@ -55,9 +54,7 @@ export default function BasicDetails() {
     watch,
     control,
     formState: { errors },
-    trigger,
     setValue,
-    getValues,
   } = form;
   const uploadRef = useRef<IRefHandle | null>(null);
   const { walletInfo } = useSelector((store: any) => store.userInfo);

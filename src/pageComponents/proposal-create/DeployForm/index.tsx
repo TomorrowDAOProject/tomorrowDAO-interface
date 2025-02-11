@@ -32,11 +32,12 @@ import {
 import { timesDecimals } from 'utils/calculate';
 import { trimAddress } from 'utils/address';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
-import { SkeletonForm } from 'components/Skeleton';
 import { replaceUrlParams } from 'utils/url';
 import dayjs from 'dayjs';
 import { proposalTypeList } from 'types';
 import Button from 'components/Button';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const convertParams = async (address: string, methodName: string, originParams: any) => {
   const contractInfo = await getContract(address);
@@ -70,7 +71,47 @@ const INIT_RESULT_MODAL_CONFIG: TResultModalConfig = {
   secondaryContent: '',
 };
 const GovernanceModel = (props: IGovernanceModelProps) => {
-  const [form] = Form.useForm();
+  const form = useForm({
+    defaultValues: {
+      proposalType: ProposalTypeEnum.GOVERNANCE,
+      treasury: {
+        recipient: '',
+        amountInfo: {
+          symbol: '',
+          amount: 0,
+        },
+      },
+      transaction: {
+        params: '{}',
+        toAddress: '',
+        to_address: '',
+        contractMethodName: '',
+      },
+      removeMembers: {
+        value: [''],
+      },
+      addMembers: {
+        value: [''],
+      },
+      removeHighCouncils: {
+        value: [''],
+      },
+      addHighCouncils: {
+        value: [''],
+      },
+      issueObj: { symbol: '', to: '', decimals: '', amount: 0 },
+      proposalBasicInfo: {
+        proposalTitle: '',
+        proposalDescription: '',
+        schemeAddress: '',
+        activeStartTime: 1,
+        activeEndTime: 1,
+      },
+      banner: '',
+      options: [''],
+    },
+  });
+  const { watch, trigger, setValue, getValues } = form;
   const searchParams = useSearchParams();
   const tab = searchParams.get('tab');
   const router = useNetworkDaoRouter();
@@ -83,11 +124,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
   const [resultModalConfig, setResultModalConfig] = useState(INIT_RESULT_MODAL_CONFIG);
   const { isSyncQuery } = useAelfWebLoginSync();
   const { aliasName } = props;
-  const {
-    data: daoData,
-    error: daoError,
-    loading: daoLoading,
-  } = useRequest(async () => {
+  const { data: daoData, loading: daoLoading } = useRequest(async () => {
     if (!aliasName) {
       message.error('aliasName is required');
       return null;
@@ -95,6 +132,14 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
     return fetchDaoInfo({ chainId: curChain, alias: aliasName });
   });
   const daoId = daoData?.data?.id;
+
+  const to_address = watch('transaction.to_address');
+
+  useEffect(() => {
+    setValue('transaction.contractMethodName', '');
+    setValue('transaction.params', '');
+  }, [setValue, to_address]);
+
   const openErrorModal = (
     primaryContent = 'Failed to Create the proposal',
     secondaryContent = 'Failed to Create the proposal',
@@ -122,7 +167,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
     });
   };
   const handleNext = () => {
-    const proposalType = form.getFieldValue('proposalType');
+    const proposalType = getValues('proposalType');
     if (proposalType === NetworkDaoProposalOnChain.label) {
       router.push(`/apply`);
     } else {
@@ -161,14 +206,16 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
       }
 
       setIsValidating(true);
-      const res = await form.validateFields();
+      const result = await trigger();
+      if (!result) return;
+      const res = getValues();
       setIsValidating(false);
       console.log('res', res);
       emitLoading(true, 'Publishing the proposal...');
       const voteSchemeList = await fetchVoteSchemeList({ chainId: curChain, daoId: daoId });
       const voteSchemeId = voteSchemeList?.data?.voteSchemeList?.[0]?.voteSchemeId;
       if (!voteSchemeId) {
-        message.error('The voting scheme for this DAO cannot be found');
+        toast.error('The voting scheme for this DAO cannot be found');
         emitLoading(false);
         return;
       }
@@ -240,6 +287,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
           proposalBasicInfo: {
             ...basicInfo,
           },
+          transaction: {},
         };
         if (res.proposalType === ProposalTypeEnum.GOVERNANCE) {
           if (activeTab === EProposalActionTabs.IssueToken) {
@@ -402,12 +450,8 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
         });
         return;
       }
-      const error = err as IFormValidateError | IContractError;
+      const error = err as IContractError;
       // form Error
-      if ('errorFields' in error) {
-        formValidateScrollFirstError(form, error);
-        return;
-      }
       const message = error?.errorMessage?.message || error?.message;
       emitLoading(false);
       openErrorModal(undefined, message);
@@ -415,95 +459,44 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
   };
 
   return (
-    <div className="xl:mt-[70px] lg:mt-[70px] md:mt-[39px] sm:mt-[39px]">
-      <div className="text-white font-Montserrat flex items-center gap-2 pb-[25px] flex-wrap">
-        <span
-          className="text-lightGrey text-[15px] cursor-pointer"
-          onClick={() => nextRouter.push('/')}
-        >
-          Home
-        </span>
-        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
-        <span
-          className="text-lightGrey text-[15px] cursor-pointer"
-          onClick={() => nextRouter.push('/explore')}
-        >
-          Explore
-        </span>
-        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
-        <span
-          className="text-lightGrey text-[14px] cursor-pointer"
-          onClick={() => {
-            const url = daoData?.data?.metadata?.name
-              .split(' ')
-              .map((list) => list.toLocaleLowerCase())
-              .join('-');
-            nextRouter.push(`/dao/${url}`);
-          }}
-        >
-          {daoData?.data?.metadata?.name}
-        </span>
-        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
-        <span className="text-white text-[15px] cursor-pointer">Create a List</span>
-      </div>
-      <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg xl:px-[30px] xl:py-[32px] lg:px-[30px] lg:py-[32px] md:px-[30px] md:py-[32px] sm:py-[30px] sm:px-[22px]">
-        <Form
-          form={form}
-          layout="vertical"
-          autoComplete="off"
-          requiredMark={false}
-          scrollToFirstError={true}
-          onValuesChange={(changedValues) => {
-            if (changedValues?.transaction?.to_address) {
-              form.setFieldValue(['transaction', 'contractMethodName'], '');
-              form.setFieldValue(['transaction', 'params'], '');
-            }
-          }}
-        >
-          <ProposalType
-            className={clsx({ hidden: isNext })}
-            next={handleNext}
-            options={proposalTypeList}
-            titleNode={
-              <div className="text-white text-[18px] font-Unbounded mb-[50px]">
-                Choose Proposal Type
-              </div>
-            }
-            // descriptionNode={
-            //   <div className="proposal-type-select-desc mb-[50px] text-[14px] leading-[24px] text-lightGrey font-normal mt-[8px] font-Montserrat">
-            //     When creating a proposal, please choose the appropriate type based on its purpose
-            //     and impact.
-            //   </div>
-            // }
-          />
-          {daoLoading && isNext ? (
-            <SkeletonForm />
-          ) : (
-            daoId && (
-              <ProposalInfo
-                isValidating={isValidating}
-                className={clsx({ hidden: !isNext })}
-                daoData={daoData?.data}
-                daoId={daoId}
-                onSubmit={handleSubmit}
-                onTabChange={(key: string) => {
-                  replaceUrlParams('tab', key);
-                  setActiveTab(key);
-                }}
-                activeTab={activeTab}
-                treasuryAssetsData={treasuryAssetsData?.data}
-                daoDataLoading={daoLoading}
-              />
-            )
-          )}
-        </Form>
-        <CommonOperationResultModal
-          {...resultModalConfig}
-          onCancel={() => {
-            setResultModalConfig(INIT_RESULT_MODAL_CONFIG);
-          }}
+    <div className="deploy-proposal-form mt-[24px] mb-[24px]">
+      <form>
+        <ProposalType
+          className={clsx({ hidden: isNext })}
+          next={handleNext}
+          options={proposalTypeList}
+          titleNode={<h2 className="title-primary">Choose Proposal Type</h2>}
+          descriptionNode={
+            <div className="proposal-type-select-desc mb-[64px] text-[16px] leading-[24px] text-Neutral-Secondary-Text font-normal mt-[8px]">
+              When creating a proposal, please choose the appropriate type based on its purpose and
+              impact.
+            </div>
+          }
         />
-      </div>
+        {isNext && daoId && (
+          <ProposalInfo
+            form={form}
+            isValidating={isValidating}
+            className={clsx({ hidden: !isNext })}
+            daoData={daoData?.data}
+            daoId={daoId}
+            onSubmit={handleSubmit}
+            onTabChange={(key: string) => {
+              replaceUrlParams('tab', key);
+              setActiveTab(key);
+            }}
+            activeTab={activeTab}
+            treasuryAssetsData={treasuryAssetsData?.data}
+            daoDataLoading={daoLoading}
+          />
+        )}
+      </form>
+      <CommonOperationResultModal
+        {...resultModalConfig}
+        onCancel={() => {
+          setResultModalConfig(INIT_RESULT_MODAL_CONFIG);
+        }}
+      />
     </div>
   );
 };
