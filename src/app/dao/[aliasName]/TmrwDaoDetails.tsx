@@ -156,7 +156,6 @@ export default function DeoDetails(props: IProps) {
   const tabItems = useMemo(() => {
     const CreateButton = (
       <ButtonCheckLogin
-        size="medium"
         type="primary"
         className="bg-mainColor !h-[32px] !rounded-[42px] py-2 px-[14px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
         loading={createProposalLoading}

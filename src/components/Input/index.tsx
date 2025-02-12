@@ -73,7 +73,7 @@ const Input = (
             'border-mainColor': isError,
             '!pr-[16px]': !suffix,
             'border-0': prefix,
-            'pl-0': prefix,
+            '!pl-0': prefix,
           },
           className,
         )}

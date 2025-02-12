@@ -22,6 +22,9 @@
 
     .tab-all-proposals {
       @apply p-[22px] xl:px-[32px] xl:py-[24px] lg:px-[32px] lg:py-[24px] md:px-[32px] md:py-[24px];
+      .relative > ul > li {
+        @apply hover:!bg-transparent hover:!text-mainColor;
+      }
     }
 
     .tab-all-proposals-header {
@@ -37,7 +40,7 @@
     }
 
     .dao-detail-content-right {
-      @apply xl:w-[354px] lg:w-[288px] ml-[20px];
+      @apply xl:w-[354px] lg:w-[354px] ml-[20px];
     }
   }
   .pagination-wrap {

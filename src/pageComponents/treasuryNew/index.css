@@ -110,25 +110,29 @@
     }
 
     .TMRWDAO-pagination-container {
-      @apply text-white px-0 font-Montserrat flex justify-between;
+      @apply text-white px-0 font-Montserrat flex justify-between text-[10px];
       .TMRWDAO-pagesize-label {
-        @apply text-lightGrey;
+        @apply text-lightGrey text-[10px];
       }
       .TMRWDAO-pagination-button {
-        @apply border border-solid border-lightGrey rounded-[4px] bg-fillBg8 disabled:border-fillBg8 hover:!border-lightGrey max-w-[60px];
+        @apply border border-solid border-lightGrey rounded-[4px] bg-fillBg8 disabled:border-fillBg8 hover:!border-lightGrey max-w-[60px] text-[10px];
         span {
           @apply text-lightGrey font-Montserrat;
         }
       }
       .TMRWDAO-pageNumber-container {
-        @apply bg-fillBg8 text-lightGrey rounded-[4px] max-w-[200px] border border-solid border-lightGrey;
+        @apply bg-fillBg8 text-lightGrey rounded-[4px] max-w-[200px] border border-solid border-fillBg8 text-[10px];
       }
       .TMRWDAO-select {
+        @apply focus:border-lightGrey hover:border-lightGrey;
         .TMRWDAO-select-selector {
           @apply bg-fillBg8 text-lightGrey !border-fillBg8 max-w-[60px];
+          .TMRWDAO-select-selection-item {
+            @apply !text-white font-Montserrat text-[10px];
+          }
         }
-        .TMRWDAO-select-arrow svg {
-          @apply max-w-[10px] text-white;
+        .TMRWDAO-select-arrow {
+          @apply text-white text-[10px];
         }
       }
     }
