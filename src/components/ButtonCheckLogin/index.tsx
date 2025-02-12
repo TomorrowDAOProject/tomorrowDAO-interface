@@ -5,6 +5,7 @@ interface IButtonProps {
   type?: 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'link';
   children: React.ReactNode;
   onClick?(args?: HTMLButtonElement): void;
+  className?: string;
 }
 
 export const ButtonCheckLogin: React.FC<IButtonProps> = (props) => {
