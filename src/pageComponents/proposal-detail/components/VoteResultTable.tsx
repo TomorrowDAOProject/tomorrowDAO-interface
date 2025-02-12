@@ -1,5 +1,6 @@
 import { memo, useEffect, useState } from 'react';
-import { HashAddress, Table } from 'aelf-design';
+import { Table } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import { ConfigProvider } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import Link from 'next/link';
@@ -25,7 +26,9 @@ const columns: ColumnsType<IVoteHistoryItem> = [
             preLen={8}
             endLen={9}
             chain={sideChainSuffix}
-            className="card-sm-text-bold text-white text-[10px]"
+            iconColor="#989DA0"
+            iconSize="14px"
+            className="card-sm-text-bold text-white !text-[12px]"
             primaryIconColor={'#989DA0'}
             addressHoverColor={'white'}
             addressActiveColor={'white'}
@@ -42,7 +45,9 @@ const columns: ColumnsType<IVoteHistoryItem> = [
       return (
         <Link href={`${explorer}/tx/${text}`} target="_blank">
           <HashAddress
-            className="card-sm-text-bold text-white text-[10px]"
+            className="card-sm-text-bold text-white !text-[12px]"
+            iconColor="#989DA0"
+            iconSize="14px"
             ignorePrefixSuffix={true}
             preLen={8}
             endLen={9}
