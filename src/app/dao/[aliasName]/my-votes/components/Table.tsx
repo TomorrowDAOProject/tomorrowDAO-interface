@@ -105,10 +105,14 @@ export default function RecordTable() {
       },
       render(option) {
         return (
-          <span className={`vote-record-${option} font-medium`}>
-            {EVoteOption[option].toLocaleLowerCase().charAt(0).toUpperCase() +
-              EVoteOption[option].toLocaleLowerCase().slice(1)}
-          </span>
+          <div
+            className={`vote-record-${option} !px-0 font-medium !w-[76px] !h-[23px] flex items-center justify-center text-[12px]`}
+          >
+            <span>
+              {EVoteOption[option].toLocaleLowerCase().charAt(0).toUpperCase() +
+                EVoteOption[option].toLocaleLowerCase().slice(1)}
+            </span>
+          </div>
         );
       },
     },

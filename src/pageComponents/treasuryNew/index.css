@@ -121,7 +121,7 @@
         }
       }
       .TMRWDAO-pageNumber-container {
-        @apply bg-fillBg8 text-lightGrey rounded-[4px] max-w-[200px];
+        @apply bg-fillBg8 text-lightGrey rounded-[4px] max-w-[200px] border border-solid border-lightGrey;
       }
       .TMRWDAO-select {
         .TMRWDAO-select-selector {

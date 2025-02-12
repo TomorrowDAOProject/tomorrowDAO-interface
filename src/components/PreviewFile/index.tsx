@@ -22,7 +22,7 @@ export default function PreviewFile(props: TPropsType) {
         key: `${index}`,
         label: (
           <div className="min-w-36">
-            <Link className="hover:text-mainColor" href={item.file.url} target="_blank">
+            <Link className="text-white hover:text-mainColor" href={item.file.url} target="_blank">
               {item.file.name}
             </Link>
           </div>
@@ -41,9 +41,9 @@ export default function PreviewFile(props: TPropsType) {
       <div className="flex items-center justify-center h-8 bg-fillBg8 px-2 leading-8 rounded-xl cursor-pointer">
         {/* <Image width={14} height={14} src={ProposalDetailFile} alt="" onClick={handleClick}></Image> */}
         {/* {!isSM && <span className="ml-1">Documentation</span>} */}
-        <span className="ml-1 text-lightGrey font-Montserrat font-medium flex items-center gap-2">
+        <span className="text-lightGrey font-Montserrat font-medium flex items-center gap-2 px-[6px]">
           <i className="text-lightGrey tmrwdao-icon-document text-[13px]" />
-          <span className="text-[12px]">Documentation</span>
+          <span className="text-[12px] sm:hidden xl:block md:block lg:block">Documentation</span>
         </span>
       </div>
     );
@@ -55,9 +55,7 @@ export default function PreviewFile(props: TPropsType) {
 
   return (
     <div>
-      {isSM ? null : (
-        <Dropdown placement="bottomRight" items={fileItems} trigger={<>{btnCom}</>}></Dropdown>
-      )}
+      <Dropdown placement="bottomRight" items={fileItems} trigger={<>{btnCom}</>}></Dropdown>
       <CommonDrawer title="Documentation" open={showDrawerModal} onClose={handleClose}>
         <List
           size="small"
