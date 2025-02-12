@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form, TableProps, Table, Skeleton, message } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
-import { HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import { callContract } from 'contract/callContract';
 import CommonModal from 'components/CommonModal';
 import { emitLoading, eventBus, ResultModal } from 'utils/myEvent';
@@ -237,7 +237,6 @@ const Treasury: React.FC<IProps> = (props) => {
                       setChoiceOpen(true);
                     }}
                     className="bg-mainColor !h-[32px] !rounded-[42px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
-                    size="medium"
                   >
                     <span className="text-[12px] font-medium">New transfer</span>
                   </ButtonCheckLogin>
@@ -288,6 +287,8 @@ const Treasury: React.FC<IProps> = (props) => {
                                   ignorePrefixSuffix={true}
                                   preLen={8}
                                   endLen={11}
+                                  iconSize={'16px'}
+                                  iconColor={'#989DA0'}
                                   address={item.transactionId}
                                   primaryIconColor={'#989DA0'}
                                   addressHoverColor={'white'}
@@ -304,11 +305,13 @@ const Treasury: React.FC<IProps> = (props) => {
                                 target="_blank"
                               >
                                 <HashAddress
-                                  className="pl-[4px] text-white"
+                                  className="pl-[4px] text-white !text-[12px]"
                                   preLen={8}
                                   endLen={11}
                                   address={isOut ? item.toAddress : item.fromAddress}
                                   chain={curChain}
+                                  iconSize={'16px'}
+                                  iconColor={'#989DA0'}
                                   primaryIconColor={'#989DA0'}
                                   addressHoverColor={'white'}
                                   addressActiveColor={'white'}
