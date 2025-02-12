@@ -248,7 +248,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       </div>
       <Button
         type="default"
-        className={`w-full flex items-center gap-1 hover:!border-lightGrey disabled:border-lightGrey  ${
+        className={`w-full flex items-center gap-1 disabled:!border-lightGrey disabled:!text-lightGrey hover:!border-mainColor hover:!text-mainColor hover:!bg-transparent ${
           isAllChecked && '!bg-mainColor text-white'
         }`}
         onClick={() => {
