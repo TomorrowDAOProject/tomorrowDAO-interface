@@ -132,30 +132,33 @@ const GovernanceModel = () => {
               },
             },
           }}
-          render={({ field }) => (
-            <div className="flex flex-col items-center lg:flex-row md:flex-row gap-[50px] mt-2 ">
-              <div className="w-full lg:w-2/5 md:w-2/5 relative">
-                <Input
-                  {...field}
-                  className="font-Montserrat"
-                  placeholder=" "
-                  regExp={/^([0-9\b]*)$/}
-                  isError={!!errors?.minimalApproveThreshold?.message}
+          render={({ field }) => {
+            field.value = field.value.toString();
+            return (
+              <div className="flex flex-col items-center lg:flex-row md:flex-row gap-[50px] mt-2 ">
+                <div className="w-full lg:w-2/5 md:w-2/5 relative">
+                  <Input
+                    {...field}
+                    className="font-Montserrat"
+                    placeholder=" "
+                    regExp={/^([0-9\b]*)$/}
+                    isError={!!errors?.minimalApproveThreshold?.message}
+                  />
+                  <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
+                    %
+                  </span>
+                </div>
+                <Slider
+                  className="w-full lg:w-3/5 md:w-3/5"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={Number(field.value)}
+                  onChange={field.onChange}
                 />
-                <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
-                  %
-                </span>
               </div>
-              <Slider
-                className="w-full lg:w-3/5 md:w-3/5"
-                min={0}
-                max={100}
-                step={1}
-                value={Number(field.value)}
-                onChange={field.onChange}
-              />
-            </div>
-          )}
+            );
+          }}
         />
       </FormItem>
 

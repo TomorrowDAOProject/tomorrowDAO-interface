@@ -299,7 +299,7 @@ export default function MyInfo(props: TInfoTypes) {
               open={isModalOpen}
               title={
                 <div className="text-center text-white font-Unbounded !font-[300] xl:text-[20px] md:text-[20px] lg:text-[20px] text-[16px]">
-                  Unstake {info?.symbol} on aelf SideChain
+                  Unstake {info?.symbol}
                 </div>
               }
               destroyOnClose
