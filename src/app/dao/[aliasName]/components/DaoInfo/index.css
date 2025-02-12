@@ -5,11 +5,11 @@
 .dao-detail-dis {
   @apply border border-fillBg8 border-solid rounded-lg bg-darkBg px-[30px] py-[32px];
 
-  .TMRWDAO-descriptions .TMRWDAO-descriptions-row>td {
+  .TMRWDAO-descriptions .TMRWDAO-descriptions-row > td {
     @apply pb-[12px];
   }
 
-  .TMRWDAO-descriptions .TMRWDAO-descriptions-row>th {
+  .TMRWDAO-descriptions .TMRWDAO-descriptions-row > th {
     @apply pb-0;
   }
 
@@ -49,7 +49,7 @@
   }
 
   .TMRWDAO-collapse-header {
-    @apply px-4 lg:px-8 py-6 !important ;
+    @apply px-4 lg:px-8 py-6 !important;
   }
 
   .TMRWDAO-collapse-content-box {
@@ -72,26 +72,13 @@
 }
 
 .dao-collapse-panel-child {
-  @apply font-medium text-[14px] leading-[22px] text-white font-Montserrat;
-  .TMRWDAO-hash-address {
-    @apply flex items-center;
-    >span {
-      @apply text-white;
-
-    }
-    .TMRWDAO-icon {
-      @apply w-[12px] h-[12px];
-      svg{
-        @apply w-[12px] h-[12px];
-      }
-    }
-  }
+  @apply text-[14px] leading-[22px] text-white font-Montserrat;
 }
 .dao-detail-dis .ant-collapse-header {
-  padding-left: 0!important;
-  padding-right: 0!important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 .dao-detail-dis .ant-collapse-content-box {
-  padding-left: 0!important;
-  padding-right: 0!important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

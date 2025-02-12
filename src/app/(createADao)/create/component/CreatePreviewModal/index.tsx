@@ -1,6 +1,6 @@
 import { ReactNode, useContext, useMemo, useState } from 'react';
 // import { Flex, Checkbox, CheckboxProps } from 'antd';
-import { HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import Image from 'next/image';
 import CommonDaoLogo, { CommonDaoLogoSizeEnum } from 'components/CommonDaoLogo';
 import { colorfulSocialMediaIconMap } from 'assets/imgs/socialMediaIcon';
@@ -93,9 +93,9 @@ function AddressItem({
       )}
       <HashAddress
         className="address text-lightGrey"
-        ignoreEvent
         address={address}
         chain={curChain}
+        iconSize="18px"
         primaryIconColor={'#989DA0'}
         addressHoverColor={'white'}
         addressActiveColor={'white'}

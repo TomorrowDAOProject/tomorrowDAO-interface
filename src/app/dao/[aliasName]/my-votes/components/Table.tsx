@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useEffect, useState } from 'react';
-import { Table, HashAddress } from 'aelf-design';
+import { Table } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import { ConfigProvider } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { fetchDaoInfo, fetchVoteHistory } from 'api/request';
@@ -135,8 +136,10 @@ export default function RecordTable() {
         return (
           <Link href={`${explorer}/tx/${transactionId}`}>
             <HashAddress
-              className="pl-[4px] my-record-tx-hash"
+              className="pl-[4px] my-record-tx-hash text-white !text-[12px]"
               ignorePrefixSuffix={true}
+              iconSize="14px"
+              iconColor="#989DA0"
               preLen={8}
               endLen={11}
               address={transactionId}

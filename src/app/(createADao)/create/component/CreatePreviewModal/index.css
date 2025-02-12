@@ -6,10 +6,6 @@
 
   .address {
     @apply items-center;
-
-    & > span {
-      @apply font-normal hover:text-[#434343] active:text-[#434343];
-    }
   }
 
   .divider {
@@ -24,15 +20,8 @@
     @apply scale-75 origin-center;
   }
   .confirm-content {
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
-    }
-  }
-
-  .TMRWDAO-hash-address > span {
-    @apply !text-lightGrey;
-    &:hover {
-      @apply !text-white;
     }
   }
 }
