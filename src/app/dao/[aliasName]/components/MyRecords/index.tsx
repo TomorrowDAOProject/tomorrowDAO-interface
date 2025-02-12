@@ -83,7 +83,7 @@ export default function MyRecords(props: IProps) {
                       href={`/dao/${aliasName}/proposal/${item.proposalId}`}
                       className="basis-3/4 truncate"
                     >
-                      <span className="card-sm-text-bold text-white hover:link !text-[12px]">
+                      <span className="card-sm-text-bold text-white hover:link !text-[12px] font-Montserrat">
                         {item.proposalTitle}
                       </span>
                     </Link>
