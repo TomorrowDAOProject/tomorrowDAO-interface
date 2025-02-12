@@ -136,7 +136,7 @@ const LinkGroup = ({ value, errorText, onBlur, onChange }: ILinkGroupProps) => {
         </span>
       )}
 
-      <Button className="mt-4 !py-[2px] !text-[12px]" onClick={addLink}>
+      <Button className="mt-4 !py-1 !text-[12px] w-[107px]" onClick={addLink}>
         <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
         Add link
       </Button>

@@ -32,7 +32,7 @@ const FormItem: React.FC<IFormItemProps> = ({
           'flex',
           {
             '!inline-flex flex-row': layout === 'inline',
-            'flex-col': layout === 'vertical',
+            'flex-col h-full': layout === 'vertical',
             'flex-row gap-[20px]': layout === 'horizontal',
           },
           rowClassName,

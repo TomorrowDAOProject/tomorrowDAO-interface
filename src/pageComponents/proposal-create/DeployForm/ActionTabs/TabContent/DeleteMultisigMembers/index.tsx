@@ -8,7 +8,6 @@ interface IDeleteMultisigMembersProps {
   daoId: string;
   form: FormInstance;
 }
-const removeNamePath = ['removeMembers', 'value'];
 function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
   const { daoId, form } = props;
 
@@ -21,7 +20,7 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
       SkipCount: 0,
       MaxResultCount: 6,
       ChainId: curChain,
-      DAOId: daoId,
+      alias: daoId,
     });
   });
 
@@ -33,9 +32,8 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
     <DeleteMembers
       lists={lists}
       form={form}
-      removeNamePath={removeNamePath}
+      removeNamePath="removeMembers.value"
       isLoading={daoMembersDataLoading}
-      overLimitErrorText="A multisig requires members"
     />
   );
 }

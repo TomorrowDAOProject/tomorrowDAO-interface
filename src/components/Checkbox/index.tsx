@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReactComponent as Checked } from 'assets/revamp-icon/checked.svg';
 
 interface CheckboxProps {
@@ -18,6 +18,10 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, checked = false, className, 
       onChange(newChecked);
     }
   };
+
+  useEffect(() => {
+    setIsChecked(checked);
+  }, [checked]);
 
   return (
     <div className={`flex items-center gap-[15px] cursor-pointer ${className}`}>

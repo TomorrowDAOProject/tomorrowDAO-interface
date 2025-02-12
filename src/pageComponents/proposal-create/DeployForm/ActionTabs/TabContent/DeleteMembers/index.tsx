@@ -1,51 +1,44 @@
-import { Button } from 'aelf-design';
-import CommonModal from 'components/CommonModal';
-import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
-import { SkeletonLine } from 'components/Skeleton';
 import { useEffect, useState } from 'react';
 import './index.css';
 import SelectDeleteItem from './SelectDeleteItem';
-import { Form, FormInstance, Tooltip } from 'antd';
 import FormMembersItem from 'components/FormMembersItem';
-import { AddCircleOutlined, DeleteOutlined } from '@aelf-design/icons';
 import { formatAddress } from 'utils/address';
+import Tooltip from 'components/Tooltip';
+import Button from 'components/Button';
+import Modal from 'components/Modal';
 
 interface IDeleteMultisigMembersProps {
-  form: FormInstance;
+  form: any;
+  removeNamePath: string;
   lists: string[];
-  removeNamePath: string[];
   isLoading: boolean;
-  overLimitErrorText: string;
 }
 function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
-  const { form, removeNamePath, lists, isLoading, overLimitErrorText } = props;
+  const { form, removeNamePath, lists, isLoading } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSelectList, setModalSelectList] = useState<string[]>([]);
-  const selectList = Form.useWatch(removeNamePath, form) ?? [];
-  // console.log('selectList', selectList);
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+  const { watch, setValue, trigger } = form;
+  const selectList = watch(removeNamePath) ?? [];
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   const syncList2Form = (list: string[]) => {
-    form.setFieldValue(
+    setValue(
       removeNamePath,
       list.map((item) => formatAddress(item)),
     );
-    form.validateFields([removeNamePath]);
+    trigger(removeNamePath);
   };
   useEffect(() => {
-    const revertList = selectList.map((item: string) => {
+    const revertList = selectList?.map((item: string) => {
       if (item.includes('_')) {
         return item.slice(4, -5);
       }
       return item;
     });
-    setModalSelectList(revertList);
-  }, [selectList.length]);
+    setModalSelectList(revertList || []);
+  }, [selectList]);
 
   return (
     <div className="delete-multisig-members-wrap">
@@ -55,15 +48,6 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
         form={form}
         hiddenExtraWhenEmpty={true}
         disableInput={true}
-        rules={[
-          {
-            validator: async (_, deleteLists) => {
-              if (deleteLists.length >= lists.length) {
-                return Promise.reject(new Error(overLimitErrorText));
-              }
-            },
-          },
-        ]}
         titleNode={
           <Tooltip
             title={
@@ -81,10 +65,13 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
           </Tooltip>
         }
         emptyNode={
-          <div className="flex flex-col gap-[16px] items-center py-[64px]">
-            <p className="">Choose a address to remove</p>
+          <div className="flex flex-col gap-5 items-center py-[64px]">
+            <span className="font-Montserrat text-desc12 text-lightGrey">
+              Choose a address to remove
+            </span>
             <Button
-              type="primary"
+              type="default"
+              className="border-white text-white"
               onClick={() => {
                 setIsModalOpen(true);
               }}
@@ -96,61 +83,44 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
         footNode={
           <>
             <Button
-              className="dynamic-form-buttons-item !w-auto"
+              className="!py-1 !text-[12px]"
               type="default"
               onClick={() => setIsModalOpen(true)}
-              icon={
-                <span className="text-[14px] ">
-                  <AddCircleOutlined />
-                </span>
-              }
             >
+              <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
               Select addresses
             </Button>
             <Button
               type="default"
               onClick={() => {
-                form.setFieldValue(removeNamePath, []);
+                setValue(removeNamePath, []);
               }}
-              className="dynamic-form-buttons-item"
-              icon={
-                <span className="text-[14px]">
-                  <DeleteOutlined />
-                </span>
-              }
+              className="!py-1 !text-[12px]"
             >
+              <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
               Delete all
             </Button>
           </>
         }
       />
-      <CommonModal
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        closable={false}
-        isShowHeader={false}
-      >
-        <div className="delete-multisig-members-body mt-[24px]">
-          {isLoading ? (
-            <SkeletonLine />
-          ) : (
+      <Modal isVisible={isModalOpen} onClose={handleCancel} rootClassName="md:w-[471px]">
+        <div className="px-[38px] py-[30px]">
+          {!isLoading && (
             <>
               <SelectDeleteItem
                 lists={lists}
                 value={modalSelectList}
                 onChange={(list: string[]) => {
                   setModalSelectList(list);
-                  // form.setFieldValue(removeNamePath, list);
                 }}
               />
-              <div className="delete-multisig-members-buttons">
-                <Button className="delete-multisig-members-buttons-item" onClick={handleCancel}>
+              <div className="flex gap-[16px]">
+                <Button className="flex-1 border-white text-white" onClick={handleCancel}>
                   Cancel
                 </Button>
                 <Button
+                  className="flex-1"
                   type="primary"
-                  className="delete-multisig-members-buttons-item"
                   onClick={() => {
                     syncList2Form(modalSelectList);
                     setIsModalOpen(false);
@@ -162,7 +132,7 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
             </>
           )}
         </div>
-      </CommonModal>
+      </Modal>
     </div>
   );
 }
