@@ -30,9 +30,11 @@ export default function Filter(props: TPropsType) {
   return (
     <div className="flex items-center flex-col xl:flex-row lg:flex-row md:flex-row gap-4">
       <div className="flex items-center w-full gap-4">
-        <div className="w-full xl:w-[140px] lg:w-[140px] md:w-[140px]">
+        <div className="w-full">
           <Select
-            className="font-Montserrat h-[36px]"
+            className="font-Montserrat h-[36px] bg-fillBg8"
+            isOpenStyle
+            overlayItemClassName="text-white"
             value={proposalTypeList[0].value}
             options={proposalTypeList}
             onChange={(value) => {
@@ -40,9 +42,11 @@ export default function Filter(props: TPropsType) {
             }}
           />
         </div>
-        <div className=" w-full xl:w-[140px] lg:w-[140px] md:w-[140px]">
+        <div className=" w-full">
           <Select
-            className="font-Montserrat h-[36px]"
+            className="font-Montserrat h-[36px] bg-fillBg8"
+            isOpenStyle
+            overlayItemClassName="text-white"
             value={proposalStatusList[0].value}
             options={proposalStatusList}
             onChange={(value) => {
@@ -52,7 +56,7 @@ export default function Filter(props: TPropsType) {
         </div>
       </div>
       <Input
-        className="w-full font-Montserrat h-[36px]"
+        className="w-full font-Montserrat h-[36px] bg-fillBg8"
         placeholder="Proposals Title / Description / ID"
         prefix={<Search />}
         maxLength={100}

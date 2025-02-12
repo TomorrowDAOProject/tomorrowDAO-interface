@@ -7,6 +7,7 @@ interface IButtonProps {
   children: React.ReactNode;
   onClick?(args?: HTMLButtonElement): void;
   className?: string;
+  loading?: boolean;
 }
 
 export const ButtonCheckLogin: React.FC<IButtonProps> = (props) => {

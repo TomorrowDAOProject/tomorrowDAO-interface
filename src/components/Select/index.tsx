@@ -17,6 +17,7 @@ interface ISelectProps {
   isError?: boolean;
   overlayClassName?: string;
   overlayItemClassName?: string;
+  isOpenStyle?: boolean;
   onChange?(option: SelectOption): void;
 }
 
@@ -27,6 +28,7 @@ const Select: React.FC<ISelectProps> = ({
   options,
   placeholder,
   isError,
+  isOpenStyle,
   overlayClassName,
   overlayItemClassName,
   onChange,
@@ -74,6 +76,7 @@ const Select: React.FC<ISelectProps> = ({
           {
             'border-lightGrey': isOpen,
             '!border-mainColor': isError,
+            'border-mainColor': isOpen && isOpenStyle,
           },
         )}
         onClick={() => setIsOpen(!isOpen)}
@@ -101,7 +104,9 @@ const Select: React.FC<ISelectProps> = ({
               )}
               onClick={() => handleSelect(option)}
             >
-              {option.label}
+              <span className={`${option.label == selected?.label && 'text-mainColor'}`}>
+                {option.label}
+              </span>
               {option.desc && (
                 <span className="block text-desc14 text-lightGrey font-Montserrat">
                   {option.desc}
