@@ -422,7 +422,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
                     .format('DD MMM, YYYY')}
               </span>
               <ArrowIcon className="color-[#B8B8B8]" />
-                <span className="text-lightGrey text-desc14 pl-[16px]">
+              <span className="text-lightGrey text-desc14 pl-[16px]">
                 {(proposalType === ProposalType.VETO || (isGovernance && isReferendumLike)) &&
                   dayjs(timeMilliseconds?.activeEndTime)
                     .add(Number(timePeriod?.executeTimePeriod), 'seconds')

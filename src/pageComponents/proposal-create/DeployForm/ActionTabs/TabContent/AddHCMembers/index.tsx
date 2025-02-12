@@ -24,9 +24,9 @@ function AddHCMembers(props: IAddHCMembersProps) {
         <Tooltip
           title={
             <div className="text-[10px] leading-[12px]">
-            There is no limit on the number of addresses on your multisig. Addresses can create
-            proposals, create and approve transactions, and suggest changes to the DAO settings
-            after creation.
+              There is no limit on the number of addresses on your multisig. Addresses can create
+              proposals, create and approve transactions, and suggest changes to the DAO settings
+              after creation.
             </div>
           }
         >

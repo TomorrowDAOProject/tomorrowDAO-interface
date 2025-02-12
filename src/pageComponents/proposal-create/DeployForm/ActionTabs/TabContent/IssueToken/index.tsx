@@ -25,15 +25,13 @@ export default function IssueToken(props: IIssueTokenProps) {
   return (
     <>
       <div className="mb-[30px] flex flex-col items-start lg:flex-row lg:items-center justify-between gap-4">
-        <span className="whitespace-nowrap text-descM16 font-Montserrat text-white">Organisation address:</span>
+        <span className="whitespace-nowrap text-descM16 font-Montserrat text-white">
+          Organisation address:
+        </span>
         {schemeAddress && <Text content={`ELF_${schemeAddress}_${curChain}`} copyable />}
       </div>
 
-      <FormItem
-        label="Symbol"
-        className="!mb-[30px]"
-        errorText={errors?.issueObj?.symbol?.message}
-      >
+      <FormItem label="Symbol" className="!mb-[30px]" errorText={errors?.issueObj?.symbol?.message}>
         <Controller
           name="issueObj.symbol"
           control={control}
@@ -53,21 +51,21 @@ export default function IssueToken(props: IIssueTokenProps) {
                     symbol: value.toUpperCase(),
                     chainId: curChain,
                   });
-                  
+
                   if (!res?.data?.totalSupply) {
                     return 'The token has not yet been created';
                   }
                   if (!res?.data?.realIssuers?.includes(schemeAddress)) {
                     return 'The symbol cannot be issued by the organisation address';
                   }
-                  
+
                   setValue('issueObj.decimals', res?.data?.decimals);
                   return true;
                 } catch {
                   return 'Query token error';
                 }
-              }
-            }
+              },
+            },
           }}
           render={({ field }) => (
             <Input
@@ -81,11 +79,7 @@ export default function IssueToken(props: IIssueTokenProps) {
         />
       </FormItem>
 
-      <FormItem
-        label="Amount"
-        className="!mb-[30px]"
-        errorText={errors?.issueObj?.amount?.message}
-      >
+      <FormItem label="Amount" className="!mb-[30px]" errorText={errors?.issueObj?.amount?.message}>
         <Controller
           name="issueObj.amount"
           control={control}
@@ -109,7 +103,7 @@ export default function IssueToken(props: IIssueTokenProps) {
                     symbol: symbol.toUpperCase(),
                     chainId: curChain,
                   });
-                  
+
                   const { totalSupply, decimals, supply } = res?.data ?? {};
                   if (!decimals || !totalSupply || !supply) {
                     return 'Please enter a valid symbol';
@@ -133,8 +127,8 @@ export default function IssueToken(props: IIssueTokenProps) {
                 } catch {
                   return 'Get token info error';
                 }
-              }
-            }
+              },
+            },
           }}
           render={({ field }) => (
             <Input
@@ -146,11 +140,7 @@ export default function IssueToken(props: IIssueTokenProps) {
         />
       </FormItem>
 
-      <FormItem
-        label="Issue To"
-        className="!mb-[30px]"
-        errorText={errors?.issueObj?.to?.message}
-      >
+      <FormItem label="Issue To" className="!mb-[30px]" errorText={errors?.issueObj?.to?.message}>
         <Controller
           name="issueObj.to"
           control={control}
@@ -165,15 +155,10 @@ export default function IssueToken(props: IIssueTokenProps) {
                   return 'Please enter a valid address';
                 }
                 return true;
-              }
-            }
+              },
+            },
           }}
-          render={({ field }) => (
-            <Input
-              {...field}
-              placeholder={`Enter ELF_..._${curChain}`}
-            />
-          )}
+          render={({ field }) => <Input {...field} placeholder={`Enter ELF_..._${curChain}`} />}
         />
       </FormItem>
     </>
