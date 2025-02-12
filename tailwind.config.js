@@ -28,6 +28,7 @@ module.exports = {
         ],
         Montserrat: ['Montserrat', 'sans-serif'],
         Unbounded: ['Unbounded', 'sans-serif'],
+        Roboto: ['Roboto', 'sans-serif'],
         Syne: ['Syne', 'sans-serif'],
       },
       fontSize: {

@@ -31,10 +31,12 @@ const Modal: React.FC<IModalProps> = ({ isVisible, children, rootClassName, titl
         variants={variants}
         transition={{ type: 'spring', stiffness: 400, damping: 20 }}
       >
-        <div className="flex items-center justify-center text-[20px] relative">
-          <span className="text-white">{title}</span>
-          <Close className="absolute top-0 right-0 cursor-pointer" onClick={onClose} />
-        </div>
+        {title && (
+          <div className="flex items-center justify-center text-[20px] relative">
+            <span className="text-white">{title}</span>
+            <Close className="absolute top-0 right-0 cursor-pointer" onClick={onClose} />
+          </div>
+        )}
         {children}
       </motion.div>
     </div>

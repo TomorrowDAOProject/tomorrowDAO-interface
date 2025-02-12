@@ -1,11 +1,11 @@
-import { Form, FormInstance } from 'antd';
-import { MinusCircleOutlined } from '@aelf-design/icons';
-import { ReactComponent as QuestionIcon } from 'assets/imgs/question-icon.svg';
 import './index.css';
 import { curChain } from 'config';
 import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
+import FormItem from 'components/FormItem';
+import { Controller } from 'react-hook-form';
+import clsx from 'clsx';
 
 interface ValidatorRule {
   validator: (rule: any, value: any) => Promise<void>;
@@ -13,7 +13,7 @@ interface ValidatorRule {
 interface IFormMembersProps {
   name: string | string[];
   initialValue: string[];
-  form: FormInstance;
+  form: any;
   hiddenExtraWhenEmpty?: boolean;
   titleNode?: React.ReactNode;
   emptyNode?: React.ReactNode;
@@ -30,126 +30,130 @@ function FormMembersItem(props: IFormMembersProps) {
     titleNode,
     emptyNode,
     footNode,
-    rules,
     disableInput = false,
   } = props;
-  const fields = Form.useWatch(name, form);
+  const {
+    control,
+    watch,
+    setValue,
+    formState: { errors },
+  } = form;
+  const fields = watch(name);
 
   const showNullWhenEmpty = hiddenExtraWhenEmpty && !fields?.length;
   return (
     <>
-      <div>
-        {showNullWhenEmpty ? null : titleNode ? (
-          titleNode
-        ) : (
-          <Tooltip
-            title={
-              <div className="text-[10px] leading-[12px]">
-                There is no limit on the number of addresses on your multisig. Addresses can create
-                proposals, create and approve transactions, and suggest changes to the DAO settings
-                after creation.
-              </div>
-            }
-          >
-            <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
-              Multisig Members Address
-              <i className="tmrwdao-icon-information text-[18px] text-white" />
-            </span>
-          </Tooltip>
-        )}
-      </div>
-      <Form.List
-        name={name}
-        rules={[
-          {
-            validator: async (_, lists) => {
-              if (!lists || lists.length < 1) {
-                return Promise.reject(new Error('At least input one address'));
+      <FormItem
+        className="!mb-[30px]"
+        label={
+          showNullWhenEmpty ? null : titleNode ? (
+            titleNode
+          ) : (
+            <Tooltip
+              title={
+                <div className="text-[10px] leading-[12px]">
+                  There is no limit on the number of addresses on your multisig. Addresses can
+                  create proposals, create and approve transactions, and suggest changes to the DAO
+                  settings after creation.
+                </div>
               }
-            },
-          },
-          ...(rules ?? []),
-        ]}
-        initialValue={initialValue}
+            >
+              <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
+                Multisig Members Address
+                <i className="tmrwdao-icon-information text-[18px] text-white" />
+              </span>
+            </Tooltip>
+          )
+        }
+        errorText={errors?.addMembers?.value?.message}
       >
-        {(fields, { add, remove }, { errors }) => (
-          <>
-            {emptyNode && !fields?.length
-              ? emptyNode
-              : fields.map((field, index) => (
-                  <Form.Item
-                    // label={index === 0 ? 'Passengers' : ''}
-                    required={false}
-                    key={field.key}
-                    className="dynamic-form-item-wrap"
-                  >
-                    <Form.Item
-                      {...field}
-                      validateFirst
-                      rules={[
+        {emptyNode && !fields?.length
+          ? emptyNode
+          : fields.map((address: string, index: number) => (
+              <Controller
+                key={`${address}_${index}`}
+                name="addMembers.value"
+                control={control}
+                rules={{
+                  required: 'Address is required',
+                  validate: {
+                    validator: (value) => {
+                      if (value[index].endsWith(`AELF`)) {
+                        return 'Must be a SideChain address';
+                      }
+                      if (!value[index].startsWith(`ELF`) || !value[index].endsWith(curChain)) {
+                        return 'Must be a valid address';
+                      }
+                    },
+                  },
+                }}
+                render={({ field }) => (
+                  <div className="flex items-center mb-4">
+                    <Input
+                      value={address}
+                      placeholder={`Enter ELF_..._${curChain}`}
+                      onBlur={(value) => {
+                        const newList = [...fields];
+                        newList[index] = value;
+                        console.log('newList', newList);
+                        field.onChange(newList);
+                      }}
+                      disabled={disableInput}
+                      isError={
+                        address.endsWith(`AELF`) ||
+                        !address.startsWith(`ELF`) ||
+                        !address.endsWith(curChain)
+                      }
+                    />
+                    <i
+                      className={clsx(
+                        'tmrwdao-icon-circle-minus text-white text-[22px] ml-[6px] cursor-pointer',
                         {
-                          required: true,
-                          message: 'Address is required',
+                          '!text-darkGray': fields.length <= 1,
                         },
-                        {
-                          validator: (_, value) => {
-                            return new Promise<void>((resolve, reject) => {
-                              if (value.endsWith(`AELF`)) {
-                                reject(new Error('Must be a SideChain address'));
-                              }
-                              if (!value.startsWith(`ELF`) || !value.endsWith(curChain)) {
-                                reject(new Error('Must be a valid address'));
-                              }
-                              resolve();
-                            });
-                          },
-                        },
-                      ]}
-                      noStyle
-                    >
-                      <Input placeholder={`Enter ELF_..._${curChain}`} disabled={disableInput} />
-                    </Form.Item>
-                    {fields.length > 1 ? (
-                      <div className="text-[24px] cursor-pointer">
-                        <MinusCircleOutlined
-                          className="delete-dynamic-form-item-icon-small delete-dynamic-form-item-icon-with-hover"
-                          onClick={() => remove(field.name)}
-                        />
-                      </div>
-                    ) : null}
-                  </Form.Item>
-                ))}
+                      )}
+                      onClick={() => {
+                        if (fields.length <= 1) return;
+                        const originList = [...fields];
+                        originList.splice(index, 1);
+                        setValue(name, originList);
+                      }}
+                    />
+                  </div>
+                )}
+              />
+            ))}
+        <div className="flex items-center gap-[9px]">
+          {showNullWhenEmpty ? null : footNode ? (
+            footNode
+          ) : (
+            <>
+              <Button
+                className="!py-1 !text-[12px]"
+                type="default"
+                onClick={() => {
+                  const originList = [...fields, ''];
+                  setValue(name, originList);
+                }}
+              >
+                <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
+                Add Address
+              </Button>
+              <Button
+                className="!py-1 !text-[12px]"
+                type="default"
+                onClick={() => {
+                  setValue(name, ['']);
+                }}
+              >
+                <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
+                Delete All
+              </Button>
+            </>
+          )}
+        </div>
+      </FormItem>
 
-            <div className="dynamic-form-buttons text-neutralTitle">
-              {showNullWhenEmpty ? null : footNode ? (
-                footNode
-              ) : (
-                <>
-                  <Button className="!py-[2px] !text-[12px]" type="default" onClick={() => add()}>
-                    <i className="tmrwdao-icon-circle-add text-[22px] mr-[6px]" />
-                    Add Address
-                  </Button>
-                  <Button
-                    className="!py-[2px] !text-[12px]"
-                    type="default"
-                    onClick={() => {
-                      form.setFieldValue(name, []);
-                    }}
-                  >
-                    <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
-                    Delete All
-                  </Button>
-                </>
-              )}
-            </div>
-            {!!errors.length && (
-              <div className="error-text">
-                <Form.ErrorList errors={errors} />
-              </div>
-            )}
-          </>
-        )}
-      </Form.List>
       {showNullWhenEmpty ? null : (
         <div className="mt-[32px]">
           <div className="flex justify-between">

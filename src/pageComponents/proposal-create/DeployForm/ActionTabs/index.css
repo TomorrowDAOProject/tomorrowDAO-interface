@@ -44,12 +44,34 @@
       @apply border-error
     }
   }
-  .proposal-custom-action-params-editor {
-    * {
-      font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-    }
-    .monaco-editor .overflow-guard {
-      @apply border-solid border-[#E1E1E1] border-[1px] rounded-[6px];
-    }
+}
+.proposal-custom-action-params-editor {
+  .monaco-editor, .monaco-diff-editor {
+    --vscode-scrollbar-shadow: rgba(0, 0, 0, 0);
+    --vscode-editorLineNumber-foreground: var(--light-gray);
+    --vscode-editorLineNumber-activeForeground: var(--light-gray);
+    --vscode-editorGutter-background: var(--darkBg);
   }
+  * {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+  .monaco-editor {
+    @apply border-solid border-fillBg8 border-[1px] rounded-[8px] py-[13px] overflow-hidden;
+  }
+
+  .monaco-editor, .monaco-editor-background {
+    @apply !bg-darkBg;
+  }
+
+  .monaco-editor .bracket-highlighting-0 {
+    @apply !text-lightGrey;
+  }
+
+  .mtk1 {
+    @apply !text-lightGrey;
+  }
+  .mtk2 {
+    @apply !text-lightGrey;
+  }
+  
 }

@@ -1,212 +1,181 @@
-import { Form, InputNumber } from 'antd';
-import { Input, HashAddress } from 'aelf-design';
+import { Controller } from 'react-hook-form';
 import { fetchTokenIssue } from 'api/request';
 import { curChain } from 'config';
 import { divDecimals, timesDecimals } from 'utils/calculate';
 import BigNumber from 'bignumber.js';
-import useResponsive from 'hooks/useResponsive';
-import { voterAndExecuteNamePath } from '../../../constant';
+import FormItem from 'components/FormItem';
+import Input from 'components/Input';
 import './index.css';
-
-const symbolNamePath = ['issueObj', 'symbol'];
-const amountNamePath = ['issueObj', 'amount'];
-const issueToNamePath = ['issueObj', 'to'];
-const issueDecimalPath = ['issueObj', 'decimals'];
-
+import Text from 'components/Text';
 interface IIssueTokenProps {
-  governanceMechanismList: TGovernanceSchemeList;
+  form: any;
 }
+
 export default function IssueToken(props: IIssueTokenProps) {
-  const { governanceMechanismList } = props;
-  const form = Form.useFormInstance();
-  const { isLG } = useResponsive();
-  const schemeAddress = Form.useWatch(voterAndExecuteNamePath);
+  const { form } = props;
+  const {
+    control,
+    watch,
+    setValue,
+    formState: { errors },
+  } = form;
+
+  const schemeAddress = watch('proposalBasicInfo.schemeAddress');
+
   return (
-    <div className="issue-token-form">
-      <p className="org-address normal-text">
-        <div> Organisation address:</div>
-        {schemeAddress && (
-          <HashAddress
-            chain={curChain}
-            preLen={isLG ? 8 : 0}
-            endLen={isLG ? 8 : 0}
-            address={schemeAddress}
-          />
-        )}
-      </p>
-      <Form.Item
-        hidden
-        name={issueDecimalPath}
-        validateFirst
-        label={<span className="form-item-label">Amount</span>}
+    <>
+      <div className="mb-[30px] flex flex-col items-start lg:flex-row lg:items-center justify-between gap-4">
+        <span className="whitespace-nowrap text-descM16 font-Montserrat text-white">Organisation address:</span>
+        {schemeAddress && <Text content={`ELF_${schemeAddress}_${curChain}`} copyable />}
+      </div>
+
+      <FormItem
+        label="Symbol"
+        className="!mb-[30px]"
+        errorText={errors?.issueObj?.symbol?.message}
       >
-        <InputNumber placeholder="Please enter the amount you want to issue" className="w-full" />
-      </Form.Item>
-      <Form.Item
-        validateFirst
-        rules={[
-          {
-            required: true,
-            message: 'Please enter symbol',
-          },
-          {
-            validator: (_, value) => {
-              value = value?.toString().trim();
-              const reg = /^[A-Za-z0-9-]{1,20}$/;
-              if (!reg.test(value)) {
-                return Promise.reject(new Error('symbol name is invalid'));
-              } else {
-                return Promise.resolve();
-              }
-            },
-          },
-          {
-            validator: (_, value) => {
-              const reqParams = {
-                symbol: (value ?? '').toUpperCase(),
-                chainId: curChain,
-              };
-              const schemeAddress = form.getFieldValue(voterAndExecuteNamePath);
-              if (!schemeAddress) {
-                return Promise.reject(
-                  new Error('The symbol cannot be issued by the organisation address'),
-                );
-              }
-              return new Promise<void>((resolve, reject) => {
-                fetchTokenIssue(reqParams)
-                  .then((res) => {
-                    if (!res?.data?.totalSupply) {
-                      reject('The token has not yet been created');
-                    }
-                    if (!res?.data?.realIssuers?.includes(schemeAddress)) {
-                      reject('The symbol cannot be issued by the organisation address');
-                    }
-                    form.setFieldValue(issueDecimalPath, res?.data?.decimals);
-                    resolve();
-                  })
-                  .catch(() => {
-                    reject('query token error');
+        <Controller
+          name="issueObj.symbol"
+          control={control}
+          rules={{
+            required: 'Please enter symbol',
+            validate: {
+              format: (value) => {
+                const reg = /^[A-Za-z0-9-]{1,20}$/;
+                if (!reg.test(value)) {
+                  return 'Symbol name is invalid';
+                }
+                return true;
+              },
+              validateSymbol: async (value) => {
+                try {
+                  const res = await fetchTokenIssue({
+                    symbol: value.toUpperCase(),
+                    chainId: curChain,
                   });
-              });
-            },
-          },
-        ]}
-        validateTrigger="onBlur"
-        dependencies={[voterAndExecuteNamePath]}
-        name={symbolNamePath}
-        label={<span className="form-item-label">Symbol</span>}
-        className="governance-token-item"
-      >
-        <Input
-          placeholder="Please enter the symbol you want to issue"
-          onBlur={() => {
-            const token = form.getFieldValue(symbolNamePath);
-            form.setFieldValue(symbolNamePath, token?.toUpperCase());
+                  
+                  if (!res?.data?.totalSupply) {
+                    return 'The token has not yet been created';
+                  }
+                  if (!res?.data?.realIssuers?.includes(schemeAddress)) {
+                    return 'The symbol cannot be issued by the organisation address';
+                  }
+                  
+                  setValue('issueObj.decimals', res?.data?.decimals);
+                  return true;
+                } catch {
+                  return 'Query token error';
+                }
+              }
+            }
           }}
+          render={({ field }) => (
+            <Input
+              {...field}
+              placeholder="Please enter the symbol you want to issue"
+              onBlur={(value) => {
+                field.onChange(value.toUpperCase());
+              }}
+            />
+          )}
         />
-      </Form.Item>
-      <Form.Item
-        dependencies={[symbolNamePath]}
-        name={amountNamePath}
-        validateFirst
-        rules={[
-          {
-            required: true,
-            message: 'The amount is required',
-          },
-          {
-            validator: (_, value) => {
-              if (BigNumber(value).lte(0)) {
-                return Promise.reject(new Error('The amount must be greater than 0'));
-              } else {
-                return Promise.resolve();
-              }
-            },
-          },
-          {
-            validator: (_, value) => {
-              const symbol = form.getFieldValue(symbolNamePath);
-              if (!symbol) {
-                return Promise.reject(new Error('Please enter symbol'));
-              }
-              return new Promise<void>((resolve, reject) => {
-                const reqParams = {
-                  symbol: symbol.toString().toUpperCase(),
-                  chainId: curChain,
-                };
-                fetchTokenIssue(reqParams)
-                  .then((res) => {
-                    const { totalSupply, decimals, supply } = res?.data ?? {};
-                    if (
-                      typeof decimals !== 'number' ||
-                      typeof totalSupply !== 'number' ||
-                      typeof supply !== 'number'
-                    ) {
-                      return reject(new Error('Please enter a valid symbol'));
-                    }
-                    const inputAmount = timesDecimals(value, decimals);
-                    const decimalPlaces = BigNumber(value).decimalPlaces();
-                    if (decimalPlaces && decimalPlaces > decimals) {
-                      return reject(
-                        new Error(`The maximum number of decimal places is ${decimals}`),
-                      );
-                    }
-                    const inputTotal = BigNumber(totalSupply - supply);
-                    if (inputTotal.lt(inputAmount)) {
-                      return reject(
-                        new Error(
-                          `The maximum amount that can be issued: ${divDecimals(
-                            inputTotal,
-                            decimals,
-                          ).toFormat()}`,
-                        ),
-                      );
-                    }
-                    resolve();
-                  })
-                  .catch((err) => {
-                    console.error(err);
-                    reject(new Error('get token info error'));
+      </FormItem>
+
+      <FormItem
+        label="Amount"
+        className="!mb-[30px]"
+        errorText={errors?.issueObj?.amount?.message}
+      >
+        <Controller
+          name="issueObj.amount"
+          control={control}
+          rules={{
+            required: 'The amount is required',
+            validate: {
+              positive: (value) => {
+                if (BigNumber(value).lte(0)) {
+                  return 'The amount must be greater than 0';
+                }
+                return true;
+              },
+              validateAmount: async (value) => {
+                const symbol = watch('issueObj.symbol');
+                if (!symbol) {
+                  return 'Please enter symbol';
+                }
+
+                try {
+                  const res = await fetchTokenIssue({
+                    symbol: symbol.toUpperCase(),
+                    chainId: curChain,
                   });
-              });
-            },
-          },
-        ]}
-        label={<span className="form-item-label">Amount</span>}
-      >
-        <InputNumber
-          placeholder="Please enter the amount you want to issue"
-          className="w-full"
-          controls={false}
-          stringMode={true}
+                  
+                  const { totalSupply, decimals, supply } = res?.data ?? {};
+                  if (!decimals || !totalSupply || !supply) {
+                    return 'Please enter a valid symbol';
+                  }
+
+                  const inputAmount = timesDecimals(value, decimals);
+                  const decimalPlaces = BigNumber(value).decimalPlaces();
+                  if (decimalPlaces && decimalPlaces > decimals) {
+                    return `The maximum number of decimal places is ${decimals}`;
+                  }
+
+                  const inputTotal = BigNumber(totalSupply - supply);
+                  if (inputTotal.lt(inputAmount)) {
+                    return `The maximum amount that can be issued: ${divDecimals(
+                      inputTotal,
+                      decimals,
+                    ).toFormat()}`;
+                  }
+
+                  return true;
+                } catch {
+                  return 'Get token info error';
+                }
+              }
+            }
+          }}
+          render={({ field }) => (
+            <Input
+              {...field}
+              regExp={/^[0-9]*$/}
+              placeholder="Please enter the amount you want to issue"
+            />
+          )}
         />
-      </Form.Item>
-      <Form.Item
-        name={issueToNamePath}
-        label={<span className="form-item-label">Issue To</span>}
-        validateFirst
-        rules={[
-          {
-            required: true,
-            message: 'The address is required',
-          },
-          {
-            validator: (_, value) => {
-              return new Promise<void>((resolve, reject) => {
-                if (value.endsWith(`AELF`)) {
-                  reject(new Error('Please enter a valid address'));
-                }
-                if (!value.startsWith(`ELF`) || !value.endsWith(curChain)) {
-                  reject(new Error('Please enter a valid address'));
-                }
-                resolve();
-              });
-            },
-          },
-        ]}
+      </FormItem>
+
+      <FormItem
+        label="Issue To"
+        className="!mb-[30px]"
+        errorText={errors?.issueObj?.to?.message}
       >
-        <Input type="text" placeholder={`Enter ELF_..._${curChain}`} />
-      </Form.Item>
-    </div>
+        <Controller
+          name="issueObj.to"
+          control={control}
+          rules={{
+            required: 'The address is required',
+            validate: {
+              validAddress: (value) => {
+                if (value.endsWith('AELF')) {
+                  return 'Please enter a valid address';
+                }
+                if (!value.startsWith('ELF') || !value.endsWith(curChain)) {
+                  return 'Please enter a valid address';
+                }
+                return true;
+              }
+            }
+          }}
+          render={({ field }) => (
+            <Input
+              {...field}
+              placeholder={`Enter ELF_..._${curChain}`}
+            />
+          )}
+        />
+      </FormItem>
+    </>
   );
 }
