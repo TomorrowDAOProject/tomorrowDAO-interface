@@ -1,5 +1,5 @@
 import { Descriptions, Divider, Form, InputNumber, message } from 'antd';
-import { HashAddress, Tooltip } from 'aelf-design';
+import { HashAddress, Tooltip, Button as ButtonAntd } from 'aelf-design';
 import { InfoCircleOutlined } from '@aelf-design/icons';
 import React, { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
 import CommonModal from 'components/CommonModal';
@@ -366,9 +366,13 @@ export default function MyInfo(props: TInfoTypes) {
                     }
                   />
                 </Form.Item>
-                <Button className="w-full" type="primary">
+                <ButtonAntd
+                  className="w-full font-Montserrat text-white bg-mainColor hover:border-mainColor hover:!text-mainColor hover:!bg-transparent !rounded-[42px]"
+                  type="primary"
+                  htmlType="submit"
+                >
                   Unstake
-                </Button>
+                </ButtonAntd>
               </Form>
             </CommonModal>
             {/* Unstake Amount  */}
