@@ -339,7 +339,8 @@ interface IDaoMembersResponse {
 // -------------------------------------dao-HC-members-----------------------------
 interface IDaoHCMembersRequestParams {
   chainId: string;
-  alias: string;
+  alias?: string;
+  daoId?: string;
 }
 type IDaoHCMembersData = string[];
 interface IDaoHCMembersResponse {

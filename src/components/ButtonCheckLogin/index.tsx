@@ -2,6 +2,7 @@ import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import Button from 'components/Button';
 
 interface IButtonProps {
+  disabled?: boolean;
   type?: 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'link';
   children: React.ReactNode;
   onClick?(args?: HTMLButtonElement): void;

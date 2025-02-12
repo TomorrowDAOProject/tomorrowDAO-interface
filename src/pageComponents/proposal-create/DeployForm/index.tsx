@@ -1,11 +1,9 @@
 'use client';
 
-import { Form, message as antdMessage, message } from 'antd';
 import { memo, useEffect, useState } from 'react';
 import useNetworkDaoRouter from 'hooks/useNetworkDaoRouter';
-import ProposalType from './ProposalType';
 import ProposalInfo from './ProposalInfo';
-import { IContractError, IFormValidateError, ProposalType as ProposalTypeEnum } from 'types';
+import { IContractError, ProposalType as ProposalTypeEnum } from 'types';
 import clsx from 'clsx';
 import CommonOperationResultModal, {
   CommonOperationResultModalType,
@@ -15,12 +13,11 @@ import { proposalCreateContractRequest } from 'contract/proposalCreateContract';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import { emitLoading } from 'utils/myEvent';
 import { parseJSON, uint8ToBase64 } from 'utils/parseJSON';
-import { deferStartTime, getContract } from '../util';
+import { getContract } from '../util';
 import { curChain, daoAddress, NetworkDaoProposalOnChain } from 'config';
 import { useRouter, useSearchParams } from 'next/navigation';
 import useIsNetworkDao from 'hooks/useIsNetworkDao';
 import { useRequest } from 'ahooks';
-import formValidateScrollFirstError from 'utils/formValidateScrollFirstError';
 import { ActiveStartTimeEnum, EProposalActionTabs } from '../type';
 import { GetTokenInfo } from 'contract/callContract';
 import {
@@ -36,8 +33,11 @@ import { replaceUrlParams } from 'utils/url';
 import dayjs from 'dayjs';
 import { proposalTypeList } from 'types';
 import Button from 'components/Button';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import Breads from 'components/Breads';
+import FormItem from 'components/FormItem';
+import Select from 'components/Select';
 
 const convertParams = async (address: string, methodName: string, originParams: any) => {
   const contractInfo = await getContract(address);
@@ -78,7 +78,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
         recipient: '',
         amountInfo: {
           symbol: '',
-          amount: 0,
+          amount: '',
         },
       },
       transaction: {
@@ -88,13 +88,13 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
         contractMethodName: '',
       },
       removeMembers: {
-        value: [''],
+        value: [],
       },
       addMembers: {
         value: [''],
       },
       removeHighCouncils: {
-        value: [''],
+        value: [],
       },
       addHighCouncils: {
         value: [''],
@@ -105,13 +105,21 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
         proposalDescription: '',
         schemeAddress: '',
         activeStartTime: 1,
-        activeEndTime: 1,
+        activeEndTime: [0, 0, 1],
       },
       banner: '',
       options: [''],
     },
+    mode: 'onChange',
   });
-  const { watch, trigger, setValue, getValues } = form;
+  const {
+    watch,
+    control,
+    formState: { errors },
+    trigger,
+    setValue,
+    getValues,
+  } = form;
   const searchParams = useSearchParams();
   const tab = searchParams.get('tab');
   const router = useNetworkDaoRouter();
@@ -126,7 +134,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
   const { aliasName } = props;
   const { data: daoData, loading: daoLoading } = useRequest(async () => {
     if (!aliasName) {
-      message.error('aliasName is required');
+      toast.error('aliasName is required');
       return null;
     }
     return fetchDaoInfo({ chainId: curChain, alias: aliasName });
@@ -195,6 +203,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
       fetchTokenList(daoId);
     }
   }, [daoId, fetchTokenList, wallet?.address]);
+
   const handleSubmit = async () => {
     try {
       if (!isSyncQuery()) {
@@ -204,15 +213,13 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
         openErrorModal();
         return;
       }
-
-      setIsValidating(true);
       const result = await trigger();
       if (!result) return;
+      setIsValidating(true);
       const res = getValues();
-      setIsValidating(false);
-      console.log('res', res);
       emitLoading(true, 'Publishing the proposal...');
       const voteSchemeList = await fetchVoteSchemeList({ chainId: curChain, daoId: daoId });
+      setIsValidating(false);
       const voteSchemeId = voteSchemeList?.data?.voteSchemeList?.[0]?.voteSchemeId;
       if (!voteSchemeId) {
         toast.error('The voting scheme for this DAO cannot be found');
@@ -279,17 +286,19 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
           addMembers,
           removeHighCouncils,
           addHighCouncils,
+          proposalType,
           issueObj,
           ...restRes
         } = res;
         const contractParams = {
-          ...restRes,
+          proposalType,
           proposalBasicInfo: {
             ...basicInfo,
           },
           transaction: {},
         };
         if (res.proposalType === ProposalTypeEnum.GOVERNANCE) {
+          console.log('activeTab', activeTab);
           if (activeTab === EProposalActionTabs.IssueToken) {
             const { symbol, to, decimals } = issueObj;
             let { amount } = issueObj;
@@ -406,6 +415,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             };
           }
         }
+        console.log('contractParams', contractParams);
         const methodName =
           res.proposalType === ProposalTypeEnum.VETO ? 'CreateVetoProposal' : 'CreateProposal';
         await proposalCreateContractRequest(methodName, contractParams);
@@ -426,11 +436,11 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
               children: (
                 <Button
                   type="primary"
+                  className="w-full"
                   onClick={() => {
-                    antdMessage.open({
-                      type: 'success',
-                      content: 'created successfully, it will appear in the list in a few minutes',
-                    });
+                    toast.success(
+                      'created successfully, it will appear in the list in a few minutes',
+                    );
                     nextRouter.push(isNetWorkDao ? `/network-dao` : `/dao/${aliasName}`);
                   }}
                 >
@@ -444,10 +454,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
     } catch (err) {
       setIsValidating(false);
       if (typeof err === 'string') {
-        antdMessage.open({
-          type: 'error',
-          content: 'Please check your internet connection and try again. ',
-        });
+        toast.error('Please check your internet connection and try again. ');
         return;
       }
       const error = err as IContractError;
@@ -459,21 +466,49 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
   };
 
   return (
-    <div className="deploy-proposal-form mt-[24px] mb-[24px]">
-      <form>
-        <ProposalType
-          className={clsx({ hidden: isNext })}
-          next={handleNext}
-          options={proposalTypeList}
-          titleNode={<h2 className="title-primary">Choose Proposal Type</h2>}
-          descriptionNode={
-            <div className="proposal-type-select-desc mb-[64px] text-[16px] leading-[24px] text-Neutral-Secondary-Text font-normal mt-[8px]">
-              When creating a proposal, please choose the appropriate type based on its purpose and
-              impact.
+    <>
+      <Breads className="mb-[27px] mt-[24px] md:mt-[67px]" />
+      <div className="py-[25px] px-[22px] md:px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid">
+        {!isNext ? (
+          <form>
+            <FormItem
+              label={
+                <>
+                  <span className="mb-[35px] block text-[20px] font-Unbounded font-light text-white">
+                    Choose Proposal Type
+                  </span>
+                  <span className="text-Neutral-Secondary-Text text-descM16 font-Montserrat">
+                    When creating a proposal, please choose the appropriate type based on its
+                    impact.
+                  </span>
+                </>
+              }
+              errorText={errors?.proposalType?.message}
+            >
+              <Controller
+                name="proposalType"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    value={field.value as string}
+                    overlayClassName="!py-3"
+                    overlayItemClassName="flex flex-col gap-2 !py-3 text-white text-descM16 font-Montserrat"
+                    options={proposalTypeList}
+                    isError={!!errors?.proposalType?.message}
+                    onChange={(option) => field.onChange(option.value)}
+                  />
+                )}
+              />
+            </FormItem>
+            <div className="flex justify-end">
+              <Button type="primary" onClick={handleNext}>
+                Continue
+              </Button>
             </div>
-          }
-        />
-        {isNext && daoId && (
+          </form>
+        ) : daoId ? (
           <ProposalInfo
             form={form}
             isValidating={isValidating}
@@ -489,15 +524,15 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             treasuryAssetsData={treasuryAssetsData?.data}
             daoDataLoading={daoLoading}
           />
-        )}
-      </form>
+        ) : null}
+      </div>
       <CommonOperationResultModal
         {...resultModalConfig}
         onCancel={() => {
           setResultModalConfig(INIT_RESULT_MODAL_CONFIG);
         }}
       />
-    </div>
+    </>
   );
 };
 

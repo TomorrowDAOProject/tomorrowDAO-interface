@@ -7,7 +7,6 @@ interface IDeleteMultisigMembersProps {
   daoId: string;
   form: FormInstance;
 }
-const removeNamePath = ['removeHighCouncils', 'value'];
 function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
   const { daoId, form } = props;
 
@@ -18,7 +17,7 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
   } = useRequest(() => {
     return fetchHcMembers({
       chainId: curChain,
-      daoId: daoId,
+      daoId,
     });
   });
 
@@ -26,9 +25,8 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
     <DeleteMembers
       lists={daoMembersData?.data ?? []}
       form={form}
-      removeNamePath={removeNamePath}
+      removeNamePath={'removeHighCouncils.value'}
       isLoading={daoMembersDataLoading}
-      overLimitErrorText="High Council requires members"
     />
   );
 }

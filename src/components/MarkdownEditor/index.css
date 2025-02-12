@@ -1,12 +1,15 @@
 .markdown-editor {
-  @apply h-[274px] pb-0;
+  @apply h-[288px] pb-0 bg-transparent border-0;
   .rc-md-navigation {
-    @apply gap-[3px] py-[5px] bg-Neutral-Hover-BG;
+    @apply mb-[10px] gap-[3px] py-[5px] bg-fillBg8 rounded-[8px] border-0;
     .navigation-nav {
       @apply items-start;
       &.right {
         @apply flex-none;
       }
+    }
+    .button-wrap .button {
+      @apply hover:text-white;
     }
   }
   .editor-container > .section {
@@ -14,5 +17,9 @@
     &.sec-md.visible:not(:has(+ .in-visible)) {
       @apply border;
     }
+
+  }
+  .sec-md .input {
+    @apply !bg-darkBg !border !border-solid !border-fillBg8 !rounded-[8px] font-Montserrat text-desc14 !text-white;
   }
 }
