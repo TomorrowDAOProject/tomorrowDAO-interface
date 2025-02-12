@@ -51,8 +51,14 @@
           @apply text-lightGrey text-[10px] font-Montserrat;
         }
       }
+      .TMRWDAO-pagination-button {
+        @apply border border-solid border-lightGrey rounded-[4px] bg-fillBg8 disabled:border-fillBg8 hover:!border-lightGrey max-w-[60px];
+        span {
+          @apply text-lightGrey font-Montserrat;
+        }
+      }
       .TMRWDAO-pageNumber-container {
-        @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-lightGrey bg-transparent;
+        @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-fillBg8 bg-fillBg8;
       }
       .TMRWDAO-btn-background-ghost:disabled {
         @apply border-fillBg8;
@@ -67,13 +73,26 @@
           .TMRWDAO-select-selection-item {
             @apply !text-white font-Montserrat text-[10px];
           }
-          .TMRWDAO-select-arrow {
-            .TMRWDAO-icon {
-              @apply text-white;
-            }
-          }
+        }
+        .TMRWDAO-select-arrow {
+          @apply text-white text-[10px];
         }
       }
     }
+  }
+}
+.TMRWDAO-select-dropdown {
+  @apply bg-darkGray font-Montserrat;
+  .TMRWDAO-select-item {
+    @apply text-white;
+  }
+  .TMRWDAO-select-item-option-active {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected {
+    @apply text-mainColor active:!bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected:not(.TMRWDAO-select-item-option-disabled) {
+    @apply !bg-transparent !text-mainColor;
   }
 }

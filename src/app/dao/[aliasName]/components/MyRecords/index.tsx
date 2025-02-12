@@ -87,7 +87,9 @@ export default function MyRecords(props: IProps) {
                         {item.proposalTitle}
                       </span>
                     </Link>
-                    <span className={`pl-[4px] vote-${item.myOption}`}>
+                    <span
+                      className={`pl-[4px] vote-${item.myOption} w-[76px] text-center border border-solid border-fillBg8`}
+                    >
                       {EVoteOption[item.myOption].charAt(0).toUpperCase() +
                         EVoteOption[item.myOption].slice(1).toLowerCase()}
                     </span>

@@ -118,10 +118,13 @@ export default function ExecutdProposals(props: IExecutdProposals) {
         )}
         {executableListData?.data?.items.map((item, index) => {
           return (
-            <div className="flex justify-between items-center max-h-80 mb-8" key={index}>
-              <div>
-                <div className="block lg:flex items-center font-Montserrat text-white">
-                  <div className="text-white text-[12px] font-medium">Proposal ID:</div>
+            <div
+              className="flex justify-between items-center max-h-80 mb-8 flex-wrap gap-2 xl:gap-0 sm:gap-0"
+              key={index}
+            >
+              <div className="flex-1">
+                <div className="flex items-center font-Montserrat text-white flex-wrap">
+                  <span className="text-white text-[12px] font-medium">Proposal ID:</span>
                   <Link href={`/dao/${aliasName}/proposal/${item.proposalId}`}>
                     <HashAddress
                       ignorePrefixSuffix
@@ -134,13 +137,14 @@ export default function ExecutdProposals(props: IExecutdProposals) {
                     ></HashAddress>
                   </Link>
                 </div>
-                <div className="text-lightGrey text-[12px] font-Montserrat">
+                <div className="text-lightGrey text-[11px] font-Montserrat mt-[6px]">
                   Expires On {dayjs(item.executeEndTime).format('YYYY-MM-DD HH:mm:ss')}
                 </div>
               </div>
               <Button
                 type="primary"
                 size="small"
+                className="xl:!w-[57px] xl:!h-[20px] xl:!text-[10px] lg:!w-[57px] lg:!h-[20px] lg:!text-[10px] font-medium"
                 onClick={() => {
                   handleExecute(item.proposalId);
                 }}
@@ -155,9 +159,9 @@ export default function ExecutdProposals(props: IExecutdProposals) {
         open={showModal}
         onCancel={handleClose}
         title={
-          <span className="text-white font-Unbounded font-[300]">
+          <div className="text-white font-Unbounded font-[300] w-full break-words">
             This proposal needs to be executed
-          </span>
+          </div>
         }
         className="executed-modal"
       >
@@ -168,29 +172,34 @@ export default function ExecutdProposals(props: IExecutdProposals) {
         <Button type="link" className="!px-0">
           Click here to view how to execute a proposal
         </Button> */}
-        <div className="text-white font-Montserrat">
-          Once you mark this proposal as executed, it wil be tagged as executed status meaning that
-          other addresses within your organisation will no longer be able to execute this proposal.
-          Please ensure that you have completed the execution of this proposal before marking its
-          status.
+        <div className="text-lightGrey text-[12px] font-Montserrat text-center">
+          <div>
+            Once you mark this proposal as executed, it wil be tagged as executed status meaning
+            that other addresses within your organisation will no longer be able to execute this
+            proposal.
+          </div>
+          <div className="mt-[20px]">
+            Please ensure that you have completed the execution of this proposal before marking its
+            status.
+          </div>
         </div>
-        <div className="flex mt-6 flex-col  execute-confirm-buttons-group">
+        <div className="flex mt-6 gap-3">
           <Button
-            className="order-1 lg:order-2 execute-confirm-button"
-            onClick={() => {
-              handleClose();
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            className="order-2 lg:order-1 execute-confirm-button"
-            type="danger"
+            className="execute-confirm-button w-full"
+            type="primary"
             onClick={() => {
               handleMaskExecuted();
             }}
           >
             Mark as executed
+          </Button>
+          <Button
+            className="execute-confirm-button w-full border-white text-white"
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            Cancel
           </Button>
         </div>
       </CommonModal>
