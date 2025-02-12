@@ -1,4 +1,3 @@
-import { HashAddress } from 'aelf-design';
 import Image from 'next/image';
 import useResponsive from 'hooks/useResponsive';
 import PreviewFile from 'components/PreviewFile';
@@ -14,6 +13,7 @@ import { curChain, explorer, NetworkDaoHomePathName } from 'config';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import ImageWithPlaceHolder from 'components/ImageWithPlaceHolder';
+import HashAddress from 'components/HashAddress';
 
 import { ReactComponent as ArrowDown } from 'assets/revamp-icon/arrow-down.svg';
 import { ReactComponent as Settings } from 'assets/revamp-icon/settings.svg';

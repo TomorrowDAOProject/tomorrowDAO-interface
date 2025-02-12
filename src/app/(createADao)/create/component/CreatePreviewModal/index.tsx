@@ -1,6 +1,6 @@
 import { ReactNode, useContext, useMemo, useState } from 'react';
 // import { Flex, Checkbox, CheckboxProps } from 'antd';
-import { HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import Image from 'next/image';
 import CommonDaoLogo, { CommonDaoLogoSizeEnum } from 'components/CommonDaoLogo';
 import { colorfulSocialMediaIconMap } from 'assets/imgs/socialMediaIcon';
@@ -93,9 +93,9 @@ function AddressItem({
       )}
       <HashAddress
         className="address text-lightGrey"
-        ignoreEvent
         address={address}
         chain={curChain}
+        iconSize="18px"
         primaryIconColor={'#989DA0'}
         addressHoverColor={'white'}
         addressActiveColor={'white'}
@@ -248,7 +248,7 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
       </div>
       <Button
         type="default"
-        className={`w-full flex items-center gap-1 hover:!border-lightGrey disabled:border-lightGrey  ${
+        className={`w-full flex items-center gap-1 disabled:!border-lightGrey disabled:!text-lightGrey hover:!border-mainColor hover:!text-mainColor hover:!bg-transparent ${
           isAllChecked && '!bg-mainColor text-white'
         }`}
         onClick={() => {

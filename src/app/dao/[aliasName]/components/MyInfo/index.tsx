@@ -1,5 +1,6 @@
 import { Descriptions, Divider, Form, InputNumber, message } from 'antd';
-import { HashAddress, Tooltip, Button as ButtonAntd } from 'aelf-design';
+import { Tooltip, Button as ButtonAntd } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import { InfoCircleOutlined } from '@aelf-design/icons';
 import React, { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
 import CommonModal from 'components/CommonModal';
@@ -140,7 +141,7 @@ export default function MyInfo(props: TInfoTypes) {
             preLen={8}
             endLen={11}
             address={wallet?.address ?? ''}
-            className="form-item-title !text-lightGrey"
+            className="form-item-title !text-white justify-between"
             chain={sideChainSuffix}
             primaryIconColor={'#989DA0'}
             addressHoverColor={'white'}
@@ -299,7 +300,7 @@ export default function MyInfo(props: TInfoTypes) {
               open={isModalOpen}
               title={
                 <div className="text-center text-white font-Unbounded !font-[300] xl:text-[20px] md:text-[20px] lg:text-[20px] text-[16px]">
-                  Unstake {info?.symbol} on aelf SideChain
+                  Unstake {info?.symbol}
                 </div>
               }
               destroyOnClose

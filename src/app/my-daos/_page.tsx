@@ -87,6 +87,8 @@ const MyDaosPage = () => {
     }
   }, [ownReload, participatedReload, wallet?.address, isLogin]);
 
+  console.log('participatedData?.list', participatedData?.list);
+
   const EmptyNode = (
     <div className="flex flex-col items-center">
       <NoData></NoData>
