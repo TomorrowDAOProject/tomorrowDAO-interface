@@ -1,7 +1,7 @@
 import BoxWrapper from './BoxWrapper';
 import { ResultModal, emitLoading, eventBus } from 'utils/myEvent';
 import DetailTag from 'components/DetailTag';
-import { HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import { colorfulSocialMediaIconMap } from 'assets/imgs/socialMediaIcon';
 import Image from 'next/image';
 import { memo, useState } from 'react';
@@ -150,6 +150,8 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
                 preLen={8}
                 endLen={9}
                 ignorePrefixSuffix={true}
+                iconColor="#989DA0"
+                iconSize="14px"
                 className="hash-link-color card-sm-text-bold text-[13px]"
                 address={proposalDetailData.vetoProposalId ?? '-'}
                 primaryIconColor={'#989DA0'}
@@ -172,6 +174,8 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
               address={proposalDetailData.proposer}
               className="text-white !text-[13px]"
               chain={sideChainSuffix}
+              iconColor="#989DA0"
+              iconSize="14px"
               primaryIconColor={'#989DA0'}
               addressHoverColor={'white'}
               addressActiveColor={'white'}
@@ -187,6 +191,8 @@ const HeaderInfo = (props: IHeaderInfoProps) => {
             address={proposalDetailData.proposalId ?? '-'}
             className="text-white text-[13px]"
             primaryIconColor={'#989DA0'}
+            iconColor="#989DA0"
+            iconSize="14px"
             addressHoverColor={'white'}
             addressActiveColor={'white'}
           ></HashAddress>
