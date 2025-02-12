@@ -1,7 +1,7 @@
 import { Descriptions, Divider, Form, InputNumber, message } from 'antd';
 import { Tooltip, Button as ButtonAntd } from 'aelf-design';
 import HashAddress from 'components/HashAddress';
-import { InfoCircleOutlined } from '@aelf-design/icons';
+import { toast } from 'react-toastify';
 import React, { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
 import CommonModal from 'components/CommonModal';
 import { useWalletService } from 'hooks/useWallet';
@@ -269,7 +269,7 @@ export default function MyInfo(props: TInfoTypes) {
                     className="!rounded-[42px] !h-[32px]"
                     onClick={() => {
                       if (info?.availableUnStakeAmount === 0) {
-                        message.info('Available for Unstaking is 0');
+                        toast.info('Available for Unstaking is 0');
                       } else {
                         setIsModalOpen(true);
                       }
