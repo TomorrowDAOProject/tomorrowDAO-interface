@@ -14,6 +14,7 @@ interface IInputProps {
   onChange?: (value: string) => void;
   onBlur?(value: string): void;
   isError?: boolean;
+  prefix?: ReactNode;
 }
 
 const Input = (
@@ -26,6 +27,7 @@ const Input = (
     showClearBtn,
     disabled,
     suffix,
+    prefix,
     regExp,
     onChange,
     onBlur,
@@ -52,7 +54,12 @@ const Input = (
   }, [parentValue, regExp]);
 
   return (
-    <div className="relative flex-grow">
+    <div
+      className={`relative flex-grow w-full flex items-center ${
+        prefix && 'border border-solid border-fillBg8 rounded-[8px]'
+      } ${className}`}
+    >
+      {prefix && <span className="text-lightGrey px-[8px]">{prefix}</span>}
       <input
         ref={ref}
         type="text"
@@ -61,10 +68,12 @@ const Input = (
         maxLength={maxLength}
         onChange={handleChange}
         className={clsx(
-          'w-full border border-solid border-fillBg8 rounded-[8px] pl-[16px] pr-10 py-[13px] bg-transparent text-white text-desc14 font-Montserrat font-normal leading-[19px] placeholder-lightGrey focus:outline-none transition duration-300 ease-in-out',
+          'w-full rounded-[8px] border border-solid pl-[16px] pr-10 py-[13px] bg-transparent text-white text-desc14 font-Montserrat font-normal leading-[19px] placeholder-lightGrey focus:outline-none transition duration-300 ease-in-out',
           {
             'border-mainColor': isError,
             '!pr-[16px]': !suffix,
+            'border-0': prefix,
+            'pl-0': prefix,
           },
           className,
         )}

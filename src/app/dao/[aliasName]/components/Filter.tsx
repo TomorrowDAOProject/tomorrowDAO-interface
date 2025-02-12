@@ -3,6 +3,7 @@ import { proposalTypeList, proposalStatusList } from '../constants';
 import { IProposalTableParams } from '../type';
 import Input from 'components/Input';
 import Select from 'components/Select';
+import { ReactComponent as Search } from 'assets/revamp-icon/search.svg';
 
 type TPropsType = {
   tableParams: IProposalTableParams;
@@ -13,8 +14,8 @@ export default function Filter(props: TPropsType) {
   const { onChangeTableParams, tableParams } = props;
 
   console.log('tableParams', tableParams);
-  const [activeType, setActiveType] = useState(proposalTypeList[0]);
-  const [activeStatus, setActiveStatus] = useState(proposalStatusList[0]);
+  const [activeType, setActiveType] = useState<any>(proposalTypeList[0]);
+  const [activeStatus, setActiveStatus] = useState<any>(proposalStatusList[0]);
 
   const [inputValue, setInputValue] = useState('');
 
@@ -53,6 +54,7 @@ export default function Filter(props: TPropsType) {
       <Input
         className="w-full font-Montserrat h-[36px]"
         placeholder="Proposals Title / Description / ID"
+        prefix={<Search />}
         maxLength={100}
         onChange={(value) => {
           setInputValue(value);

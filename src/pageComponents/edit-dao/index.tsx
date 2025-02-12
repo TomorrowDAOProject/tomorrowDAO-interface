@@ -404,7 +404,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                 </span>
               }
             >
-              <Input placeholder={`Enter the DAO's X handle, starting with @`} />
+              <Input placeholder={`@`} />
             </Form.Item>
             <Form.Item
               name={['metadata', 'socialMedia', 'Facebook']}
@@ -421,7 +421,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                 <span className="font-Montserrat text-white text-[14px] font-medium">Facebook</span>
               }
             >
-              <Input placeholder={`Enter the DAO's Facebook link`} />
+              <Input placeholder={`https://`} />
             </Form.Item>
             <Form.Item
               name={['metadata', 'socialMedia', 'Discord']}
@@ -438,7 +438,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                 <span className="font-Montserrat text-white text-[14px] font-medium">Discord</span>
               }
             >
-              <Input placeholder={`Enter the DAO's Discord community link`} />
+              <Input placeholder={'https://'} />
             </Form.Item>
             <Form.Item
               name={['metadata', 'socialMedia', 'Telegram']}
@@ -455,7 +455,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                 <span className="font-Montserrat text-white text-[14px] font-medium">Telegram</span>
               }
             >
-              <Input placeholder={`Enter the DAO's Telegram community link`} />
+              <Input placeholder={`https://`} />
             </Form.Item>
             <Form.Item
               name={['metadata', 'socialMedia', 'Reddit']}
@@ -470,7 +470,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               ]}
               label={<span className="font-Montserrat text-white text-[14px]">Reddit</span>}
             >
-              <Input placeholder={`Enter the DAO's subreddit link`} />
+              <Input placeholder={`https://`} />
             </Form.Item>
             {/* <Form.Item
               name={['metadata', 'socialMedia', 'Github']}

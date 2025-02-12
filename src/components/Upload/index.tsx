@@ -255,7 +255,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
           <input
             type="file"
             ref={fileInputRef}
-            className="hidden"
+            className="!hidden"
             accept={accept || '.png, .jpg, .jpeg'}
             onChange={handleFileChange}
           />
