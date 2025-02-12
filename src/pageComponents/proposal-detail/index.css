@@ -88,7 +88,7 @@
       }
     }
     .TMRWDAO-pageNumber-container {
-      @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-lightGrey bg-transparent;
+      @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-fillBg8 bg-transparent;
     }
     .TMRWDAO-btn-background-ghost:disabled {
       @apply border-fillBg8;
