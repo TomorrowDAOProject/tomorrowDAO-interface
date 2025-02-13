@@ -41,10 +41,6 @@ interface IFormRef {
   getValues: () => IFormListFullItemValue;
 }
 
-interface IFormItemsRefProps extends IFormItemsProps {
-  ref?: (instance: IFormRef | null) => void;
-}
-
 const FormListDymanic = forwardRef<IFormListDymanicRef, IFormListDymanicProps>((props, ref) => {
   const { onChange, initialValue, optionType } = props;
   const [options, setOptions] = useState(initialValue || []);
@@ -168,7 +164,6 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
   const icon = watch('icon');
   const screenshots = watch('screenshots') ?? [];
 
-  console.log('screenshots', screenshots);
   const { isPhone } = useLandingPageResponsive();
 
   const onBlur = async () => {
@@ -253,8 +248,9 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
                   value={field.value}
                   ratio={1}
                   aspect={1}
+                  fileLimit="10 MB"
                   uploadText="Upload"
-                  tips={`Formats supported: PNG, JPG, JPEG. \nRatio 1:1, less than 1 MB.`}
+                  tips={`Formats supported: PNG and JPG. \nRatio 1:1, less than 10 MB.`}
                   ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
                   onFinish={({ url }) => {
                     field.onChange(url);
@@ -383,7 +379,8 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
                   <Upload
                     ref={uploadRef}
                     uploadText="Upload"
-                    tips={`Formats supported: PNG, JPG, JPEG. \nless than 1 MB.`}
+                    fileLimit="10 MB"
+                    tips={`Formats supported: PNG and JPG. \nless than 10 MB.`}
                     ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 1:1"
                     onFinish={({ url }) => {
                       field.onChange([...screenshots, url]);

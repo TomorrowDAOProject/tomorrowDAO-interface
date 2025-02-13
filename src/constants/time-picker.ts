@@ -9,32 +9,32 @@ export const PERIOD_RANGE = ['AM', 'PM'];
 export const DURATION_RANGE: VoteTimeItem[] = [
   {
     label: '1 Hour',
-    unit: 'seconds',
-    value: 3600,
+    unit: 'hours',
+    value: 1,
   },
   {
     label: '1 Day',
-    unit: 'seconds',
-    value: 24 * 3600,
+    unit: 'hours',
+    value: 24,
   },
   {
     label: '3 Day',
-    unit: 'seconds',
-    value: 3 * 24 * 3600,
+    unit: 'days',
+    value: 3,
   },
   {
     label: '5 Day',
-    unit: 'seconds',
-    value: 5 * 24 * 3600,
+    unit: 'days',
+    value: 5,
   },
   {
     label: '1 Week',
-    unit: 'seconds',
-    value: 7 * 24 * 3600,
+    unit: 'days',
+    value: 7,
   },
   {
     label: '2 Weeks',
-    unit: 'seconds',
-    value: 14 * 24 * 3600,
+    unit: 'days',
+    value: 14,
   },
 ];

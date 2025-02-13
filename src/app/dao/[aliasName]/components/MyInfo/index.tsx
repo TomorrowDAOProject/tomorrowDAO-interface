@@ -16,7 +16,7 @@ import { IContractError } from 'types';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import './index.css';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
-import { okButtonConfig } from 'components/ResultModal';
+import { INIT_RESULT_MODAL_CONFIG, okButtonConfig } from 'components/ResultModal';
 import Symbol from 'components/Symbol';
 import { useParams } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
@@ -222,7 +222,21 @@ export default function MyInfo(props: TInfoTypes) {
         primaryContent: 'Transaction Failed',
         secondaryContent: message?.toString?.(),
         footerConfig: {
-          buttonList: [okButtonConfig],
+          buttonList: [
+            {
+              children: (
+                <Button
+                  type="danger"
+                  className="w-full"
+                  onClick={() => {
+                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                  }}
+                >
+                  OK
+                </Button>
+              ),
+            },
+          ],
         },
       });
       emitLoading(false);

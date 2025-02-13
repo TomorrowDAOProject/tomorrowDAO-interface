@@ -474,10 +474,10 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             <FormItem
               label={
                 <>
-                  <span className="mb-[35px] block text-[20px] font-Unbounded font-light text-white">
+                  <span className="mb-[50px] block text-[20px] font-Unbounded font-light text-white">
                     Choose Proposal Type
                   </span>
-                  <span className="text-Neutral-Secondary-Text text-descM16 font-Montserrat">
+                  <span className="text-lightGrey text-descM15 font-Montserrat">
                     When creating a proposal, please choose the appropriate type based on its
                     impact.
                   </span>

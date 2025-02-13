@@ -201,7 +201,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
             Voters and executors
           </span>
         }
-        errorText={errors?.proposalType?.message}
+        errorText={errors?.proposalBasicInfo?.schemeAddress?.message}
       >
         <Controller
           name="proposalBasicInfo.schemeAddress"
@@ -314,10 +314,14 @@ const ProposalInfo = (props: ProposalInfoProps) => {
           rules={{
             required: true,
             validate: (value) => {
-              if (value.some((item: string) => Number(item) > 0)) {
-                return true;
+              if (
+                endTime === TIME_OPTIONS.Now &&
+                Array.isArray(value) &&
+                value?.every((item: string) => Number(item) <= 0)
+              ) {
+                return 'The voting end time is required';
               }
-              return 'The voting end time is required';
+              return true;
             },
           }}
           render={({ field }) => (
@@ -328,7 +332,18 @@ const ProposalInfo = (props: ProposalInfoProps) => {
                   { label: 'Duration', value: TIME_OPTIONS.Now },
                   { label: 'Specific date & time', value: TIME_OPTIONS.Specific },
                 ]}
-                onChange={(value) => setEndTime(value as TIME_OPTIONS)}
+                onChange={(value) => {
+                  if (value === TIME_OPTIONS.Specific) {
+                    const end =
+                      startTime === TIME_OPTIONS.Now
+                        ? dayjs().add(1, 'day')
+                        : dayjs(activeStartTime).add(1, 'day');
+                    field.onChange(end.valueOf());
+                  } else {
+                    field.onChange([0, 0, 1]);
+                  }
+                  setEndTime(value as TIME_OPTIONS);
+                }}
               />
               {endTime === TIME_OPTIONS.Now ? (
                 <div className="mt-[25px] flex flex-col lg:flex-row items-center gap-[25px]">
@@ -339,7 +354,9 @@ const ProposalInfo = (props: ProposalInfoProps) => {
                       regExp={/^([0-9\b]*)$/}
                       value={activeEndTime[0]}
                       onChange={(value) => {
-                        const endTimeValue = [...activeEndTime];
+                        const endTimeValue = Array.isArray(activeEndTime)
+                          ? [...activeEndTime]
+                          : [0, 0, 1];
                         endTimeValue[0] = value;
                         field.onChange(endTimeValue);
                       }}
@@ -352,7 +369,9 @@ const ProposalInfo = (props: ProposalInfoProps) => {
                       regExp={/^([0-9\b]*)$/}
                       value={activeEndTime[1]}
                       onChange={(value) => {
-                        const endTimeValue = [...activeEndTime];
+                        const endTimeValue = Array.isArray(activeEndTime)
+                          ? [...activeEndTime]
+                          : [0, 0, 1];
                         endTimeValue[1] = value;
                         field.onChange(endTimeValue);
                       }}
@@ -365,7 +384,9 @@ const ProposalInfo = (props: ProposalInfoProps) => {
                       regExp={/^([0-9\b]*)$/}
                       value={activeEndTime[2]}
                       onChange={(value) => {
-                        const endTimeValue = [...activeEndTime];
+                        const endTimeValue = Array.isArray(activeEndTime)
+                          ? [...activeEndTime]
+                          : [0, 0, 1];
                         endTimeValue[2] = value;
                         field.onChange(endTimeValue);
                       }}
@@ -382,15 +403,30 @@ const ProposalInfo = (props: ProposalInfoProps) => {
                           ? dayjs().add(1, 'day').toDate()
                           : dayjs(activeStartTime).add(1, 'day').toDate(),
                     }}
-                    onChange={(day) =>
-                      field.onChange(combineDateAndTime(day, activeEndTime as number))
-                    }
+                    value={activeEndTime}
+                    onChange={(day) => {
+                      const time = Array.isArray(activeEndTime)
+                        ? dayjs(activeStartTime)
+                            .add(activeEndTime[0], 'minutes')
+                            .add(activeEndTime[1], 'hours')
+                            .add(activeEndTime[2], 'days')
+                            .valueOf()
+                        : activeEndTime;
+                      field.onChange(combineDateAndTime(day, time as number));
+                    }}
                   />
                   <SimpleTimePicker
                     className="flex-1"
-                    onChange={(time) =>
-                      field.onChange(combineDateAndTime(activeEndTime as number, time))
-                    }
+                    onChange={(time) => {
+                      const day = Array.isArray(activeEndTime)
+                        ? dayjs(activeStartTime)
+                            .add(activeEndTime[0], 'minutes')
+                            .add(activeEndTime[1], 'hours')
+                            .add(activeEndTime[2], 'days')
+                            .valueOf()
+                        : activeEndTime;
+                      field.onChange(combineDateAndTime(day, time));
+                    }}
                   />
                 </div>
               )}

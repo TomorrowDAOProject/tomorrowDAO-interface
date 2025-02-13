@@ -11,13 +11,14 @@ interface ValidatorRule {
   validator: (rule: any, value: any) => Promise<void>;
 }
 interface IFormMembersProps {
-  name: string | string[];
+  name: string;
   initialValue: string[];
   form: any;
   hiddenExtraWhenEmpty?: boolean;
   titleNode?: React.ReactNode;
   emptyNode?: React.ReactNode;
   footNode?: React.ReactNode;
+  errorMessage?: string;
   rules?: ValidatorRule[];
   disableInput?: boolean;
 }
@@ -30,14 +31,10 @@ function FormMembersItem(props: IFormMembersProps) {
     titleNode,
     emptyNode,
     footNode,
+    errorMessage,
     disableInput = false,
   } = props;
-  const {
-    control,
-    watch,
-    setValue,
-    formState: { errors },
-  } = form;
+  const { control, watch, setValue } = form;
   const fields = watch(name);
 
   const showNullWhenEmpty = hiddenExtraWhenEmpty && !fields?.length;
@@ -65,14 +62,14 @@ function FormMembersItem(props: IFormMembersProps) {
             </Tooltip>
           )
         }
-        errorText={errors?.addMembers?.value?.message}
+        errorText={errorMessage}
       >
         {emptyNode && !fields?.length
           ? emptyNode
           : fields.map((address: string, index: number) => (
               <Controller
                 key={`${address}_${index}`}
-                name="addMembers.value"
+                name={name}
                 control={control}
                 rules={{
                   required: 'Address is required',

@@ -67,11 +67,23 @@
     @apply !text-lightGrey;
   }
 
+  .monaco-editor .view-overlays .current-line {
+    @apply !border-0;
+  }
+
   .mtk1 {
     @apply !text-lightGrey;
   }
   .mtk2 {
     @apply !text-lightGrey;
+  }
+
+  .mtk5 {
+    @apply !text-[#8CD9FF] text-[14px];
+  }
+
+  .mtk20 {
+    @apply !text-[#FF7070] text-[14px];
   }
   
 }

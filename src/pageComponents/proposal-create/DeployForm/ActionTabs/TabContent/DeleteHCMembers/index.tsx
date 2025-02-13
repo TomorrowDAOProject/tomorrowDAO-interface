@@ -1,20 +1,15 @@
 import { useRequest } from 'ahooks';
 import { fetchHcMembers } from 'api/request';
 import { curChain } from 'config';
-import { FormInstance } from 'antd';
 import DeleteMembers from '../DeleteMembers';
 interface IDeleteMultisigMembersProps {
   daoId: string;
-  form: FormInstance;
+  form: any;
 }
 function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
   const { daoId, form } = props;
-
-  const {
-    data: daoMembersData,
-    // error: transferListError,
-    loading: daoMembersDataLoading,
-  } = useRequest(() => {
+  const { errors } = form.formState;
+  const { data: daoMembersData, loading: daoMembersDataLoading } = useRequest(() => {
     return fetchHcMembers({
       chainId: curChain,
       daoId,
@@ -27,6 +22,7 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
       form={form}
       removeNamePath={'removeHighCouncils.value'}
       isLoading={daoMembersDataLoading}
+      errorMessage={errors?.removeHighCouncils?.value?.message}
     />
   );
 }
