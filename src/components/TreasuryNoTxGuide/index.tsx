@@ -74,6 +74,7 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
               {
                 children: (
                   <Button
+                    className="w-full"
                     type="primary"
                     onClick={() => {
                       eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
