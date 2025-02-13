@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 interface HashAddress {
   preLen?: number;
   endLen?: number;
-  className: string;
+  className?: string;
   address: string;
   chain?: string;
   size?: string;
@@ -32,6 +32,9 @@ const HashAddress = ({
   const lastPart = endLen && realAddress.slice(-endLen);
   const showAddress = preLen && endLen ? `${firstPart}...${lastPart}` : realAddress;
 
+  const textColorClass = iconColor ? `text-[${iconColor}]` : 'text-white';
+  const iconSizeClass = iconSize ? `text-[${iconSize}]` : 'text-[20px]';
+
   const handleCopy = () => {
     try {
       copy(realAddress);
@@ -44,9 +47,11 @@ const HashAddress = ({
     <div className={`font-[400] flex items-center gap-1 text-[14px] ${className}`}>
       <span className="break-all">{showAddress}</span>
       <i
-        className={`tmrwdao-icon-duplicate cursor-pointer hover:text-white ${
-          iconColor ? `text-[${iconColor}]` : 'text-white'
-        } text-[${iconSize ?? '20px'}]`}
+        className={clsx(
+          'tmrwdao-icon-duplicate cursor-pointer hover:text-white',
+          textColorClass,
+          iconSizeClass,
+        )}
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();

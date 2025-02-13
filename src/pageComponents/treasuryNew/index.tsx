@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Divider, ConfigProvider, Tabs } from 'antd';
-import { HashAddress, IHashAddressProps, Table } from 'aelf-design';
+import { IHashAddressProps, Table } from 'aelf-design';
 import TransferTable from './Table/Table';
 import { TableProps } from 'antd/es/table';
 import useTokenListData from 'hooks/useTokenListData';
@@ -17,6 +17,7 @@ import { fetchAddressTransferList } from 'api/request';
 import { useRequest } from 'ahooks';
 import NoData from 'components/NoData';
 import LoadingComponent from 'components/LoadingComponent';
+import HashAddress from 'components/HashAddress';
 interface ITransparentProps {
   address: string;
   isNetworkDao: boolean;
@@ -111,11 +112,13 @@ export default function Transparent(props: ITransparentProps) {
               target="_blank"
             >
               <HashAddress
-                className="treasury-address !text-[12px]"
+                className="treasury-address text-[12px] text-white"
                 address={address}
                 chain={currentChain as IHashAddressProps['chain']}
                 preLen={8}
                 endLen={9}
+                iconColor="#989DA0"
+                iconSize="18px"
                 primaryIconColor={'#989DA0'}
                 addressHoverColor={'white'}
                 addressActiveColor={'white'}

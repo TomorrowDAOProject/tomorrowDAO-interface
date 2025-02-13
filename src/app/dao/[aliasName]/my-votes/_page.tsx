@@ -25,8 +25,8 @@ export default function MyRecord() {
   const { aliasName } = useParams();
   console.log('aliasName', aliasName);
   return (
-    <div className="min-h-[calc(100%-300px)] mx-[20px] my-[39px] md:w-[840px] lg:w-[1056px] xl:w-[1120px] md:m-auto lg:m-auto xl:m-auto xl:my-[51px] lg:my-[51px] md:my-[51px] w-full">
-      <div className="text-white font-Montserrat flex items-center gap-2 pb-[25px]">
+    <div className="lg:min-h-[calc(100%-300px)] xl:min-h-[calc(100%-300px)] md:min-h-[calc(100%-300px)] mx-[20px] my-[39px] md:w-[840px] lg:w-[1056px] xl:w-[1120px] md:m-auto lg:m-auto xl:m-auto xl:my-[51px] lg:my-[51px] md:my-[51px] w-full">
+      <div className="text-white font-Montserrat flex items-center gap-2 pb-[25px] flex-wrap">
         <span
           className="text-lightGrey text-[15px] cursor-pointer"
           onClick={() => router.push('/')}

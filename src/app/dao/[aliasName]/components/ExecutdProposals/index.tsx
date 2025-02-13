@@ -1,5 +1,5 @@
-import { HashAddress } from 'aelf-design';
 import CommonModal from 'components/CommonModal';
+import HashAddress from 'components/HashAddress';
 import { useRef, useState } from 'react';
 import Info from '../Info';
 import { fetchExecutableList } from 'api/request';
@@ -119,10 +119,13 @@ export default function ExecutdProposals(props: IExecutdProposals) {
                   <span className="text-white text-[12px] font-medium">Proposal ID:</span>
                   <Link href={`/dao/${aliasName}/proposal/${item.proposalId}`}>
                     <HashAddress
+                      className="text-white !text-[12px]"
                       ignorePrefixSuffix
                       preLen={8}
                       endLen={11}
                       address={item.proposalId}
+                      iconColor="#989DA0"
+                      iconSize="14px"
                       primaryIconColor={'#989DA0'}
                       addressHoverColor={'white'}
                       addressActiveColor={'white'}

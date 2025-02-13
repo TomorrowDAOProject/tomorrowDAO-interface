@@ -1,4 +1,4 @@
-import { HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 // import { Tabs } from 'aelf-design';
 import Tabs from 'components/Tabs';
 import { getContract } from 'pageComponents/proposal-create/util';
@@ -71,9 +71,11 @@ const ProposalTab = (props: IProposalTabProps) => {
             <div className="card-sm-text-bold">Call Contract</div>
             <div>
               <HashAddress
-                className="card-sm-text "
+                className="card-sm-text !text-[12px]"
                 address={proposalDetailData?.transaction?.toAddress ?? '-'}
                 chain={curChain}
+                iconColor="#989DA0"
+                iconSize="14px"
               />
             </div>
           </div>

@@ -88,7 +88,10 @@
       }
     }
     .TMRWDAO-pageNumber-container {
-      @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-fillBg8 bg-transparent;
+      @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-fillBg8 bg-fillBg8;
+    }
+    .TMRWDAO-pagination-button {
+      @apply bg-fillBg8;
     }
     .TMRWDAO-btn-background-ghost:disabled {
       @apply border-fillBg8;
@@ -161,7 +164,7 @@
   @apply !text-white !text-[10px];
 }
 .TMRWDAO-select-dropdown {
-  @apply bg-darkGray;
+  @apply bg-darkGray font-Montserrat;
   .TMRWDAO-select-item {
     @apply text-white;
   }

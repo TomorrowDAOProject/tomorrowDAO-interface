@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, HashAddress, IHashAddressProps } from 'aelf-design';
+import { Table, IHashAddressProps } from 'aelf-design';
 import { ConfigProvider, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import Link from 'next/link';
@@ -15,6 +15,7 @@ import { checkIsOut } from 'utils/transaction';
 import { isSideChain } from 'utils/chain';
 import Symbol from 'components/Symbol';
 import LoadingComponent from 'components/LoadingComponent';
+import HashAddress from 'components/HashAddress';
 
 const defaultPageSize = 20;
 interface IRecordTableProps {
@@ -70,10 +71,13 @@ export default function RecordTable(props: IRecordTableProps) {
               target="_blank"
             >
               <HashAddress
-                className="card-xsm-text text-neutralTitle dao-tx-hash "
+                className="text-white !text-[12px]"
                 address={hash}
                 ignorePrefixSuffix
-                hasCopy={true}
+                preLen={8}
+                endLen={11}
+                iconColor="#989DA0"
+                iconSize="14px"
                 primaryIconColor={'#989DA0'}
                 addressHoverColor={'white'}
                 addressActiveColor={'white'}
@@ -117,11 +121,13 @@ export default function RecordTable(props: IRecordTableProps) {
               target="_blank"
             >
               <HashAddress
-                className="treasury-address"
+                className="text-white !text-[12px]"
                 chain={currentChain as IHashAddressProps['chain']}
                 address={from}
                 preLen={8}
                 endLen={9}
+                iconColor="#989DA0"
+                iconSize="14px"
                 primaryIconColor={'#989DA0'}
                 addressHoverColor={'white'}
                 addressActiveColor={'white'}
@@ -159,10 +165,12 @@ export default function RecordTable(props: IRecordTableProps) {
             >
               <HashAddress
                 chain={currentChain as IHashAddressProps['chain']}
-                className="treasury-address"
+                className="text-white !text-[12px]"
                 address={to}
                 preLen={8}
                 endLen={9}
+                iconColor="#989DA0"
+                iconSize="14px"
                 primaryIconColor={'#989DA0'}
                 addressHoverColor={'white'}
                 addressActiveColor={'white'}

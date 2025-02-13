@@ -283,7 +283,7 @@ export default function MyInfo(props: TInfoTypes) {
                     className="!rounded-[42px] !h-[32px]"
                     onClick={() => {
                       if (info?.availableUnStakeAmount === 0) {
-                        toast.info('Available for Unstaking is 0');
+                        toast.error('Available for Unstaking is 0');
                       } else {
                         setIsModalOpen(true);
                       }

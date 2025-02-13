@@ -299,7 +299,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
                 <Upload
                   className="w-full md:w-[250px] lg:w-[250px] xl:w-[250px] h-[250px]"
                   needCheckImgSize
-                  accept=".png,.jpg"
+                  accept=".png,.jpg,.jpeg"
                   value={metaData?.logoUrl[0]?.url}
                   uploadText="Click to Upload"
                   tips={`Formats supported: PNG, JPG, JPEG \nRatio: 1:1 , less than 1 MB`}
@@ -356,17 +356,18 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               name={['metadata', 'socialMedia', 'title']}
               dependencies={mediaList}
               rules={[
-                ({ getFieldValue }) => ({
+                () => ({
                   validator() {
-                    const metadata = mediaList.map((item) => getFieldValue(item));
-                    const values = Object.values(metadata);
-                    const checked = values.some((item) => item);
-                    if (checked) {
-                      setMediaError(false);
-                      return Promise.resolve();
-                    }
-                    setMediaError(true);
-                    return Promise.reject(new Error(''));
+                    // const metadata = mediaList.map((item) => getFieldValue(item));
+                    // const values = Object.values(metadata);
+                    // const checked = values.some((item) => item);
+                    // if (checked) {
+                    //   setMediaError(false);
+                    //   return Promise.resolve();
+                    // }
+                    // setMediaError(true);
+                    // return Promise.reject(new Error(''));
+                    return Promise.resolve();
                   },
                 }),
               ]}
