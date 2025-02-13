@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Divider, ConfigProvider, Tabs } from 'antd';
-import { HashAddress, IHashAddressProps, Table } from 'aelf-design';
+import { IHashAddressProps, Table } from 'aelf-design';
 import TransferTable from './Table/Table';
 import { TableProps } from 'antd/es/table';
 import useTokenListData from 'hooks/useTokenListData';
@@ -16,6 +16,7 @@ import BigNumber from 'bignumber.js';
 import { fetchAddressTransferList } from 'api/request';
 import { useRequest } from 'ahooks';
 import NoData from 'components/NoData';
+import HashAddress from 'components/HashAddress';
 interface ITransparentProps {
   address: string;
   isNetworkDao: boolean;

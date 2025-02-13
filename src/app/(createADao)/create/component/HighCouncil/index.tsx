@@ -130,54 +130,62 @@ const HighCouncil = () => {
               name="governanceSchemeThreshold.minimalApproveThreshold"
               control={control}
               rules={{
-                required: 'The Minimum Approval Rate is required',
+                required: '',
                 validate: {
                   validator: (value) => {
                     const num = Number(value);
-                    if (isNaN(num)) {
-                      return 'Please input a positive number';
-                    }
-                    if (!Number.isInteger(num)) {
-                      return 'Please input a integer number';
-                    }
-                    if (num <= 0) {
-                      return 'Please input a number larger than 0';
-                    }
-                    if (num > 100) {
-                      return 'Please input a number smaller than 100';
+                    if (isNaN(num) || !Number.isInteger(num) || num <= 0 || num > 100) {
+                      return false;
                     }
                     return true;
                   },
                 },
               }}
-              render={({ field }) => (
-                <div className="flex flex-col items-center lg:flex-row md:flex-row gap-[50px] mt-2">
-                  <div className="w-full lg:w-2/5 md:w-2/5 relative">
-                    <Input
-                      {...field}
+              render={({ field }) => {
+                field.value = field.value.toString();
+                return (
+                  <div className="flex flex-col items-start lg:flex-row md:flex-row gap-[50px] mt-2">
+                    <div className="w-full lg:w-2/5 md:w-2/5 relative">
+                      <Input
+                        {...field}
+                        disabled={disabled}
+                        className="font-Montserrat"
+                        placeholder="The suggested percentage is no less than 67%."
+                        regExp={/^([0-9\b]*)$/}
+                        isError={
+                          !!errors?.governanceSchemeThreshold?.minimalApproveThreshold?.message
+                        }
+                      />
+                      <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
+                        %
+                      </span>
+                      <span className="mt-[5px] block text-[11px] font-Montserrat leading-[17.6px] text-mainColor">
+                        {isNaN(Number(field.value)) && `Please input a positive number`}
+                        {!Number.isInteger(Number(field.value)) && 'Please input a integer number'}
+                        {Number(field.value) == 0 &&
+                          `Please input a number larger than 0 Proposals could be approved by a minority rather than a majoritty.`}
+                        {Number(field.value) > 0 &&
+                          Number(field.value) <= 50 &&
+                          'Proposals could be approved by a minority rather than a majority.'}
+                        {Number(field.value) > 50 &&
+                          Number(field.value) <= 100 &&
+                          'Proposal will be approved by majority.'}
+                        {Number(field.value) > 100 &&
+                          `Please input a number smaller than 100 Proposal will be approved by majority.`}
+                      </span>
+                    </div>
+                    <Slider
+                      className="w-full lg:w-3/5 md:w-3/5 xl:mt-[12px] md:mt-[12px] lg:mt-[12px] mt-0"
+                      min={0}
+                      max={100}
+                      step={1}
                       disabled={disabled}
-                      className="font-Montserrat"
-                      placeholder="The suggested percentage is no less than 67%."
-                      regExp={/^([0-9\b]*)$/}
-                      isError={
-                        !!errors?.governanceSchemeThreshold?.minimalApproveThreshold?.message
-                      }
+                      value={Number(field.value)}
+                      onChange={field.onChange}
                     />
-                    <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
-                      %
-                    </span>
                   </div>
-                  <Slider
-                    className="w-full lg:w-3/5 md:w-3/5"
-                    min={0}
-                    max={100}
-                    step={1}
-                    disabled={disabled}
-                    value={Number(field.value)}
-                    onChange={field.onChange}
-                  />
-                </div>
-              )}
+                );
+              }}
             />
           </FormItem>
 
