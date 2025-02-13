@@ -298,6 +298,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
           transaction: {},
         };
         if (res.proposalType === ProposalTypeEnum.GOVERNANCE) {
+          console.log('activeTab', activeTab);
           if (activeTab === EProposalActionTabs.IssueToken) {
             const { symbol, to, decimals } = issueObj;
             let { amount } = issueObj;
@@ -414,6 +415,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             };
           }
         }
+        console.log('contractParams', contractParams);
         const methodName =
           res.proposalType === ProposalTypeEnum.VETO ? 'CreateVetoProposal' : 'CreateProposal';
         await proposalCreateContractRequest(methodName, contractParams);

@@ -59,7 +59,6 @@ const ProposalInfo = (props: ProposalInfoProps) => {
   const {
     watch,
     control,
-    setValue,
     formState: { errors },
   } = form;
 
