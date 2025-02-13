@@ -2,7 +2,7 @@ import React from 'react';
 import { curChain, explorer } from 'config';
 import { SkeletonLine } from 'components/Skeleton';
 import { ButtonCheckLogin } from 'components/ButtonCheckLogin';
-import { HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import Link from 'next/link';
 import './index.css';
 
@@ -58,7 +58,6 @@ const Members: React.FC<IProps> = (props) => {
             ) : (
               <ButtonCheckLogin
                 type="primary"
-                size="medium"
                 className="dao-members-manage font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
                 onClick={onCreatePoposal}
                 loading={createButtonLoading}
@@ -74,11 +73,13 @@ const Members: React.FC<IProps> = (props) => {
                   <li className="dao-members-item" key={item}>
                     <Link href={`${explorer}/address/${item}`} target="_blank" className="w-full">
                       <HashAddress
-                        className="dao-members-normal-text TMRWDAO-members-hash-address"
+                        className="text-white text-[14px] justify-between"
                         preLen={8}
                         endLen={11}
                         address={item}
                         chain={curChain}
+                        iconColor="#989da0"
+                        iconSize="18px"
                         primaryIconColor={'#989DA0'}
                         addressHoverColor={'white'}
                         addressActiveColor={'white'}

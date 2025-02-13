@@ -351,9 +351,9 @@ const CreateDaoPage = () => {
                   A supplementary governance mechanism
                 </p>
                 <p className="text-desc12 text-lightGrey font-Montserrat">
-                  High Council is an optional governance mechanism that supplements Referendum. High
-                  Council members are granted authority and the responsibility to partake in DAO
-                  governance.
+                  High Council is a group of top-ranked addresses, chosen through votes by
+                  governance tokens, holding governance responsibilities, as a supplyment of the
+                  Democracy.
                 </p>
               </>
             )}

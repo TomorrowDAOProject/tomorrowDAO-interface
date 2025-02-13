@@ -41,7 +41,7 @@ export const FirstScreen = (props: IFirstScreenProps) => {
 
         <div className="md:mt-[47px] lg:mt-[67px] mb-[30px] dao-create-first-header flex items-center gap-2 md:hidden lg:hidden">
           <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey rotate-180" />
-          <span className="text-white text-[14px] cursor-auto" onClick={() => nav.push('/')}>
+          <span className="text-white text-[14px] cursor-auto" onClick={() => nav.push('/explore')}>
             Back
           </span>
         </div>

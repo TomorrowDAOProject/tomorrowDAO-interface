@@ -140,8 +140,11 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
   const logoUrl: any = metaData?.metadata?.logoUrl;
 
   const isAllChecked = useMemo(() => {
-    return state.filter((item) => item === true).length === state.length;
-  }, [state]);
+    if (files?.files?.length) {
+      return state.filter((item) => item === true).length === state.length;
+    }
+    return state[0] && state[1];
+  }, [state, files?.files?.length]);
 
   return (
     <Modal
@@ -235,16 +238,20 @@ export default function CreatePreviewModal({ open, onClose, onConfirm }: ICreate
             ]}
           />
         )}
-        <CheckboxItem
-          checked={state[2]}
-          onChange={(value: boolean) => setState([state[0], state[1], value])}
-          label={`Documentation ${files?.files?.length ? `(${files?.files?.length})` : ''}`}
-          descriptionList={files?.files?.map((item) => {
-            return {
-              content: item.name,
-            };
-          })}
-        />
+        {files?.files?.length ?? 0 ? (
+          <CheckboxItem
+            checked={state[2]}
+            onChange={(value: boolean) => setState([state[0], state[1], value])}
+            label={`Documentation ${files?.files?.length ? `(${files?.files?.length})` : ''}`}
+            descriptionList={files?.files?.map((item) => {
+              return {
+                content: item.name,
+              };
+            })}
+          />
+        ) : (
+          ''
+        )}
       </div>
       <Button
         type="default"

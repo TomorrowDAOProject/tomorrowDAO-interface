@@ -91,19 +91,19 @@ export default function RecordTable() {
       dataIndex: 'myOption',
       className: 'vote-option-column',
       width: 116,
-      filterMultiple: false,
-      filters: [
-        { text: 'All', value: allValue },
-        { text: 'Approve', value: 0 },
-        { text: 'Reject', value: 1 },
-        { text: 'Abstain', value: 2 },
-      ],
-      onFilter: (value, record) => {
-        if (value === allValue) {
-          return true;
-        }
-        return record.myOption === value;
-      },
+      // filterMultiple: false,
+      // filters: [
+      //   { text: 'All', value: allValue },
+      //   { text: 'Approve', value: 0 },
+      //   { text: 'Reject', value: 1 },
+      //   { text: 'Abstain', value: 2 },
+      // ],
+      // onFilter: (value, record) => {
+      //   if (value === allValue) {
+      //     return true;
+      //   }
+      //   return record.myOption === value;
+      // },
       render(option) {
         return (
           <div
