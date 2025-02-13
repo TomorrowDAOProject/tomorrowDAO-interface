@@ -298,7 +298,6 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
           transaction: {},
         };
         if (res.proposalType === ProposalTypeEnum.GOVERNANCE) {
-          console.log('activeTab', activeTab);
           if (activeTab === EProposalActionTabs.IssueToken) {
             const { symbol, to, decimals } = issueObj;
             let { amount } = issueObj;
@@ -415,7 +414,6 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             };
           }
         }
-        console.log('contractParams', contractParams);
         const methodName =
           res.proposalType === ProposalTypeEnum.VETO ? 'CreateVetoProposal' : 'CreateProposal';
         await proposalCreateContractRequest(methodName, contractParams);
@@ -474,10 +472,10 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             <FormItem
               label={
                 <>
-                  <span className="mb-[35px] block text-[20px] font-Unbounded font-light text-white">
+                  <span className="mb-[50px] block text-[20px] font-Unbounded font-light text-white">
                     Choose Proposal Type
                   </span>
-                  <span className="text-Neutral-Secondary-Text text-descM16 font-Montserrat">
+                  <span className="text-lightGrey text-descM15 font-Montserrat">
                     When creating a proposal, please choose the appropriate type based on its
                     impact.
                   </span>

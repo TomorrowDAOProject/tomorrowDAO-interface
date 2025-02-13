@@ -5,6 +5,7 @@ import clsx from 'clsx';
 type ButtonRadioOption = {
   label: string;
   value: number;
+  [key: string]: string | number;
 };
 
 interface IButtonRadioProps {

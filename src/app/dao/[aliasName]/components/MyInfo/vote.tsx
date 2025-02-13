@@ -1,5 +1,4 @@
 import { Divider, Form, InputNumber, message } from 'antd';
-import { Button } from 'aelf-design';
 import { useState, useCallback } from 'react';
 import CommonModal from 'components/CommonModal';
 import Image from 'next/image';
@@ -17,8 +16,9 @@ import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
-import { okButtonConfig } from 'components/ResultModal';
+import { INIT_RESULT_MODAL_CONFIG, okButtonConfig } from 'components/ResultModal';
 import { ReactComponent as Info } from 'assets/revamp-icon/info.svg';
+import Button from 'components/Button';
 
 type TVoteTypes = {
   proposalId: string;
@@ -157,7 +157,21 @@ function Vote(props: TVoteTypes) {
         primaryContent: 'Transaction Failed',
         secondaryContent: message?.toString?.(),
         footerConfig: {
-          buttonList: [okButtonConfig],
+          buttonList: [
+            {
+              children: (
+                <Button
+                  type="danger"
+                  className="w-full"
+                  onClick={() => {
+                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                  }}
+                >
+                  OK
+                </Button>
+              ),
+            },
+          ],
         },
       });
       emitLoading(false);
@@ -183,7 +197,6 @@ function Vote(props: TVoteTypes) {
       <Button
         type="primary"
         size="medium"
-        millisecondOfDebounce={1000}
         className="!bg-mainColor flex-1 font-Montserrat hover:!bg-transparent hover:!border-mainColor hover:!text-mainColor disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.APPROVED)}
         disabled={!canVote}
@@ -194,7 +207,6 @@ function Vote(props: TVoteTypes) {
         type="primary"
         size="medium"
         className="bg-[#FF485D] hover:!bg-[#FF485D] flex-1 hover:!bg-transparent hover:!border-[#FF485D] hover:!text-[#FF485D] font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
-        millisecondOfDebounce={1000}
         onClick={() => handlerModal(EVoteOption.REJECTED)}
         disabled={!canVote}
       >
@@ -203,7 +215,6 @@ function Vote(props: TVoteTypes) {
       <Button
         type="primary"
         size="medium"
-        millisecondOfDebounce={1000}
         className="bg-fillBg8 text-lightGrey hover:!bg-fillBg8 flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.ABSTAINED)}
         disabled={!canVote}
@@ -296,7 +307,7 @@ function Vote(props: TVoteTypes) {
             <Button
               className="mx-auto !h-[40px] font-Montserrat !text-[15px] mt-[50px] bg-mainColor w-full !rounded-[42px] text-white hover:!bg-transparent hover:border hover:border-solid hover:border-mainColor hover:!text-mainColor"
               type="primary"
-              htmlType="submit"
+              onClick={() => handlerVote()}
             >
               Stake and Vote
             </Button>

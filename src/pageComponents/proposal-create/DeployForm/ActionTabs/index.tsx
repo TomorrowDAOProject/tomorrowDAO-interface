@@ -155,7 +155,7 @@ export default function TabsCom(props: IActionTabsProps) {
     if (activeTab && !keys?.includes(activeTab) && tabItems?.[0]?.key) {
       onTabChange?.(tabItems?.[0]?.key);
     }
-  }, [tabItems, activeTab]);
+  }, [tabItems, activeTab, onTabChange]);
 
   return (
     <>

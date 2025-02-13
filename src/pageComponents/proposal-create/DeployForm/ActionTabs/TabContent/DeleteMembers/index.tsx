@@ -12,9 +12,10 @@ interface IDeleteMultisigMembersProps {
   removeNamePath: string;
   lists: string[];
   isLoading: boolean;
+  errorMessage?: string;
 }
 function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
-  const { form, removeNamePath, lists, isLoading } = props;
+  const { form, removeNamePath, lists, isLoading, errorMessage } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSelectList, setModalSelectList] = useState<string[]>([]);
   const { watch, setValue, trigger } = form;
@@ -46,6 +47,7 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
         name={removeNamePath}
         initialValue={[]}
         form={form}
+        errorMessage={errorMessage}
         hiddenExtraWhenEmpty={true}
         disableInput={true}
         titleNode={

@@ -2,20 +2,15 @@ import { useMemo } from 'react';
 import { useRequest } from 'ahooks';
 import { fetchDaoMembers } from 'api/request';
 import { curChain } from 'config';
-import { FormInstance } from 'antd';
 import DeleteMembers from '../DeleteMembers';
 interface IDeleteMultisigMembersProps {
   daoId: string;
-  form: FormInstance;
+  form: any;
 }
 function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
   const { daoId, form } = props;
-
-  const {
-    data: daoMembersData,
-    // error: transferListError,
-    loading: daoMembersDataLoading,
-  } = useRequest(() => {
+  const { errors } = form.formState;
+  const { data: daoMembersData, loading: daoMembersDataLoading } = useRequest(() => {
     return fetchDaoMembers({
       SkipCount: 0,
       MaxResultCount: 6,
@@ -34,6 +29,7 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
       form={form}
       removeNamePath="removeMembers.value"
       isLoading={daoMembersDataLoading}
+      errorMessage={errors?.removeMembers?.value?.message}
     />
   );
 }

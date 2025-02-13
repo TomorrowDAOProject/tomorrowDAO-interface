@@ -1,4 +1,4 @@
-import { Typography, FontWeightEnum, HashAddress } from 'aelf-design';
+import { HashAddress } from 'aelf-design';
 import CommonModal from 'components/CommonModal';
 import { useRef, useState } from 'react';
 import Info from '../Info';
@@ -10,9 +10,6 @@ import './index.css';
 import { emitLoading } from 'utils/myEvent';
 import { proposalCreateContractRequest } from 'contract/proposalCreateContract';
 import Link from 'next/link';
-import NoData from 'components/NoData';
-import useIsNetworkDao from 'hooks/useIsNetworkDao';
-import LinkNetworkDao from 'components/LinkNetworkDao';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import Button from 'components/Button';
 
@@ -49,13 +46,8 @@ export default function ExecutdProposals(props: IExecutdProposals) {
   // success or fail modal content
   const [modalInfo, setModalInfo] = useState<TmodalInfoType>(successModalInfo);
   const currentProposalidref = useRef<string>('');
-  const { isNetWorkDao } = useIsNetworkDao();
   const { isSyncQuery } = useAelfWebLoginSync();
-  const {
-    data: executableListData,
-    error: executableListError,
-    // loading: executableListLoading,
-  } = useRequest(async () => {
+  const { data: executableListData } = useRequest(async () => {
     const params: IExecutableListReq = {
       skipCount: 0,
       maxResultCount: 1000,

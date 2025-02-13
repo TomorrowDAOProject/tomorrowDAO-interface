@@ -237,7 +237,6 @@ const Treasury: React.FC<IProps> = (props) => {
                       setChoiceOpen(true);
                     }}
                     className="bg-mainColor !h-[32px] !rounded-[42px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
-                    size="medium"
                   >
                     <span className="text-[12px] font-medium">New transfer</span>
                   </ButtonCheckLogin>

@@ -27,8 +27,6 @@ import dayjs from 'dayjs';
 import SimpleDatePicker from 'components/SimpleDatePicker';
 import SimpleTimePicker from 'components/SimpleTimePicker';
 import { combineDateAndTime } from 'utils/time';
-import ButtonRadio from 'components/ButtonRadio';
-import { DURATION_RANGE } from 'constants/time-picker';
 import { toast } from 'react-toastify';
 interface IFormPageProps {
   daoId: string;
@@ -47,10 +45,17 @@ export default function Page(props: IFormPageProps) {
         proposalTitle: '',
         schemeAddress: '',
         activeStartTime: 1,
-        activeEndTime: 0,
+        activeEndTime: [0, 0, 1],
       },
       banner: '',
-      options: [{ title: '' }],
+      options: [
+        {
+          title: '',
+        },
+        {
+          title: '',
+        },
+      ],
     },
     mode: 'onChange',
   });
@@ -97,7 +102,6 @@ export default function Page(props: IFormPageProps) {
       }
       const res = getValues();
       emitLoading(true, 'Publishing the proposal...');
-      console.log('res', res);
       const saveReqApps: ISaveAppListReq['apps'] = res.options.map((item: any) => {
         return {
           ...item,
@@ -210,7 +214,7 @@ export default function Page(props: IFormPageProps) {
                     needCheckImgSize
                     fileLimit="10 MB"
                     ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 3:1"
-                    tips={'Formats supported: PNG and JPG. \nRatio: 3:1, less than 10 MB.'}
+                    tips={'Format supported: PNG, JPG, JPEG. \nRatio: 3:1, less than 10 MB.'}
                     onFinish={({ url }) => field.onChange(url)}
                     needCrop
                   />
@@ -243,9 +247,11 @@ export default function Page(props: IFormPageProps) {
             control={control}
             rules={{
               required: 'Option is required',
-              minLength: {
-                value: 1,
-                message: 'There should be more than 1 option, please add more options.',
+              validate: (value) => {
+                if (value.length < 2) {
+                  return 'There should be more than 1 option, please add more options.';
+                }
+                return true;
               },
             }}
             render={({ field }) => (
@@ -382,18 +388,61 @@ export default function Page(props: IFormPageProps) {
                     { label: 'Duration', value: TIME_OPTIONS.Now },
                     { label: 'Specific date & time', value: TIME_OPTIONS.Specific },
                   ]}
-                  onChange={(value) => setEndTime(value as TIME_OPTIONS)}
+                  onChange={(value) => {
+                    if (value === TIME_OPTIONS.Specific) {
+                      const end =
+                        startTime === TIME_OPTIONS.Now
+                          ? dayjs().add(1, 'day')
+                          : dayjs(activeStartTime).add(1, 'day');
+                      field.onChange(end.valueOf());
+                    } else {
+                      field.onChange([0, 0, 1]);
+                    }
+                    setEndTime(value as TIME_OPTIONS);
+                  }}
                 />
                 {endTime === TIME_OPTIONS.Now ? (
-                  <ButtonRadio
-                    className="mt-[30px]"
-                    options={DURATION_RANGE}
-                    onChange={({ value }) => {
-                      const now = activeStartTime === 1 ? dayjs() : dayjs(activeStartTime);
-                      const endTime = now.add(value, 'seconds');
-                      field.onChange(endTime.valueOf());
-                    }}
-                  />
+                  <div className="mt-[25px] flex flex-col lg:flex-row items-center gap-[25px]">
+                    <div className="flex flex-col gap-2 w-full">
+                      <span className="text-descM12 font-Montserrat text-lightGrey">Minutes</span>
+                      <Input
+                        placeholder="0"
+                        regExp={/^([0-9\b]*)$/}
+                        value={activeEndTime[0].toString()}
+                        onChange={(value) => {
+                          const endTimeValue = [...activeEndTime];
+                          endTimeValue[0] = Number(value);
+                          field.onChange(endTimeValue);
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 w-full">
+                      <span className="text-descM12 font-Montserrat text-lightGrey">Hours</span>
+                      <Input
+                        placeholder="0"
+                        regExp={/^([0-9\b]*)$/}
+                        value={activeEndTime[1].toString()}
+                        onChange={(value) => {
+                          const endTimeValue = [...activeEndTime];
+                          endTimeValue[1] = Number(value);
+                          field.onChange(endTimeValue);
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 w-full">
+                      <span className="text-descM12 font-Montserrat text-lightGrey">Days</span>
+                      <Input
+                        placeholder="0"
+                        regExp={/^([0-9\b]*)$/}
+                        value={activeEndTime[2].toString()}
+                        onChange={(value) => {
+                          const endTimeValue = [...activeEndTime];
+                          endTimeValue[2] = Number(value);
+                          field.onChange(endTimeValue);
+                        }}
+                      />
+                    </div>
+                  </div>
                 ) : (
                   <div className="flex flex-row items-center flex-wrap gap-[9px] mt-[32px]">
                     <SimpleDatePicker
@@ -404,15 +453,29 @@ export default function Page(props: IFormPageProps) {
                             ? dayjs().add(1, 'day').toDate()
                             : dayjs(activeStartTime).add(1, 'day').toDate(),
                       }}
-                      onChange={(day) =>
-                        field.onChange(combineDateAndTime(day, activeEndTime as number))
-                      }
+                      onChange={(day) => {
+                        const time = Array.isArray(activeEndTime)
+                          ? dayjs(activeStartTime)
+                              .add(activeEndTime[0], 'minutes')
+                              .add(activeEndTime[1], 'hours')
+                              .add(activeEndTime[2], 'days')
+                              .valueOf()
+                          : activeEndTime;
+                        field.onChange(combineDateAndTime(day, time as number));
+                      }}
                     />
                     <SimpleTimePicker
                       className="flex-1"
-                      onChange={(time) =>
-                        field.onChange(combineDateAndTime(activeEndTime as number, time))
-                      }
+                      onChange={(time) => {
+                        const day = Array.isArray(activeEndTime)
+                          ? dayjs(activeStartTime)
+                              .add(activeEndTime[0], 'minutes')
+                              .add(activeEndTime[1], 'hours')
+                              .add(activeEndTime[2], 'days')
+                              .valueOf()
+                          : activeEndTime;
+                        field.onChange(combineDateAndTime(day, time));
+                      }}
                     />
                   </div>
                 )}

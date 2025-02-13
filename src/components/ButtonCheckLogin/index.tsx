@@ -3,6 +3,7 @@ import Button from 'components/Button';
 
 interface IButtonProps {
   disabled?: boolean;
+  className?: string;
   type?: 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'link';
   children: React.ReactNode;
   onClick?(args?: HTMLButtonElement): void;
