@@ -48,6 +48,7 @@
 .proposal-custom-action-params-editor {
   .monaco-editor, .monaco-diff-editor {
     --vscode-editor-background: var(--darkBg);
+    --vscode-editorGutter-background: var(--darkBg);
   }
 
   * {
