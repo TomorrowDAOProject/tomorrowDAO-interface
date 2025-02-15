@@ -218,7 +218,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
               MenuItemClassName="px-[20px] transition-all duration-300 ease-in-out hover:bg-fillBg8"
               showArrow={false}
             >
-              <Button type="primary">
+              <Button type="primary" className="!bg-mainColor !text-white">
                 <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]" />
                 {userName}
               </Button>
