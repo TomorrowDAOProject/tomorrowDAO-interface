@@ -49,7 +49,7 @@ const GovernanceModel = () => {
             >
               <span className="form-item-label flex gap-[8px]">
                 <span className="form-item-label-text">Minimum Vote Requirement</span>
-                <i className="tmrwdao-icon-information text-[18px] text-white" />
+                <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
               </span>
             </Tooltip>
           }
@@ -102,7 +102,7 @@ const GovernanceModel = () => {
           >
             <span className="form-item-label flex gap-[8px]">
               <span className="form-item-label-text">Minimum Approval Rate</span>
-              <i className="tmrwdao-icon-information text-[18px] text-white" />
+              <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
             </span>
           </Tooltip>
         }
@@ -176,7 +176,7 @@ const GovernanceModel = () => {
             >
               <span className="form-item-label flex gap-[8px]">
                 <span className="form-item-label-text">Minimum Token Proposal Requirement</span>
-                <i className="tmrwdao-icon-information text-[18px] text-white" />
+                <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
               </span>
             </Tooltip>
           }

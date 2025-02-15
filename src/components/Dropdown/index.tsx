@@ -54,7 +54,6 @@ const Dropdown: React.FC<DropdownProps> = ({
   useEffect(() => {
     if (isOpen && dropdownRef.current && menuRef.current) {
       const triggerRect = dropdownRef.current.getBoundingClientRect();
-      const menuRect = menuRef.current.getBoundingClientRect();
 
       switch (placement) {
         case 'bottomLeft':

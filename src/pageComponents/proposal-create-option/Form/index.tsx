@@ -176,7 +176,7 @@ export default function Page(props: IFormPageProps) {
     <div className="deploy-proposal-options-form">
       <h3 className="mb-[50px] font-Unbounded font-light text-[20px] text-white">Create a List</h3>
       <form>
-        <FormItem label="Name" errorText={errors?.proposalBasicInfo?.proposalTitle?.message}>
+        <FormItem label="Title" errorText={errors?.proposalBasicInfo?.proposalTitle?.message}>
           <Controller
             name="proposalBasicInfo.proposalTitle"
             control={control}
@@ -213,6 +213,7 @@ export default function Page(props: IFormPageProps) {
                     aspect={3 / 1}
                     needCheckImgSize
                     fileLimit="10 MB"
+                    uploadText="Upload"
                     ratioErrorText="The ratio of the image is incorrect, please upload an image with a ratio of 3:1"
                     tips={'Format supported: PNG, JPG, JPEG. \nRatio: 3:1, less than 10 MB.'}
                     onFinish={({ url }) => field.onChange(url)}
@@ -306,7 +307,7 @@ export default function Page(props: IFormPageProps) {
             >
               <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                 Voting start time
-                <i className="tmrwdao-icon-information text-[18px]" />
+                <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
               </span>
             </Tooltip>
           }
@@ -364,7 +365,7 @@ export default function Page(props: IFormPageProps) {
             >
               <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                 Voting end time
-                <i className="tmrwdao-icon-information text-[18px]" />
+                <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
               </span>
             </Tooltip>
           }
@@ -488,6 +489,7 @@ export default function Page(props: IFormPageProps) {
       <div className="flex justify-end mt-[32px]">
         <ButtonCheckLogin type="primary" onClick={handleSubmit}>
           Submit
+          <i className="ml-[10px] tmrwdao-icon-default-arrow text-[16px] text-inherit" />
         </ButtonCheckLogin>
       </div>
     </div>

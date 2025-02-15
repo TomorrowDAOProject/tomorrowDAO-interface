@@ -33,7 +33,7 @@ function AddMultisigMembers(props: IAddMultisigMembersProps) {
         >
           <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
             Address
-            <i className="tmrwdao-icon-information text-[18px] text-white" />
+            <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
           </span>
         </Tooltip>
       }
@@ -65,13 +65,13 @@ function AddMultisigMembers(props: IAddMultisigMembersProps) {
                 onBlur={(value) => {
                   const newList = [...addMembersValue];
                   newList[index] = value;
-                  console.log('newList', newList);
                   field.onChange(newList);
                 }}
                 isError={
-                  address.endsWith(`AELF`) ||
-                  !address.startsWith(`ELF`) ||
-                  !address.endsWith(curChain)
+                  !!errors?.addMembers?.value?.message &&
+                  (address.endsWith(`AELF`) ||
+                    !address.startsWith(`ELF`) ||
+                    !address.endsWith(curChain))
                 }
               />
               <i

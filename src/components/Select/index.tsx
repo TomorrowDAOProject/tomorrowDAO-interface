@@ -74,9 +74,7 @@ const Select: React.FC<ISelectProps> = ({
           'flex justify-between items-center py-[13px] px-4 bg-darkBg text-white border border-solid border-fillBg8 rounded-[8px] cursor-pointer',
           className,
           {
-            'border-lightGrey': isOpen,
-            '!border-mainColor': isError,
-            'border-mainColor': isOpen && isOpenStyle,
+            '!border-mainColor': isOpen || isError || isOpenStyle,
           },
         )}
         onClick={() => setIsOpen(!isOpen)}

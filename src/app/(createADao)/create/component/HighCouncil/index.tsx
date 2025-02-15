@@ -31,13 +31,13 @@ const HighCouncil = () => {
     control,
     setValue,
     formState: { errors },
+    trigger,
   } = form;
   const { stepForm, isShowHighCouncil } = useContext(StepsContext);
   useRegisterForm(form, StepEnum.step2);
 
   const metaData = stepForm[StepEnum.step0].submitedRes;
   const disabled = !metaData?.governanceToken;
-  const minimalApproveThreshold = watch('governanceSchemeThreshold.minimalApproveThreshold');
   const membersValue = watch('highCouncilMembers.value') ?? [];
 
   return (
@@ -63,7 +63,7 @@ const HighCouncil = () => {
               >
                 <span className="form-item-label flex gap-[8px]">
                   <span className="form-item-label-text">Minimum Vote Requirement</span>
-                  <i className="tmrwdao-icon-information text-[18px] text-white" />
+                  <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
                 </span>
               </Tooltip>
             }
@@ -119,7 +119,7 @@ const HighCouncil = () => {
               >
                 <span className="form-item-label flex gap-[8px]">
                   <span className="form-item-label-text">Minimum Approval Rate</span>
-                  <i className="tmrwdao-icon-information text-[18px] text-white" />
+                  <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
                 </span>
               </Tooltip>
             }
@@ -194,7 +194,7 @@ const HighCouncil = () => {
               >
                 <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                   High Council Members&apos; aelf Sidechain Address
-                  <i className="tmrwdao-icon-information text-[18px] text-white" />
+                  <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
                 </span>
               </Tooltip>
             }
@@ -212,12 +212,15 @@ const HighCouncil = () => {
                       if (value.length > highCouncilMembers) {
                         return 'Initial high council members should not exceed number of high council members';
                       }
-                      if (value[index].endsWith(`AELF`)) {
-                        return 'Must be a SideChain address';
+                      for (const info of value) {
+                        if (info.endsWith(`AELF`)) {
+                          return 'Must be a SideChain address';
+                        }
+                        if (!info.startsWith(`ELF`) || !info.endsWith(curChain)) {
+                          return 'Must be a valid address';
+                        }
                       }
-                      if (!value[index].startsWith(`ELF`) || !value[index].endsWith(curChain)) {
-                        return 'Must be a valid address';
-                      }
+                      return true;
                     },
                   },
                 }}
@@ -231,7 +234,11 @@ const HighCouncil = () => {
                         newList[index] = value;
                         field.onChange(newList);
                       }}
-                      isError={!!errors?.highCouncilMembers?.value?.message}
+                      isError={
+                        address.endsWith(`AELF`) ||
+                        !address.startsWith(`ELF`) ||
+                        !address.endsWith(curChain)
+                      }
                     />
                     <i
                       className={clsx(
@@ -245,6 +252,7 @@ const HighCouncil = () => {
                         const originList = [...membersValue];
                         originList.splice(index, 1);
                         setValue('highCouncilMembers.value', originList);
+                        trigger('highCouncilMembers.value');
                       }}
                     />
                   </div>
@@ -268,6 +276,7 @@ const HighCouncil = () => {
                 type="default"
                 onClick={() => {
                   setValue('highCouncilMembers.value', ['']);
+                  trigger('highCouncilMembers.value');
                 }}
               >
                 <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />

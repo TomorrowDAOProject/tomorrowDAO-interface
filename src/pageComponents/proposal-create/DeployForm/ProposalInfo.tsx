@@ -73,6 +73,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
   const timeMilliseconds = useMemo(() => {
     return getTimeMilliseconds(activeStartTime, activeEndTime);
   }, [activeEndTime, activeStartTime]);
+
   const currentGovernanceMechanism = useMemo(() => {
     return governanceMechanismList?.find((item) => item.schemeAddress === voterAndExecute);
   }, [voterAndExecute, governanceMechanismList]);
@@ -194,6 +195,10 @@ const ProposalInfo = (props: ProposalInfoProps) => {
         </FormItem>
       )}
 
+      <span className="block mb-[50px] text-[20px] font-light font-Unbounded text-white">
+        Governance Information
+      </span>
+
       {/* Voters and executors: */}
       <FormItem
         label={
@@ -243,7 +248,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
           >
             <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
               Voting start time
-              <i className="tmrwdao-icon-information text-[18px]" />
+              <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
             </span>
           </Tooltip>
         }
@@ -263,9 +268,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
                 ]}
                 onChange={(value) => {
                   setStartTime(value as TIME_OPTIONS);
-                  if (value === TIME_OPTIONS.Now) {
-                    field.onChange(value);
-                  }
+                  field.onChange(value === TIME_OPTIONS.Now ? value : dayjs().valueOf());
                 }}
               />
               {startTime === TIME_OPTIONS.Specific && (
@@ -275,12 +278,14 @@ const ProposalInfo = (props: ProposalInfoProps) => {
                     disabled={{
                       before: dayjs().add(1, 'day').toDate(),
                     }}
+                    value={activeStartTime}
                     onChange={(day) =>
                       field.onChange(combineDateAndTime(day, activeStartTime as number))
                     }
                   />
                   <SimpleTimePicker
                     className="flex-1"
+                    value={activeStartTime}
                     onChange={(time) => field.onChange(combineDateAndTime(activeStartTime, time))}
                   />
                 </div>
@@ -293,15 +298,15 @@ const ProposalInfo = (props: ProposalInfoProps) => {
         label={
           <Tooltip
             title={
-              <p className="!mb-4 text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
+              <span className="text-[10px] leading-[12px] font-Montserrat font-medium text-lightGrey">
                 Define how long the voting should last in days, or add an exact date and time for it
                 to conclude.
-              </p>
+              </span>
             }
           >
             <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
               Voting end time
-              <i className="tmrwdao-icon-information text-[18px]" />
+              <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
             </span>
           </Tooltip>
         }
@@ -442,7 +447,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
               <Tooltip title="If the proposal is initiated around or at UTC 00:00 and is created after 00:00, the creation date will be the second day. As a result, the execution period will be extended by one day.">
                 <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                   Execution Period
-                  <i className="tmrwdao-icon-information text-[18px]" />
+                  <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
                 </span>
               </Tooltip>
             }

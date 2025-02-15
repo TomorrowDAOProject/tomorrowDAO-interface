@@ -66,7 +66,7 @@ const SimpleTimePicker = ({ value, className, onChange }: ISimpleTimePickerProps
           {selectedTime}
         </span>
 
-        <i className="absolute top-1/2 right-[14px] -translate-y-1/2 votigram-icon-time text-input-placeholder text-[18px]" />
+        <i className="absolute top-1/2 right-[14px] -translate-y-1/2 tmrwdao-icon-time-clock text-lightGrey text-[18px]" />
       </div>
       <Drawer
         isVisible={isVisible}

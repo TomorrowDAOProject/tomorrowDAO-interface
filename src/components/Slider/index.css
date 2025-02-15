@@ -1,4 +1,6 @@
 .slider-warp {
+  position: relative;
+  
   .custom-slider {
     --value: 50;
     -webkit-appearance: none;
@@ -38,5 +40,18 @@
     cursor: pointer;
     margin-top: -4px;
     border: 5px solid var(--main-color);
+  }
+
+  .slider-tooltip {
+    @apply absolute -top-8 bg-black text-white text-[12px] px-2 py-1 rounded whitespace-nowrap;
+    position: absolute;
+  }
+
+  .slider-tooltip::after {
+    content: '';
+    @apply absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid black;
   }
 }

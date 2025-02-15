@@ -3,7 +3,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import pinFileToIPFS from 'components/PinFileToIPFS';
 import { toast } from 'react-toastify';
-import { checkImgRatio, checkImgSize } from 'utils/checkImgSize';
+import { checkImgRatio } from 'utils/checkImgSize';
 import { emitLoading } from 'utils/myEvent';
 import Drawer from 'components/Drawer';
 import Cropper, { Area } from 'react-easy-crop';
@@ -139,12 +139,6 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
           const checkSize = await checkImgRatio(file, ratio ?? 0);
           if (!checkSize) {
             toast.error(ratioErrorText ?? 'Please upload an image with a aspect ratio.');
-            return false;
-          }
-        } else {
-          const checkSize = await checkImgSize(file);
-          if (!checkSize) {
-            toast.error('Please upload an image with the same width and height.');
             return false;
           }
         }
@@ -295,6 +289,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
                 step={1}
                 value={zoom}
                 showValue={false}
+                showTips={true}
                 onChange={setZoom}
               />
               <i
@@ -310,6 +305,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
               <div className="flex items-center gap-2">
                 <Button
                   type="default"
+                  className="text-white border-white"
                   onClick={() => {
                     setCropping(false);
                     setImageSrc('');

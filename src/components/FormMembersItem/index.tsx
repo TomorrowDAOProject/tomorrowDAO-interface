@@ -57,7 +57,7 @@ function FormMembersItem(props: IFormMembersProps) {
             >
               <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                 Multisig Members Address
-                <i className="tmrwdao-icon-information text-[18px] text-white" />
+                <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
               </span>
             </Tooltip>
           )
@@ -92,14 +92,14 @@ function FormMembersItem(props: IFormMembersProps) {
                       onBlur={(value) => {
                         const newList = [...fields];
                         newList[index] = value;
-                        console.log('newList', newList);
                         field.onChange(newList);
                       }}
                       disabled={disableInput}
                       isError={
-                        address.endsWith(`AELF`) ||
-                        !address.startsWith(`ELF`) ||
-                        !address.endsWith(curChain)
+                        !!errorMessage &&
+                        (address.endsWith(`AELF`) ||
+                          !address.startsWith(`ELF`) ||
+                          !address.endsWith(curChain))
                       }
                     />
                     <i
