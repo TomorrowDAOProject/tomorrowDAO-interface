@@ -55,6 +55,7 @@ export default function BasicDetails() {
     control,
     formState: { errors },
     setValue,
+    trigger,
   } = form;
   const uploadRef = useRef<IRefHandle | null>(null);
   const { walletInfo } = useSelector((store: any) => store.userInfo);
@@ -280,7 +281,7 @@ export default function BasicDetails() {
                 >
                   <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                     Governance Token
-                    <i className="tmrwdao-icon-information text-[18px]" />
+                    <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
                   </span>
                 </Tooltip>
               }
@@ -348,7 +349,7 @@ export default function BasicDetails() {
                 >
                   <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
                     Multisig Members Address
-                    <i className="tmrwdao-icon-information text-[18px] text-white" />
+                    <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
                   </span>
                 </Tooltip>
               }
@@ -363,12 +364,15 @@ export default function BasicDetails() {
                     required: 'Address is required',
                     validate: {
                       validator: (value) => {
-                        if (value[index].endsWith(`AELF`)) {
-                          return 'Must be a SideChain address';
+                        for (const info of value) {
+                          if (info.endsWith(`AELF`)) {
+                            return 'Must be a SideChain address';
+                          }
+                          if (!info.startsWith(`ELF`) || !info.endsWith(curChain)) {
+                            return 'Must be a valid address';
+                          }
                         }
-                        if (!value[index].startsWith(`ELF`) || !value[index].endsWith(curChain)) {
-                          return 'Must be a valid address';
-                        }
+                        return true;
                       },
                     },
                   }}
@@ -400,6 +404,7 @@ export default function BasicDetails() {
                           const originList = [...membersValue];
                           originList.splice(index, 1);
                           setValue('members.value', originList);
+                          trigger('members.value');
                         }}
                       />
                     </div>
@@ -423,6 +428,7 @@ export default function BasicDetails() {
                   type="default"
                   onClick={() => {
                     setValue('members.value', ['']);
+                    trigger('members.value');
                   }}
                 >
                   <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />

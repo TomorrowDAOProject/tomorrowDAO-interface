@@ -6,21 +6,24 @@ import clsx from 'clsx';
 import SideMenu from 'components/SideMenu';
 import NavMenuItem from './NavMenuItem';
 import Dropdown from 'components/Dropmenu';
-import { HashAddress } from 'aelf-design';
 import { useWalletService } from 'hooks/useWallet';
 import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 import { useSelector } from 'redux/store';
 import useIsNetworkDao from 'hooks/useIsNetworkDao';
 import getChainIdQuery from 'utils/url';
 import Button from 'components/Button';
+import Text from 'components/Text';
 import './index.css';
 import { useUrlPath } from 'hooks/useUrlPath';
+import { shortenFileName } from 'utils/file';
+import { useRouter } from 'next/navigation';
 
 export interface MenuItem {
   key: string;
   label: React.ReactNode;
   icon?: React.ReactNode;
   children?: MenuItem[];
+  onClick?: () => void;
 }
 
 const items: MenuItem[] = [
@@ -122,6 +125,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
   const { login, isLogin, walletType, logout } = useWalletService();
   const { isNetWorkDao } = useIsNetworkDao();
   const { isHome } = useUrlPath();
+  const router = useRouter();
 
   const chainIdQuery = getChainIdQuery();
   const { walletInfo } = useSelector((store: any) => store.userInfo);
@@ -177,12 +181,13 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                   icon: <i className="tmrwdao-icon-wallet text-[18px] text-white" />,
                   label: (
                     <div className="address-contain">
-                      <HashAddress
-                        size="small"
-                        chain={isNetWorkDao ? chainIdQuery.chainId : info.curChain}
-                        address={walletInfo.address}
-                        preLen={8}
-                        endLen={9}
+                      <Text
+                        content={shortenFileName(
+                          `ELF_${walletInfo.address}_${
+                            isNetWorkDao ? chainIdQuery.chainId : info.curChain
+                          }`,
+                        )}
+                        copyable
                       />
                     </div>
                   ),
@@ -191,25 +196,21 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                   key: 'myDaos',
                   icon: <i className="tmrwdao-icon-profile text-[18px] text-white" />,
                   label: (
-                    <Link
-                      href="/my-daos"
-                      className="block text-descM14 text-white font-Montserrat hover:text-white"
-                    >
+                    <span className="block text-descM14 text-white font-Montserrat hover:text-white cursor-pointer">
                       My DAOs
-                    </Link>
+                    </span>
                   ),
+                  onClick: () => router.push('/my-daos'),
                 },
                 {
                   key: 'logout',
                   icon: <i className="tmrwdao-icon-logout text-[18px] text-white" />,
                   label: (
-                    <span
-                      className="block text-descM14 font-Montserrat cursor-pointer"
-                      onClick={() => logout()}
-                    >
+                    <span className="block text-descM14 font-Montserrat cursor-pointer">
                       Log out
                     </span>
                   ),
+                  onClick: () => logout(),
                 },
               ]}
               align="right"
@@ -217,7 +218,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
               MenuItemClassName="px-[20px] transition-all duration-300 ease-in-out hover:bg-fillBg8"
               showArrow={false}
             >
-              <Button type="primary">
+              <Button type="primary" className="!bg-mainColor !text-white">
                 <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]" />
                 {userName}
               </Button>

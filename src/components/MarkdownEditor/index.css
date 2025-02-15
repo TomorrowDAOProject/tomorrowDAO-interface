@@ -1,5 +1,8 @@
 .markdown-editor {
   @apply h-[288px] pb-0 bg-transparent border-0;
+  &.full {
+    @apply !bg-darkBg;
+  }
   .rc-md-navigation {
     @apply mb-[10px] gap-[3px] py-[5px] bg-fillBg8 rounded-[8px] border-0;
     .navigation-nav {

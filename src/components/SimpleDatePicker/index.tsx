@@ -68,7 +68,7 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
           {selected && formatDate(selected)}
         </span>
 
-        <i className="absolute top-1/2 right-[14px] -translate-y-1/2 votigram-icon-calendar text-lightGrey text-[18px]" />
+        <i className="absolute top-1/2 right-[14px] -translate-y-1/2 tmrwdao-icon-calendar text-lightGrey text-[18px]" />
       </div>
       <Drawer
         isVisible={isVisible}

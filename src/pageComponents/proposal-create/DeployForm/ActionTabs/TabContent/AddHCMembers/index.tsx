@@ -32,7 +32,7 @@ function AddHCMembers(props: IAddHCMembersProps) {
         >
           <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
             Add Multisig Members Address
-            <i className="tmrwdao-icon-information text-[18px] text-white" />
+            <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
           </span>
         </Tooltip>
       }
@@ -64,13 +64,13 @@ function AddHCMembers(props: IAddHCMembersProps) {
                 onBlur={(value) => {
                   const newList = [...addHighCouncilsValue];
                   newList[index] = value;
-                  console.log('newList', newList);
                   field.onChange(newList);
                 }}
                 isError={
-                  address.endsWith(`AELF`) ||
-                  !address.startsWith(`ELF`) ||
-                  !address.endsWith(curChain)
+                  !!errors?.addHighCouncils?.value?.message &&
+                  (address.endsWith(`AELF`) ||
+                    !address.startsWith(`ELF`) ||
+                    !address.endsWith(curChain))
                 }
               />
               <i

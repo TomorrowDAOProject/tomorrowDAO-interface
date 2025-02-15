@@ -10,6 +10,7 @@ interface DropmenuProps {
   MenuItemClassName?: string;
   children: React.ReactNode;
   menu?: MenuItem[];
+  onClick?: () => void;
 }
 
 const Dropdown = (props: DropmenuProps) => {
@@ -59,6 +60,10 @@ const Dropdown = (props: DropmenuProps) => {
                 <div
                   className={clsx('py-[10px] px-[14px] flex items-center gap-2', MenuItemClassName)}
                   key={`${item.label}_${index}`}
+                  onClick={() => {
+                    item.onClick?.();
+                    setIsOpen(false);
+                  }}
                 >
                   {item.icon}
                   <span className="block m-0 text-white font-medium text-[15px] leading-[24px] font-Montserrat;">

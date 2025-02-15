@@ -34,7 +34,9 @@ const MunuItem = ({ title, items }: { title: React.ReactNode; items?: MenuItem[]
           isOpen ? 'max-h-[300px]' : 'max-h-0',
         )}
       >
-        {items?.map((item, index) => item.label)}
+        {items?.map((item) => (
+          <span key={item.key}>{item.label}</span>
+        ))}
       </div>
     </div>
   );
@@ -44,10 +46,10 @@ const MobileMenu = ({ menus }: MenuProps) => {
   return (
     <div className="menu w-full">
       <div className="list-none gap-[20px] flex flex-col">
-        {menus.map((menu, index) => (
-          <Fragment key={`${menu.label}_${index}`}>
+        {menus.map((menu) => (
+          <Fragment key={menu.key}>
             {menu?.children && menu.children.length > 0 ? (
-              <MunuItem key={index} title={menu.label} items={menu.children} />
+              <MunuItem title={menu.label} items={menu.children} />
             ) : (
               menu.label
             )}

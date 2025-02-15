@@ -7,7 +7,7 @@ export default function DAOHeader() {
       <div className="col-12 pt-[28px] md:pt-[50px] lg:pt-[60px] pb-[50px] md:pb-[70px] mb-[50px] md:mb-[70px] border-0 border-b-[1.5px] border-darkGrey border-solid">
         <div className="flex flex-col justify-between md:items-end md:flex-row gap-[35px] md:gap-[56px]">
           <div className="flex flex-col">
-            <span className="block mb-[26px] text-[28px] md:text-[38px] font-normal font-Unbounded font-light text-white -tracking-[0.28px] md:-tracking-[0.38px]">
+            <span className="block mb-[26px] text-[38px] font-Unbounded font-light text-white -tracking-[0.38px]">
               Explore DAOs
             </span>
             <span className="block font-normal text-desc15 font-Montserrat text-white lg:whitespace-pre-wrap">

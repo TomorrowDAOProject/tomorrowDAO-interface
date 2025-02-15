@@ -334,24 +334,29 @@ export default function TabsCom(props: IActionTabsProps) {
                   control={control}
                   rules={{ required: 'method params is required' }}
                   render={({ field }) => (
-                    <Editor
-                      {...field}
-                      defaultValue={JSON.stringify(
-                        {
-                          'parameter name': 'Please enter the content of your parameter.',
-                        },
-                        null,
-                        2,
-                      )}
-                      defaultLanguage="json"
-                      className="proposal-custom-action-params-editor"
-                      height={176}
-                      options={{
-                        minimap: {
-                          enabled: false,
-                        },
-                      }}
-                    />
+                    <div className="border-solid border-fillBg8 border-[1px] rounded-[8px] py-[13px] overflow-hidden">
+                      <Editor
+                        {...field}
+                        defaultValue={JSON.stringify(
+                          {
+                            'parameter name': 'Please enter the content of your parameter.',
+                          },
+                          null,
+                          2,
+                        )}
+                        defaultLanguage="json"
+                        theme="vs-dark"
+                        className="proposal-custom-action-params-editor"
+                        height={176}
+                        options={{
+                          minimap: {
+                            enabled: false,
+                          },
+                          fontSize: 14,
+                          codeLensFontSize: 14,
+                        }}
+                      />
+                    </div>
                   )}
                 />
               </FormItem>

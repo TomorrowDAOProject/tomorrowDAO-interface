@@ -19,6 +19,7 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSelectList, setModalSelectList] = useState<string[]>([]);
   const { watch, setValue, trigger } = form;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const selectList = watch(removeNamePath) ?? [];
 
   const handleCancel = () => {
@@ -62,7 +63,7 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
           >
             <span className="flex items-center text-descM15 text-white font-Montserrat gap-[8px]">
               Delete Multisig Members Address
-              <i className="tmrwdao-icon-information text-[18px] text-white" />
+              <i className="tmrwdao-icon-information text-[18px] text-lightGrey" />
             </span>
           </Tooltip>
         }

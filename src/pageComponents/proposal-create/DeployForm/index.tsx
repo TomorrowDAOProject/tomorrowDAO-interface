@@ -505,6 +505,7 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             <div className="flex justify-end">
               <Button type="primary" onClick={handleNext}>
                 Continue
+                <i className="ml-[10px] tmrwdao-icon-default-arrow text-[16px] text-inherit" />
               </Button>
             </div>
           </form>
