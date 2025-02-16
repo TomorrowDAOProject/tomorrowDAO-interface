@@ -489,6 +489,7 @@ const ProposalInfo = (props: ProposalInfoProps) => {
         >
           {isValidating && <Spinner size={20} />}
           Submit
+          <i className="ml-[10px] tmrwdao-icon-default-arrow text-[16px] text-inherit" />
         </ButtonCheckLogin>
       </div>
     </div>
