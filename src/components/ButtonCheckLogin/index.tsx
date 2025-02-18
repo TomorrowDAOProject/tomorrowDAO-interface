@@ -7,7 +7,6 @@ interface IButtonProps {
   type?: 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'link';
   children: React.ReactNode;
   onClick?(args?: HTMLButtonElement): void;
-  className?: string;
   loading?: boolean;
 }
 
