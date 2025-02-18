@@ -4,26 +4,26 @@
   .TMRWDAO-menu-overflow-item,
   .TMRWDAO-menu-item,
   .TMRWDAO-menu-submenu {
-    padding-inline-end: 0!important;
-    padding-inline-start: 48px!important;
-    @apply p-0 pl-12 !mt-0;
+    padding-inline-end: 0 !important;
+    padding-inline-start: 48px !important;
+    @apply p-0 pl-12 !mt-0 font-Montserrat;
     &::after {
       @apply !border-b-0;
     }
     &:hover {
       .TMRWDAO-menu-title-content {
-        @apply !text-Brand-hover;
+        @apply !text-white;
       }
       svg {
         transform: rotate(180deg);
       }
       svg * {
-        @apply !fill-Brand-hover;
+        @apply !text-white;
       }
     }
   }
   .TMRWDAO-menu-title-content {
-    @apply text-Primary-Text inline-block !text-base;
+    @apply text-lightGrey inline-block text-[12px] font-medium;
   }
   .menu-label {
     @apply h-10 flex items-center;
@@ -35,14 +35,17 @@
     .TMRWDAO-menu-submenu-title {
       @apply bg-transparent;
       .menu-label-text {
-        @apply !text-Brand-Brand;
+        @apply !text-white;
       }
     }
+  }
+  .TMRWDAO-menu .TMRWDAO-menu-item-selected {
+    @apply !text-mainColor;
   }
 
   .TMRWDAO-menu-item-selected {
     .TMRWDAO-menu-title-content {
-      @apply !text-Brand-Brand;
+      @apply !text-white font-Montserrat;
     }
   }
 }
@@ -59,7 +62,7 @@
     }
     .TMRWDAO-menu-item-selected {
       .TMRWDAO-menu-title-content {
-        @apply !text-Brand-Brand;
+        @apply !text-white;
       }
     }
     .TMRWDAO-menu-item:hover {
@@ -68,44 +71,51 @@
     .TMRWDAO-menu-item:active {
       @apply bg-Neutral-Hover-BG;
       .TMRWDAO-menu-title-content {
-        @apply text-Brand-Brand;
+        @apply text-white;
       }
     }
   }
 }
 
 .mobile-menu-drawer {
+  @apply !bg-darkGray font-Montserrat;
   .TMRWDAO-drawer-header {
-    @apply px-4 py-3;
+    @apply px-[38px] pb-[30px] pt-[34px] text-white bg-darkGray;
+  }
+  .TMRWDAO-menu-light {
+    @apply bg-transparent;
   }
   .menu-header-container {
     @apply flex items-center justify-between;
   }
   .TMRWDAO-drawer-body {
-    @apply p-0;
+    @apply p-0 bg-transparent;
+    .TMRWDAO-drawer-content {
+      @apply !bg-darkGray;
+    }
     .TMRWDAO-menu {
-      @apply border-none px-4;
+      @apply border-none px-[38px] py-[34px];
 
       .TMRWDAO-menu-submenu-title:hover {
         @apply bg-white;
       }
       .TMRWDAO-menu-item {
-        @apply !border-0 w-full h-16 leading-[64px] m-0 !p-0 border-solid !border-b rounded-none border-Neutral-Divider;
+        @apply !border-0 w-full h-auto mb-[25px] m-0 !p-0;
       }
       .TMRWDAO-menu-title-content {
-        @apply normal-text font-normal;
+        @apply normal-text font-Montserrat text-[15px] font-medium;
       }
       .TMRWDAO-menu-submenu {
         @apply !border-0 p-0 border-solid !border-b rounded-none border-Neutral-Divider;
         .TMRWDAO-menu-submenu-title {
-          @apply w-full h-16 leading-[64px] m-0 !p-0 rounded-none;
+          @apply w-full text-white h-16 leading-[64px] m-0 !p-0 rounded-none;
         }
       }
       .TMRWDAO-menu-submenu-selected {
         .TMRWDAO-menu-submenu-title {
-          @apply bg-transparent;
+          @apply bg-transparent text-white;
           .menu-label-text {
-            @apply !text-Brand-Brand;
+            @apply !text-white;
           }
         }
       }
@@ -120,7 +130,7 @@
         }
         .TMRWDAO-menu-item-selected {
           .TMRWDAO-menu-title-content {
-            @apply text-Brand-Brand;
+            @apply text-white;
           }
         }
       }

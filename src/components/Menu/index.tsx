@@ -40,17 +40,16 @@ function MobileMenu(props: IMobileMenuProps) {
         <MenuButton />
       </div>
       <Drawer
-        width="100%"
+        width="70%"
         title={
           <div className="menu-header-container">
             <Link href="/" onClick={onClose}>
               <HeaderLogo />
             </Link>
-            <CloseIcon className="cursor-pointer" width={16} height={16} onClick={onClose} />
           </div>
         }
         className="mobile-menu-drawer"
-        placement="left"
+        placement="right"
         closable={false}
         onClose={onClose}
         open={open}

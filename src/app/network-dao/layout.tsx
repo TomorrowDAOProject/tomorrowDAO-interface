@@ -74,7 +74,7 @@ const Layout = dynamicReq(
       const isProposalApply = pathName.includes('/network-dao/apply')
       return (
         <div>
-            <div className="flex w-[100vw] h-[100vh] flex-col relative box-border min-h-screen bg-global-grey">
+            <div className="flex w-[100vw] h-[100vh] flex-col relative box-border min-h-screen bg-black">
               <Suspense>
                 <NetworkDaoHeader />
               </Suspense>
@@ -83,7 +83,7 @@ const Layout = dynamicReq(
                   <div>
                     <div
                       className={
-                        clsx('flex-1 max-w-[1440px] mx-auto pt-4 lg:pt-6 mb-6 lg:px-10 px-4 page-content-wrap network-dao', {
+                        clsx('flex-1 xl:w-[1122px] lg:w-[904px] md:w-[688px] xl:mt-[51px] lg:mt-[30px] md:mt-[20px] mt-[16px]  xl:m-auto lg:m-auto md:m-auto mx-[20px] mb-6 page-content-wrap network-dao', {
                           'max-w-[898px]': isProposalApply
                         })
                       }
