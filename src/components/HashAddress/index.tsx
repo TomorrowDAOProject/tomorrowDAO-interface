@@ -45,7 +45,7 @@ const HashAddress = ({
   };
   return (
     <div className={`font-[400] flex items-center gap-1 text-[14px] ${className}`}>
-      <span className="break-all">{showAddress}</span>
+      <span className="break-all font-Montserrat">{showAddress}</span>
       <i
         className={clsx(
           'tmrwdao-icon-duplicate cursor-pointer hover:text-white',
