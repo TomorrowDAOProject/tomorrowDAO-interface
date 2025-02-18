@@ -106,7 +106,9 @@ export default function Transparent(props: ITransparentProps) {
         <div className="flex justify-between lg:flex-row flex-col border-0 border-b border-solid border-fillBg8 xl:px-[32px] lg:px-[32px] md:px-[32px] px-[22px] py-[17px]">
           <span className="text-white leading-normal font-Unbounded text-[15px]">{title}</span>
           <span className="flex lg:items-center lg:flex-row flex-col">
-            <span className="text-lightGrey text-[12px] pr-[4px]">Treasury Assets Address:</span>
+            <span className="text-lightGrey text-[12px] pr-[4px] font-Montserrat">
+              Treasury Assets Address:
+            </span>
             <Link
               href={`${isSideChain(currentChain) ? explorer : mainExplorer}/address/${address}`}
               target="_blank"
