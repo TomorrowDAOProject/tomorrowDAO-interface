@@ -82,16 +82,16 @@ export const organizationInfoPropTypes = {
 const { proposalStatus, proposalActions } = constants;
 
 export const ACTIONS_COLOR_MAP = {
-  [proposalActions.APPROVE]: '#05ac90',
-  [proposalActions.REJECT]: '#d34a64',
-  [proposalActions.ABSTAIN]: '#646464',
+  [proposalActions.APPROVE]: 'success',
+  [proposalActions.REJECT]: 'error',
+  [proposalActions.ABSTAIN]: 'secondary',
 };
 
 export const STATUS_COLOR_MAP = {
-  [proposalStatus.PENDING]: '#d34a64',
-  [proposalStatus.APPROVED]: '#05ac90',
-  [proposalStatus.RELEASED]: '#FA9D2B',
-  [proposalStatus.EXPIRED]: '#646464',
+  [proposalStatus.PENDING]: 'warning',
+  [proposalStatus.APPROVED]: 'success',
+  [proposalStatus.RELEASED]: 'primary',
+  [proposalStatus.EXPIRED]: 'secondary',
 };
 
 export const CONTRACT_TEXT_MAP = {

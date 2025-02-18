@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'redux/store';
 import clsx from 'clsx';
-import { WebLoginInstance } from "@utils/webLogin";
 import { LOG_OUT_ACTIONS, LOG_IN_ACTIONS } from 'app/network-dao/_src/redux/actions/proposalCommon';
 import store from "./_src/redux/store";
 import dynamicReq from 'next/dynamic';
@@ -16,6 +15,7 @@ import './layout.css';
 import './_src/common/index.css';
 import { usePathname } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import WebLoginInstance from 'contract/webLogin';
 
 const Layout = dynamicReq(
   async () => {
@@ -27,27 +27,6 @@ const Layout = dynamicReq(
         return state.common.currentWallet;
       });
       WebLoginInstance.get().setWebLoginContext(webLoginContext);
-      // dispatch wallet to network-dao redux
-      // useEffect(() => {
-      //   if (loginState === WebLoginState.initial && currentWallet.address) {
-      //     dispatch({
-      //       type: LOG_OUT_ACTIONS.LOG_OUT_SUCCESS,
-      //     });
-      //   } else if (loginState === WebLoginState.initial && loginError) {
-      //     dispatch({
-      //       type: LOG_IN_ACTIONS.LOG_IN_FAILED,
-      //     });
-      //   } else if (loginState === WebLoginState.logining) {
-      //     dispatch({
-      //       type: LOG_IN_ACTIONS.LOG_IN_START,
-      //     });
-      //   } else if (loginState === WebLoginState.logined) {
-      //     dispatch({
-      //       type: LOG_IN_ACTIONS.LOG_IN_SUCCESS,
-      //       payload: wallet,
-      //     });
-      //   }
-      // }, [loginState])
 
       useEffect(() => {
         if(isConnected && wallet){
@@ -74,7 +53,7 @@ const Layout = dynamicReq(
       const isProposalApply = pathName.includes('/network-dao/apply')
       return (
         <div>
-            <div className="flex w-[100vw] h-[100vh] flex-col relative box-border min-h-screen bg-global-grey">
+            <div className="flex w-[100vw] h-[100vh] flex-col relative box-border min-h-screen bg-black">
               <Suspense>
                 <NetworkDaoHeader />
               </Suspense>

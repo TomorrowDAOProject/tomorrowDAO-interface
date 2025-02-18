@@ -1,33 +1,19 @@
-/* eslint-disable react/jsx-no-bind */
-/**
- * @file proposal list
- * @author atom-yang
- */
-// eslint-disable-next-line no-use-before-define
 import React, { useEffect, useRef, useState } from "react";
-import { If, Then, Switch, Case } from "react-if";
-import { Search } from 'aelf-design';
+import { Switch, Case, If, Then } from "react-if";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
-  message,
-  Tabs,
-  Pagination,
-  Input,
-  Checkbox,
-  Select,
   Spin,
   Row,
   Col,
   Empty,
   Result,
-  Modal,
-  ConfigProvider,
-  Segmented
 } from "antd";
 import { useEffectOnce } from "react-use";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
-import { showAccountInfoSyncingModal } from "@components/SimpleModal/index";
 import Total from "@components/Total";
+import Select from 'components/Select';
+import Input from 'components/Input';
+import Checkbox from 'components/Checkbox';
 import constants, {
   API_PATH,
   LOADING_STATUS,
@@ -47,11 +33,11 @@ import { request } from "@common/request";
 import { GET_PROPOSALS_LIST } from "@redux/actions/proposalList";
 import { debounce } from "lodash";
 import { eventBus } from "utils/myEvent";
+import Segmented from 'components/Segmented';
+import Pagination from "components/Pagination";
 
 const handleStatusChangeEvent = 'handleStatusChange';
 const handleSearchChangeEvent = 'handleSearchChange';
-const { TabPane } = Tabs;
-const { Option } = Select;
 const { proposalTypes, proposalStatus } = constants;
 const keyFromHash = {
   "#association": proposalTypes.ASSOCIATION,
@@ -136,11 +122,11 @@ const ProposalList = () => {
   handleSearchChangeRef.current = onSearch;
   handleStatusChangeRef.current = handleStatusChange;
 
-  const handleContractFilter = (e) => {
+  const handleContractFilter = (checked) => {
     fetchList({
       ...params,
       pageNum: 1,
-      isContract: e.target.checked ? 1 : 0,
+      isContract: checked ? 1 : 0,
     });
   };
   const handleTabChange = (key) => {
@@ -331,57 +317,24 @@ const ProposalList = () => {
   }, [])
 
   return (
-    <ConfigProvider prefixCls="antExplorer"
-    theme={{
-      token: {
-        controlHeight: 32
-      },
-      components: {
-        Input: {
-          paddingBlock: 4
-        },
-      },
-    }}
-    >
     <div className="proposal-list">
       <Segmented
-        className="proposal-list-segmented"
         value={activeKey}
         options={[
-          proposalTypes.PARLIAMENT, proposalTypes.ASSOCIATION, proposalTypes.REFERENDUM
+          proposalTypes.PARLIAMENT,
+          proposalTypes.ASSOCIATION,
+          proposalTypes.REFERENDUM
         ]}
         onChange={handleTabChange}
       />
-      {/* <Tabs
-        className="proposal-list-tab"
-        activeKey={activeKey}
-        onChange={handleTabChange}
-        animated={false}
-        size="small"
-      >
-        <TabPane
-          tab={proposalTypes.PARLIAMENT}
-          key={proposalTypes.PARLIAMENT}
-        />
-        <TabPane
-          tab={proposalTypes.ASSOCIATION}
-          key={proposalTypes.ASSOCIATION}
-        />
-        <TabPane
-          tab={proposalTypes.REFERENDUM}
-          key={proposalTypes.REFERENDUM}
-        />
-      </Tabs> */}
-      <div className="proposal-list-filter">
-        <If condition={params.proposalType === proposalTypes.PARLIAMENT}>
-          <Then>
-            <Checkbox
-              onChange={handleContractFilter}
-            >
-              Deploy/Update Contract Proposal
-            </Checkbox>
-          </Then>
-        </If>
+      <div className="my-[26px]">
+        {params.proposalType === proposalTypes.PARLIAMENT && (
+          <Checkbox
+            label={<span className="text-descM12 font-Montserrat text-white">Deploy/Update Contract Proposal</span>}
+            uncheckedClassName="!bg-white !border-lightGrey !border-solid !border"
+            onChange={handleContractFilter}
+          />
+        )}
       </div>
       <div className="proposal-list-list">
         <Switch>
@@ -439,7 +392,6 @@ const ProposalList = () => {
           hideOnSinglePage
           onChange={onPageNumChange}
           showTotal={Total}
-          showSizeChanger={false}
         />
       </div>
       {proposalInfo.visible ? (
@@ -452,8 +404,7 @@ const ProposalList = () => {
           owner={currentWallet.address}
         />
       ) : null}
-      </div>
-      </ConfigProvider>
+    </div>
   );
 };
 const ExplorerProposalListFilter = () => {
@@ -469,26 +420,28 @@ const ExplorerProposalListFilter = () => {
   useEffect(() => {
     setSearchValue(params.search);
   }, [params.search]);
-  return <div className="explorer-proposal-list-filter">
+  return <div className="flex flex-col md:flex-row gap-2 md:gap-5">
     <Select
-      className="explorer-select"
-      defaultValue={proposalStatus.ALL}
+      className="md:w-[132px] w-full"
       value={params.status}
-      onChange={handleStatusChange}
-    >
-      <Option value={proposalStatus.ALL}>All</Option>
-      <Option value={proposalStatus.PENDING}>Pending</Option>
-      <Option value={proposalStatus.APPROVED}>Approved</Option>
-      <Option value={proposalStatus.RELEASED}>Released</Option>
-      <Option value={proposalStatus.EXPIRED}>Expired</Option>
-    </Select>
-    <Search
-      className="proposal-list-filter-form-input"
+      options={[
+        { label: 'All', value: proposalStatus.ALL },
+        { label: 'Pending', value: proposalStatus.PENDING },
+        { label: 'Approved', value: proposalStatus.APPROVED },
+        { label: 'Released', value: proposalStatus.RELEASED },
+        { label: 'Expired', value: proposalStatus.EXPIRED } 
+      ]}
+      onChange={(option) => handleStatusChange(option.value)}
+    />
+    <Input
       placeholder="Proposal ID/Contract Address/Proposer"
+      prefix={
+        <i className="tmrwdao-icon-search text-[20px] text-inherit" />
+      }
       defaultValue={params.search}
-      allowClear
+      showClearBtn
       value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
+      onChange={setSearchValue}
       onPressEnter={onSearch}
       inputSize={'small'}
     />

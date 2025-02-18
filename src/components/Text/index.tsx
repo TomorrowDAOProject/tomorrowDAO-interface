@@ -16,7 +16,7 @@ export default function Text({ content, copyable, className, textClassName }: IT
     toast.success('Copy success');
   };
   return (
-    <span className={clsx('inline-flex flex-row items-center', className)}>
+    <span className={clsx('inline-flex flex-row items-center gap-x-2', className)}>
       <span
         className={clsx(
           'inline-block whitespace-normal break-all text-lightGrey text-descM14 font-Montserrat font-normal',

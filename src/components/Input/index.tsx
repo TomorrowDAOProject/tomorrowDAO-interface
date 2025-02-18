@@ -13,6 +13,7 @@ interface IInputProps {
   regExp?: RegExp;
   onChange?: (value: string) => void;
   onBlur?(value: string): void;
+  onPressEnter?: (value: string) => void;
   isError?: boolean;
   prefix?: ReactNode;
 }
@@ -31,6 +32,7 @@ const Input = (
     regExp,
     onChange,
     onBlur,
+    onPressEnter,
     isError,
   }: IInputProps,
   ref: LegacyRef<HTMLInputElement>,
@@ -46,6 +48,7 @@ const Input = (
   const clearInput = () => {
     setValue('');
     onChange?.('');
+    onPressEnter?.('');
   };
 
   useEffect(() => {
@@ -78,6 +81,11 @@ const Input = (
           className,
         )}
         onBlur={() => onBlur?.(value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onPressEnter?.(value);
+          }
+        }}
         placeholder={placeholder || 'Please Enter...'}
       />
       <div className="absolute top-1/2 right-[14px] -translate-y-1/2 flex flex-row gap-2">
@@ -85,9 +93,9 @@ const Input = (
           <button
             type="button"
             onClick={clearInput}
-            className="p-0 m-0 w-[15px] h-[15px] flex items-center justify-center bg-app-icon-border text-tertiary rounded-[50%] flex-none"
+            className="p-0 m-0 w-[15px] h-[15px] flex items-center justify-center text-lightGrey border-0 flex-none bg-transparent"
           >
-            <i className="votigram-icon-cancel text-[8px] leading-[8px] text-tertiary" />
+            <i className="tmrwdao-icon-circle-add text-[16px] text-lightGrey rotate-45" />
           </button>
         )}
         {suffix && <span className="text-lightGrey text-desc14">{suffix}</span>}

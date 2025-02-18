@@ -31,13 +31,13 @@ export const preloadImages = (imageUrls: string[]) => {
   });
 };
 
-export const shortenFileName = (str: string, maxLength = 20) => {
+export const shortenFileName = (str: string, maxLength = 20, prev = 8, next = 8) => {
   if (str.length <= maxLength) {
     return str;
   }
 
-  const frontChars = str.slice(0, 8);
-  const backChars = str.slice(-8);
+  const frontChars = str.slice(0, prev);
+  const backChars = str.slice(-next);
 
   return `${frontChars}...${backChars}`;
 };
