@@ -86,18 +86,14 @@ input[type='number'] {
 .TMRWDAO-table-wrapper .TMRWDAO-table,
 .TMRWDAO-table-wrapper .TMRWDAO-table-tbody>tr.TMRWDAO-table-placeholder {
   @apply !bg-transparent;
-
-  & > td {
-    @apply !border-0;
-  }
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-thead th.TMRWDAO-table-column-sort {
-  @apply !bg-darkBg;
+  @apply !bg-transparent;
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th {
-  @apply !bg-darkBg;
+  @apply !bg-transparent;
   &:before {
     @apply !hidden;
   }

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Table } from 'aelf-design';
-import { ConfigProvider } from 'antd';
+import { Table, ConfigProvider } from 'antd';
 import publicKeyToAddress from 'app/network-dao/_src/utils/publicKeyToAddress';
 import addressFormat from 'app/network-dao/_src/utils/addressFormat';
 import { useSelector } from 'react-redux';
