@@ -89,11 +89,11 @@ input[type='number'] {
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-thead th.TMRWDAO-table-column-sort {
-  @apply !bg-transparent;
+  @apply !bg-darkBg;
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th {
-  @apply !bg-transparent;
+  @apply !bg-darkBg;
   &:before {
     @apply !hidden;
   }
