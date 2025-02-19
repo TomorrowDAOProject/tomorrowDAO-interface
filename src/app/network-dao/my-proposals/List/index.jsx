@@ -4,11 +4,15 @@
  */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Table, Pagination, Input } from "antd";
+import { Table, Pagination, ConfigProvider } from "antd";
 import Total from "@components/Total";
 import TableLayer from "@components/TableLayer/TableLayer";
+import { ReactComponent as NoDataIcon } from 'assets/imgs/no-data.svg';
+import Input from 'components/Input'
+import { ReactComponent as Search } from 'assets/revamp-icon/search.svg';
 
-const { Search } = Input;
+
+// const { Search } = Input;
 
 const List = (props) => {
   const {
@@ -27,20 +31,42 @@ const List = (props) => {
   useEffect(() => {
     setSearch("");
   }, [tableColumns]);
-  function searchChange(e) {
-    setSearch(e.target.value);
+  function searchChange(value) {
+    setSearch(value);
+  }
+
+  const noData = ()=>{
+    return (
+    <div className="flex flex-col items-center">
+      <NoDataIcon />
+      <div className="text-lightGrey text-center font-Montserrat text-[12px]">No data</div>
+    </div>)
   }
   return (
     <div className='my-proposal-content'>
-      <Search
-        className='my-proposal-content-filter gap-bottom'
-        placeholder={searchPlaceholder}
-        allowClear
-        value={search}
-        onChange={searchChange}
-        onSearch={onSearch}
-      />
+      <div className="flex justify-end">
+      <div className="lg:w-[287px] xl:w-[287px] md:w-[287px] w-full h-[36px] mb-[30px] flex flex-row justify-end">
+        <Input
+          className="!text-[12px]"
+          prefix={<Search className="mt-1" />}
+          placeholder={searchPlaceholder}
+          value={search}
+          onChange={(value)=>{
+            searchChange(value)
+            onSearch(value)
+          }} />
+        {/* <Search
+          className='w-[287px] mb-[30px]'
+          placeholder={searchPlaceholder}
+          allowClear
+          value={search}
+          onChange={searchChange}
+          onSearch={onSearch}
+        /> */}
+      </div>
+      </div>
       <TableLayer className='my-proposal-content-list'>
+      <ConfigProvider renderEmpty={() => noData}>
         <Table
           showSorterTooltip={false}
           dataSource={list}
@@ -48,8 +74,10 @@ const List = (props) => {
           loading={loading}
           pagination={false}
           rowKey={rowKey}
+          bordered={false}
           // scroll={{ x: 1300 }}
         />
+      </ConfigProvider>
       </TableLayer>
       <Pagination
         className='float-right gap-top'
