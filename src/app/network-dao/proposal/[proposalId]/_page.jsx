@@ -11,8 +11,6 @@ import {
   Skeleton,
   Result,
   Tabs,
-  Typography,
-  Card
 } from "antd";
 import { useSelector } from "react-redux";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
@@ -60,7 +58,6 @@ const {
 } = constants;
 
 const { viewer } = config;
-const { Title } = Typography;
 
 const { TabPane } = Tabs;
 

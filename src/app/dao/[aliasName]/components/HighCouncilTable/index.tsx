@@ -15,6 +15,7 @@ import LinkNetworkDao from 'components/LinkNetworkDao';
 import { ELF_DECIMAL } from 'app/network-dao/vote/constants';
 import Tooltip from 'components/Tooltip';
 import Spin from 'components/Spin';
+import Divider from 'components/Divider';
 
 const TableItemCount = 20;
 
@@ -272,6 +273,7 @@ export default function HighCounCilTab() {
         <span className="block mb-6 text-[15px] font-Unbounded font-light text-white -tracking-[0.6px]">
           High Council Members
         </span>
+        <Divider />
         <Spin spinning={loading}>
           <ConfigProvider renderEmpty={() => <NoData></NoData>}>
             <Table

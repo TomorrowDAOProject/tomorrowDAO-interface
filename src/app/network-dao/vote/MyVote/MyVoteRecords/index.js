@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { connect } from "react-redux";
-import { Table } from 'aelf-design';
-import { ConfigProvider } from 'antd';
+import { Table, ConfigProvider } from 'antd';
 import NoData from 'components/NoData';
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -204,11 +203,8 @@ class MyVoteRecords extends Component {
     const myVoteRecordsCols = genMyVoteRecordsCols.call(this);
 
     return (
-      <section className="">
-        <h2 className="">
-          <span>My Votes1</span>
-        </h2>
-
+      <section className="pt-5 border-0 border-t border-solid border-t-fillBg8">
+        <h2 className="mb-1 text-white text-descM12 font-Montserrat">My Votes</h2>
 
         <ConfigProvider renderEmpty={() => <NoData></NoData>}>
           <Table
