@@ -17,7 +17,7 @@ const Row: React.FC<RowProps> = ({ children, className, gutter = 0 }) => {
 
   return (
     <div
-      className={clsx('flex flex-wrap', className)}
+      className={clsx('flex flex-wrap gap-y-5', className)}
       style={{ margin: `${-verticalGap / 2}px ${margin}px` }}
     >
       {React.Children.map(children, (child) => {

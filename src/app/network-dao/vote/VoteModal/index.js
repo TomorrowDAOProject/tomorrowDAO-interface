@@ -6,14 +6,10 @@ import {
   Tabs,
   Modal,
   Form,
-  Input,
   DatePicker,
-  Button,
-  Tooltip,
 } from "antd";
 import { SearchOutlined, InfoCircleFilled } from "@ant-design/icons";
 import LinkNetworkDao from 'components/LinkNetworkDao';
-import DatePickerReact from "react-datepicker";
 import moment from "moment";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -36,6 +32,9 @@ import {
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import "./index.css";
 import { isIPhone } from "@utils/deviceCheck";
+import Input from "components/Input";
+import Button from "components/Button";
+import Tooltip from "components/Tooltip";
 
 const { TabPane } = Tabs;
 

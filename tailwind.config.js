@@ -80,11 +80,19 @@ module.exports = {
         descM12: [
           '12px',
           {
-            lineHeight: 'auto',
+            lineHeight: 'normal',
             fontWeight: '500',
           },
         ],
         desc12: ['12px', 'normal'],
+        descM11: [
+          '11px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc11: ['11px', 'normal'],
         descM10: [
           '10px',
           {

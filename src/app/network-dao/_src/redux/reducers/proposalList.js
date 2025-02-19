@@ -9,7 +9,7 @@ const { proposalTypes, proposalStatus } = constants;
 
 const initialState = {
   params: {
-    pageSize: 6,
+    pageSize: 10,
     pageNum: 1,
     search: "",
     proposalType: proposalTypes.PARLIAMENT,

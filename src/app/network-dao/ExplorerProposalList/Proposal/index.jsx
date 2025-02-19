@@ -54,7 +54,7 @@ const Title = (props) => {
     momentExpired.isAfter(now) &&
     momentExpired.isBefore(threshold);
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between h-[47px]">
       <div className="flex items-center gap-[10px]">
       <span className="text-[15px] font-Unbounded font-light -tracking-[0.6px] text-white">{proposalType}</span>
       {votedStatus === "none" ? (
@@ -122,118 +122,116 @@ const Proposal = (props) => {
     currentAccount &&
     proposer === currentAccount;
   return (
-    <div className="proposal-list-item gap-bottom">
-      <Card
-        title={
-          <Title
-            status={status}
-            expiredTime={expiredTime}
-            proposalType={proposalType}
-            votedStatus={votedStatus}
-          />
-        }
-      >
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col justify-center w-[calc(100%-100px)] gap-[10px]">
-            {title && <h2 className="text-[15px] font-Unbounded font-light -tracking-[0.6px] text-white leading-[24px]">{title}</h2>}
-            <LinkNetworkDao
-                className="text-secondaryMainColor text-descM10 font-Montserrat text-ellipsis"
-                href={{
-                  pathname: `/proposal/${proposalId}`,
-                }}            
-              >
-                {proposalId}
-              </LinkNetworkDao>
-              {CONTRACT_TEXT_MAP[contractMethod] ? (
-                <Tag color="primary" className="max-content">
-                  {CONTRACT_TEXT_MAP[contractMethod]}
-                </Tag>
-              ) : null}
-          </div>
-          <div className="flex flex-col justify-center lg:items-center">
-            <Tag color={STATUS_COLOR_MAP[status]}  className="max-content">
-              {PROPOSAL_STATUS_CAPITAL[status]}
-            </Tag>
-            {status === proposalStatus.APPROVED && canRelease ? (
-              // eslint-disable-next-line max-len
-              <Button
-                proposal-id={proposalId}
-                type="link"
-                size="small"
-                onClick={handleRelease}
-                loading={loading.Release[proposalId]}
-              >
-                Release&gt;
-              </Button>
-            ) : null}
-          </div>
-        </div>
-        <Divider className="my-5"/>
-        <div className="flex flex-col gap-[7px]">
-          <div className="flex items-center gap-2">
-            <span className="text-descM10 text-white font-Montserrat w-[90px] shrink-0">Proposal Expires:</span>
-            <span className="text-lightGrey text-ellipsis text-desc10 font-Montserrat">
-              {moment(expiredTime).format("YYYY/MM/DD HH:mm:ss")}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-descM10 text-white font-Montserrat w-[90px] shrink-0">Contract:</span>
-            <div className="text-lightGrey">
-              <Text textClassName="!text-desc10" content={shortenFileName(`ELF_${contractAddress}_${chainIdQuery.chainId}`, 20, isPhone ? 8 : 16, isPhone ? 8 : 16)} copyable />
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-descM10 text-white font-Montserrat w-[90px] shrink-0">Contract Method:</span>
-            <span className="text-lightGrey text-ellipsis text-desc10 font-Montserrat">{contractMethod}</span>
-          </div>
-        </div>
-        <Divider className="my-5"/>
-        <VoteChart
+    <Card
+      title={
+        <Title
+          status={status}
+          expiredTime={expiredTime}
           proposalType={proposalType}
-          approvals={approvals}
-          rejections={rejections}
-          abstentions={abstentions}
-          bpCount={bpCountNumber}
-          organizationInfo={organizationInfo}
+          votedStatus={votedStatus}
         />
-        <Divider className="my-5"/>
-        <div className="flex gap-[10px]">
-          <ButtonWithLoginCheck
-            type='primary'
-            className="flex-1"
-            disabled={!canThisUserVote}
-            size='small'
-            proposal-id={proposalId}
-            onClick={handleApprove}
-            loading={loading.Approve[proposalId] && canThisUserVote}
-          >
-            Approve
-          </ButtonWithLoginCheck>
-          <ButtonWithLoginCheck
-            className="flex-1"
-            type='danger'
-            size='small'
-            disabled={!canThisUserVote}
-            proposal-id={proposalId}
-            onClick={handleReject}
-            loading={loading.Reject[proposalId] && canThisUserVote}
-          >
-            &nbsp;Reject&nbsp;
-          </ButtonWithLoginCheck>
-          <ButtonWithLoginCheck
-            type='default'
-            size='small'
-            className="flex-1"
-            disabled={!canThisUserVote}
-            onClick={handleAbstain}
-            proposal-id={proposalId}
-            loading={loading.Abstain[proposalId] && canThisUserVote}
-          >
-            Abstain
-          </ButtonWithLoginCheck>
+      }
+    >
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col justify-center w-[calc(100%-100px)] gap-[10px]">
+          {title && <h2 className="text-[15px] font-Unbounded font-light -tracking-[0.6px] text-white leading-[24px]">{title}</h2>}
+          <LinkNetworkDao
+              className="text-secondaryMainColor text-descM10 font-Montserrat text-ellipsis"
+              href={{
+                pathname: `/proposal/${proposalId}`,
+              }}            
+            >
+              {proposalId}
+            </LinkNetworkDao>
+            {CONTRACT_TEXT_MAP[contractMethod] ? (
+              <Tag color="primary" className="max-content">
+                {CONTRACT_TEXT_MAP[contractMethod]}
+              </Tag>
+            ) : null}
         </div>
-      </Card>
-    </div>
+        <div className="flex flex-col justify-center lg:items-center">
+          <Tag color={STATUS_COLOR_MAP[status]}  className="max-content">
+            {PROPOSAL_STATUS_CAPITAL[status]}
+          </Tag>
+          {status === proposalStatus.APPROVED && canRelease ? (
+            // eslint-disable-next-line max-len
+            <Button
+              proposal-id={proposalId}
+              type="link"
+              size="small"
+              onClick={handleRelease}
+              loading={loading.Release[proposalId]}
+            >
+              Release&gt;
+            </Button>
+          ) : null}
+        </div>
+      </div>
+      <Divider className="my-5"/>
+      <div className="flex flex-col gap-[7px]">
+        <div className="flex items-center gap-2">
+          <span className="text-descM10 text-white font-Montserrat w-[90px] shrink-0">Proposal Expires:</span>
+          <span className="text-lightGrey text-ellipsis text-desc10 font-Montserrat">
+            {moment(expiredTime).format("YYYY/MM/DD HH:mm:ss")}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-descM10 text-white font-Montserrat w-[90px] shrink-0">Contract:</span>
+          <div className="text-lightGrey">
+            <Text textClassName="!text-desc10" iconClassName="!text-[14px]" content={shortenFileName(`ELF_${contractAddress}_${chainIdQuery.chainId}`, 20, isPhone ? 8 : 16, isPhone ? 8 : 16)} copyable />
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-descM10 text-white font-Montserrat w-[90px] shrink-0">Contract Method:</span>
+          <span className="text-lightGrey text-ellipsis text-desc10 font-Montserrat">{contractMethod}</span>
+        </div>
+      </div>
+      <Divider className="my-5"/>
+      <VoteChart
+        proposalType={proposalType}
+        approvals={approvals}
+        rejections={rejections}
+        abstentions={abstentions}
+        bpCount={bpCountNumber}
+        organizationInfo={organizationInfo}
+      />
+      <Divider className="my-5"/>
+      <div className="flex gap-[10px]">
+        <ButtonWithLoginCheck
+          type='primary'
+          className="flex-1"
+          disabled={!canThisUserVote}
+          size='small'
+          proposal-id={proposalId}
+          onClick={handleApprove}
+          loading={loading.Approve[proposalId] && canThisUserVote}
+        >
+          Approve
+        </ButtonWithLoginCheck>
+        <ButtonWithLoginCheck
+          className="flex-1"
+          type='danger'
+          size='small'
+          disabled={!canThisUserVote}
+          proposal-id={proposalId}
+          onClick={handleReject}
+          loading={loading.Reject[proposalId] && canThisUserVote}
+        >
+          &nbsp;Reject&nbsp;
+        </ButtonWithLoginCheck>
+        <ButtonWithLoginCheck
+          type='default'
+          size='small'
+          className="flex-1"
+          disabled={!canThisUserVote}
+          onClick={handleAbstain}
+          proposal-id={proposalId}
+          loading={loading.Abstain[proposalId] && canThisUserVote}
+        >
+          Abstain
+        </ButtonWithLoginCheck>
+      </div>
+    </Card>
   );
 };
 

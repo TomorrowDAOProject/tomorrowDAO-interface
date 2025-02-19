@@ -10,7 +10,7 @@ import roundTo from "round-to";
 import constants, { organizationInfoPropTypes } from "@redux/common/constants";
 import Circle from "../Circle";
 import "./index.css";
-import { isPhoneCheck } from "@common/utils";
+import { useLandingPageResponsive } from "hooks/useResponsive";
 
 const { proposalActions, proposalTypes } = constants;
 
@@ -110,6 +110,7 @@ const VoteChart = (props) => {
     abstentions,
     size = 'default'
   } = props;
+  const { isPad } = useLandingPageResponsive();
   const votesData = useMemo(() => {
     return getCircleValues(
       proposalType,
@@ -127,8 +128,8 @@ const VoteChart = (props) => {
     <div className='pc'>
       <span className="block mb-5 text-descM12 text-white font-Montserrat">Voting Data: Votes <span>(Votes / Minimum Votes)</span></span>
       <Row gutter={43}>
-        <Col span={6}>
-          <div className="relative">
+        <Col span={isPad ? 12 : 6}>
+          <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
               isInProgress
               type={proposalActions.APPROVE}
@@ -148,8 +149,8 @@ const VoteChart = (props) => {
             </span>
           </div>
         </Col>
-        <Col span={6}>
-          <div className="relative">
+        <Col span={isPad ? 12 : 6} >
+          <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
               isInProgress
               type={proposalActions.REJECT}
@@ -169,8 +170,8 @@ const VoteChart = (props) => {
             </span>
           </div>
         </Col>
-        <Col span={6}>
-          <div className="relative">
+        <Col span={isPad ? 12 : 6}>
+          <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
               isInProgress
               type={proposalActions.ABSTAIN}
@@ -191,8 +192,8 @@ const VoteChart = (props) => {
             </span>
           </div>
         </Col>
-        <Col span={6}>
-          <div className="relative">
+        <Col span={isPad ? 12 : 6}>
+          <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
               isInProgress={proposalType !== proposalTypes.REFERENDUM}
               type='Total'

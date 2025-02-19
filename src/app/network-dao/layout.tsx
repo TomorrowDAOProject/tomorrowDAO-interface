@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, Suspense } from 'react';
-import { Provider } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'redux/store';
 import clsx from 'clsx';
@@ -62,7 +61,7 @@ const Layout = dynamicReq(
                   <div>
                     <div
                       className={
-                        clsx('flex-1 max-w-[1440px] mx-auto pt-4 lg:pt-6 mb-6 lg:px-10 px-4 page-content-wrap network-dao', {
+                        clsx('flex-1 max-w-[1120px] mx-auto px-[22px] pt-4 pb-10 lg:pt-6 md:px-[41px] lg:px-[60px] page-content-wrap network-dao', {
                           'max-w-[898px]': isProposalApply
                         })
                       }

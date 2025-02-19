@@ -3,11 +3,11 @@ import { Switch, Case, If, Then } from "react-if";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   Spin,
-  Row,
-  Col,
   Empty,
   Result,
 } from "antd";
+import Row from 'components/Grid/Row';
+import Col from 'components/Grid/Col';
 import { useEffectOnce } from "react-use";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
 import Total from "@components/Total";
@@ -102,6 +102,13 @@ const ProposalList = () => {
     fetchList({
       ...params,
       pageNum,
+    });
+
+  const onPageSizeChange = (pageSize) =>
+    fetchList({
+      ...params,
+      pageSize,
+      pageNum: 1,
     });
 
   const onSearch = async (value) => {
@@ -336,7 +343,7 @@ const ProposalList = () => {
           />
         )}
       </div>
-      <div className="proposal-list-list">
+      <div className="mb-[26px]">
         <Switch>
           <Case
             condition={
@@ -345,9 +352,9 @@ const ProposalList = () => {
             }
           >
             <Spin spinning={loadingStatus === LOADING_STATUS.LOADING}>
-              <Row type="flex" gutter={16}>
+              <Row gutter={16}>
                 {list.map((item) => (
-                  <Col xs={24} sm={12} key={item.proposalId}>
+                  <Col sm={24} md={12} key={item.proposalId}>
                     <Proposal
                       bpCount={bpCount}
                       {...item}
@@ -382,18 +389,14 @@ const ProposalList = () => {
           </Then>
         </If>
       </div>
-      <div className="flex justify-end">
-        <Pagination
-          className="gap-top page-content-padding"
-          showQuickJumper
-          total={total}
-          current={params.pageNum}
-          pageSize={params.pageSize}
-          hideOnSinglePage
-          onChange={onPageNumChange}
-          showTotal={Total}
-        />
-      </div>
+      <Pagination
+        total={total}
+        current={params.pageNum}
+        pageSize={params.pageSize || 10}
+        hideOnSinglePage
+        onChange={onPageNumChange}
+        onPageSizeChange={onPageSizeChange}
+      />
       {proposalInfo.visible ? (
         <ApproveTokenModal
           aelf={aelf}
