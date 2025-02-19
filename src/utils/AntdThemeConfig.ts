@@ -4,7 +4,7 @@ export const PREFIXCLS = 'TMRWDAO';
 
 export const THEME_CONFIG: ThemeConfig = {
   token: {
-    colorPrimary: '#FA9D2B',
+    colorPrimary: '#5D49F6',
     colorPrimaryHover: '#ffb854',
     colorPrimaryActive: '#d47a19',
     colorBorder: '#E1E1E1',
@@ -39,7 +39,7 @@ export const THEME_CONFIG: ThemeConfig = {
       headerBg: '#FFFFFF',
     },
     Button: {
-      colorPrimary: '#FA9D2B',
+      colorPrimary: '#5D49F6',
     },
   },
 };

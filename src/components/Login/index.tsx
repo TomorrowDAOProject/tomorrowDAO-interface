@@ -1,4 +1,5 @@
-import { Button, HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
+import Button from 'components/Button';
 import useResponsive from 'hooks/useResponsive';
 import { useCheckLoginAndToken, useWalletService } from 'hooks/useWallet';
 import { useSelector } from 'redux/store';
@@ -25,25 +26,26 @@ export const LoginAuth = () => {
   if (walletInfo) {
     return (
       <Button
-        size={isLG ? 'medium' : 'large'}
         type="primary"
+        className="h-[32px]"
         onClick={() => {
           getTokenUpdate();
         }}
       >
-        Authorization
+        <span className="text-[12px]">Authorization</span>
       </Button>
     );
   }
   return (
     <Button
-      size={isLG ? 'medium' : 'large'}
       type="primary"
+      className="h-[32px]"
       onClick={() => {
         connectWallet();
       }}
     >
-      Log in
+      <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]"></i>
+      <span className="text-[12px]">Log in</span>
     </Button>
   );
 };
@@ -52,6 +54,7 @@ interface ILoginProps {
 }
 export default function Login(props: ILoginProps) {
   const { isNetWorkDao } = props;
+  const { isSM } = useResponsive();
   const { disConnectWallet } = useConnectWallet();
   const [hovered, setHovered] = useState(false);
   const chainIdQuery = getChainIdQuery();
@@ -137,10 +140,8 @@ export default function Login(props: ILoginProps) {
           }
         >
           <div className="user-info">
-            <div className="avatar-container">
-              <AvatarIcon width={12} height={12} />
-            </div>
-            <div className="user-name">{userName}</div>
+            <i className="tmrwdao-icon-profile text-[22px] text-inherit text-white"></i>
+            {!isSM && <div className="user-name ml-[6px]">{userName}</div>}
           </div>
         </Popover>
       )}
