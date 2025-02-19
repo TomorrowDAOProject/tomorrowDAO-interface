@@ -25,19 +25,19 @@ const circleTypes = [
 const OUTER_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
     pathColor: '#5D49F6',
-    trailColor: 'transparent',
+    trailColor: '#404040',
   }),
   [proposalActions.REJECT]: buildStyles({
     pathColor: '#FF485D',
-    trailColor: 'transparent',
+    trailColor: '#404040',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
     pathColor: '#989DA0',
-    trailColor: 'transparent',
+    trailColor: '#404040',
   }),
   Total: buildStyles({
     pathColor: '#6E81FF',
-    trailColor: 'transparent',
+    trailColor: '#404040',
   }),
 };
 
@@ -63,19 +63,19 @@ const INNER_STYLE_MAP = {
 const NORMAL_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
     pathColor: '#5D49F6',
-    trailColor: 'transparent',
+    trailColor: '#404040',
   }),
   [proposalActions.REJECT]: buildStyles({
     pathColor: '#FF485D',
-    trailColor: 'transparent',
+    trailColor: '#404040',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
     pathColor: '#989DA0',
-    trailColor: 'transparent',
+    trailColor: '#404040',
   }),
   Total: buildStyles({
     pathColor: '#6E81FF',
-    trailColor: 'transparent',
+    trailColor: '#404040',
   }),
 };
 
