@@ -54,7 +54,8 @@ import { useRequest } from "ahooks";
 import getChainIdQuery from "utils/url";
 import { HashAddress } from "aelf-design";
 import { fetchURLDescription } from "api/request";
-import Tag from "@components/Tag";
+import Tag from "components/Tag";
+
 const {
   proposalActions,
 } = constants;
