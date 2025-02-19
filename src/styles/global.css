@@ -83,8 +83,34 @@ input[type='number'] {
   vertical-align: -0.125em;
 }
 
+.TMRWDAO-table-wrapper .TMRWDAO-table,
+.TMRWDAO-table-wrapper .TMRWDAO-table-tbody>tr.TMRWDAO-table-placeholder {
+  @apply !bg-transparent;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-thead th.TMRWDAO-table-column-sort {
+  @apply !bg-transparent;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th {
+  @apply !bg-transparent;
+  &:before {
+    @apply !hidden;
+  }
+}
+
+.TMRWDAO-table-column-sorter-up,
+.TMRWDAO-table-column-sorter-down {
+  @apply !text-lightGrey;
+}
+
+.TMRWDAO-table-column-sorter-up.active,
+.TMRWDAO-table-column-sorter-down.active {
+  @apply !text-white;
+}
+
 .TMRWDAO-table-wrapper td.TMRWDAO-table-column-sort {
-  @apply bg-white;
+  @apply !bg-transparent;
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-column-sorters {
@@ -116,11 +142,6 @@ input[type='number'] {
   .TMRWDAO-icon {
     @apply text-[20px];
   }
-}
-
-.TMRWDAO-table-column-sorter-up.active,
-.TMRWDAO-table-column-sorter-down.active {
-  @apply !text-neutralTitle;
 }
 
 .TMRWDAO-table-container {
@@ -222,6 +243,45 @@ input[type='number'] {
 
 .TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
   @apply mt-[8px] font-Montserrat text-[12px];
+}
+
+.TMRWDAO-table-container .TMRWDAO-table-thead > tr > th {
+  @apply !text-descM12 font-Montserrat !text-lightGrey whitespace-nowrap;
+}
+
+.TMRWDAO-table-container tbody {
+  @apply !text-white text-descM11 font-Montserrat;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-tbody > tr:hover > td {
+  @apply !bg-fillBg8;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th {
+  @apply border-0 !border-t-[1px] !border-solid !border-t-fillBg8;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th,
+.TMRWDAO-table-wrapper .TMRWDAO-table-tbody > tr > td {
+  @apply border-0 !border-b-[1px] !border-solid !border-b-fillBg8;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-tbody > tr.TMRWDAO-table-measure-row > td {
+  @apply !border-0;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-container table > thead > tr:first-child > *:first-child {
+  @apply !rounded-none !pl-0 !bg-darkBg;
+}
+.TMRWDAO-table-wrapper .TMRWDAO-table-container table > thead > tr:first-child > *:last-child {
+  @apply !rounded-none !pr-0;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-container table > tbody > tr > *:first-child {
+  @apply !pl-0 !bg-darkBg;
+}
+.TMRWDAO-table-wrapper .TMRWDAO-table-container table > tbody > tr > *:last-child {
+  @apply !pr-0;
 }
 
 /* .TMRWDAO-form-item-margin-offset {

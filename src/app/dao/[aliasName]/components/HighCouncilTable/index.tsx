@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Table, Typography, FontWeightEnum, Tooltip } from 'aelf-design';
+import { Table } from 'aelf-design';
 import { ConfigProvider } from 'antd';
 import publicKeyToAddress from 'app/network-dao/_src/utils/publicKeyToAddress';
 import addressFormat from 'app/network-dao/_src/utils/addressFormat';
@@ -15,7 +15,10 @@ import LinkNetworkDao from 'components/LinkNetworkDao';
 import { ELF_DECIMAL } from 'app/network-dao/vote/constants';
 
 import './index.css';
+import Tooltip from 'components/Tooltip';
+
 const TableItemCount = 20;
+
 export default function HighCounCilTab() {
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const socketRef = useRef<any>();
@@ -215,6 +218,7 @@ export default function HighCounCilTab() {
       render: (text: any, record: any) => (
         <Tooltip title={text}>
           <LinkNetworkDao
+            className="text-descM10 font-Montserrat !text-secondaryMainColor"
             href={{
               pathname: '/vote/team',
               query: {
@@ -264,23 +268,23 @@ export default function HighCounCilTab() {
     },
   ];
   return (
-    <div className="high-council">
-      <div className="high-council-header">
-        <Typography.Title fontWeight={FontWeightEnum.Medium} level={6}>
+    <>
+      <div className="py-6 px-[38px]">
+        <span className="block mb-6 text-[15px] font-Unbounded font-light text-white -tracking-[0.6px]">
           High Council Members
-        </Typography.Title>
+        </span>
+        <ConfigProvider renderEmpty={() => <NoData></NoData>}>
+          <Table
+            className="high-council-table"
+            scroll={{ x: true }}
+            rowKey="rank"
+            columns={nodeListCols as any}
+            loading={loading}
+            dataSource={nodeList}
+          ></Table>
+        </ConfigProvider>
         {/* <Typography.Text fontWeight={FontWeightEnum.Medium}>-num- Members in Total</Typography.Text> */}
       </div>
-      <ConfigProvider renderEmpty={() => <NoData></NoData>}>
-        <Table
-          // sortDirections={['asc', 'desc']}
-          scroll={{ x: true }}
-          rowKey="rank"
-          columns={nodeListCols as any}
-          loading={loading}
-          dataSource={nodeList}
-        ></Table>
-      </ConfigProvider>
-    </div>
+    </>
   );
 }

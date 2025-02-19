@@ -7,16 +7,23 @@ interface ITextProps {
   copyable?: boolean;
   className?: string;
   textClassName?: string;
+  iconClassName?: string;
 }
 
-export default function Text({ content, copyable, className, textClassName }: ITextProps) {
+export default function Text({
+  content,
+  copyable,
+  className,
+  textClassName,
+  iconClassName,
+}: ITextProps) {
   const [, setCopied] = useCopyToClipboard();
   const handleCopy = () => {
     setCopied(content);
     toast.success('Copy success');
   };
   return (
-    <span className={clsx('inline-flex flex-row items-center', className)}>
+    <span className={clsx('inline-flex flex-row items-center gap-x-2', className)}>
       <span
         className={clsx(
           'inline-block whitespace-normal break-all text-lightGrey text-descM14 font-Montserrat font-normal',
@@ -27,7 +34,10 @@ export default function Text({ content, copyable, className, textClassName }: IT
       </span>
       {copyable && (
         <i
-          className="tmrwdao-icon-duplicate text-white text-[20px] cursor-pointer"
+          className={clsx(
+            'tmrwdao-icon-duplicate text-white text-[20px] cursor-pointer',
+            iconClassName,
+          )}
           onClick={handleCopy}
         />
       )}
