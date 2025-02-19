@@ -31,9 +31,10 @@ const OrgAddress = (props) => {
       className='text-ellipsis org-address-btn'
       type='link'
       onClick={handleClick}
-      title={`ELF_${orgAddress}_${config.viewer.chainId}`}
+      title={`ELF_${orgAddress}_${config.viewer.chainId}`.slice(0, 8) + `ELF_${orgAddress}_${config.viewer.chainId}`.slice(-8)}
     >
-      {`ELF_${orgAddress}_${config.viewer.chainId}`}
+      {/* {`ELF_${orgAddress}_${config.viewer.chainId}`} */}
+      {`ELF_${orgAddress}_${config.viewer.chainId}`.slice(0, 8) + '...' + `ELF_${orgAddress}_${config.viewer.chainId}`.slice(-8)}
     </Button>
   );
 };
