@@ -1,11 +1,7 @@
 'use client';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Tabs } from 'aelf-design';
-import { message } from 'antd';
-import { useSelector } from 'react-redux';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import useResponsive from 'hooks/useResponsive';
 import HighCounCilTable from './components/HighCouncilTable';
-// import DaoInfo from './components/DaoInfo';
 import { useRequest } from 'ahooks';
 import { TabKey } from './type';
 import { fetchDaoInfo } from 'api/request';
@@ -19,6 +15,8 @@ import ExplorerProposalList, {
 import { useChainSelect } from 'hooks/useChainSelect';
 import getChainIdQuery from 'utils/url';
 import './page.css';
+import Tabs from 'components/Tabs';
+import { toast } from 'react-toastify';
 
 interface IProps {
   daoId?: string;
@@ -35,18 +33,13 @@ export default function DeoDetails(props: IProps) {
   const networkDaoRouter = useNetworkDaoRouter();
 
   // if is network dao, init request is required
-  const {
-    data: daoData,
-    error: daoError,
-    loading: daoLoading,
-  } = useRequest(async () => {
+  const { data: daoData, loading: daoLoading } = useRequest(async () => {
     if (!aliasName && !props.daoId) {
-      message.error('aliasName or daoId is required');
+      toast.error('aliasName or daoId is required');
       return null;
     }
     return fetchDaoInfo({ chainId: curChain, alias: aliasName, daoId: props.daoId });
   });
-  const { walletInfo } = useSelector((store: any) => store.userInfo);
   const [createProposalLoading, setCreateProposalLoading] = useState(false);
   const handleCreateProposalRef = useRef<(customRouter?: boolean) => Promise<boolean>>();
   const handleCreateProposal = async () => {
@@ -61,8 +54,8 @@ export default function DeoDetails(props: IProps) {
   const tabItems = useMemo(() => {
     const CreateButton = (
       <ButtonCheckLogin
-        size="medium"
         type="primary"
+        size="small"
         loading={createProposalLoading}
         onClick={() => {
           handleCreateProposalRef.current?.();
@@ -77,9 +70,11 @@ export default function DeoDetails(props: IProps) {
         key: TabKey.PROPOSALS,
         label: 'All Proposals',
         children: (
-          <div className="tab-all-proposals">
-            <div className={`tab-all-proposals-header `}>
-              <h3 className="title">Proposals</h3>
+          <div className="py-6 px-[38px]">
+            <div className="flex justify-between items-center mb-[15px]">
+              <h3 className="text-[15px] font-Unbounded font-light text-white -tracking-[0.6px]">
+                Proposals
+              </h3>
               {CreateButton}
             </div>
             <ExplorerProposalListFilter />
@@ -106,43 +101,20 @@ export default function DeoDetails(props: IProps) {
     setTabKey(key as TabKey);
   };
 
-  const handleChangeHCparams = useCallback(() => {
-    setTabKey(TabKey.HC);
-  }, []);
   useEffect(() => {
     breadCrumb.updateDaoDetailPage(aliasName, daoData?.data?.metadata?.name);
   }, [aliasName, daoData?.data?.metadata?.name]);
 
   const tabCom = useMemo(() => {
-    return (
-      <Tabs
-        size={isLG ? 'small' : 'middle'}
-        activeKey={tabKey}
-        items={tabItems}
-        onChange={handleTabChange}
-      />
-    );
-  }, [isLG, tabItems, tabKey]);
+    return <Tabs activeKey={tabKey} items={tabItems} onChange={handleTabChange} />;
+  }, [tabItems, tabKey]);
 
   return (
-    <div className="dao-detail">
-      <div>
-        {/* <DaoInfo
-          data={(daoData?.data ?? {}) as IDaoInfoData}
-          isLoading={daoLoading}
-          isError={!daoData?.data.id}
-          onChangeHCParams={handleChangeHCparams}
-          daoId={daoId}
-          aliasName={aliasName}
-        /> */}
-
-        <div className="dao-detail-content network-dao">
-          <div className={`dao-detail-content-left`}>
-            <div className={`dao-detail-content-left-tab !bg-white`}>{tabCom}</div>
-            {tabKey === TabKey.PROPOSALS && <ExplorerProposalList />}
-          </div>
-        </div>
+    <>
+      <div className="bg-darkBg mb-[26px] border border-fillBg8 border-solid rounded-[8px]">
+        {tabCom}
       </div>
-    </div>
+      {tabKey === TabKey.PROPOSALS && <ExplorerProposalList />}
+    </>
   );
 }

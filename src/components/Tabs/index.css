@@ -16,7 +16,7 @@
 }
 
 .tab-item {
-  @apply py-[12px] px-[22px] xl:py-[17px] xl:px-[32px] lg:py-[17px] lg:px-[32px] md:py-[17px] md:px-[32px] cursor-pointer text-lightGrey;
+  @apply py-[12px] px-[22px] xl:py-[17px] xl:px-[32px] lg:py-[17px] lg:px-[32px] md:py-[17px] md:px-[32px] text-descM14 font-Montserrat cursor-pointer text-lightGrey;
   flex: 0 0 auto;
 }
 

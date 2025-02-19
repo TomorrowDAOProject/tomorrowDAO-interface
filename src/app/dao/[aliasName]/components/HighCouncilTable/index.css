@@ -1,9 +1,3 @@
-.high-council {
-  .high-council-header {
-    @apply px-4 lg:px-8 pb-6 pt-2 border-0 border-b border-solid border-b-Neutral-Divider;
-  }
-  
-  .TMRWDAO-pagination-container {
-    @apply px-8;
-  }
+.high-council-table {
+  @apply !bg-transparent;
 }

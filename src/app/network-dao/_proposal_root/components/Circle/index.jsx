@@ -24,58 +24,58 @@ const circleTypes = [
 
 const OUTER_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
-    pathColor: '#266CD3',
-    trailColor: '#F7F8FA',
+    pathColor: '#5D49F6',
+    trailColor: '#404040',
   }),
   [proposalActions.REJECT]: buildStyles({
-    pathColor: '#FF4D4F',
-    trailColor: '#F7F8FA',
+    pathColor: '#FF485D',
+    trailColor: '#404040',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
-    pathColor: '#D0D0D0',
-    trailColor: '#F7F8FA',
+    pathColor: '#989DA0',
+    trailColor: '#404040',
   }),
   Total: buildStyles({
-    pathColor: '#1D2A51',
-    trailColor: '#F7F8FA',
+    pathColor: '#6E81FF',
+    trailColor: '#404040',
   }),
 };
 
 const INNER_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
-    pathColor: '#266CD3',
+    pathColor: '#5D49F6',
     trailColor: 'transparent',
   }),
   [proposalActions.REJECT]: buildStyles({
-    pathColor: '#FF4D4F',
+    pathColor: '#FF485D',
     trailColor: 'transparent',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
-    pathColor: '#D0D0D0',
+    pathColor: '#989DA0',
     trailColor: 'transparent',
   }),
   Total: buildStyles({
-    pathColor: '#1D2A51',
+    pathColor: '#6E81FF',
     trailColor: 'transparent',
   }),
 };
 
 const NORMAL_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
-    pathColor: '#266CD3',
-    trailColor: '#F7F8FA',
+    pathColor: '#5D49F6',
+    trailColor: '#404040',
   }),
   [proposalActions.REJECT]: buildStyles({
-    pathColor: '#FF4D4F',
-    trailColor: '#F7F8FA',
+    pathColor: '#FF485D',
+    trailColor: '#404040',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
-    pathColor: '#D0D0D0',
-    trailColor: '#F7F8FA',
+    pathColor: '#989DA0',
+    trailColor: '#404040',
   }),
   Total: buildStyles({
-    pathColor: '#1D2A51',
-    trailColor: '#F7F8FA',
+    pathColor: '#6E81FF',
+    trailColor: '#404040',
   }),
 };
 
