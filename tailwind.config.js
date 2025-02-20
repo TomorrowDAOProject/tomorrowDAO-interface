@@ -161,6 +161,7 @@ module.exports = {
         fillBg40: 'var(--fill-bg-40)',
         fillBlack15: 'var(--fill-black-15)',
         mainColor: 'var(--main-color)',
+        secondaryMainColor: 'var(--secondary-main-color)',
         darkGray: 'var(--dark-gray)',
         lightGrey: 'var(--light-gray)',
         darkBg: 'var(--dark-bg)',

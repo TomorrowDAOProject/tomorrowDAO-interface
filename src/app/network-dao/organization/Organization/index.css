@@ -2,8 +2,45 @@
   margin: 12px 0;
 }
 
+.organization-list-item {
+  border-radius: 16px 16px 0 0;
+}
+
 .organization-list-item .antExplorer-card-head {
-  background-color: #EDEDED;
+  border-radius: 6px 6px 0 0;
+  @apply bg-borderColor;
+  @apply border-b border-solid border-borderColor;
+}
+
+.organization-list-item .antExplorer-card-bordered {
+  border: none;
+}
+
+.organization-list-item .antExplorer-card .antExplorer-card-body {
+  border-radius: 0 0 6px 6px;
+  @apply bg-darkGray;
+}
+
+.organization-list-item-info-item .sub-title {
+  font-size: 10px;
+  @apply text-white font-Montserrat;
+}
+
+.card-list-desc-item .antExplorer-select-selector {
+  border: none !important;
+  @apply h-[36px] leading-[40px] text-lightGrey bg-darkBg font-Montserrat text-[10px] rounded-lg !important;
+}
+
+.card-list-desc-item-label {
+  @apply text-white text-[10px] font-Montserrat font-medium;
+}
+
+.card-list-desc-item-desc {
+  @apply text-lightGrey text-[10px] font-Montserrat font-medium;
+}
+
+.card-list-desc-item .select .antExplorer-select-arrow {
+  @apply text-white;
 }
 
 .organization-list-item-title-countdown {

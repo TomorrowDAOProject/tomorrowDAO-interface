@@ -1,7 +1,6 @@
 'use client';
 import React, { Component } from "react";
 import { Modal, Form, Input, message, Menu } from "antd";
-import { Route, Routes } from "react-router-dom";
 import moment from "moment";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import { thousandsCommaWithDecimal } from "@utils/formater";
@@ -33,7 +32,6 @@ import {
   FROM_WALLET,
   FROM_EXPIRED_VOTES,
   FROM_ACTIVE_VOTES,
-  routePaths,
 } from "../constants";
 import { getFormatedLockTime } from "../utils";
 import getAllTokens from "@utils/getAllTokens";
@@ -41,7 +39,6 @@ import addressFormat from "@utils/addressFormat";
 // import { withRouter } from "../../routes/utils";
 import { WebLoginInstance } from "@utils/webLogin";
 import { fakeWallet } from "../../_src/common/utils";
-import { dispatch } from "redux/store";
 import LinkNetworkDao from "components/LinkNetworkDao";
 
 const voteConfirmFormItemLayout = {

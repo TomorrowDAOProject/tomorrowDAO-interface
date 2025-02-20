@@ -9,7 +9,6 @@ import roundTo from "round-to";
 import constants, { organizationInfoPropTypes } from "@redux/common/constants";
 import Circle from "../Circle";
 import "./index.css";
-import { isPhoneCheck } from "@common/utils";
 
 const { proposalActions, proposalTypes } = constants;
 

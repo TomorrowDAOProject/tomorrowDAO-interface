@@ -5,9 +5,46 @@
 }
 
 .create-organization-header-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #000000;
+  font-size: 14px;
+  color: #fff;
+}
+
+.create-organization-form .antExplorer-form-item-label {
+  @apply min-w-[240px] !important;
+}
+
+.create-organization-form .antExplorer-form-item-required {
+  text-align: right;
+  @apply text-white !important;
+}
+
+.create-organization-form .antExplorer-form-item-control {
+  background: transparent;
+  @apply max-w-[500px];
+}
+
+.create-organization-form .antExplorer-select-selector {
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  @apply bg-darkBg;
+}
+
+.create-organization-form .antExplorer-input {
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  @apply bg-darkBg;
+}
+
+.create-organization-form .antExplorer-input::placeholder {
+  @apply text-lightGrey text-[11px] font-Montserrat relative top-[2px];
+}
+
+.create-organization-form .antExplorer-input-number-input {
+  border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
+  @apply bg-darkBg;
+}
+
+.create-organization-form .antExplorer-input-number-in-form-item {
+  border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
+  @apply bg-darkBg;
 }
 
 .create-organization .antExplorer-input-number {

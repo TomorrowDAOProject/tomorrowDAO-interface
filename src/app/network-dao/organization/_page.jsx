@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import LinkNetworkDao from "components/LinkNetworkDao";
+import { ReactComponent as SearchSvg } from 'assets/revamp-icon/search.svg';
 import {
   Tabs,
   Pagination,
@@ -19,7 +20,6 @@ import { setCurrentOrg } from "@actions/proposalDetail";
 import Total from "@components/Total";
 import getChainIdQuery from 'utils/url';
 import Organization from "./Organization";
-import dynamicReq from 'next/dynamic';
 import { getOrganizations } from "@redux/actions/organizationList";
 import "./index.css";
 import { removePrefixOrSuffix, sendHeight } from "@common/utils";
@@ -131,15 +131,19 @@ const OrganizationList = () => {
   };
 
   return (
-    <div className="organization-list bg-white overflow-hidden page-content-padding">
+    <div className="organization-list bg-darkBg text-white font-Montserrat rounded-lg border border-solid border-fillBg8 overflow-hidden page-content-padding">
       <Tabs
         size={isLG ? 'small' : 'middle'}
         animated={false}
         tabBarExtraContent={
           logStatus === LOG_STATUS.LOGGED ? (
-            <LinkNetworkDao href="/create-organization">
-              Create Organisation&gt;
-            </LinkNetworkDao>
+            <div
+              className="rounded-[42px] bg-mainColor px-[8px] py-[4px] flex items-center gap-[6px] cursor-pointer"
+            >
+              <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat">
+                Create Organisation
+              </LinkNetworkDao>
+            </div>
           ) : null
         }
         className="organization-list-tab"
@@ -161,15 +165,16 @@ const OrganizationList = () => {
       </Tabs>
       <div className="organization-list-filter gap-top-large gap-bottom-large">
         <Row gutter={16}>
-          <Col sm={6} xs={24}>
-            <Search
-              className="organization-list-search-input"
-              placeholder="Organisation Address"
+          <Col sm={6} xs={24} className="organization-list-filter-input">
+            <Input
+              className="w-[406px] h-[36px] rounded-lg border border-solid border-fillBg8 bg-darkBg placeholder-lightGrey"
+              placeholder="Input voter address/transaction id"
+              prefix={<SearchSvg />}
               defaultValue={params.search}
               allowClear
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-              onSearch={onSearch}
+              onPressEnter={(e) => onSearch(e.target.value)}
             />
           </Col>
         </Row>

@@ -4,7 +4,6 @@
  */
 // eslint-disable-next-line no-use-before-define
 import React, { useEffect, useState, Suspense, lazy } from "react";
-import moment from "moment";
 import dayjs from 'dayjs';
 import { QuestionCircleOutlined } from "@aelf-design/icons";
 import {
@@ -13,8 +12,6 @@ import {
   DatePicker,
   Button,
   Tooltip,
-  // eslint-disable-next-line no-unused-vars
-  Radio,
   Input,
   message,
   Spin,
@@ -31,8 +28,6 @@ import {
   isEmptyInputType,
 } from "@redux/common/utils";
 import { request } from "@common/request";
-// import ContractParams from '../../../components/ContractParams';
-// import JSONEditor from '../../../components/JSONEditor';
 import "./index.css";
 import {
   validateURL,
