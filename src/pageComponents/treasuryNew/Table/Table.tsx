@@ -91,7 +91,6 @@ export default function RecordTable(props: IRecordTableProps) {
     {
       dataIndex: 'action',
       title: 'Method',
-      width: 144,
       render: (text) => {
         return (
           <Tooltip title={text} overlayClassName="table-item-tooltip__white">
@@ -102,7 +101,6 @@ export default function RecordTable(props: IRecordTableProps) {
     },
     {
       dataIndex: 'time',
-      width: 144,
       title: <div className="time">{timeFormat}</div>,
       render: (text) => {
         console.log('text', text, timeFormat, getFormattedDate(text, timeFormat));
@@ -112,7 +110,6 @@ export default function RecordTable(props: IRecordTableProps) {
     {
       title: 'From',
       dataIndex: 'from',
-      width: 198,
       render(from, record) {
         return (
           <div className="from">
@@ -153,7 +150,6 @@ export default function RecordTable(props: IRecordTableProps) {
     {
       title: 'Interacted With (To)',
       dataIndex: 'to',
-      width: 198,
       className: 'interactive-withto',
       render(to, record) {
         const isOut = checkIsOut(address, record);
@@ -183,7 +179,6 @@ export default function RecordTable(props: IRecordTableProps) {
     {
       title: 'Amount',
       dataIndex: 'amount',
-      width: 200,
       render(amount) {
         return `${numberFormatter(amount)}`;
       },
@@ -191,6 +186,7 @@ export default function RecordTable(props: IRecordTableProps) {
     {
       title: 'Token',
       dataIndex: 'symbol',
+      align: 'right',
       // width: 200,
       render(symbol) {
         return (
@@ -198,7 +194,7 @@ export default function RecordTable(props: IRecordTableProps) {
             href={`${isSideChain(currentChain) ? explorer : mainExplorer}/token/${symbol}`}
             target="_blank"
           >
-            <Symbol symbol={symbol} className="treasury-token" />
+            <Symbol symbol={symbol} className="treasury-token text-right justify-end" />
           </Link>
         );
       },

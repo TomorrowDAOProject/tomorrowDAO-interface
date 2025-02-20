@@ -23,6 +23,7 @@ import { explorer, mainExplorer } from "config";
 import config from "@common/config";
 import OrgAddress from "../_proposal_root/components/OrgAddress";
 import { request } from "@common/request";
+import { ReactComponent as WaringIcon } from 'assets/revamp-icon/waring.svg';
 
 
 import "./index.css";
@@ -51,6 +52,7 @@ const LIST_TABS = {
         dataIndex: "proposalId",
         key: "proposalId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <LinkNetworkDao
@@ -69,6 +71,7 @@ const LIST_TABS = {
         dataIndex: "createTxId",
         key: "createTxId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <a
@@ -76,7 +79,7 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={text} placement="topLeft">
+              <Tooltip title={<span className="font-Montserrat">{text}</span>} placement="topLeft">
                 {omitString(text)}
               </Tooltip>
             </a>
@@ -111,6 +114,7 @@ const LIST_TABS = {
         dataIndex: "orgAddress",
         key: "orgAddress",
         ellipsis: true,
+        width: 200,
         render(_, record) {
           return (
             <OrgAddress
@@ -125,6 +129,7 @@ const LIST_TABS = {
         dataIndex: "txId",
         key: "txId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <a
@@ -132,7 +137,7 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={text} placement="topLeft">
+              <Tooltip title={<span className="font-Montserrat">{text}</span>} placement="topLeft">
                 {omitString(text)}
               </Tooltip>
             </a>
@@ -160,6 +165,7 @@ const LIST_TABS = {
         dataIndex: "orgAddress",
         key: "orgAddress",
         ellipsis: true,
+        width: 200,
         render(_, record) {
           return (
             <OrgAddress
@@ -181,7 +187,7 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={text} placement="topLeft">
+              <Tooltip title={<span className="font-Montserrat">{text}</span>} placement="topLeft">
                 {omitString(text)}
               </Tooltip>
             </a>
@@ -206,6 +212,7 @@ const LIST_TABS = {
         dataIndex: "proposalId",
         key: "proposalId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <LinkNetworkDao
@@ -234,6 +241,7 @@ const LIST_TABS = {
         dataIndex: "txId",
         key: "txId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <a
@@ -241,7 +249,7 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={text} placement="topLeft">
+              <Tooltip title={<span className="font-Montserrat">{text}</span>} placement="topLeft">
                 {omitString(text)}
               </Tooltip>
             </a>
@@ -419,15 +427,18 @@ const MyProposal = () => {
     );
   }
   if (!currentWallet.address) {
-    return <Result
-      className="px-4 lg:px-8"
-      status="warning"
-      title="Please log in before viewing the content"
-    />;
+    return (
+    <div className="px-4 lg:px-8 text-center h-[calc(100vh-200px)] flex flex-col items-center justify-center">
+      <WaringIcon />
+      <div className="text-white text-[18px] font-Montserrat mt-[18px] font-medium">
+        <p>Please log in first before</p>
+        <p>creating a proposal</p>
+      </div>
+    </div>);
   }
 
   return (
-    <div className="my-proposal bg-white h-full page-content-padding">
+    <div className="my-proposal bg-white h-full">
       <Tabs
         className="proposal-list-tab"
         onChange={handleProposalTypeChange}
