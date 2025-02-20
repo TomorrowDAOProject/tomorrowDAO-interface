@@ -146,35 +146,39 @@ class MyVoteRecords extends Component {
       confirm,
       clearFilters,
     }) => (
-      <div style={{ padding: 8 }}>
+      <div className="p-4">
         <Input
           ref={(node) => {
             this.searchInput = node;
           }}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          onChange={(value) =>
+            setSelectedKeys(value ? [value] : [])
           }
           onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
           style={{ width: 188, marginBottom: 8, display: "block" }}
         />
-        <Button
-          type="primary"
-          onClick={() => this.handleSearch(selectedKeys, confirm)}
-          icon={<SearchOutlined />}
-          size="small"
-          style={{ width: 90, marginRight: 8 }}
-        >
-          Search
-        </Button>
-        <Button
-          onClick={() => this.handleReset(clearFilters, confirm)}
-          size="small"
-          style={{ width: 90 }}
-        >
-          Reset
-        </Button>
+        <div className="flex items-center gap-2 mt-2">
+          <Button
+            type="primary"
+            className="flex-1"
+            onClick={() => this.handleSearch(selectedKeys, confirm)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90, marginRight: 8 }}
+          >
+            Search
+          </Button>
+          <Button
+            className="flex-1"
+            onClick={() => this.handleReset(clearFilters, confirm)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </div>
       </div>
     ),
     filterIcon: (filtered) => (
