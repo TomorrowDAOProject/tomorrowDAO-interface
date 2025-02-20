@@ -7,6 +7,34 @@
   border: 1px solid #d9d9d9;
 }
 
+.organization-list-modal .ant-modal-content {
+  @apply bg-darkGray !important;
+}
+
+.organization-list-modal .ant-modal-confirm-title {
+  color: #fff;
+}
+
+.organization-list-modal .ant-modal-confirm-content {
+  color: #fff;
+}
+
 .organization-list-modal.antExplorer-modal .antExplorer-modal-content {
   text-align: initial;
+}
+
+.organization-list-tab .antExplorer-tabs-nav .antExplorer-tabs-tab-btn {
+  color: #fff !important;
+}
+
+.organization-list-tab .antExplorer-tabs-nav .ant-tabs-tab.ant-tabs-tab-active {
+  color: #fff !important;
+}
+
+.organization-list .antExplorer-tabs-top  .antExplorer-tabs-nav::before {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.organization-list-filter-input .antExplorer-input::placeholder {
+  @apply text-lightGrey font-Montserrat !important;
 }

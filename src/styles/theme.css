@@ -1,8 +1,8 @@
 :root {
     --brand-base: #1b76e2;
-    --base-bg: #000000;
-    --base-text: #ffffff;
-    --base-border: #333333;
+    --base-bg: #000;
+    --base-text: #fff;
+    --base-border: #333;
     --secondary: #919191;
     --fill-bg: rgb(255 255 255 / 1%);
     --fill-bg-8: rgb(255 255 255 / 8%);

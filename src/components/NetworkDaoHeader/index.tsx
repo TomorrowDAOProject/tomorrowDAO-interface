@@ -2,13 +2,11 @@
 import { HeaderLogo } from 'components/Logo';
 import './index.css';
 import { PCMenu } from 'components/Menu';
-import { SelectProps } from 'antd';
 import Select from 'components/Select';
 import qs from 'query-string';
 import Link from 'next/link';
 import useResponsive from 'hooks/useResponsive';
 import { MobileMenu } from 'components/Menu';
-import { ReactComponent as MenuArrow } from 'assets/imgs/menu-arrow.svg';
 import { MenuProps } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';

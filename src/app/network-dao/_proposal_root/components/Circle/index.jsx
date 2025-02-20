@@ -45,18 +45,22 @@ const INNER_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
     pathColor: '#5D49F6',
     trailColor: 'transparent',
+    textColor: '#989DA0',
   }),
   [proposalActions.REJECT]: buildStyles({
     pathColor: '#FF485D',
     trailColor: 'transparent',
+    textColor: '#989DA0',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
     pathColor: '#989DA0',
     trailColor: 'transparent',
+    textColor: '#989DA0',
   }),
   Total: buildStyles({
     pathColor: '#6E81FF',
     trailColor: 'transparent',
+    textColor: '#989DA0',
   }),
 };
 
@@ -86,6 +90,7 @@ const Circle = (props) => {
     threshold,
     type,
     maxValue,
+    text,
     ...rest
   } = props;
   return (
@@ -101,6 +106,7 @@ const Circle = (props) => {
           <CircularProgressbar
             value={value}
             minValue={0}
+            text={text}
             styles={INNER_STYLE_MAP[type]}
             maxValue={maxValue}
           />
@@ -110,6 +116,7 @@ const Circle = (props) => {
         <CircularProgressbar
           value={value}
           minValue={0}
+          text={text}
           styles={NORMAL_STYLE_MAP[type]}
           maxValue={maxValue}
           {...rest}

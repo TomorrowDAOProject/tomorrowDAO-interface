@@ -4,11 +4,10 @@ import AElf from "aelf-sdk";
 import Decimal from "decimal.js";
 // import {  } from "react-router-dom";
 import LinkNetworkDao  from "components/LinkNetworkDao";
-import { useRouter } from 'next/navigation'
 import getChainIdQuery from 'utils/url';
 import ReactIf from "react-if";
 import { useSelector } from "react-redux";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import {
   Button,
   Select,
@@ -33,7 +32,7 @@ import { request } from "@common/request";
 import { getTokenList, getContract, sleep } from "@common/utils";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
-import { showAccountInfoSyncingModal } from "@components/SimpleModal/index";
+import { ReactComponent as RightUpArrow } from 'assets/revamp-icon/right-up-arrow.svg';
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
 
 const { Switch: ConditionSwitch, Case } = ReactIf;
@@ -81,7 +80,7 @@ const FIELDS_MAP = {
           After selecting one, you will need to operate according to its rules.
           For specific rules, see 'Proposal rules'"
         >
-          <QuestionCircleOutlined className="main-color" />
+          <InfoCircleOutlined className="!text-lightGrey" />
         </Tooltip>
       </span>
     ),
@@ -165,7 +164,7 @@ const FIELDS_MAP = {
       <span>
         Proposer Authority Required&nbsp;
         <Tooltip title="set to false to allow anyone to create a new proposal">
-          <QuestionCircleOutlined className="main-color" />
+          <InfoCircleOutlined className="!text-lightGrey" />
         </Tooltip>
       </span>
     ),
@@ -188,7 +187,7 @@ const FIELDS_MAP = {
           separated by commas, such as
           `28Y8JA1i2cN6oHvdv7EraXJr9a1gY6D1PpJXw9QtRMRwKcBQMK,x7G7VYqqeVAH8aeAsb7gYuTQ12YS1zKuxur9YES3cUj72QMxJ`"
         >
-          <QuestionCircleOutlined className="main-color" />
+          <InfoCircleOutlined className="!text-lightGrey" />
         </Tooltip>
       </span>
     ),
@@ -214,7 +213,7 @@ const FIELDS_MAP = {
           separated by commas, such as
            `28Y8JA1i2cN6oHvdv7EraXJr9a1gY6D1PpJXw9QtRMRwKcBQMK,x7G7VYqqeVAH8aeAsb7gYuTQ12YS1zKuxur9YES3cUj72QMxJ`"
         >
-          <QuestionCircleOutlined className="main-color" />
+          <InfoCircleOutlined className="!text-lightGrey" />
         </Tooltip>
       </span>
     ),
@@ -229,15 +228,6 @@ const FIELDS_MAP = {
         validator: validateAddressList,
       }),
     ],
-  },
-};
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    sm: {
-      span: 16,
-      offset: 6,
-    },
   },
 };
 
@@ -549,20 +539,24 @@ const CreateOrganization = () => {
   );
 
   return (
-    <div className="create-organization page-content-bg-border !bg-white">
+    <div className="create-organization page-content-bg-border !bg-darkBg">
       {contextHolder}
       <div className="create-organization-header">
-        <div className="create-organization-header-title">
+        <div className="create-organization-header-title font-Montserrat">
           Create Organisation
         </div>
         <div className="create-organization-header-action">
-          <LinkNetworkDao href="/organization">
-            &lt;Back to Organisation List
-          </LinkNetworkDao>
+          <div
+            className="rounded-[42px] bg-mainColor px-[8px] py-[4px] flex items-center gap-[6px] cursor-pointer"
+          >
+            <LinkNetworkDao href="/organization" className="text-white font-Montserrat">
+              Back to Organisation List
+            </LinkNetworkDao>
+          </div>
         </div>
       </div>
-      <Divider />
-      <Form form={form} initialValues={FORM_INITIAL} {...formItemLayout}>
+      <Divider className="bg-borderColor my-[20px]" />
+      <Form form={form} initialValues={FORM_INITIAL} {...formItemLayout} className="w-full px-[40px] py-[24px] create-organization-form">
         <FormItem
           label={FIELDS_MAP.proposalType.label}
           required
@@ -653,7 +647,7 @@ const CreateOrganization = () => {
         >
           <InputNumber {...INPUT_PROPS_MAP} />
         </FormItem>
-        <FormItem {...tailFormItemLayout}>
+        <div className="w-full text-right">
           <Button
             shape="round"
             type="primary"
@@ -661,8 +655,9 @@ const CreateOrganization = () => {
             onClick={handleSubmit}
           >
             Apply
+            <RightUpArrow className='text-white ml-[10px] relative top-[3px]' />
           </Button>
-        </FormItem>
+        </div>
       </Form>
     </div>
   );

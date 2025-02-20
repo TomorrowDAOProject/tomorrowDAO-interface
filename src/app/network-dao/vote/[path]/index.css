@@ -160,7 +160,7 @@
 
 .vote-container-simple {
   padding: 0 !important;
-  margin: 25px auto 25px auto !important;
+  margin: 25px auto !important;
 }
 
 .secondary-level-nav {
@@ -170,6 +170,9 @@
 .secondary-level-nav .antExplorer-tabs-bar {
   border-bottom: 0 !important;
   margin: 0 56px 30px;
+  margin-bottom: 20px;
+  padding: 20px 30px;
+  overflow: hidden;
 }
 
 .secondary-level-nav .antExplorer-tabs-bar .antExplorer-tabs-nav-wrap .antExplorer-tabs-tab-active {
@@ -182,12 +185,6 @@
 
 .secondary-level-nav .antExplorer-radio-wrapper {
   color: #000;
-}
-
-.secondary-level-nav .antExplorer-tabs-bar {
-  margin-bottom: 20px;
-  padding: 20px 30px;
-  overflow: hidden;
 }
 
 @media (max-width: 768px) {
@@ -470,7 +467,7 @@
   border-radius: 4px;
   display: flex;
   height: 24px;
-  padding: 0px;
+  padding: 0;
   justify-content: center;
   align-items: center;
   color: #fff;
