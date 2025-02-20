@@ -24,17 +24,13 @@
 }
 
 .create-organization-form .antExplorer-select-selector {
-  border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
-  @apply !bg-darkBg text-lightGrey;
-}
-
-.create-organization-form .antExplorer-select-arrow {
-  @apply !text-lightGrey;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  @apply bg-darkBg;
 }
 
 .create-organization-form .antExplorer-input {
   border: 1.5px solid rgba(255, 255, 255, 0.08);
-  @apply !bg-darkBg !text-lightGrey;
+  @apply bg-darkBg;
 }
 
 .create-organization-form .antExplorer-input::placeholder {
@@ -43,12 +39,12 @@
 
 .create-organization-form .antExplorer-input-number-input {
   border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
-  @apply bg-darkBg text-lightGrey;
+  @apply bg-darkBg;
 }
 
 .create-organization-form .antExplorer-input-number-in-form-item {
   border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
-  @apply bg-darkBg text-lightGrey;
+  @apply bg-darkBg;
 }
 
 .create-organization .antExplorer-input-number {
