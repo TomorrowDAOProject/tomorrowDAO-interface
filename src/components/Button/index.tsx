@@ -13,6 +13,12 @@ const buttonStyles = {
   link: 'bg-transparent text-lightGrey !border-0 hover:text-white',
 };
 
+const buttonSize = {
+  small: '!py-2 !text-descM12',
+  medium: '!py-[13px] !text-descM15',
+  large: '!py-4 !text-descM18',
+};
+
 interface IButtonProps {
   className?: string;
   type?: 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'link';
@@ -28,6 +34,7 @@ const Button = ({
   className,
   loading,
   type = 'default',
+  size = 'medium',
   loadingClassName,
   children,
   disabled,
@@ -39,7 +46,9 @@ const Button = ({
       className={clsx(
         'py-2 px-[14px] lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid whitespace-nowrap text-descM12 font-Montserrat lg:text-descM15 rounded-[42px] appearence-none outline-none transition-[background,color] duration-300 ease-in-out',
         buttonStyles[type],
+        buttonSize[size],
         className,
+        { '!text-lightGrey cursor-not-allowed !bg-fillBg8 !border-fillBg8': disabled },
       )}
       onClick={onClick}
       disabled={disabled}

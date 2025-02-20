@@ -197,18 +197,20 @@ class NodeTable extends PureComponent {
         dataIndex: "name",
         key: "nodeName",
         width: 200,
-        ellipsis: true,
         // todo: ellipsis useless
         // ellipsis: true,
         render: (text, record) => (
-          <Tooltip title={text}>
-            <LinkNetworkDao
-              href={{ pathname: '/vote/team', query: { pubkey: record.pubkey } }}
-              replaceStart="vote"
-            >
-              {text}
-            </LinkNetworkDao>
-          </Tooltip>
+          <div className="text-ellipsis">
+            <Tooltip title={text} placement="topLeft">
+              <LinkNetworkDao
+                href={{ pathname: '/vote/team', query: { pubkey: record.pubkey } }}
+                replaceStart="vote"
+                className="text-lightGrey font-Montserrat text-[10px]"
+              >
+                {text}
+              </LinkNetworkDao>
+            </Tooltip>
+          </div>
         ),
         ...this.getColumnSearchProps("name"),
       },
@@ -270,10 +272,11 @@ class NodeTable extends PureComponent {
         key: "operations",
         width: this.getWidth(),
         fixed: "right",
+        className: 'operations-fixed',
         render: (text, record) => (
           <div className={`${clsPrefix}-btn-group`}>
             <Button
-              className="table-btn vote-btn"
+              className="table-btn vote-btn text-white !bg-mainColor !rounded-[4px]"
               key={record.pubkey}
               disabled={isActivityBrowser()}
               data-nodeaddress={record.formattedAddress}
@@ -286,7 +289,7 @@ class NodeTable extends PureComponent {
               Vote
             </Button>
             <Button
-              className="table-btn redeem-btn"
+              className="table-btn redeem-btn !text-white !rounded-[4px] !bg-transparent !border !border-solid !border-lightGrey"
               key={record.pubkey + 1}
               data-role="redeem"
               data-shoulddetectlock
@@ -553,11 +556,11 @@ class NodeTable extends PureComponent {
     const { nodeList, isLoading, pagination } = this.state;
     const nodeListCols = this.getCols();
     return (
-      <section className={`${clsPrefix}`}>
-        <h2 className={`${clsPrefix}-header table-card-header`}>
+      <section className={`${clsPrefix} px-[18px]`}>
+        <h2 className={`${clsPrefix}-header table-card-header text-white font-medium font-Montserrat`}>
           Node Table
         </h2>
-        <TableLayer className="node-table-wrapper">
+        <TableLayer className="node-table-wrapper !bg-darkGray">
           <Table
             showSorterTooltip={false}
             columns={nodeListCols}

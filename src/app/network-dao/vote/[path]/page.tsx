@@ -4,6 +4,7 @@ import dynamicReq from 'next/dynamic';
 import { Result, ConfigProvider } from 'antd';
 import { allowPathMap } from '../constants/index';
 import { useChainSelect } from 'hooks/useChainSelect';
+import { PREFIXCLS } from 'utils/AntdThemeConfig';
 
 const PageIndex = dynamicReq(() => import('./_page'), { ssr: false });
 
@@ -21,17 +22,17 @@ export default function Page(props: IProps) {
   }
   const { isSideChain } = useChainSelect();
   return (
-    <ConfigProvider prefixCls="antExplorer"
-    theme={{
-      token: {
-        controlHeight: 32
-      },
-      components: {
-        Input: {
-          paddingBlock: 4
+    <ConfigProvider prefixCls={PREFIXCLS}
+      theme={{
+        token: {
+          controlHeight: 32
         },
-      },
-    }}
+        components: {
+          Input: {
+            paddingBlock: 4
+          },
+        },
+      }}
     >
       {
         isSideChain ? <Result

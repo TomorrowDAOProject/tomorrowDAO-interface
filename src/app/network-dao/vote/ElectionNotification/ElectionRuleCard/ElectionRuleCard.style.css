@@ -11,12 +11,11 @@
 }
 
 .election-rule-card .election-rule-content {
-  border-bottom: 1px solid #e6e6e6;
-  padding-bottom: 16px;
+  @apply border-t border-b border-x-0 border-solid border-borderColor py-[20px];
 }
 
 .election-rule-card .election-intro {
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 22px;

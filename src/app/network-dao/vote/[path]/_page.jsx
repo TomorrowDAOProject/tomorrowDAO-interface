@@ -1263,20 +1263,20 @@ class VoteContainer extends Component {
     const { pagePath } = this.props;
     return (
       <section className="vote-container vote-container-simple basic-container basic-container-white vote-menu">
-        <Menu selectedKeys={pagePath} mode="horizontal">
+        <Menu selectedKeys={pagePath} mode="horizontal" className="bg-darkBg border-b border-solid border-borderColor">
           <Menu.Item
             key={allowPathMap.election}
           >
-            <LinkNetworkDao href="/vote/election">
-            Election Notification
+            <LinkNetworkDao href="/vote/election" className="!text-white font-medium font-Montserrat">
+              Election Notification
             </LinkNetworkDao>
             
           </Menu.Item>
           <Menu.Item
             key={allowPathMap.myvote}
           >
-            <LinkNetworkDao href="/vote/myvote">
-            My Vote
+            <LinkNetworkDao href="/vote/myvote" className="!text-white font-medium font-Montserrat">
+              My Vote
             </LinkNetworkDao>
           </Menu.Item>
         </Menu>
@@ -1336,7 +1336,7 @@ class VoteContainer extends Component {
 
     const secondaryLevelNav = this.renderSecondaryLevelNav();
     return (
-      <div className="vote-wrapper bg-white">
+      <>
         {secondaryLevelNav}
         <section
           className="vote-container vote-container-simple basic-container basic-container-white vote-content"
@@ -1494,7 +1494,7 @@ class VoteContainer extends Component {
             Loading...
           </Modal>
         </section>
-      </div>
+      </>
     );
   }
 }

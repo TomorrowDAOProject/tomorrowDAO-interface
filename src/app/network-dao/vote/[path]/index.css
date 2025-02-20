@@ -99,9 +99,13 @@
   line-height: 28px;
 }
 
+.vote-container .election-notification {
+  padding: 24px 38px;
+}
 
 .vote-container {
-  padding: 20px 0;
+  padding: 24px 38px;
+  @apply bg-darkBg;
 }
 
 .vote-container.vote-menu {

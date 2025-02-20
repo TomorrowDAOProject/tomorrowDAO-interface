@@ -80,11 +80,19 @@ module.exports = {
         descM12: [
           '12px',
           {
-            lineHeight: 'auto',
+            lineHeight: 'normal',
             fontWeight: '500',
           },
         ],
         desc12: ['12px', 'normal'],
+        descM11: [
+          '11px',
+          {
+            lineHeight: 'normal',
+            fontWeight: '500',
+          },
+        ],
+        desc11: ['11px', 'normal'],
         descM10: [
           '10px',
           {
@@ -161,13 +169,25 @@ module.exports = {
         fillBg40: 'var(--fill-bg-40)',
         fillBlack15: 'var(--fill-black-15)',
         mainColor: 'var(--main-color)',
+        mainColor60: 'var(--main-color-60)',
         secondaryMainColor: 'var(--secondary-main-color)',
+        secondaryMainTextColor: 'var(--secondary-main-text-color)',
         darkGray: 'var(--dark-gray)',
         lightGrey: 'var(--light-gray)',
         darkBg: 'var(--dark-bg)',
         danger: 'var(--danger)',
         neutralHoverBg: 'var(--neutral-hover-bg)',
         borderColor: 'var(--border-color)',
+        tagWarningBg: 'var(--tag-warning-bg)',
+        tagSuccessBg: 'var(--tag-success-bg)',
+        tagDangerBg: 'var(--tag-danger-bg)',
+        tagPrimaryBg: 'var(--tag-primary-bg)',
+        tagSecondaryBg: 'var(--tag-secondary-bg)',
+        tagWarningText: 'var(--tag-warning-text)',
+        tagSuccessText: 'var(--tag-success-text)',
+        tagDangerText: 'var(--tag-danger-text)',
+        tagPrimaryText: 'var(--tag-primary-text)',
+        tagSecondaryText: 'var(--tag-secondary-text)',
       },
       flex: {
         quarter: '1 1 25%',

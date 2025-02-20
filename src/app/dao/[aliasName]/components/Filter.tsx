@@ -33,7 +33,6 @@ export default function Filter(props: TPropsType) {
         <div className="w-full">
           <Select
             className="font-Montserrat h-[36px] bg-fillBg8"
-            isOpenStyle
             overlayItemClassName="text-white"
             value={proposalTypeList[0].value}
             options={proposalTypeList}
@@ -45,7 +44,6 @@ export default function Filter(props: TPropsType) {
         <div className=" w-full">
           <Select
             className="font-Montserrat h-[36px] bg-fillBg8"
-            isOpenStyle
             overlayItemClassName="text-white"
             value={proposalStatusList[0].value}
             options={proposalStatusList}

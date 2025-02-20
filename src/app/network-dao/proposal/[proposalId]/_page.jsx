@@ -6,14 +6,11 @@ import PropTypes from "prop-types";
 import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import {
-  Tag,
   Button,
   Divider,
   Skeleton,
   Result,
   Tabs,
-  Typography,
-  Card
 } from "antd";
 import { useSelector } from "react-redux";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
@@ -22,7 +19,6 @@ import {
   CloseCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { showAccountInfoSyncingModal } from "@components/SimpleModal/index.tsx";
 import constants, {
   ACTIONS_COLOR_MAP,
   API_PATH,
@@ -43,11 +39,9 @@ import { getContractAddress, sendTransactionWith } from "@redux/common/utils";
 import ApproveTokenModal from "../../_proposal_root/components/ApproveTokenModal/index.jsx";
 import {
   getBPCount,
-  isPhoneCheck,
   sendHeight,
   validateURL,
 } from "@common/utils";
-import { PRIMARY_COLOR } from "@common/constants";
 import removeHash from "@utils/removeHash";
 import addressFormat from "@utils/addressFormat";
 import { NETWORK_TYPE } from '@config/config';
@@ -58,13 +52,13 @@ import { useRequest } from "ahooks";
 import getChainIdQuery from "utils/url";
 import { HashAddress } from "aelf-design";
 import { fetchURLDescription } from "api/request";
+import Tag from "components/Tag";
 
 const {
   proposalActions,
 } = constants;
 
 const { viewer } = config;
-const { Title } = Typography;
 
 const { TabPane } = Tabs;
 
@@ -258,10 +252,6 @@ const ProposalDetail = () => {
     if (proposalType === proposalTypes.REFERENDUM) {
       setVisible(action);
     } else {
-      // if (!webLoginWallet.accountInfoSync.syncCompleted) {
-      //   showAccountInfoSyncingModal();
-      //   return;
-      // }
 
       await sendTransactionWith(
         callContract,
@@ -290,21 +280,10 @@ const ProposalDetail = () => {
 
   const handleRelease = async () => {
     await send("Release");
-    // await sendTransactionWith(
-    //   callContract,
-    //   getContractAddress(proposalType),
-    //   "Release",
-    //   proposalId
-    // );
   }
 
   const handleConfirm = async (action)=>  {
     if (action) {
-      // if (!webLoginWallet.accountInfoSync.syncCompleted) {
-      //   showAccountInfoSyncingModal();
-      //   return;
-      // }
-
       await sendTransactionWith(
         callContract,
         getContractAddress(proposalType),

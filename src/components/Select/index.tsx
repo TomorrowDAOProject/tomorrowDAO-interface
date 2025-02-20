@@ -8,13 +8,15 @@ export interface SelectOption {
 }
 
 interface ISelectProps {
-  value?: string;
+  value?: string | number;
   className?: string;
   label?: React.ReactNode;
   options?: SelectOption[];
   placeholder?: string;
   defaultValue?: SelectOption;
   isError?: boolean;
+  labelClassName?: string;
+  iconClassName?: string;
   overlayClassName?: string;
   overlayItemClassName?: string;
   isOpenStyle?: boolean;
@@ -29,6 +31,8 @@ const Select: React.FC<ISelectProps> = ({
   placeholder,
   isError,
   isOpenStyle,
+  labelClassName,
+  iconClassName,
   overlayClassName,
   overlayItemClassName,
   onChange,
@@ -71,7 +75,7 @@ const Select: React.FC<ISelectProps> = ({
       )}
       <div
         className={clsx(
-          'flex justify-between items-center py-[13px] px-4 bg-darkBg text-white border border-solid border-fillBg8 rounded-[8px] cursor-pointer',
+          'flex justify-between items-center box-border py-[12px] px-4 bg-darkBg text-white border border-solid border-fillBg8 rounded-[8px] cursor-pointer',
           className,
           {
             '!border-mainColor': isOpen || isError || isOpenStyle,
@@ -80,11 +84,20 @@ const Select: React.FC<ISelectProps> = ({
         onClick={() => setIsOpen(!isOpen)}
       >
         {selected ? (
-          <span className="text-white text-desc14 font-Montserrat">{selected?.label}</span>
+          <span className={clsx('text-white text-desc14 font-Montserrat', labelClassName)}>
+            {selected?.label}
+          </span>
         ) : (
-          <span className="text-lightGrey text-desc14 font-Montserrat">{placeholder ?? ''}</span>
+          <span className={clsx('text-lightGrey text-desc14 font-Montserrat', labelClassName)}>
+            {placeholder ?? ''}
+          </span>
         )}
-        <span className="tmrwdao-icon-down-arrow text-[20px] text-lightGrey" />
+        <span
+          className={clsx(
+            'tmrwdao-icon-down-arrow text-[20px] leading-[20px] text-lightGrey',
+            iconClassName,
+          )}
+        />
       </div>
       {isOpen && (
         <ul
