@@ -35,7 +35,7 @@ import OrganizationCard from "./OrganizationCard/index.jsx";
 import ContractDetail from "./ContractDetail/index.jsx";
 import config from "@common/config";
 import "./index.css";
-import { getContractAddress, sendTransactionWith } from "@reduxp/common/utils";
+import { getContractAddress, sendTransactionWith } from "@redux/common/utils";
 import ApproveTokenModal from "../../_proposal_root/components/ApproveTokenModal/index.jsx";
 import {
   getBPCount,
