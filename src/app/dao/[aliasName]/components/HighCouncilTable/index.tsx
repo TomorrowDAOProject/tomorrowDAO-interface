@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Table } from 'aelf-design';
-import { ConfigProvider } from 'antd';
+import { Table, ConfigProvider } from 'antd';
 import publicKeyToAddress from 'app/network-dao/_src/utils/publicKeyToAddress';
 import addressFormat from 'app/network-dao/_src/utils/addressFormat';
 import { useSelector } from 'react-redux';
@@ -13,9 +12,9 @@ import dayjs from 'dayjs';
 import { useAsyncEffect } from 'ahooks';
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { ELF_DECIMAL } from 'app/network-dao/vote/constants';
-
-import './index.css';
 import Tooltip from 'components/Tooltip';
+import Spin from 'components/Spin';
+import Divider from 'components/Divider';
 
 const TableItemCount = 20;
 
@@ -273,16 +272,17 @@ export default function HighCounCilTab() {
         <span className="block mb-6 text-[15px] font-Unbounded font-light text-white -tracking-[0.6px]">
           High Council Members
         </span>
-        <ConfigProvider renderEmpty={() => <NoData></NoData>}>
-          <Table
-            className="high-council-table"
-            scroll={{ x: true }}
-            rowKey="rank"
-            columns={nodeListCols as any}
-            loading={loading}
-            dataSource={nodeList}
-          ></Table>
-        </ConfigProvider>
+        <Divider />
+        <Spin spinning={loading}>
+          <ConfigProvider renderEmpty={() => <NoData></NoData>}>
+            <Table
+              scroll={{ x: true }}
+              rowKey="rank"
+              columns={nodeListCols as any}
+              dataSource={nodeList}
+            ></Table>
+          </ConfigProvider>
+        </Spin>
         {/* <Typography.Text fontWeight={FontWeightEnum.Medium}>-num- Members in Total</Typography.Text> */}
       </div>
     </>

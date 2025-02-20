@@ -6,132 +6,89 @@
  * @LastEditTime: 2019-12-10 17:00:44
  * @Description: file content
  */
-import React, { PureComponent } from "react";
-import { Tooltip, Statistic, Spin } from "antd";
+import React from "react";
+import Statistic, { Countdown } from "components/Statistic";
+import Tooltip from "components/Tooltip";
+import Spin from "components/Spin";
 
 import "./index.css";
-import IconFont from "../IconFont";
 
-const { Countdown } = Statistic;
 const clsPrefix = "statistical-data";
 
-const arrFormate = function (arr) {
-  // const arr = new Array(arrInput);
+const arrFormate = (arr) => {
   switch (arr.length) {
     case 4:
-      // eslint-disable-next-line no-return-assign, no-param-reassign
       arr.forEach((item, index) => (item.span = 8 - 4 * (index % 2)));
       break;
     default:
-      // eslint-disable-next-line no-return-assign, no-param-reassign
       arr.forEach((item) => (item.span = 24 / arr.length));
       break;
   }
   return arr;
 };
 
-export default class StatisticalData extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      arr: null,
-    };
-  }
+const StatisticalData = ({ data, spinning, style, inline }) => {
+  const arr = Object.values(data);
+  if (!arr) return null;
 
-  componentDidMount() {
-    const { data } = this.props;
-    this.setState({
-      arr: Object.values(data),
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-    const { data } = this.props;
-
-    if (prevProps.data !== data) {
-      this.setState({
-        arr: Object.values(data),
-      });
-    }
-  }
-
-  handleFinish(id) {
-    const { arr } = this.state;
-    // todo: limit the data's type to object
-    const countdown = arr.find((item) => item.id === id);
-    countdown.num = Date.now() + countdown.resetTime;
-    this.setState({ arr: [...arr] });
-    // todo: update the current term number at the same time
-  }
-
-  renderList(arr) {
-    return arr.map((item) => {
+  const renderList = (items) => {
+    return items.map((item) => {
       const number = item.num;
       const { tooltip } = item;
+      
       if (item.isRender) {
         return item.num;
       }
+
+      const titleNode = (
+        <>
+          <span>{item.title}</span>
+          {tooltip ? (
+            <Tooltip title={tooltip}>
+              <i className="tmrwdao-icon-information text-[16px] text-lightGrey" />
+            </Tooltip>
+          ) : null}
+        </>
+      );
+
       return item.isCountdown ? (
         <Countdown
           key={item.title}
-          title={
-            <>
-              <span>{item.title}</span>
-              {tooltip ? (
-                <Tooltip title={tooltip}>
-                  <IconFont type="question-circle" style={{ fontSize: 20 }} />
-                </Tooltip>
-              ) : null}
-            </>
-          }
-          value={item.num || 0}
-          format="D day HH : mm : ss "
+          title={titleNode}
+          value={Date.now() + 1000 * 60 * 60 * 24}
+          format="D day HH : mm : ss"
           onFinish={() => {
-            this.handleFinish(item.id);
+            if (item.id) {
+              item.num = Date.now() + item.resetTime;
+            }
           }}
         />
       ) : (
         <Statistic
           key={item.title}
-          title={
-            <>
-              <span>{item.title}</span>
-              {tooltip ? (
-                <Tooltip title={tooltip}>
-                  <IconFont type="question-circle" style={{ fontSize: 20 }} />
-                </Tooltip>
-              ) : null}
-            </>
-          }
+          title={titleNode}
           value={Number.isNaN(parseInt(number, 10)) ? 0 : number}
         />
       );
     });
-  }
+  };
 
-  render() {
-    const { spinning, style, tooltip, inline } = this.props;
-    const { arr } = this.state;
-    if (!arr) return null;
+  const arrFormatted = arrFormate(arr);
+  const listHTML = renderList(arrFormatted);
 
-    const arrFormatted = arrFormate(arr);
-    const listHTML = this.renderList(arrFormatted);
-
-    return (
-      <section style={style}>
-        <Spin spinning={spinning}>
-          <section
-            className={`${clsPrefix}-container card-container ${inline ? "inline-style" : ""
-              }`}
-          >
-            {listHTML}
-          </section>
-        </Spin>
-      </section>
-    );
-  }
-}
+  return (
+    <section style={style}>
+      <Spin spinning={spinning}>
+        <section className={`${clsPrefix}-container ${inline ? "inline-style" : ""}`}>
+          {listHTML}
+        </section>
+      </Spin>
+    </section>
+  );
+};
 
 StatisticalData.defaultProps = {
   spinning: false,
 };
+
+export default StatisticalData;

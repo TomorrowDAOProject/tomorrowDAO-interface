@@ -1339,7 +1339,7 @@ class VoteContainer extends Component {
 
     const secondaryLevelNav = this.renderSecondaryLevelNav();
     return (
-      <div className="vote-wrapper bg-white">
+      <>
         {secondaryLevelNav}
         <section
           className="vote-container vote-container-simple basic-container basic-container-white vote-content"
@@ -1497,7 +1497,7 @@ class VoteContainer extends Component {
             Loading...
           </Modal>
         </section>
-      </div>
+      </>
     );
   }
 }

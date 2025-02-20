@@ -237,10 +237,6 @@ input[type='number'] {
   }
 }
 
-.TMRWDAO-table-expanded-row-fixed {
-  @apply !w-full !m-0;
-}
-
 .TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
   @apply mt-[8px] font-Montserrat text-[12px];
 }
@@ -255,10 +251,6 @@ input[type='number'] {
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-tbody > tr:hover > td {
   @apply !bg-fillBg8;
-}
-
-.TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th {
-  @apply border-0 !border-t-[1px] !border-solid !border-t-fillBg8;
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th,
@@ -282,6 +274,10 @@ input[type='number'] {
 }
 .TMRWDAO-table-wrapper .TMRWDAO-table-container table > tbody > tr > *:last-child {
   @apply !pr-0;
+}
+
+.TMRWDAO-table-wrapper .TMRWDAO-table-expanded-row-fixed {
+  @apply !py-0;
 }
 
 /* .TMRWDAO-form-item-margin-offset {

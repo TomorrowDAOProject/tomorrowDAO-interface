@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { connect } from "react-redux";
-import { Input, Button, Tooltip, Table } from "antd";
+import { Table, ConfigProvider } from 'antd';
+import NoData from 'components/NoData';
+import Button from 'components/Button';
+import Input from 'components/Input';
+import Tooltip from 'components/Tooltip';
 
 import { SearchOutlined } from "@ant-design/icons";
 import publicKeyToAddress from "@utils/publicKeyToAddress";
 
 import "./MyVoteRecords.css";
 import { ELF_DECIMAL } from "../../constants";
-import TableLayer from "@components/TableLayer/TableLayer";
-
-const clsPrefix = "my-vote-records";
 
 function genMyVoteRecordsCols() {
   const { isSmallScreen } = this.props;
@@ -202,11 +203,10 @@ class MyVoteRecords extends Component {
     const myVoteRecordsCols = genMyVoteRecordsCols.call(this);
 
     return (
-      <section className={`${clsPrefix}-section`}>
-        <h2 className={`${clsPrefix}-header table-card-header`}>
-          <span>My Votes</span>
-        </h2>
-        <TableLayer>
+      <section className="pt-5 border-0 border-t border-solid border-t-fillBg8">
+        <h2 className="mb-1 text-white text-descM12 font-Montserrat">My Votes</h2>
+
+        <ConfigProvider renderEmpty={() => <NoData></NoData>}>
           <Table
             showSorterTooltip={false}
             columns={myVoteRecordsCols}
@@ -215,7 +215,7 @@ class MyVoteRecords extends Component {
             rowKey={(record) => record.voteId}
             scroll={{ x: 'max-content' }}
           />
-        </TableLayer>
+        </ConfigProvider>
       </section>
     );
   }

@@ -38,7 +38,7 @@ const Tooltip = ({ title, children }: ITooltipProps) => {
       <div
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className="cursor-pointer"
+        className="cursor-pointer leading-none"
       >
         {children}
       </div>
