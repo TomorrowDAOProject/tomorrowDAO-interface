@@ -60,7 +60,7 @@ const Segmented = ({
             transition={{ type: 'spring', stiffness: 500, damping: 30 }}
           />
         </AnimatePresence>
-        <div className="relative flex w-full h-full px-[4px] z-10">
+        <div className="relative flex w-full h-full px-[4px]">
           {options.map((item, index) => (
             <div
               key={index}
@@ -73,9 +73,9 @@ const Segmented = ({
             >
               <span
                 className={clsx(
-                  'text-descM10 font-Montserrat text-white flex items-center h-full',
+                  'text-descM10 font-Montserrat text-lightGrey flex items-center h-full',
                   {
-                    'font-bold': activeIndex === index,
+                    'text-white': activeIndex === index,
                   },
                 )}
               >
