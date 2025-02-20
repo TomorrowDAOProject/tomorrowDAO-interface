@@ -276,6 +276,10 @@ input[type='number'] {
   @apply !pr-0;
 }
 
+.TMRWDAO-table-wrapper .TMRWDAO-table-container table > tbody > tr.TMRWDAO-table-placeholder > td {
+  @apply !border-0;
+}
+
 .TMRWDAO-table-wrapper .TMRWDAO-table-expanded-row-fixed {
   @apply !py-0;
 }
