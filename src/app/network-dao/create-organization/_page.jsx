@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import AElf from "aelf-sdk";
 import Decimal from "decimal.js";
-// import {  } from "react-router-dom";
 import LinkNetworkDao  from "components/LinkNetworkDao";
 import getChainIdQuery from 'utils/url';
 import ReactIf from "react-if";
@@ -20,7 +19,6 @@ import {
   Form,
   Modal,
 } from "antd";
-import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
 import constants, { API_PATH } from "@redux/common/constants";
 import {
   commonFilter,
@@ -371,8 +369,6 @@ const CreateOrganization = () => {
     proposalType: proposalTypes.ASSOCIATION,
   });
 
-  const { walletInfo: wallet } = useConnectWallet();
-
   const [whiteList, setWhiteList] = useState([]);
   useEffect(() => {
     getTokenList({voteValid: true}).then((tokens) => {
@@ -546,9 +542,9 @@ const CreateOrganization = () => {
         </div>
         <div className="create-organization-header-action">
           <div
-            className="rounded-[42px] bg-mainColor px-[8px] py-[4px] flex items-center gap-[6px] cursor-pointer"
+            className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer"
           >
-            <LinkNetworkDao href="/organization" className="text-white font-Montserrat">
+            <LinkNetworkDao href="/organization" className="text-white font-Montserrat px-[10px] py-[6px] rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
               Back to Organisation List
             </LinkNetworkDao>
           </div>
@@ -564,6 +560,7 @@ const CreateOrganization = () => {
           <Select
             placeholder={FIELDS_MAP.proposalType.placeholder}
             onChange={handleProposalTypeChange}
+            className="proposalSelect"
           >
             {selectOptions.map((v) => (
               <Select.Option value={v} key={v}>
@@ -652,6 +649,7 @@ const CreateOrganization = () => {
             type="primary"
             loading={isLoading}
             onClick={handleSubmit}
+            className="hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
           >
             <span className="relative top-[-3px]">Apply</span>
             <i className="tmrwdao-icon-default-arrow ml-[10px]" />

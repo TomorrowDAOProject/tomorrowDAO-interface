@@ -22,7 +22,6 @@ import {
 import { aelf } from "@src/utils";
 import getStateJudgment from "@utils/getStateJudgment";
 import { connect } from "react-redux";
-// import { withRouter } from "../../../routes/utils";
 import NodeTable from "./NodeTable";
 import ElectionRuleCard from "./ElectionRuleCard/ElectionRuleCard";
 import MyWalletCard from "./MyWalletCard/MyWalletCard";
@@ -215,7 +214,10 @@ class ElectionNotification extends PureComponent {
         contract: consensusContract,
         method: "GetCurrentTermNumber",
         statisDataKey: "termEndTime",
-        processor: (value) => `Current Term's Countdown (${value}th term)`,
+        processor: (value) => (<div className="text-center mr-[4px]">
+          <div className="mb-[2px]">Current Term's Countdown</div>
+          <div>({value}th term)</div>
+        </div>),
         dataKey: "title",
       },
       {

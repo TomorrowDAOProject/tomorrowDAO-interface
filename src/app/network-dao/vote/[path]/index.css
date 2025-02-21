@@ -451,10 +451,6 @@
   background: #327dec;
 }
 
-.table-btn.redeem-btn {
-  background-color: #05ac90;
-}
-
 .node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -485,10 +481,6 @@
 
 .node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group .table-btn.vote-btn:hover {
   background: var(--color-brand-hover, #327dec);
-}
-
-.node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group .table-btn.redeem-btn {
-  background-color: #05ac90;
 }
 
 @media (max-width: 1182px) {
