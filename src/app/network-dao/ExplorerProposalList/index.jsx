@@ -10,7 +10,6 @@ import Row from 'components/Grid/Row';
 import Col from 'components/Grid/Col';
 import { useEffectOnce } from "react-use";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
-import Total from "@components/Total";
 import Select from 'components/Select';
 import Input from 'components/Input';
 import Checkbox from 'components/Checkbox';

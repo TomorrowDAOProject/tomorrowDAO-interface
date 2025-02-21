@@ -4,8 +4,6 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import LinkNetworkDao from "components/LinkNetworkDao";
 import {
   Tabs,
-  Pagination,
-  Input,
   Spin,
   Row,
   Col,
@@ -16,7 +14,6 @@ import {
 import { Switch, Case, If, Then } from "react-if";
 import constants, { LOADING_STATUS, LOG_STATUS } from "@redux/common/constants";
 import { setCurrentOrg } from "@actions/proposalDetail";
-import Total from "@components/Total";
 import getChainIdQuery from 'utils/url';
 import Organization from "./Organization";
 import { getOrganizations } from "@redux/actions/organizationList";
@@ -25,9 +22,10 @@ import { removePrefixOrSuffix, sendHeight } from "@common/utils";
 import removeHash from "@utils/removeHash";
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
 import useResponsive from "hooks/useResponsive";
+import Input from 'components/Input';
+import Pagination from "components/Pagination";
 
 const { TabPane } = Tabs;
-const { Search } = Input;
 const { proposalTypes } = constants;
 const keyFromHash = {
   "#association": proposalTypes.ASSOCIATION,
@@ -80,6 +78,13 @@ const OrganizationList = () => {
     fetchList({
       ...params,
       pageNum,
+    });
+
+  const onPageSizeChange = (pageSize) =>
+    fetchList({
+      ...params,
+      pageSize,
+      pageNum: 1,
     });
 
   const onSearch = (value) => {
@@ -137,9 +142,9 @@ const OrganizationList = () => {
         tabBarExtraContent={
           logStatus === LOG_STATUS.LOGGED ? (
             <div
-              className="rounded-[42px] bg-mainColor px-[8px] py-[4px] flex items-center gap-[6px] cursor-pointer"
+              className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg"
             >
-              <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat">
+              <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat !rounded-[42px] px-[10px] py-[6px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
                 Create Organisation
               </LinkNetworkDao>
             </div>
@@ -166,7 +171,7 @@ const OrganizationList = () => {
         <Row gutter={16}>
           <Col sm={6} xs={24} className="organization-list-filter-input">
             <Input
-              className="w-[406px] h-[36px] rounded-lg border border-solid border-fillBg8 bg-darkBg placeholder-lightGrey"
+              className="!w-[406px] h-[36px]"
               placeholder="Input voter address/transaction id"
               prefix={<i className="tmrwdao-icon-search text-lightGrey" />}
               defaultValue={params.search}
@@ -221,18 +226,17 @@ const OrganizationList = () => {
           </Then>
         </If>
       </div>
-      <div className="flex justify-end organization-list-pagination">
+      <div className="w-full">
         <Pagination
-          className="gap-top mt-[12px]"
-          showQuickJumper
+          className="mt-[12px] mb-[60px]"
           total={total}
           current={params.pageNum}
-          pageSize={params.pageSize}
+          pageSize={params.pageSize || 10}
           hideOnSinglePage
           onChange={onPageNumChange}
-          showTotal={Total}
-          />
-        </div>
+          onPageSizeChange={onPageSizeChange}
+        />
+      </div>
     </div>
   );
 };

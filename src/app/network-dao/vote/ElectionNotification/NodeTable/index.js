@@ -133,20 +133,21 @@ class NodeTable extends PureComponent {
           }
           onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
           style={{ width: 188, marginBottom: 8, display: "block" }}
+          className='!bg-darkBg !text-lightGrey !border-borderColor placeholder:!text-lightGrey'
         />
         <Button
           type="primary"
           onClick={() => this.handleSearch(selectedKeys, confirm)}
-          icon={<SearchOutlined />}
+          icon={<i className="tmrwdao-icon-search text-inherit relative top-[2px]" />}
           size="small"
-          style={{ width: 90, marginRight: 8 }}
+          className="w-[90px] mr-[8px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
         >
           Search
         </Button>
         <Button
           onClick={() => this.handleReset(clearFilters, confirm)}
           size="small"
-          style={{ width: 90 }}
+          className="w-[90px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
         >
           Reset
         </Button>
@@ -271,12 +272,11 @@ class NodeTable extends PureComponent {
         title: "Operations",
         key: "operations",
         width: this.getWidth(),
-        fixed: "right",
         className: 'operations-fixed',
         render: (text, record) => (
           <div className={`${clsPrefix}-btn-group`}>
             <Button
-              className="table-btn vote-btn text-white !bg-mainColor !rounded-[4px]"
+              className="table-btn vote-btn text-white !bg-mainColor !rounded-[4px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
               key={record.pubkey}
               disabled={isActivityBrowser()}
               data-nodeaddress={record.formattedAddress}
@@ -289,7 +289,7 @@ class NodeTable extends PureComponent {
               Vote
             </Button>
             <Button
-              className="table-btn redeem-btn !text-white !rounded-[4px] !bg-transparent !border !border-solid !border-lightGrey"
+              className="table-btn text-white rounded-[4px] bg-transparent border border-solid border-lightGrey hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
               key={record.pubkey + 1}
               data-role="redeem"
               data-shoulddetectlock
@@ -553,7 +553,7 @@ class NodeTable extends PureComponent {
   }
 
   render() {
-    const { nodeList, isLoading, pagination } = this.state;
+    const { nodeList, isLoading } = this.state;
     const nodeListCols = this.getCols();
     return (
       <section className={`${clsPrefix} px-[18px]`}>
@@ -567,11 +567,10 @@ class NodeTable extends PureComponent {
             dataSource={nodeList}
             // onChange={handleTableChange}
             loading={isLoading}
-            pagination={pagination}
             // cannot use publicKey, because publicKey will not change when updating producedBlocks
             rowKey={(record) => record.producedBlocks}
-            scroll={{ x: 1024 }}
-          // size='middle'
+            scroll={{ x: 'max-content' }}
+            // size='middle'
           />
         </TableLayer>
       </section>
