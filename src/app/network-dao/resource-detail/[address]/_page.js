@@ -1,6 +1,7 @@
 'use client';
 import React, { PureComponent } from "react";
-import { Table } from "antd";
+import { Table, ConfigProvider } from "antd";
+import NoData from 'components/NoData';
 import { get } from "../../_src/utils";
 import {
   RESOURCE_RECORDS,
@@ -73,6 +74,7 @@ class ResourceDetail extends PureComponent {
     return (
       <div className='transaction-details basic-container basic-container-white'>
         <TableLayer>
+          <ConfigProvider renderEmpty={() => <NoData></NoData>}>
           <Table
             showSorterTooltip={false}
             columns={RESOURCE_DETAILS_COLUMN}
@@ -82,6 +84,7 @@ class ResourceDetail extends PureComponent {
             onChange={handleTableChange}
             scroll={{ x: 1024 }}
           />
+          </ConfigProvider>
         </TableLayer>
       </div>
     );
