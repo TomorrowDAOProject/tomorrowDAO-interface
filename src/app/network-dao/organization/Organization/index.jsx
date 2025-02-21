@@ -7,7 +7,6 @@ import roundTo from "round-to";
 import { Switch, Case } from "react-if";
 import moment from "moment";
 import PropTypes from "prop-types";
-import { ReactComponent as DocumentTextSvg } from 'assets/revamp-icon/document-text.svg';
 import { Card,Row,Select,Col,Divider } from "antd";
 import { mainExplorer, explorer } from 'config'
 import constants, {
@@ -277,7 +276,7 @@ const Organization = (props) => {
               {addressFormat(orgAddress)}
             </div>
             {canEdit ? (
-              <DocumentTextSvg onClick={handleEdit} className="cursor-pointer" />
+              <i className="tmrwdao-icon-edit cursor-pointer !text-lightGrey" onClick={handleEdit}  />
             ) : null}
           </div>
           <Divider className="bg-borderColor my-[20px]" />
@@ -431,7 +430,7 @@ const Organization = (props) => {
             {addressFormat(orgAddress)}
           </div>
           {canEdit ? (
-            <DocumentTextSvg onClick={handleEdit} className="cursor-pointer" />
+            <i className="tmrwdao-icon-edit cursor-pointer !text-lightGrey" onClick={handleEdit}  />
           ) : null}
         </div>
         <Divider className="bg-borderColor my-[20px]" />

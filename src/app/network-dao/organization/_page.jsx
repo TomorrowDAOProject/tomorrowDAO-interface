@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import LinkNetworkDao from "components/LinkNetworkDao";
-import { ReactComponent as SearchSvg } from 'assets/revamp-icon/search.svg';
 import {
   Tabs,
   Pagination,
@@ -169,7 +168,7 @@ const OrganizationList = () => {
             <Input
               className="w-[406px] h-[36px] rounded-lg border border-solid border-fillBg8 bg-darkBg placeholder-lightGrey"
               placeholder="Input voter address/transaction id"
-              prefix={<SearchSvg />}
+              prefix={<i className="tmrwdao-icon-search text-lightGrey" />}
               defaultValue={params.search}
               allowClear
               value={searchValue}
