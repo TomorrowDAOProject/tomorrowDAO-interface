@@ -46,7 +46,7 @@ function ElectionRuleCard(props) {
     <div className="btn-group">
       <Button
         type="primary"
-        className="apply-to-be-a-node-btn !rounded-[42px]"
+        className="!rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
         disabled={isActivityBrowser()}
         onClick={onClick}
       >

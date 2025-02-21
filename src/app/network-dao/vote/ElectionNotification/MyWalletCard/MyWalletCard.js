@@ -23,7 +23,6 @@ import { WebLoginInstance } from "@utils/webLogin";
 import { isActivityBrowser } from "@utils/isWebView";
 import IconFont from "@components/IconFont";
 import { mainExplorer } from "config";
-import { ReactComponent as ProfileCircle } from 'assets/revamp-icon/profile-circle.svg';
 
 class MyWalletCard extends PureComponent {
   constructor(props) {
@@ -287,7 +286,7 @@ class MyWalletCard extends PureComponent {
           <Button
             type="primary"
             size="small"
-            className="my-wallet-card-body-wallet-content-withdraw-btn ml-[4px]"
+            className="my-wallet-card-body-wallet-content-withdraw-btn ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             disabled={isActivityBrowser()}
             onClick={handleDividendClick}
           >
@@ -326,15 +325,15 @@ class MyWalletCard extends PureComponent {
                   !isConnected && (
                     <Button
                       type="primary"
-                      className="my-wallet-card-header-sync-btn login-btn !rounded-[42px]"
+                      className="my-wallet-card-header-sync-btn login-btn !rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                       onClick={this.loginOrUnlock}
                     >
-                      <ProfileCircle className="mr-[6px] text-white" />
+                      <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]"></i>
                       Log in
                     </Button>
                   )}
                 <Button
-                  className="my-wallet-card-header-sync-btn refresh-btn "
+                  className="my-wallet-card-header-sync-btn refresh-btn hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                   disabled={!currentWallet?.address}
                   onClick={this.handleUpdateWalletClick}
                 >
