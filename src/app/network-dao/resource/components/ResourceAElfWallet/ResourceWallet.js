@@ -6,10 +6,11 @@ import React, {
 } from "react";
 // import { Link } from "react-router-dom";
 import Link from "next/link";
-import { Row, Col, Spin, Button, message } from "antd";
+import { Row, Col, Spin, message } from "antd";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { resourceTokens } from "@config/config";
+import Button from 'components/Button'
 import {
   WalletOutlined,
   SyncOutlined,
@@ -143,7 +144,7 @@ const ResourceWallet = React.forwardRef(
       <div className="resource-wallet resource-block">
         <Spin tip="loading...." size="large" spinning={loading}>
           <div className="resource-wallet-header resource-header">
-            <span className="resource-title !text-[#000] !font-sans">{propsTile}</span>
+            <span className="resource-title !font-Unbounded !font-[300]">{propsTile}</span>
           </div>
           <div className="resource-sub-container">
             <Row className="resource-wallet-address">
@@ -166,21 +167,19 @@ const ResourceWallet = React.forwardRef(
                   </div>
                 </Col>
               ) : (
-                <Col className="resource-wallet-address-name">
-                  <span className="card-sm-text">
-                  {wallet.name}
-                  </span>
-                  &nbsp;&nbsp;&nbsp;
-                  <span className="card-sm-text-bold"> {addressFormat(wallet.address)}</span>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div className="flex gap-2 flex-wrap">
+                  {/* <span className="text-white font-Montserrat text-[12px]">
+                  {wallet.name} &nbsp;&nbsp;&nbsp;
+                  </span> */}
+                  <span className="text-white font-Montserrat text-[13px] leading-[22px]"> {addressFormat(wallet.address)}</span>
                   <div className="link-detail-button">
-                  {wallet.address !== "-" && (
-                    <LinkNetworkDao href={`/resource-detail/${wallet.address}`}>
-                      Transaction Details
-                    </LinkNetworkDao>
-                  )}
+                    {wallet.address !== "-" && (
+                      <LinkNetworkDao href={`/resource-detail/${wallet.address}`}>
+                        Transaction Details
+                      </LinkNetworkDao>
+                    )}
                   </div>
-                </Col>
+                </div>
               )}
 
               <Col className="resource-wallet-operation-container">
@@ -206,12 +205,12 @@ const ResourceWallet = React.forwardRef(
 
                 <Button
                   type="primary"
-                  className="resource-wallet-address-update update-btn"
+                  className="resource-wallet-address-update update-btn gap-2 hover:!text-white w-[87px] h-[24px]"
                   disabled={!isConnected}
                   onClick={refreshWalletInfo}
                 >
-                  Refresh
                   <SyncOutlined type="sync" spin={loading} />
+                  <span className="text-[12px]">Refresh</span>
                 </Button>
 
                 {/* {!isPhone && currentWallet && currentWallet.address && (

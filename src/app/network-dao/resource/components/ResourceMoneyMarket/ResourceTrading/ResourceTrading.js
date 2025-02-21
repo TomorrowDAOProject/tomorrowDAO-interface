@@ -134,9 +134,9 @@ class ResourceTrading extends PureComponent {
           </div>
         ) : null}
         <div className="resource-trading-body">
-          <Row>
-            <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
-              {isPhoneCheck() && <div className="trading-title-buy">Buy</div>}
+          <div className="flex gap-[30px] flex-col lg:flex-row xl:flex-row md:flex-row">
+            <div className="w-full">
+              {/* {isPhoneCheck() && <div className="trading-title-buy">Buy</div>} */}
               <ResourceBuy
                 loginAndInsertKeypairs={loginAndInsertKeypairs}
                 currentResourceType={currentResourceType}
@@ -152,17 +152,9 @@ class ResourceTrading extends PureComponent {
                 buyEstimateValueLoading={buyEstimateValueLoading}
                 handleModifyTradingState={this.handleModifyTradingState}
               />
-            </Col>
-            <Col
-              offset={isPhoneCheck() ? 0 : 1}
-              xxl={11}
-              xl={11}
-              lg={11}
-              md={11}
-              sm={24}
-              xs={24}
-            >
-              {isPhoneCheck() && <div className="trading-title-sell">Sell</div>}
+            </div>
+            <div className="w-full">
+              {/* {isPhoneCheck() && <div className="trading-title-sell">Sell</div>} */}
               <ResourceSell
                 loginAndInsertKeypairs={loginAndInsertKeypairs}
                 currentResourceType={currentResourceType}
@@ -177,8 +169,8 @@ class ResourceTrading extends PureComponent {
                 sellEstimateValueLoading={sellEstimateValueLoading}
                 handleModifyTradingState={this.handleModifyTradingState}
               />
-            </Col>
-          </Row>
+            </div>
+          </div>
         </div>
         <Modal
           className="modal-display-box"
