@@ -3,7 +3,7 @@ import './index.css';
 
 interface TabItem {
   key: string;
-  label: string | React.ReactNode;
+  label: React.ReactNode;
   children: React.ReactNode;
 }
 

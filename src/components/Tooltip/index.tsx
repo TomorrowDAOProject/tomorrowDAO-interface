@@ -4,9 +4,10 @@ import clsx from 'clsx';
 interface ITooltipProps {
   title: React.ReactNode;
   children: React.ReactNode;
+  className?: string;
 }
 
-const Tooltip = ({ title, children }: ITooltipProps) => {
+const Tooltip = ({ title, children, className }: ITooltipProps) => {
   const [visible, setVisible] = useState(false);
   const [position, setPosition] = useState<'left' | 'center' | 'right'>('center');
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -46,12 +47,13 @@ const Tooltip = ({ title, children }: ITooltipProps) => {
         <div
           ref={tooltipRef}
           className={clsx(
-            'absolute bottom-full max-w-[280px] min-w-[160px] mb-2 px-4 py-[13px] border border-solid border-fillBg8 bg-darkBg text-desc12 text-lightGrey font-Montserrat rounded-[8px] shadow-lg z-[9999]',
+            'absolute bottom-full max-w-[280px] w-[280px] mb-2 px-4 py-[13px] border border-solid border-fillBg8 bg-darkBg text-desc12 text-lightGrey font-Montserrat rounded-[8px] shadow-lg z-[9999]',
             {
               'left-0': position === 'left',
               'left-1/2 -translate-x-1/2': position === 'center',
               'right-0': position === 'right',
             },
+            className,
           )}
         >
           {title}

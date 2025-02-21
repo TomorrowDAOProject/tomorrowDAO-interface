@@ -75,7 +75,7 @@ const Select: React.FC<ISelectProps> = ({
       )}
       <div
         className={clsx(
-          'flex justify-between items-center box-border py-[12px] px-4 bg-darkBg text-white border border-solid border-fillBg8 rounded-[8px] cursor-pointer',
+          'flex justify-between items-center box-border py-[12px] px-4 bg-darkBg text-white border border-solid border-fillBg8 rounded-[8px] cursor-pointer gap-2',
           className,
           {
             '!border-mainColor': isOpen || isError || isOpenStyle,
