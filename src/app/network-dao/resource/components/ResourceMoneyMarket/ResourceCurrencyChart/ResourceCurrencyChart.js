@@ -419,6 +419,7 @@ class ResourceCurrencyChart extends PureComponent {
               <Tabs.TabPane className="text-white" key={v} tab={v} />
             ))}
           </Tabs>
+          <div className="xl:hidden lg:hidden md:hidden items-center justify-center gap-1 flex">{selectButton}</div>
           <ReactEchartsCore
             className="lg:px-[38px] xl:px-[38px] md:px-[38px] px-[16px] !font-Montserrat"
             echarts={echarts}
