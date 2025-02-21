@@ -37,12 +37,12 @@ const FIELDS_MAP = {
   title: {
     name: "title",
     label: "Title",
-    placeholder: "Please input the title of proposal",
+    placeholder: "Enter the title of the list (300 characters max)",
     rules: {
       required: "Title is required",
       maxLength: {
-        value: 255,
-        message: "You can only enter a maximum of 255 characters"
+        value: 300,
+        message: "You can only enter a maximum of 300 characters"
       }
     }
   },
@@ -287,24 +287,6 @@ function parsedParamsWithoutSpecial(inputType, originalParams) {
   return result;
 }
 
-const URLPrefix = (props) => {
-  const { formField } = props;
-  return (
-    <FormItem name={formField} required noStyle>
-      <Select
-        options={[
-          { label: "https://", value: "https://" },
-          { label: "http://", value: "http://" },
-        ]}
-      />
-    </FormItem>
-  );
-};
-
-URLPrefix.propTypes = {
-  formField: PropTypes.string.isRequired,
-};
-
 // Ordinary Proposal
 const NormalProposal = (props) => {
   const {
@@ -339,10 +321,17 @@ const NormalProposal = (props) => {
       formOrgAddress: isModify ? orgAddress : "",
       formContractAddress: isModify ? contractAddress : "",
       formPrefix: "https://",
-      realSpecialPlain: "",
+      realSpecialPlain: JSON.stringify(
+        {
+          'parameter name': 'Please enter the content of your parameter.',
+        },
+        null,
+        2,
+      ),
       formExpiredTime: dayjs().add(1, 'day').toDate(),
       formDescriptionURL: ""
-    }
+    },
+    mode: "onChange",
   });
 
   const formExpiredTime = watch('formExpiredTime');
@@ -647,7 +636,7 @@ const NormalProposal = (props) => {
         </FormItem>
         <FormItem
           label={FIELDS_MAP.params.label}
-          errorText={errors.params?.message}
+          errorText={errors.realSpecialPlain?.message}
         >
           <Controller
             name="realSpecialPlain"
