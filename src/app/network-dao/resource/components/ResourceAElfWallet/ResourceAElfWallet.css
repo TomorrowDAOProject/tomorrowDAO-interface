@@ -24,7 +24,7 @@
 }
 
 .link-detail-button {
-  @apply w-[110px] font-Montserrat bg-fillBg8 rounded-[6px] border border-solid border-white px-1;
+  @apply font-Montserrat bg-fillBg8 rounded-[6px] px-1 h-[22px] border border-solid border-white;
   a {
     @apply text-[10px] leading-5 font-medium text-white hover:text-white;
   }
