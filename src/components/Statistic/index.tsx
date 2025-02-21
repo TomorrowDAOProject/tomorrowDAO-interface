@@ -61,7 +61,7 @@ const Countdown: React.FC<StatisticProps & { format?: string; onFinish?: () => v
 
   return (
     <div className={clsx('flex flex-col items-center justify-center py-[6px]', className)}>
-      <div className="flex items-center text-desc12 text-lightGrey font-Montserrat mb-4">
+      <div className="flex items-center text-desc12 text-Neutral-Secondary-Text font-Montserrat mb-4">
         {title}
       </div>
       <div className="text-descM18 text-white font-Montserrat">{formatTime(timeLeft)}</div>

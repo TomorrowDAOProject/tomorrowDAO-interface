@@ -23,6 +23,7 @@ import { WebLoginInstance } from "@utils/webLogin";
 import { isActivityBrowser } from "@utils/isWebView";
 import IconFont from "@components/IconFont";
 import { mainExplorer } from "config";
+import { ReactComponent as ProfileCircle } from 'assets/revamp-icon/profile-circle.svg';
 
 class MyWalletCard extends PureComponent {
   constructor(props) {
@@ -286,7 +287,7 @@ class MyWalletCard extends PureComponent {
           <Button
             type="primary"
             size="small"
-            className="my-wallet-card-body-wallet-content-withdraw-btn"
+            className="my-wallet-card-body-wallet-content-withdraw-btn ml-[4px]"
             disabled={isActivityBrowser()}
             onClick={handleDividendClick}
           >
@@ -317,38 +318,21 @@ class MyWalletCard extends PureComponent {
         <div className="my-wallet-content">
           <Spin spinning={loading}>
             <div className="my-wallet-card-header">
-              <h2 className="my-wallet-card-header-title">
-                <IconFont
-                  type="vote-group"
-                  className="card-header-icon wallet-icon"
-                />
+              <h2 className="my-wallet-card-header-title !text-white font-Montserrat text-[12px] font-medium">
                 My Wallet
               </h2>
               <div>
                 {!isActivityBrowser() &&
                   !isConnected && (
                     <Button
-                      type="text"
-                      className="my-wallet-card-header-sync-btn login-btn"
+                      type="primary"
+                      className="my-wallet-card-header-sync-btn login-btn !rounded-[42px]"
                       onClick={this.loginOrUnlock}
                     >
-                      <IconFont type="vote-login" />
+                      <ProfileCircle className="mr-[6px] text-white" />
                       Log in
                     </Button>
                   )}
-                {/* 
-                {!this.isPhone && currentWallet?.address && (
-                  <Button
-                    type="text"
-                    className="my-wallet-card-header-sync-btn logout-btn"
-                    disabled={!currentWallet?.address}
-                    onClick={this.extensionLogout}
-                  >
-                    <LogoutOutlined />
-                    Log Out
-                  </Button>
-                )} */}
-
                 <Button
                   className="my-wallet-card-header-sync-btn refresh-btn "
                   disabled={!currentWallet?.address}
@@ -362,22 +346,22 @@ class MyWalletCard extends PureComponent {
             <div className="my-wallet-card-body-wallet-title">
               <>
                 <div className="name">
-                  <span className="my-wallet-card-body-wallet-title-key">
+                  <span className="my-wallet-card-body-wallet-title-key text-white text-[10px] font-Montserrat">
                     Name:
                   </span>
-                  <span className="my-wallet-card-body-wallet-title-value">
+                  <span className="my-wallet-card-body-wallet-title-value text-lightGrey">
                     {currentWallet?.name || "-"}
                   </span>
                 </div>
                 <div className="address">
-                  <span className="my-wallet-card-body-wallet-title-key">
+                  <span className="my-wallet-card-body-wallet-title-key text-white text-[10px] font-Montserrat">
                     Address:
                   </span>
                   <span className="my-wallet-card-body-wallet-title-value">
                     {formattedAddress ? (
                       <>
                         <Link
-                          className="info"
+                          className="info text-link text-[10px] font-Montserrat"
                           href={`${mainExplorer}/address/${formattedAddress}`}
                           title={formattedAddress}
                         >
@@ -396,11 +380,11 @@ class MyWalletCard extends PureComponent {
               <ul className="my-wallet-card-body-wallet-content">
                 {walletItems.map((item) => (
                   <li key={item.type} className={item.class}>
-                    <span className="item-type">{item.type}:</span>
+                    <span className="item-type !text-white text-[10px] font-medium font-Montserrat">{item.type}:</span>
                     <span>
-                      <span className="item-value">{item.value}</span>
+                      <span className="item-value !text-lightGrey">{item.value}</span>
                       {item.extra && (
-                        <span className="item-extra">{item.extra}</span>
+                        <span className="item-extra text-lightGrey">{item.extra}</span>
                       )}
                     </span>
                   </li>

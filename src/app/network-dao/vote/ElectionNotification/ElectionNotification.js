@@ -108,9 +108,9 @@ const Display = (props) => {
   const { dividends } = props;
   return (
     <div className="ant-statistic vote-statistic">
-      <div className="ant-statistic-title">Current Mining Reward</div>
+      <div className="ant-statistic-title text-desc12 text-Neutral-Secondary-Text font-Montserrat pt-[14px] mb-4">Current Mining Reward</div>
       <div className="ant-statistic-content">
-        <span className="ant-statistic-content-value">
+        <span className="ant-statistic-content-value text-descM18 text-white font-Montserrat">
           <Dividends dividends={dividends} useButton={false} />
         </span>
       </div>

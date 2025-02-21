@@ -1,8 +1,8 @@
 :root {
     --brand-base: #1b76e2;
-    --base-bg: #000000;
-    --base-text: #ffffff;
-    --base-border: #333333;
+    --base-bg: #000;
+    --base-text: #fff;
+    --base-border: #333;
     --secondary: #919191;
     --fill-bg: rgb(255 255 255 / 1%);
     --fill-bg-8: rgb(255 255 255 / 8%);
@@ -10,8 +10,8 @@
     --fill-bg-40: rgb(255 255 255 / 40%);
     --fill-black-15: rgb(0 0 0 / 15%);
     --main-color: #5D49F6;
-    --main-color-60: rgb(93 73 246 / 60%);
     --secondary-main-color: #6E81FF;
+    --main-color-60: rgb(93 73 246 / 60%);
     --secondary-main-text-color: #C0B8FF;
     --dark-gray: #292929;
     --light-gray: #989DA0;

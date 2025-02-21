@@ -1,7 +1,6 @@
 'use client';
 import React, { Component } from "react";
 import { Modal, Form, Input, message, Menu } from "antd";
-import { Route, Routes } from "react-router-dom";
 import moment from "moment";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import { thousandsCommaWithDecimal } from "@utils/formater";
@@ -33,7 +32,6 @@ import {
   FROM_WALLET,
   FROM_EXPIRED_VOTES,
   FROM_ACTIVE_VOTES,
-  routePaths,
 } from "../constants";
 import { getFormatedLockTime } from "../utils";
 import getAllTokens from "@utils/getAllTokens";
@@ -41,7 +39,6 @@ import addressFormat from "@utils/addressFormat";
 // import { withRouter } from "../../routes/utils";
 import { WebLoginInstance } from "@utils/webLogin";
 import { fakeWallet } from "../../_src/common/utils";
-import { dispatch } from "redux/store";
 import LinkNetworkDao from "components/LinkNetworkDao";
 
 const voteConfirmFormItemLayout = {
@@ -1266,20 +1263,20 @@ class VoteContainer extends Component {
     const { pagePath } = this.props;
     return (
       <section className="vote-container vote-container-simple basic-container basic-container-white vote-menu">
-        <Menu selectedKeys={pagePath} mode="horizontal">
+        <Menu selectedKeys={pagePath} mode="horizontal" className="bg-darkBg border-b border-solid border-borderColor">
           <Menu.Item
             key={allowPathMap.election}
           >
-            <LinkNetworkDao href="/vote/election">
-            Election Notification
+            <LinkNetworkDao href="/vote/election" className="!text-white font-medium font-Montserrat">
+              Election Notification
             </LinkNetworkDao>
             
           </Menu.Item>
           <Menu.Item
             key={allowPathMap.myvote}
           >
-            <LinkNetworkDao href="/vote/myvote">
-            My Vote
+            <LinkNetworkDao href="/vote/myvote" className="!text-white font-medium font-Montserrat">
+              My Vote
             </LinkNetworkDao>
           </Menu.Item>
         </Menu>

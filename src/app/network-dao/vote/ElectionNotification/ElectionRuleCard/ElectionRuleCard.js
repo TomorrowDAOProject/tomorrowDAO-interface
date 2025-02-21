@@ -10,7 +10,6 @@ import React, { memo } from "react";
 import { Button } from "antd";
 // import { useNavigate } from "react-router";
 import { connect } from "react-redux";
-import Iconfont from "@components/IconFont";
 import getChainIdQuery from 'utils/url';
 // import { withRouter } from "../../../../routes/utils";
 import "./ElectionRuleCard.style.css";
@@ -47,7 +46,7 @@ function ElectionRuleCard(props) {
     <div className="btn-group">
       <Button
         type="primary"
-        className="apply-to-be-a-node-btn"
+        className="apply-to-be-a-node-btn !rounded-[42px]"
         disabled={isActivityBrowser()}
         onClick={onClick}
       >
@@ -65,21 +64,17 @@ function ElectionRuleCard(props) {
   return (
     <section className="election-rule-card">
       <div className="election-rule-content">
-        <h2 className="election-header-title">
-          <Iconfont type="node-election" />
+        <h2 className="election-header-title text-white font-Montserrat text-xs font-medium mb-[12px]">
           Node Election
         </h2>
         <div className="election-container">
-          <p className="election-intro">
+          <p className="election-intro font-Montserrat text-white">
             Every token holder has the opportunity to become a BP node. However,
             in order to make our networks and communities operate more smoothly
             and effectively, we have developed a set of standards and
             regulations to make eligible people candidate nodes. We increased
             their chances of being elected by voting. We will vote on the new BP
             consensus node every week and publish the election results.
-            {/* <a className="view-plan-link" href="">
-            View the node election plan >
-          </a> */}
           </p>
           {btnHtml}
         </div>
