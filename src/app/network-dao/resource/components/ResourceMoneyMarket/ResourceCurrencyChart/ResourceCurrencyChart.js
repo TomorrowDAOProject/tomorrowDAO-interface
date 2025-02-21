@@ -6,7 +6,8 @@
 
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { Tabs, Button } from "antd";
+import { Tabs } from "antd";
+import Button from 'components/Button'
 
 import ReactEchartsCore from "echarts-for-react/lib/core";
 import echarts from "echarts/lib/echarts";
@@ -239,6 +240,9 @@ class ResourceCurrencyChart extends PureComponent {
     );
     const { legend, series } = getMAData(list);
     return {
+      textStyle:{
+        fontFamily: 'Montserrat', 
+      },
       animation: false,
       color: colorList,
       title: {
@@ -281,7 +285,7 @@ class ResourceCurrencyChart extends PureComponent {
           type: "category",
           data: dates,
           boundaryGap: true,
-          axisLine: { lineStyle: { color: "#777" } },
+          axisLine: { lineStyle: { color: "#989DA0" } },
           axisLabel: {
             formatter(value) {
               if (buttonIndex >= 4) {
@@ -312,7 +316,7 @@ class ResourceCurrencyChart extends PureComponent {
             show: false,
             alignWithLabel: true,
           },
-          axisLine: { lineStyle: { color: "#777" } },
+          axisLine: { lineStyle: { color: "#989DA0" } },
           splitNumber: 20,
           min: "dataMin",
           max: "dataMax",
@@ -322,7 +326,7 @@ class ResourceCurrencyChart extends PureComponent {
         {
           scale: true,
           splitNumber: 2,
-          axisLine: { lineStyle: { color: "#777" } },
+          axisLine: { lineStyle: { color: "#989DA0" } },
           splitLine: { show: true },
           axisTick: { show: false },
           min(value) {
@@ -364,9 +368,9 @@ class ResourceCurrencyChart extends PureComponent {
           name: currentResourceType,
           data: prices,
           itemStyle: {
-            color: "#05ac90",
+            color: "#989DA0",
             color0: "#d34a64",
-            borderColor: "#05ac90",
+            borderColor: "#989DA0",
             borderColor0: "#d34a64",
           },
         },
@@ -385,15 +389,13 @@ class ResourceCurrencyChart extends PureComponent {
     const { buttonIndex } = this.state;
     const buttonsHTML = buttons.map((item, index) => (
       <Button
-        className="time-button"
-        shape="round"
-        type={index === buttonIndex ? "primary" : ""}
+        className={`!rounded-[4px] w-[43px] !h-[14px] text-Montserrat bg-transparent border-white !py-1 ${index === buttonIndex && "!bg-mainColor !border-mainColor"}`}
         size="small"
         // eslint-disable-next-line react/no-array-index-key
         key={index}
         onClick={this.handleButtonClick.bind(this, index)}
       >
-        {item}
+       <span className="text-[8px] text-white font-medium">{item}</span>
       </Button>
     ));
     return buttonsHTML;
@@ -407,17 +409,19 @@ class ResourceCurrencyChart extends PureComponent {
       <div className="resource-currency-chart">
         <div className="resource-header">
           <div className="resource-header-title">
-            <span className="resource-title !text-[#000] !font-sans">Resource Money Market</span>
+            <span className="resource-title !font-Unbounded !font-[300]">Resource Money Market</span>
           </div>
-          <div className="resource-header-title-btn">{selectButton}</div>
+          <div className="xl:flex lg:flex md:flex items-center gap-1 sm:hidden">{selectButton}</div>
         </div>
-        <div className="resource-sub-container">
-          <Tabs className="resource-type-switch" onChange={this.typeChange}>
+        <div>
+          <Tabs className="resource-type-switch font-Montserrat" onChange={this.typeChange}>
             {list.map((v) => (
-              <Tabs.TabPane key={v} tab={v} />
+              <Tabs.TabPane className="text-white" key={v} tab={v} />
             ))}
           </Tabs>
+          <div className="xl:hidden lg:hidden md:hidden items-center justify-center gap-1 flex">{selectButton}</div>
           <ReactEchartsCore
+            className="lg:px-[38px] xl:px-[38px] md:px-[38px] px-[16px] !font-Montserrat"
             echarts={echarts}
             option={this.getOption()}
             style={this.echartStyle}
