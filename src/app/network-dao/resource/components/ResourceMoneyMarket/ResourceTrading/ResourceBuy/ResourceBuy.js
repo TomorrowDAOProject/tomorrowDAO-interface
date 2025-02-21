@@ -516,7 +516,7 @@ class ResourceBuy extends Component {
       disabled = true;
     }
     return (
-      <Tooltip title={BALANCE_LESS_THAN_OPERATE_LIMIT_TIP}>
+      <Tooltip title={<span className="font-Montserrat">{BALANCE_LESS_THAN_OPERATE_LIMIT_TIP}</span>}>
         <Slider
           marks={this.getSlideMarks()}
           dots={false}
@@ -539,7 +539,7 @@ class ResourceBuy extends Component {
             ).toFixed(GENERAL_PRECISION)
           }
           tipFormatter={
-            disabled ? () => BALANCE_LESS_THAN_OPERATE_LIMIT_TIP : null
+            disabled ? () => <span className="font-Montserrat">{BALANCE_LESS_THAN_OPERATE_LIMIT_TIP}</span> : null
           }
         />
       </Tooltip>
@@ -580,7 +580,7 @@ class ResourceBuy extends Component {
         <div className="trading">
           <div className="trading-input">
             <div className="resource-action-block">
-              <span className="resource-action-title">Buying quantity:</span>
+              <span className="w-[120px] font-Montserrat text-white text-[14px] font-medium">Buying quantity:</span>
               <Spin
                 spinning={buyInputLoading}
                 wrapperClassName="resource-action-input"
@@ -589,7 +589,7 @@ class ResourceBuy extends Component {
                   validateStatus={validate.validateStatus}
                   help={validate.help}
                 >
-                  {!isPhoneCheck() ? (
+                  {/* {!isPhoneCheck() ? (
                     <InputNumber
                       value={buyNum}
                       onChange={this.onChangeResourceValue}
@@ -615,7 +615,21 @@ class ResourceBuy extends Component {
                       min={0}
                       max={processedBuyNumMax}
                     />
-                  )}
+                  )} */}
+                    <InputNumber
+                      value={buyNum}
+                      onChange={this.onChangeResourceValue}
+                      placeholder={`Enter ${currentResourceType} amount`}
+                      // todo: use parser to set the max decimal to 8, e.g. using parseFloat
+                      // parser={value => value.replace(/[^.\d]+/g, '')}
+                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                      formatter={(value) =>
+                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      }
+                      disabled={rawBuyNumMax <= 0}
+                      min={0}
+                      max={processedBuyNumMax}
+                    />
                 </Form.Item>
               </Spin>
             </div>
@@ -629,8 +643,8 @@ class ResourceBuy extends Component {
               </Spin>
             </div>
             <div className="resource-action-block">
-              <span className="resource-action-title">Available:</span>
-              {isPhoneCheck() ? (
+              <span className="w-[120px] font-Montserrat text-white text-[14px] font-medium">Available:</span>
+              {/* {isPhoneCheck() ? (
                 <div className="resource-action-input">
                   {account.balance
                     ? thousandsCommaWithDecimal(account.balance)
@@ -645,7 +659,14 @@ class ResourceBuy extends Component {
                   addonAfter={SYMBOL}
                   disabled
                 />
-              )}
+              )} */}
+               <Input
+                className="resource-action-input"
+                value={thousandsCommaWithDecimal(account.balance)}
+                placeholder={thousandsCommaWithDecimal(account.balance)}
+                addonAfter={SYMBOL}
+                disabled
+              />
             </div>
           </div>
           <div className="trading-slide">
@@ -658,7 +679,7 @@ class ResourceBuy extends Component {
             </div>
           </div>
           <ButtonWithLoginCheck
-            className="trading-button buy-btn"
+            className="w-full my-[14px] h-[40px] border-none rounded-[42px] !bg-mainColor text-white font-Montserrat text-[15px] font-medium border hover:border-solid hover:!border-mainColor hover:!text-mainColor hover:!bg-transparent"
             onClick={this.checkAndShowBuyModal}
             checkAccountInfoSync
             loading={

@@ -1,5 +1,5 @@
 .trading-box {
-  background: #ffffff;
+  background: transparent;
   display: flex;
   justify-content: center;
   .mobile-trading-input, .antExplorer-input-number-input {
@@ -31,7 +31,7 @@
 }
 
 .trading-buy {
-  border-right: 1px solid rgba(255, 255, 255, 0.19);
+  
 }
 
 .trading-buy .trading-title {

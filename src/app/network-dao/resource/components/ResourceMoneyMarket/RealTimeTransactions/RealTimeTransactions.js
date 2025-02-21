@@ -180,13 +180,12 @@ class RealTimeTransactions extends PureComponent {
     const sellInfo = this.getSellInfoHTML();
     const buyInfo = this.getBuyInfoHTML();
     return (
-      <div className="real-time-transactions">
-        <Row>
-          <Col className="real-time-transactions-head">
+      <div className="real-time-transactions my-[40px]">
+        <div className="mb-[20px]">
+          <div className="text-white text-[12px] font-Montserrat font-medium">
             Real Time Transactions
-          </Col>
-        </Row>
-        <Divider className="resource-buy-divider" />
+          </div>
+        </div>
         <div className="real-time-transactions-body">
           {tableHead}
           {sellInfo}

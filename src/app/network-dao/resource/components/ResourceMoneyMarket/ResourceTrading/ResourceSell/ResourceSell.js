@@ -405,14 +405,14 @@ class ResourceSell extends Component {
         <div className="trading">
           <div className="trading-input">
             <div className="resource-action-block">
-              <span className="resource-action-title">Selling quantity:</span>
+              <span className="w-[120px] font-Montserrat text-white text-[14px] font-medium">Selling quantity:</span>
               <Form.Item
                 className="resource-action-input"
                 validateStatus={validate.validateStatus}
                 help={validate.help}
                 style={{ padding: 3 }}
               >
-                {!isPhoneCheck() ? (
+                {/* {!isPhoneCheck() ? (
                   <InputNumber
                     value={sellNum}
                     onChange={this.onChangeResourceValue}
@@ -437,7 +437,20 @@ class ResourceSell extends Component {
                     min={0}
                     max={this.inputMax}
                   />
-                )}
+                )} */}
+                <InputNumber
+                  value={sellNum}
+                  onChange={this.onChangeResourceValue}
+                  placeholder={`Enter ${currentResourceType} amount`}
+                  // todo: use parser to set the max decimal to 8, e.g. using parseFloat
+                  parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                  formatter={(value) =>
+                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  disabled={!this.inputMax}
+                  min={0}
+                  max={this.inputMax}
+                />
               </Form.Item>
             </div>
             <div className="ELF-value">
@@ -450,8 +463,8 @@ class ResourceSell extends Component {
               </Spin>
             </div>
             <div className="resource-action-block">
-              <span className="resource-action-title">Available:</span>
-              {isPhoneCheck() ? (
+              <span className="w-[120px] font-Montserrat text-white text-[14px] font-medium">Available:</span>
+              {/* {isPhoneCheck() ? (
                 <div className="resource-action-input">
                   {this.inputMax
                     ? thousandsCommaWithDecimal(this.inputMax)
@@ -466,7 +479,14 @@ class ResourceSell extends Component {
                   addonAfter={currentResourceType}
                   disabled
                 />
-              )}
+              )} */}
+               <Input
+                  className="resource-action-input"
+                  value={thousandsCommaWithDecimal(this.inputMax)}
+                  placeholder={thousandsCommaWithDecimal(this.inputMax)}
+                  addonAfter={currentResourceType}
+                  disabled
+                />
             </div>
           </div>
           <div className="trading-slide">
@@ -479,7 +499,7 @@ class ResourceSell extends Component {
             </div>
           </div>
           <ButtonWithLoginCheck
-            className="trading-button sell-btn"
+            className="w-full my-[14px] h-[40px] border-none rounded-[42px] !bg-[#FF485D] text-white font-Montserrat text-[15px] font-medium border hover:border-solid hover:!border-[#FF485D] hover:!text-[#FF485D] hover:!bg-transparent"
             checkAccountInfoSync
             onClick={this.checkAndShowSellModal}
             loading={sellBtnLoading || sellEstimateValueLoading}
