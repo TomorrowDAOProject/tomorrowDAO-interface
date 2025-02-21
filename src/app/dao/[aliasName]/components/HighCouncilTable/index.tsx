@@ -15,6 +15,7 @@ import { ELF_DECIMAL } from 'app/network-dao/vote/constants';
 import Tooltip from 'components/Tooltip';
 import Spin from 'components/Spin';
 import Divider from 'components/Divider';
+import clsx from 'clsx';
 
 const TableItemCount = 20;
 
@@ -215,7 +216,12 @@ export default function HighCounCilTab() {
       dataIndex: 'name',
       key: 'nodeName',
       render: (text: any, record: any) => (
-        <Tooltip title={text}>
+        <Tooltip
+          title={text}
+          className={clsx({
+            '!w-[160px]': text?.length < 20,
+          })}
+        >
           <LinkNetworkDao
             className="text-descM10 font-Montserrat !text-secondaryMainColor"
             href={{

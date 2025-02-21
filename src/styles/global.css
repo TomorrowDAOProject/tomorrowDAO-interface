@@ -369,6 +369,36 @@ input[type='number'] {
 }
 
 
+.proposal-custom-action-params-editor {
+  .monaco-editor, .monaco-diff-editor {
+    --vscode-editor-background: rgba(0, 0, 0, 0);
+    --vscode-editorGutter-background: var(--darkBg);
+  }
+
+  * {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+
+  .monaco-editor {
+    .bracket-highlighting-0 {
+      @apply !text-lightGrey;
+    }
+    .mtk1 {
+      @apply !text-lightGrey;
+    }
+    .mtk2 {
+      @apply !text-lightGrey;
+    }
+  
+    .mtk4 {
+      @apply !text-[#FF7070];
+    }
+  
+    .mtk5 {
+      @apply !text-[#8CD9FF];
+    }
+  }
+}
 /* .TMRWDAO-form-item-margin-offset {
   @apply !mb-0;
 }
