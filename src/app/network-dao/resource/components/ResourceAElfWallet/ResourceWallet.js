@@ -148,40 +148,16 @@ const ResourceWallet = React.forwardRef(
           </div>
           <div className="resource-sub-container">
             <Row className="resource-wallet-address">
-              {isPhone ? (
-                <Col className="resource-wallet-address-name">
-                  <div className="card-sm-text">
-                    Name:
-                    {wallet.name}
-                  </div>
-                  <div className="card-sm-text-bold">
-                    Address:
-                    {addressFormat(wallet.address)}
-                  </div>
-                  <div className="link-detail-button">
-                    {wallet.address !== "-" && (
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-white font-Montserrat text-[13px] leading-[22px]">{wallet.address=='-' ? wallet.address : addressFormat(wallet.address)}</span>
+                  {wallet.address !== "-" && (
+                    <div className="link-detail-button">
                       <LinkNetworkDao href={`/resource-detail/${wallet.address}`}>
                         Transaction Details
                       </LinkNetworkDao>
-                    )}
-                  </div>
-                </Col>
-              ) : (
-                <div className="flex gap-2 flex-wrap">
-                  {/* <span className="text-white font-Montserrat text-[12px]">
-                  {wallet.name} &nbsp;&nbsp;&nbsp;
-                  </span> */}
-                  <span className="text-white font-Montserrat text-[13px] leading-[22px]"> {addressFormat(wallet.address)}</span>
-                  <div className="link-detail-button">
-                    {wallet.address !== "-" && (
-                      <LinkNetworkDao href={`/resource-detail/${wallet.address}`}>
-                        Transaction Details
-                      </LinkNetworkDao>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
-              )}
-
               <Col className="resource-wallet-operation-container">
                 {/* {!(currentWallet && currentWallet.address && tokenContract) && (
                 <Button
@@ -193,25 +169,26 @@ const ResourceWallet = React.forwardRef(
                 </Button>
               )} */}
 
-                {!isActivityBrowser() && !isConnected && (
-                    <Button
-                      type="text"
-                      className="resource-wallet-address-update update-btn"
-                      onClick={() => connectWallet()}
-                    >
-                      Login
-                    </Button>
-                  )}
-
                 <Button
-                  type="primary"
-                  className="resource-wallet-address-update update-btn gap-2 hover:!text-white w-[87px] h-[24px]"
+                  className={`border border-solid border-white text-white bg-mainColor !text-[10px] w-[77px] h-[24px] gap-1 ${isConnected && 'border-none !bg-mainColor text-white'}`}
                   disabled={!isConnected}
                   onClick={refreshWalletInfo}
                 >
                   <SyncOutlined type="sync" spin={loading} />
-                  <span className="text-[12px]">Refresh</span>
+                  <span className="text-[10px]">Refresh</span>
                 </Button>
+
+                {!isActivityBrowser() && !isConnected && (
+                    <Button
+                      type="text"
+                      className="text-white bg-mainColor !text-[10px] hover:!text-mainColor hover:bg-transparent hover:border hover:border-solid hover:border-mainColor w-[70px] h-[24px] gap-1 ml-[11px]"
+                      onClick={() => connectWallet()}
+                    >
+                      <i className="tmrwdao-icon-profile text-[16px] text-inherit" />
+                      <span>Log in</span>
+                    </Button>
+                  )}
+
 
                 {/* {!isPhone && currentWallet && currentWallet.address && (
                   <Button
