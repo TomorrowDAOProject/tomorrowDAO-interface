@@ -542,9 +542,9 @@ const CreateOrganization = () => {
         </div>
         <div className="create-organization-header-action">
           <div
-            className="rounded-[42px] bg-mainColor px-[8px] py-[4px] flex items-center gap-[6px] cursor-pointer"
+            className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer"
           >
-            <LinkNetworkDao href="/organization" className="text-white font-Montserrat">
+            <LinkNetworkDao href="/organization" className="text-white font-Montserrat px-[10px] py-[6px] rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
               Back to Organisation List
             </LinkNetworkDao>
           </div>

@@ -142,9 +142,9 @@ const OrganizationList = () => {
         tabBarExtraContent={
           logStatus === LOG_STATUS.LOGGED ? (
             <div
-              className="rounded-[42px] bg-mainColor px-[8px] py-[4px] flex items-center gap-[6px] cursor-pointer"
+              className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg"
             >
-              <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat">
+              <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat !rounded-[42px] px-[10px] py-[6px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
                 Create Organisation
               </LinkNetworkDao>
             </div>
@@ -171,7 +171,7 @@ const OrganizationList = () => {
         <Row gutter={16}>
           <Col sm={6} xs={24} className="organization-list-filter-input">
             <Input
-              className="w-[406px] h-[36px] rounded-lg border border-solid border-fillBg8 bg-darkBg placeholder-lightGrey"
+              className="!w-[406px] h-[36px]"
               placeholder="Input voter address/transaction id"
               prefix={<i className="tmrwdao-icon-search text-lightGrey" />}
               defaultValue={params.search}

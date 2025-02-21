@@ -7,7 +7,7 @@ import roundTo from "round-to";
 import { Switch, Case } from "react-if";
 import moment from "moment";
 import PropTypes from "prop-types";
-import { Card,Row,Select,Col,Divider } from "antd";
+import { Card,Row,Col,Divider } from "antd";
 import { mainExplorer, explorer } from 'config'
 import constants, {
   LOG_STATUS,
@@ -151,12 +151,11 @@ export function getOrganizationLeftInfo(
 
   const proposerList =
     proposers.length > 0 ? (
-      // eslint-disable-next-line max-len
-      <Select defaultValue={proposers[0]} className="w-full">
-        {proposers.map((v) => (
-          <Option key={v} value={v}>{`ELF_${v}_${viewer.chainId}`}</Option>
-        ))}
-      </Select>
+      <Select
+        value={proposers[0]}
+        className="w-full text-ellipsis"
+        options={proposersOptions}
+      />
     ) : (
       "None"
     );
@@ -167,12 +166,11 @@ export function getOrganizationLeftInfo(
   })
   const members =
     organizationMembers.length > 0 ? (
-      // eslint-disable-next-line max-len
-      <Select defaultValue={organizationMembers[0]} className="w-full">
-        {organizationMembers.map((v) => (
-          <Option key={v} value={v}>{`ELF_${v}_${viewer.chainId}`}</Option>
-        ))}
-      </Select>
+      <Select
+        value={organizationMembers[0]}
+        className="w-full text-ellipsis"
+        options={membersOptions}
+      />
     ) : (
       "None"
     );
@@ -313,7 +311,7 @@ const Organization = (props) => {
           </div>
           <Divider className="bg-borderColor my-[20px]" />
           <div className="organization-list-item-votes">
-            <p text-white font-medium font-Montserrat text-xs>Voting Data: Votes (Votes / Minimum Votes)</p>
+            <p className="text-white font-medium font-Montserrat text-xs mb-[20px]">Voting Data: Votes (Votes / Minimum Votes)</p>
             <Row gutter={16} className="organization-list-item-vote-chart">
               <Col span={8} offset={2}>
                 <Circle
@@ -467,7 +465,7 @@ const Organization = (props) => {
         </div>
         <Divider className="bg-borderColor my-[20px]" />
         <div className="organization-list-item-votes">
-          <p className="text-white font-medium font-Montserrat text-xs">Voting Data: Votes (Votes / Minimum Votes)</p>
+          <p className="text-white font-medium font-Montserrat text-xs mb-[20px]">Voting Data: Votes (Votes / Minimum Votes)</p>
           <Row gutter={16} className="organization-list-item-vote-chart">
             <Col span={4} offset={1}>
               <Circle
