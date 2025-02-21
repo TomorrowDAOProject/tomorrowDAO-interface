@@ -32,7 +32,6 @@ import { request } from "@common/request";
 import { getTokenList, getContract, sleep } from "@common/utils";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
-import { ReactComponent as RightUpArrow } from 'assets/revamp-icon/right-up-arrow.svg';
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
 
 const { Switch: ConditionSwitch, Case } = ReactIf;
@@ -654,8 +653,8 @@ const CreateOrganization = () => {
             loading={isLoading}
             onClick={handleSubmit}
           >
-            Apply
-            <RightUpArrow className='text-white ml-[10px] relative top-[3px]' />
+            <span className="relative top-[-3px]">Apply</span>
+            <i className="tmrwdao-icon-default-arrow ml-[10px]" />
           </Button>
         </div>
       </Form>
