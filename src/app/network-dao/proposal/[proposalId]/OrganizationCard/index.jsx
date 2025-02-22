@@ -52,42 +52,44 @@ const OrganizationCard = (props) => {
         <span className="text-lightGrey">Address:</span>
         {addressFormat(orgAddress)}
       </span>
-      <div
-        className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
-        title={`${thresholdValue[proposalActions.APPROVE].num}(${
-          thresholdValue[proposalActions.APPROVE].rate
-        })`}
-      >
-        <span className="text-lightGrey">Minimal Approval Threshold:</span>
-        {thresholdValue[proposalActions.APPROVE].num}(
-        {thresholdValue[proposalActions.APPROVE].rate})
-      </div>
-      <div
-        className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
-        title={`${thresholdValue[proposalActions.REJECT].num}(${
-          thresholdValue[proposalActions.REJECT].rate
-        })`}
-      >
-        <span className="text-lightGrey">Maximal Rejection Threshold:</span>
-        {thresholdValue[proposalActions.REJECT].num}(
-        {thresholdValue[proposalActions.REJECT].rate})
-      </div>
-      <div
-        className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
-        title={`${thresholdValue[proposalActions.ABSTAIN].num}(${
-          thresholdValue[proposalActions.ABSTAIN].rate
-        })`}
-      >
-        <span className="text-lightGrey">Maximal Abstention Threshold:</span>
-        {thresholdValue[proposalActions.ABSTAIN].num}(
-        {thresholdValue[proposalActions.ABSTAIN].rate})
-      </div>
-      <div
-        className="mb-[24px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
-        title={`${thresholdValue.Total.num}(${thresholdValue.Total.rate})`}
-      >
-        <span className="text-lightGrey">Minimal Vote Threshold:</span>
-        {thresholdValue.Total.num}({thresholdValue.Total.rate})
+      <div className="mb-[24px] flex flex-wrap justify-between gap-y-[14px]">
+        <div
+          className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
+          title={`${thresholdValue[proposalActions.APPROVE].num}(${
+            thresholdValue[proposalActions.APPROVE].rate
+          })`}
+        >
+          <span className="text-lightGrey mr-[5px]">Minimal Approval Threshold:</span>
+          {thresholdValue[proposalActions.APPROVE].num}(
+          {thresholdValue[proposalActions.APPROVE].rate})
+        </div>
+        <div
+          className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
+          title={`${thresholdValue[proposalActions.REJECT].num}(${
+            thresholdValue[proposalActions.REJECT].rate
+          })`}
+        >
+          <span className="text-lightGrey mr-[5px]">Maximal Rejection Threshold:</span>  
+          {thresholdValue[proposalActions.REJECT].num}(
+          {thresholdValue[proposalActions.REJECT].rate})
+        </div>
+        <div
+          className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
+          title={`${thresholdValue[proposalActions.ABSTAIN].num}(${
+            thresholdValue[proposalActions.ABSTAIN].rate
+          })`}
+        >
+          <span className="text-lightGrey mr-[5px]">Maximal Abstention Threshold:</span>
+          {thresholdValue[proposalActions.ABSTAIN].num}(
+          {thresholdValue[proposalActions.ABSTAIN].rate})
+        </div>
+        <div
+          className="text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
+          title={`${thresholdValue.Total.num}(${thresholdValue.Total.rate})`}
+        >
+          <span className="text-lightGrey mr-[5px]">Minimal Vote Threshold:</span>
+          {thresholdValue.Total.num}({thresholdValue.Total.rate})
+        </div>
       </div>
 
       {leftInfo}

@@ -84,7 +84,12 @@ const Select: React.FC<ISelectProps> = ({
         onClick={() => setIsOpen(!isOpen)}
       >
         {selected ? (
-          <span className={clsx('text-white text-desc14 font-Montserrat', labelClassName)}>
+          <span
+            className={clsx(
+              'inline-block text-white text-desc14 font-Montserrat max-w-[calc(100%-52px)] text-ellipsis whitespace-nowrap',
+              labelClassName,
+            )}
+          >
             {selected?.label}
           </span>
         ) : (
