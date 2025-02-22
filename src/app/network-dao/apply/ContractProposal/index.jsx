@@ -5,13 +5,11 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
-import { QuestionCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import {
   Radio,
   Input,
   Upload,
   Select,
-  message,
   Tooltip,
   Form,
 } from "antd";
@@ -29,6 +27,7 @@ import ProposalSearch from "../../_proposal_root/components/ProposalSearch";
 import { useCallGetMethod } from "../utils.callback";
 import { CHAIN_ID } from "../../_src/constants";
 import "./index.css";
+import { toast } from "react-toastify";
 
 const FormItem = Form.Item;
 const InputNameReg = /^[.,a-zA-Z\d]+$/;
@@ -201,7 +200,7 @@ const ContractProposal = (props) => {
         setContractList(res.list || []);
       })
       .catch((e) => {
-        message.error(e.message || "Network Error");
+        toast.error(e.message || "Network Error");
       });
   }, [update]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -308,7 +307,7 @@ const ContractProposal = (props) => {
         getContractAddress("Genesis") === author &&
         approvalMode === "withoutApproval"
       ) {
-        message.error(
+        toast.error(
           "Contract update failed. Please update this contract in BP Approval mode."
         );
         return false;
@@ -319,14 +318,14 @@ const ContractProposal = (props) => {
         (await isInWhiteList(author)) &&
         approvalMode === "bpApproval"
       ) {
-        message.error(
+        toast.error(
           "Contract update failed. Please update this contract in without Approval mode."
         );
         return false;
       }
       return true;
     } catch (e) {
-      message.error(e);
+      toast.error(e);
       return false;
     }
   };
@@ -393,7 +392,7 @@ const ContractProposal = (props) => {
       submit(submitObj);
     } catch (e) {
       console.error(e);
-      message.error(
+      toast.error(
         e.message ||
           e?.errorFields?.at?.(-1)?.errors?.[0] ||
           "Please input the required form!"
