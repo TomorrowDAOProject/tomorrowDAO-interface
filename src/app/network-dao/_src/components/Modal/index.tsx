@@ -29,7 +29,7 @@ const Modal: React.FC<IModalProps> = ({
     <div className="fixed votigram-grid inset-0 bg-[rgba(0,0,0,0.7)] flex justify-center items-center z-[10000]">
       <motion.div
         className={clsx(
-          `relative bg-darkBg border border-solid border-fillBg8 rounded-lg shadow-lg w-full max-w-[calc(100vw-40px)] max-h-[calc(100vh-44px)] overflow-y-auto`,
+          `relative bg-darkBg border border-solid border-fillBg8 rounded-lg shadow-lg w-full max-w-[calc(100vw-40px)]`,
           rootClassName,
         )}
         initial="hidden"
@@ -43,10 +43,7 @@ const Modal: React.FC<IModalProps> = ({
             <span className="text-white font-Unbounded font-light">{title}</span>
           </div>
         )}
-        <i
-          className="absolute tmrwdao-icon-plus text-white rotate-45 text-[28px] top-[22px] md:top-[30px] right-[22px] md:right-[38px] cursor-pointer"
-          onClick={onClose}
-        />
+        <i className="tmrwdao-icon-cross text-[20px] text-white absolute top-[30px] right-[38px] cursor-pointer" onClick={onClose} />
         {children}
         {footer}
       </motion.div>

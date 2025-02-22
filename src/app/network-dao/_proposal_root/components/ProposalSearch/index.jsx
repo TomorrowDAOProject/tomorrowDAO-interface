@@ -63,8 +63,6 @@ const ProposalSearch = ({ selectMehtod = "ReleaseApprovedContract" }) => {
       ]}
     >
       <Select
-        dropdownClassName="proposal-dropdown-option"
-        showSearch
         onSearch={proposalIdSearch}
         filterOption={false}
         onPopupScroll={onPopupScroll}
