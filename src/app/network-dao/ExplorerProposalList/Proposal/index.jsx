@@ -54,7 +54,7 @@ const Title = (props) => {
     momentExpired.isAfter(now) &&
     momentExpired.isBefore(threshold);
   return (
-    <div className="flex items-center justify-between h-[47px]">
+    <div className="flex items-center justify-between h-[23px]">
       <div className="flex items-center gap-[10px]">
       <span className="text-[15px] font-Unbounded font-light -tracking-[0.6px] text-white">{proposalType}</span>
       {votedStatus === "none" ? (

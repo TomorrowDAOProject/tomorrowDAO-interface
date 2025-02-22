@@ -790,52 +790,52 @@ const CreateProposal = () => {
         }}
       />
       <Modal
-        rootClassName="!max-w-[740px] !w-[calc(100vw-44px)] py-[30px] px-[38px]"
+        rootClassName="!max-w-[740px] !w-[calc(100vw-44px)] py-[30px] px-[22px] md:px-[38px]"
         title="Are you sure you want to create this new proposal?"
         width={720}
         isVisible={normalResult.isModalVisible}
         onClose={handleCancel}
       >
-        <div className="flex flex-col gap-[25px] py-[25px] mt-[30px]">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-[25px] pt-[22px] mt-[30px]">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">title:</span>
-            <span className="basis-2/3 text-desc12 text-white font-Montserrat">
+            <span className="basis-full sm:basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
               {normalResult.title}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">description:</span>
-            <span className="basis-2/3 text-desc12 text-white font-Montserrat">
+            <span className="basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
               {normalResult.description}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Proposal Type:</span>
-            <span className="basis-2/3 text-desc12 text-white font-Montserrat">
+            <span className="basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
               {normalResult.proposalType}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Organisation Address:</span>
-            <span className="basis-2/3 text-desc12 text-white font-Montserrat">
+            <span className="sm:w-full md:basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
               {normalResult.organizationAddress}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Contract Address:</span>
-            <span className="basis-2/3 text-desc12 text-white font-Montserrat">
+            <span className="sm:w-full md:basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
               {normalResult.toAddress}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Contract Method:</span>
-            <span className="basis-2/3 text-desc12 text-white font-Montserrat">
+            <span className="sm:w-full md:basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
               {normalResult.contractMethodName}
             </span>
           </div>
-          <div className="flex items-start gap-2">
+          <div className="flex flex-col md:flex-row items-start gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Contract Params:</span>
-            <div className="basis-2/3 h-[120px] py-[13px] border border-solid border-fillBg8 rounded-[8px]">
+            <div className="w-full md:w-auto md:basis-2/3 h-[120px] py-[13px] border border-solid border-fillBg8 rounded-[8px]">
               <Editor
                 value={JSON.stringify((normalResult.params || {}).origin, null, 2)}
                 language="json"
@@ -852,20 +852,20 @@ const CreateProposal = () => {
               />
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Description URL:</span>
             <a
               href={normalResult.proposalDescriptionUrl}
-              className="basis-2/3 text-desc12 text-white font-Montserrat"
+              className="basis-2/3 text-desc13 text-secondaryMainColor font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap"
               target="_blank"
               rel="noopener noreferrer"
             >
               {normalResult.proposalDescriptionUrl}
             </a>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
             <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Expiration Time:</span>
-            <span className="basis-2/3 text-desc12 text-white font-Montserrat">
+            <span className="basis-2/3 text-desc13 text-white font-Montserrat">
               {normalResult.expiredTime &&
                 dayjs(normalResult.expiredTime).format("YYYY/MM/DD HH:mm:ss")}
             </span>
