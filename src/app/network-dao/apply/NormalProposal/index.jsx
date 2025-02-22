@@ -30,6 +30,7 @@ import Button from "components/Button";
 import Tooltip from "components/Tooltip";
 import TextArea from "components/Textarea";
 import { toast } from "react-toastify";
+import { validate } from "graphql";
 
 const { proposalTypes } = constants;
 
@@ -148,11 +149,13 @@ const FIELDS_MAP = {
     placeholder: "Please input the forum URL of proposal",
     validateTrigger: "onBlur",
     rules: {
-      validator(rule, value) {
-        if (value && value.length > 0 && !validateURL(`https://${value}`)) {
-          return Promise.reject(new Error("Please check your URL format"));
-        }
-        return Promise.resolve();
+      validate: {
+        validator(value) {
+          if (value && value.length > 0 && !validateURL(`https://${value}`)) {
+            return "Please check your URL format";
+          }
+          return true;
+        },
       },
     },
   },
@@ -189,8 +192,6 @@ async function getContractAddress(search = "") {
     { method: "GET" }
   );
 }
-
-const disabledDate = (date) => date && dayjs().isAfter(date);
 
 function parsedParams(inputType, originalParams) {
   const fieldsLength = Object.keys(inputType.toJSON().fields || {}).length;
