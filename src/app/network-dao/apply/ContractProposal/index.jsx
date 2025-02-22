@@ -5,17 +5,15 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
-import { QuestionCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import {
   Radio,
   Input,
-  Button,
   Upload,
   Select,
-  message,
   Tooltip,
   Form,
 } from "antd";
+import Button from "components/Button";
 import { onlyOkModal } from "@components/SimpleModal/index.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { API_PATH } from "@redux/common/constants";
@@ -28,6 +26,8 @@ import { request } from "@common/request";
 import ProposalSearch from "../../_proposal_root/components/ProposalSearch";
 import { useCallGetMethod } from "../utils.callback";
 import { CHAIN_ID } from "../../_src/constants";
+import "./index.css";
+import { toast } from "react-toastify";
 
 const FormItem = Form.Item;
 const InputNameReg = /^[.,a-zA-Z\d]+$/;
@@ -200,7 +200,7 @@ const ContractProposal = (props) => {
         setContractList(res.list || []);
       })
       .catch((e) => {
-        message.error(e.message || "Network Error");
+        toast.error(e.message || "Network Error");
       });
   }, [update]);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -274,6 +274,7 @@ const ContractProposal = (props) => {
       validateFields(),
       checkContractNameHandler(getFieldValue("name")),
     ]);
+    console.log(result);
     return result;
   }
 
@@ -306,7 +307,7 @@ const ContractProposal = (props) => {
         getContractAddress("Genesis") === author &&
         approvalMode === "withoutApproval"
       ) {
-        message.error(
+        toast.error(
           "Contract update failed. Please update this contract in BP Approval mode."
         );
         return false;
@@ -317,14 +318,14 @@ const ContractProposal = (props) => {
         (await isInWhiteList(author)) &&
         approvalMode === "bpApproval"
       ) {
-        message.error(
+        toast.error(
           "Contract update failed. Please update this contract in without Approval mode."
         );
         return false;
       }
       return true;
     } catch (e) {
-      message.error(e);
+      toast.error(e);
       return false;
     }
   };
@@ -391,7 +392,7 @@ const ContractProposal = (props) => {
       submit(submitObj);
     } catch (e) {
       console.error(e);
-      message.error(
+      toast.error(
         e.message ||
           e?.errorFields?.at?.(-1)?.errors?.[0] ||
           "Please input the required form!"
@@ -484,9 +485,9 @@ const ContractProposal = (props) => {
       <FormItem
         label={
           <span>
-            Contract Method&nbsp;
+            Contract Method
             <Tooltip title={methosTip}>
-              <QuestionCircleOutlined className="main-color" />
+              <i className="tmrwdao-icon-information text-[20px] text-lightGrey ml-2 align-bottom" />
             </Tooltip>
           </span>
         }
@@ -566,12 +567,11 @@ const ContractProposal = (props) => {
         required
         label={
           <span>
-            Upload File&nbsp;
+            Upload File
             <Tooltip
-              // eslint-disable-next-line max-len
               title="When creating a 'Contract Deployment' proposal, you only need to upload the file, more information can be viewed on the public proposal page after the application is successful"
             >
-              <QuestionCircleOutlined className="main-color" />
+              <i className="tmrwdao-icon-information text-[20px] text-lightGrey ml-2 align-bottom" />
             </Tooltip>
           </span>
         }
@@ -597,8 +597,8 @@ const ContractProposal = (props) => {
             extra="Support DLL or PATCHED file, less than 2MB"
             // if upload is disabled, avoid being triggered by label
           >
-            <Button type="primary" disabled={fileLength === 1}>
-              <UploadOutlined className="gap-right-small" />
+            <Button type="primary" size="small" disabled={fileLength === 1}>
+              <i className="tmrwdao-icon-upload-document text-[20px] text-inherit mr-[6px]" />
               Click to Upload
             </Button>
           </Upload>
@@ -688,12 +688,10 @@ const ContractProposal = (props) => {
             </div>
           </Form.Item>
         )}
-        <div className="proposal-apply-btn-wrap">
+        <div className="flex justify-end border-0 border-t border-solid border-fillBg8 pt-[50px] pb-0">
         <Button
-            className="apply-btn"
-            style={{ width: "240px" }}
             type="primary"
-            size="large"
+            size="small"
             loading={loading}
             disabled={disabled}
             onClick={handleSubmit}

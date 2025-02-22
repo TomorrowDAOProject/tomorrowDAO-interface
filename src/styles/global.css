@@ -368,7 +368,57 @@ input[type='number'] {
   }
 }
 
+.antExplorer-select-dropdown {
+  @apply !px-0 !py-4 !bg-darkBg !border !border-solid !border-fillBg8 !rounded-[8px] !text-lightGrey;
+}
 
+.antExplorer-select-dropdown .antExplorer-select-item {
+  @apply py-2 px-4 !text-lightGrey !rounded-none !text-descM14 !font-Montserrat min-h-[34px];
+
+  &:hover {
+    @apply !bg-fillBg8;
+  }
+}
+
+.antExplorer-empty-normal .antExplorer-empty-description {
+  @apply !text-descM14 !text-lightGrey;
+}
+
+.antExplorer-select-dropdown .antExplorer-select-item-option-active:not(.antExplorer-select-item-option-disabled) {
+  @apply !bg-fillBg8;
+}
+
+
+.proposal-custom-action-params-editor {
+  .monaco-editor, .monaco-diff-editor {
+    --vscode-editor-background: rgba(0, 0, 0, 0);
+    --vscode-editorGutter-background: var(--darkBg);
+  }
+
+  * {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+
+  .monaco-editor {
+    .bracket-highlighting-0 {
+      @apply !text-lightGrey;
+    }
+    .mtk1 {
+      @apply !text-lightGrey;
+    }
+    .mtk2 {
+      @apply !text-lightGrey;
+    }
+  
+    .mtk4 {
+      @apply !text-[#FF7070];
+    }
+  
+    .mtk5 {
+      @apply !text-[#8CD9FF];
+    }
+  }
+}
 /* .TMRWDAO-form-item-margin-offset {
   @apply !mb-0;
 }
