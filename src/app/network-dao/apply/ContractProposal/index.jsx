@@ -12,9 +12,9 @@ import {
   Upload,
   Select,
   message,
+  Tooltip,
   Form,
 } from "antd";
-import Tooltip from "components/Tooltip";
 import Button from "components/Button";
 import { onlyOkModal } from "@components/SimpleModal/index.tsx";
 import { useDispatch, useSelector } from "react-redux";

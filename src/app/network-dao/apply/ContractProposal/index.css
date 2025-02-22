@@ -56,6 +56,10 @@
   
   .antExplorer-radio-wrapper {
     @apply !text-white !text-desc15 font-Montserrat me-[150px];
+
+    &:last-child {
+      @apply !mr-0;
+    }
   }
 
   .antExplorer-radio-button-wrapper {
@@ -64,6 +68,10 @@
     &:hover {
       @apply !bg-mainColor !border-mainColor;
     }
+  }
+
+  .antExplorer-radio-group {
+    @apply !flex !flex-col md:!flex-row !gap-[10px];
   }
 
   .antExplorer-radio-button-wrapper:not(:first-child)::before,
