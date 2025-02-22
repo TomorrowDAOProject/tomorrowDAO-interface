@@ -7,11 +7,19 @@ interface IModalProps {
   isVisible: boolean;
   children: ReactNode | ReactNode[];
   rootClassName?: string;
-  title?: string;
+  title?: ReactNode;
+  footer?: ReactNode;
   onClose?: () => void;
 }
 
-const Modal: React.FC<IModalProps> = ({ isVisible, children, rootClassName, title, onClose }) => {
+const Modal: React.FC<IModalProps> = ({
+  isVisible,
+  children,
+  rootClassName,
+  title,
+  footer,
+  onClose,
+}) => {
   // Variants for the modal animation
   const variants = {
     hidden: { opacity: 0, scale: 0.75 },
@@ -22,7 +30,7 @@ const Modal: React.FC<IModalProps> = ({ isVisible, children, rootClassName, titl
     <div className="fixed votigram-grid inset-0 bg-[rgba(0,0,0,0.7)] flex justify-center items-center z-[10000]">
       <motion.div
         className={clsx(
-          `bg-darkBg border border-solid border-fillBg8 rounded-lg shadow-lg w-full max-w-[calc(100vw-40px)]`,
+          `relative bg-darkBg border border-solid border-fillBg8 rounded-lg shadow-lg w-full max-w-[calc(100vw-40px)]`,
           rootClassName,
         )}
         initial="hidden"
@@ -33,11 +41,12 @@ const Modal: React.FC<IModalProps> = ({ isVisible, children, rootClassName, titl
       >
         {title && (
           <div className="flex items-center justify-center text-[20px] relative">
-            <span className="text-white">{title}</span>
-            <Close className="absolute top-0 right-0 cursor-pointer" onClick={onClose} />
+            <span className="text-white font-Unbounded font-light">{title}</span>
           </div>
         )}
+        <Close className="absolute top-[30px] right-[38px] cursor-pointer" onClick={onClose} />
         {children}
+        {footer}
       </motion.div>
     </div>
   ) : null;
