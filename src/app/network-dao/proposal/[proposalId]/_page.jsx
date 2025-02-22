@@ -4,14 +4,13 @@ import React, { useState, useEffect, useMemo } from "react";
 import moment from "moment";
 import PropTypes from "prop-types";
 import Link from 'next/link';
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import {
-  Button,
-  Divider,
-  Skeleton,
-  Result,
-  Tabs,
-} from "antd";
+import { useParams, useRouter } from 'next/navigation'
+import Button from "components/Button";
+import Divider from "components/Divider";
+import Result from "components/Result";
+import Card from 'components/Card';
+import Tabs from "components/Tabs";
+import Text from 'components/Text';
 import { useSelector } from "react-redux";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
 import {
@@ -50,17 +49,14 @@ import { useChainSelect } from "hooks/useChainSelect";
 import { fetchNetworkDaoProposaDetail } from "api/request";
 import { useRequest } from "ahooks";
 import getChainIdQuery from "utils/url";
-import { HashAddress } from "aelf-design";
 import { fetchURLDescription } from "api/request";
 import Tag from "components/Tag";
-
+import { shortenFileName } from "utils/file";
 const {
   proposalActions,
 } = constants;
 
 const { viewer } = config;
-
-const { TabPane } = Tabs;
 
 const { proposalTypes, proposalStatus } = constants;
 
@@ -143,7 +139,6 @@ Extra.propTypes = {
 };
 
 const ProposalDetail = () => {
-  const searchParams = useSearchParams();
   const { proposalId } = useParams();
   const navigate = useRouter();
   const location = window.location;
@@ -161,7 +156,6 @@ const ProposalDetail = () => {
   });
   const { data: networkDaoProposalDetail } = useRequest(() => {
     const chain = getChainIdQuery()
-    console.log('get fetchNetworkDaoProposaDetail', proposalId)
     return fetchNetworkDaoProposaDetail({
       chainId: chain.chainId,
       proposalId
@@ -313,215 +307,211 @@ const ProposalDetail = () => {
   const existUrl = validateURL(leftInfo?.proposalDescriptionUrl || "");
 
   return (
-    <div className="proposal-detail">
-      {info.loadingStatus === LOADING_STATUS.LOADING ? <Skeleton /> : null}      
+    <>
       {info.loadingStatus === LOADING_STATUS.SUCCESS ? (
         <>
-          <div className="page-content-bg-border unset-bottom-border lg:py-6 h-[78px]">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <h2 className="leading-[28px]">Proposal Detail</h2>
-                <p className="ml-[4px]"><CountDown time={expiredTime} status={status} /></p>
-               </div>
-               <div className="flex">
-                  {
-                    votedStatus && votedStatus !== "none" ? (
-                      <Tag  color={ACTIONS_COLOR_MAP[votedStatus]}>
-                        {ACTIONS_ICON_MAP[votedStatus]}
-                        {votedStatus}
-                      </Tag>
-                    ) : null
-                  }
-                  <Extra
-                    {...info.proposal}
-                          currentWallet={currentWallet}
-                          logStatus={logStatus}
-                    handleRelease={handleRelease}
-                  />
-                  </div>
-            </div>
-          </div>
-          <div className="page-content-bg-border unset-top-border lg:py-6 mb-[24px]">
-            {
-              networkDaoProposalDetail?.data?.title && (
-                <h3 className="card-title mb-[12px] break-all">{networkDaoProposalDetail?.data?.title}</h3>
-              )
+          <Card
+            className="mb-[26px]"
+            title={
+              <div className="flex justify-between items-center">
+                <div className="flex items-center">
+                  <h2 className="font-Unbounded text-descM15 font-light -tracking-[0.6px] text-white">Proposal Detail</h2>
+                  <p className="ml-[4px]"><CountDown time={expiredTime} status={status} /></p>
+                </div>
+                 <div className="flex">
+                    {
+                      votedStatus && votedStatus !== "none" ? (
+                        <Tag  color={ACTIONS_COLOR_MAP[votedStatus]}>
+                          {ACTIONS_ICON_MAP[votedStatus]}
+                          {votedStatus}
+                        </Tag>
+                      ) : null
+                    }
+                    <Extra
+                      {...info.proposal}
+                            currentWallet={currentWallet}
+                            logStatus={logStatus}
+                      handleRelease={handleRelease}
+                    />
+                    </div>
+              </div>
             }
-            <div className="card-title-lg truncate mb-[12px]">
-            Proposal ID:{proposalId}
-            </div>
-            <div className="proposal-detail-tag gap-bottom">
-              <Tag color={'#FAFAFA'} className="gap-right">
-                <span className="tag-font">
+          >
+            <>
+              {
+                networkDaoProposalDetail?.data?.title && (
+                  <h3 className="mb-[15px] font-Unbounded text-descM16 text-white">{networkDaoProposalDetail?.data?.title}</h3>
+                )
+              }
+              <span className="flex flex-col md:flex-row mb-[15px] font-Unbounded text-descM15 text-white font-light -tracking-[0.6px]">
+                <span className="whitespace-nowrap">Proposal ID:</span>
+                <span className="max-w-full text-ellipsis whitespace-nowrap">{proposalId}</span>
+              </span>
+              <div className="flex gap-x-2">
+                <Tag color="default" className="gap-right">
                   {proposalType}
-                </span>
-              </Tag>
-              {CONTRACT_TEXT_MAP[contractMethod] ? (
-                <Tag color={'#FAFAFA'}>
-                  <span className="tag-font">
-                  {CONTRACT_TEXT_MAP[contractMethod]}
-                  </span>
                 </Tag>
-              ) : null}
-            </div>
-            <Divider />
-            <div className="proposal-detail-desc-list overflow-hidden">
-              <div className="proposal-key-value">
-                <div  className="detail-flex items-center">
-                  <span className="card-sm-text text-Neutral-Secondary-Text gap-right">
+                {CONTRACT_TEXT_MAP[contractMethod] ? (
+                  <Tag color="default">
+                    {CONTRACT_TEXT_MAP[contractMethod]}
+                  </Tag>
+                ) : null}
+              </div>
+              <Divider className="my-[15px]" />
+              <div className="flex flex-wrap justify-between gap-y-[14px]">
+                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3">
+                  <span className="text-desc13 text-lightGrey font-Montserrat">
                     Application Submitted:
                   </span>
-                  <span className="card-sm-text-black text-ellipsis">
+                  <span className="text-desc13 text-white font-Montserrat">
                     {moment(createAt).format("YYYY/MM/DD HH:mm:ss")}
                   </span>
                 </div>
-                <div  className="detail-flex items-center">
-                  <span className="card-sm-text text-Neutral-Secondary-Text gap-right">Proposal Expires:</span>
-                  <span className="card-sm-text-black text-ellipsis">
+                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3">
+                  <span className="text-desc13 text-lightGrey font-Montserrat">Proposal Expires:</span>
+                  <span className="text-desc13 text-white font-Montserrat">
                     {moment(expiredTime).format("YYYY/MM/DD HH:mm:ss")}
                   </span>
                 </div>
-                <div  className="detail-flex items-center">
-                  <span className="card-sm-text text-Neutral-Secondary-Text gap-right">Proposer:</span>
-                  <span className="card-sm-text-black text-ellipsis truncate">
+                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3">
+                  <span className="text-desc13 text-lightGrey font-Montserrat">Proposer:</span>
+                  <span className="text-desc13 text-white font-Montserrat">
                     <a
                       href={`${isSideChain ? explorer : mainExplorer}/address/${addressFormat(proposer)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       title={`ELF_${proposer}_${viewer.chainId}`}
                     >
-                       <HashAddress 
-                        preLen={8}
-                        endLen={11}
-                        address={`ELF_${proposer}_${viewer.chainId}`}
-                        />
+                      <Text textClassName="!text-white !text-desc13" content={shortenFileName(`ELF_${proposer}_${viewer.chainId}`, 20, 8, 11)} copyable />
                     </a>
-                   
+                  
                   </span>
                 </div>
 
                 {status === proposalStatus.RELEASED ? (
-                  <div  className="detail-flex items-center">
-                    <span className="card-sm-text text-Neutral-Secondary-Text gap-right">
+                  <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3">
+                    <span className="text-desc13 text-lightGrey font-Montserrat">
                       Proposal Released:
                     </span>
-                    <span className="card-sm-text-black text-ellipsis">
+                    <span className="text-desc13 text-white font-Montserrat">
                       {moment(releasedTime).format("YYYY/MM/DD HH:mm:ss")}
                     </span>
                   </div>
                 ) : null}
               </div>
-            </div>
-          </div>
-          <Tabs
-            className="proposal-detail-tab"
-            activeKey={activeKey}
-            onTabClick={(key) => changeTab(key)}
-          >
-            <TabPane tab="Proposal Details" key="proposal">
-              <div className="px-[16px] lg:px-[32px] pb-[40px]">
-                {
-                  leftInfo?.description && (
-                    <div className="proposal-detail-tab-description">
-                      <h2>Description</h2>
-                      <p className="description-card">
-                        {leftInfo?.description}
-                      </p>
-                    </div>
-                  )
-                }
+            </>
+          </Card>
 
-                <VoteData
-                  className="gap-top-large"
-                  proposalType={proposalType}
-                  expiredTime={expiredTime}
-                  status={status}
-                  approvals={approvals}
-                  rejections={rejections}
-                  abstentions={abstentions}
-                  canVote={canVote}
-                  votedStatus={votedStatus}
-                  bpCount={bpCountNumber}
-                  handleApprove={handleApprove}
-                  handleReject={handleReject}
-                  handleAbstain={handleAbstain}
-                  organization={info.organization}
-                />
-                 <Divider />
-                <OrganizationCard
-                  className="gap-top-large proposal-detail-org"
-                  bpList={info.bpList}
-                  bpCount={bpCountNumber}
-                  parliamentProposerList={info.parliamentProposerList}
-                  {...info.organization}
-                />
-                 <Divider />
-                <ContractDetail
-                  className="gap-top-large contract-detail"
-                  aelf={aelf}
-                  contractAddress={contractAddress}
-                  contractMethod={contractMethod}
-                  contractParams={contractParams}
-                  createdBy={createdBy}
-                />
+          <div className="mt-[26px] border border-fillBg18 border-solid bg-darkBg rounded-[10px]">
+            <Tabs
+              activeKey={activeKey}
+              onChange={changeTab}
+              items={[
                 {
-                  existUrl && 
-                  <>
-                  <Divider />
-                  <div className="link-preview">
-                    <h2 className="normal-text-bold">Discussion</h2>
-                    {
-                      !forumUrlDetail?.data?.title ? <Link href={leftInfo.proposalDescriptionUrl ?? ''} target="_blank">
-                        {leftInfo.proposalDescriptionUrl}
-                      </Link> : 
-                      <Link href={leftInfo.proposalDescriptionUrl ?? ''} target="_blank">
-                      <div className="link-preview-content">
-                        {
-                          forumUrlDetail?.data?.favicon ? 
-                          <img className="icon" src={forumUrlDetail.data.favicon} alt="" /> :
-                          <div className="icon text">{forumUrlDetail.data?.title?.[0] ?? "T"}</div>
-                        }
-                        <div className="link-preview-info">
-                          <h3 className="break-words">{forumUrlDetail.data?.title}</h3>
-                          <p className="break-words link-preview-info-description">{forumUrlDetail.data?.description}</p>
+                  key: 'proposal',
+                  label: 'Proposal Details',
+                  children: (
+                    <div className="py-6 px-[22px] md:px-[38px]">
+                      {/* {leftInfo?.description && (
+                        <div className="proposal-detail-tab-description">
+                          <h2>Description</h2>
+                          <p className="description-card">{leftInfo?.description}</p>
                         </div>
-                      </div>
-                      </Link>
-                    }
-                </div>
-                </>
-                }
-              </div>
-            </TabPane>
-            <TabPane tab="Voting Details" key="vote">
-              <div className="px-[16px] lg:px-[32px]">
-                <VoteDetail
-                  proposalType={proposalType}
-                  proposalId={proposalId}
-                  logStatus={logStatus}
-                  expiredTime={expiredTime}
-                  status={status}
-                  currentWallet={currentWallet}
-                  wallet={wallet}
-                  symbol={leftOrgInfo.tokenSymbol || "ELF"}
-                  />
-                </div>
-            </TabPane>
-          </Tabs>
-          {visible ? (
-            <ApproveTokenModal
-              aelf={aelf}
-              {...info.proposal}
-              action={visible}
-              tokenSymbol={leftOrgInfo.tokenSymbol || "ELF"}
-              onCancel={handleConfirm}
-              onConfirm={handleConfirm}
-              wallet={wallet}
-              proposalId={proposalId}
-              owner={currentWallet.address}
-              visible={!!visible}
+                      )} */}
+                      <VoteData
+                        proposalType={proposalType}
+                        expiredTime={expiredTime}
+                        status={status}
+                        approvals={approvals}
+                        rejections={rejections}
+                        abstentions={abstentions}
+                        canVote={canVote}
+                        votedStatus={votedStatus}
+                        bpCount={bpCountNumber}
+                        handleApprove={handleApprove}
+                        handleReject={handleReject}
+                        handleAbstain={handleAbstain}
+                        organization={info.organization}
+                      />
+                      <Divider className="my-[30px]" />
+                      <OrganizationCard
+                        bpList={info.bpList}
+                        bpCount={bpCountNumber}
+                        parliamentProposerList={info.parliamentProposerList}
+                        {...info.organization}
+                      />
+                      <Divider className="my-[30px]" />
+                      <ContractDetail
+                        aelf={aelf}
+                        contractAddress={contractAddress}
+                        contractMethod={contractMethod}
+                        contractParams={contractParams}
+                        createdBy={createdBy}
+                      />
+                      {existUrl && (
+                        <>
+                          <Divider />
+                          <div className="link-preview">
+                            <h2 className="normal-text-bold">Discussion</h2>
+                            {
+                              !forumUrlDetail?.data?.title ? <Link href={leftInfo.proposalDescriptionUrl ?? ''} target="_blank">
+                                {leftInfo.proposalDescriptionUrl}
+                              </Link> : 
+                              <Link href={leftInfo.proposalDescriptionUrl ?? ''} target="_blank">
+                              <div className="link-preview-content">
+                                {
+                                  forumUrlDetail?.data?.favicon ? 
+                                  <img className="icon" src={forumUrlDetail.data.favicon} alt="" /> :
+                                  <div className="icon text">{forumUrlDetail.data?.title?.[0] ?? "T"}</div>
+                                }
+                                <div className="link-preview-info">
+                                  <h3 className="break-words">{forumUrlDetail.data?.title}</h3>
+                                  <p className="break-words link-preview-info-description">{forumUrlDetail.data?.description}</p>
+                                </div>
+                              </div>
+                              </Link>
+                            }
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ),
+                },
+                {
+                  key: 'vote',
+                  label: 'Voting Details',
+                  children: (
+                    <div className="px-[16px] lg:px-[32px]">
+                      <VoteDetail
+                        proposalType={proposalType}
+                        proposalId={proposalId}
+                        logStatus={logStatus}
+                        expiredTime={expiredTime}
+                        status={status}
+                        currentWallet={currentWallet}
+                        wallet={wallet}
+                        symbol={leftOrgInfo.tokenSymbol || "ELF"}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
             />
-          ) : null}
+            {visible ? (
+              <ApproveTokenModal
+                aelf={aelf}
+                {...info.proposal}
+                action={visible}
+                tokenSymbol={leftOrgInfo.tokenSymbol || "ELF"}
+                onCancel={handleConfirm}
+                onConfirm={handleConfirm}
+                wallet={wallet}
+                proposalId={proposalId}
+                owner={currentWallet.address}
+                visible={!!visible}
+              />
+            ) : null}
+          </div>
         </>
       ) : null}
       {info.loadingStatus === LOADING_STATUS.FAILED ? (
@@ -531,7 +521,7 @@ const ProposalDetail = () => {
           subTitle="Please check your network"
         />
       ) : null}
-    </div>
+    </>
   );
 };
 
