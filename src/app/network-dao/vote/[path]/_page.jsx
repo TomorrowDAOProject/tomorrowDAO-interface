@@ -1262,12 +1262,12 @@ class VoteContainer extends Component {
   renderSecondaryLevelNav() {
     const { pagePath } = this.props;
     return (
-      <section className="vote-container vote-container-simple basic-container basic-container-white vote-menu">
-        <Menu selectedKeys={pagePath} mode="horizontal" className="bg-darkBg border-b border-solid border-borderColor">
+      <section className="h-[66px] vote-container vote-container-simple basic-container basic-container-white vote-menu">
+        <Menu selectedKeys={pagePath} mode="horizontal" className="h-[66px] rounded-t-lg bg-darkBg border-b border-solid border-borderColor">
           <Menu.Item
             key={allowPathMap.election}
           >
-            <LinkNetworkDao href="/vote/election" className="!text-white font-medium font-Montserrat">
+            <LinkNetworkDao href="/vote/election" className="h-[66px] leading-[66px] !text-white font-medium font-Montserrat">
               Election Notification
             </LinkNetworkDao>
             
@@ -1275,7 +1275,7 @@ class VoteContainer extends Component {
           <Menu.Item
             key={allowPathMap.myvote}
           >
-            <LinkNetworkDao href="/vote/myvote" className="!text-white font-medium font-Montserrat">
+            <LinkNetworkDao href="/vote/myvote" className="h-[66px] leading-[66px] !text-white font-medium font-Montserrat">
               My Vote
             </LinkNetworkDao>
           </Menu.Item>
@@ -1336,10 +1336,10 @@ class VoteContainer extends Component {
 
     const secondaryLevelNav = this.renderSecondaryLevelNav();
     return (
-      <>
+      <div className="rounded-[8px] border border-solid border-borderColor">
         {secondaryLevelNav}
         <section
-          className="vote-container vote-container-simple basic-container basic-container-white vote-content"
+          className="vote-container vote-container-simple basic-container basic-container-white vote-content rounded-b-lg"
           onClick={this.handleClick}
         >
           {/* <Routes>
@@ -1494,7 +1494,7 @@ class VoteContainer extends Component {
             Loading...
           </Modal>
         </section>
-      </>
+      </div>
     );
   }
 }
