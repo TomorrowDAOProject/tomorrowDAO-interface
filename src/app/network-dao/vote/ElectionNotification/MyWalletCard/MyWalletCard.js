@@ -345,7 +345,7 @@ class MyWalletCard extends PureComponent {
             <div className="my-wallet-card-body-wallet-title">
               <>
                 <div className="name">
-                  <span className="my-wallet-card-body-wallet-title-key text-white text-[10px] font-Montserrat">
+                  <span className="my-wallet-card-body-wallet-title-key text-white text-[11px] font-Montserrat">
                     Name:
                   </span>
                   <span className="my-wallet-card-body-wallet-title-value text-lightGrey">
@@ -353,7 +353,7 @@ class MyWalletCard extends PureComponent {
                   </span>
                 </div>
                 <div className="address">
-                  <span className="my-wallet-card-body-wallet-title-key text-white text-[10px] font-Montserrat">
+                  <span className="my-wallet-card-body-wallet-title-key text-white text-[11px] font-Montserrat">
                     Address:
                   </span>
                   <span className="my-wallet-card-body-wallet-title-value">
@@ -379,9 +379,9 @@ class MyWalletCard extends PureComponent {
               <ul className="my-wallet-card-body-wallet-content">
                 {walletItems.map((item) => (
                   <li key={item.type} className={item.class}>
-                    <span className="item-type !text-white text-[10px] font-medium font-Montserrat">{item.type}:</span>
+                    <span className="item-type !text-white text-[11px] font-medium font-Montserrat">{item.type}:</span>
                     <span>
-                      <span className="item-value !text-lightGrey">{item.value}</span>
+                      <span className="item-value !text-lightGrey text-[11px]">{item.value}</span>
                       {item.extra && (
                         <span className="item-extra text-lightGrey">{item.extra}</span>
                       )}

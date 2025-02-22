@@ -88,6 +88,10 @@
   .statistical-data-container {
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
+    
+    & > div {
+      border-left: none !important;
+    }
   }
 
   .statistical-data-container .antExplorer-statistic {
