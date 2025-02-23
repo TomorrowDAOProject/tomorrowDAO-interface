@@ -568,6 +568,7 @@ class NodeTable extends PureComponent {
             columns={nodeListCols}
             dataSource={nodeList}
             // onChange={handleTableChange}
+            pagination={false}
             loading={isLoading}
             // cannot use publicKey, because publicKey will not change when updating producedBlocks
             rowKey={(record) => record.producedBlocks}
