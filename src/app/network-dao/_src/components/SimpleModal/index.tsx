@@ -2,9 +2,11 @@ import ConfirmModal from "../ConfirmModal";
 
 interface IOnlyOkModal {
   message: string;
+  title?: string;
 }
-export const onlyOkModal = ({ message }: IOnlyOkModal) => {
+export const onlyOkModal = ({ message, title }: IOnlyOkModal) => {
   ConfirmModal.confirm({
+    title: title,
     content: message,
     okText: 'OK',
     showCancel: false,

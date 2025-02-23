@@ -29,6 +29,7 @@ function ElectionRuleCard(props) {
       !currentWallet.nightElfInfo
     ) {
       onlyOkModal({
+        title: "Error",
         message: `Becoming a candidate node with smart contract wallet address is not supported.`,
       });
       return;

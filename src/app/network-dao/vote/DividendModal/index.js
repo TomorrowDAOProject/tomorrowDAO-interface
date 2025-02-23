@@ -1,6 +1,6 @@
-import React, { Fragment, useMemo } from "react";
+import React, { useMemo } from "react";
 import { If, Then, Else } from "react-if";
-import { Spin, Row, Col, Modal, Button } from "antd";
+import { Spin, Divider, Modal, Button } from "antd";
 import Dividends from "../../_src/components/Dividends";
 
 import "./index.css";
@@ -28,7 +28,7 @@ const DividendModal = (props) => {
   const tokenCounts = useMemo(() => getTokenCounts(dividends), [dividends]);
   return (
     <Modal
-      className="dividend-modal"
+      className="dividend-modal governance-rewards-modal"
       title="Governance Rewards"
       visible={dividendModalVisible}
       onOk={() => {
@@ -49,7 +49,8 @@ const DividendModal = (props) => {
           <Spin spinning={loading} />
         </Then>
         <Else>
-          <>
+          <div>
+            <Divider className="mt-[30px] mb-[30px] bg-borderColor" />
             {dividends.amounts.map((item, index) => (
               <div
                 key={item.type}
@@ -58,28 +59,28 @@ const DividendModal = (props) => {
               >
                 <div className="text-left">
                   <span className="profit-item-key">{item.title}: </span>
-                </div>
-                <div className="text-center">
                   <Dividends
                     className="profit-item-value"
+                    valueClassName="text-lightGrey"
+                    buttonClassName="!rounded-[12px] !text-white text-[11px] font-medium !bg-mainColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                     dividends={item.amounts}
                   />
                 </div>
-                <div className="text-right">
-                  <Button
-                    disabled={tokenCounts[index] === 0 || claimDisabled}
-                    type="primary"
-                    loading={claimLoading[item.title]}
-                    onClick={() => {
-                      handleClaimDividendClick(item);
-                    }}
-                  >
-                    Claim Rewards
-                  </Button>
-                </div>
+                <Button
+                  disabled={tokenCounts[index] === 0 || claimDisabled}
+                  type="primary"
+                  loading={claimLoading[item.title]}
+                  onClick={() => {
+                    handleClaimDividendClick(item);
+                  }}
+                  size="small"
+                  className="!rounded-[12px] !text-white text-[11px] font-medium !bg-mainColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                >
+                  Claim Rewards
+                </Button>
               </div>
             ))}
-          </>
+          </div>
         </Else>
       </If>
     </Modal>
