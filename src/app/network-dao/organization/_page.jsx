@@ -135,7 +135,7 @@ const OrganizationList = () => {
   };
 
   return (
-    <div className="organization-list bg-darkBg text-white font-Montserrat rounded-lg border border-solid border-fillBg8 overflow-hidden page-content-padding">
+    <div className="organization-list bg-darkBg text-white font-Montserrat rounded-lg border border-solid border-fillBg8 overflow-visible">
       <Tabs
         size={isLG ? 'small' : 'middle'}
         animated={false}
@@ -167,75 +167,77 @@ const OrganizationList = () => {
           key={proposalTypes.REFERENDUM}
         />
       </Tabs>
-      <div className="organization-list-filter gap-top-large gap-bottom-large">
-        <Row gutter={16}>
-          <Col sm={6} xs={24} className="organization-list-filter-input">
-            <Input
-              className="!w-[406px] h-[36px]"
-              placeholder="Input voter address/transaction id"
-              prefix={<i className="tmrwdao-icon-search text-lightGrey" />}
-              defaultValue={params.search}
-              allowClear
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onPressEnter={(e) => onSearch(e.target.value)}
-            />
-          </Col>
-        </Row>
-      </div>
-      <div className="organization-list-list">
-        <Switch>
-          <Case
+      <div className="page-content-padding">
+        <div className="organization-list-filter gap-top-large gap-bottom-large">
+          <Row gutter={16}>
+            <Col sm={6} xs={24} className="organization-list-filter-input">
+              <Input
+                className="!w-[406px] h-[36px]"
+                placeholder="Input voter address/transaction id"
+                prefix={<i className="tmrwdao-icon-search text-lightGrey" />}
+                defaultValue={params.search}
+                allowClear
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                onPressEnter={(e) => onSearch(e.target.value)}
+              />
+            </Col>
+          </Row>
+        </div>
+        <div className="organization-list-list">
+          <Switch>
+            <Case
+              condition={
+                loadingStatus === LOADING_STATUS.LOADING ||
+                loadingStatus === LOADING_STATUS.SUCCESS
+              }
+            >
+              <Spin spinning={loadingStatus === LOADING_STATUS.LOADING}>
+                <Row gutter={16}>
+                  {list.map((item) => (
+                    <Col sm={12} xs={24} key={item.orgAddress} className="mt-[12px]">
+                      <Organization
+                        {...item}
+                        bpList={bpList}
+                        logStatus={logStatus}
+                        editOrganization={editOrganization}
+                        parliamentProposerList={parliamentProposerList}
+                        currentWallet={currentWallet}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              </Spin>
+            </Case>
+            <Case condition={loadingStatus === LOADING_STATUS.FAILED}>
+              <Result
+                status="error"
+                title="Error Happened"
+                subTitle="Please check your network"
+              />
+            </Case>
+          </Switch>
+          <If
             condition={
-              loadingStatus === LOADING_STATUS.LOADING ||
-              loadingStatus === LOADING_STATUS.SUCCESS
+              loadingStatus === LOADING_STATUS.SUCCESS && list.length === 0
             }
           >
-            <Spin spinning={loadingStatus === LOADING_STATUS.LOADING}>
-              <Row gutter={16}>
-                {list.map((item) => (
-                  <Col sm={12} xs={24} key={item.orgAddress} className="mt-[12px]">
-                    <Organization
-                      {...item}
-                      bpList={bpList}
-                      logStatus={logStatus}
-                      editOrganization={editOrganization}
-                      parliamentProposerList={parliamentProposerList}
-                      currentWallet={currentWallet}
-                    />
-                  </Col>
-                ))}
-              </Row>
-            </Spin>
-          </Case>
-          <Case condition={loadingStatus === LOADING_STATUS.FAILED}>
-            <Result
-              status="error"
-              title="Error Happened"
-              subTitle="Please check your network"
-            />
-          </Case>
-        </Switch>
-        <If
-          condition={
-            loadingStatus === LOADING_STATUS.SUCCESS && list.length === 0
-          }
-        >
-          <Then>
-            <Empty description="No Results found"/>
-          </Then>
-        </If>
-      </div>
-      <div className="w-full">
-        <Pagination
-          className="mt-[12px] mb-[60px]"
-          total={total}
-          current={params.pageNum}
-          pageSize={params.pageSize || 10}
-          hideOnSinglePage
-          onChange={onPageNumChange}
-          onPageSizeChange={onPageSizeChange}
-        />
+            <Then>
+              <Empty description="No Results found"/>
+            </Then>
+          </If>
+        </div>
+        <div className="w-full">
+          <Pagination
+            className="mt-[12px] mb-[60px]"
+            total={total}
+            current={params.pageNum}
+            pageSize={params.pageSize || 10}
+            hideOnSinglePage
+            onChange={onPageNumChange}
+            onPageSizeChange={onPageSizeChange}
+          />
+        </div>
       </div>
     </div>
   );

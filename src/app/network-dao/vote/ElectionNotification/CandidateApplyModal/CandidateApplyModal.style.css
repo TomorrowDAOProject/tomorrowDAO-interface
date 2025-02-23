@@ -213,3 +213,27 @@
     width: 100%;
   }
 }
+
+.candidate-apply-modal .TMRWDAO-modal-content {
+  @apply bg-darkBg;
+}
+
+.candidate-apply-modal .TMRWDAO-modal-close-icon {
+  @apply text-white;
+}
+
+.candidate-apply-modal .TMRWDAO-modal-title {
+  font-weight: 300;
+  @apply text-white bg-darkBg text-center text-[20px] font-Unbounded;
+}
+
+.candidate-apply-modal .TMRWDAO-form-item-label > label {
+  min-width: 220px;
+  font-size: 13px;
+  font-weight: 500;
+  @apply text-lightGrey font-Montserrat;
+}
+
+.candidate-apply-modal .list-item-value {
+  @apply text-white font-Montserrat;
+}

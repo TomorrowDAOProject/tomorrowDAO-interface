@@ -152,9 +152,10 @@ export function getOrganizationLeftInfo(
   const proposerList =
     proposers.length > 0 ? (
       <Select
-        className="!h-[43px] !bg-fillBg8 !border-fillBg16"
-        labelClassName="!text-desc12"
         value={proposers[0]}
+        className="w-full h-[36px]"
+        labelClassName="!text-lightGrey text-ellipsis !text-[11px]"
+        overlayItemClassName="text-ellipsis !text-[11px]"
         options={proposersOptions}
       />
     ) : (
@@ -168,9 +169,10 @@ export function getOrganizationLeftInfo(
   const members =
     organizationMembers.length > 0 ? (
       <Select
-        className="!h-[43px] !bg-fillBg8 !border-fillBg16"
-        labelClassName="!text-desc12"
         value={organizationMembers[0]}
+        className="w-full h-[36px]"
+        labelClassName="!text-lightGrey text-ellipsis !text-[11px]"
+        overlayItemClassName="text-ellipsis !text-[11px]"
         options={membersOptions}
       />
     ) : (
@@ -292,21 +294,21 @@ const Organization = (props) => {
           <Divider className="bg-borderColor my-[20px]" />
           <div className="organization-list-item-info">
             <div className="organization-list-item-info-item">
-              <span className="sub-title gap-right text-white">Author:</span>
+              <span className="sub-title gap-right text-white !text-[11px] font-medium">Author:</span>
               <span className="text-ellipsis">
                 <a
                   href={`${isSideChain ? explorer : mainExplorer}/address/${addressFormat(creator)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-secondaryMainColor text-[10px] font-Montserrat"
+                  className="text-secondaryMainColor !text-[11px] font-Montserrat"
                 >
                   {addressFormat(creator)}
                 </a>
               </span>
             </div>
             <div className="organization-list-item-info-item flex items-center justify-start">
-              <span className="sub-title gap-right">Update Time:</span>
-              <span className="text-ellipsis text-[10px] text-lightGrey font-Montserrat">
+              <span className="sub-title gap-right !text-[11px] font-medium">Update Time:</span>
+              <span className="text-ellipsis text-[11px] text-lightGrey font-Montserrat">
                 {moment(updatedAt).format("YYYY/MM/DD HH:mm:ss")}
               </span>
             </div>
@@ -344,7 +346,7 @@ const Organization = (props) => {
                       votesData[proposalActions.APPROVE].rate
                     })`}
                   >
-                    <div className="text-xl text-white font-Montserrat font-light">
+                    <div className="text-white font-Montserrat font-light">
                       {votesData[proposalActions.APPROVE].num}
                     </div>
                     {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.APPROVE].rate}</div> */}
@@ -362,7 +364,7 @@ const Organization = (props) => {
                       votesData[proposalActions.REJECT].rate
                     })`}
                   >
-                    <div className="text-xl text-white font-Montserrat font-light">
+                    <div className="text-white font-Montserrat font-light">
                       {votesData[proposalActions.REJECT].num}
                     </div>
                     {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.REJECT].rate}</div> */}
@@ -400,7 +402,7 @@ const Organization = (props) => {
                       votesData[proposalActions.ABSTAIN].rate
                     })`}
                   >
-                    <div className="text-xl text-white font-Montserrat font-light">
+                    <div className="text-white font-Montserrat font-light">
                       {votesData[proposalActions.ABSTAIN].num}
                     </div>
                     {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.ABSTAIN].rate}</div> */}
@@ -416,7 +418,7 @@ const Organization = (props) => {
                     className="text-ellipsis"
                     title={`${votesData.Total.num}(${votesData.Total.rate})`}
                   >
-                    <div className="text-xl text-white font-Montserrat font-light">
+                    <div className="text-white font-Montserrat font-light">
                       {votesData.Total.num}
                     </div>
                     {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData.Total.rate}</div> */}
@@ -446,21 +448,21 @@ const Organization = (props) => {
         <Divider className="bg-borderColor my-[20px]" />
         <div className="organization-list-item-info">
           <div className="organization-list-item-info-item">
-            <span className="sub-title gap-right text-white">Author:</span>
+            <span className="sub-title gap-right text-white !text-[11px] font-medium">Author:</span>
             <span className="text-ellipsis">
               <a
                 href={`${isSideChain ? explorer : mainExplorer}/address/${addressFormat(creator)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondaryMainColor text-[10px] font-Montserrat"
+                className="text-secondaryMainColor text-[11px] font-Montserrat"
               >
                 {addressFormat(creator)}
               </a>
             </span>
           </div>
           <div className="organization-list-item-info-item flex items-center justify-start">
-            <span className="sub-title gap-right">Update Time:</span>
-            <span className="text-ellipsis text-[10px] text-lightGrey font-Montserrat">
+            <span className="sub-title gap-right !text-[11px] font-medium">Update Time:</span>
+            <span className="text-ellipsis text-[11px] text-lightGrey font-Montserrat">
               {moment(updatedAt).format("YYYY/MM/DD HH:mm:ss")}
             </span>
           </div>
@@ -514,7 +516,7 @@ const Organization = (props) => {
                     votesData[proposalActions.APPROVE].rate
                   })`}
                 >
-                  <div className="text-xl text-white font-Montserrat font-light">
+                  <div className="text-white font-Montserrat font-light">
                     {votesData[proposalActions.APPROVE].num}
                   </div>
                   {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.APPROVE].rate}</div> */}
@@ -532,7 +534,7 @@ const Organization = (props) => {
                     votesData[proposalActions.REJECT].rate
                   })`}
                 >
-                  <div className="text-xl text-white font-Montserrat font-light">
+                  <div className="text-white font-Montserrat font-light">
                     {votesData[proposalActions.REJECT].num}
                   </div>
                   {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.REJECT].rate}</div> */}
@@ -550,7 +552,7 @@ const Organization = (props) => {
                     votesData[proposalActions.ABSTAIN].rate
                   })`}
                 >
-                  <div className="text-xl text-white font-Montserrat font-light">
+                  <div className="text-white font-Montserrat font-light">
                     {votesData[proposalActions.ABSTAIN].num}
                   </div>
                   {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.ABSTAIN].rate}</div> */}
@@ -566,7 +568,7 @@ const Organization = (props) => {
                   className="text-ellipsis"
                   title={`${votesData.Total.num}(${votesData.Total.rate})`}
                 >
-                  <div className="text-xl text-white font-Montserrat font-light">
+                  <div className="text-white font-Montserrat font-light">
                     {votesData.Total.num}
                   </div>
                   {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData.Total.rate}</div> */}
