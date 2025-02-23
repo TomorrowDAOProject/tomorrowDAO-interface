@@ -10,6 +10,8 @@ interface TagProps {
 const Tag: React.FC<TagProps> = ({ children, color = 'primary', className }) => {
   const getColorStyles = () => {
     switch (color) {
+      case 'default':
+        return 'bg-fillBg8 text-lightGrey border-fillBg16';
       case 'primary':
         return 'bg-tagPrimaryBg text-tagPrimaryText';
       case 'success':

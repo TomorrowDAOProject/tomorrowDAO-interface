@@ -152,8 +152,10 @@ export function getOrganizationLeftInfo(
   const proposerList =
     proposers.length > 0 ? (
       <Select
+        // className="!h-[43px] !bg-fillBg8 !border-fillBg16"
+        // labelClassName="!text-desc12"
         value={proposers[0]}
-        className="w-full h-[36px]"
+        className="w-full !h-[43px] !bg-fillBg8 !border-fillBg16"
         labelClassName="!text-lightGrey text-ellipsis !text-[11px]"
         overlayItemClassName="text-ellipsis !text-[11px]"
         options={proposersOptions}
@@ -169,8 +171,10 @@ export function getOrganizationLeftInfo(
   const members =
     organizationMembers.length > 0 ? (
       <Select
+        // className="!h-[43px] !bg-fillBg8 !border-fillBg16"
+        // labelClassName="!text-desc12"
         value={organizationMembers[0]}
-        className="w-full h-[36px]"
+        className="w-full !h-[43px] !bg-fillBg8 !border-fillBg16"
         labelClassName="!text-lightGrey text-ellipsis !text-[11px]"
         overlayItemClassName="text-ellipsis !text-[11px]"
         options={membersOptions}
@@ -181,46 +185,46 @@ export function getOrganizationLeftInfo(
   return (
     <Switch>
       <Case condition={proposalType === proposalTypes.REFERENDUM}>
-        <>
-          <div className="gap-bottom-small card-list-desc-item">
+        <div className="flex flex-col lg:flex-row gap-[14px] lg:gap-[39px]">
+          <div className="flex flex-col gap-y-[10px]">
             <span className="card-list-desc-item-label mr-[6px]">Token:</span>
             <span className="card-list-desc-item-desc">{tokenSymbol}</span>
           </div>
-          <div className="gap-bottom-small card-list-desc-item">
+          <div className="flex flex-col gap-y-[10px]">
             <span className="card-list-desc-item-label mr-[6px]">Members:</span>
             <span className="card-list-desc-item-desc">All Users</span>
           </div>
-          <div className="card-list-desc-item mb-[4px]">
+          <div className="flex flex-col gap-y-[10px]">
             <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
             <span className="card-list-desc-item-desc select">{proposerList}</span>
           </div>
-        </>
+        </div>
       </Case>
       <Case condition={proposalType === proposalTypes.PARLIAMENT}>
-        <>
-          <div className="gap-bottom-small card-list-desc-item">
+        <div className="flex flex-col lg:flex-row gap-[14px] lg:gap-[39px]">
+          <div className="flex flex-col gap-y-[10px]">
             <span className="card-list-desc-item-label mr-[6px]">Members:</span>
             <span className="card-list-desc-item-desc select">{members}</span>
           </div>
-          <div className="card-list-desc-item mt-[20px] mb-[4px]">
+          <div className="flex flex-col gap-y-[10px]">
             <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
             <span className="card-list-desc-item-desc select">
               {proposerAuthorityRequired === false ? "All Users" : proposerList}
             </span>
           </div>
-        </>
+        </div>
       </Case>
       <Case condition={proposalType === proposalTypes.ASSOCIATION}>
-        <>
-          <div className="gap-bottom-small card-list-desc-item">
+        <div className="flex flex-col lg:flex-row gap-[14px] lg:gap-[39px]">
+          <div className="flex flex-col gap-y-[10px]">
             <span className="card-list-desc-item-label mr-[6px]">Members:</span>
             <span className="card-list-desc-item-desc select">{members}</span>
           </div>
-          <div className="card-list-desc-item mt-[20px] mb-[4px]">
+          <div className="flex flex-col gap-y-[10px]">
             <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
             <span className="card-list-desc-item-desc select">{proposerList}</span>
           </div>
-        </>
+        </div>
       </Case>
     </Switch>
   );

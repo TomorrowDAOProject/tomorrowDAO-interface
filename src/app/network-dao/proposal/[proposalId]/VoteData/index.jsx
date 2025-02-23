@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Row, Col, div, Button } from "antd";
+import Button from "components/Button";
 import VoteChart from "../../../_proposal_root/components/VoteChart";
 import constants, {
   organizationInfoPropTypes,
@@ -39,54 +39,45 @@ const VoteData = (props) => {
     );
   }, [status, votedStatus, expiredTime, canVote]);
   return (
-    <div className='vote-data'>
-      <Row type='flex'>
-        <Col span={24}>
-          <VoteChart
-            proposalType={proposalType}
-            approvals={approvals}
-            rejections={rejections}
-            abstentions={abstentions}
-            bpCount={bpCount}
-            organizationInfo={organization}
-          />
-        </Col>
-        <Col
-          span={24}
-          className='vote-data-button'
+    <>
+      <VoteChart
+        proposalType={proposalType}
+        approvals={approvals}
+        rejections={rejections}
+        abstentions={abstentions}
+        bpCount={bpCount}
+        organizationInfo={organization}
+      />
+      <div className="flex justify-between items-center gap-[10px] mt-6">
+        <Button
+          type='primary'
+          className="flex-1"
+          disabled={!canThisUserVote}
+          onClick={handleApprove}
+          size='small'
         >
-          <div className="vote-data-button-content">
-            <Button
-              type='primary'
-              disabled={!canThisUserVote}
-              className='approve-button'
-              onClick={handleApprove}
-              size='meduim'
-            >
-              Approve
-            </Button>
-            <Button
-            type="primary"
-              className='reject-button'
-              disabled={!canThisUserVote}
-              onClick={handleReject}
-              size='meduim'
-            >
-              &nbsp;Reject&nbsp;&nbsp;
-            </Button>
-            <Button
-            type="primary"
-              disabled={!canThisUserVote}
-              onClick={handleAbstain}
-              className="abstention-button"
-              size='meduim'
-            >
-              Abstain
-            </Button>
-          </div>
-        </Col>
-      </Row>
-    </div>
+          Approve
+        </Button>
+        <Button
+          type="danger"
+          className="flex-1"
+          disabled={!canThisUserVote}
+          onClick={handleReject}
+          size='small'
+        >
+          Reject
+        </Button>
+        <Button
+          type="default"
+          className="flex-1"
+          disabled={!canThisUserVote}
+          onClick={handleAbstain}
+          size='small'
+        >
+          Abstain
+        </Button>
+      </div>
+    </>
   );
 };
 
