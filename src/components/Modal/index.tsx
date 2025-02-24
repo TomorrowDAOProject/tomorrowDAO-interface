@@ -9,6 +9,7 @@ interface IModalProps {
   title?: ReactNode;
   footer?: ReactNode;
   onClose?: () => void;
+  closeable?: boolean;
 }
 
 const Modal: React.FC<IModalProps> = ({
@@ -18,6 +19,7 @@ const Modal: React.FC<IModalProps> = ({
   title,
   footer,
   onClose,
+  closeable = true,
 }) => {
   // Variants for the modal animation
   const variants = {
@@ -43,10 +45,12 @@ const Modal: React.FC<IModalProps> = ({
             <span className="text-white font-Unbounded font-light">{title}</span>
           </div>
         )}
-        <i
-          className="absolute tmrwdao-icon-plus text-white rotate-45 text-[28px] top-[22px] md:top-[30px] right-[22px] md:right-[38px] cursor-pointer"
-          onClick={onClose}
-        />
+        {closeable && (
+          <i
+            className="absolute tmrwdao-icon-plus text-white rotate-45 text-[28px] top-[18px] md:top-[27px] right-[18px] md:right-[35px] cursor-pointer"
+            onClick={onClose}
+          />
+        )}
         {children}
         {footer}
       </motion.div>

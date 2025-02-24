@@ -689,9 +689,8 @@ const ContractProposal = (props) => {
           </Form.Item>
         )}
         <div className="flex justify-end border-0 border-t border-solid border-fillBg8 pt-[50px] pb-0">
-        <Button
+          <Button
             type="primary"
-            size="small"
             loading={loading}
             disabled={disabled}
             onClick={handleSubmit}

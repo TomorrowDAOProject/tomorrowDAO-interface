@@ -93,8 +93,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
     const [rotation, setRotation] = useState(0);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
-    const [croppedImage, setCroppedImage] = useState<Blob | null>();
-    const [croppedImageUrl, setCropedImageUrl] = useState<string>();
+    const [croppedImageUrl, setCropedImageUrl] = useState<string>('');
 
     const onCropComplete = (_: Area, croppedAreaPixels: Area) => {
       setCroppedAreaPixels(croppedAreaPixels);
@@ -107,7 +106,6 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
         if (croppedImage) {
           const file = blobToFile(croppedImage);
           setCropedImageUrl(URL.createObjectURL(croppedImage));
-          setCroppedImage(croppedImage);
           handleUpload(file);
           setCropping(false);
           setImageSrc('');
@@ -201,16 +199,20 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
     };
 
     useEffect(() => {
-      setImageSrc(value || '');
+      // setImageSrc(value || '');
     }, [value]);
 
-    useImperativeHandle(ref, () => ({
-      reset: () => {
-        setImageSrc('');
-        setCroppedImage(null);
-        setCropedImageUrl(undefined);
-      },
-    }));
+    useImperativeHandle(
+      ref,
+      () => ({
+        reset: () => {
+          console.log('reset');
+          setImageSrc('');
+          setCropedImageUrl('');
+        },
+      }),
+      [],
+    );
 
     return (
       <>
@@ -221,9 +223,9 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
           )}
           onClick={handleClick}
         >
-          {(imageSrc || croppedImage) && preview ? (
+          {(!!imageSrc || !!croppedImageUrl) && preview ? (
             <Image
-              src={imageSrc || croppedImageUrl || ''}
+              src={croppedImageUrl || imageSrc}
               width={250}
               height={250}
               className="w-full h-full object-contain"
@@ -309,8 +311,7 @@ const Upload = forwardRef<IRefHandle, IUploadProps>(
                   onClick={() => {
                     setCropping(false);
                     setImageSrc('');
-                    setCroppedImage(null);
-                    setCropedImageUrl(undefined);
+                    setCropedImageUrl('');
                   }}
                 >
                   Cancel

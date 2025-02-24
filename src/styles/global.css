@@ -6,6 +6,7 @@ html,
 body {
   overflow-x: hidden;
   overflow-y: auto;
+  touch-action: pan-x pan-y;
 }
 
 body {
@@ -115,10 +116,6 @@ input[type='number'] {
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-column-sorters {
   @apply justify-start;
-}
-
-.TMRWDAO-table-wrapper .TMRWDAO-table-column-title {
-  @apply flex-grow-0 !text-desc11 !text-lightGrey font-Montserrat flex-none;
 }
 
 .dao-tx-hash {
@@ -253,9 +250,13 @@ input[type='number'] {
   @apply !bg-fillBg8;
 }
 
+.TMRWDAO-table-wrapper .TMRWDAO-table-container table > tbody > tr:hover > *:first-child {
+  @apply !bg-fillBg8;
+}
+
 .TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th,
 .TMRWDAO-table-wrapper .TMRWDAO-table-tbody > tr > td {
-  @apply border-0 !border-b-[1px] !border-solid !border-b-fillBg8;
+  @apply border-0 !border-b-[1px] !border-solid !border-b-fillBg8 text-desc10 font-normal font-Montserrat;
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-tbody > tr.TMRWDAO-table-measure-row > td {
@@ -352,6 +353,10 @@ input[type='number'] {
   @apply !bg-fillBg8;
 }
 
+.TMRWDAO-table-wrapper .TMRWDAO-table-column-title {
+  @apply !text-desc12 !text-lightGrey font-Montserrat flex-none;
+}
+
 .TMRWDAO-table-wrapper .TMRWDAO-table-filter-column {
   @apply !justify-center;
 }
@@ -362,6 +367,18 @@ input[type='number'] {
   &.active .anticon-search {
     @apply !text-mainColor;
   }
+}
+
+.TMRWDAO-pagination .TMRWDAO-pagination-options-quick-jumper {
+  @apply !h-6 !text-desc10 font-Montserrat !text-lightGrey !leading-6;
+}
+
+.TMRWDAO-pagination .TMRWDAO-pagination-options-quick-jumper input {
+  @apply !h-6 !text-desc10 font-Montserrat !text-white !leading-6 !bg-fillBg8 border border-solid !border-fillBg16;
+}
+
+.TMRWDAO-pagination .anticon {
+  @apply !align-baseline;
 }
 
 .antExplorer-select-dropdown {
@@ -415,17 +432,3 @@ input[type='number'] {
     }
   }
 }
-/* .TMRWDAO-form-item-margin-offset {
-  @apply !mb-0;
-}
-.TMRWDAO-form-item {
-
-  .TMRWDAO-form-item-control {
-    .TMRWDAO-form-item-explain {
-      @apply text-[16px] leading-[24px] h-[24px] mt-[8px];
-      .TMRWDAO-form-item-explain-error {
-        @apply text-[#F53F3F];
-      }
-    }
-  }
-} */

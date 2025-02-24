@@ -19,16 +19,11 @@ const Tooltip = ({ title, children, className }: ITooltipProps) => {
       const containerRect = containerRef.current.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
 
-      // 检测左边界
       if (containerRect.left < tooltipRect.width / 2) {
         setPosition('left');
-      }
-      // 检测右边界
-      else if (viewportWidth - containerRect.right < tooltipRect.width / 2) {
+      } else if (viewportWidth - containerRect.right < tooltipRect.width / 2) {
         setPosition('right');
-      }
-      // 默认居中
-      else {
+      } else {
         setPosition('center');
       }
     }

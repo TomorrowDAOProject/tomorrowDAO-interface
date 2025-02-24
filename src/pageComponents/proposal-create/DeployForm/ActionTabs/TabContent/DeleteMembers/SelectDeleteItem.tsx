@@ -1,8 +1,6 @@
-import { HashAddress } from 'aelf-design';
 import clsx from 'clsx';
 import Checkbox from 'components/Checkbox';
 import { curChain } from 'config';
-import { formatAddress } from 'utils/address';
 import { shortenFileName } from 'utils/file';
 interface IFormDeleteItemProps {
   value?: string[];

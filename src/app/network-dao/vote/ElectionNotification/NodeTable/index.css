@@ -40,10 +40,6 @@
   @apply bg-darkBg;
 }
 
-.node-table-wrapper .TMRWDAO-table-thead .TMRWDAO-table-cell {
-  @apply !text-[11px];
-}
-
 .node-table-btn-group>button {
   display: inline-block;
 }

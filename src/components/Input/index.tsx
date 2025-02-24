@@ -16,6 +16,7 @@ interface IInputProps {
   onPressEnter?: (value: string) => void;
   isError?: boolean;
   prefix?: ReactNode;
+  rootClassName?: string;
 }
 
 const Input = (
@@ -34,6 +35,7 @@ const Input = (
     onBlur,
     onPressEnter,
     isError,
+    rootClassName,
   }: IInputProps,
   ref: LegacyRef<HTMLInputElement>,
 ) => {
@@ -78,7 +80,7 @@ const Input = (
             'border-0': prefix,
             '!pl-0': prefix,
           },
-          className,
+          rootClassName,
         )}
         onBlur={() => onBlur?.(value)}
         onKeyDown={(e) => {
