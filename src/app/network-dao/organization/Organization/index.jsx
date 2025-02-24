@@ -152,8 +152,10 @@ export function getOrganizationLeftInfo(
   const proposerList =
     proposers.length > 0 ? (
       <Select
+        // className="!h-[43px] !bg-fillBg8 !border-fillBg16"
+        // labelClassName="!text-desc12"
         value={proposers[0]}
-        className="w-full h-[36px]"
+        className="w-full !h-[43px] !bg-fillBg8 !border-fillBg16"
         labelClassName="!text-lightGrey text-ellipsis !text-[11px]"
         overlayItemClassName="text-ellipsis !text-[11px]"
         options={proposersOptions}
@@ -169,8 +171,10 @@ export function getOrganizationLeftInfo(
   const members =
     organizationMembers.length > 0 ? (
       <Select
+        // className="!h-[43px] !bg-fillBg8 !border-fillBg16"
+        // labelClassName="!text-desc12"
         value={organizationMembers[0]}
-        className="w-full h-[36px]"
+        className="w-full !h-[43px] !bg-fillBg8 !border-fillBg16"
         labelClassName="!text-lightGrey text-ellipsis !text-[11px]"
         overlayItemClassName="text-ellipsis !text-[11px]"
         options={membersOptions}
