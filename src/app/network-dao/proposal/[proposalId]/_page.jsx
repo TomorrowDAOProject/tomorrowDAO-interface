@@ -93,7 +93,7 @@ function CountDown(props) {
     expired.isAfter(now) &&
     expired.isBefore(threshold);
   return show ? (
-    <span className="warning-text">{`Expire ${now.to(expired)}`}</span>
+    <span className="ml-[32px] font-Montserrat text-descM10 text-lightGrey">{`Expire ${now.to(expired)}`}</span>
   ) : null;
 }
 
@@ -234,7 +234,6 @@ const ProposalDetail = () => {
 
   const bpCountNumber = useMemo(() => {
     // todo 1.4.0
-    console.log('NETWORK_TYPE', NETWORK_TYPE);
     if (NETWORK_TYPE === 'MAIN') {
       return getBPCount(status, expiredTime, releasedTime)
     }
@@ -340,10 +339,10 @@ const ProposalDetail = () => {
             <>
               {
                 networkDaoProposalDetail?.data?.title && (
-                  <h3 className="mb-[15px] font-Unbounded text-descM16 text-white">{networkDaoProposalDetail?.data?.title}</h3>
+                  <h3 className="mb-2 font-Unbounded text-[15px] text-white font-light -tracking-[0.6px]">{networkDaoProposalDetail?.data?.title}</h3>
                 )
               }
-              <span className="flex flex-col md:flex-row mb-[15px] font-Unbounded text-descM15 text-white font-light -tracking-[0.6px]">
+              <span className="flex flex-col md:flex-row mb-[15px] font-Montserrat text-desc15 text-white">
                 <span className="whitespace-nowrap">Proposal ID:</span>
                 <span className="max-w-full text-ellipsis whitespace-nowrap">{proposalId}</span>
               </span>
@@ -359,7 +358,7 @@ const ProposalDetail = () => {
               </div>
               <Divider className="my-[15px]" />
               <div className="flex flex-wrap justify-between gap-y-[14px]">
-                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3">
+                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3 xl:basics-1/4">
                   <span className="text-desc13 text-lightGrey font-Montserrat">
                     Application Submitted:
                   </span>
@@ -367,13 +366,13 @@ const ProposalDetail = () => {
                     {moment(createAt).format("YYYY/MM/DD HH:mm:ss")}
                   </span>
                 </div>
-                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3">
+                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3 xl:basics-1/4">
                   <span className="text-desc13 text-lightGrey font-Montserrat">Proposal Expires:</span>
                   <span className="text-desc13 text-white font-Montserrat">
                     {moment(expiredTime).format("YYYY/MM/DD HH:mm:ss")}
                   </span>
                 </div>
-                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3">
+                <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3 xl:basics-1/4">
                   <span className="text-desc13 text-lightGrey font-Montserrat">Proposer:</span>
                   <span className="text-desc13 text-white font-Montserrat">
                     <a
@@ -382,14 +381,14 @@ const ProposalDetail = () => {
                       rel="noopener noreferrer"
                       title={`ELF_${proposer}_${viewer.chainId}`}
                     >
-                      <Text textClassName="!text-white !text-desc13" content={shortenFileName(`ELF_${proposer}_${viewer.chainId}`, 20, 8, 11)} copyable />
+                      <Text textClassName="!text-white !text-desc13" content={`ELF_${proposer}_${viewer.chainId}`} isAddress shortAddress copyable />
                     </a>
                   
                   </span>
                 </div>
 
                 {status === proposalStatus.RELEASED ? (
-                  <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3">
+                  <div  className="flex items-center gap-[5px] basics-full md:basics-1/2 lg:basics-1/3 xl:basics-1/4">
                     <span className="text-desc13 text-lightGrey font-Montserrat">
                       Proposal Released:
                     </span>
@@ -481,18 +480,16 @@ const ProposalDetail = () => {
                   key: 'vote',
                   label: 'Voting Details',
                   children: (
-                    <div className="px-[16px] lg:px-[32px]">
-                      <VoteDetail
-                        proposalType={proposalType}
-                        proposalId={proposalId}
-                        logStatus={logStatus}
-                        expiredTime={expiredTime}
-                        status={status}
-                        currentWallet={currentWallet}
-                        wallet={wallet}
-                        symbol={leftOrgInfo.tokenSymbol || "ELF"}
-                      />
-                    </div>
+                    <VoteDetail
+                      proposalType={proposalType}
+                      proposalId={proposalId}
+                      logStatus={logStatus}
+                      expiredTime={expiredTime}
+                      status={status}
+                      currentWallet={currentWallet}
+                      wallet={wallet}
+                      symbol={leftOrgInfo.tokenSymbol || "ELF"}
+                    />
                   ),
                 },
               ]}

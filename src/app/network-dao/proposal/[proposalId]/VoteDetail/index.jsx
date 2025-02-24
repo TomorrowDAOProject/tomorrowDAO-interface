@@ -5,15 +5,12 @@
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import {
-  Input,
-  Button,
-  Table,
-  Pagination,
-  message,
-  Tag,
-  Typography,
-} from "antd";
+import { Table, ConfigProvider } from "antd";
+import Input from "components/Input";
+import Button from "components/Button";
+import Tag from "components/Tag";
+import NoData from 'components/NoData';
+import Pagination from "components/Pagination";
 import Decimal from "decimal.js";
 import moment from "moment";
 import { If, Then } from "react-if";
@@ -37,11 +34,9 @@ import TableLayer from "@components/TableLayer/TableLayer";
 import addressFormat from "@utils/addressFormat";
 import { isSideChainByQueryParams } from 'utils/chain'
 import { explorer, mainExplorer } from "config";
+import { toast } from "react-toastify";
 
-const { Title } = Typography;
 const { viewer } = config;
-
-const { Search } = Input;
 
 const { proposalTypes, proposalStatus } = constants;
 
@@ -68,6 +63,7 @@ const listColumn = [
     width: 300,
     render: (voter) => (
       <a
+        className="text-descM12 font-Montserrat text-secondaryMainColor hover:text-mainColor"
         href={`${isSideChain ? explorer : mainExplorer}/address/${addressFormat(voter)}`}
         target="_blank"
         rel="noopener noreferrer"
@@ -84,6 +80,7 @@ const listColumn = [
     width: 300,
     render: (txId) => (
       <a
+        className="text-descM12 font-Montserrat text-secondaryMainColor hover:text-mainColor"
         href={`${isSideChain ? explorer : mainExplorer}/tx/${txId}`}
         target="_blank"
         rel="noopener noreferrer"
@@ -222,7 +219,7 @@ const VoteDetail = (props) => {
           });
         })
         .catch((e) => {
-          message.error(e.message || "Get personal vote history failed");
+          toast.error(e.message || "Get personal vote history failed");
         });
     }
   }, [proposalId, logStatus]);
@@ -243,7 +240,7 @@ const VoteDetail = (props) => {
   }
 
   return (
-    <div className="vote-detail">
+    <div className="py-6 px-[38px]">
       <If
         condition={
           logStatus === LOG_STATUS.LOGGED &&
@@ -252,17 +249,19 @@ const VoteDetail = (props) => {
         }
       >
         <Then>
-          <div className="vote-detail-personal gap-bottom-small">
-            <Title level={4}>Personal Votes</Title>
-            <div className="vote-detail-personal-total gap-bottom">
-              <span className="sub-title gap-right-small">Token Voted:</span>
-              <span>
-                {personVote.left}
-                <Tag color="blue">{symbol}</Tag> left
-              </span>
+          <div className="mb-6">
+            <span className="text-descM13 font-Montserrat text-white">Personal Votes</span>
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-descM13 font-Montserrat text-white">Token Voted:</span>
+                <span>
+                  {personVote.left}
+                  <Tag color="blue">{symbol}</Tag> left
+                </span>
+              </div>
               <Button
-                className="gap-left"
                 type="primary"
+                size="small"
                 disabled={!personVote.canReclaim}
                 onClick={reclaimToken}
               >
@@ -282,31 +281,34 @@ const VoteDetail = (props) => {
           </div>
         </Then>
       </If>
-      <Title level={4} className="gap-top-large">
-        All Votes
-      </Title>
-      <Search
-        className="vote-detail-search"
-        placeholder="Input voter address/transaction id"
-        onSearch={onSearch}
-      />
-      <TableLayer className="vote-detail-content gap-top-large">
-        <Table
-          showSorterTooltip={false}
-          dataSource={list.list}
-          columns={
-            proposalType === proposalTypes.REFERENDUM
-              ? referendumListColumn
-              : listColumn
-          }
-          loading={list.loadingStatus === LOADING_STATUS.LOADING}
-          rowKey="txId"
-          pagination={false}
-          scroll={{ x: 980 }}
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-descM13 font-Montserrat text-white">All Votes</span>
+        <Input
+          className="max-w-[calc(100%-100px)] md:max-w-[406px]"
+          rootClassName="!text-desc11 !py-[10px]"
+          placeholder="Input voter address/transaction id"
+          prefix={<i className="tmrwdao-icon-search text-[16px] text-lightGrey" />}
+          onPressEnter={onSearch}
         />
+      </div>
+      <TableLayer className="vote-detail-content gap-top-large">
+        <ConfigProvider renderEmpty={() => <NoData></NoData>}>
+          <Table
+            showSorterTooltip={false}
+            dataSource={list.list}
+            columns={
+              proposalType === proposalTypes.REFERENDUM
+                ? referendumListColumn
+                : listColumn
+            }
+            loading={list.loadingStatus === LOADING_STATUS.LOADING}
+            rowKey="txId"
+            pagination={false}
+            scroll={{ x: 980 }}
+          />
+        </ConfigProvider>
       </TableLayer>
       <Pagination
-        className="float-right gap-top"
         showQuickJumper
         total={list.total}
         current={list.params.pageNum}

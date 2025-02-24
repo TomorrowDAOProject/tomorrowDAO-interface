@@ -16,7 +16,7 @@ const ProposalDeploy = () => {
     breadCrumb.updateCreateProposalPage(aliasName);
   }, [aliasName]);
   return (
-    <div className="min-h-[calc(100vh-220px)] xl:min-h-[calc(100vh-250px)] lg:min-h-[calc(100vh-250px)] md:min-h-[calc(100vh-250px)]">
+    <>
       {walletInfo ? (
         <div className="deploy-form">
           <DeployForm aliasName={aliasName} />
@@ -32,7 +32,7 @@ const ProposalDeploy = () => {
           }
         />
       )}
-    </div>
+    </>
   );
 };
 

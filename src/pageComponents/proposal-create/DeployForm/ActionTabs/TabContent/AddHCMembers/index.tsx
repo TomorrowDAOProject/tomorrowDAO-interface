@@ -16,6 +16,7 @@ function AddHCMembers(props: IAddHCMembersProps) {
     control,
     formState: { errors },
     setValue,
+    trigger,
   } = form;
   return (
     <FormItem
@@ -85,6 +86,7 @@ function AddHCMembers(props: IAddHCMembersProps) {
                   const originList = [...addHighCouncilsValue];
                   originList.splice(index, 1);
                   setValue('addHighCouncils.value', originList);
+                  trigger();
                 }}
               />
             </div>

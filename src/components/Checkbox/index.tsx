@@ -40,7 +40,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
           'w-4 h-4 rounded-sm relative flex items-center justify-center',
           {
             'bg-mainColor': isChecked,
-            'bg-darkGray': !isChecked,
+            'bg-white': !isChecked,
           },
           !isChecked && uncheckedClassName,
           isChecked && checkedClassName,

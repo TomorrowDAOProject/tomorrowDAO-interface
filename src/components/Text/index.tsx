@@ -1,6 +1,8 @@
 import { useCopyToClipboard } from 'react-use';
 import { toast } from 'react-toastify';
 import clsx from 'clsx';
+import { shortenFileName } from 'utils/file';
+import { useLandingPageResponsive } from 'hooks/useResponsive';
 
 interface ITextProps {
   content: string;
@@ -8,6 +10,8 @@ interface ITextProps {
   className?: string;
   textClassName?: string;
   iconClassName?: string;
+  isAddress?: boolean;
+  shortAddress?: boolean;
 }
 
 export default function Text({
@@ -16,7 +20,10 @@ export default function Text({
   className,
   textClassName,
   iconClassName,
+  isAddress,
+  shortAddress,
 }: ITextProps) {
+  const { isPhone } = useLandingPageResponsive();
   const [, setCopied] = useCopyToClipboard();
   const handleCopy = () => {
     setCopied(content);
@@ -30,7 +37,11 @@ export default function Text({
           textClassName,
         )}
       >
-        {content}
+        {isAddress
+          ? shortAddress
+            ? shortenFileName(content, 20, isPhone ? 8 : 16, isPhone ? 8 : 16)
+            : content
+          : content}
       </span>
       {copyable && (
         <i

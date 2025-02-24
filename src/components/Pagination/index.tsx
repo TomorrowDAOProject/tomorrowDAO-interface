@@ -98,8 +98,8 @@ const Pagination: React.FC<PaginationProps> = ({
       <div className="flex items-center gap-2">
         <span className="text-desc10 text-lightGrey font-Montserrat">Show:</span>
         <Select
-          className="w-[51px] !px-2 !py-[1px]"
-          labelClassName="!text-desc10 !text-lightGrey"
+          className="min-w-[51px] !px-2 !py-[1px]"
+          labelClassName="!text-desc10 !text-lightGrey !max-w-[24px]"
           iconClassName="!text-[12px]"
           options={
             pageSizeOptions ?? [
@@ -109,7 +109,7 @@ const Pagination: React.FC<PaginationProps> = ({
               { label: '100', value: 100 },
             ]
           }
-          value={pageSize}
+          value={pageSize || 10}
           onChange={(value) => handlePageSizeChange(value)}
         />
         <span className="text-desc10 text-lightGrey font-Montserrat">Records</span>

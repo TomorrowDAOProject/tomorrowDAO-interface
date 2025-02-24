@@ -205,9 +205,9 @@ const MyVote = ({ currentWallet, electionContract, checkExtensionLockStatus }) =
     }
     return (
       <div className="py-[180px] px-[38px] flex flex-col justify-center items-center">
-        <span className="mb-[14px] block text-white text-descM15 font-Montserrat">It seems like you are {isLocking ? "locked" : "not logged in"}.</span>
+        <span className="mb-[14px] block text-white text-descM15 font-Montserrat">It seems like you are not logged in</span>
         <Button onClick={() => connectWallet()} className="!w-[100px]" type="primary" size="small">
-          Login
+          Log In
         </Button>
       </div>
     );

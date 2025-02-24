@@ -25,6 +25,7 @@ const HighCouncil = () => {
       },
       highCouncilMembers: { value: [`ELF_${wallet?.address}_${curChain}`] },
     },
+    mode: 'onChange',
   });
   const {
     watch,
@@ -259,8 +260,8 @@ const HighCouncil = () => {
                         if (membersValue.length <= 1) return;
                         const originList = [...membersValue];
                         originList.splice(index, 1);
-                        setValue('highCouncilMembers.value', originList);
-                        trigger('highCouncilMembers.value');
+                        field.onChange(originList);
+                        trigger();
                       }}
                     />
                   </div>
@@ -269,7 +270,7 @@ const HighCouncil = () => {
             ))}
             <div className="flex items-center gap-[9px]">
               <Button
-                className="!py-[2px] !text-[12px]"
+                className="!py-[4px] !text-[12px]"
                 type="default"
                 onClick={() => {
                   const originList = [...membersValue, ''];
@@ -280,11 +281,11 @@ const HighCouncil = () => {
                 Add Address
               </Button>
               <Button
-                className="!py-[2px] !text-[12px]"
+                className="!py-[4px] !text-[12px]"
                 type="default"
                 onClick={() => {
                   setValue('highCouncilMembers.value', ['']);
-                  trigger('highCouncilMembers.value');
+                  trigger();
                 }}
               >
                 <i className="tmrwdao-icon-delete text-[22px] mr-[6px]" />
