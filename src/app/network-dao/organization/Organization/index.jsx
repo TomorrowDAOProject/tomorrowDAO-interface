@@ -20,6 +20,7 @@ import { isPhoneCheck } from "@common/utils";
 import addressFormat from "@utils/addressFormat";
 import { useChainSelect } from "hooks/useChainSelect";
 import Select from 'components/Select';
+import clsx from "clsx";
 
 const { viewer } = config;
 
@@ -126,7 +127,9 @@ export function getOrganizationLeftInfo(
   proposalType,
   leftOrgInfo,
   bpList,
-  parliamentProposerList
+  parliamentProposerList,
+  organizationCaseClass,
+  organizationItemClass,
 ) {
   const {
     tokenSymbol,
@@ -156,7 +159,7 @@ export function getOrganizationLeftInfo(
         // labelClassName="!text-desc12"
         value={proposers[0]}
         className="w-full !h-[43px] !bg-fillBg8 !border-fillBg16"
-        labelClassName="!text-lightGrey text-ellipsis !text-[11px]"
+        labelClassName="!max-w-[100%] !text-lightGrey text-ellipsis !text-[11px]"
         overlayItemClassName="text-ellipsis !text-[11px]"
         options={proposersOptions}
       />
@@ -175,7 +178,7 @@ export function getOrganizationLeftInfo(
         // labelClassName="!text-desc12"
         value={organizationMembers[0]}
         className="w-full !h-[43px] !bg-fillBg8 !border-fillBg16"
-        labelClassName="!text-lightGrey text-ellipsis !text-[11px]"
+        labelClassName="!max-w-[100%] !text-lightGrey text-ellipsis !text-[11px]"
         overlayItemClassName="text-ellipsis !text-[11px]"
         options={membersOptions}
       />
@@ -185,28 +188,28 @@ export function getOrganizationLeftInfo(
   return (
     <Switch>
       <Case condition={proposalType === proposalTypes.REFERENDUM}>
-        <div className="flex flex-col lg:flex-row gap-[14px] lg:gap-[39px]">
-          <div className="flex flex-col gap-y-[10px]">
+        <div className={clsx("flex flex-col", organizationCaseClass)}>
+          <div className={clsx("mb-[20px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Token:</span>
             <span className="card-list-desc-item-desc">{tokenSymbol}</span>
           </div>
-          <div className="flex flex-col gap-y-[10px]">
+          <div className={clsx("mb-[20px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Members:</span>
             <span className="card-list-desc-item-desc">All Users</span>
           </div>
-          <div className="flex flex-col gap-y-[10px]">
+          <div className={clsx("mb-[10px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
             <span className="card-list-desc-item-desc select">{proposerList}</span>
           </div>
         </div>
       </Case>
       <Case condition={proposalType === proposalTypes.PARLIAMENT}>
-        <div className="flex flex-col lg:flex-row gap-[14px] lg:gap-[39px]">
-          <div className="flex flex-col gap-y-[10px]">
+        <div className={clsx("flex flex-col", organizationCaseClass)}>
+          <div className={clsx("mb-[20px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Members:</span>
             <span className="card-list-desc-item-desc select">{members}</span>
           </div>
-          <div className="flex flex-col gap-y-[10px]">
+          <div className={clsx("mb-[10px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
             <span className="card-list-desc-item-desc select">
               {proposerAuthorityRequired === false ? "All Users" : proposerList}
@@ -215,12 +218,12 @@ export function getOrganizationLeftInfo(
         </div>
       </Case>
       <Case condition={proposalType === proposalTypes.ASSOCIATION}>
-        <div className="flex flex-col lg:flex-row gap-[14px] lg:gap-[39px]">
-          <div className="flex flex-col gap-y-[10px]">
+        <div className={clsx("flex flex-col", organizationCaseClass)}>
+          <div className={clsx("mb-[20px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Members:</span>
             <span className="card-list-desc-item-desc select">{members}</span>
           </div>
-          <div className="flex flex-col gap-y-[10px]">
+          <div className={clsx("mb-[10px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
             <span className="card-list-desc-item-desc select">{proposerList}</span>
           </div>
@@ -319,7 +322,7 @@ const Organization = (props) => {
           </div>
           <Divider className="bg-borderColor my-[20px]" />
           <div className="organization-list-item-votes">
-            <p className="text-white font-medium font-Montserrat text-xs mb-[20px]">Voting Data: Votes (Votes / Minimum Votes)</p>
+            <p className="text-white font-medium font-Montserrat text-xs !mb-[20px]">Voting Data: Votes (Votes / Minimum Votes)</p>
             <Row gutter={16} className="organization-list-item-vote-chart">
               <Col span={8} offset={2}>
                 <Circle
@@ -341,7 +344,7 @@ const Organization = (props) => {
             <Row gutter={16}>
               <Col span={12}>
                 <div className="organization-list-item-vote-desc text-center">
-                  <div className="text-ellipsis text-white text-[10px] font-Montserrat font-medium" title="Approved Votes">
+                  <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Approved Votes">
                     Approved Votes
                   </div>
                   <div
@@ -359,7 +362,7 @@ const Organization = (props) => {
               </Col>
               <Col span={12}>
                 <div className="organization-list-item-vote-desc text-center">
-                  <div className="text-ellipsis text-white text-[10px] font-Montserrat font-medium" title="Rejected Votes">
+                  <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Rejected Votes">
                     Rejected Votes
                   </div>
                   <div
@@ -397,7 +400,7 @@ const Organization = (props) => {
             <Row gutter={16}>
               <Col span={12}>
                 <div className="organization-list-item-vote-desc text-center">
-                  <div className="text-ellipsis text-white text-[10px] font-Montserrat font-medium" title="Abstained Votes">
+                  <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Abstained Votes">
                     Abstained Votes
                   </div>
                   <div
@@ -415,7 +418,7 @@ const Organization = (props) => {
               </Col>
               <Col span={12}>
                 <div className="organization-list-item-vote-desc text-center">
-                  <div className="text-ellipsis text-white text-[10px] font-Montserrat font-medium" title="Total Votes">
+                  <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Total Votes">
                     Total Votes
                   </div>
                   <div
@@ -473,9 +476,9 @@ const Organization = (props) => {
         </div>
         <Divider className="bg-borderColor my-[20px]" />
         <div className="organization-list-item-votes">
-          <p className="text-white font-medium font-Montserrat text-xs mb-[20px]">Voting Data: Votes (Votes / Minimum Votes)</p>
-          <Row gutter={16} className="organization-list-item-vote-chart">
-            <Col span={4} offset={1}>
+          <p className="text-white font-medium font-Montserrat text-xs !mb-[20px]">Voting Data: Votes (Votes / Minimum Votes)</p>
+          <Row gutter={24} className="organization-list-item-vote-chart">
+            <Col span={6}>
               <Circle
                 className="organization-list-item-vote-chart-circle"
                 type={proposalActions.APPROVE}
@@ -483,7 +486,7 @@ const Organization = (props) => {
                 {...votesData[proposalActions.APPROVE]}
               />
             </Col>
-            <Col span={4} offset={2}>
+            <Col span={6}>
               <Circle
                 className="organization-list-item-vote-chart-circle"
                 type={proposalActions.REJECT}
@@ -491,7 +494,7 @@ const Organization = (props) => {
                 {...votesData[proposalActions.REJECT]}
               />
             </Col>
-            <Col span={4} offset={2}>
+            <Col span={6}>
               <Circle
                 className="organization-list-item-vote-chart-circle"
                 type={proposalActions.ABSTAIN}
@@ -499,7 +502,7 @@ const Organization = (props) => {
                 {...votesData[proposalActions.ABSTAIN]}
               />
             </Col>
-            <Col span={4} offset={2}>
+            <Col span={6}>
               <Circle
                 className="organization-list-item-vote-chart-circle"
                 type="Total"
@@ -508,10 +511,10 @@ const Organization = (props) => {
               />
             </Col>
           </Row>
-          <Row gutter={16} className="mt-[10px]">
+          <Row gutter={24} className="mt-[10px]">
             <Col span={6}>
               <div className="organization-list-item-vote-desc text-center">
-                <div className="text-ellipsis text-white text-[10px] font-Montserrat font-medium" title="Approved Votes">
+                <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Approved Votes">
                   Approved Votes
                 </div>
                 <div
@@ -529,7 +532,7 @@ const Organization = (props) => {
             </Col>
             <Col span={6}>
               <div className="organization-list-item-vote-desc text-center">
-                <div className="text-ellipsis text-white text-[10px] font-Montserrat font-medium" title="Rejected Votes">
+                <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Rejected Votes">
                   Rejected Votes
                 </div>
                 <div
@@ -547,7 +550,7 @@ const Organization = (props) => {
             </Col>
             <Col span={6}>
               <div className="organization-list-item-vote-desc text-center">
-                <div className="text-ellipsis text-white text-[10px] font-Montserrat font-medium" title="Abstained Votes">
+                <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Abstained Votes">
                   Abstained Votes
                 </div>
                 <div
@@ -565,7 +568,7 @@ const Organization = (props) => {
             </Col>
             <Col span={6}>
               <div className="organization-list-item-vote-desc text-center">
-                <div className="text-ellipsis text-white text-[10px] font-Montserrat font-medium" title="Total Votes">
+                <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Total Votes">
                   Total Votes
                 </div>
                 <div

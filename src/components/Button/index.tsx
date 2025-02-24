@@ -28,6 +28,7 @@ interface IButtonProps {
   disabled?: boolean;
   loadingClassName?: string;
   onClick?: () => void;
+  icon?: React.ReactNode;
 }
 
 const Button = ({
@@ -39,6 +40,7 @@ const Button = ({
   children,
   disabled,
   onClick,
+  icon,
 }: IButtonProps) => {
   return (
     <button
@@ -53,6 +55,7 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
     >
+      {icon && <span className="mr-2">{icon}</span>}
       {loading ? (
         <span
           className={clsx(

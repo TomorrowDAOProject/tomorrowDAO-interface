@@ -30,7 +30,9 @@ function ElectionRuleCard(props) {
     ) {
       onlyOkModal({
         title: "Error",
+        titleClassName: "!text-[20px] !font-light !font-Unbounded",
         message: `Becoming a candidate node with smart contract wallet address is not supported.`,
+        contentClassName: "!text-[15px] !font-medium !font-Montserrat",
       });
       return;
     }

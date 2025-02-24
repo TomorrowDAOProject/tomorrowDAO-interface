@@ -165,12 +165,32 @@
   @apply text-white bg-darkBg text-center text-[20px] font-Unbounded;
 }
 
+.node-vote-modal .TMRWDAO-tabs .TMRWDAO-tabs-tab {
+  @apply pl-[0px];
+}
+
+.node-vote-modal .TMRWDAO-tabs-nav {
+  @apply mt-[20px];
+}
+
 .node-vote-modal .TMRWDAO-tabs-nav::before {
-  @apply !border-borderColor;
+  @apply !border-none mt-[20px];
+}
+
+.node-vote-modal .TMRWDAO-tabs-ink-bar {
+  display: none;
+}
+
+.node-vote-modal .TMRWDAO-tabs-tab-btn input {
+  @apply accent-mainColor;
 }
 
 .node-vote-modal .TMRWDAO-tabs-tab-btn label {
   @apply text-white text-[13px] font-Montserrat;
+}
+
+.node-vote-modal .TMRWDAO-form-item-label {
+  text-align: left !important;
 }
 
 .node-vote-modal .TMRWDAO-form-item-label > label {
@@ -178,8 +198,12 @@
   @apply !text-white !text-[13px] !font-Montserrat !font-medium;
 }
 
+.TMRWDAO-form-item-control-input-content > div > span:first-child {
+  @apply flex-1;
+}
+
 .vote-lock-data-picker {
-  @apply w-[200px] !text-lightGrey !text-[14px] font-Montserrat !bg-darkBg border border-solid border-borderColor py-[12px];
+  @apply w-full !text-lightGrey !text-[14px] font-Montserrat !bg-darkBg border border-solid border-borderColor py-[12px];
 }
 
 .vote-lock-data-picker:hover {

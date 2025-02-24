@@ -118,7 +118,7 @@ input[type='number'] {
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-column-title {
-  @apply flex-grow-0;
+  @apply flex-grow-0 !text-desc11 !text-lightGrey font-Montserrat flex-none;
 }
 
 .dao-tx-hash {
@@ -350,10 +350,6 @@ input[type='number'] {
 
 .TMRWDAO-table-filter-dropdown .TMRWDAO-select-item-option-active {
   @apply !bg-fillBg8;
-}
-
-.TMRWDAO-table-wrapper .TMRWDAO-table-column-title {
-  @apply !text-desc10 !text-lightGrey font-Montserrat flex-none;
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-filter-column {
