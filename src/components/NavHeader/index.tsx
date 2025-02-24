@@ -15,7 +15,6 @@ import Button from 'components/Button';
 import Text from 'components/Text';
 import './index.css';
 import { useUrlPath } from 'hooks/useUrlPath';
-import { shortenFileName } from 'utils/file';
 import { useRouter } from 'next/navigation';
 
 export interface MenuItem {
@@ -169,7 +168,11 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
               <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
             </Link>
           ) : !isLogin ? (
-            <Button type="primary" onClick={login}>
+            <Button
+              type="primary"
+              className="hover:!bg-mainColor active:!bg-mainColor hover:!text-white active:!text-white md:hover:!bg-transparent md:active:!bg-transparent md:hover:!text-white md:active:!text-white"
+              onClick={login}
+            >
               <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]" />
               Log In
             </Button>
@@ -182,12 +185,12 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                   label: (
                     <div className="address-contain">
                       <Text
-                        content={shortenFileName(
-                          `ELF_${walletInfo.address}_${
-                            isNetWorkDao ? chainIdQuery.chainId : info.curChain
-                          }`,
-                        )}
+                        content={`ELF_${walletInfo.address}_${
+                          isNetWorkDao ? chainIdQuery.chainId : info.curChain
+                        }`}
                         copyable
+                        isAddress
+                        shortAddress
                       />
                     </div>
                   ),

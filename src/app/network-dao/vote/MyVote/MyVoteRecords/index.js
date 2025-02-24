@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { connect } from "react-redux";
-import { Table, ConfigProvider } from 'antd';
+import { Table, ConfigProvider, Tooltip } from 'antd';
 import NoData from 'components/NoData';
 import Button from 'components/Button';
 import Input from 'components/Input';
-import Tooltip from 'components/Tooltip';
 
 import { SearchOutlined } from "@ant-design/icons";
 import publicKeyToAddress from "@utils/publicKeyToAddress";
@@ -34,6 +33,7 @@ function genMyVoteRecordsCols() {
       render: (text, record) => (
         <Tooltip title={text}>
           <LinkNetworkDao
+            className="text-desc10 font-Montserrat text-white hover:text-mainColor"
             href={{
               pathname: '/vote/team',
               query: {
@@ -100,21 +100,20 @@ function genMyVoteRecordsCols() {
       title: "Operations",
       key: "operations",
       render: (text, record) => (
-        <div className="node-list-btn-group">
-          <Button
-            type="primary"
-            className="table-btn redeem-btn"
-            data-role="redeemOne"
-            data-nodeaddress={publicKeyToAddress(record.candidate)}
-            data-nodename={record.nane || publicKeyToAddress(record.candidate)}
-            data-amount={record.amount}
-            disabled={!record.isRedeemable || record.type === "Redeem"}
-            data-shoulddetectlock
-            data-voteId={JSON.stringify(record.voteId)}
-          >
-            Redeem
-          </Button>
-        </div>
+        <Button
+          type="default"
+          size="small"
+          className="!py-[2px] !px-1 !rounded-[4px] !text-[8px]"
+          data-role="redeemOne"
+          data-nodeaddress={publicKeyToAddress(record.candidate)}
+          data-nodename={record.nane || publicKeyToAddress(record.candidate)}
+          data-amount={record.amount}
+          disabled={!record.isRedeemable || record.type === "Redeem"}
+          data-shoulddetectlock
+          data-voteId={JSON.stringify(record.voteId)}
+        >
+          Redeem
+        </Button>
       ),
     },
   ];

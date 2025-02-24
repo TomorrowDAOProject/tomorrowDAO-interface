@@ -106,7 +106,12 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
           </>
         }
       />
-      <Modal isVisible={isModalOpen} onClose={handleCancel} rootClassName="md:w-[471px]">
+      <Modal
+        isVisible={isModalOpen}
+        onClose={handleCancel}
+        rootClassName="md:w-[471px]"
+        closeable={false}
+      >
         <div className="px-[38px] py-[30px]">
           {!isLoading && (
             <>

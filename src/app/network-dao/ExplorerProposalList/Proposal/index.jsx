@@ -30,8 +30,6 @@ import { getBPCount } from "@common/utils";
 import ButtonWithLoginCheck from "@components/ButtonWithLoginCheck";
 import Card from 'components/Card';
 import Text from 'components/Text';
-import { shortenFileName } from "utils/file";
-import { useLandingPageResponsive } from "hooks/useResponsive";
 const { proposalTypes, proposalStatus, proposalActions } = constants;
 
 export const ACTIONS_ICON_MAP = {
@@ -107,7 +105,6 @@ const Proposal = (props) => {
     title,
     description,
   } = props;
-  const { isPhone } = useLandingPageResponsive();
 
   const bpCountNumber =
     NETWORK_TYPE === "MAIN"
@@ -178,7 +175,7 @@ const Proposal = (props) => {
         <div className="flex items-center gap-2">
           <span className="text-descM10 text-white font-Montserrat w-[90px] shrink-0">Contract:</span>
           <div className="text-lightGrey">
-            <Text textClassName="!text-desc10" iconClassName="!text-[14px]" content={shortenFileName(`ELF_${contractAddress}_${chainIdQuery.chainId}`, 20, isPhone ? 8 : 16, isPhone ? 8 : 16)} copyable />
+            <Text textClassName="!text-desc10" iconClassName="!text-[14px]" content={`ELF_${proposer}_${chainIdQuery.chainId}`} isAddress shortAddress copyable />
           </div>
         </div>
         <div className="flex items-center gap-2">

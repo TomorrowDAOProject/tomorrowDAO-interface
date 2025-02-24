@@ -86,7 +86,7 @@ const Select: React.FC<ISelectProps> = ({
         {selected ? (
           <span
             className={clsx(
-              'inline-block text-white text-desc14 font-Montserrat max-w-[calc(100%-52px)] text-ellipsis whitespace-nowrap',
+              'inline-block text-white text-desc14 font-Montserrat max-w-[calc(100%-22px)] text-ellipsis whitespace-nowrap',
               labelClassName,
             )}
           >
