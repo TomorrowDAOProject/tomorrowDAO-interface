@@ -319,6 +319,7 @@ const ProposalList = () => {
           proposalTypes.REFERENDUM
         ]}
         onChange={handleTabChange}
+        itemClassName="text-[11px]"
       />
       <div className="my-[26px]">
         {params.proposalType === proposalTypes.PARLIAMENT && (

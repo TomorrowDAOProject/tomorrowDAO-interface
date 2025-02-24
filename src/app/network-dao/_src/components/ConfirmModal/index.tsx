@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Modal from '../Modal';
 import Button from '../CustomButton';
+import clsx from 'clsx';
 
 interface ConfirmModalProps {
   title?: React.ReactNode;
+  titleClassName?: string;
   content: React.ReactNode;
+  contentClassName?: string;
   okText?: string;
   cancelText?: string;
   showCancel?: boolean;
@@ -22,7 +25,7 @@ ConfirmModal.confirm = (config: ConfirmModalProps) => {
   document.body.appendChild(div);
   const root = ReactDOM.createRoot(div);
 
-  const { title, content, okText = 'OK', cancelText = 'Cancel', onOk, onCancel, showCancel = true } = config;
+  const { title, titleClassName, content, contentClassName, okText = 'OK', cancelText = 'Cancel', onOk, onCancel, showCancel = true } = config;
 
   const destroy = () => {
     root.unmount();
@@ -45,7 +48,7 @@ ConfirmModal.confirm = (config: ConfirmModalProps) => {
       title={
         title && (
           <div className="flex items-center gap-2">
-            <span className="text-white text-descM18">{title}</span>
+            <span className={clsx("text-white text-descM18", titleClassName)}>{title}</span>
           </div>
         )
       }
@@ -64,7 +67,7 @@ ConfirmModal.confirm = (config: ConfirmModalProps) => {
         </div>
       }
     >
-      <div className="py-[33px] flex items-center justify-center text-descM18 text-white font-Montserrat">
+      <div className={clsx("py-[33px] flex items-center justify-center text-descM18 text-white font-Montserrat", contentClassName)}>
         {content}
       </div>
     </Modal>,

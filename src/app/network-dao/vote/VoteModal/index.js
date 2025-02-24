@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-use-before-define
 import React, { Component } from "react";
-import Link from 'next/link';
 import {
   Table,
   Tabs,
@@ -408,7 +407,7 @@ class VoteModal extends Component {
           <Button
             type="primary"
             onClick={() => this.handleSearch(selectedKeys, confirm)}
-            // icon="icon-search"
+            icon={<i className="tmrwdao-icon-search text-inherit relative top-[2px]" />}
             size="small"
             className="h-[30px]"
           >
@@ -478,8 +477,6 @@ class VoteModal extends Component {
         title="Node Vote"
         visible={voteModalVisible}
         open={voteModalVisible}
-        // onOk={this.handleOk}
-        // okText="OK"
         footer={null}
         onCancel={this.handleCancel}
         confirmLoading={voteConfirmLoading}
@@ -488,9 +485,6 @@ class VoteModal extends Component {
         maskClosable
         keyboard
         destroyOnClose
-        // okButtonProps={{
-        //   type: "primary",
-        // }}
         // todo: optimize, can I use ...this.props instead of the code on the top?
         {...this.props}
       >

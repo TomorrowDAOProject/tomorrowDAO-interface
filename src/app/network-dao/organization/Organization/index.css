@@ -8,8 +8,7 @@
 
 .organization-list-item .antExplorer-card-head {
   border-radius: 6px 6px 0 0;
-  @apply bg-borderColor;
-  @apply border-b border-solid border-borderColor;
+  @apply !h-[48px] bg-borderColor border-b border-solid border-borderColor;
 }
 
 .organization-list-item .antExplorer-card-bordered {
@@ -32,7 +31,7 @@
 }
 
 .card-list-desc-item-label {
-  @apply text-white text-[10px] font-Montserrat font-medium;
+  @apply text-white text-[11px] font-Montserrat font-medium;
 }
 
 .card-list-desc-item-desc {
@@ -89,13 +88,19 @@
   align-items: center;
 }
 
+.organization-list-item-vote-chart .CircularProgressbar-text {
+  font-size: 13px;
+}
+
 @media screen and (max-width: 576px) {
   .organization-list-item .antExplorer-divider-horizontal {
     margin: 12px 0;
   }
 
   .organization-list-item .antExplorer-card-head {
-    background-color: #EDEDED;
+    border-radius: 6px 6px 0 0;
+    @apply bg-borderColor;
+    @apply border-b border-solid border-borderColor;
   }
 
   .organization-list-item-title-countdown {
