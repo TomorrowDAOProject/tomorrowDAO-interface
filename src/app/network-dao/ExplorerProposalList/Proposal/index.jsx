@@ -175,7 +175,7 @@ const Proposal = (props) => {
         <div className="flex items-center gap-2">
           <span className="text-descM10 text-white font-Montserrat w-[90px] shrink-0">Contract:</span>
           <div className="text-lightGrey">
-            <Text textClassName="!text-desc10" iconClassName="!text-[14px]" content={`ELF_${proposer}_${viewer.chainId}`} isAddress shortAddress copyable />
+            <Text textClassName="!text-desc10" iconClassName="!text-[14px]" content={`ELF_${proposer}_${chainIdQuery.chainId}`} isAddress shortAddress copyable />
           </div>
         </div>
         <div className="flex items-center gap-2">
