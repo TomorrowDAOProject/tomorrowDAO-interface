@@ -38,3 +38,7 @@
 .organization-list-filter-input .antExplorer-input::placeholder {
   @apply text-lightGrey font-Montserrat !important;
 }
+
+.organization-list-tab .antExplorer-tabs-tab-btn {
+  @apply font-Montserrat;
+}

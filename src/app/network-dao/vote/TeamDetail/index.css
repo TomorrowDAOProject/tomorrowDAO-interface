@@ -21,9 +21,9 @@
 }
 
 .team-detail .card-container .card-content {
-  background: #f7f8f9;
   min-height: 120px;
   padding: 28px 30px;
+  @apply bg-darkGray rounded-[5px] border border-solid border-borderColor font-Montserrat;
 }
 
 .team-detail .statistical-data-container {
@@ -106,6 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @apply text-lightGrey font-Montserrat;
 }
 
 .card-header {
@@ -173,4 +174,12 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+}
+
+.team-address-copy .TMRWDAO-typography-copy {
+  @apply text-lightGrey;
+}
+
+.team-statistical-data-container .statistical-data-container {
+  @apply !bg-darkBg;
 }

@@ -29,6 +29,7 @@ function ElectionRuleCard(props) {
       !currentWallet.nightElfInfo
     ) {
       onlyOkModal({
+        title: "Error",
         message: `Becoming a candidate node with smart contract wallet address is not supported.`,
       });
       return;
@@ -68,7 +69,7 @@ function ElectionRuleCard(props) {
           Node Election
         </h2>
         <div className="election-container">
-          <p className="election-intro font-Montserrat text-white">
+          <p className="election-intro font-Montserrat !text-lightGrey">
             Every token holder has the opportunity to become a BP node. However,
             in order to make our networks and communities operate more smoothly
             and effectively, we have developed a set of standards and

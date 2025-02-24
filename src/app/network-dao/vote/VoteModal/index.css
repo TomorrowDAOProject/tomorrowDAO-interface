@@ -151,3 +151,46 @@
   border-color: #266cd3;
   outline: none;
 }
+
+.node-vote-modal .TMRWDAO-modal-content {
+  @apply bg-darkBg;
+}
+
+.node-vote-modal .TMRWDAO-modal-close-icon {
+  @apply text-white;
+}
+
+.node-vote-modal .TMRWDAO-modal-title {
+  font-weight: 300;
+  @apply text-white bg-darkBg text-center text-[20px] font-Unbounded;
+}
+
+.node-vote-modal .TMRWDAO-tabs-nav::before {
+  @apply !border-borderColor;
+}
+
+.node-vote-modal .TMRWDAO-tabs-tab-btn label {
+  @apply text-white text-[13px] font-Montserrat;
+}
+
+.node-vote-modal .TMRWDAO-form-item-label > label {
+  text-align: start !important;
+  @apply !text-white !text-[13px] !font-Montserrat !font-medium;
+}
+
+.vote-lock-data-picker {
+  @apply w-[200px] !text-lightGrey !text-[14px] font-Montserrat !bg-darkBg border border-solid border-borderColor py-[12px];
+}
+
+.vote-lock-data-picker:hover {
+  @apply border border-solid border-borderColor;
+}
+
+.vote-lock-data-picker input::placeholder {
+  @apply !text-lightGrey !text-[14px] font-Montserrat;
+}
+
+.vote-lock-data-picker .TMRWDAO-picker-suffix {
+  @apply text-lightGrey text-[20px];
+}
+

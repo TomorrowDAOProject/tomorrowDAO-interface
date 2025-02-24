@@ -276,7 +276,8 @@ class NodeTable extends PureComponent {
         render: (text, record) => (
           <div className={`${clsPrefix}-btn-group`}>
             <Button
-              className="table-btn vote-btn text-white !bg-mainColor !rounded-[4px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+              size="small"
+              className="w-[80px] text-center vote-btn text-white !bg-mainColor !rounded-[8px] !border border-solid !border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
               key={record.pubkey}
               disabled={isActivityBrowser()}
               data-nodeaddress={record.formattedAddress}
@@ -289,7 +290,8 @@ class NodeTable extends PureComponent {
               Vote
             </Button>
             <Button
-              className="table-btn text-white rounded-[4px] bg-transparent border border-solid border-lightGrey hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+              size="small"
+              className="w-[80px] text-center !text-lightGrey !rounded-[8px] bg-transparent !border border-solid !border-lightGrey hover:!bg-darkBg hover:!text-white hover:border hover:border-solid hover:!border-white"
               key={record.pubkey + 1}
               data-role="redeem"
               data-shoulddetectlock
@@ -566,6 +568,7 @@ class NodeTable extends PureComponent {
             columns={nodeListCols}
             dataSource={nodeList}
             // onChange={handleTableChange}
+            pagination={false}
             loading={isLoading}
             // cannot use publicKey, because publicKey will not change when updating producedBlocks
             rowKey={(record) => record.producedBlocks}
