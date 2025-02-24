@@ -357,6 +357,10 @@ input[type='number'] {
   @apply !bg-fillBg8;
 }
 
+.TMRWDAO-table-wrapper .TMRWDAO-table-column-title {
+  @apply !text-desc12 !text-lightGrey font-Montserrat flex-none;
+}
+
 .TMRWDAO-table-wrapper .TMRWDAO-table-filter-column {
   @apply !justify-center;
 }
