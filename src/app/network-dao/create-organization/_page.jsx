@@ -476,7 +476,7 @@ const CreateOrganization = () => {
       if (content) {
         let modalIns = modal.info({
           wrapClassName: 'create-organization-modal',
-          title: 'Organisation Creation Failed',
+          title: 'Organization Creation Failed',
           closable: true,
           icon: null,
           content: (
@@ -484,9 +484,15 @@ const CreateOrganization = () => {
               <p>{content}</p>
             </div>
           ),
-          footer: <Button type="primary" onClick={() => { 
-            modalIns.destroy();
-          }}>Got It</Button>,
+          footer: <Button
+            type="primary"
+            onClick={() => { 
+              modalIns.destroy();
+            }}
+            className="hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+          >
+            Got It
+          </Button>,
         });
         return;
       }

@@ -119,7 +119,7 @@ const OrganizationList = () => {
   const editOrganization = (orgAddress) => {
     const org = list.filter((item) => item.orgAddress === orgAddress)[0];
     Modal.confirm({
-      className: "organization-list-modal",
+      className: "modify-organisation-modal",
       title: "Modify Organisation?",
       content:
         "Modifying the organisation requires initiating a proposal to modify. Are you sure you want to modify?",
@@ -142,7 +142,7 @@ const OrganizationList = () => {
         tabBarExtraContent={
           logStatus === LOG_STATUS.LOGGED ? (
             <div
-              className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg"
+              className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg mr-[38px]"
             >
               <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat !rounded-[42px] px-[10px] py-[6px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
                 Create Organisation

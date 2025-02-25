@@ -10,7 +10,6 @@ import React, { PureComponent } from "react";
 import Link from 'next/link';
 import { Button, message, Spin } from "antd";
 import moment from "moment";
-import { SyncOutlined, LogoutOutlined } from "@ant-design/icons";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { ELF_DECIMAL, SYMBOL } from "@src/constants";
 import { connect } from "react-redux";
@@ -262,6 +261,7 @@ class MyWalletCard extends PureComponent {
       lastestUnlockTime,
     } = this.state;
     const { isConnected } = WebLoginInstance.get().getWebLoginContext();
+    console.log("isConnected:", isConnected);
     const formattedAddress = addressFormat(currentWallet.address);
     const walletItems = [
       {
@@ -286,7 +286,7 @@ class MyWalletCard extends PureComponent {
           <Button
             type="primary"
             size="small"
-            className="my-wallet-card-body-wallet-content-withdraw-btn ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+            className="my-wallet-card-body-wallet-content-withdraw-btn w-[40px] h-[20px] leading-[20px] text-[11px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             disabled={isActivityBrowser()}
             onClick={handleDividendClick}
           >
@@ -328,7 +328,7 @@ class MyWalletCard extends PureComponent {
                       className="my-wallet-card-header-sync-btn login-btn !rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                       onClick={this.loginOrUnlock}
                     >
-                      <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]"></i>
+                      <i className="tmrwdao-icon-profile text-[16px] text-inherit mr-[6px]"></i>
                       Log in
                     </Button>
                   )}
@@ -336,6 +336,7 @@ class MyWalletCard extends PureComponent {
                   className="my-wallet-card-header-sync-btn refresh-btn hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                   disabled={!currentWallet?.address}
                   onClick={this.handleUpdateWalletClick}
+                  size="small"
                 >
                   <IconFont type="reload" />
                   Refresh

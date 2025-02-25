@@ -206,7 +206,7 @@ class NodeTable extends PureComponent {
               <LinkNetworkDao
                 href={{ pathname: '/vote/team', query: { pubkey: record.pubkey } }}
                 replaceStart="vote"
-                className="text-lightGrey font-Montserrat text-[10px]"
+                className="text-white font-Montserrat text-[11px] cursor-pointer"
               >
                 {text}
               </LinkNetworkDao>

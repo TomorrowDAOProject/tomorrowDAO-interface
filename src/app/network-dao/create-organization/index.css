@@ -15,7 +15,11 @@
 
 .create-organization-form .antExplorer-form-item-required {
   text-align: right;
-  @apply text-white !important;
+  @apply text-white text-[13px] !important;
+}
+
+.create-organization-form .antExplorer-form-item-required::before {
+  @apply !text-white;
 }
 
 .create-organization-form .antExplorer-form-item-control {
@@ -51,12 +55,45 @@
   @apply bg-darkBg text-lightGrey;
 }
 
+.create-organization-form .antExplorer-form-item-explain-error {
+  @apply !text-white;
+}
+
+.create-organization-form .antExplorer-input-number-handler-wrap {
+  @apply !bg-transparent;
+}
+
+.create-organization-form .antExplorer-input-number-handler {
+  border-inline-start: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.create-organization-form .antExplorer-input-number-handler-down {
+  border-block-start: 1px solid rgba(255, 255, 255, 0.08)!important;
+}
+
+.create-organization-form .antExplorer-input-number:hover .antExplorer-input-number-handler-up-inner {
+  @apply text-lightGrey;
+}
+
+.create-organization-form .antExplorer-input-number:hover .antExplorer-input-number-handler-down-inner {
+  @apply text-lightGrey;
+}
+
+.create-organization-form .antExplorer-input-number-handler-up:hover .antExplorer-input-number-handler-up-inner {
+  @apply !text-white;
+}
+
+.create-organization-form .antExplorer-input-number-handler-down:hover .antExplorer-input-number-handler-down-inner {
+  @apply !text-white;
+}
+
 .create-organization .antExplorer-input-number {
   width: 100%;
 }
 .create-organization-modal {
   .antExplorer-modal-confirm-title {
     text-align: center;
+    color: #fff;
   }
   .antExplorer-modal-confirm-body-wrapper {
     display: flex;
@@ -70,5 +107,14 @@
   .antExplorer-modal-confirm-content {
     margin-top: 24px;
     margin-bottom: 24px;
+    @apply text-lightGrey;
   }
+}
+
+.create-organization-modal .antExplorer-modal-content {
+  @apply bg-darkBg;
+}
+
+.create-organization-modal .antExplorer-modal-close-x {
+  @apply text-white;
 }
