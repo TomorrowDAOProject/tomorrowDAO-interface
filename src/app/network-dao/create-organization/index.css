@@ -59,6 +59,34 @@
   @apply !text-white;
 }
 
+.create-organization-form .antExplorer-input-number-handler-wrap {
+  @apply !bg-transparent;
+}
+
+.create-organization-form .antExplorer-input-number-handler {
+  border-inline-start: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.create-organization-form .antExplorer-input-number-handler-down {
+  border-block-start: 1px solid rgba(255, 255, 255, 0.08)!important;
+}
+
+.create-organization-form .antExplorer-input-number:hover .antExplorer-input-number-handler-up-inner {
+  @apply text-lightGrey;
+}
+
+.create-organization-form .antExplorer-input-number:hover .antExplorer-input-number-handler-down-inner {
+  @apply text-lightGrey;
+}
+
+.create-organization-form .antExplorer-input-number-handler-up:hover .antExplorer-input-number-handler-up-inner {
+  @apply !text-white;
+}
+
+.create-organization-form .antExplorer-input-number-handler-down:hover .antExplorer-input-number-handler-down-inner {
+  @apply !text-white;
+}
+
 .create-organization .antExplorer-input-number {
   width: 100%;
 }

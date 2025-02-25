@@ -1,7 +1,7 @@
 import React from "react";
 import copy from "copy-to-clipboard";
-import { message } from "antd";
 import IconFont from "../IconFont";
+import { toast } from 'react-toastify';
 
 export default function CopyButton({
   value = undefined,
@@ -10,9 +10,9 @@ export default function CopyButton({
   const handleCopy = () => {
     try {
       copy(value);
-      message.success("Copied Successfully");
+      toast.success('Copied Successfully');
     } catch (e) {
-      message.error("Copy failed, please copy by yourself.");
+      toast.error('Copy failed, please copy by yourself.');
     }
   };
   return (

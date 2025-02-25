@@ -10,7 +10,6 @@ import React, { PureComponent } from "react";
 import Link from 'next/link';
 import { Button, message, Spin } from "antd";
 import moment from "moment";
-import { SyncOutlined, LogoutOutlined } from "@ant-design/icons";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { ELF_DECIMAL, SYMBOL } from "@src/constants";
 import { connect } from "react-redux";
@@ -262,6 +261,7 @@ class MyWalletCard extends PureComponent {
       lastestUnlockTime,
     } = this.state;
     const { isConnected } = WebLoginInstance.get().getWebLoginContext();
+    console.log("isConnected:", isConnected);
     const formattedAddress = addressFormat(currentWallet.address);
     const walletItems = [
       {
