@@ -119,7 +119,7 @@ const OrganizationList = () => {
   const editOrganization = (orgAddress) => {
     const org = list.filter((item) => item.orgAddress === orgAddress)[0];
     Modal.confirm({
-      className: "organization-list-modal",
+      className: "modify-organisation-modal",
       title: "Modify Organisation?",
       content:
         "Modifying the organisation requires initiating a proposal to modify. Are you sure you want to modify?",
