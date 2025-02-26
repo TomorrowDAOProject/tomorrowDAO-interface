@@ -1266,6 +1266,7 @@ class VoteContainer extends Component {
         <Menu selectedKeys={pagePath} mode="horizontal" className="h-[56px] rounded-t-lg bg-darkBg border-b border-solid border-borderColor">
           <Menu.Item
             key={allowPathMap.election}
+            className="!px-[48px] relative left-[-17px]"
           >
             <LinkNetworkDao href="/vote/election" className="h-[56px] leading-[56px] !text-white font-medium font-Montserrat">
               Election Notification
@@ -1274,6 +1275,7 @@ class VoteContainer extends Component {
           </Menu.Item>
           <Menu.Item
             key={allowPathMap.myvote}
+            className="!px-[48px] relative left-[-17px]"
           >
             <LinkNetworkDao href="/vote/myvote" className="h-[56px] leading-[56px] !text-white font-medium font-Montserrat">
               My Vote

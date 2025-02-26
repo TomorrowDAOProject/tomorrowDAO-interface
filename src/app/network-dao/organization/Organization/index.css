@@ -8,7 +8,7 @@
 
 .organization-list-item .antExplorer-card-head {
   border-radius: 6px 6px 0 0;
-  @apply !h-[48px] bg-borderColor border-b border-solid border-borderColor;
+  @apply !h-[41px] !min-h-[41px] bg-borderColor border-b border-solid border-borderColor;
 }
 
 .organization-list-item .antExplorer-card-bordered {
