@@ -15,6 +15,7 @@ import './_src/common/index.css';
 import { usePathname } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import WebLoginInstance from 'contract/webLogin';
+import { WebLoginInstance as WebLoginInstanceClass } from './_src/utils/webLogin';
 
 const Layout = dynamicReq(
   async () => {
@@ -26,7 +27,8 @@ const Layout = dynamicReq(
         return state.common.currentWallet;
       });
       WebLoginInstance.get().setWebLoginContext(webLoginContext);
-
+      WebLoginInstanceClass.get().setWebLoginContext(webLoginContext);
+      
       useEffect(() => {
         if(isConnected && wallet){
           const newWallet = {

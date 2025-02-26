@@ -173,7 +173,7 @@ const OrganizationList = () => {
             <Col sm={6} xs={24} className="organization-list-filter-input">
               <Input
                 className="!w-[406px] h-[36px]"
-                placeholder="Input voter address/transaction id"
+                placeholder="Organisation Address"
                 prefix={<i className="tmrwdao-icon-search text-lightGrey" />}
                 defaultValue={params.search}
                 allowClear
