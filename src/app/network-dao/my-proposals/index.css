@@ -3,6 +3,19 @@
   .antExplorer-tabs-nav {
     @apply bg-darkBg;
   }
+  .antExplorer-spin-nested-loading .antExplorer-spin-container::after {
+    @apply bg-transparent;
+  }
+
+  .antExplorer-menu-light .antExplorer-menu-item-disabled {
+    @apply !text-lightGrey;
+  }
+  .antExplorer-menu-submenu-disabled {
+    @apply !text-lightGrey;
+    .antExplorer-menu-title-content {
+      @apply text-lightGrey;
+    }
+  } 
   .antExplorer-tabs-tab {
     @apply font-Montserrat !ml-0;
 
@@ -40,15 +53,19 @@
     @apply lg:pr-[30px] xl:pr-[30px] md:pr-[30px] px-[20px];
   }
   .my-proposal-content-list {
-    @apply !bg-darkBg !pt-0;
+    @apply !bg-darkBg !p-0;
   }
+
   .antExplorer-pagination {
-    @apply mb-[38px] text-lightGrey font-Montserrat text-[12px];
+    @apply text-lightGrey font-Montserrat text-[12px];
+    .antExplorer-pagination-options-quick-jumper input {
+      @apply h-[24px] text-[12px];
+    }
     .antExplorer-pagination-item-link {
       @apply text-lightGrey;
     }
     .antExplorer-pagination-item {
-      @apply bg-fillBg8 border-fillBg8;
+      @apply bg-fillBg8 border-fillBg8 font-Montserrat;
       a {
         @apply text-lightGrey;
       } 
@@ -62,6 +79,9 @@
       }
      
     }
+    .antExplorer-pagination-item-ellipsis {
+      @apply !text-lightGrey;
+    }
   }
   .antExplorer-table {
     @apply bg-darkBg;
@@ -70,7 +90,7 @@
     .antExplorer-table-thead {
       @apply !bg-darkBg;
       tr th {
-        @apply !bg-darkBg text-lightGrey text-[10px] !px-0 !border-none font-Montserrat;
+        @apply !bg-darkBg text-lightGrey text-[10px] !px-0 font-Montserrat border-0 border-b !border-solid !border-fillBg8;
       }
     }
     .antExplorer-table-tbody {
@@ -78,10 +98,10 @@
       tr td {
         @apply !bg-darkBg text-lightGrey text-[10px] !px-0 font-Montserrat;
         a {
-          @apply px-0 !text-mainColor text-[11px] font-Montserrat;
+          @apply px-0 text-[11px] font-Montserrat;
         }
         .antExplorer-btn-link {
-          @apply px-0 !text-mainColor text-[11px] font-Montserrat text-left;
+          @apply px-0 text-[11px] font-Montserrat text-left;
         }
       }
     }

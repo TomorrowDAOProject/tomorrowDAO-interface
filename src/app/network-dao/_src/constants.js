@@ -319,7 +319,7 @@ const RESOURCE_DETAILS_COLUMN = [
     title: "Tx Id",
     dataIndex: "tx_id",
     key: "tx_id",
-    align: "center",
+    align: "left",
     ellipsis: true,
     render: (text) => <Link href={`${mainExplorer}/tx/${text}`}>{text}</Link>,
   },
@@ -372,6 +372,7 @@ const RESOURCE_DETAILS_COLUMN = [
     dataIndex: "resource",
     key: "number",
     align: "center",
+    width: 130
   },
   {
     title: `Sum(${SYMBOL})`,

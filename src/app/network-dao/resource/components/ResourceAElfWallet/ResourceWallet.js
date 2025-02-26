@@ -6,7 +6,7 @@ import React, {
 } from "react";
 // import { Link } from "react-router-dom";
 import Link from "next/link";
-import { Row, Col, Spin, message } from "antd";
+import { Row, Col, message } from "antd";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { resourceTokens } from "@config/config";
@@ -22,6 +22,7 @@ import { isPhoneCheck } from "@utils/deviceCheck";
 import { isActivityBrowser } from "@utils/isWebView";
 import LinkNetworkDao from "components/LinkNetworkDao";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
+import Spin from 'components/Spin'
 
 const ResourceWallet = React.forwardRef(
   (
@@ -142,9 +143,9 @@ const ResourceWallet = React.forwardRef(
 
     return (
       <div className="resource-wallet resource-block">
-        <Spin tip="loading...." size="large" spinning={loading}>
+        <Spin spinning={loading}>
           <div className="resource-wallet-header resource-header">
-            <span className="resource-title !font-Unbounded !font-[300]">{propsTile}</span>
+            <span className="!font-Unbounded !font-[300] text-[15px] text-white">{propsTile}</span>
           </div>
           <div className="resource-sub-container">
             <Row className="resource-wallet-address">
@@ -174,7 +175,7 @@ const ResourceWallet = React.forwardRef(
                   disabled={!isConnected}
                   onClick={refreshWalletInfo}
                 >
-                  <SyncOutlined type="sync" spin={loading} />
+                  <SyncOutlined className="text-[10px]" type="sync" spin={loading} />
                   <span className="text-[10px]">Refresh</span>
                 </Button>
 
@@ -184,8 +185,8 @@ const ResourceWallet = React.forwardRef(
                       className="text-white bg-mainColor !text-[10px] hover:!text-mainColor hover:bg-transparent hover:border hover:border-solid hover:border-mainColor w-[70px] h-[24px] gap-1 ml-[11px]"
                       onClick={() => connectWallet()}
                     >
-                      <i className="tmrwdao-icon-profile text-[16px] text-inherit" />
-                      <span>Log in</span>
+                      <i className="tmrwdao-icon-profile text-[12px] text-inherit" />
+                      <span className="text-[10px]">Log in</span>
                     </Button>
                   )}
 

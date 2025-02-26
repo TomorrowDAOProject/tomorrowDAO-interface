@@ -5,12 +5,13 @@
  */
 
 import React, { PureComponent } from "react";
-import { Row, Col, Spin } from "antd";
+import { Row, Col } from "antd";
 import ResourceCurrencyChart from "./ResourceCurrencyChart/ResourceCurrencyChart";
 import ResourceTrading from "./ResourceTrading/ResourceTrading";
 import RealTimeTransactions from "./RealTimeTransactions/RealTimeTransactions";
 import "./ResourceMoneyMarket.css";
 import walletInstance from "@redux/common/wallet";
+import Spin from 'components/Spin'
 
 export default class ResourceMoneyMarket extends PureComponent {
   constructor(props) {

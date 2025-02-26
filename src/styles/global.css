@@ -271,7 +271,7 @@ input[type='number'] {
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-container table > tbody > tr > *:first-child {
-  @apply !pl-0 !bg-darkBg;
+  @apply !pl-0;
 }
 .TMRWDAO-table-wrapper .TMRWDAO-table-container table > tbody > tr > *:last-child {
   @apply !pr-0;
@@ -354,7 +354,7 @@ input[type='number'] {
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-column-title {
-  @apply !text-desc12 !text-lightGrey font-Montserrat flex-none;
+  @apply !text-lightGrey font-Montserrat flex-none;
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-filter-column {
@@ -397,13 +397,14 @@ input[type='number'] {
   @apply !text-descM14 !text-lightGrey;
 }
 
-.antExplorer-select-dropdown .antExplorer-select-item-option-active:not(.antExplorer-select-item-option-disabled) {
+.antExplorer-select-dropdown
+  .antExplorer-select-item-option-active:not(.antExplorer-select-item-option-disabled) {
   @apply !bg-fillBg8;
 }
 
-
 .proposal-custom-action-params-editor {
-  .monaco-editor, .monaco-diff-editor {
+  .monaco-editor,
+  .monaco-diff-editor {
     --vscode-editor-background: rgba(0, 0, 0, 0);
     --vscode-editorGutter-background: var(--darkBg);
   }
@@ -422,11 +423,11 @@ input[type='number'] {
     .mtk2 {
       @apply !text-lightGrey;
     }
-  
+
     .mtk4 {
       @apply !text-[#FF7070];
     }
-  
+
     .mtk5 {
       @apply !text-[#8CD9FF];
     }

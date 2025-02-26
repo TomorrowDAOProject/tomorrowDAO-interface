@@ -43,7 +43,7 @@
     }
     .antExplorer-slider-handle {
       @apply bg-transparent border-transparent; 
-      inset-block-start: 6px!important;
+      inset-block-start: 4px!important;
       &::after {
         @apply w-[12px] h-[12px] shadow-none;
       }
@@ -62,7 +62,7 @@
 }
 
 .antExplorer-input-group-wrapper-outlined.antExplorer-input-group-wrapper-disabled .antExplorer-input-group-addon {
-  @apply text-mainColor font-Montserrat !border-fillBg8;
+  @apply text-lightGrey font-Montserrat !border-fillBg8;
 }
 
 

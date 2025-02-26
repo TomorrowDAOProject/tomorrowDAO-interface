@@ -438,7 +438,7 @@ class ResourceSell extends Component {
                     max={this.inputMax}
                   />
                 )} */}
-                <InputNumber
+                <Input
                   value={sellNum}
                   onChange={this.onChangeResourceValue}
                   placeholder={`Enter ${currentResourceType} amount`}

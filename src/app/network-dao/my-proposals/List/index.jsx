@@ -4,12 +4,14 @@
  */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Table, Pagination, ConfigProvider } from "antd";
+import { Table, ConfigProvider, Pagination } from "antd";
 import Total from "@components/Total";
 import TableLayer from "@components/TableLayer/TableLayer";
 import { ReactComponent as NoDataIcon } from 'assets/imgs/no-data.svg';
 import Input from 'components/Input'
 import { ReactComponent as Search } from 'assets/revamp-icon/search.svg';
+import LoadingComponent from 'components/LoadingComponent';
+// import Pagination from 'components/Pagination'
 
 
 // const { Search } = Input;
@@ -66,29 +68,43 @@ const List = (props) => {
       </div>
       </div>
       <TableLayer className='my-proposal-content-list'>
-      <ConfigProvider renderEmpty={() => noData}>
-        <Table
-          showSorterTooltip={false}
-          dataSource={list}
-          columns={tableColumns}
-          loading={loading}
-          pagination={false}
-          rowKey={rowKey}
-          bordered={false}
-          // scroll={{ x: 1300 }}
-        />
-      </ConfigProvider>
+        <ConfigProvider renderEmpty={() => noData}>
+          <Table
+            showSorterTooltip={false}
+            dataSource={list}
+            columns={tableColumns}
+            loading={{
+              spinning: loading,
+              indicator: (
+                <LoadingComponent
+                  className="-my-3 md:my-0 scale-[0.7] md:scale-[1.0]"
+                  size={36}
+                  strokeWidth={4}
+                />
+              ),
+            }}
+            pagination={false}
+            rowKey={rowKey}
+            bordered={false}
+            tableLayout={'auto'}
+            scroll={{ x: 500 }}
+          />
+        </ConfigProvider>
       </TableLayer>
-      <Pagination
-        className='float-right gap-top'
-        showQuickJumper
-        total={total}
-        current={pageNum}
-        pageSize={pageSize}
-        hideOnSinglePage
-        onChange={onPageChange}
-        showTotal={Total}
-      />
+      <div className="my-[24px] flex justify-end">
+        <Pagination
+          className=''
+          showQuickJumper
+          total={total}
+          current={pageNum}
+          pageSize={pageSize}
+          hideOnSinglePage
+          onChange={onPageChange}
+          showTotal={Total}
+          showSizeChanger={false}
+        />
+      </div>
+     
     </div>
   );
 };

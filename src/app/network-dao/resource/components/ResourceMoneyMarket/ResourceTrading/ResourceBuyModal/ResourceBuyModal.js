@@ -236,48 +236,48 @@ export default class ResourceBuyModal extends PureComponent {
 
     const CHAIN_ID = 'AELF'
     return (
-      <div className="modal resource-modal">
-        <Row className="modal-form-item">
-          <Col span={6}>Address</Col>
+      <div className="modal resource-modal text-white font-Montserrat">
+        <Row className="modal-form-item mt-[30px] pt-[24px] border-0 border-t border-solid border-fillBg8">
+          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Address</Col>
           <Col
-            className="text-ellipse"
+            className="text-ellipse font-Montserrat text-[13px]"
             span={18}
             title={`ELF_${currentWallet.address}_${CHAIN_ID}`}
           >
             {`ELF_${currentWallet.address}_${CHAIN_ID}`}
           </Col>
         </Row>
-        <Row className="modal-form-item">
-          <Col span={6}>Buy {currentResourceType} Quantity</Col>
-          <Col span={18}>
+        <Row className="modal-form-item pt-[24px]">
+          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Buy {currentResourceType} Quantity</Col>
+          <Col span={18} className="font-Montserrat text-[13px]">
             <Spin spinning={buyInputLoading}>
-              {thousandsCommaWithDecimal(buyNum)}
+              <span className="!text-white text-[13px]">{thousandsCommaWithDecimal(buyNum)}</span>
             </Spin>
           </Col>
         </Row>
-        <Row className="modal-form-item">
-          <Col span={6}>{SYMBOL}</Col>
-          <Col span={18}>
-            <Spin spinning={buyEstimateValueLoading}>
-              {thousandsCommaWithDecimal(buyElfValue)}
+        <Row className="modal-form-item pt-[24px]">
+          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">{SYMBOL}</Col>
+          <Col span={18} className="font-Montserrat">
+            <Spin spinning={buyEstimateValueLoading} className="font-Montserrat">
+              <span className="!text-white text-[13px]">{thousandsCommaWithDecimal(buyElfValue)}</span>
             </Spin>
           </Col>
         </Row>
-        <div className="service-charge">
+        <div className="service-charge font-Montserrat !text-white mt-[7px] text-[12px]">
           *Service Charge: {thousandsCommaWithDecimal(buyFee)} {SYMBOL}
         </div>
+
+        <div className="font-Montserrat text-[11px] text-white bg-[#404040] border border-solid border-fillBg8 px-3 py-2 rounded-[5px] mt-[24px]">
+          * To avoid price fluctuations leading to transaction failure, please
+          complete the transaction within 30 seconds.
+        </div>
         <Button
-          type="primary"
-          className="modal-button buy-btn"
+          className="w-full mt-[50px] my-[14px] h-[40px] border-none rounded-[42px] !bg-mainColor text-white font-Montserrat text-[15px] font-medium border hover:border-solid hover:!border-mainColor hover:!text-mainColor hover:!bg-transparent"
           onClick={this.getBuyRes.bind(this)}
           loading={loading}
         >
           Buy
         </Button>
-        <div className="modal-tip">
-          * To avoid price fluctuations leading to transaction failure, please
-          complete the transaction within 30 seconds.
-        </div>
       </div>
     );
   }

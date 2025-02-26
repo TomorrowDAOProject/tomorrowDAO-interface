@@ -616,7 +616,7 @@ class ResourceBuy extends Component {
                       max={processedBuyNumMax}
                     />
                   )} */}
-                    <InputNumber
+                    <Input
                       value={buyNum}
                       onChange={this.onChangeResourceValue}
                       placeholder={`Enter ${currentResourceType} amount`}

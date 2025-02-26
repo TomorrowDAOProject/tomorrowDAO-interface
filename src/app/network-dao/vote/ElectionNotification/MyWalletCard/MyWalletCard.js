@@ -8,7 +8,7 @@
  */
 import React, { PureComponent } from "react";
 import Link from 'next/link';
-import { Button, message, Spin } from "antd";
+import { Button, message } from "antd";
 import moment from "moment";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { ELF_DECIMAL, SYMBOL } from "@src/constants";
@@ -22,6 +22,8 @@ import { WebLoginInstance } from "@utils/webLogin";
 import { isActivityBrowser } from "@utils/isWebView";
 import IconFont from "@components/IconFont";
 import { mainExplorer } from "config";
+import Spin from "components/Spin";
+
 
 class MyWalletCard extends PureComponent {
   constructor(props) {
