@@ -2,7 +2,7 @@
   @apply w-full;
 
   .header-banner {
-    @apply max-w-[1440px] m-auto lg:px-10 px-4 py-3 lg:h-20 h-16 lg:py-5 flex items-center justify-between w-full bg-fillBg sticky top-0 z-10 transition-[top] duration-300 ease-in-out backdrop-blur-[10px];
+    @apply max-w-[1200px] m-auto lg:px-10 px-4 py-3 lg:h-20 h-16 lg:py-5 flex items-center justify-between w-full bg-fillBg sticky top-0 z-10 transition-[top] duration-300 ease-in-out backdrop-blur-[10px];
   }
 
   .header-logo {

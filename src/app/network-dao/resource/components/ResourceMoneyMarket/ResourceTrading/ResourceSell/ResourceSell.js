@@ -26,6 +26,7 @@ import "./ResourceSell.css";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import ButtonWithLoginCheck from "@components/ButtonWithLoginCheck";
 import { isActivityBrowser } from "@utils/isWebView";
+import { toast } from 'react-toastify';
 
 const status = { ERROR: "error" };
 
@@ -178,7 +179,7 @@ class ResourceSell extends Component {
         sellNum: null,
       });
       if (input !== "" && +input !== 0) {
-        message.error("Only support positive float or integer.");
+        toast.error("Only support positive float or integer.");
       }
       return;
     }
@@ -233,7 +234,7 @@ class ResourceSell extends Component {
             operateNumToSmall: false,
           });
         } else {
-          message.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
+          toast.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
           this.setState({
             operateNumToSmall: true,
           });
@@ -246,7 +247,7 @@ class ResourceSell extends Component {
         }
       })
       .catch((err) => {
-        message.error(err.message || err.msg || "Error happened");
+        toast.error(err.message || err.msg || "Error happened");
         console.error("err", err);
       });
   }
@@ -280,13 +281,13 @@ class ResourceSell extends Component {
     //       const msg =
     //         error === 200010
     //           ? "Please Login."
-    //           : errorMessage.message ||
+    //           : errortoast.message ||
     //             "Please check your NightELF browser extension.";
-    //       message.warn(msg);
+    //       toast.warn(msg);
     //     }
     //   },
     //   () => {
-    //     message.warn("Please download and install NightELF browser extension.");
+    //     toast.warn("Please download and install NightELF browser extension.");
     //   }
     // );
   }
@@ -300,7 +301,7 @@ class ResourceSell extends Component {
     });
 
     if (!regPos.test(sellNum) || sellNum === 0) {
-      message.error(
+      toast.error(
         `${ONLY_POSITIVE_FLOAT_OR_INTEGER_TIP}${CHECK_BALANCE_TIP}`
       );
       this.setState({
@@ -309,28 +310,28 @@ class ResourceSell extends Component {
       return;
     }
     if (+sellNum === 0) {
-      message.warning(TRANSACT_LARGE_THAN_ZERO_TIP);
+      toast.warning(TRANSACT_LARGE_THAN_ZERO_TIP);
       this.setState({
         sellBtnLoading: false,
       });
       return;
     }
     if (operateNumToSmall) {
-      message.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
+      toast.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
       this.setState({
         sellBtnLoading: false,
       });
       return;
     }
     if (sellNum > account.resourceTokens[currentResourceIndex].balance) {
-      message.warning(BUY_OR_SELL_MORE_THAN_ASSETS_TIP);
+      toast.warning(BUY_OR_SELL_MORE_THAN_ASSETS_TIP);
       this.setState({
         sellBtnLoading: false,
       });
       return;
     }
     if (!toSell) {
-      message.warning(BUY_OR_SELL_MORE_THAN_THE_INVENTORY_TIP);
+      toast.warning(BUY_OR_SELL_MORE_THAN_THE_INVENTORY_TIP);
       this.setState({
         sellBtnLoading: false,
       });
