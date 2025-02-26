@@ -108,7 +108,7 @@ function genMyVoteRecordsCols() {
           data-nodeaddress={publicKeyToAddress(record.candidate)}
           data-nodename={record.nane || publicKeyToAddress(record.candidate)}
           data-amount={record.amount}
-          // disabled={!record.isRedeemable || record.type === "Redeem"}
+          disabled={!record.isRedeemable || record.type === "Redeem"}
           data-shoulddetectlock
           data-voteId={JSON.stringify(record.voteId)}
         >

@@ -437,17 +437,3 @@ input[type='number'] {
     }
   }
 }
-/* .TMRWDAO-form-item-margin-offset {
-  @apply !mb-0;
-}
-.TMRWDAO-form-item {
-
-  .TMRWDAO-form-item-control {
-    .TMRWDAO-form-item-explain {
-      @apply text-[16px] leading-[24px] h-[24px] mt-[8px];
-      .TMRWDAO-form-item-explain-error {
-        @apply text-[#F53F3F];
-      }
-    }
-  }
-} */
