@@ -287,6 +287,7 @@ const REFERENDUM_TOKEN_COLUMN_ITEM = {
   title: "Amount",
   dataIndex: "amount",
   key: "amount",
+  width: 150,
   render(text, record) {
     if (text) {
       return (
@@ -472,7 +473,7 @@ const MyProposal = () => {
       </Tabs>
       <Row gutter={16} className="my-proposal-list gap-top">
         <Col sm={6} xs={24}>
-          <div className="my-proposal-list-menu">
+          <div className="my-proposal-list-menu border-0 border-r border-solid lg:border-fillBg8 xl:border-fillBg8 md:border-fillBg8 border-transparent">
             <Menu
               onClick={handleMenuChange}
               defaultSelectedKeys={defaultSelectedKey}

@@ -111,7 +111,7 @@ export default function Header() {
         <div className="header-logo">
           <div className="header-menu">
             <Link href="/">
-              <HeaderLogo />
+              <HeaderLogo isSmall={!isLG} />
             </Link>
             {!isLG && (
               <PCMenu

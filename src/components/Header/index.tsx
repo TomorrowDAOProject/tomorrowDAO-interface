@@ -163,7 +163,7 @@ export default function Header() {
         <div className="header-logo">
           <div className="header-menu">
             <Link href="/">
-              <HeaderLogo />
+              <HeaderLogo isSmall={true} />
             </Link>
             {!menuCondition && <PCMenu selectedKeys={[current]} items={items} onClick={onClick} />}
           </div>
