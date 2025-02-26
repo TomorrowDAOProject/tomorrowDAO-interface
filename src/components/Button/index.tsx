@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 const buttonStyles = {
-  default: 'bg-transparent border-fillBg8 text-lightGrey hover:text-white hover:border-white',
+  default: 'bg-transparent border-lightGrey text-lightGrey hover:text-white hover:border-white',
   primary:
     'bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor',
   info: 'bg-cyan border-cyan text-white hover:bg-transparent hover:text-cyan hover:border-cyan',
@@ -14,7 +14,7 @@ const buttonStyles = {
 };
 
 const buttonSize = {
-  small: '!py-2 !text-descM12',
+  small: '!py-2 text-descM12',
   medium: '!py-[13px] !text-descM15',
   large: '!py-4 !text-descM18',
 };
@@ -50,7 +50,7 @@ const Button = ({
         buttonStyles[type],
         buttonSize[size],
         className,
-        { '!text-lightGrey cursor-not-allowed !bg-fillBg8 !border-fillBg8': disabled },
+        { '!text-borderColor cursor-not-allowed !bg-darkBg !border-borderColor': disabled },
       )}
       onClick={onClick}
       disabled={disabled}

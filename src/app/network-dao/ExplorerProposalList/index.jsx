@@ -178,6 +178,7 @@ const ProposalList = () => {
     });
     if (params.proposalType === proposalTypes.REFERENDUM) {
       const [proposal] = list.filter((item) => item.proposalId === id);
+      console.log(proposal);
       setProposalInfo({
         ...proposalInfo,
         tokenSymbol: proposal.organizationInfo.leftOrgInfo.tokenSymbol,

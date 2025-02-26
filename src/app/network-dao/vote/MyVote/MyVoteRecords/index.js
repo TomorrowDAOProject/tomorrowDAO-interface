@@ -103,12 +103,12 @@ function genMyVoteRecordsCols() {
         <Button
           type="default"
           size="small"
-          className="!py-[2px] !px-1 !rounded-[4px] !text-[8px]"
+          className="!py-[2px] !px-1 !rounded-[4px] !text-[8px] !font-Montserrat"
           data-role="redeemOne"
           data-nodeaddress={publicKeyToAddress(record.candidate)}
           data-nodename={record.nane || publicKeyToAddress(record.candidate)}
           data-amount={record.amount}
-          disabled={!record.isRedeemable || record.type === "Redeem"}
+          // disabled={!record.isRedeemable || record.type === "Redeem"}
           data-shoulddetectlock
           data-voteId={JSON.stringify(record.voteId)}
         >

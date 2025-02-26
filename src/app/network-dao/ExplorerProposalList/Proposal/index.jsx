@@ -55,7 +55,7 @@ const Title = (props) => {
     <div className="flex items-center justify-between h-[23px]">
       <div className="flex items-center gap-[10px]">
       <span className="text-[15px] font-Unbounded font-light -tracking-[0.6px] text-white">{proposalType}</span>
-      {votedStatus === "none" ? (
+      {votedStatus !== "none" ? (
         <Tag color={ACTIONS_COLOR_MAP[votedStatus]}>
           {ACTIONS_ICON_MAP[votedStatus]}
           {votedStatus}
