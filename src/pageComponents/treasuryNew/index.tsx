@@ -104,7 +104,9 @@ export default function Transparent(props: ITransparentProps) {
     <div className="treasury-page-content">
       <div className="card-shape border-solid border-[1px] border-fillBg8 rounded-lg bg-darkBg mb-[25px]">
         <div className="flex justify-between lg:flex-row flex-col border-0 border-b border-solid border-fillBg8 xl:px-[32px] lg:px-[32px] md:px-[32px] px-[22px] py-[17px]">
-          <span className="text-white leading-normal font-Unbounded text-[15px]">{title}</span>
+          <span className="text-white leading-normal font-Unbounded text-[15px] font-[300]">
+            {title}
+          </span>
           <span className="flex lg:items-center lg:flex-row flex-col">
             <span className="text-lightGrey text-[12px] pr-[4px] font-Montserrat">
               Treasury Assets Address:
@@ -135,7 +137,7 @@ export default function Transparent(props: ITransparentProps) {
         ) : (
           <div className="xl:px-[38px] lg:px-[38px] md:px-[38px] px-[22px] py-[24px]">
             <div className="text-lightGrey text-[13px]">
-              <div className="text-lightGrey text-[14px] flex items-center h-[22px]">
+              <div className="text-lightGrey text-[14px] flex items-center h-[22px] font-Montserrat">
                 Treasury Balance
               </div>
               <div className="text-white text-[18px] flex items-center font-Montserrat font-medium h-[32px] mt-[8px]">
@@ -171,7 +173,7 @@ export default function Transparent(props: ITransparentProps) {
       </div>
       {!isShowGuide && (
         <div className="mt-[26px] full-table-wrap border-solid border-[1px] border-fillBg8 rounded-lg bg-darkBg mb-[25px]">
-          <div className="text-white leading-normal font-Unbounded text-[15px] border-0 border-b border-solid border-fillBg8 xl:px-[32px] lg:px-[32px] md:px-[32px] px-[22px] py-[17px]">
+          <div className="text-white leading-normal font-Unbounded text-[15px] font-[300] border-0 border-b border-solid border-fillBg8 xl:px-[32px] lg:px-[32px] md:px-[32px] px-[22px] py-[17px]">
             All Income and Expenses
           </div>
           <div className="flex items-center gap-2 font-Montserrat border-0 border-b border-solid border-fillBg8 cursor-pointer">

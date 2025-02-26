@@ -39,32 +39,30 @@
   font-size: 16px;
   font-weight: 900;
 }
+.antExplorer-slider-horizontal .antExplorer-slider-step {
+  @apply h-1;
+}
+.trading-slide {
+  .antExplorer-slider-rail {
+    @apply h-1;
+  }
+}
+
 
 .trading-buy .antExplorer-slider-track {
-  background: #FA9D2B;
+ @apply bg-mainColor h-[4px];
 }
 
 .trading-buy .antExplorer-slider-dot-active {
-  border-color: #FA9D2B;
-  background: #FA9D2B;
+  @apply bg-mainColor h-[4px];
 }
 
 .trading-buy .antExplorer-slider-handle {
-  border-color: #FA9D2B;
-  background: #FA9D2B;
+  @apply bg-mainColor;
   transform: none !important;
 }
-
-.trading-buy .antExplorer-slider-handle:focus {
-  box-shadow: none;
-}
-
-.trading-buy .antExplorer-slider-track:focus {
-  background: #FA9D2B;
-}
-
 .trading-buy .antExplorer-slider:hover .antExplorer-slider-track {
-  background: #FA9D2B;
+  @apply bg-mainColor;
 }
 
 .trading-buy .antExplorer-slider:hover .antExplorer-slider-handle {
