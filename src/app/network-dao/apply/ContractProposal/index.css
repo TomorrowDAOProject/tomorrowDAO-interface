@@ -26,7 +26,7 @@
   }
 
   .antExplorer-input {
-    @apply !bg-transparent !h-[46px] border border-fillBg8 border-solid rounded-[8px] text-desc14 font-Montserrat text-white placeholder:text-lightGrey;
+    @apply !bg-transparent !h-[46px] border border-fillBg8 border-solid rounded-[8px] text-desc14 font-Montserrat !text-white placeholder:text-lightGrey;
   }
 
   .antExplorer-select,
@@ -63,7 +63,7 @@
   }
 
   .antExplorer-radio-button-wrapper {
-    @apply h-[32px] leading-[32px] rounded-[42px] text-descM12 font-Montserrat text-white bg-transparent;
+    @apply h-[32px] leading-[32px] border !border-s rounded-[42px] text-descM12 font-Montserrat text-white bg-transparent;
 
     &:hover {
       @apply !bg-mainColor !border-mainColor;
@@ -71,7 +71,7 @@
   }
 
   .antExplorer-radio-group {
-    @apply !flex !flex-col md:!flex-row !gap-[10px];
+    @apply !flex !flex-col md:!flex-row !gap-[15px];
   }
 
   .antExplorer-radio-button-wrapper:not(:first-child)::before,
@@ -81,6 +81,19 @@
 
   .upload-file-form-item {
     @apply !mb-0;
+  }
+
+  .antExplorer-upload-wrapper .antExplorer-upload-list .antExplorer-upload-list-item {
+    @apply hover:!bg-transparent;
+
+    .antExplorer-upload-list-item-actions .anticon,
+    .antExplorer-upload-icon .anticon {
+      @apply !text-lightGrey;
+    }
+
+    .antExplorer-upload-list-item-name {
+      @apply !text-desc11 !text-lightGrey;
+    }
   }
 
 }

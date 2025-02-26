@@ -128,7 +128,7 @@ const VoteChart = (props) => {
     <div className='pc'>
       <span className="block mb-5 text-descM12 text-white font-Montserrat">Voting Data: Votes <span>(Votes / Minimum Votes)</span></span>
       <Row gutter={43} className="!mx-0">
-        <Col sm={12} md={6} className="!px-0">
+        <Col sm={12}  md={12} lg={6} className="!px-0">
           <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
               isInProgress
@@ -149,7 +149,7 @@ const VoteChart = (props) => {
             </span>
           </div>
         </Col>
-        <Col sm={12} md={6} className="!px-0">
+        <Col sm={12} md={12} lg={6} className="!px-0">
           <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
               isInProgress
@@ -170,7 +170,7 @@ const VoteChart = (props) => {
             </span>
           </div>
         </Col>
-        <Col sm={12} md={6} className="!px-0">
+        <Col sm={12} md={12} lg={6} className="!px-0">
           <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
               isInProgress
@@ -192,7 +192,7 @@ const VoteChart = (props) => {
             </span>
           </div>
         </Col>
-        <Col sm={12} md={6} className="!px-0">
+        <Col sm={12} md={12} lg={6} className="!px-0">
           <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
               isInProgress={proposalType !== proposalTypes.REFERENDUM}

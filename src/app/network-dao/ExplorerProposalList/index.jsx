@@ -186,11 +186,6 @@ const ProposalList = () => {
         visible: true,
       });
     } else {
-      // if (!webLoginWallet.accountInfoSync.syncCompleted) {
-      //   showAccountInfoSyncingModal();
-      //   return;
-      // }
-
       await sendTransactionWith(
         callContract,
         getContractAddress(params.proposalType),
@@ -249,12 +244,7 @@ const ProposalList = () => {
     });
     return votedStatus;
   };
-  const handleRelease = async (event) => {
-    // if (!webLoginWallet.accountInfoSync.syncCompleted) {
-    //   showAccountInfoSyncingModal();
-    //   return;
-    // }
-    const id = event.currentTarget.getAttribute("proposal-id");
+  const handleRelease = async (id) => {
     debounce(async () => {
       setLoading({
         ...loading,
@@ -279,8 +269,7 @@ const ProposalList = () => {
     }, 200)();
   };
 
-  const handleApprove = async (event) => {
-    const id = event.currentTarget.getAttribute("proposal-id");
+  const handleApprove = async (id) => {
     // update votedStatus
     debounce(async () => {
       const votedStatus = await updateVotedStatus(id);
@@ -289,8 +278,7 @@ const ProposalList = () => {
       }
     }, 200)();
   };
-  const handleReject = async (event) => {
-    const id = event.currentTarget.getAttribute("proposal-id");
+  const handleReject = async (id) => {
     debounce(async () => {
       const votedStatus = await updateVotedStatus(id);
       if (votedStatus === "none") {
@@ -298,8 +286,7 @@ const ProposalList = () => {
       }
     }, 200)();
   };
-  const handleAbstain = async (event) => {
-    const id = event.currentTarget.getAttribute("proposal-id");
+  const handleAbstain = async (id) => {
     debounce(async () => {
       const votedStatus = await updateVotedStatus(id);
       if (votedStatus === "none") {

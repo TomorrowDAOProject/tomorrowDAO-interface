@@ -381,7 +381,7 @@ const ProposalDetail = () => {
                       rel="noopener noreferrer"
                       title={`ELF_${proposer}_${viewer.chainId}`}
                     >
-                      <Text textClassName="!text-white !text-desc13" content={`ELF_${proposer}_${viewer.chainId}`} isAddress shortAddress copyable />
+                      <Text textClassName="!text-white !text-desc13" content={`ELF_${proposer}_${viewer.chainId}`} isAddress shortAddress />
                     </a>
                   
                   </span>
