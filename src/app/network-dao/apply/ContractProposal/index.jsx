@@ -444,7 +444,6 @@ const ContractProposal = (props) => {
       <FormItem label="" name="updateType">
         <Radio.Group onChange={updateTypeHandler} buttonStyle="solid">
           <Radio.Button
-            style={{ marginRight: "20px" }}
             value={UpdateType.updateFile}
           >
             Update Contract File

@@ -6,11 +6,13 @@ import {
   CloseCircleFilled,
   CheckCircleFilled,
 } from "@ant-design/icons";
-import { Modal } from "antd";
+import Modal from "components/Modal";
 import { explorer, mainExplorer } from "config";
 import { useChainSelect } from "hooks/useChainSelect";
 import CopylistItem from "../CopylistItem";
 import "./index.css";
+import Button from "components/Button";
+import clsx from "clsx";
 // import useMobile from "../../../../hooks/useMobile";
 
 interface IStatus {
@@ -133,59 +135,70 @@ const WithoutApprovalModal = (props: IProps) => {
   const handleCancel = () => {
     cancel();
   };
-  const isMobile = false;
   return (
     <Modal
-      destroyOnClose
-      width={800}
-      open={open}
-      onOk={handleCancel}
-      okText="Close"
-      closable={false}
-      wrapClassName={`without-approval-modal ${
-        isMobile ? "without-approval-modal-mobile" : ""
-      }`}
+      isVisible={open}
+      onClose={handleCancel}
+      rootClassName="w-[calc(100vw-40px)] lg:w-[800px] !px-[38px] !py-[30px]"
+      closeable={false}
     >
-      <div className="without-approval-modal-degree">
-        <div className="deployment-verification">
-          {status?.verification === 0 && (
-            <CheckCircleOutlined className="circle-icon check" />
-          )}
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+        <div className="flex items-center gap-2">
           {status?.verification === 1 && (
-            <CloseCircleOutlined className="circle-icon close" />
+            <i className="tmrwdao-icon-circle-add text-[32px] text-white rotate-45" />
           )}
-          {(status?.verification === 2 || status?.verification === 3) && (
-            <span className={`icon icon${status?.verification}`}>1</span>
+          {(status?.verification !== 1) && (  
+            <span
+              className={clsx(`w-[30px] h-[30px] flex items-center justify-center border border-solid rounded-full text-desc12 font-Montserrat text-white`, {
+                "bg-mainColor border-mainColor": status?.verification === 0,
+                "bg-transparent border-white": status?.verification !== 0,
+              })}
+            >
+              1
+            </span>
           )}
-          <span className={`title title${status?.verification}`}>
+          <span
+            className={clsx(`text-desc12 font-Montserrat`, {
+              "text-mainColor": status?.verification === 0, 
+              "text-white": status?.verification !== 0,
+            })}
+          >
             {`${isUpdate ? "Update" : "Deployment"}  verification`}
           </span>
         </div>
-        <div className="middle-line" />
-        <div className="deployment-execution">
-          {status?.execution === 0 && (
-            <CheckCircleOutlined className="circle-icon check" />
-          )}
+        <div className="bg-lightGrey w-[1px] h-[49px] md:h-[1px] md:w-[116px]" />
+        <div className="flex items-center gap-2">
           {status?.execution === 1 && (
-            <CloseCircleOutlined className="circle-icon close" />
+            <i className="tmrwdao-icon-circle-add text-[32px] text-white rotate-45" />
           )}
-          {(status?.execution === 2 || status?.execution === 3) && (
-            <span className={`icon icon${status?.execution}`}>2</span>
+          {(status?.execution !== 1) && (
+            <span className={clsx(`w-[30px] h-[30px] flex items-center justify-center border border-solid rounded-full text-desc12 font-Montserrat text-white`, {
+              "bg-mainColor border-mainColor": status?.execution === 0,
+              "bg-transparent border-white": status?.execution !== 0,
+            })}
+            >
+              2
+            </span>
           )}
-          <span className={`title title${status?.execution}`}>
+          <span
+            className={clsx(`text-desc12 font-Montserrat`, {
+              "text-mainColor": status?.execution === 0,
+              "text-white": status?.execution !== 0,
+            })}
+          >
             {`${isUpdate ? "Update" : "Deployment"}  execution`}
           </span>
         </div>
       </div>
-      <div className="without-approval-modal-message">
+      <div className="my-[54px] text-desc15 font-light font-Unbounded -tracking-[0.6px] text-white text-center">
         {getMessage(withoutApprovalProps, isSideChain)}
       </div>
-      <div className="without-approval-modal-notice">
-        <div className="title">Notice</div>
+      <div className="mb-[50px] bg-borderColor border border-solid border-fillBg8 rounded-[8px] py-2 px-3">
+        <span className="mb-[6px] block font-Montserrat text-descM11 text-white">Important Notice: </span>
         <div className="content">
           {noticeContent.map((ele, index) => {
             return (
-              <div className="content-item" key={`notice_${ele}`}>
+              <div className="font-Montserrat text-descM11 text-white" key={`notice_${ele}`}>
                 <span>{index + 1}.</span>
                 <span>{ele}</span>
               </div>
@@ -193,6 +206,9 @@ const WithoutApprovalModal = (props: IProps) => {
           })}
         </div>
       </div>
+      <Button type="primary" className="w-full !py-[11px]" onClick={handleCancel}>
+        Close
+      </Button>
     </Modal>
   );
 };

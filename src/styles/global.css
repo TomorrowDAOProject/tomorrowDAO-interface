@@ -118,6 +118,10 @@ input[type='number'] {
   @apply justify-start;
 }
 
+.TMRWDAO-table-wrapper .TMRWDAO-table-column-title {
+  @apply flex-grow-0 !text-desc11 !text-lightGrey font-Montserrat flex-none;
+}
+
 .dao-tx-hash {
   & > span {
     @apply truncate max-w-[120px];

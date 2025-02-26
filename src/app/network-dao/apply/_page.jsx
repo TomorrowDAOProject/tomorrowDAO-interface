@@ -5,7 +5,7 @@ import AElf from "aelf-sdk";
 import Result from "components/Result";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
-import { ResultModal, emitLoading, eventBus } from 'utils/myEvent';
+import { ResultModal, eventBus } from 'utils/myEvent';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import { okButtonConfig, INIT_RESULT_MODAL_CONFIG } from 'components/ResultModal';
 import { ReactComponent as WarningFilled } from 'assets/icons/warning-filled.svg';
@@ -150,7 +150,6 @@ const CreateProposal = () => {
 
   const cancelWithoutApproval = () => {
     // to destroy sure modal
-    Modal.destroyAll();
     setContractResult({
       confirming: false,
     });

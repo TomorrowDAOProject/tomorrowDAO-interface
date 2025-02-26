@@ -55,7 +55,7 @@ const Title = (props) => {
     <div className="flex items-center justify-between h-[23px]">
       <div className="flex items-center gap-[10px]">
       <span className="text-[15px] font-Unbounded font-light -tracking-[0.6px] text-white">{proposalType}</span>
-      {votedStatus === "none" ? (
+      {votedStatus !== "none" ? (
         <Tag color={ACTIONS_COLOR_MAP[votedStatus]}>
           {ACTIONS_ICON_MAP[votedStatus]}
           {votedStatus}
@@ -156,7 +156,7 @@ const Proposal = (props) => {
               proposal-id={proposalId}
               type="link"
               size="small"
-              onClick={handleRelease}
+              onClick={() => handleRelease(proposalId)}
               loading={loading.Release[proposalId]}
             >
               Release&gt;
@@ -200,7 +200,7 @@ const Proposal = (props) => {
           disabled={!canThisUserVote}
           size='small'
           proposal-id={proposalId}
-          onClick={handleApprove}
+          onClick={() => handleApprove(proposalId)}
           loading={loading.Approve[proposalId] && canThisUserVote}
         >
           Approve
@@ -211,7 +211,7 @@ const Proposal = (props) => {
           size='small'
           disabled={!canThisUserVote}
           proposal-id={proposalId}
-          onClick={handleReject}
+          onClick={() => handleReject(proposalId)}
           loading={loading.Reject[proposalId] && canThisUserVote}
         >
           &nbsp;Reject&nbsp;
@@ -221,7 +221,7 @@ const Proposal = (props) => {
           size='small'
           className="flex-1"
           disabled={!canThisUserVote}
-          onClick={handleAbstain}
+          onClick={() => handleAbstain(proposalId)}
           proposal-id={proposalId}
           loading={loading.Abstain[proposalId] && canThisUserVote}
         >

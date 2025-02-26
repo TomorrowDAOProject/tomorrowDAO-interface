@@ -41,7 +41,9 @@ const OrganizationCard = (props) => {
         proposalType,
         leftOrgInfo,
         bpList,
-        parliamentProposerList
+        parliamentProposerList,
+        'lg:flex-row gap-[14px] lg:gap-[39px]',
+        'flex flex-col gap-y-[10px] flex-1 lg:w-[calc((100%-39px)/2)]'
       ),
     [proposalType, leftOrgInfo, bpList, parliamentProposerList]
   );

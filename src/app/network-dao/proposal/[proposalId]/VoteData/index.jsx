@@ -30,7 +30,6 @@ const VoteData = (props) => {
   } = props;
   const [canThisUserVote, setCanThisVote] = useState(false);
   useEffect(() => {
-    console.log(status, votedStatus, canVote);
     setCanThisVote(
       (status === proposalStatus.PENDING ||
         status === proposalStatus.APPROVED) &&
