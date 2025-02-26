@@ -15,6 +15,7 @@ interface HashAddress {
   ignorePrefixSuffix?: boolean;
   iconSize?: string;
   iconColor?: string;
+  isHash?: boolean;
 }
 
 const HashAddress = ({
@@ -26,11 +27,17 @@ const HashAddress = ({
   ignorePrefixSuffix,
   iconSize,
   iconColor,
+  isHash,
 }: HashAddress) => {
   const realAddress = `${ignorePrefixSuffix ? '' : 'ELF_'}${address}${chain ? `_${chain}` : ''}`;
   const firstPart = preLen && realAddress.slice(0, preLen);
   const lastPart = endLen && realAddress.slice(-endLen);
-  const showAddress = preLen && endLen ? `${firstPart}...${lastPart}` : realAddress;
+  let showAddress = '';
+  if (isHash) {
+    showAddress = `${firstPart}...`;
+  } else {
+    showAddress = preLen && endLen ? `${firstPart}...${lastPart}` : realAddress;
+  }
 
   const textColorClass = iconColor ? `text-[${iconColor}]` : 'text-white';
   const iconSizeClass = iconSize ? `text-[${iconSize}]` : 'text-[20px]';
@@ -48,7 +55,7 @@ const HashAddress = ({
       <span className="break-all font-Montserrat">{showAddress}</span>
       <i
         className={clsx(
-          'tmrwdao-icon-duplicate cursor-pointer hover:text-white',
+          'tmrwdao-icon-duplicate cursor-pointer text-lightGrey hover:text-white',
           textColorClass,
           iconSizeClass,
         )}
