@@ -261,7 +261,7 @@ class MyWalletCard extends PureComponent {
       lastestUnlockTime,
     } = this.state;
     const { isConnected } = WebLoginInstance.get().getWebLoginContext();
-    console.log("isConnected:", isConnected);
+    console.log("isConnected", isConnected);
     const formattedAddress = addressFormat(currentWallet.address);
     const walletItems = [
       {
@@ -286,7 +286,7 @@ class MyWalletCard extends PureComponent {
           <Button
             type="primary"
             size="small"
-            className="my-wallet-card-body-wallet-content-withdraw-btn w-[40px] h-[20px] leading-[20px] text-[11px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+            className="my-wallet-card-body-wallet-content-withdraw-btn w-[44px] h-[20px] leading-[20px] text-[11px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             disabled={isActivityBrowser()}
             onClick={handleDividendClick}
           >
@@ -361,7 +361,7 @@ class MyWalletCard extends PureComponent {
                     {formattedAddress ? (
                       <>
                         <Link
-                          className="info text-link text-[10px] font-Montserrat"
+                          className="info text-white text-[10px] font-Montserrat"
                           href={`${mainExplorer}/address/${formattedAddress}`}
                           title={formattedAddress}
                         >

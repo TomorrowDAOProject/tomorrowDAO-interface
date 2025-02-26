@@ -30,7 +30,7 @@ const Title = (props) => {
   const { proposalType } = props;
   return (
     <div className="organization-list-item-title">
-      <span className="gap-right-small text-white font-Montserrat font-medium">{proposalType} Organisation</span>
+      <span className="gap-right-small text-[14px] text-white font-Montserrat font-medium">{proposalType} Organisation</span>
     </div>
   );
 };
@@ -301,7 +301,7 @@ const Organization = (props) => {
           <Divider className="bg-borderColor my-[20px]" />
           <div className="organization-list-item-info">
             <div className="organization-list-item-info-item">
-              <span className="sub-title gap-right text-white !text-[11px] font-medium">Author:</span>
+              <span className="sub-title gap-right text-white !text-[11px] !font-medium">Author:</span>
               <span className="text-ellipsis">
                 <a
                   href={`${isSideChain ? explorer : mainExplorer}/address/${addressFormat(creator)}`}
@@ -314,7 +314,7 @@ const Organization = (props) => {
               </span>
             </div>
             <div className="organization-list-item-info-item flex items-center justify-start">
-              <span className="sub-title gap-right !text-[11px] font-medium">Update Time:</span>
+              <span className="sub-title gap-right !text-[11px] !font-medium">Update Time:</span>
               <span className="text-ellipsis text-[11px] text-lightGrey font-Montserrat">
                 {moment(updatedAt).format("YYYY/MM/DD HH:mm:ss")}
               </span>
