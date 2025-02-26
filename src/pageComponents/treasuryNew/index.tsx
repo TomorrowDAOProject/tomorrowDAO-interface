@@ -103,7 +103,7 @@ export default function Transparent(props: ITransparentProps) {
   return (
     <div className="treasury-page-content">
       <div className="card-shape border-solid border-[1px] border-fillBg8 rounded-lg bg-darkBg mb-[25px]">
-        <div className="flex justify-between lg:flex-row flex-col border-0 border-b border-solid border-fillBg8 xl:px-[32px] lg:px-[32px] md:px-[32px] px-[22px] py-[17px]">
+        <div className="flex justify-between lg:flex-row flex-col border-0 border-b border-solid border-fillBg8 xl:px-[32px] lg:px-[32px] md:px-[32px] px-[22px] py-[17px] gap-2">
           <span className="text-white leading-normal font-Unbounded text-[15px] font-[300]">
             {title}
           </span>
