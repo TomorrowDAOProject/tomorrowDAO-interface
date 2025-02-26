@@ -133,7 +133,8 @@ export default function Header() {
                     label: item.label,
                   };
                 })}
-                className="!rounded-[42px] border-white h-[32px] w-[128px] px-[12px]"
+                className="!rounded-[42px] border-white h-[32px] px-[12px] font-medium"
+                iconClassName="!ml-0"
               />
             </div>
             <DynamicLogin isNetWorkDao={true} />

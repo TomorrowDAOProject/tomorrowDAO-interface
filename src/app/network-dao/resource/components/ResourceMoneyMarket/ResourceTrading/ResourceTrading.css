@@ -43,7 +43,7 @@
     }
     .antExplorer-slider-handle {
       @apply bg-transparent border-transparent; 
-      inset-block-start: 6px!important;
+      inset-block-start: 4px!important;
       &::after {
         @apply w-[12px] h-[12px] shadow-none;
       }

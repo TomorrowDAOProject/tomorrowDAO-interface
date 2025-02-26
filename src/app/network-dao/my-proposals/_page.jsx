@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { Tooltip, Menu, message, Tabs, Tag, Row, Col, Result } from "antd";
+import { Tooltip, Menu, message, Tabs, Row, Col, Result } from "antd";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import List from "./List";
 import constants, {
@@ -13,6 +13,7 @@ import constants, {
   API_PATH,
   STATUS_COLOR_MAP,
 } from "@redux/common/constants";
+import Tag from 'components/Tag'
 import {
   omitString,
   removePrefixOrSuffix,
@@ -59,8 +60,8 @@ const LIST_TABS = {
               href={{
                 pathname: `/proposal/${text}`,
             }}>
-              <Tooltip title={text} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+                <span className="font-Montserrat text-white">{omitString(text)}</span>
               </Tooltip>
             </LinkNetworkDao>
           );
@@ -79,8 +80,8 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={<span className="font-Montserrat">{text}</span>} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+                <span className="font-Montserrat text-white">{omitString(text)}</span>
               </Tooltip>
             </a>
           );
@@ -91,13 +92,21 @@ const LIST_TABS = {
         dataIndex: "status",
         key: "status",
         width: 100,
-        render: (text) => <Tag color={STATUS_COLOR_MAP[text]}>{text}</Tag>,
+        render (text) {
+          console.log('STATUS_COLOR_MAP[text]', STATUS_COLOR_MAP[text], text)
+          return (
+            <div>
+              <Tag color={STATUS_COLOR_MAP[text]}>{text}</Tag>
+            </div>
+          )
+        }
       },
       {
         title: "Application Time",
         dataIndex: "createAt",
         key: "createAt",
         width: 200,
+        align: 'right',
         render(text) {
           return moment(text).format("YYYY/MM/DD HH:mm:ss");
         },
@@ -137,8 +146,8 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={<span className="font-Montserrat">{text}</span>} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-white text-[10px]">{text}</span>} placement="topLeft">
+               <span className="font-Montserrat text-white">{omitString(text)}</span>
               </Tooltip>
             </a>
           );
@@ -149,6 +158,7 @@ const LIST_TABS = {
         dataIndex: "updatedAt",
         key: "updatedAt",
         width: 200,
+        align: 'right',
         render(text) {
           return moment(text).format("YYYY/MM/DD HH:mm:ss");
         },
@@ -180,6 +190,7 @@ const LIST_TABS = {
         dataIndex: "txId",
         key: "txId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <a
@@ -187,8 +198,8 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={<span className="font-Montserrat">{text}</span>} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+              <span className="font-Montserrat text-white">{omitString(text)}</span>
               </Tooltip>
             </a>
           );
@@ -199,6 +210,7 @@ const LIST_TABS = {
         dataIndex: "updatedAt",
         key: "updatedAt",
         width: 200,
+        align: 'right',
       },
     ],
     rowKey: "orgAddress",
@@ -220,8 +232,8 @@ const LIST_TABS = {
                 pathname: `/proposal/${text}`,
               }}
             >
-              <Tooltip title={text} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+                <span className="font-Montserrat font-white">{omitString(text)}</span>
               </Tooltip>
             </LinkNetworkDao>
           );
@@ -249,8 +261,8 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={<span className="font-Montserrat">{text}</span>} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+                <span className="font-Montserrat font-white">{omitString(text)}</span>
               </Tooltip>
             </a>
           );
@@ -261,6 +273,7 @@ const LIST_TABS = {
         dataIndex: "time",
         key: "time",
         width: 200,
+        align: 'right',
         render(time) {
           return moment(time).format("YYYY/MM/DD HH:mm:ss");
         },

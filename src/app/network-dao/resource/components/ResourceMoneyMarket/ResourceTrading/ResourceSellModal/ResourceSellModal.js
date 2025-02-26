@@ -127,43 +127,44 @@ export default class ResourceSellModal extends PureComponent {
 
     const CHAIN_ID = 'AELF'
     return (
-      <div className="modal resource-modal">
-        <Row className="modal-form-item">
-          <Col span={6}>Address</Col>
+      <div className="modal resource-modal text-white font-Montserrat">
+        <Row className="modal-form-item mt-[30px] pt-[24px] border-0 border-t border-solid border-fillBg8">
+          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Address</Col>
           <Col
             span={18}
-            className="text-ellipse"
+            className="text-ellipse font-Montserrat text-[13px]"
             title={`ELF_${currentWallet.address}_${CHAIN_ID}`}
           >
             {`ELF_${currentWallet.address}_${CHAIN_ID}`}
           </Col>
         </Row>
-        <Row className="modal-form-item">
-          <Col span={6}>Sell {currentResourceType} Quantity</Col>
-          <Col span={18}>{thousandsCommaWithDecimal(sellNum)}</Col>
+        <Row className="modal-form-item pt-[24px]">
+          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Sell {currentResourceType} Quantity</Col>
+          <Col span={18} className="font-Montserrat text-[13px] text-white">{thousandsCommaWithDecimal(sellNum)}</Col>
         </Row>
-        <Row className="modal-form-item">
-          <Col span={6}>Sell {SYMBOL}</Col>
+        <Row className="modal-form-item pt-[24px]">
+          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Sell {SYMBOL}</Col>
           <Col span={18}>
             <Spin spinning={sellEstimateValueLoading}>
-              {thousandsCommaWithDecimal(SellELFValue)}
+              <span className="font-Montserrat text-[13px] text-white">{thousandsCommaWithDecimal(SellELFValue)}</span>
             </Spin>
           </Col>
         </Row>
-        <div className="service-charge">
+        <div className="service-charge font-Montserrat !text-white mt-[7px] text-[12px]">
           *Service Charge: {thousandsCommaWithDecimal(sellFee)} {SYMBOL}
         </div>
+        <div className="font-Montserrat text-[11px] text-white bg-[#404040] border border-solid border-fillBg8 px-3 py-2 rounded-[5px] mt-[24px]">
+          * To avoid price fluctuations leading to transaction failure, please
+          complete the transaction within 30 seconds.
+        </div>
         <Button
-          className="modal-button sell-btn"
+          className="w-full mt-[50px] my-[14px] h-[40px] border-none rounded-[42px] !bg-[#FF485D] text-white font-Montserrat text-[15px] font-medium border hover:border-solid hover:!border-[#FF485D] hover:!text-[#FF485D] hover:!bg-transparent"
           loading={sellEstimateValueLoading || loading}
           onClick={this.getSellRes}
         >
           Sell
         </Button>
-        <div className="modal-tip">
-          * To avoid price fluctuations leading to transaction failure, please
-          complete the transaction within 30 seconds.
-        </div>
+       
       </div>
     );
   }

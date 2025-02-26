@@ -368,10 +368,10 @@ class ResourceCurrencyChart extends PureComponent {
           name: currentResourceType,
           data: prices,
           itemStyle: {
-            color: "#989DA0",
-            color0: "#d34a64",
-            borderColor: "#989DA0",
-            borderColor0: "#d34a64",
+            color: "#ffffff",
+            color0: "#ffffff",
+            borderColor: "#ffffff",
+            borderColor0: "#ffffff",
           },
         },
         ...series,
@@ -409,7 +409,7 @@ class ResourceCurrencyChart extends PureComponent {
       <div className="resource-currency-chart">
         <div className="resource-header">
           <div className="resource-header-title">
-            <span className="resource-title !font-Unbounded !font-[300]">Resource Money Market</span>
+            <span className="!font-Unbounded !font-[300] text-white">Resource Money Market</span>
           </div>
           <div className="xl:flex lg:flex md:flex items-center gap-1 sm:hidden">{selectButton}</div>
         </div>

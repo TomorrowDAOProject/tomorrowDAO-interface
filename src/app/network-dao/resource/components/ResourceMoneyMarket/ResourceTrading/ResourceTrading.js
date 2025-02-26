@@ -5,8 +5,9 @@
  */
 
 import React, { PureComponent } from "react";
-import { Row, Col, Modal, Divider } from "antd";
+// import { Row, Col, Modal, Divider } from "antd";
 import { connect } from "react-redux";
+import Modal from 'components/Modal'
 
 import ResourceBuy from "./ResourceBuy/ResourceBuy";
 import ResourceSell from "./ResourceSell/ResourceSell";
@@ -172,7 +173,7 @@ class ResourceTrading extends PureComponent {
             </div>
           </div>
         </div>
-        <Modal
+        {/* <Modal
           className="modal-display-box"
           title="Resource buying"
           destroyOnClose
@@ -183,7 +184,17 @@ class ResourceTrading extends PureComponent {
           maskClosable
           onCancel={this.handleCancel}
           width={700}
-        >
+        > */}
+          <Modal
+            title={<span className="font-Unbounded text-[20px] font-[300]">Resource buying</span>}
+            // footerConfig={{
+            //   buttonList: [{ children: 'Confirm', onClick: onConfirm, disabled: disabled }],
+            // }}
+            // rootClassName="modal-display-box"
+            isVisible={buyVisible}
+            onClose={this.handleCancel}
+            rootClassName="w-[740px] xl:px-[38px] xl:py-[30px] lg:px-[38px] lg:py-[30px] md:px-[38px] md:py-[30px] p-[22px]"
+          >
           <ResourceBuyModal
             currentResourceType={currentResourceType}
             currentWallet={currentWallet}
@@ -204,16 +215,20 @@ class ResourceTrading extends PureComponent {
           />
         </Modal>
         <Modal
-          className="modal-display-box"
-          title="Resource selling"
-          destroyOnClose
-          closable={false}
-          footer={null}
-          visible={sellVisible}
-          centered
-          maskClosable
-          onCancel={this.handleCancel}
-          width={700}
+          // className="modal-display-box"
+          // title="Resource selling"
+          // destroyOnClose
+          // closable={false}
+          // footer={null}
+          // visible={sellVisible}
+          // centered
+          // maskClosable
+          // onCancel={this.handleCancel}
+          // width={700}
+          title={<span className="font-Unbounded text-[20px] font-[300]">Resource selling</span>}
+          isVisible={sellVisible}
+          onClose={this.handleCancel}
+          rootClassName="w-[740px] xl:px-[38px] xl:py-[30px] lg:px-[38px] lg:py-[30px] md:px-[38px] md:py-[30px] p-[22px]"
         >
           <ResourceSellModal
             currentResourceType={currentResourceType}
