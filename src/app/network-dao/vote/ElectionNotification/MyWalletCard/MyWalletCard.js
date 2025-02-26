@@ -22,6 +22,8 @@ import { WebLoginInstance } from "@utils/webLogin";
 import { isActivityBrowser } from "@utils/isWebView";
 import IconFont from "@components/IconFont";
 import { mainExplorer } from "config";
+import Spin from "components/Spin";
+
 
 class MyWalletCard extends PureComponent {
   constructor(props) {
