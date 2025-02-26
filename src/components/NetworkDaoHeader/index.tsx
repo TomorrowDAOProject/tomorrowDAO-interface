@@ -108,20 +108,20 @@ export default function Header() {
   return (
     <header className="header-container networkdao-header-container">
       <div className="header-banner">
-        <div className="header-logo">
-          <div className="header-menu">
+        <div className="header-logo flex items-center justify-between">
+          <div className="">
             <Link href="/">
               <HeaderLogo isSmall={!isLG} />
             </Link>
-            {!isLG && (
-              <PCMenu
-                overflowedIndicatorPopupClassName="network-dao-menu-pop"
-                selectedKeys={[current]}
-                items={items}
-                onClick={onClick}
-              />
-            )}
           </div>
+          {!isLG && (
+            <PCMenu
+              overflowedIndicatorPopupClassName="network-dao-menu-pop"
+              selectedKeys={[current]}
+              items={items}
+              onClick={onClick}
+            />
+          )}
           <div className="flex items-center">
             <div className="chain-id-select-wrap">
               <Select

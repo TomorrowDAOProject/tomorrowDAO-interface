@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { HashAddress, Pagination, IPaginationProps } from 'aelf-design';
+import { Pagination, IPaginationProps } from 'aelf-design';
 import { curChain, explorer } from 'config';
 import { Button } from 'aelf-design';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import useResponsive from 'hooks/useResponsive';
 import './index.css';
 import { SkeletonLine } from 'components/Skeleton';
 import { ButtonCheckLogin } from 'components/ButtonCheckLogin';
+import HashAddress from 'components/HashAddress';
 
 interface ITreasuryDetailsProps {
   isLoading: boolean;

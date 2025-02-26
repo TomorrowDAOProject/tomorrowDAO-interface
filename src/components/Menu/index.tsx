@@ -15,10 +15,8 @@ export interface IMobileMenuProps extends Omit<MenuProps, 'mode'> {
 function PCMenu(props: IMobileMenuProps) {
   return (
     <Menu
-      className="custom-menu"
+      className="custom-menu m-auto text-center min-w-[600px] justify-center"
       mode="horizontal"
-      // eslint-disable-next-line no-inline-styles/no-inline-styles
-      style={{ minWidth: 0, flex: 'auto' }}
       {...props}
     />
   );

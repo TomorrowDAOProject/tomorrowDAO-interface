@@ -41,6 +41,7 @@ import getFees from "@utils/getFees";
 import "./ResourceBuy.css";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import { isActivityBrowser } from "@utils/isWebView";
+import { toast } from 'react-toastify';
 
 const A_PARAM_TO_AVOID_THE_MAX_BUY_AMOUNT_LARGE_THAN_ELF_BALANCE = 0.01;
 const status = { ERROR: "error" };
@@ -209,7 +210,7 @@ class ResourceBuy extends Component {
         buyEstimateValueLoading: false,
       });
       if (input !== "" && input !== 0) {
-        message.error("Only support positive float or integer.");
+        toast.error("Only support positive float or integer.");
       }
       return;
     }
@@ -271,7 +272,7 @@ class ResourceBuy extends Component {
               buyEstimateValueLoading: false,
             });
           } else {
-            message.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
+            toast.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
             this.setState({
               operateNumToSmall: true,
             });
@@ -294,7 +295,7 @@ class ResourceBuy extends Component {
       })
       .catch((e) => {
         console.log("Error happened: ", e);
-        message.error(e.message || e.msg || "Error happened");
+        toast.error(e.message || e.msg || "Error happened");
       });
   }
 
@@ -411,7 +412,7 @@ class ResourceBuy extends Component {
     });
 
     if (!regPos.test(buyNum) || buyNum === 0) {
-      message.error(
+      toast.error(
         `${ONLY_POSITIVE_FLOAT_OR_INTEGER_TIP}${CHECK_BALANCE_TIP}`
       );
       this.setState({
@@ -420,28 +421,28 @@ class ResourceBuy extends Component {
       return;
     }
     if (+buyNum === 0) {
-      message.warning(TRANSACT_LARGE_THAN_ZERO_TIP);
+      toast.warning(TRANSACT_LARGE_THAN_ZERO_TIP);
       this.setState({
         buyBtnLoading: false,
       });
       return;
     }
     if (operateNumToSmall) {
-      message.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
+      toast.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
       this.setState({
         buyBtnLoading: false,
       });
       return;
     }
     if (buyElfValue > account.balance) {
-      message.warning(BUY_OR_SELL_MORE_THAN_ASSETS_TIP);
+      toast.warning(BUY_OR_SELL_MORE_THAN_ASSETS_TIP);
       this.setState({
         buyBtnLoading: false,
       });
       return;
     }
     if (!toBuy) {
-      message.warning(BUY_OR_SELL_MORE_THAN_THE_INVENTORY_TIP);
+      toast.warning(BUY_OR_SELL_MORE_THAN_THE_INVENTORY_TIP);
       this.setState({
         buyBtnLoading: false,
       });
