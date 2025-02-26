@@ -74,13 +74,14 @@ export default function RecordTable(props: IRecordTableProps) {
                 className="text-white !text-[12px]"
                 address={hash}
                 ignorePrefixSuffix
-                preLen={8}
-                endLen={11}
+                preLen={13}
+                endLen={0}
                 iconColor="#989DA0"
                 iconSize="14px"
                 primaryIconColor={'#989DA0'}
                 addressHoverColor={'white'}
                 addressActiveColor={'white'}
+                isHash={true}
               />
               {/* <span>{hash.slice(0, 15)}...</span> */}
             </Link>

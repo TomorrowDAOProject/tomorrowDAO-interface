@@ -62,7 +62,7 @@
 }
 
 .antExplorer-input-group-wrapper-outlined.antExplorer-input-group-wrapper-disabled .antExplorer-input-group-addon {
-  @apply text-mainColor font-Montserrat !border-fillBg8;
+  @apply text-lightGrey font-Montserrat !border-fillBg8;
 }
 
 

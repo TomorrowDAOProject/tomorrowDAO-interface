@@ -38,11 +38,12 @@
     background: rgba(255, 174, 0, 0.2);
   }
 }
-.revamp-dao {
+.revamp-dao,
+.network-dao {
   .treasury-page-content {
     @apply font-Montserrat;
     .method-tag {
-      @apply w-[96px] h-[24px] text-center leading-[24px] truncate px-[8px] text-white bg-[rgba(185,185,185,0.15)] border-fillBg8 border border-solid rounded-[4px];
+      @apply font-Montserrat text-[8px] h-[18px] text-center leading-[18px] truncate px-[8px] text-white bg-[rgba(185,185,185,0.15)] border-fillBg8 border border-solid rounded-[4px];
     }
     .treasury-token {
       @apply text-[12px] leading-[20px] font-normal text-white;
@@ -52,12 +53,21 @@
         @apply border-b-0;
       }
       .token-pair {
-        .token-text {
+        .symbol-color {
           @apply !text-white;
         }
         .token-logo {
           @apply w-[32px] h-[32px] pr-[8px];
         }
+      }
+    }
+    .treasury-token {
+      @apply !justify-end;
+      .symbol-color {
+        @apply !text-white;
+      }
+      .token-logo {
+        @apply w-[14px] h-[14px] pr-[2px];
       }
     }
     .treasury-address {
@@ -72,6 +82,7 @@
   }
 }
 .treasury-page-content {
+  @apply min-h-[calc(100vh-222px)];
   .TMRWDAO-table {
     @apply !bg-transparent;
   }
@@ -87,7 +98,7 @@
   .TMRWDAO-table-thead {
     @apply font-Montserrat !bg-transparent text-lightGrey;
     > tr > th {
-      @apply !bg-transparent text-[12px] font-medium border-fillBg8 !rounded-none;
+      @apply !bg-transparent !text-[12px] font-medium border-fillBg8 !rounded-none;
       &:first-child {
         @apply pl-[12px];
       }
