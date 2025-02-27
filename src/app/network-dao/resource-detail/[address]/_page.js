@@ -76,7 +76,6 @@ class ResourceDetail extends PureComponent {
       <div className='transaction-details basic-container basic-container-white'>
         <div className="bg-darkBg !rounded-[8px] pb-[10px]">
           <div className="font-Unbounded font-[300] text-[15px] text-white xl:py-[17px] xl:px-[32px] lg:py-[17px] lg:px-[32px] md:py-[17px] md:px-[32px] p-[22px] border-0 border-b border-solid border-fillBg8">Transaction Details</div>
-          332321
           <TableLayer>
             <ConfigProvider renderEmpty={() => <NoData></NoData>}>
             <Table
