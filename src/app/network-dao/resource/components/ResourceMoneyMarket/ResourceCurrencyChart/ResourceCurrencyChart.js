@@ -416,7 +416,7 @@ class ResourceCurrencyChart extends PureComponent {
         <div>
           <Tabs className="resource-type-switch font-Montserrat" onChange={this.typeChange}>
             {list.map((v) => (
-              <Tabs.TabPane className="text-white" key={v} tab={v} />
+              <Tabs.TabPane className="text-white ml-0" key={v} tab={v} />
             ))}
           </Tabs>
           <div className="xl:hidden lg:hidden md:hidden items-center justify-center gap-1 flex">{selectButton}</div>
