@@ -91,7 +91,7 @@
       @apply text-lightGrey text-[10px] font-Montserrat border border-solid border-fillBg8 bg-fillBg8;
     }
     .TMRWDAO-pagination-button {
-      @apply bg-fillBg8;
+      @apply bg-fillBg8 disabled:!border-fillBg8 hover:!border-lightGrey;
     }
     .TMRWDAO-btn-background-ghost:disabled {
       @apply border-fillBg8;
