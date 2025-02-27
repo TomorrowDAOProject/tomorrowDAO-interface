@@ -17,6 +17,9 @@
         > tr > th {
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
+        > tr:first-child > *:first-child {
+          @apply !pl-[20px];
+        }
       }
       .TMRWDAO-table-tbody {
         .TMRWDAO-table-cell {
@@ -24,6 +27,9 @@
         }
         > tr > td {
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        > tr > td *:first-child {
+          @apply !ml-[10px];
         }
       }
       .TMRWDAO-hash-address > span {
@@ -46,7 +52,7 @@
     @apply mt-6;
   }
 
-  .treasury-info-item{
+  .treasury-info-item {
     .TMRWDAO-hash-address > span {
       @apply text-white !text-[12px];
     }
@@ -113,7 +119,7 @@
     @apply bg-darkBg xl:!px-[38px] xl:!py-[30px] lg:!px-[38px] lg:!py-[30px] md:!px-[38px] md:!py-[30px] !p-[22px] border border-solid border-fillBg8;
   }
   .TMRWDAO-modal-header {
-    @apply bg-darkBg text-white !p-0 ;
+    @apply bg-darkBg text-white !p-0;
     .common-header {
       @apply border-0 border-b border-solid border-fillBg8 !h-auto xl:pb-[30px] lg:pb-[30px] md:pb-[30px] pb-[22px];
     }

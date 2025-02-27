@@ -1,4 +1,5 @@
-import { HashAddress, Tooltip } from 'aelf-design';
+import { Tooltip } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import Link from 'next/link';
 import { curChain, explorer, treasuryContractAddress } from 'config';
 import { SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
@@ -301,6 +302,8 @@ export default function Discussion(props: IDiscussionProps) {
                       className="user-info-address text-white text-[13px]"
                       address={commentItem.commenter}
                       chain={curChain}
+                      iconSize={'16px'}
+                      iconColor={'#989DA0'}
                     />
                   </Link>
                   <p className="user-info-time text-lightGrey text-[12px]">
