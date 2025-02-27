@@ -25,6 +25,12 @@
     word-wrap: break-word;
    
 }
-.antExplorer-spin-nested-loading .antExplorer-spin-container::after {
+.transaction-details .antExplorer-spin-nested-loading .antExplorer-spin-container::after {
     background-color: transparent;
+}
+.transaction-details .antExplorer-pagination-item a {
+  @apply font-Montserrat;
+}
+.transaction-details .antExplorer-pagination .antExplorer-pagination-options-quick-jumper input {
+  @apply h-[24px] bg-fillBg8 border-fillBg8 text-lightGrey text-[12px];
 }
