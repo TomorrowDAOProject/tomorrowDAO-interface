@@ -153,9 +153,7 @@ const HighCouncil = () => {
                         className="font-Montserrat"
                         placeholder="The suggested percentage is no less than 67%."
                         regExp={/^([0-9\b]*)$/}
-                        isError={
-                          !!errors?.governanceSchemeThreshold?.minimalApproveThreshold?.message
-                        }
+                        isError={Number(field.value) > 100 || Number(field.value) == 0}
                       />
                       <span className="font-Montserrat text-[16px] text-lightGrey absolute right-4 top-[14px]">
                         %
@@ -166,9 +164,9 @@ const HighCouncil = () => {
                         {Number(field.value) == 0 &&
                           `Please input a number larger than 0 Proposals could be approved by a minority rather than a majoritty.`}
                         {Number(field.value) > 0 &&
-                          Number(field.value) <= 50 &&
+                          Number(field.value) < 50 &&
                           'Proposals could be approved by a minority rather than a majority.'}
-                        {Number(field.value) > 50 &&
+                        {Number(field.value) >= 50 &&
                           Number(field.value) <= 100 &&
                           'Proposal will be approved by majority.'}
                         {Number(field.value) > 100 &&
