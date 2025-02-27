@@ -51,6 +51,7 @@ export default class ResourceBuyModal extends PureComponent {
 
     try {
       const chainIdQuery = getChainIdQuery();
+
       const result = await WebLoginInstance.get().callContract({
         contractAddress: contracts.tokenConverter,
         methodName: "Buy",
