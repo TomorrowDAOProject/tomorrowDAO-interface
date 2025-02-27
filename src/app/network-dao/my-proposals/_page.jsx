@@ -381,7 +381,10 @@ const MyProposal = () => {
     );
   }, [currentWallet.address]);
 
+  const [type, setType] = useState('Parliament')
+
   const handleProposalTypeChange = async (type) => {
+    setType(type)
     const { pageSize } = params;
     const { address } = currentWallet;
     await fetch(
@@ -518,6 +521,7 @@ const MyProposal = () => {
             searchPlaceholder={LIST_TABS[params.currentMenu].placeholder}
             loading={params.loading}
             rowKey={LIST_TABS[params.currentMenu].rowKey}
+            type={type}
           />
         </Col>
       </Row>
