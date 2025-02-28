@@ -11,6 +11,7 @@ import {
 import BigNumber from "bignumber.js";
 import { ELF_DECIMAL } from "../constants";
 import TableLayer from "@components/TableLayer/TableLayer";
+import "./index.css";
 
 const formItemLayout = {
   labelCol: {
@@ -257,12 +258,13 @@ class RedeemModal extends PureComponent {
 
     return (
       <Modal
-        className="vote-redeem-modal"
+        className="vote-redeem-modal vote-redeem-modal-new"
         title="Vote Redeem"
         visible={voteRedeemModalVisible}
-        onOk={this.handleOk}
         confirmLoading={redeemConfirmLoading}
-        onCancel={handleCancel.bind(this, "voteRedeemModalVisible")}
+        // onOk={this.handleOk}
+        // onCancel={handleCancel.bind(this, "voteRedeemModalVisible")}
+        footer={null}
         width={960}
         centered
         maskClosable
@@ -296,6 +298,22 @@ class RedeemModal extends PureComponent {
           {FEE_TIP}
         </p>
         <p style={{ marginTop: 10 }}>{NEED_PLUGIN_AUTHORIZE_TIP}</p>
+        <div className="w-full flex items-center justify-between my-[30px]">
+          <Button
+            type="default"
+            onClick={handleCancel.bind(this, "voteRedeemModalVisible")}
+            className="flex-1 text-white font-Montserrat bg-darkBg rounded-[42px] border border-solid border-white mr-[12px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
+          >
+            Cancel
+          </Button>
+          <Button
+            type="primary"
+            onClick={this.handleOk}
+            className="flex-1 text-white font-Montserrat bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+          >
+            OK
+          </Button>
+        </div>
       </Modal>
     );
   }

@@ -38,7 +38,6 @@ const DividendModal = (props) => {
         changeModalVisible("dividendModalVisible", false);
       }}
       okText="Get!"
-      width={543}
       centered
       maskClosable
       keyboard
@@ -50,7 +49,7 @@ const DividendModal = (props) => {
         </Then>
         <Else>
           <div>
-            <Divider className="mt-[30px] mb-[30px] bg-borderColor" />
+            <Divider className="max-w-[540px] mt-[30px] mb-[30px] bg-borderColor" />
             {dividends.amounts.map((item, index) => (
               <div
                 key={item.type}
@@ -61,8 +60,8 @@ const DividendModal = (props) => {
                   <span className="profit-item-key">{item.title}: </span>
                   <Dividends
                     className="profit-item-value"
-                    valueClassName="text-lightGrey"
-                    buttonClassName="!rounded-[12px] !text-white text-[11px] font-medium !bg-mainColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                    valueClassName="text-lightGrey inline-block font-Montserrat"
+                    buttonClassName="!rounded-[4px] !text-white text-[11px] font-medium font-Montserrat !bg-mainColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                     dividends={item.amounts}
                   />
                 </div>
@@ -74,7 +73,7 @@ const DividendModal = (props) => {
                     handleClaimDividendClick(item);
                   }}
                   size="small"
-                  className="!rounded-[12px] !text-white text-[11px] font-medium !bg-mainColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                  className="!rounded-[4px] !text-white text-[11px] font-Montserrat font-medium !bg-mainColor border border-solid !border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                 >
                   Claim Rewards
                 </Button>

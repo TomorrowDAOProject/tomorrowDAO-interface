@@ -27,7 +27,7 @@ const arrFormate = (arr) => {
   return arr;
 };
 
-const StatisticalData = ({ data, spinning, style, inline }) => {
+const StatisticalData = ({ data, spinning, tooltipClassName, style, inline }) => {
   const arr = Object.values(data);
   if (!arr) return null;
 
@@ -44,7 +44,7 @@ const StatisticalData = ({ data, spinning, style, inline }) => {
         <>
           <span>{item.title}</span>
           {tooltip ? (
-            <Tooltip title={tooltip}>
+            <Tooltip title={tooltip} className={tooltipClassName}>
               <i className="tmrwdao-icon-information text-[16px] text-lightGrey" />
             </Tooltip>
           ) : null}
@@ -67,7 +67,7 @@ const StatisticalData = ({ data, spinning, style, inline }) => {
         <Statistic
           key={item.title}
           title={titleNode}
-          value={Number.isNaN(parseInt(number, 10)) ? 0 : number}
+          value={Number.isNaN(parseInt(number, 10)) ? 0 : number?.toLocaleString()}
         />
       );
     });

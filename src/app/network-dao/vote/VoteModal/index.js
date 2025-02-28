@@ -34,6 +34,7 @@ import { isIPhone } from "@utils/deviceCheck";
 import Input from "components/Input";
 import Button from "components/Button";
 import Tooltip from "components/Tooltip";
+import SimpleDatePicker from 'components/SimpleDatePicker';
 
 const { TabPane } = Tabs;
 
@@ -270,17 +271,21 @@ class VoteModal extends Component {
                 >
                   {
                     (
-                      <DatePicker
+                      <SimpleDatePicker
                         className="vote-lock-data-picker"
-                        disabledDate={disabledDate}
+                        // disabled={disabledDate}
+                        disabled={{
+                          before: disabledDate,
+                        }}
                         onChange={(value) => {
+                          console.log("value", value);
                           this.setState({
                             datePickerTime: new Date(value),
                           });
                           // todo: edit
-                          handleLockTimeChange(value);
+                          handleLockTimeChange(moment(value));
                           this.formRef.current.setFieldsValue({
-                            lockTime: value,
+                            lockTime: moment(value),
                           });
                         }}
                       />
@@ -460,7 +465,7 @@ class VoteModal extends Component {
     if (voteType !== "fromWallet") {
       tipHTML = (
         <>
-          <p className="tip-color">
+          <p className="tip-color text-[11px] text-white font-Montserrat font-medium text-center mt-[30px] mb-[40px]">
             <div>
               Once the transfer is confirmed, your lock-up time will be reset.
               Another {formattedLockTime || "days"} will be counted from today.

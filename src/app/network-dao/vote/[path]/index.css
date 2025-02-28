@@ -6,52 +6,32 @@
  * @LastEditTime: 2019-12-10 00:17:33
  * @Description: file content
  */
-.claim-dividend-modal {
-  .antExplorer-modal-content {
-    border-radius: 8px;
 
-    .antExplorer-modal-body {
-      padding: 0;
-
-      .antExplorer-modal-confirm-title {
-        display: flex;
-        padding: 17px 16px;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 22px;
-        border-bottom: 1px solid #e6e6e6;
-      }
-
-      .antExplorer-modal-confirm-content {
-        margin-top: 0;
-        padding: 24px 16px 16px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .antExplorer-modal-confirm-btns {
-        margin-top: 8px;
-        margin-bottom: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .antExplorer-btn-default {
-          display: none;
-        }
-
-        .antExplorer-btn-primary {
-          margin-left: 0;
-          width: 214px;
-          height: 40px;
-        }
-      }
-    }
-  }
+.claim-dividend-modal .ant-modal-content {
+  border-radius: 8px;
+  @apply bg-darkBg;
 }
+
+.claim-dividend-modal .ant-modal-confirm-title {
+  @apply text-white text-[20px] font-Unbounded font-light text-center;
+}
+
+.claim-dividend-modal .ant-modal-confirm-content {
+  @apply text-white text-[15px] font-Montserrat;
+}
+
+.claim-dividend-modal .ant-modal-confirm-btns {
+  @apply flex items-center justify-between;
+}
+
+.claim-dividend-modal .ant-modal-confirm-btns button:first-child {
+  @apply flex-1 text-white bg-darkBg rounded-[42px] border border-solid border-white mr-[12px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}
+
+.claim-dividend-modal .ant-modal-confirm-btns button:last-child {
+  @apply flex-1 text-white bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}
+
 
 .card-container {
   margin-bottom: 20px;
@@ -155,6 +135,14 @@
 .vote-container .antExplorer-menu .antExplorer-menu-item:hover:after {
   border-bottom: 2px solid transparent;
   transition: 0.3s;
+}
+
+.vote-container .TMRWDAO-menu-item-active::after {
+  border-bottom: none !important;
+}
+
+.vote-container .TMRWDAO-menu-item-selected::after {
+  border-bottom: 2px solid #5d49f6 !important;
 }
 
 .vote-container .antExplorer-table-thead>tr>th,
@@ -700,6 +688,18 @@
 
 .vote-btn-loading.antExplorer-modal .antExplorer-modal-content {
   border-radius: 8px;
+}
+
+.vote-btn-loading .TMRWDAO-modal-content {
+  @apply bg-darkBg;
+}
+
+.vote-btn-loading .TMRWDAO-modal-close-icon {
+  @apply text-lightGrey;
+}
+
+.vote-btn-loading .TMRWDAO-modal-body {
+  @apply text-lightGrey;
 }
 
 .vote-btn-loading.antExplorer-modal .antExplorer-modal-body {

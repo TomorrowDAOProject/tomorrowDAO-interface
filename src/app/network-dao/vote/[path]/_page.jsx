@@ -36,7 +36,6 @@ import {
 import { getFormatedLockTime } from "../utils";
 import getAllTokens from "@utils/getAllTokens";
 import addressFormat from "@utils/addressFormat";
-// import { withRouter } from "../../routes/utils";
 import { WebLoginInstance } from "@utils/webLogin";
 import { fakeWallet } from "../../_src/common/utils";
 import LinkNetworkDao from "components/LinkNetworkDao";

@@ -12,7 +12,7 @@ export default function CopyButton({
   const handleCopy = () => {
     try {
       copy(value);
-      toast.success('Copied Successfully');
+      toast.success('Copy success');
     } catch (e) {
       toast.error('Copy failed, please copy by yourself.');
     }
