@@ -119,7 +119,7 @@ const MyDaosPage = () => {
             <SkeletonDaoItemList />
           ) : (
             <>
-              <span className="text-lightGrey text-Montserrat text-[15px]">Name</span>
+              <span className="text-lightGrey font-Montserrat text-[15px]">Name</span>
               <ul className="mt-4">
                 {!ownData?.list.length && EmptyNode}
                 {ownData?.list.map((item) => {
@@ -160,7 +160,7 @@ const MyDaosPage = () => {
             <SkeletonDaoItemList />
           ) : (
             <>
-              <span className="text-lightGrey text-Montserrat text-[15px]">Name</span>
+              <span className="text-lightGrey font-Montserrat text-[15px]">Name</span>
               <ul className="mt-4">
                 {!participatedData?.list.length && EmptyNode}
                 {participatedData?.list.map((item) => {

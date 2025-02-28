@@ -245,8 +245,7 @@ export default function DaoInfo(props: IParams) {
                     </div>
                   </Link>
                 )}
-
-                <PreviewFile list={fileInfoList} />
+                {fileInfoList.length > 0 && <PreviewFile list={fileInfoList} />}
               </div>
             </div>
             <div className="dao-detail-desc">

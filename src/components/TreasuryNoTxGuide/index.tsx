@@ -128,21 +128,22 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           <div className="treasury-no-tx-button-wrap">
             <ButtonCheckLogin
               type="primary"
-              className="!text-[12px] w-[120px] !h-[40px] py-[8px] !rounded-[42px] bg-mainColor hover:!bg-transparent hover:!text-mainColor hover:!border-mainColor font-Montserrat !px-[20px]"
+              className=" w-[120px] !h-[32px] py-[8px] !rounded-[42px] bg-mainColor hover:!bg-transparent hover:!text-mainColor hover:!border-mainColor font-Montserrat !px-[20px]"
               onClick={() => {
                 setDepoistOpen(true);
               }}
             >
-              Deposit
+              <span className="text-[12px] font-medium font-Montserrat">Deposit</span>
             </ButtonCheckLogin>
-            <Button type="default" className="h-[40px] w-[120px]">
+            <Button type="default" className="h-[32px] w-[120px] border-white">
               <a
                 href="https://medium.com/@tmrwdao/how-to-enable-and-manage-a-dao-treasury-with-tmrwdao-ead8168d4c9a"
                 target="_blank"
                 rel="noreferrer"
-                className="text-white hover:text-white font-Montserrat text-[12px] py-[8px]"
               >
-                Learn More
+                <span className="text-white hover:text-white font-Montserrat text-[12px] py-[8px] font-medium">
+                  Learn More
+                </span>
               </a>
             </Button>
           </div>

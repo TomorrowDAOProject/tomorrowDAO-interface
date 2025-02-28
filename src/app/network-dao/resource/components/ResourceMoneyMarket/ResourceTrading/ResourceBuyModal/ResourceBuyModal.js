@@ -238,33 +238,31 @@ export default class ResourceBuyModal extends PureComponent {
     const CHAIN_ID = 'AELF'
     return (
       <div className="modal resource-modal text-white font-Montserrat">
-        <Row className="modal-form-item mt-[30px] pt-[24px] border-0 border-t border-solid border-fillBg8">
-          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Address</Col>
-          <Col
-            className="text-ellipse font-Montserrat text-[13px]"
-            span={18}
-            title={`ELF_${currentWallet.address}_${CHAIN_ID}`}
+        <div className="modal-form-item mt-[30px] pt-[24px] border-0 border-t border-solid border-fillBg8 justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Address</div>
+          <div
+            className="font-Montserrat text-[13px] break-all"
           >
             {`ELF_${currentWallet.address}_${CHAIN_ID}`}
-          </Col>
-        </Row>
-        <Row className="modal-form-item pt-[24px]">
-          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Buy {currentResourceType} Quantity</Col>
-          <Col span={18} className="font-Montserrat text-[13px]">
+          </div>
+        </div>
+        <div className="modal-form-item pt-[24px]  justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Buy {currentResourceType} Quantity</div>
+          <div className="font-Montserrat text-[13px]">
             <Spin spinning={buyInputLoading}>
               <span className="!text-white text-[13px]">{thousandsCommaWithDecimal(buyNum)}</span>
             </Spin>
-          </Col>
-        </Row>
-        <Row className="modal-form-item pt-[24px]">
-          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">{SYMBOL}</Col>
-          <Col span={18} className="font-Montserrat">
+          </div>
+        </div>
+        <div className="modal-form-item pt-[24px] justify-between flex flex-col lg:flex-row gap-2">
+          <div span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">{SYMBOL}</div>
+          <div span={18} className="font-Montserrat">
             <Spin spinning={buyEstimateValueLoading} className="font-Montserrat">
               <span className="!text-white text-[13px]">{thousandsCommaWithDecimal(buyElfValue)}</span>
             </Spin>
-          </Col>
-        </Row>
-        <div className="service-charge font-Montserrat !text-white mt-[7px] text-[12px]">
+          </div>
+        </div>
+        <div className="font-Montserrat !text-white mt-[7px] text-[12px] text-left lg:text-right">
           *Service Charge: {thousandsCommaWithDecimal(buyFee)} {SYMBOL}
         </div>
 

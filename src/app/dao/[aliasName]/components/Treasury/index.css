@@ -12,7 +12,7 @@
       @apply bg-darkBg font-Montserrat border border-solid border-fillBg8 rounded-[6px];
       .TMRWDAO-table-thead {
         .TMRWDAO-table-cell {
-          @apply bg-darkBg text-white font-medium text-[13px];
+          @apply bg-darkBg !text-white font-medium text-[13px];
         }
         > tr > th {
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);

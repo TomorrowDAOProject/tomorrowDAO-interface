@@ -12,6 +12,7 @@ import { fetchVoteHistory } from 'api/request';
 import { useRequest } from 'ahooks';
 import { EVoteOption, EVoteOptionLabel } from 'types/vote';
 import BigNumber from 'bignumber.js';
+import LoadingComponent from 'components/LoadingComponent';
 
 const columns: ColumnsType<IVoteHistoryItem> = [
   {
@@ -178,7 +179,16 @@ const VoteResultTable = (props: IVoteResultTableProps) => {
               total: voteHistoryData?.data?.totalCount ?? 0,
               onChange: pageChange,
             }}
-            loading={voteHistoryLoading}
+            loading={{
+              spinning: voteHistoryLoading,
+              indicator: (
+                <LoadingComponent
+                  className="-my-3 md:my-0 scale-[0.7] md:scale-[1.0]"
+                  size={36}
+                  strokeWidth={4}
+                />
+              ),
+            }}
             dataSource={voteHistoryData?.data?.items}
           ></Table>
         </ConfigProvider>

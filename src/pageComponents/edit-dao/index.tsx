@@ -473,7 +473,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
             >
               <Input placeholder={`https://`} />
             </Form.Item>
-            {/* <Form.Item
+            <Form.Item
               name={['metadata', 'socialMedia', 'Github']}
               validateFirst
               rules={[
@@ -506,7 +506,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
               }
             >
               <Input placeholder={`Enter the DAO's Others link`} />
-            </Form.Item> */}
+            </Form.Item>
             <div className="text-white text-[16px] font-medium font-Montserrat">Documentation</div>
             <div
               className={cx(
