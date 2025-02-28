@@ -74,7 +74,7 @@ const Page = () => {
                   <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </Link>
                 <Link
-                  href="https://docs.tmrwdao.com/"
+                  href="https://tmrwdao-docs-testnet.aelf.dev/"
                   className="default-button inline-flex items-center gap-[10px]"
                 >
                   View Documentations

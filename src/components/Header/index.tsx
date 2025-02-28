@@ -61,7 +61,7 @@ export default function Header() {
           },
           {
             label: (
-              <Link href="https://docs.tmrwdao.com/" target="_blank">
+              <Link href="https://tmrwdao-docs-testnet.aelf.dev/" target="_blank">
                 Documentation
               </Link>
             ),
