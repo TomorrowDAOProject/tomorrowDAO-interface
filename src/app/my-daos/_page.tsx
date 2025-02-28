@@ -174,7 +174,7 @@ const MyDaosPage = () => {
                         <img src={item.logo} alt="" />
                         <span className="text-[14px] text-white font-Montserrat font-medium flex items-center gap-[14px]">
                           {item.name}
-                          <VerifiedIcon width={20} height={20} />
+                          {/* <VerifiedIcon width={20} height={20} /> */}
                         </span>
                         <i className="tmrwdao-icon-arrow text-[16px] text-white ml-auto" />
                       </li>
