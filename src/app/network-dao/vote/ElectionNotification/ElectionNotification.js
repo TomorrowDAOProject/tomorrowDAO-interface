@@ -477,7 +477,7 @@ class ElectionNotification extends PureComponent {
     return (
       <section className="election-notification">
         <div className="statistical-data-content">
-          <StatisticalData data={statisData} spinning={statisDataLoading} />
+          <StatisticalData data={statisData} spinning={statisDataLoading} tooltipClassName="!max-w-[440px] !w-[400px]" />
         </div>
         <ElectionRuleCard
           isCandidate={isCandidate}

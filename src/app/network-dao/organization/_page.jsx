@@ -178,8 +178,8 @@ const OrganizationList = () => {
                 defaultValue={params.search}
                 allowClear
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                onPressEnter={(e) => onSearch(e.target.value)}
+                onChange={(value) => setSearchValue(value)}
+                onPressEnter={(value) => onSearch(value)}
               />
             </Col>
           </Row>

@@ -1,0 +1,32 @@
+
+.vote-redeem-modal-new .TMRWDAO-modal-content {
+  @apply bg-darkBg text-white font-Montserrat;
+}
+
+.vote-redeem-modal-new .TMRWDAO-modal-title {
+  @apply bg-darkBg text-white;
+}
+
+.vote-redeem-modal-new  .TMRWDAO-modal-close-x {
+  @apply text-white;
+}
+
+.vote-redeem-modal-new .TMRWDAO-form-item-label > label  {
+  @apply !text-white font-Montserrat;
+}
+
+.vote-redeem-modal-new .TMRWDAO-form-item-control-input {
+  @apply text-lightGrey font-Montserrat;
+}
+
+.vote-redeem-modal-new .TMRWDAO-modal-footer {
+  @apply w-full flex items-center justify-between my-[30px];
+}
+
+.vote-redeem-modal-new .ant-modal-confirm-btns button:first-child {
+  @apply flex-1 text-white bg-darkBg rounded-[42px] border border-solid border-white mr-[12px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}
+
+.vote-redeem-modal-new .ant-modal-confirm-btns button:last-child {
+  @apply flex-1 text-white bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}

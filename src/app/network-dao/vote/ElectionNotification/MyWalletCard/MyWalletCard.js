@@ -282,13 +282,14 @@ class MyWalletCard extends PureComponent {
           <Dividends
             className="wallet-dividends"
             dividends={dividends.total || "-"}
+            valueClassName="inline-block mr-[6px]"
           />
         ),
         extra: (
           <Button
             type="primary"
             size="small"
-            className="my-wallet-card-body-wallet-content-withdraw-btn w-[44px] h-[20px] leading-[20px] text-[11px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+            className="my-wallet-card-body-wallet-content-withdraw-btn font-Montserrat w-[46px] h-[20px] leading-[20px] text-[11px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             disabled={isActivityBrowser()}
             onClick={handleDividendClick}
           >
@@ -324,10 +325,10 @@ class MyWalletCard extends PureComponent {
               </h2>
               <div>
                 {!isActivityBrowser() &&
-                  !isConnected && (
+                  !currentWallet?.address && (
                     <Button
                       type="primary"
-                      className="my-wallet-card-header-sync-btn login-btn !rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                      className="my-wallet-card-header-sync-btn font-Montserrat login-btn !rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                       onClick={this.loginOrUnlock}
                     >
                       <i className="tmrwdao-icon-profile text-[16px] text-inherit mr-[6px]"></i>
@@ -335,7 +336,7 @@ class MyWalletCard extends PureComponent {
                     </Button>
                   )}
                 <Button
-                  className="my-wallet-card-header-sync-btn refresh-btn hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                  className="my-wallet-card-header-sync-btn font-Montserrat refresh-btn hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                   disabled={!currentWallet?.address}
                   onClick={this.handleUpdateWalletClick}
                   size="small"

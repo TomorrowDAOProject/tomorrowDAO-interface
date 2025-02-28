@@ -9,7 +9,7 @@
 import React, { PureComponent, forwardRef } from "react";
 import AElf from "aelf-sdk";
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { Button, Divider, Form, Input, Modal, Tooltip, Row, Col } from "antd";
+import { Button, Divider, Form, Modal, Tooltip, Row, Col } from "antd";
 import { RUN_INDIVIDUAL_NODES_TIP, SYMBOL } from "@src/constants";
 import {
   ELECTION_MORTGAGE_NUM_STR,
@@ -22,7 +22,7 @@ import { NETWORK_TYPE } from "@config/config";
 import { connect } from "react-redux";
 import "./CandidateApplyModal.style.css";
 import addressFormat from "@utils/addressFormat";
-import IconFont from "@components/IconFont";
+import Input from 'components/Input';
 
 const handleStrToArr = (str) => {
   const arr = str.split(",");
@@ -139,7 +139,7 @@ class CandidateApplyModal extends PureComponent {
             ref={ref}
             {...props}
             placeholder="Please enter admin address"
-            className="w-[90%] bg-darkBg text-lightGrey border-borderColor placeholder:text-lightGrey hover:bg-darkBg hover:border-borderColor focus:bg-darkBg"
+            className="w-[90%] inline-block bg-darkBg text-lightGrey border-borderColor placeholder:text-lightGrey hover:bg-darkBg hover:border-borderColor focus:bg-darkBg"
           />
           <Tooltip
             className="candidate-admin-tip"
@@ -187,16 +187,16 @@ class CandidateApplyModal extends PureComponent {
             <TooltipInput />
           </Form.Item>
         </Form>
-        <Divider className="mt-[30px] mb-[25px] bg-borderColor" />
-        <Row gutter={{ sm: 16, md: 24 }} className="tip-color text-white bg-borderColor rounded-[10px] mb-[50px] py-[8px]">
-          <Col span={6}>
+        <Divider className="mt-[30px] mb-[30px] bg-borderColor" />
+        <Row gutter={{ sm: 16, md: 24 }} className="tip-color text-white bg-borderColor rounded-[10px] mb-[50px] py-[8px] px-[12px]">
+          <Col span={{sm: 24, md: 6}} className="mb-[12px] md:mb-0">
             <div className="w-full h-full flex items-center justify-between">
               <InfoCircleOutlined className="!text-white mr-[12px]" />
-              <strong>Important Notice:</strong>
+              <strong className="text-[11px] font-medium font-Montserrat">Important Notice:</strong>
             </div>
           </Col>
-          <Col span={18}>
-            <span className="notice-text">
+          <Col span={{sm: 24, md: 18}}>
+            <span className="notice-text text-[11px] font-Montserrat">
               <div>{RUN_INDIVIDUAL_NODES_TIP}</div>
               <div>
                 Please read the{" "}
@@ -218,7 +218,7 @@ class CandidateApplyModal extends PureComponent {
         </Row>
         <div className="mb-[10px]">
           <Button
-            className="w-full h-[40px] rounded-[42px] bg-mainColor text-white border border-solid border-borderColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+            className="w-full h-[40px] rounded-[42px] bg-mainColor font-Montserrat text-white border border-solid border-borderColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             onClick={this.handleOk}
           >
             Apply Now

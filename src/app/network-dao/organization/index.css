@@ -66,3 +66,11 @@
 .modify-organisation-modal .ant-modal-confirm-btns button:last-child {
   @apply flex-1 text-white bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
 }
+
+@media screen and (max-width: 579px) {
+  .organization-list {
+    overflow: hidden;
+  }
+}
+
+
