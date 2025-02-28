@@ -11,7 +11,6 @@ import LinkNetworkDao from 'components/LinkNetworkDao';
 import { Table, Button, Input, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import moment from "moment";
-// import Highlighter from 'react-highlight-words';
 import io from "socket.io-client";
 
 import {
@@ -44,6 +43,7 @@ class NodeTable extends PureComponent {
         showQuickJumper: true,
         total: 0,
         showTotal: (total) => `Total ${total} items`,
+        pageNum: 1,
         pageSize: 20,
         showSizeChanger: false,
       },
@@ -140,14 +140,14 @@ class NodeTable extends PureComponent {
           onClick={() => this.handleSearch(selectedKeys, confirm)}
           icon={<i className="tmrwdao-icon-search text-inherit relative top-[2px]" />}
           size="small"
-          className="w-[90px] mr-[8px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+          className="w-[90px] rounded-[42px] mr-[8px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
         >
           Search
         </Button>
         <Button
           onClick={() => this.handleReset(clearFilters, confirm)}
           size="small"
-          className="w-[90px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
+          className="w-[90px] rounded-[42px] text-white bg-darkBg border border-solid border-white hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
         >
           Reset
         </Button>
@@ -555,7 +555,7 @@ class NodeTable extends PureComponent {
   }
 
   render() {
-    const { nodeList, isLoading } = this.state;
+    const { nodeList, isLoading, pagination } = this.state;
     const nodeListCols = this.getCols();
     return (
       <section className={`${clsPrefix} px-[18px]`}>
@@ -568,7 +568,7 @@ class NodeTable extends PureComponent {
             columns={nodeListCols}
             dataSource={nodeList}
             // onChange={handleTableChange}
-            pagination={false}
+            pagination={pagination}
             loading={isLoading}
             // cannot use publicKey, because publicKey will not change when updating producedBlocks
             rowKey={(record) => record.producedBlocks}

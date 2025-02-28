@@ -62,7 +62,7 @@
 }
 
 .candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form .TMRWDAO-form-item-explain-error {
-  @apply text-white;
+  @apply text-mainColor;
 }
 
 .candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-footer {

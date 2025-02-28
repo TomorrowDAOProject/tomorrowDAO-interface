@@ -198,6 +198,22 @@
   @apply !text-white !text-[13px] !font-Montserrat !font-medium;
 }
 
+.node-vote-modal .TMRWDAO-form-item-explain-error {
+  @apply !text-mainColor;
+}
+
+.node-vote-modal .antExplorer-input-number-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.node-vote-modal .TMRWDAO-input-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.node-vote-modal .TMRWDAO-form-item-required::before {
+  @apply !text-white;
+}
+
 .TMRWDAO-form-item-control-input-content > div > span:first-child {
   @apply flex-1;
 }
@@ -218,3 +234,11 @@
   @apply text-lightGrey text-[20px];
 }
 
+@media screen and (max-width: 576px) {
+  .node-vote-modal .TMRWDAO-tabs-nav-list {
+    @apply block;
+  }
+  .node-vote-modal .TMRWDAO-tabs .TMRWDAO-tabs-tab {
+    @apply block !m-0;
+  }
+}

@@ -72,3 +72,13 @@
   padding: 16px;
   @apply !bg-darkBg text-lightGrey;
 }
+
+@media screen and (max-width: 1120px) {
+  .node-table-btn-group>button {
+    display: block;
+    margin-right: 0 !important;
+  }
+  .node-table-btn-group>button:first-child {
+    margin-bottom: 12px;
+  }
+}

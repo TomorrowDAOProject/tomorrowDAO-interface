@@ -183,6 +183,14 @@
 }
 
 @media (max-width: 640px) {
+  .candidate-apply-modal .TMRWDAO-modal-header {
+    @apply bg-darkBg;
+  }
+  .candidate-apply-modal .TMRWDAO-modal-title {
+    width: 320px;
+    margin: 0 auto;
+  }
+
   .apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-row {
     grid-template-columns: 1fr;
   }
@@ -236,4 +244,12 @@
 
 .candidate-apply-modal .list-item-value {
   @apply text-white font-Montserrat;
+}
+
+.candidate-apply-modal .TMRWDAO-input-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.candidate-apply-modal .TMRWDAO-form-item-explain-error {
+  @apply text-mainColor;
 }

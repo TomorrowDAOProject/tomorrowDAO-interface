@@ -15,7 +15,7 @@
 
 .create-organization-form .antExplorer-form-item-required {
   text-align: right;
-  @apply text-white text-[13px] !important;
+  @apply text-white text-[13px] font-Montserrat !important;
 }
 
 .create-organization-form .antExplorer-form-item-required::before {
@@ -55,8 +55,36 @@
   @apply bg-darkBg text-lightGrey;
 }
 
+.create-organization-form .antExplorer-input-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.create-organization-form .antExplorer-input-number-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.create-organization-form .antExplorer-select-status-error .antExplorer-select-selector {
+  @apply border border-solid !border-mainColor;
+}
+
+.proposalSelect .antExplorer-select-dropdown {
+  @apply !py-0;
+}
+
+.create-organization-form  .antExplorer-switch{
+  @apply !text-lightGrey bg-darkBg border border-solid border-borderColor;
+}
+
+.create-organization-form .antExplorer-switch-checked {
+  @apply bg-mainColor;
+}
+
+.create-organization-form  .antExplorer-switch-checked:hover{
+  @apply !bg-mainColor;
+}
+
 .create-organization-form .antExplorer-form-item-explain-error {
-  @apply !text-white;
+  @apply !text-mainColor;
 }
 
 .create-organization-form .antExplorer-input-number-handler-wrap {
