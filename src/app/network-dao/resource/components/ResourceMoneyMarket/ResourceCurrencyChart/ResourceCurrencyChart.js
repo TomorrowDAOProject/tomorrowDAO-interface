@@ -25,6 +25,7 @@ import {
   RESOURCE_TURNOVER,
 } from "../../../../_src/constants";
 import "./ResourceCurrencyChart.css";
+import { color } from "framer-motion";
 
 function calculateMA(dayCount, data) {
   const result = [];
@@ -124,17 +125,17 @@ function getMAData(list = []) {
 }
 
 const colorList = [
-  "#c23531",
-  "#2f4554",
-  "#61a0a8",
-  "#d48265",
-  "#91c7ae",
-  "#749f83",
-  "#ca8622",
-  "#bda29a",
-  "#6e7074",
-  "#546570",
-  "#c4ccd3",
+  "#FF485D",
+  "#ffffff",
+  "#23A756",
+  "#FFAE00",
+  // "#91c7ae",
+  // "#749f83",
+  // "#ca8622",
+  // "#bda29a",
+  // "#6e7074",
+  // "#546570",
+  // "#c4ccd3",
 ];
 
 const timeZone = (new Date().getTimezoneOffset() / 60) * -1;
@@ -239,19 +240,29 @@ class ResourceCurrencyChart extends PureComponent {
       QUERY_RANGE
     );
     const { legend, series } = getMAData(list);
+
+    const dataList = [currentResourceType, ...legend].map(list => {
+      return { name: list, itemStyle: { color: list == currentResourceType ? '#00C84D': '#292929'}}
+    })
+
+    console.log('dataList', dataList)
+
     return {
       textStyle:{
         fontFamily: 'Montserrat', 
       },
       animation: false,
-      color: colorList,
       title: {
         left: "center",
         text: "Resource Trade",
       },
+      color: colorList,
       legend: {
         top: 30,
-        data: [currentResourceType, ...legend],
+        data: dataList,
+        textStyle: {
+          color: '#ffffff',
+        }
       },
       tooltip: {
         trigger: "axis",
@@ -327,7 +338,13 @@ class ResourceCurrencyChart extends PureComponent {
           scale: true,
           splitNumber: 2,
           axisLine: { lineStyle: { color: "#989DA0" } },
-          splitLine: { show: true },
+          splitLine: { 
+            show: true,
+            lineStyle: {
+              color: '#535353',
+              type: 'solid',
+            },
+          },
           axisTick: { show: false },
           min(value) {
             return Math.min(value.min, 0);
@@ -358,7 +375,7 @@ class ResourceCurrencyChart extends PureComponent {
           yAxisIndex: 1,
           itemStyle: {
             color(params) {
-              return params.data[2] >= 0 ? "#05ac90" : "#d34a64";
+              return params.data[2] >= 0 ? "#00C84D" : "#00C84D";
             },
           },
           data: volumes,
@@ -368,10 +385,10 @@ class ResourceCurrencyChart extends PureComponent {
           name: currentResourceType,
           data: prices,
           itemStyle: {
-            color: "#ffffff",
-            color0: "#ffffff",
-            borderColor: "#ffffff",
-            borderColor0: "#ffffff",
+            color: "#00C84D",
+            color0: "#00C84D",
+            borderColor: "#00C84D",
+            borderColor0: "#00C84D",
           },
         },
         ...series,
@@ -416,7 +433,7 @@ class ResourceCurrencyChart extends PureComponent {
         <div>
           <Tabs className="resource-type-switch font-Montserrat" onChange={this.typeChange}>
             {list.map((v) => (
-              <Tabs.TabPane className="text-white" key={v} tab={v} />
+              <Tabs.TabPane className="text-white ml-0" key={v} tab={v} />
             ))}
           </Tabs>
           <div className="xl:hidden lg:hidden md:hidden items-center justify-center gap-1 flex">{selectButton}</div>

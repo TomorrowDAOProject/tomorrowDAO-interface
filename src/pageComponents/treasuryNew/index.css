@@ -124,7 +124,7 @@
       @apply text-lightGrey text-[10px];
     }
     .TMRWDAO-pagination-button {
-      @apply border border-solid border-lightGrey rounded-[4px] bg-fillBg8 disabled:border-fillBg8 hover:!border-lightGrey max-w-[60px] text-[10px];
+      @apply border border-solid border-lightGrey rounded-[4px] bg-fillBg8 hover:!border-lightGrey disabled:!border-fillBg8 max-w-[60px] text-[10px];
       span {
         @apply text-lightGrey font-Montserrat;
       }
@@ -161,7 +161,7 @@
   }
 }
 .TMRWDAO-select-dropdown {
-  @apply bg-darkGray;
+  @apply bg-darkGray font-Montserrat;
   .TMRWDAO-select-item {
     @apply text-white;
   }
