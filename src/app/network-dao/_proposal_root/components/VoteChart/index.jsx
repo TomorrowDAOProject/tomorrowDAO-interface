@@ -139,7 +139,7 @@ const VoteChart = (props) => {
               className='absolute top-1/2 left-1/2 flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2'
               title={`${approvals}${votesData[proposalActions.APPROVE].rate}`}
             >
-              <span className='text-[20px] font-light text-white font-Unbounded'>{approvals}</span>
+              <span className='text-[20px] font-light text-white font-Unbounded'>{Math.round(approvals * 1000) / 1000}</span>
               <span className='text-desc10 font-normal text-lightGrey font-Montserrat'>{votesData[proposalActions.APPROVE].rate}</span>
             </div>
           </div>
@@ -160,7 +160,7 @@ const VoteChart = (props) => {
               className='absolute top-1/2 left-1/2 flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2'
               title={`${rejections}(${votesData[proposalActions.REJECT].rate})`}
             >
-              <span className='text-[20px] font-light text-white font-Unbounded'>{rejections}</span>
+              <span className='text-[20px] font-light text-white font-Unbounded'>{Math.round(rejections * 1000) / 1000}</span>
               <span className='text-desc10 font-normal text-lightGrey font-Montserrat'>{votesData[proposalActions.REJECT].rate}</span>
             </div>
           </div>
@@ -182,7 +182,7 @@ const VoteChart = (props) => {
               title={`${abstentions}(${votesData[proposalActions.ABSTAIN].rate
                 })`}
             >
-              <span className='text-[20px] font-light text-white font-Unbounded'>{abstentions}</span>
+              <span className='text-[20px] font-light text-white font-Unbounded'>{Math.round(abstentions * 1000) / 1000}</span>
               <span className='text-desc10 font-normal text-lightGrey font-Montserrat'>{votesData[proposalActions.ABSTAIN].rate}</span>
             </div>
           </div>
@@ -205,7 +205,7 @@ const VoteChart = (props) => {
                 })`}
             >
               <span className='text-[20px] font-light text-white font-Unbounded'>
-                {approvals + rejections + abstentions}
+                {Math.round((approvals + rejections + abstentions) * 1000) / 1000}
               </span>
               <span className='text-desc10 font-normal text-lightGrey font-Montserrat'>{votesData.Total.rate}</span>
             </div>

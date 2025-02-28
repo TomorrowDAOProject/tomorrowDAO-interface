@@ -12,6 +12,8 @@ interface ITextProps {
   iconClassName?: string;
   isAddress?: boolean;
   shortAddress?: boolean;
+  prefixLength?: number;
+  lastLength?: number;
 }
 
 export default function Text({
@@ -22,6 +24,8 @@ export default function Text({
   iconClassName,
   isAddress,
   shortAddress,
+  prefixLength,
+  lastLength,
 }: ITextProps) {
   const { isPhone } = useLandingPageResponsive();
   const [, setCopied] = useCopyToClipboard();
@@ -39,14 +43,19 @@ export default function Text({
       >
         {isAddress
           ? shortAddress
-            ? shortenFileName(content, 20, isPhone ? 8 : 16, isPhone ? 8 : 16)
+            ? shortenFileName(
+                content,
+                20,
+                prefixLength ? prefixLength : isPhone ? 8 : 16,
+                lastLength ? lastLength : isPhone ? 8 : 16,
+              )
             : content
           : content}
       </span>
       {copyable && (
         <i
           className={clsx(
-            'tmrwdao-icon-duplicate text-white text-[20px] cursor-pointer',
+            'tmrwdao-icon-duplicate text-white text-[18px] cursor-pointer',
             iconClassName,
           )}
           onClick={handleCopy}

@@ -42,7 +42,7 @@ const Tooltip = ({ title, children, className }: ITooltipProps) => {
         <div
           ref={tooltipRef}
           className={clsx(
-            'absolute bottom-full max-w-[280px] w-[280px] mb-2 px-4 py-[13px] border border-solid border-fillBg8 bg-darkBg text-desc12 text-lightGrey font-Montserrat rounded-[8px] shadow-lg z-[9999]',
+            'absolute bottom-full max-w-[280px] w-[280px] mb-2 px-4 py-[13px] break-words border border-solid border-fillBg8 bg-darkBg text-desc12 text-lightGrey font-Montserrat rounded-[8px] shadow-lg z-[9999]',
             {
               'left-0': position === 'left',
               'left-1/2 -translate-x-1/2': position === 'center',

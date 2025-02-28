@@ -94,22 +94,22 @@ const getMessage = (props: IModalProps, isSideChain: boolean) => {
   switch (verification) {
     case 2:
       return (
-        <div className="verification-loading">
+        <div className="font-Unbounded text-[15px] font-light -tracking-[0.6px] text-white text-center">
           {`Verifying contract ${isUpdate ? "update" : "deployment"}...`}
         </div>
       );
     case 1:
       return (
-        <div className="verification-fail">
-          <div className="title">
-            <CloseCircleFilled className="circle-icon close" />
-            <span className="fail-message">
+        <div className="w-full">
+          <div className="flex items-center justify-center gap-2">
+            <i className="tmrwdao-icon-circle-add text-[30px] text-white rotate-45" />
+            <span className="font-Unbounded text-[15px] font-light -tracking-[0.6px] text-white">
               {`${title || `Transaction pre-validation failed!`}`}
             </span>
           </div>
-          <div className={`content ${!!title && "text-left"}`}>
-            {!!title && <div>Possible causes:</div>}
-            <div>{message}</div>
+          <div className={`mt-[30px] ${!!title && "text-left"}`}>
+            {!!title && <span className="block mb-6 font-Montserrat text-desc12 text-white">Possible causes:</span>}
+            <p className="font-Montserrat text-desc12 text-white">{message}</p>
           </div>
           {!!title && (
             <CopylistItem
@@ -150,18 +150,15 @@ const WithoutApprovalModal = (props: IProps) => {
           {(status?.verification !== 1) && (  
             <span
               className={clsx(`w-[30px] h-[30px] flex items-center justify-center border border-solid rounded-full text-desc12 font-Montserrat text-white`, {
-                "bg-mainColor border-mainColor": status?.verification === 0,
-                "bg-transparent border-white": status?.verification !== 0,
+                "bg-mainColor border-mainColor": status?.verification === 2,
+                "bg-transparent border-white": status?.verification !== 2,
               })}
             >
               1
             </span>
           )}
           <span
-            className={clsx(`text-desc12 font-Montserrat`, {
-              "text-mainColor": status?.verification === 0, 
-              "text-white": status?.verification !== 0,
-            })}
+            className={clsx(`text-desc12 font-Montserrat text-white`)}
           >
             {`${isUpdate ? "Update" : "Deployment"}  verification`}
           </span>
@@ -173,24 +170,21 @@ const WithoutApprovalModal = (props: IProps) => {
           )}
           {(status?.execution !== 1) && (
             <span className={clsx(`w-[30px] h-[30px] flex items-center justify-center border border-solid rounded-full text-desc12 font-Montserrat text-white`, {
-              "bg-mainColor border-mainColor": status?.execution === 0,
-              "bg-transparent border-white": status?.execution !== 0,
+              "bg-mainColor border-mainColor": status?.execution === 2,
+              "bg-transparent border-white": status?.execution !== 2,
             })}
             >
               2
             </span>
           )}
           <span
-            className={clsx(`text-desc12 font-Montserrat`, {
-              "text-mainColor": status?.execution === 0,
-              "text-white": status?.execution !== 0,
-            })}
+            className={clsx(`text-desc12 font-Montserrat text-white`)}
           >
             {`${isUpdate ? "Update" : "Deployment"}  execution`}
           </span>
         </div>
       </div>
-      <div className="my-[54px] text-desc15 font-light font-Unbounded -tracking-[0.6px] text-white text-center">
+      <div className="my-[54px]">
         {getMessage(withoutApprovalProps, isSideChain)}
       </div>
       <div className="mb-[50px] bg-borderColor border border-solid border-fillBg8 rounded-[8px] py-2 px-3">

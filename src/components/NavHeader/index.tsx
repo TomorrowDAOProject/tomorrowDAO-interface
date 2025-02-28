@@ -188,9 +188,12 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                         content={`ELF_${walletInfo.address}_${
                           isNetWorkDao ? chainIdQuery.chainId : info.curChain
                         }`}
+                        iconClassName="!text-lightGrey"
                         copyable
                         isAddress
                         shortAddress
+                        prefixLength={8}
+                        lastLength={8}
                       />
                     </div>
                   ),

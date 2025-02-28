@@ -62,7 +62,7 @@ const Title = (props) => {
         </Tag>
       ) : null}
       </div>
-      {!showExpired ? (
+      {showExpired ? (
         <span className="font-Montserrat text-descM10 text-white">{`Expire ${now.to(
           momentExpired
         )}`}</span>
@@ -130,7 +130,7 @@ const Proposal = (props) => {
       }
     >
       <div className="flex items-center justify-between">
-        <div className="flex flex-col justify-center w-[calc(100%-100px)] gap-[10px]">
+        <div className="flex flex-col justify-center w-[calc(100%-100px)] h-[47px] gap-[10px]">
           {title && <h2 className="text-[15px] font-Unbounded font-light -tracking-[0.6px] text-white leading-[24px]">{title}</h2>}
           <LinkNetworkDao
               className="text-secondaryMainColor text-descM10 font-Montserrat text-ellipsis hover:text-mainColor"

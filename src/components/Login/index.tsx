@@ -9,7 +9,6 @@ import {
   UserProfileOutlined,
   WalletOutlined,
 } from '@aelf-design/icons';
-import { ReactComponent as AvatarIcon } from 'assets/imgs/avatar-icon.svg';
 import { useMemo, useState } from 'react';
 import { Popover } from 'antd';
 import Link from 'next/link';
@@ -19,7 +18,6 @@ import getChainIdQuery from 'utils/url';
 import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 export const LoginAuth = () => {
-  const { isLG } = useResponsive();
   const { connectWallet, walletInfo } = useConnectWallet();
 
   const { getTokenUpdate } = useCheckLoginAndToken();

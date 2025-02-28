@@ -322,13 +322,7 @@ const NormalProposal = (props) => {
       formOrgAddress: isModify ? orgAddress : "",
       formContractAddress: isModify ? contractAddress : "",
       formPrefix: "https://",
-      realSpecialPlain: JSON.stringify(
-        {
-          'parameter name': 'Please enter the content of your parameter.',
-        },
-        null,
-        2,
-      ),
+      realSpecialPlain: '',
       formExpiredTime: dayjs().add(1, 'day').toDate(),
       formDescriptionURL: ""
     },
@@ -552,6 +546,7 @@ const NormalProposal = (props) => {
                 onChange={({ value }) => {
                   field.onChange(value);
                   handleProposalTypeChange(value);
+                  setValue("formOrgAddress", "");
                 }}
                 isError={!!errors?.formProposalType}
               />
@@ -597,6 +592,7 @@ const NormalProposal = (props) => {
             rules={FIELDS_MAP.formOrgAddress.rules}
             render={({ field }) => (
               <Select
+                {...field}
                 options={contractList.map((v) => ({ label: v.contractName || v.address, value: v.address }))}
                 placeholder={FIELDS_MAP.formContractAddress.placeholder}
                 onChange={({ value }) => {
@@ -621,6 +617,7 @@ const NormalProposal = (props) => {
             rules={FIELDS_MAP.formOrgAddress.rules}
             render={({ field }) => (
               <Select
+                {...field}
                 placeholder={FIELDS_MAP.formContractMethod.placeholder}
                 options={methods.list.map((v) => ({ label: v, value: v }))}
                 optionFilterProp="children"
@@ -642,7 +639,6 @@ const NormalProposal = (props) => {
           <Controller
             name="realSpecialPlain"
             control={control}
-            rules={{ required: 'Method Params is required' }}
             render={({ field }) => methods &&
               methods.methodName &&
               !methods.isEmpty && (
@@ -661,7 +657,6 @@ const NormalProposal = (props) => {
                     codeLensFontSize: 14,
                   }}
                   onChange={(value) => {
-                    console.log(value);
                     field.onChange(value);
                   }}
                 />
@@ -697,7 +692,7 @@ const NormalProposal = (props) => {
               render={({ field }) => (
                 <Input
                   {...field}
-                  className="rounded-l-none"
+                  rootClassName="!rounded-l-none"
                   placeholder={FIELDS_MAP.formDescriptionURL.placeholder}
                   isError={!!errors?.formDescriptionURL}
                 />
