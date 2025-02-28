@@ -129,7 +129,7 @@ const ContractDetail = (props) => {
             </Col>
           <Col sm={24} md={18}>
             <a
-              className="text-desc12 text-secondaryMainColor font-Montserrat hover:text-mainColor"
+              className="text-desc12 text-secondaryMainColor font-Montserrat break-words whitespace-pre-wrap hover:text-mainColor"
               href={getContractURL(addressFormat(contractAddress), isSideChain)}
               target="_blank"
               rel="noopener noreferrer"

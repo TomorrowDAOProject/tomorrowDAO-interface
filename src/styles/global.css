@@ -397,6 +397,10 @@ input[type='number'] {
   }
 }
 
+.antExplorer-form-item .antExplorer-form-item-explain-error {
+  @apply mt-[5px] !text-desc11 !text-mainColor font-Montserrat !leading-[1.6];
+}
+
 .antExplorer-empty-normal .antExplorer-empty-description {
   @apply !text-descM14 !text-lightGrey;
 }
@@ -418,6 +422,9 @@ input[type='number'] {
   }
 
   .monaco-editor {
+    .iPadShowKeyboard {
+      @apply !hidden;
+    }
     .bracket-highlighting-0 {
       @apply !text-lightGrey;
     }

@@ -62,11 +62,11 @@ const Select: React.FC<ISelectProps> = ({
   }, []);
 
   useEffect(() => {
-    if (value) {
+    if (value !== undefined) {
       const currentValue = options?.find((option) => option.value === value);
       setSelected(currentValue);
     }
-  }, [options, value]);
+  }, [label, options, value]);
 
   return (
     <div className="relative" ref={selectRef}>

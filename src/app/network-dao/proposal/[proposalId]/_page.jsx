@@ -113,7 +113,7 @@ function Extra(props) {
     currentWallet &&
     proposer === currentWallet.address;
   return (
-    <div className="proposal-list-item-id-status">
+    <div className="flex items-center gap-2 ml-2">
       <Tag color={STATUS_COLOR_MAP[status]}>
         {PROPOSAL_STATUS_CAPITAL[status]}
       </Tag>
@@ -312,12 +312,13 @@ const ProposalDetail = () => {
           <Card
             className="mb-[26px]"
             title={
-              <div className="flex justify-between items-center">
-                <div className="flex items-center">
-                  <h2 className="font-Unbounded text-descM15 font-light -tracking-[0.6px] text-white">Proposal Detail</h2>
-                  <p className="ml-[4px]"><CountDown time={expiredTime} status={status} /></p>
-                </div>
-                 <div className="flex">
+              <>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <h2 className="font-Unbounded text-descM15 font-light -tracking-[0.6px] text-white">Proposal Detail</h2>
+                    <p className="ml-[4px] md:block hidden"><CountDown time={expiredTime} status={status} /></p>
+                  </div>
+                  <div className="flex">
                     {
                       votedStatus && votedStatus !== "none" ? (
                         <Tag  color={ACTIONS_COLOR_MAP[votedStatus]}>
@@ -333,7 +334,9 @@ const ProposalDetail = () => {
                       handleRelease={handleRelease}
                     />
                     </div>
-              </div>
+                </div>
+                <p className="ml-[4px] mt-4 md:hidden text-right"><CountDown time={expiredTime} status={status} /></p>
+              </>
             }
           >
             <>

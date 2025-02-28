@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { forwardRef, LegacyRef, ReactNode, useEffect, useState } from 'react';
 
 interface IInputProps {
+  type?: 'text' | 'number';
   value?: string;
   maxLength?: number;
   defaultValue?: string;
@@ -11,6 +12,7 @@ interface IInputProps {
   disabled?: boolean;
   suffix?: ReactNode;
   regExp?: RegExp;
+  precision?: number;
   onChange?: (value: string) => void;
   onBlur?(value: string): void;
   onPressEnter?: (value: string) => void;
@@ -21,6 +23,7 @@ interface IInputProps {
 
 const Input = (
   {
+    type = 'text',
     value: parentValue,
     defaultValue,
     placeholder,
@@ -31,6 +34,7 @@ const Input = (
     suffix,
     prefix,
     regExp,
+    precision,
     onChange,
     onBlur,
     onPressEnter,
@@ -43,8 +47,14 @@ const Input = (
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (regExp && !regExp?.test(e.target.value)) return;
-    setValue(e.target.value || '');
-    onChange?.(e.target.value || '');
+    const value = e.target.value;
+    if (precision && type === 'number') {
+      setValue(Number(value)?.toFixed(precision));
+      onChange?.(Number(value)?.toFixed(precision) || '');
+    } else {
+      setValue(value || '');
+      onChange?.(value || '');
+    }
   };
 
   const clearInput = () => {
@@ -58,6 +68,8 @@ const Input = (
     setValue(parentValue || '');
   }, [parentValue, regExp]);
 
+  console.log('value', value);
+
   return (
     <div
       className={`relative flex-grow ${
@@ -67,7 +79,7 @@ const Input = (
       {prefix && <span className="text-lightGrey px-[8px]">{prefix}</span>}
       <input
         ref={ref}
-        type="text"
+        type={type}
         value={value}
         disabled={disabled}
         maxLength={maxLength}

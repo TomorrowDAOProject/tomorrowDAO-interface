@@ -27,6 +27,11 @@
 
   .antExplorer-input {
     @apply !bg-transparent !h-[46px] border border-fillBg8 border-solid rounded-[8px] text-desc14 font-Montserrat !text-white placeholder:text-lightGrey;
+
+    &:-webkit-autofill {
+      @apply !bg-darkBg shadow-none !text-white;
+      -webkit-text-fill-color: var(--light-gray);
+    }
   }
 
   .antExplorer-select,
@@ -55,7 +60,7 @@
   }
   
   .antExplorer-radio-wrapper {
-    @apply !text-white !text-desc15 font-Montserrat me-[150px];
+    @apply !text-white !text-desc15 font-Montserrat me-[20px] md:me-[150px];
 
     &:last-child {
       @apply !mr-0;
