@@ -60,7 +60,7 @@ const items: MenuItem[] = [
         label: (
           <Link
             target="_blank"
-            href="https://docs.tmrwdao.com"
+            href="https://tmrwdao-docs-testnet.aelf.dev/"
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             Documentation
