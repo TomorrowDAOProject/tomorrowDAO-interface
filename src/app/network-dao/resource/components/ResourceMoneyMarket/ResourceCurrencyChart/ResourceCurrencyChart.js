@@ -406,7 +406,7 @@ class ResourceCurrencyChart extends PureComponent {
     const { buttonIndex } = this.state;
     const buttonsHTML = buttons.map((item, index) => (
       <Button
-        className={`!rounded-[4px] w-[43px] !h-[14px] text-Montserrat bg-transparent border-white !py-1 ${index === buttonIndex && "!bg-mainColor !border-mainColor"}`}
+        className={`!rounded-[4px] w-[43px] !h-[14px] font-Montserrat bg-transparent border-white !py-1 ${index === buttonIndex && "!bg-mainColor !border-mainColor"}`}
         size="small"
         // eslint-disable-next-line react/no-array-index-key
         key={index}

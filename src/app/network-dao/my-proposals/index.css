@@ -90,7 +90,7 @@
     .antExplorer-table-thead {
       @apply !bg-darkBg;
       tr th {
-        @apply !bg-darkBg text-lightGrey text-[10px] !px-0 font-Montserrat border-0 border-b !border-solid !border-fillBg8;
+        @apply !bg-darkBg text-lightGrey text-[12px] !px-0 font-Montserrat border-0 border-b !border-solid !border-fillBg8;
       }
     }
     .antExplorer-table-tbody {

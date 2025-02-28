@@ -30,7 +30,7 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
       }
     : {};
   return (
-    <div className="mx-[20px] my-[39px] md:w-[840px] lg:w-[1056px] xl:w-[1120px] md:m-auto lg:m-auto xl:m-auto xl:my-[70px] lg:my-[67px] md:my-[45px] min-h-[calc(100vh-300px)]">
+    <div className="mx-[20px] my-[39px] md:w-[840px] lg:w-[1056px] xl:w-[1120px] md:m-auto lg:m-auto xl:m-auto xl:my-[70px] lg:my-[67px] md:my-[45px] min-h-svh">
       <div className="page-content-bg-border flex justify-between mb-[24px] lg:flex-row flex-col font-Montserrat">
         <div className="text-[20px] font-Unbounded font-[300] text-white !leading-normal">
           {totalCount} Members
@@ -75,6 +75,8 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
                       address={item}
                       {...mobileProps}
                       chain={curChain}
+                      iconColor={'#989DA0'}
+                      iconSize="20px"
                       primaryIconColor={'#989DA0'}
                       addressHoverColor={'white'}
                       addressActiveColor={'white'}

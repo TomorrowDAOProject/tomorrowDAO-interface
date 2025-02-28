@@ -6,7 +6,7 @@ import React, {
 } from "react";
 // import { Link } from "react-router-dom";
 import Link from "next/link";
-import { Row, Col, message } from "antd";
+import { Row, Col } from "antd";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { resourceTokens } from "@config/config";
@@ -16,6 +16,8 @@ import {
   SyncOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import RefreshIcon from 'assets/revamp-icon/refresh.svg';
+
 import "./ResourceAElfWallet.css";
 import addressFormat from "@utils/addressFormat";
 import { isPhoneCheck } from "@utils/deviceCheck";
@@ -171,12 +173,13 @@ const ResourceWallet = React.forwardRef(
               )} */}
 
                 <Button
-                  className={`border border-solid border-white text-white bg-mainColor !text-[10px] w-[77px] h-[24px] gap-1 ${isConnected && 'border-none !bg-mainColor text-white'}`}
+                  className={`border border-solid !border-white text-white bg-mainColor !text-[10px] w-[77px] h-[24px] gap-1 ${isConnected && 'border-none !bg-mainColor text-white'}`}
                   disabled={!isConnected}
                   onClick={refreshWalletInfo}
                 >
-                  <SyncOutlined className="text-[10px]" type="sync" spin={loading} />
-                  <span className="text-[10px]">Refresh</span>
+                  {/* <SyncOutlined className="text-[10px]" type="sync" spin={loading} /> */}
+                  <img className="w-[16px] h-[16px]" src={RefreshIcon} alt="" />
+                  <span className="text-[10px] text-white">Refresh</span>
                 </Button>
 
                 {!isActivityBrowser() && !isConnected && (
@@ -185,7 +188,7 @@ const ResourceWallet = React.forwardRef(
                       className="text-white bg-mainColor !text-[10px] hover:!text-mainColor hover:bg-transparent hover:border hover:border-solid hover:border-mainColor w-[70px] h-[24px] gap-1 ml-[11px]"
                       onClick={() => connectWallet()}
                     >
-                      <i className="tmrwdao-icon-profile text-[12px] text-inherit" />
+                      <i className="tmrwdao-icon-profile text-[16px] text-inherit" />
                       <span className="text-[10px]">Log in</span>
                     </Button>
                   )}

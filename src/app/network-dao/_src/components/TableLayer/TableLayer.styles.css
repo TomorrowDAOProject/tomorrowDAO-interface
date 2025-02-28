@@ -42,7 +42,7 @@
     .antExplorer-table-thead {
       @apply !bg-darkBg;
       tr th {
-        @apply !bg-darkBg text-lightGrey text-[10px] !border-none font-Montserrat;
+        @apply !bg-darkBg text-lightGrey text-[12px] !border-none font-Montserrat;
 
         &:first-child {
           @apply !px-0;

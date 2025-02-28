@@ -618,7 +618,7 @@ class ResourceBuy extends Component {
                     />
                   )} */}
                     <Input
-                      className="placeholder:text-lightGrey disabled:!bg-fillBg8"
+                      className="placeholder:text-lightGrey !text-white disabled:!bg-fillBg8"
                       value={buyNum}
                       onChange={this.onChangeResourceValue}
                       placeholder={`Enter ${currentResourceType} amount`}

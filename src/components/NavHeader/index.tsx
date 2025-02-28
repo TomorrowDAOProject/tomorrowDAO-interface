@@ -16,6 +16,7 @@ import Text from 'components/Text';
 import './index.css';
 import { useUrlPath } from 'hooks/useUrlPath';
 import { useRouter } from 'next/navigation';
+import HashAddress from 'components/HashAddress';
 
 export interface MenuItem {
   key: string;
@@ -183,19 +184,14 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
                   key: 'HashAddress',
                   icon: <i className="tmrwdao-icon-wallet text-[18px] text-white" />,
                   label: (
-                    <div className="address-contain">
-                      <Text
-                        content={`ELF_${walletInfo.address}_${
-                          isNetWorkDao ? chainIdQuery.chainId : info.curChain
-                        }`}
-                        iconClassName="!text-lightGrey"
-                        copyable
-                        isAddress
-                        shortAddress
-                        prefixLength={8}
-                        lastLength={8}
-                      />
-                    </div>
+                    <HashAddress
+                      address={walletInfo.address}
+                      chain={isNetWorkDao ? chainIdQuery.chainId : info.curChain}
+                      preLen={8}
+                      endLen={11}
+                      iconSize={'18px'}
+                      iconColor={'#989DA0'}
+                    />
                   ),
                 },
                 {
