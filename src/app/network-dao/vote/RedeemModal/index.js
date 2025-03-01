@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Modal, Form, Input, Button, Table } from "antd";
+import { Divider, Modal, Form, Input, Button, Table } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import {
@@ -259,18 +259,19 @@ class RedeemModal extends PureComponent {
     return (
       <Modal
         className="vote-redeem-modal vote-redeem-modal-new"
-        title="Vote Redeem"
+        title="Node Redeem"
         visible={voteRedeemModalVisible}
         confirmLoading={redeemConfirmLoading}
         // onOk={this.handleOk}
-        // onCancel={handleCancel.bind(this, "voteRedeemModalVisible")}
+        onCancel={handleCancel.bind(this, "voteRedeemModalVisible")}
         footer={null}
-        width={960}
+        width={740}
         centered
         maskClosable
         keyboard
         destroyOnClose
       >
+        <Divider className="my-[30px]" />
         <Form
           ref={this.formRef}
           {...formItemLayout}
@@ -294,22 +295,13 @@ class RedeemModal extends PureComponent {
               </Form.Item>
             ))}
         </Form>
-        <p className="tip-color" style={{ fontSize: 12 }}>
-          {FEE_TIP}
-        </p>
-        <p style={{ marginTop: 10 }}>{NEED_PLUGIN_AUTHORIZE_TIP}</p>
-        <div className="w-full flex items-center justify-between my-[30px]">
-          <Button
-            type="default"
-            onClick={handleCancel.bind(this, "voteRedeemModalVisible")}
-            className="flex-1 text-white font-Montserrat bg-darkBg rounded-[42px] border border-solid border-white mr-[12px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
-          >
-            Cancel
-          </Button>
+        <p className="fee-tip-class">{FEE_TIP}</p>
+        <p className="auth-tip-class">{NEED_PLUGIN_AUTHORIZE_TIP}</p>
+        <div className="w-full flex items-center justify-between">
           <Button
             type="primary"
             onClick={this.handleOk}
-            className="flex-1 text-white font-Montserrat bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+            className="flex-1 h-[40px] leading-[30px] text-[15px] text-white font-medium font-Montserrat bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
           >
             OK
           </Button>
