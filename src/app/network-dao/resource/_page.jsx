@@ -1,9 +1,8 @@
 'use client';
 
 import React, { Component } from "react";
-import { message, ConfigProvider } from "antd";
 import { connect } from "react-redux";
-
+import { toast } from 'react-toastify';
 import { aelf } from "../_src/utils";
 import configJSON from "../_src/config/config-testnet-aelf.json";
 import DownloadPlugins from "@components/DownloadPlugins/DownloadPlugins";
@@ -14,8 +13,6 @@ import getLogin from "@utils/getLogin";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import "./resource.css";
 import walletInstance from "@redux/common/wallet";
-import { toast } from "react-toastify";
-
 
 const { resourceTokens } = configJSON;
 class Resource extends Component {
@@ -130,7 +127,7 @@ class Resource extends Component {
   //       instance.chain.getChainStatus(() => {
   //         this.getNightElfKeyPair(wallet);
   //       });
-  //       toastMessage && message.success("Login success!!", 3);
+  //       toastMessage && toast.success("Login success!!", 3);
   //     },
   //     () => {
   //       this.loginFailed();
@@ -147,7 +144,7 @@ class Resource extends Component {
         ? "Please Login."
         : result && result.errorMessage.message) ||
       "Please check your NightELF browser extension.";
-      toast.warn(warningStr);
+    toast.warn(warningStr);
   }
 
   // getNightElfKeyPair(wallet) {

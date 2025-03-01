@@ -47,7 +47,6 @@ export const logIn = () => async (dispatch) => {
   });
   try {
     const timer = setTimeout(() => {
-      // message.warn('Login Timeout');
       dispatch({
         type: LOG_IN_ACTIONS.LOG_IN_FAILED,
         payload: {},

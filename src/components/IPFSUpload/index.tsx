@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Upload as AntdUpload } from 'antd';
 import { Upload, IUploadProps, UploadButton } from 'aelf-design';
-import { GetProp, UploadFile, message } from 'antd';
+import { GetProp, UploadFile } from 'antd';
 import clsx from 'clsx';
 import pinFileToIPFS from 'components/PinFileToIPFS';
 export type TFileType = Parameters<GetProp<IUploadProps, 'beforeUpload'>>[0];
 import { checkImgSize } from 'utils/checkImgSize';
 import './index.css';
+import { toast } from 'react-toastify';
 
 const COMMON_UPLOAD_INPUT_ID = 'common-upload-input-id';
 import { emitLoading } from 'utils/myEvent';

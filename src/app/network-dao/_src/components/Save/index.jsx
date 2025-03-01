@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { saveAs } from "file-saver";
 import { DownloadOutlined } from "@ant-design/icons";
-import { Button, message } from "antd";
+import { Button } from "antd";
 import { getZip } from "../../utils/file";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 const SaveAsFile = (props) => {
   const [loading, setIsLoading] = useState(false);

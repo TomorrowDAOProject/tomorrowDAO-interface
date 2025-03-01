@@ -30,7 +30,6 @@ import Button from "components/Button";
 import Tooltip from "components/Tooltip";
 import TextArea from "components/Textarea";
 import { toast } from "react-toastify";
-import { validate } from "graphql";
 
 const { proposalTypes } = constants;
 

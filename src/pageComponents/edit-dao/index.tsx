@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { message, Form } from 'antd';
+import { Form } from 'antd';
 import { useRequest } from 'ahooks';
-import { Typography } from 'aelf-design';
 import { SkeletonList } from 'components/Skeleton';
 import { fetchDaoInfo } from 'api/request';
 import Upload from 'components/Upload';
-import IPFSUpload from 'components/IPFSUpload';
 import { emitLoading, eventBus, ResultModal } from 'utils/myEvent';
 import { curChain, daoAddress, NetworkDaoHomePathName } from 'config';
 import { mediaList } from 'app/(createADao)/create/component/BasicDetails';
@@ -23,10 +21,8 @@ import formValidateScrollFirstError from 'utils/formValidateScrollFirstError';
 import breadCrumb from 'utils/breadCrumb';
 import Input from 'components/Input';
 import TextArea from 'components/Textarea';
-import FormItem from 'components/FormItem';
 import Button from 'components/Button';
 import { toast } from 'react-toastify';
-
 interface IEditDaoProps {
   daoId?: string;
   aliasName?: string;

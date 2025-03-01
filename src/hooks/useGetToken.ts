@@ -1,6 +1,5 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { fetchToken } from 'api/request';
-import { message } from 'antd';
 import useDiscoverProvider from './useTokenDiscoverProvider';
 import { sleep } from '@portkey/utils';
 import { IContractError } from 'types';

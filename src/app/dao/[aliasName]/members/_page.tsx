@@ -5,7 +5,7 @@ import { useRequest } from 'ahooks';
 import breadCrumb from 'utils/breadCrumb';
 import { fetchDaoInfo, fetchDaoMembers } from 'api/request';
 import { EProposalActionTabs } from 'pageComponents/proposal-create/type';
-import { message } from 'antd';
+import { toast } from 'react-toastify';
 import MembersPage from 'pageComponents/members';
 import './index.css';
 import { toast } from 'react-toastify';

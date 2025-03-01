@@ -1,5 +1,4 @@
 import { HubConnection, HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
-import { message } from 'antd';
 import { toast } from 'react-toastify';
 // import { IBidInfo, IBidInfosResponse } from './types';
 

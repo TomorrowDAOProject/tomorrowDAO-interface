@@ -8,6 +8,7 @@ interface ResultProps {
   className?: string;
   icon?: React.ReactNode;
   iconClassName?: string;
+  status?: 'success' | 'warning' | 'error';
 }
 
 const Result: React.FC<ResultProps> = ({
@@ -17,6 +18,7 @@ const Result: React.FC<ResultProps> = ({
   className,
   icon,
   iconClassName,
+  status,
 }) => {
   return (
     <div className={clsx('flex flex-col items-center justify-center py-12', className)}>
