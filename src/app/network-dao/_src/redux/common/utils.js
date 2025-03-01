@@ -70,12 +70,12 @@ export const showTransactionResult = (result) => {
       result;
     toast.info(
       "The transaction is in progress. Please query the transaction ID", {
-        icon: <i className="tmrwdao-icon-information text-[16px] text-white" />,
+        icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
       });
     toast.info(
       `Transaction ID: ${ret.transactionId || ret.TransactionId}`,
       {
-        icon: <i className="tmrwdao-icon-information text-[16px] text-white" />,
+        icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
       }
     );
     return result;

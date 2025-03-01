@@ -606,11 +606,11 @@ const CreateProposal = () => {
 
     ConfirmModal.confirm({
       content: (
-        <div style={{ textAlign: "left" }}>
+        <>
           {isOnlyUpdateName
             ? "Are you sure you want to update this contract name?"
             : "Are you sure you want to submit this application?"}
-        </div>
+        </>
       ),
       okText: 'Yes',
       cancelText: 'No',

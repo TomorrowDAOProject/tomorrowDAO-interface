@@ -30,7 +30,7 @@
     --tag-primary-text: #C0B8FF;
     --tag-secondary-text: #B9B9B9;
     --toastify-container-width: auto;
-    --toastify-toast-width: auto;
+    --toastify-toast-width: auto !important;
     --toastify-toast-min-height: 34px;
     --toastify-toast-padding: 8px 12px;
 }
