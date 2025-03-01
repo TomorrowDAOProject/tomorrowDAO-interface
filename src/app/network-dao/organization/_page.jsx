@@ -232,7 +232,7 @@ const OrganizationList = () => {
             className="mt-[12px] mb-[60px]"
             total={total}
             current={params.pageNum ?? 1}
-            pageSize={10}
+            pageSize={params.pageSize ?? 10}
             hideOnSinglePage
             onChange={onPageNumChange}
             onPageSizeChange={onPageSizeChange}
