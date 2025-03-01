@@ -142,7 +142,7 @@ const OrganizationList = () => {
         tabBarExtraContent={
           logStatus === LOG_STATUS.LOGGED ? (
             <div
-              className="rounded-[42px] bg-mainColor relative !z-10 flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg mr-[38px]"
+              className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg mr-[18px] md:mr-[38px]"
             >
               <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat !rounded-[42px] px-[10px] py-[6px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
                 Create Organisation
@@ -150,7 +150,7 @@ const OrganizationList = () => {
             </div>
           ) : null
         }
-        className="organization-list-tab"
+        className="organization-list-tab relative"
         activeKey={activeKey}
         onChange={handleTabChange}
       >
@@ -172,7 +172,7 @@ const OrganizationList = () => {
           <Row gutter={16}>
             <Col sm={6} xs={24} className="organization-list-filter-input">
               <Input
-                className="!w-[406px] h-[36px]"
+                className="w-[306px] md:!w-[406px] h-[36px]"
                 placeholder="Organisation Address"
                 prefix={<i className="tmrwdao-icon-search text-lightGrey" />}
                 defaultValue={params.search}
@@ -180,6 +180,7 @@ const OrganizationList = () => {
                 value={searchValue}
                 onChange={(value) => setSearchValue(value)}
                 onPressEnter={(value) => onSearch(value)}
+                enterKeyHint="search"
               />
             </Col>
           </Row>

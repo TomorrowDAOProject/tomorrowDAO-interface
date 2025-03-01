@@ -84,7 +84,7 @@ function getColumns() {
       ...this.getColumnSearchProps("name"),
       render: (text, record) => (
         // todo: consider to extract the component as a independent component
-        <Tooltip title={text}>
+        <Tooltip title={text} className="max-w-[150px] w-[150px]">
           <LinkNetworkDao
             href={{
               pathname: "/vote/team",
@@ -273,10 +273,7 @@ class VoteModal extends Component {
                     (
                       <SimpleDatePicker
                         className="vote-lock-data-picker"
-                        // disabled={disabledDate}
-                        disabled={{
-                          before: disabledDate,
-                        }}
+                        disabled={disabledDate}
                         showDefaultFormat={true}
                         onChange={(value) => {
                           console.log("value", value);
@@ -332,11 +329,12 @@ class VoteModal extends Component {
               >
                 <Table
                   size="middle"
+                  className="relative left-[-14px]"
                   dataSource={switchableVoteRecords}
                   columns={columns}
                   rowSelection={switchVoteRowSelection}
                   pagination={switchVotePagination}
-                  scroll={{ x: 'max-content' }}
+                  scroll={{ x: true }}
                 />
               </Form.Item>
             ),
