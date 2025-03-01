@@ -41,6 +41,7 @@ import { stringifyStartAppParams } from '../../util/start-params';
 import dayjs from 'dayjs';
 import VotingPeriod from './VotingPeriod';
 import { useCopyToClipboard } from 'react-use';
+import { toast } from 'react-toastify';
 
 export const getShareText = (title: string) => {
   function decodeHtmlEntity(str: string) {
@@ -170,7 +171,7 @@ export default function VoteList({
         1000 * 60 * 1,
       );
       if (!res || res?.data?.status !== VoteStatus.Voted) {
-        message.info('Vote failed, please try again');
+        toast.info('Vote failed, please try again');
       }
       setIsToolTipVisible(true);
       loadingDrawerRef.current?.close();

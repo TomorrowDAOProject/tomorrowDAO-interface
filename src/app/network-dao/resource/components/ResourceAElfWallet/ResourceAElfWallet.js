@@ -20,6 +20,8 @@ import "./ResourceAElfWallet.css";
 import addressFormat from "@utils/addressFormat";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import walletInstance from "@redux/common/wallet";
+import { toast } from "react-toastify";
+
 
 export default class ResourceAElfWallet extends PureComponent {
   constructor(props) {
@@ -91,11 +93,11 @@ export default class ResourceAElfWallet extends PureComponent {
         if (result) {
           const isPluginLock = result.error === 200005;
           if (isPluginLock) {
-            message.warn(result.message || result.errorMessage.message);
+            toast.warn(result.message || result.errorMessage.message);
           } else {
             walletInstance.logout(currentWallet.address).then(
               () => {
-                message.success(
+                toast.success(
                   "Logout successful, refresh after 3s.",
                   3,
                   () => {
@@ -108,7 +110,7 @@ export default class ResourceAElfWallet extends PureComponent {
                 this.setState({
                   loading: false,
                 });
-                message.error("logout failed");
+                toast.error("logout failed");
               }
             );
           }

@@ -2,7 +2,7 @@
  * @file common actions
  * @author atom-yang
  */
-import { message } from "antd";
+import { toast } from "react-toastify";
 import { arrayToMap } from "../common/utils";
 import walletInstance from "../common/wallet";
 
@@ -67,7 +67,7 @@ export const logIn = () => async (dispatch) => {
     });
   } catch (e) {
     localStorage.removeItem("currentWallet");
-    message.warn((e.errorMessage || {}).message || "night ELF is locked!");
+    toast.warn((e.errorMessage || {}).message || "night ELF is locked!");
     dispatch({
       type: LOG_IN_ACTIONS.LOG_IN_FAILED,
       payload: {},

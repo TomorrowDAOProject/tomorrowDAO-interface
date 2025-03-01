@@ -18,6 +18,7 @@ import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { TWalletInfoType } from 'types';
 import { webLoginInstance } from 'contract/webLogin';
+import { toast } from 'react-toastify';
 
 export const useWalletService = () => {
   const { connectWallet, disConnectWallet, walletType, walletInfo, isConnected, lock } =
@@ -63,7 +64,7 @@ export const useCheckLoginAndToken = () => {
     } else {
       await disConnectWallet();
       dispatch(resetLoginStatus());
-      message.error('login failed');
+      toast.error('login failed');
     }
   };
   useAsyncEffect(async () => {
@@ -162,7 +163,7 @@ export const useWalletInit = () => {
 
   useEffect(() => {
     if (loginError) {
-      message.error(`${loginError?.nativeError?.message || loginError?.message || 'LOGIN_ERROR'}`);
+      toast.error(`${loginError?.nativeError?.message || loginError?.message || 'LOGIN_ERROR'}`);
     }
   }, [loginError]);
 

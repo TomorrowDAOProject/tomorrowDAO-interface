@@ -23,6 +23,7 @@ import { stringifyStartAppParams } from '../../util/start-params';
 import CommonModal, { ICommonModalRef } from '../../components/CommonModal';
 import { ReactComponent as Vote } from 'assets/icons/vote.svg';
 import { ReactComponent as Account } from 'assets/icons/account.svg';
+import { toast } from 'react-toastify';
 
 interface ShortLinkResponse {
   shortLink: string;
@@ -150,7 +151,7 @@ export default function Referral(props: IReferralProps) {
   const [, setCopied] = useCopyToClipboard();
   const handleCopy = () => {
     setCopied(tgLinkWithCode);
-    message.success('Copy success');
+    toast.success('Copy success');
   };
   useEffect(() => {
     if (referrelConfigRes) {

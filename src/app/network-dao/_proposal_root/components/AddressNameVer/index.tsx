@@ -8,6 +8,7 @@ import "./index.css";
 import CopyButton from "@components/CopyButton/CopyButton";
 import { explorer, mainExplorer } from "config";
 import { useChainSelect } from "hooks/useChainSelect";
+import { toast } from "react-toastify";
 
 const checkName = (name: string) => {
   if (name === "-1") {
@@ -21,9 +22,9 @@ const AddressNameVer = ({ address, name, ver }) => {
     try {
       copy(address);
       // eslint-disable-next-line no-undef
-      message.success("Copied!");
+      toast.success("Copied!");
     } catch (e) {
-      message.error("Copy failed, please copy by yourself.");
+      toast.error("Copy failed, please copy by yourself.");
     }
   };
   return (

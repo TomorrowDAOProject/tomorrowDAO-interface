@@ -193,7 +193,7 @@ class ResourceTrading extends PureComponent {
             // rootClassName="modal-display-box"
             isVisible={buyVisible}
             onClose={this.handleCancel}
-            rootClassName="xl:w-[740px] md:w-[740px] lg:w-[740px] w-full xl:px-[38px] xl:py-[30px] lg:px-[38px] lg:py-[30px] md:px-[38px] md:py-[30px] p-[22px]"
+            rootClassName="w-screen xl:w-[740px] md:w-[740px] lg:w-[740px] xl:px-[38px] xl:py-[30px] lg:px-[38px] lg:py-[30px] md:px-[38px] md:py-[30px] p-[22px]"
           >
           <ResourceBuyModal
             currentResourceType={currentResourceType}
@@ -228,7 +228,7 @@ class ResourceTrading extends PureComponent {
           title={<span className="font-Unbounded text-[20px] font-[300]">Resource selling</span>}
           isVisible={sellVisible}
           onClose={this.handleCancel}
-          rootClassName="xl:w-[740px] md:w-[740px] lg:w-[740px] w-full xl:px-[38px] xl:py-[30px] lg:px-[38px] lg:py-[30px] md:px-[38px] md:py-[30px] p-[22px]"
+          rootClassName="w-screen xl:w-[740px] md:w-[740px] lg:w-[740px] w-full xl:px-[38px] xl:py-[30px] lg:px-[38px] lg:py-[30px] md:px-[38px] md:py-[30px] p-[22px]"
         >
           <ResourceSellModal
             currentResourceType={currentResourceType}

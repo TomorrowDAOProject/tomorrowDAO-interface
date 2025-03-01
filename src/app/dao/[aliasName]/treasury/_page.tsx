@@ -7,6 +7,7 @@ import { useRequest } from 'ahooks';
 import breadCrumb from 'utils/breadCrumb';
 import { fetchDaoInfo } from 'api/request';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 interface ITreasuryDetailsProps {
   aliasName: string;
@@ -19,7 +20,7 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
   const router = useRouter();
   const { data: daoData } = useRequest(async () => {
     if (!aliasName) {
-      message.error('aliasName is required');
+      toast.error('aliasName is required');
       return null;
     }
     return fetchDaoInfo({ alias: aliasName, chainId: curChain });

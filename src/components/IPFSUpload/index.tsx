@@ -10,6 +10,7 @@ import './index.css';
 
 const COMMON_UPLOAD_INPUT_ID = 'common-upload-input-id';
 import { emitLoading } from 'utils/myEvent';
+import { toast } from 'react-toastify';
 
 export interface IFUploadProps extends Omit<IUploadProps, 'onChange'> {
   maxFileCount?: number;
@@ -93,7 +94,7 @@ const FUpload: React.FC<IFUploadProps> = ({
     const isLteLimit = file.size <= handleLimit(fileLimit);
     if (!isLteLimit) {
       const contentType = needCheckImgSize ? 'Image' : 'File';
-      message.error(
+      toast.error(
         `${contentType} too large. Please upload an ${contentType} no larger than ${fileLimit}`,
       );
     }
@@ -102,7 +103,7 @@ const FUpload: React.FC<IFUploadProps> = ({
     if (needCheckImgSize) {
       const checkSize = await checkImgSize(file);
       if (!checkSize) {
-        message.error('Please upload an image with the same width and height.');
+        toast.error('Please upload an image with the same width and height.');
       }
       result = result && checkSize;
     }
@@ -110,7 +111,7 @@ const FUpload: React.FC<IFUploadProps> = ({
     if (fileNameLengthLimit) {
       const isLengthLteLimit = file.name.length <= fileNameLengthLimit;
       if (!isLengthLteLimit) {
-        message.error(
+        toast.error(
           `The filename is too long, please shorten it to ${fileNameLengthLimit} characters.`,
         );
       }
@@ -131,7 +132,7 @@ const FUpload: React.FC<IFUploadProps> = ({
       const fileUrl = uploadData?.url ?? '';
       onSuccess?.({ url: fileUrl });
     } catch (error) {
-      message.error(`Please check your internet connection and try again.`);
+      toast.error(`Please check your internet connection and try again.`);
       onError?.(error as Error);
     } finally {
       emitLoading(false);
