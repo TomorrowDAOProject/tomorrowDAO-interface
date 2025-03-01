@@ -33,7 +33,7 @@ import { WebLoginInstance } from "@utils/webLogin";
 import { onlyOkModal } from "@components/SimpleModal/index.tsx";
 import { fetchAllCandidateInfo } from "../utils";
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
-import {toast} from 'react-toastify'
+
 
 const electionNotifiStatisData = {
   termEndTime: {
