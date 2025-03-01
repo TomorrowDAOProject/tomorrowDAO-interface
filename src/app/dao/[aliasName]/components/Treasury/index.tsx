@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Form, TableProps, Table, Skeleton, message } from 'antd';
+import { Form, TableProps, Table, Skeleton } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
 import HashAddress from 'components/HashAddress';
@@ -28,6 +28,7 @@ import Symbol from 'components/Symbol';
 import { checkCreateProposal } from 'utils/proposal';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import Button from 'components/Button';
+import { toast } from 'react-toastify';
 interface IProps {
   clssName?: string;
   daoRes?: IDaoInfoRes | null;
@@ -108,7 +109,7 @@ const Treasury: React.FC<IProps> = (props) => {
     setCreateProposalLoading(true);
     try {
       if (!daoRes) {
-        message.error('The DAO information is not available.');
+        toast.error('The DAO information is not available.');
         setCreateProposalLoading(false);
         return;
       }

@@ -4,14 +4,15 @@
  */
 
 import React, { PureComponent } from "react";
-import { Row, Col, Spin, message, Button } from "antd";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import getChainIdQuery from 'utils/url';
 import getStateJudgment from "@utils/getStateJudgment";
 import { aelf } from "../../../../../_src/utils";
-import walletInstance from "@redux/common/wallet";
 import { WebLoginInstance } from "@utils/webLogin";
+import { toast } from 'react-toastify';
+import Button from 'components/Button';
+import Spin from 'components/Spin';
 
 export default class ResourceSellModal extends PureComponent {
   constructor(props) {
@@ -36,7 +37,7 @@ export default class ResourceSellModal extends PureComponent {
     // todo: maybe we can move the judge to component ResourceSell
     // todo: handle the edge case that account.balance is just equal to the sellFee or nearly equal
     if (account.balance <= sellFee) {
-      message.warning(
+      toast.warning(
         `Your ${SYMBOL} balance is insufficient to pay the service charge.`
       );
       return;
@@ -68,7 +69,7 @@ export default class ResourceSellModal extends PureComponent {
         this.setState({
           loading: false,
         });
-        message.error(result.errorMessage.message, 3);
+        toast.error(result.errorMessage.message, 3);
         this.props.handleCancel();
         return;
       }
@@ -105,7 +106,7 @@ export default class ResourceSellModal extends PureComponent {
       this.setState({
         loading: false,
       });
-      message.fail("Sell failed, please try again");
+      toast.fail("Sell failed, please try again");
       console.error("result.Sell error", error);
     }
   }

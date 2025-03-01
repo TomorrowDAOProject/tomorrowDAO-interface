@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Form, Button, Input, Result, message, Spin } from "antd";
+import { Form, Button, Input, Result, Spin } from "antd";
 import queryString from "query-string";
 import { APPNAME } from "@config/config";
 import { post, get } from "@src/utils";
@@ -12,7 +12,7 @@ import { LockTwoTone } from "@ant-design/icons";
 import { connect } from "react-redux";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
-
+import { toast } from 'react-toastify';
 const { TextArea } = Input;
 
 const TeamInfoFormItemLayout = {
@@ -387,7 +387,7 @@ class KeyInTeamInfo extends PureComponent {
             if (+res.code === 0) {
               this.props.navigate(`/vote/team?pubkey=${publicKey}`);
             } else {
-              message.error(res.msg);
+              toast.error(res.msg);
             }
           });
         });

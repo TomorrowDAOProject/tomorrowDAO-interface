@@ -5,19 +5,12 @@ import React, {
   useImperativeHandle,
 } from "react";
 // import { Link } from "react-router-dom";
-import Link from "next/link";
 import { Row, Col } from "antd";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { resourceTokens } from "@config/config";
 import Button from 'components/Button'
-import {
-  WalletOutlined,
-  SyncOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
 import RefreshIcon from 'assets/revamp-icon/refresh.svg';
-
 import "./ResourceAElfWallet.css";
 import addressFormat from "@utils/addressFormat";
 import { isPhoneCheck } from "@utils/deviceCheck";
@@ -109,11 +102,11 @@ const ResourceWallet = React.forwardRef(
     //       if (result) {
     //         const isPluginLock = result.error === 200005;
     //         if (isPluginLock) {
-    //           message.warn(result.message || result.errorMessage.message);
+    //           toast.warn(result.message || result.errorMessage.message);
     //         } else {
     //           walletInstance.logout(currentWallet.address).then(
     //             () => {
-    //               message.success(
+    //               toast.success(
     //                 "Logout successful, refresh after 3s.",
     //                 3,
     //                 () => {
@@ -124,7 +117,7 @@ const ResourceWallet = React.forwardRef(
     //             },
     //             () => {
     //               setLoading(false);
-    //               message.error("logout failed");
+    //               toast.error("logout failed");
     //             }
     //           );
     //         }

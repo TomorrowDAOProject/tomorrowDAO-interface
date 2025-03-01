@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import { message } from 'antd';
+import { toast } from 'react-toastify';
 import Treasury from 'pageComponents/treasuryNew';
 import { curChain } from 'config';
 import { useRequest } from 'ahooks';
@@ -19,7 +19,7 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
   const router = useRouter();
   const { data: daoData } = useRequest(async () => {
     if (!aliasName) {
-      message.error('aliasName is required');
+      toast.error('aliasName is required');
       return null;
     }
     return fetchDaoInfo({ alias: aliasName, chainId: curChain });

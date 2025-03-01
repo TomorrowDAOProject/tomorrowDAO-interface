@@ -1,6 +1,7 @@
-'use client';
+
 import React, { Component } from "react";
-import { Modal, Form, Input, message, Menu } from "antd";
+import { Modal, Form, Input, Menu } from "antd";
+import { toast } from 'react-toastify';
 import moment from "moment";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import { thousandsCommaWithDecimal } from "@utils/formater";
@@ -199,7 +200,7 @@ class VoteContainer extends Component {
     try {
       const result = await getContractAddress();
       if (!result.chainInfo) {
-        message.error(
+        toast.error(
           "The chain has stopped or cannot be connected to the chain. Please check your network or contact us.",
           10
         );
@@ -698,7 +699,7 @@ class VoteContainer extends Component {
     // no batch redeem
     const [item] = votesToRedeem;
     if (!item) {
-      message.error("No selected vote");
+      toast.error("No selected vote");
       this.setVoteConfirmLoading(false);
       this.setRedeemConfirmLoading(false);
     } else {
@@ -731,7 +732,7 @@ class VoteContainer extends Component {
           } else {
             this.setVoteConfirmLoading(false);
             this.setRedeemConfirmLoading(false);
-            message.error(errorMessage.message);
+            toast.error(errorMessage.message);
           }
         })
         .catch((err) => {
@@ -862,7 +863,7 @@ class VoteContainer extends Component {
             );
           });
         } else {
-          message.error(error.message || errorMessage.message);
+          toast.error(error.message || errorMessage.message);
           this.setState({
             voteConfirmLoading: false,
           });
@@ -947,7 +948,7 @@ class VoteContainer extends Component {
             );
           });
         } else {
-          message.error(errorMessage.message);
+          toast.error(errorMessage.message);
           this.setVoteConfirmLoading(false);
         }
       })
@@ -983,7 +984,7 @@ class VoteContainer extends Component {
               clearInterval(interval);
               return reject(error);
             } else if (result?.Status === "NODEVALIDATIONFAILED") {
-              message.error(error?.Error || error?.message);
+              toast.error(error?.Error || error?.message);
               cancelFlag = true;
               clearInterval(interval);
               return reject(error);
@@ -1003,10 +1004,14 @@ class VoteContainer extends Component {
         }, 7000);
         setTimeout(() => {
           if (!cancelFlag) {
-            message.info(
-              "Temporaryly didn' get the transaction info. Please query the transaction later"
+            toast.info(
+              "Temporaryly didn' get the transaction info. Please query the transaction later", {
+                icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+              }
             );
-            message.info(`Your transaction id is: ${transactionId}`);
+            toast.info(`Your transaction id is: ${transactionId}`, {
+              icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+            });
           }
           clearInterval(interval);
           return resolve();
@@ -1015,10 +1020,14 @@ class VoteContainer extends Component {
         setTimeout(() => {
           aelf.chain.getTxResult(transactionId, (error, result) => {
             if (!result) {
-              message.info(
-                "Temporaryly didn' get the transaction info. Please query the transaction later"
+              toast.info(
+                "Temporaryly didn' get the transaction info. Please query the transaction later", {
+                  icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+                }
               );
-              message.info(`Your transaction id is: ${transactionId}`);
+              toast.info(`Your transaction id is: ${transactionId}`, {
+                icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+              });
               reject();
               return;
             }
@@ -1125,7 +1134,7 @@ class VoteContainer extends Component {
           await this.fetchGetContractsAndProfitAmount();
         } catch (e) {
           console.log(e);
-          message.error("Error happened when getting claim amount");
+          toast.error("Error happened when getting claim amount");
         } finally {
           this.setState({
             dividendLoading: false,
@@ -1200,11 +1209,11 @@ class VoteContainer extends Component {
                     [item.title]: false,
                   },
                 });
-                // message.error(err?.Error || err?.message);
+                // toast.error(err?.Error || err?.message);
                 console.error("handleClaimDividendClick", err);
               });
           } else {
-            message.error(errorMessage.message);
+            toast.error(errorMessage.message);
             this.setState({
               claimLoading: {
                 ...this.state.claimLoading,

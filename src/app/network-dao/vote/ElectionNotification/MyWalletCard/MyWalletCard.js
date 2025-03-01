@@ -8,7 +8,6 @@
  */
 import React, { PureComponent } from "react";
 import Link from 'next/link';
-import { Button, message } from "antd";
 import moment from "moment";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { ELF_DECIMAL, SYMBOL } from "@src/constants";
@@ -23,7 +22,8 @@ import { isActivityBrowser } from "@utils/isWebView";
 import IconFont from "@components/IconFont";
 import { mainExplorer } from "config";
 import Spin from "components/Spin";
-
+import Button from 'components/Button';
+import { toast } from 'react-toastify';
 
 class MyWalletCard extends PureComponent {
   constructor(props) {
@@ -242,12 +242,12 @@ class MyWalletCard extends PureComponent {
       .logoutAsync()
       .then(
         () => {
-          message.success("Logout successful, refresh after 3s.", 3, () => {
+          toast.success("Logout successful, refresh after 3s.", 3, () => {
             window.location.reload();
           });
         },
         () => {
-          message.error("logout failed");
+          toast.error("logout failed");
         }
       );
   }

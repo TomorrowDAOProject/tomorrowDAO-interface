@@ -3,9 +3,9 @@
  * @author atom-yang
  */
 import React, { useState } from "react";
-import { Button, message, Input } from "antd";
+import { Button, Input } from "antd";
 import { deserializeLog } from "../../utils/utils";
-
+import { toast } from 'react-toastify';
 import "./EventItem.styles.css";
 import SaveAsFile from "../Save";
 
@@ -37,7 +37,7 @@ const EventItem = (props) => {
           setHasDecoded(true);
         })
         .catch(() => {
-          message.error("Decode failed");
+          toast.error("Decode failed");
           setLoading(false);
         });
     }

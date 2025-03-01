@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { Tooltip, Menu, message, Tabs, Row, Col, Result } from "antd";
+import { Tooltip, Menu, Tabs, Row, Col } from "antd";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import List from "./List";
 import constants, {
@@ -21,11 +21,10 @@ import {
 } from "@common/utils";
 import { isSideChainByQueryParams } from 'utils/chain'
 import { explorer, mainExplorer } from "config";
-import config from "@common/config";
 import OrgAddress from "../_proposal_root/components/OrgAddress";
 import { request } from "@common/request";
 import { ReactComponent as WaringIcon } from 'assets/revamp-icon/waring.svg';
-
+import { toast } from 'react-toastify';
 
 import "./index.css";
 const isSideChain = isSideChainByQueryParams()
@@ -363,7 +362,7 @@ const MyProposal = () => {
       .catch((e) => {
         sendHeight(400);
         console.error(e);
-        message.error("Network error");
+        toast.error("Network error");
       });
   }
   const tableColumns = useMemo(

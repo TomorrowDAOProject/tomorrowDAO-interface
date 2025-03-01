@@ -6,7 +6,8 @@ import qs from 'query-string';
 import { getCaHashAndOriginChainIdByWallet } from 'utils/wallet';
 import RuleButton from '../../components/RuleButton';
 import { useEffect, useRef, useState } from 'react';
-import { Button, message, Select } from 'antd';
+import { Button, Select } from 'antd';
+import { toast } from 'react-toastify';
 import QRCode from 'components/QrCode';
 import { CopyOutlined, StarOutlined } from '@aelf-design/icons';
 import ReferList from './ReferList';
@@ -150,7 +151,7 @@ export default function Referral(props: IReferralProps) {
   const [, setCopied] = useCopyToClipboard();
   const handleCopy = () => {
     setCopied(tgLinkWithCode);
-    message.success('Copy success');
+    toast.success('Copy success');
   };
   useEffect(() => {
     if (referrelConfigRes) {

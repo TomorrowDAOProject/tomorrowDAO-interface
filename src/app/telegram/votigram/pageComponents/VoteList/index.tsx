@@ -1,6 +1,7 @@
 import CommonDrawer, { ICommonDrawerRef } from '../../components/CommonDrawer';
 import VoteItem, { ILikeItem } from '../../components/VoteItem';
-import { Button, message } from 'antd';
+import { toast } from 'react-toastify';
+import Button from 'components/Button';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Carousel } from 'antd';
 import { Flipper, Flipped } from 'react-flip-toolkit';
@@ -31,7 +32,6 @@ import { LeftArrowOutlined } from '@aelf-design/icons';
 import { ReactComponent as Share } from 'assets/icons/share.svg';
 import { ReactComponent as CopyLink } from 'assets/icons/copy-link.svg';
 import { ReactComponent as Telegram } from 'assets/icons/telegram.svg';
-import { ReactComponent as Info } from 'assets/icons/info.svg';
 
 import useVotePoints from '../../hook/use-vote-points';
 import Image from 'next/image';
@@ -170,7 +170,9 @@ export default function VoteList({
         1000 * 60 * 1,
       );
       if (!res || res?.data?.status !== VoteStatus.Voted) {
-        message.info('Vote failed, please try again');
+        toast.info('Vote failed, please try again', {
+          icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+        });
       }
       setIsToolTipVisible(true);
       loadingDrawerRef.current?.close();

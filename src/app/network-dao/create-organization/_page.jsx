@@ -14,11 +14,11 @@ import {
   InputNumber,
   Input,
   Switch,
-  message,
   Divider,
   Form,
   Modal,
 } from "antd";
+import { toast } from 'react-toastify';
 import constants, { API_PATH } from "@redux/common/constants";
 import {
   commonFilter,
@@ -515,7 +515,7 @@ const CreateOrganization = () => {
       const msg = (e?.errorMessage || {})?.message?.Message ||
       e.message || e?.Error?.Message
       if (msg) {
-        message.error(msg.toString());
+        toast.error(msg.toString());
       }
     } finally {
       setIsLoading(false);
