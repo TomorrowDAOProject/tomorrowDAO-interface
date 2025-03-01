@@ -175,3 +175,6 @@
     @apply !bg-transparent !text-mainColor;
   }
 }
+.TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
+  @apply text-mainColor;
+}
