@@ -153,7 +153,7 @@
 }
 
 .node-vote-modal .TMRWDAO-modal-content {
-  @apply bg-darkBg;
+  @apply bg-darkBg overflow-hidden;
 }
 
 .node-vote-modal .TMRWDAO-modal-close-icon {
