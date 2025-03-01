@@ -17,10 +17,19 @@ interface ISimpleDatePickerProps {
   defaultValue?: string;
   className?: string;
   onChange?: (value: string) => void;
+  showDefaultFormat?: boolean;
 }
 
 const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
-  const { value, defaultValue, className, disabled, onChange, ...dayPickerProps } = props;
+  const {
+    value,
+    defaultValue,
+    className,
+    disabled,
+    onChange,
+    showDefaultFormat,
+    ...dayPickerProps
+  } = props;
   const baseValue =
     value && dayjs(value || '').isValid()
       ? value
@@ -33,6 +42,10 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
   const formatDate = (dateInput: string) => {
     const date = dayjs(dateInput);
     const currentYear = dayjs().year();
+
+    if (showDefaultFormat) {
+      return date.format('DD MMM YYYY');
+    }
 
     if (date.year() === currentYear) {
       return date.format('DD MMM');

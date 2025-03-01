@@ -125,3 +125,7 @@
 .candidate-apply-modal .list-item-value {
   @apply text-white font-Montserrat;
 }
+
+.claim-rewards-btn[disabled] {
+  @apply !bg-darkGray border border-solid !border-borderColor hover:!text-white;
+}
