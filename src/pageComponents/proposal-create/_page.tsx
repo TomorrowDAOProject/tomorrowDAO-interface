@@ -1,6 +1,6 @@
 'use client';
 import { memo, useEffect } from 'react';
-import { Result } from 'antd';
+import Result from 'components/Result';
 import { useParams } from 'next/navigation';
 import DeployForm from './DeployForm';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';

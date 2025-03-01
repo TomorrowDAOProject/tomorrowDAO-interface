@@ -157,7 +157,8 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
   });
 
   const [isOpen, setIsOpen] = useState(false);
-  const uploadRef = useRef<IRefHandle | null>(null);
+  const uploaLogodRef = useRef<IRefHandle | null>(null);
+  const uploadImageRef = useRef<IRefHandle | null>(null);
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -243,7 +244,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
             render={({ field }) => (
               <div className="flex flex-col gap-2">
                 <Upload
-                  ref={uploadRef}
+                  ref={uploaLogodRef}
                   className="!w-[250px]"
                   value={field.value}
                   ratio={1}
@@ -272,7 +273,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
                       className="tmrwdao-icon-circle-minus text-[22px] ml-[6px] cursor-pointer text-Neutral-Secondary-Text"
                       onClick={() => {
                         field.onChange('');
-                        uploadRef.current?.reset();
+                        uploaLogodRef.current?.reset();
                       }}
                     />
                   </div>
@@ -377,7 +378,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
               <div className="flex flex-col gap-2 flex-grow">
                 {screenshots.length <= 9 && (
                   <Upload
-                    ref={uploadRef}
+                    ref={uploadImageRef}
                     uploadText="Upload"
                     fileLimit="10 MB"
                     tips={`Formats supported: PNG and JPG. \nless than 10 MB.`}
@@ -409,6 +410,7 @@ const FormListFullItems = forwardRef<IFormRef, IFormItemsProps>((props, ref) => 
                         newScreenshots.splice(index, 1);
                         field.onChange(newScreenshots);
                         onBlur();
+                        uploadImageRef.current?.reset();
                       }}
                     />
                   </div>

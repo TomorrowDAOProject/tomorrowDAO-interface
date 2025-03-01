@@ -5,24 +5,20 @@
 
 import React, { PureComponent } from "react";
 // import { Link } from "react-router-dom";
-import Link from 'next/link'
-import { Row, Col, Spin, Button, Icon, message } from "antd";
+import { Row, Col, Spin, Button } from "antd";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import { thousandsCommaWithDecimal } from "@utils/formater";
-import { APPNAME, resourceTokens } from "@config/config";
+import { resourceTokens } from "@config/config";
 import LinkNetworkDao from "components/LinkNetworkDao";
 import {
   WalletOutlined,
   SyncOutlined,
-  LogoutOutlined,
 } from "@ant-design/icons";
 import "./ResourceAElfWallet.css";
 import addressFormat from "@utils/addressFormat";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import walletInstance from "@redux/common/wallet";
-import { toast } from "react-toastify";
-
-
+import { toast } from 'react-toastify';
 export default class ResourceAElfWallet extends PureComponent {
   constructor(props) {
     super(props);

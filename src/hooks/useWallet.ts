@@ -1,5 +1,4 @@
-import { message } from 'antd';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { dispatch, useSelector } from 'redux/store';
 import { setWalletInfo } from 'redux/reducer/userInfo';
 import { cloneDeep } from 'lodash-es';

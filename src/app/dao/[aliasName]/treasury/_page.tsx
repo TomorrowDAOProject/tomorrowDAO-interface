@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import { message } from 'antd';
+import { toast } from 'react-toastify';
 import Treasury from 'pageComponents/treasuryNew';
 import { curChain } from 'config';
 import { useRequest } from 'ahooks';

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Form, TableProps, Table, Skeleton, message } from 'antd';
+import { Form, TableProps, Table, Skeleton } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
 import HashAddress from 'components/HashAddress';

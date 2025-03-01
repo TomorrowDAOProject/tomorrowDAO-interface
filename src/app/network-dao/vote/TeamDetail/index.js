@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { If, Then, Else } from "react-if";
-import { Row, Col, Button, Avatar, Tag, Typography, message } from "antd";
+import { Row, Col, Button, Avatar, Tag, Typography } from "antd";
 import queryString from "query-string";
-
+import { toast } from 'react-toastify';
 import StatisticalData from "@components/StatisticalData/";
 import {
   getTeamDesc,

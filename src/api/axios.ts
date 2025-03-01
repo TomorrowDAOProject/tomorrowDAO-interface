@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
-
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { apiServer } from './request/api-server';
 import { tokenServer } from './request/token-server';
+import { toast } from 'react-toastify';
 
 const explorerUrlList = ['explorer-api', 'side-explorer-api', 'token-price-api'];
 interface ResponseType<T> {

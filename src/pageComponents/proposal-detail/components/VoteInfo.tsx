@@ -1,11 +1,10 @@
-import { Typography, FontWeightEnum } from 'aelf-design';
 import MyInfo from 'app/dao/[aliasName]/components/MyInfo';
 import BoxWrapper from './BoxWrapper';
 import { memo, useMemo } from 'react';
 import { EVoteMechanismNameType } from 'pageComponents/proposal-create/type';
 import { fetchDaoInfo } from 'api/request';
 import { curChain } from 'config';
-import { message } from 'antd';
+import { toast } from 'react-toastify';
 import { useRequest } from 'ahooks';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import { useParams } from 'next/navigation';

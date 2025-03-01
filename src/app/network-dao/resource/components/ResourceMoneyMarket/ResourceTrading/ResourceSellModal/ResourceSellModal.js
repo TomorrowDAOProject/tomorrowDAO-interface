@@ -4,15 +4,15 @@
  */
 
 import React, { PureComponent } from "react";
-import { Row, Col, Spin, message, Button } from "antd";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import getChainIdQuery from 'utils/url';
 import getStateJudgment from "@utils/getStateJudgment";
 import { aelf } from "../../../../../_src/utils";
-import walletInstance from "@redux/common/wallet";
 import { WebLoginInstance } from "@utils/webLogin";
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import Button from 'components/Button';
+import Spin from 'components/Spin';
 
 export default class ResourceSellModal extends PureComponent {
   constructor(props) {

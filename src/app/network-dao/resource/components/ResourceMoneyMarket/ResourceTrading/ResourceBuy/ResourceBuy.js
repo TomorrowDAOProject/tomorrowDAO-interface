@@ -9,11 +9,8 @@ import debounce from "lodash.debounce";
 import { connect } from "react-redux";
 import {
   Input,
-  InputNumber,
   Slider,
-  message,
   Spin,
-  Button,
   Tooltip,
   Form,
 } from "antd";
@@ -39,7 +36,6 @@ import getEstimatedValueRes from "@utils/getEstimatedValueRes";
 import getEstimatedValueELF from "@utils/getEstimatedValueELF";
 import getFees from "@utils/getFees";
 import "./ResourceBuy.css";
-import { isPhoneCheck } from "@utils/deviceCheck";
 import { isActivityBrowser } from "@utils/isWebView";
 import { toast } from 'react-toastify';
 

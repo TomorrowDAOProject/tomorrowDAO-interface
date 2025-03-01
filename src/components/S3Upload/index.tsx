@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Upload, IUploadProps } from 'aelf-design';
 import { RefreshOutlined } from '@aelf-design/icons';
-import { GetProp, UploadFile, UploadProps, message } from 'antd';
+import { GetProp, UploadFile } from 'antd';
 import ImgCrop, { ImgCropProps } from 'antd-img-crop';
 import clsx from 'clsx';
 import { fileUplaod } from 'api/request';
@@ -12,7 +12,6 @@ import { CloseIcon } from 'components/Icons';
 import { RcFile } from 'antd/es/upload';
 import { useUrlPath } from 'hooks/useUrlPath';
 import { toast } from 'react-toastify';
-
 const COMMON_UPLOAD_INPUT_ID = 'common-upload-input-id';
 
 export interface IFUploadProps extends Omit<IUploadProps, 'onChange'> {
@@ -165,7 +164,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
       const fileUrl = uploadData?.data ?? '';
       onSuccess?.({ url: fileUrl });
     } catch (error) {
-      message.error(`Please check your internet connection and try again.`);
+      toast.error(`Please check your internet connection and try again.`);
       onError?.(error as Error);
     } finally {
       //

@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { apiServerBase } from 'config';
-import { toast } from 'react-toastify';
 
 interface ResponseType<T> {
   code: string;

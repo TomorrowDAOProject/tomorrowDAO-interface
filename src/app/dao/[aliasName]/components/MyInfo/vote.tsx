@@ -1,4 +1,4 @@
-import { Divider, Form, InputNumber, message } from 'antd';
+import { Divider, Form, InputNumber } from 'antd';
 import { useState, useCallback } from 'react';
 import CommonModal from 'components/CommonModal';
 import Image from 'next/image';
@@ -20,7 +20,6 @@ import { INIT_RESULT_MODAL_CONFIG, okButtonConfig } from 'components/ResultModal
 import { ReactComponent as Info } from 'assets/revamp-icon/info.svg';
 import Button from 'components/Button';
 import { toast } from 'react-toastify';
-
 type TVoteTypes = {
   proposalId: string;
   voteMechanismName?: string;
@@ -60,7 +59,9 @@ function Vote(props: TVoteTypes) {
   const handlerModal = (voteType: number) => {
     // if have voted, can't vote again
     if (votesAmount > 0) {
-      toast.info('You have already voted!');
+      toast.info('You have already voted!', {
+        icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+      });
       return;
     }
     setCurrentVoteType(voteType);

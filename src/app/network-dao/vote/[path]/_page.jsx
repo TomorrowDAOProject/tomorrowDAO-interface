@@ -1,6 +1,7 @@
-'use client';
+
 import React, { Component } from "react";
-import { Modal, Form, Input, message, Menu } from "antd";
+import { Modal, Form, Input, Menu } from "antd";
+import { toast } from 'react-toastify';
 import moment from "moment";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import { thousandsCommaWithDecimal } from "@utils/formater";
@@ -39,7 +40,6 @@ import addressFormat from "@utils/addressFormat";
 import { WebLoginInstance } from "@utils/webLogin";
 import { fakeWallet } from "../../_src/common/utils";
 import LinkNetworkDao from "components/LinkNetworkDao";
-import {toast} from 'react-toastify'
 
 const voteConfirmFormItemLayout = {
   labelCol: {
@@ -1005,9 +1005,13 @@ class VoteContainer extends Component {
         setTimeout(() => {
           if (!cancelFlag) {
             toast.info(
-              "Temporaryly didn' get the transaction info. Please query the transaction later"
+              "Temporaryly didn' get the transaction info. Please query the transaction later", {
+                icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+              }
             );
-            toast.info(`Your transaction id is: ${transactionId}`);
+            toast.info(`Your transaction id is: ${transactionId}`, {
+              icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+            });
           }
           clearInterval(interval);
           return resolve();
@@ -1017,9 +1021,13 @@ class VoteContainer extends Component {
           aelf.chain.getTxResult(transactionId, (error, result) => {
             if (!result) {
               toast.info(
-                "Temporaryly didn' get the transaction info. Please query the transaction later"
+                "Temporaryly didn' get the transaction info. Please query the transaction later", {
+                  icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+                }
               );
-              toast.info(`Your transaction id is: ${transactionId}`);
+              toast.info(`Your transaction id is: ${transactionId}`, {
+                icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+              });
               reject();
               return;
             }
@@ -1201,7 +1209,7 @@ class VoteContainer extends Component {
                     [item.title]: false,
                   },
                 });
-                // message.error(err?.Error || err?.message);
+                // toast.error(err?.Error || err?.message);
                 console.error("handleClaimDividendClick", err);
               });
           } else {

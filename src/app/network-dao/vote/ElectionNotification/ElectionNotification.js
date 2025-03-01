@@ -8,7 +8,7 @@
  */
 import React, { PureComponent } from "react";
 import Decimal from "decimal.js";
-import { message } from "antd";
+import { toast } from "react-toastify";
 import getChainIdQuery from 'utils/url';
 import moment from "moment";
 

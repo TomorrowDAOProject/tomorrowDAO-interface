@@ -1,4 +1,4 @@
-import { Descriptions, Divider, Form, InputNumber, message } from 'antd';
+import { Descriptions, Divider, Form, InputNumber } from 'antd';
 import { Tooltip, Button as ButtonAntd } from 'aelf-design';
 import HashAddress from 'components/HashAddress';
 import { toast } from 'react-toastify';
@@ -17,7 +17,6 @@ import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import './index.css';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import { INIT_RESULT_MODAL_CONFIG, okButtonConfig } from 'components/ResultModal';
-import Symbol from 'components/Symbol';
 import { useParams } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import Button from 'components/Button';
