@@ -554,8 +554,21 @@ class NodeTable extends PureComponent {
       });
   }
 
+  deduplicateByName(arr) {
+    const seen = new Set();
+    return arr.filter(item => {
+      if (seen.has(item.name)) {
+        return false;
+      } else {
+        seen.add(item.name);
+        return true;
+      }
+    });
+  }
+
   render() {
     const { nodeList, isLoading, pagination } = this.state;
+    const nodeListData = this.deduplicateByName(nodeList);
     const nodeListCols = this.getCols();
     return (
       <section className={`${clsPrefix} px-[18px]`}>
@@ -566,12 +579,12 @@ class NodeTable extends PureComponent {
           <Table
             showSorterTooltip={false}
             columns={nodeListCols}
-            dataSource={nodeList}
+            dataSource={nodeListData}
             // onChange={handleTableChange}
             pagination={pagination}
             loading={isLoading}
             // cannot use publicKey, because publicKey will not change when updating producedBlocks
-            rowKey={(record) => record.producedBlocks}
+            rowKey={(record) => record.name}
             scroll={{ x: 'max-content' }}
             // size='middle'
           />
