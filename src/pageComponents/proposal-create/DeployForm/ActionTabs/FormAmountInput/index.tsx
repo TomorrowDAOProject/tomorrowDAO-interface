@@ -39,7 +39,7 @@ export default function AmountInput(props: AmountInputProps) {
   return (
     <div className="relative border border-solid border-fillBg8 rounded-[8px] h-[95px]">
       <Input
-        className="border-none"
+        rootClassName="!border-none"
         placeholder={`Enter amount`}
         regExp={/^([0-9\b]*)$/}
         value={value?.amount?.toString()}

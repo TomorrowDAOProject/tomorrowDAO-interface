@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-
+import dayjs from 'dayjs';
 interface StatisticProps {
   title: React.ReactNode;
   value: number | string;
@@ -25,14 +25,14 @@ const Countdown: React.FC<StatisticProps & { format?: string; onFinish?: () => v
   onFinish,
   className,
 }) => {
-  console.log('value', value);
   const [timeLeft, setTimeLeft] = React.useState<number>(
-    typeof value === 'number' ? value - Date.now() : 0,
+    typeof value === 'number' ? value - Date.now() : dayjs(value).valueOf() - dayjs().valueOf(),
   );
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      const newTimeLeft = typeof value === 'number' ? value - Date.now() : 0;
+      const newTimeLeft =
+        typeof value === 'number' ? value - Date.now() : dayjs(value).valueOf() - dayjs().valueOf();
       setTimeLeft(newTimeLeft);
 
       if (newTimeLeft <= 0) {

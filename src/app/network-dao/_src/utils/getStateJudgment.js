@@ -18,9 +18,13 @@ export default function getStateJudgment(status, hash) {
     case 'PENDING':
       toast.info(
         'The transaction is in progress. Please query the transaction ID',
-        10,
+        {
+          icon: <i className="tmrwdao-icon-information text-[16px] text-white" />,
+        }
       );
-      toast.info(`Transaction ID: ${hash}`, 10);
+      toast.info(`Transaction ID: ${hash}`, {
+        icon: <i className="tmrwdao-icon-information text-[16px] text-white" />,
+      });
       break;
     case 'MINED':
       toast.success('Successful operation', 3);
