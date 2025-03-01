@@ -116,7 +116,7 @@ export const useGetToken = () => {
       if (sign?.errorMessage) {
         const errorMessage = formatErrorMsg(sign?.errorMessage as unknown as IContractError)
           .errorMessage.message;
-          toast.error(errorMessage);
+        toast.error(errorMessage);
         isConnectWallet && disConnectWallet();
         return null;
       }
