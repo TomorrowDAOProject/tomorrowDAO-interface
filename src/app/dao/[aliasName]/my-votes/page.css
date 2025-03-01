@@ -116,3 +116,25 @@
     @apply !bg-transparent !text-mainColor;
   }
 }
+.TMRWDAO-table-filter-dropdown {
+  @apply border-fillBg8 w-[140px];
+
+  .TMRWDAO-dropdown-menu {
+    @apply !bg-darkBg;
+    .TMRWDAO-dropdown-menu-item-active {
+      @apply !bg-fillBg8;
+    }
+    .TMRWDAO-dropdown-menu-title-content {
+      @apply text-white font-Montserrat text-[14px];
+    }
+  }
+  .TMRWDAO-table-filter-dropdown-btns {
+    @apply items-center !border-fillBg8 h-[32px];
+    .TMRWDAO-btn-link {
+      @apply text-white font-Montserrat hover:text-white text-[10px];
+    }
+    .TMRWDAO-btn-primary {
+      @apply w-[40px] h-[20px] !rounded-[42px] text-[10px] py-[2px] hover:bg-transparent hover:border-mainColor hover:text-mainColor;
+    }
+  }
+}

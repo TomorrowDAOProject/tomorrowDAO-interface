@@ -258,6 +258,8 @@ interface IDaoInfoData {
       Discord?: string;
       Telegram?: string;
       Reddit?: string;
+      Github?: string;
+      Others?: string;
     };
   };
   governanceMechanism: number;
