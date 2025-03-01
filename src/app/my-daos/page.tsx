@@ -7,9 +7,5 @@ const PageIndex = dynamicReq(() => import('./_page'), {
   loading: () => <SkeletonList />,
 });
 export default function Page() {
-  return (
-    <div className="min-h-svh">
-      <PageIndex />
-    </div>
-  );
+  return <PageIndex />;
 }

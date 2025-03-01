@@ -99,7 +99,7 @@ export default function Login(props: ILoginProps) {
               <Link href={`${explorer}/address/${walletInfo.address}`} target="_blank">
                 <div className="drop-down-items">
                   <span className="prefix-icon">
-                    <InfoCircleOutlined />
+                    <i className="tmrwdao-icon-wallet text-[18px] text-white" />
                   </span>
                   <HashAddress
                     size="small"
@@ -107,6 +107,8 @@ export default function Login(props: ILoginProps) {
                     address={walletInfo.address}
                     preLen={8}
                     endLen={9}
+                    iconColor="#989DA0"
+                    iconSize="18px"
                   />
                 </div>
               </Link>

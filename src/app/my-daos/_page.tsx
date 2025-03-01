@@ -101,7 +101,7 @@ const MyDaosPage = () => {
     </div>
   );
   return (
-    <div className="my-daos">
+    <div className="my-daos min-h-svh">
       <div className="mb-[15px] py-[25px] px-[30px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid flex items-center justify-between">
         <p className="text-white text-[20px] leading-[40px] font-Unbounded">My DAOs</p>
         <Link
