@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 const buttonStyles = {
-  default: 'bg-transparent border-lightGrey text-white hover:text-white hover:border-white',
+  default: 'bg-transparent border-fillBg16 text-white hover:text-white hover:border-white',
   primary:
     'bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor',
   info: 'bg-cyan border-cyan text-white hover:bg-transparent hover:text-cyan hover:border-cyan',

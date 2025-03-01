@@ -50,12 +50,11 @@ const StatisticalData = ({ data, spinning, tooltipClassName, style, inline }) =>
           ) : null}
         </>
       );
-
       return item.isCountdown ? (
         <Countdown
           key={item.title}
           title={titleNode}
-          value={Date.now() + 1000 * 60 * 60 * 24}
+          value={item.num || 0}
           format="D day HH : mm : ss"
           onFinish={() => {
             if (item.id) {

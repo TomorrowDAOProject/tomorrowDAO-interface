@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
+import NoData from 'components/NoData';
 
 export interface SelectOption {
   label: React.ReactNode;
@@ -27,7 +28,7 @@ const Select: React.FC<ISelectProps> = ({
   className,
   value,
   label,
-  options,
+  options = [],
   placeholder,
   isError,
   isOpenStyle,
@@ -108,28 +109,37 @@ const Select: React.FC<ISelectProps> = ({
         <ul
           className={clsx(
             'absolute max-h-[190px] overflow-y-auto w-full mt-1 py-4 bg-darkBg border border-solid border-fillBg8 rounded-[8px] shadow-lg z-10',
+            {
+              '!max-h-[240px] !pt-0': options?.length === 0,
+            },
             overlayClassName,
           )}
         >
-          {options?.map((option) => (
-            <li
-              key={option.value}
-              className={clsx(
-                'py-2 px-4 font-Montserrat text-DescM14 text-lightGrey hover:text-white hover:bg-fillBg8 cursor-pointer',
-                overlayItemClassName,
-              )}
-              onClick={() => handleSelect(option)}
-            >
-              <span className={`${option.label == selected?.label && 'text-mainColor'}`}>
-                {option.label}
-              </span>
-              {option.desc && (
-                <span className="block text-desc14 text-lightGrey font-Montserrat">
-                  {option.desc}
+          {options?.length > 0 ? (
+            options?.map((option) => (
+              <li
+                key={option.value}
+                className={clsx(
+                  'py-2 px-4 font-Montserrat text-DescM14 text-lightGrey hover:text-white hover:bg-fillBg8 cursor-pointer',
+                  overlayItemClassName,
+                )}
+                onClick={() => handleSelect(option)}
+              >
+                <span className={`${option.label == selected?.label && 'text-mainColor'}`}>
+                  {option.label}
                 </span>
-              )}
-            </li>
-          ))}
+                {option.desc && (
+                  <span className="block text-desc14 text-lightGrey font-Montserrat">
+                    {option.desc}
+                  </span>
+                )}
+              </li>
+            ))
+          ) : (
+            <div className="flex justify-center items-center">
+              <NoData />
+            </div>
+          )}
         </ul>
       )}
     </div>

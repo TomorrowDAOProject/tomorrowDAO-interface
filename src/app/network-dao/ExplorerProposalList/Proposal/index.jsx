@@ -12,6 +12,7 @@ import {
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import Tag from 'components/Tag';
+import Button from 'components/Button';
 import Divider from 'components/Divider';
 import getChainIdQuery from 'utils/url';
 import constants, {
@@ -159,7 +160,7 @@ const Proposal = (props) => {
               onClick={() => handleRelease(proposalId)}
               loading={loading.Release[proposalId]}
             >
-              Release&gt;
+              Release
             </Button>
           ) : null}
         </div>
