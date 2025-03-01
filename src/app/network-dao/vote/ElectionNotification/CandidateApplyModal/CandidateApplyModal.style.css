@@ -242,6 +242,10 @@
   @apply text-lightGrey font-Montserrat;
 }
 
+.candidate-apply-modal .TMRWDAO-form-item-required::before {
+  @apply !text-white;
+}
+
 .candidate-apply-modal .list-item-value {
   @apply text-white font-Montserrat;
 }
