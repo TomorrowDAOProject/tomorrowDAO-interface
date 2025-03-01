@@ -18,13 +18,16 @@
     @apply xl:!w-[465px] lg:!w-[465px] md:!w-[465px] bg-darkBg xl:!px-[38px] xl:!py-[30px] lg:!px-[38px] lg:!py-[30px] md:!px-[38px] md:!py-[30px] !p-[22px] border border-solid border-fillBg8;
   }
   .TMRWDAO-modal-header {
-    @apply bg-darkBg text-white !p-0 ;
+    @apply bg-darkBg text-white !p-0;
     .common-header {
       @apply border-0 border-b border-solid border-fillBg8 !h-auto xl:pb-[30px] lg:pb-[30px] md:pb-[30px] pb-[22px];
     }
   }
   .TMRWDAO-modal-body {
     @apply !p-0;
+  }
+  .TMRWDAO-form-item-explain-error {
+    @apply text-mainColor;
   }
 }
 
