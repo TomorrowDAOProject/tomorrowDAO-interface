@@ -6,6 +6,7 @@ import { getReferrerCode } from 'app/telegram/votigram/util/start-params';
 import { NetworkEnum, SignInDesignEnum, TChainId } from '@aelf-web-login/wallet-adapter-base';
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
+import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import { WebLoginProvider } from '@aelf-web-login/wallet-adapter-react';
 import {
@@ -158,6 +159,18 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
       enableAcceleration: true,
     });
   }, []);
+  const nightElfWallet = useMemo(() => {
+    return new NightElfWallet({
+      chainId: chainId as TChainId,
+      appName: APP_NAME,
+      connectEagerly: true,
+      defaultRpcUrl:
+        (info?.[`rpcUrl${String(info?.curChain).toUpperCase()}`] as unknown as string) ||
+        info?.rpcUrlTDVW ||
+        '',
+      nodes: nodes,
+    });
+  }, []);
   const portkeyDiscoverWallet = useMemo(() => {
     return new PortkeyDiscoverWallet({
       networkType: networkType,
@@ -169,7 +182,7 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
       autoLogoutOnChainMismatch: true,
     });
   }, []);
-  const wallets = [aaWallet, portkeyDiscoverWallet];
+  const wallets = [aaWallet, portkeyDiscoverWallet, nightElfWallet];
 
   const config: IConfigProps = {
     didConfig,
