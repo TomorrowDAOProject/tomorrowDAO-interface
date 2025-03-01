@@ -194,6 +194,8 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
           Telegram: socialMedia.Telegram,
           Discord: socialMedia.Discord,
           Reddit: socialMedia.Reddit,
+          Github: socialMedia.Github,
+          Others: socialMedia.Others,
         },
       },
       files: fileInfoList.map(({ file }) => ({
