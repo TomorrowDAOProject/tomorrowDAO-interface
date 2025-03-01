@@ -80,6 +80,7 @@ const Input = (
       <input
         ref={ref}
         type={type}
+        inputMode="none"
         value={value}
         disabled={disabled}
         maxLength={maxLength}

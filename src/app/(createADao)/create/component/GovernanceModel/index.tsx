@@ -143,12 +143,14 @@ const GovernanceModel = () => {
                     {!Number.isInteger(Number(field.value)) && 'Please input a integer number'}
                     {Number(field.value) == 0 &&
                       `Please input a number larger than 0 Proposals could be approved by a minority rather than a majoritty.`}
-                    {Number(field.value) > 0 &&
-                      Number(field.value) < 50 &&
-                      'Proposals could be approved by a minority rather than a majority.'}
-                    {Number(field.value) >= 50 &&
-                      Number(field.value) <= 100 &&
-                      'Proposal will be approved by majority.'}
+                    {Number(field.value) > 0 && Number(field.value) < 50 && (
+                      <span className="text-lightGrey">
+                        Proposals could be approved by a minority rather than a majority.
+                      </span>
+                    )}
+                    {Number(field.value) >= 50 && Number(field.value) <= 100 && (
+                      <span className="text-lightGrey">Proposal will be approved by majority.</span>
+                    )}
                     {Number(field.value) > 100 &&
                       `Please input a number smaller than 100 Proposal will be approved by majority.`}
                   </span>

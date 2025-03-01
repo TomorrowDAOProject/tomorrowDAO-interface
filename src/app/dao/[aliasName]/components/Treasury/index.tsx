@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Form, TableProps, Table, Skeleton, message } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
@@ -188,6 +188,23 @@ const Treasury: React.FC<IProps> = (props) => {
   }, [run, treasuryAddress]);
   const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[25px] xl:mb-[25px] md:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg p-[22px] lg:px-[24px] lg:py-[24px] xl:px-[24px] xl:py-[24px] md:px-[24px] md:py-[24px]`;
   const existTransaction = Boolean(transferList?.length);
+
+  const [list, setList] = useState(transferList);
+
+  useEffect(() => {
+    setList(transferList?.slice(0, LoadCount));
+  }, [transferList]);
+
+  const showLoadMore = useMemo(() => {
+    return Number(transferList?.length) > Number(list?.length);
+  }, [list, transferList]);
+
+  const [index, setIndex] = useState(1);
+
+  useEffect(() => {
+    setList(transferList?.slice(0, LoadCount * index));
+  }, [transferList, index]);
+
   return (
     <div className={`${cls} min-w-[288px]`}>
       {treasuryAddressLoading || transferListLoading ? (
@@ -263,7 +280,7 @@ const Treasury: React.FC<IProps> = (props) => {
                     <SkeletonLine />
                   ) : (
                     <ul>
-                      {transferList?.slice(0, LoadCount).map((item) => {
+                      {list?.map((item) => {
                         const isOut = treasuryAddress === item.fromAddress;
                         return (
                           <li
@@ -321,6 +338,19 @@ const Treasury: React.FC<IProps> = (props) => {
                           </li>
                         );
                       })}
+                      {showLoadMore && (
+                        <div className="flex items-center justify-center mt-[24px]">
+                          <Button
+                            size="small"
+                            className="w-[93px] h-[32px] border-white text-white"
+                            onClick={() => {
+                              setIndex((pre) => pre + 1);
+                            }}
+                          >
+                            <span className="text-[12px]">Load More</span>
+                          </Button>
+                        </div>
+                      )}
                     </ul>
                   )}
                 </div>
@@ -358,9 +388,9 @@ const Treasury: React.FC<IProps> = (props) => {
                 treasuryNoTxGuideref.current?.setDepoistOpen(true);
                 setChoiceOpen(false);
               }}
-              className="w-[120px] h-[32px] !text-[12px] flex-shrink-0"
+              className="w-[120px] h-[32px] flex-shrink-0"
             >
-              Deposit
+              <span className="text-[12px]">Deposit</span>
             </Button>
           </li>
           <li className="choice-item">
@@ -370,9 +400,9 @@ const Treasury: React.FC<IProps> = (props) => {
             <Button
               loading={createProposalLoading}
               onClick={handleCreateProposal}
-              className="w-[120px] h-[32px] !text-[12px] flex-shrink-0 text-white border-white font-medium"
+              className="w-[120px] h-[32px] flex-shrink-0 text-white border-white font-medium"
             >
-              Withdraw
+              <span className="text-[12px]">Withdraw</span>
             </Button>
           </li>
         </ul>

@@ -6,6 +6,8 @@ import { curChain } from 'config';
 import { useRequest } from 'ahooks';
 import breadCrumb from 'utils/breadCrumb';
 import { fetchDaoInfo } from 'api/request';
+import { useRouter } from 'next/navigation';
+
 interface ITreasuryDetailsProps {
   aliasName: string;
   ssrData: {
@@ -14,6 +16,7 @@ interface ITreasuryDetailsProps {
 }
 export default function TreasuryDetails(props: ITreasuryDetailsProps) {
   const { aliasName, ssrData } = props;
+  const router = useRouter();
   const { data: daoData } = useRequest(async () => {
     if (!aliasName) {
       message.error('aliasName is required');
@@ -26,6 +29,32 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
   }, [aliasName]);
   return (
     <div className="mx-[20px] my-[39px] md:w-[840px] lg:w-[1056px] xl:w-[1120px] md:m-auto lg:m-auto xl:m-auto xl:my-[51px] lg:my-[51px] md:my-[51px] revamp-dao">
+      <div className="text-white font-Montserrat flex items-center gap-2 pb-[25px]">
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() => router.push('/')}
+        >
+          Home
+        </span>
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() => router.push('/explore')}
+        >
+          Explore
+        </span>
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
+        <span
+          className="text-lightGrey text-[15px] cursor-pointer"
+          onClick={() =>
+            router.push(`/dao/${daoData?.data?.metadata?.name.toLowerCase().replace(/\s+/g, '-')}`)
+          }
+        >
+          {daoData?.data?.metadata?.name}
+        </span>
+        <i className="tmrwdao-icon-arrow text-[16px] text-lightGrey" />
+        <span className="text-[14px]">Treasury</span>
+      </div>
       <Treasury
         aliasName={aliasName}
         address={ssrData?.treasuryAddress}
