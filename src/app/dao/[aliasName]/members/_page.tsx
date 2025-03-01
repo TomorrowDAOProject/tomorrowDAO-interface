@@ -8,7 +8,6 @@ import { EProposalActionTabs } from 'pageComponents/proposal-create/type';
 import { toast } from 'react-toastify';
 import MembersPage from 'pageComponents/members';
 import './index.css';
-import { toast } from 'react-toastify';
 interface ITreasuryDetailsProps {
   aliasName?: string;
 }
