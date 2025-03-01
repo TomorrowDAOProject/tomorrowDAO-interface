@@ -445,7 +445,8 @@ const Page = () => {
             </h2>
 
             <Link
-              href="https://tomorrows-blog-11efd04933cccea6450d0c87.webflow.io"
+              target="_blank"
+              href="https://tomorrows-blogs.webflow.io/"
               className="default-button hidden items-center gap-[10px] lg:inline-flex"
             >
               View More
