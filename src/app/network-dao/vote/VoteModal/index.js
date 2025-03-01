@@ -277,6 +277,7 @@ class VoteModal extends Component {
                         disabled={{
                           before: disabledDate,
                         }}
+                        showDefaultFormat={true}
                         onChange={(value) => {
                           console.log("value", value);
                           this.setState({

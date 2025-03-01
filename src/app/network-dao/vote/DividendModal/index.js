@@ -73,7 +73,7 @@ const DividendModal = (props) => {
                     handleClaimDividendClick(item);
                   }}
                   size="small"
-                  className="!rounded-[4px] !text-white text-[11px] font-Montserrat font-medium !bg-mainColor border border-solid !border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                  className="claim-rewards-btn !rounded-[4px] !text-white text-[11px] font-Montserrat font-medium !bg-mainColor border border-solid !border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                 >
                   Claim Rewards
                 </Button>

@@ -142,7 +142,7 @@ const OrganizationList = () => {
         tabBarExtraContent={
           logStatus === LOG_STATUS.LOGGED ? (
             <div
-              className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg mr-[38px]"
+              className="rounded-[42px] bg-mainColor z-10 flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg mr-[38px]"
             >
               <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat !rounded-[42px] px-[10px] py-[6px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
                 Create Organisation
@@ -231,8 +231,8 @@ const OrganizationList = () => {
           <Pagination
             className="mt-[12px] mb-[60px]"
             total={total}
-            current={params.pageNum}
-            pageSize={params.pageSize || 10}
+            current={params.pageNum ?? 1}
+            pageSize={10}
             hideOnSinglePage
             onChange={onPageNumChange}
             onPageSizeChange={onPageSizeChange}
