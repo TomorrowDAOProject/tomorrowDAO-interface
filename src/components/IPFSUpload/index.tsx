@@ -11,7 +11,6 @@ import { toast } from 'react-toastify';
 
 const COMMON_UPLOAD_INPUT_ID = 'common-upload-input-id';
 import { emitLoading } from 'utils/myEvent';
-import { toast } from 'react-toastify';
 
 export interface IFUploadProps extends Omit<IUploadProps, 'onChange'> {
   maxFileCount?: number;
