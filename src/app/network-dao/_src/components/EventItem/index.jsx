@@ -8,10 +8,13 @@ import { deserializeLog } from "../../utils/utils";
 
 import "./EventItem.styles.css";
 import SaveAsFile from "../Save";
+import { toast } from "react-toastify";
+
 
 const { TextArea } = Input;
 
 const DOWNLOAD_LIST = ["CodeCheckRequired"];
+
 
 const EventItem = (props) => {
   const { Name } = props;
@@ -37,7 +40,7 @@ const EventItem = (props) => {
           setHasDecoded(true);
         })
         .catch(() => {
-          message.error("Decode failed");
+          toast.error("Decode failed");
           setLoading(false);
         });
     }

@@ -25,6 +25,7 @@ import Input from 'components/Input';
 import TextArea from 'components/Textarea';
 import FormItem from 'components/FormItem';
 import Button from 'components/Button';
+import { toast } from 'react-toastify';
 
 interface IEditDaoProps {
   daoId?: string;
@@ -48,7 +49,7 @@ const EditDao: React.FC<IEditDaoProps> = (props) => {
     loading: daoLoading,
   } = useRequest(async () => {
     if (!aliasName && !props.daoId) {
-      message.error('aliasName or daoId is required');
+      toast.error('aliasName or daoId is required');
       return null;
     }
     return fetchDaoInfo({ daoId: props.daoId, chainId: curChain, alias: aliasName });

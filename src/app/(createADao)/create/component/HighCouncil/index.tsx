@@ -262,6 +262,7 @@ const HighCouncil = () => {
                         if (membersValue.length <= 1) return;
                         const originList = [...membersValue];
                         originList.splice(index, 1);
+                        console.log('originList', originList);
                         field.onChange(originList);
                         trigger();
                       }}

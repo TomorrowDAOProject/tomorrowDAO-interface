@@ -12,6 +12,7 @@ import { checkCreateProposal } from 'utils/proposal';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 interface ITreasuryDetailsProps {
   aliasName?: string;
 }
@@ -29,7 +30,7 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
     loading: daoLoading,
   } = useRequest(async () => {
     if (!aliasName) {
-      message.error('aliasName is required');
+      toast.error('aliasName is required');
       return null;
     }
     return fetchDaoInfo({ chainId: curChain, alias: aliasName });

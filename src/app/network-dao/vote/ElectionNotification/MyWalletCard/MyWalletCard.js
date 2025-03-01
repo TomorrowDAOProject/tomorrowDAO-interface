@@ -23,6 +23,7 @@ import { isActivityBrowser } from "@utils/isWebView";
 import IconFont from "@components/IconFont";
 import { mainExplorer } from "config";
 import Spin from "components/Spin";
+import {toast} from 'react-toastify'
 
 
 class MyWalletCard extends PureComponent {
@@ -242,12 +243,12 @@ class MyWalletCard extends PureComponent {
       .logoutAsync()
       .then(
         () => {
-          message.success("Logout successful, refresh after 3s.", 3, () => {
+          toast.success("Logout successful, refresh after 3s.", 3, () => {
             window.location.reload();
           });
         },
         () => {
-          message.error("logout failed");
+          toast.error("logout failed");
         }
       );
   }

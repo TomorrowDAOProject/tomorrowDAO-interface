@@ -7,6 +7,8 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   touch-action: pan-x pan-y;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -450,5 +452,9 @@ input[type='number'] {
 }
 
 .Toastify__toast {
-  @apply !text-desc11 !font-Montserrat;
+  @apply !text-desc11 !font-Montserrat border border-solid border-fillBg8 bg-borderColor;
+}
+
+.Toastify__toast-icon {
+  @apply !w-[18px];
 }

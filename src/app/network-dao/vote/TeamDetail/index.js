@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 import "./index.css";
 import addressFormat from '@utils/addressFormat';
 import CopyButton from "@components/CopyButton/CopyButton";
+import {toast} from 'react-toastify'
 
 const { Paragraph } = Typography;
 
@@ -107,7 +108,7 @@ class TeamDetail extends PureComponent {
         const formattedAddress = addressFormat(data.address);
         this.setState({ data, formattedAddress });
       })
-      .catch((err) => message.error(err));
+      .catch((err) => toast.error(err));
   }
 
   fetchDataFromElectionContract() {

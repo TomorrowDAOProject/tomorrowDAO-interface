@@ -289,6 +289,7 @@ const VoteDetail = (props) => {
           placeholder="Input voter address/transaction id"
           prefix={<i className="tmrwdao-icon-search text-[16px] text-lightGrey" />}
           onPressEnter={onSearch}
+          enterKeyHint="search"
         />
       </div>
       <TableLayer className="vote-detail-content gap-top-large">

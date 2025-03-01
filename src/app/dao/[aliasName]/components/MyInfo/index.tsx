@@ -186,7 +186,7 @@ export default function MyInfo(props: TInfoTypes) {
   const handleClaim = useCallback(async () => {
     // call contract
     if (!daoId) {
-      message.error('daoId is required');
+      toast.error('daoId is required');
       return;
     }
     const contractParams = {

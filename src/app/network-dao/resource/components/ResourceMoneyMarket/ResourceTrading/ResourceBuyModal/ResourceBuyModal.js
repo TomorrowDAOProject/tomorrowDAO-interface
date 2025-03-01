@@ -18,6 +18,7 @@ import getStateJudgment from "@utils/getStateJudgment";
 import { aelf } from "@utils";
 import "./ResourceBuyModal.css";
 import { WebLoginInstance } from "@utils/webLogin";
+import { toast } from "react-toastify";
 
 export default class ResourceBuyModal extends PureComponent {
   constructor(props) {
@@ -64,7 +65,7 @@ export default class ResourceBuyModal extends PureComponent {
 
       console.log("Buy", result);
       if (result.error && result.error !== 0) {
-        message.error(result.errorMessage.message, 3);
+        toast.error(result.errorMessage.message, 3);
         this.props.handleCancel();
         return;
       }
@@ -106,21 +107,21 @@ export default class ResourceBuyModal extends PureComponent {
               },
               () => {
                 if (regBuyTooManyResource.test(err.Error)) {
-                  message.error(
+                  toast.error(
                     BUY_MORE_THAN_HALT_OF_INVENTORY_TIP,
                     FAILED_MESSAGE_DISPLAY_TIME
                   );
-                  message.error(
+                  toast.error(
                     `Transaction id: ${transactionId}`,
                     FAILED_MESSAGE_DISPLAY_TIME
                   );
                   return;
                 }
-                message.error(
+                toast.error(
                   "Your transaction seems to has some problem, please query the transaction later:",
                   FAILED_MESSAGE_DISPLAY_TIME
                 );
-                message.error(
+                toast.error(
                   `Transaction id: ${transactionId}`,
                   FAILED_MESSAGE_DISPLAY_TIME
                 );

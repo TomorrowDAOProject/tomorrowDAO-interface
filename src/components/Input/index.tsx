@@ -19,6 +19,7 @@ interface IInputProps {
   isError?: boolean;
   prefix?: ReactNode;
   rootClassName?: string;
+  enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send';
 }
 
 const Input = (
@@ -39,6 +40,7 @@ const Input = (
     onBlur,
     onPressEnter,
     isError,
+    enterKeyHint,
     rootClassName,
   }: IInputProps,
   ref: LegacyRef<HTMLInputElement>,
@@ -68,8 +70,6 @@ const Input = (
     setValue(parentValue || '');
   }, [parentValue, regExp]);
 
-  console.log('value', value);
-
   return (
     <div
       className={`relative flex-grow ${
@@ -85,7 +85,7 @@ const Input = (
         maxLength={maxLength}
         onChange={handleChange}
         className={clsx(
-          'w-full border border-solid border-fillBg8 rounded-[8px] pl-[16px] pr-10 py-[13px] bg-transparent text-white text-desc14 font-Montserrat font-normal leading-[19px] placeholder-lightGrey focus:outline-none transition duration-300 ease-in-out',
+          'w-full border border-solid border-fillBg8 rounded-[8px] pl-[16px] pr-10 py-[13px] bg-transparent text-white text-desc16 md:text-desc14 font-Montserrat font-normal leading-[19px] placeholder-lightGrey focus:outline-none transition duration-300 ease-in-out appearance-none',
           {
             'border-mainColor': isError,
             '!pr-[16px]': !suffix,
@@ -100,6 +100,7 @@ const Input = (
             onPressEnter?.(value);
           }
         }}
+        enterKeyHint={enterKeyHint}
         placeholder={placeholder || 'Please Enter...'}
       />
       <div className="absolute top-1/2 right-[14px] -translate-y-1/2 flex flex-row gap-2">

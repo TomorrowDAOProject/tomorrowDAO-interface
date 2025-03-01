@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Switch, Case, If, Then } from "react-if";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { ReactComponent as WarningFilled } from 'assets/icons/warning-filled.svg';
 import Spin from 'components/Spin';
 import Result from 'components/Result';
 import NoData from 'components/NoData';
@@ -358,6 +359,7 @@ const ProposalList = () => {
           </Case>
           <Case condition={loadingStatus === LOADING_STATUS.FAILED}>
             <Result
+              icon={<WarningFilled className="w-[74px] h-[74px]" />}
               status="error"
               title="Error Happened"
               subTitle="Please check your network"
@@ -432,6 +434,7 @@ const ExplorerProposalListFilter = () => {
       onChange={setSearchValue}
       onPressEnter={onSearch}
       inputSize={'small'}
+      enterKeyHint="search"
     />
   </div>
 }
