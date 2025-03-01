@@ -35,6 +35,14 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
+.organization-list .antExplorer-tabs-nav-list {
+  z-index: 1;
+}
+
+.organization-list .antExplorer-tabs-extra-content {
+  z-index: 10;
+}
+
 .organization-list-filter-input .antExplorer-input::placeholder {
   @apply text-lightGrey font-Montserrat !important;
 }
