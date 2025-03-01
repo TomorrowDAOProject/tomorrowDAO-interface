@@ -12,7 +12,6 @@ import { checkCreateProposal } from 'utils/proposal';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 interface ITreasuryDetailsProps {
   aliasName?: string;
 }
