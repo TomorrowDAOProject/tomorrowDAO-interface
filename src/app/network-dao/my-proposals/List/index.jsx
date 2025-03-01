@@ -51,10 +51,10 @@ const List = (props) => {
       <div className="flex justify-end">
       <div className="lg:w-[287px] xl:w-[287px] md:w-[287px] w-full h-[36px] mb-[30px] flex flex-row justify-end">
         <Input
-          className={`!text-[12px] ${search && 'border-mainColor'}`}
+          className={`!text-[12px] hover:border-mainColor`}
+          rootClassName="!pr-[40px]"
           prefix={<Search className="mt-1" />}
           placeholder={searchPlaceholder}
-          rootClassName=""
           value={search}
           showClearBtn
           onChange={(value)=>{

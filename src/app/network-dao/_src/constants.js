@@ -321,6 +321,7 @@ const RESOURCE_DETAILS_COLUMN = [
     key: "tx_id",
     align: "left",
     ellipsis: true,
+    width: 150,
     render: (text) => <Link href={`${mainExplorer}/tx/${text}`}>{text}</Link>,
   },
   {
@@ -336,13 +337,14 @@ const RESOURCE_DETAILS_COLUMN = [
     dataIndex: "type",
     key: "type",
     align: "center",
+    width: 140
   },
   {
     title: "Operation",
     dataIndex: "method",
     key: "method",
     align: "center",
-    width: 80,
+    width: 120,
     render: (text) => (
       <span className={`${(text || "buy").toLocaleLowerCase()}-color`}>
         {text}
@@ -354,6 +356,7 @@ const RESOURCE_DETAILS_COLUMN = [
     dataIndex: "fee",
     key: "fee",
     align: "center",
+    width: 120,
     render: (_, row) => {
       let price;
       const { resource, method } = row;
@@ -372,13 +375,14 @@ const RESOURCE_DETAILS_COLUMN = [
     dataIndex: "resource",
     key: "number",
     align: "center",
-    width: 130
+    width: 150
   },
   {
     title: `Sum(${SYMBOL})`,
     dataIndex: "elf",
     key: "elfNumber",
     align: "center",
+    width: 150,
     render: (text, row) => {
       const { method } = row;
       let { elf, fee } = row;
@@ -395,6 +399,7 @@ const RESOURCE_DETAILS_COLUMN = [
     dataIndex: "fee",
     key: "serviceCharge",
     align: "center",
+    width: 150,
     render: (text, row) => {
       let { fee } = row;
       fee /= ELF_DECIMAL;
@@ -406,6 +411,7 @@ const RESOURCE_DETAILS_COLUMN = [
     dataIndex: "tx_status",
     key: "tx_status",
     align: "center",
+    width: 150
   },
 ];
 

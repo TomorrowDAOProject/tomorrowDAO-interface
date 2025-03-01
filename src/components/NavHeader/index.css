@@ -1,6 +1,6 @@
 .address-contain {
   & * {
-    @apply font-Montserrat text-descM14 !text-white;
+    @apply font-Montserrat text-descM14;
   }
 
   svg path {
@@ -8,7 +8,6 @@
   }
 
   &:hover * {
-
     path {
       fill: white !important;
     }

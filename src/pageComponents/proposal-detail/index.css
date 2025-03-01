@@ -153,6 +153,9 @@
       background-color: transparent;
     }
   }
+  .TMRWDAO-spin-nested-loading .TMRWDAO-spin-container::after {
+    @apply bg-transparent;
+  }
 }
 
 .TMRWDAO-table-column-sorter-up,

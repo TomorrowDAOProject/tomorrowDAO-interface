@@ -128,29 +128,27 @@ export default class ResourceSellModal extends PureComponent {
     const CHAIN_ID = 'AELF'
     return (
       <div className="modal resource-modal text-white font-Montserrat">
-        <Row className="modal-form-item mt-[30px] pt-[24px] border-0 border-t border-solid border-fillBg8">
-          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Address</Col>
-          <Col
-            span={18}
-            className="text-ellipse font-Montserrat text-[13px]"
-            title={`ELF_${currentWallet.address}_${CHAIN_ID}`}
+        <div className="modal-form-item mt-[30px] pt-[24px] border-0 border-t border-solid border-fillBg8 justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Address</div>
+          <div
+            className="font-Montserrat text-[13px] break-all"
           >
             {`ELF_${currentWallet.address}_${CHAIN_ID}`}
-          </Col>
-        </Row>
-        <Row className="modal-form-item pt-[24px]">
-          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Sell {currentResourceType} Quantity</Col>
-          <Col span={18} className="font-Montserrat text-[13px] text-white">{thousandsCommaWithDecimal(sellNum)}</Col>
-        </Row>
-        <Row className="modal-form-item pt-[24px]">
-          <Col span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">Sell {SYMBOL}</Col>
-          <Col span={18}>
+          </div>
+        </div>
+        <div className="modal-form-item pt-[24px] justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Sell {currentResourceType} Quantity</div>
+          <div className="font-Montserrat text-[13px] text-white">{thousandsCommaWithDecimal(sellNum)}</div>
+        </div>
+        <div className="modal-form-item pt-[24px] justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Sell {SYMBOL}</div>
+          <div >
             <Spin spinning={sellEstimateValueLoading}>
               <span className="font-Montserrat text-[13px] text-white">{thousandsCommaWithDecimal(SellELFValue)}</span>
             </Spin>
-          </Col>
-        </Row>
-        <div className="service-charge font-Montserrat !text-white mt-[7px] text-[12px]">
+          </div>
+        </div>
+        <div className="lg:text-right font-Montserrat !text-white mt-[7px] text-[12px] text-left">
           *Service Charge: {thousandsCommaWithDecimal(sellFee)} {SYMBOL}
         </div>
         <div className="font-Montserrat text-[11px] text-white bg-[#404040] border border-solid border-fillBg8 px-3 py-2 rounded-[5px] mt-[24px]">
