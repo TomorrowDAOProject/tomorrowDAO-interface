@@ -10,7 +10,6 @@
   text-align: right !important;
 }
 
-
 .node-table-header {
   font-size: 14px;
   font-weight: 500;
@@ -42,6 +41,10 @@
 
 .node-table-wrapper .TMRWDAO-table-thead .TMRWDAO-table-cell {
   @apply !text-[11px];
+}
+
+.node-table-wrapper .redeem-btn[disabled] {
+  @apply !text-[#404040] border border-solid !border-[#404040];
 }
 
 .node-table-btn-group>button {

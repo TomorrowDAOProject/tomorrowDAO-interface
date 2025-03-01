@@ -291,7 +291,7 @@ class NodeTable extends PureComponent {
             </Button>
             <Button
               size="small"
-              className="w-[80px] text-center !text-lightGrey !rounded-[8px] bg-transparent !border border-solid !border-lightGrey hover:!bg-darkBg hover:!text-white hover:border hover:border-solid hover:!border-white"
+              className="redeem-btn w-[80px] text-center !text-lightGrey !rounded-[8px] bg-transparent !border border-solid !border-lightGrey hover:!bg-darkBg hover:!text-white hover:border hover:border-solid hover:!border-white"
               key={record.pubkey + 1}
               data-role="redeem"
               data-shoulddetectlock
