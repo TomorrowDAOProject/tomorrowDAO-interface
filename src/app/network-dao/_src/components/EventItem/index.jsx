@@ -8,7 +8,6 @@ import { deserializeLog } from "../../utils/utils";
 import { toast } from 'react-toastify';
 import "./EventItem.styles.css";
 import SaveAsFile from "../Save";
-import { toast } from "react-toastify";
 
 
 const { TextArea } = Input;

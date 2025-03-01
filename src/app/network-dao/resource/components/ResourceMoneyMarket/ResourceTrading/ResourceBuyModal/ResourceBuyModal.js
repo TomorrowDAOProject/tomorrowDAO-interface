@@ -5,7 +5,7 @@
 
 import React, { PureComponent } from "react";
 import Button from 'components/Button';
-import Spin from 'Spin';
+import Spin from 'components/Spin';
 import {
   SYMBOL,
   ELF_DECIMAL,
