@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Switch, Case, If, Then } from "react-if";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import {
-  Spin,
-  Empty,
-  Result,
-} from "antd";
+import Spin from 'components/Spin';
+import Result from 'components/Result';
+import NoData from 'components/NoData';
 import Row from 'components/Grid/Row';
 import Col from 'components/Grid/Col';
 import { useEffectOnce } from "react-use";
@@ -178,7 +176,6 @@ const ProposalList = () => {
     });
     if (params.proposalType === proposalTypes.REFERENDUM) {
       const [proposal] = list.filter((item) => item.proposalId === id);
-      console.log(proposal);
       setProposalInfo({
         ...proposalInfo,
         tokenSymbol: proposal.organizationInfo.leftOrgInfo.tokenSymbol,
@@ -373,7 +370,7 @@ const ProposalList = () => {
           }
         >
           <Then>
-            <Empty />
+            <NoData />
           </Then>
         </If>
       </div>
@@ -404,8 +401,8 @@ const ExplorerProposalListFilter = () => {
   const handleStatusChange = (value) => {
     eventBus.emit(handleStatusChangeEvent, value)
   }
-  const onSearch = (e) => {
-    eventBus.emit(handleSearchChangeEvent, e?.target?.value)
+  const onSearch = (value) => {
+    eventBus.emit(handleSearchChangeEvent, value)
   }
   const [searchValue, setSearchValue] = useState(params.search);
   useEffect(() => {

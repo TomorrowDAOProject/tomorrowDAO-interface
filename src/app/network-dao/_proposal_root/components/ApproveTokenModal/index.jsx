@@ -225,7 +225,9 @@ const ApproveTokenModal = (props) => {
       }
       const txId = result.TransactionId || result.result.TransactionId;
       const txResult = await getTxResult(aelf, txId, 0, 6000);
-      toast.info(`Transactions ${txId} is ${txResult.Status}`);
+      toast.info(`Transactions ${txId} is ${txResult.Status}`, {
+        icon: <i className="tmrwdao-icon-information text-[16px] text-white" />,
+      });
       getProposalAllowanceInfo(aelf, proposalId, owner, tokenSymbol)
         .then((res) => {
           setAllowanceInfo(res);
@@ -292,6 +294,7 @@ const ApproveTokenModal = (props) => {
                   className="!px-[30px]"
                   loading={loadings.tokenLoading}
                   disabled={
+                    loadings.tokenLoading ||
                     allowanceInfo.balance === 0 ||
                     inputToken - allowanceInfo.allowance === 0
                   }

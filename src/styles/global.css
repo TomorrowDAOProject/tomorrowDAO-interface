@@ -89,6 +89,10 @@ input[type='number'] {
   @apply !bg-transparent;
 }
 
+.TMRWDAO-table-wrapper .TMRWDAO-table-tbody > .TMRWDAO-table-row > .TMRWDAO-table-cell-row-hover {
+  @apply !bg-fillBg8;
+}
+
 .TMRWDAO-table-wrapper .TMRWDAO-table-thead th.TMRWDAO-table-column-sort {
   @apply !bg-transparent;
 }
@@ -443,4 +447,8 @@ input[type='number'] {
       @apply !text-[#8CD9FF];
     }
   }
+}
+
+.Toastify__toast {
+  @apply !text-desc11 !font-Montserrat;
 }

@@ -415,7 +415,6 @@ const GovernanceModel = (props: IGovernanceModelProps) => {
             };
           }
         }
-        console.log('contractParams', contractParams);
         const methodName =
           res.proposalType === ProposalTypeEnum.VETO ? 'CreateVetoProposal' : 'CreateProposal';
         await proposalCreateContractRequest(methodName, contractParams);

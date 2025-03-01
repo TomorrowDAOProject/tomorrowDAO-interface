@@ -25,4 +25,56 @@
   .sec-md .input {
     @apply !bg-darkBg !border !border-solid !border-fillBg8 !rounded-[8px] font-Montserrat text-desc14 !text-white;
   }
+
+  .drop-wrap {
+    @apply !bg-darkBg !border !border-solid !border-fillBg8 !rounded-[8px];
+  }
+
+  .table-list.wrap .list-item {
+    @apply !bg-fillBg8;
+
+    &.active {
+      @apply !bg-fillBg16;
+    }
+  }
+
+  .header-list .list-item {
+    @apply !border-none;
+  }
+
+  .header-list .list-item:hover {
+    @apply !bg-fillBg8;
+  }
+
+  .editor-container>.section {
+    @apply !border-none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply !text-white;
+  }
+
+  p {
+    @apply !text-white;
+  }
+
+  ul {
+    @apply !text-white;
+  }
+
+  ol {
+    @apply !text-white;
+  }
+
+  blockquote {
+    @apply !text-white;
+  }
+
+  code {
+    @apply !text-white bg-fillBg8;
+  }
+
+  pre {
+    @apply !text-white bg-fillBg8;
+  }
 }
