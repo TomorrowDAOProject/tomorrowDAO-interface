@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { forwardRef, LegacyRef, ReactNode, useEffect, useState } from 'react';
+import React, { forwardRef, LegacyRef, ReactNode, useEffect, useState, useRef } from 'react';
 
 interface IInputProps {
   type?: 'text' | 'number';
@@ -45,6 +45,7 @@ const Input = (
   }: IInputProps,
   ref: LegacyRef<HTMLInputElement>,
 ) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [value, setValue] = useState(defaultValue || '');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +64,7 @@ const Input = (
     setValue('');
     onChange?.('');
     onPressEnter?.('');
+    inputRef.current?.focus();
   };
 
   useEffect(() => {
@@ -78,7 +80,14 @@ const Input = (
     >
       {prefix && <span className="text-lightGrey px-[8px]">{prefix}</span>}
       <input
-        ref={ref}
+        ref={(r) => {
+          inputRef.current = r;
+          if (typeof ref === 'function') {
+            ref(r);
+          } else if (ref) {
+            (ref as React.MutableRefObject<HTMLInputElement | null>).current = r;
+          }
+        }}
         type={type}
         value={value}
         disabled={disabled}
@@ -98,6 +107,7 @@ const Input = (
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             onPressEnter?.(value);
+            inputRef.current?.blur();
           }
         }}
         enterKeyHint={enterKeyHint}

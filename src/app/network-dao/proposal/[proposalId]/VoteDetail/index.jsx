@@ -285,7 +285,7 @@ const VoteDetail = (props) => {
         <span className="text-descM13 font-Montserrat text-white">All Votes</span>
         <Input
           className="max-w-[calc(100%-100px)] md:max-w-[406px]"
-          rootClassName="!text-desc11 !py-[10px]"
+          rootClassName="md:!text-desc11 !py-[10px]"
           placeholder="Input voter address/transaction id"
           prefix={<i className="tmrwdao-icon-search text-[16px] text-lightGrey" />}
           onPressEnter={onSearch}
