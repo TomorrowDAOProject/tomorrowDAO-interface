@@ -226,7 +226,7 @@ const ApproveTokenModal = (props) => {
       const txId = result.TransactionId || result.result.TransactionId;
       const txResult = await getTxResult(aelf, txId, 0, 6000);
       toast.info(`Transactions ${txId} is ${txResult.Status}`, {
-        icon: <i className="tmrwdao-icon-information text-[16px] text-white" />,
+        icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
       });
       getProposalAllowanceInfo(aelf, proposalId, owner, tokenSymbol)
         .then((res) => {
