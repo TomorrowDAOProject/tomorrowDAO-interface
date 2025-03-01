@@ -400,7 +400,7 @@ const NormalProposal = (props) => {
           ...loadingStatus,
           contractAddress: false,
         });
-        message.error(e.message || "Network Error!");
+        toast.error(e.message || "Network Error!");
       });
     if (isModify === true) {
       handleContractAddressChange(contractAddress);

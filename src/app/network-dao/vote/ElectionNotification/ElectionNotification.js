@@ -33,6 +33,7 @@ import { WebLoginInstance } from "@utils/webLogin";
 import { onlyOkModal } from "@components/SimpleModal/index.tsx";
 import { fetchAllCandidateInfo } from "../utils";
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
+import {toast} from 'react-toastify'
 
 const electionNotifiStatisData = {
   termEndTime: {
@@ -340,11 +341,11 @@ class ElectionNotification extends PureComponent {
         })
         .then((res = {}) => {
           if (res.error) {
-            message.error(res.errorMessage.message);
+            toast.error(res.errorMessage.message);
             return;
           }
           if (!res) {
-            message.error(UNKNOWN_ERROR_TIP);
+            toast.error(UNKNOWN_ERROR_TIP);
             return;
           }
           const transactionId = res.result
@@ -358,7 +359,7 @@ class ElectionNotification extends PureComponent {
               judgeCurrentUserIsCandidate();
             } catch (e) {
               console.log(e);
-              message.error(e.message || e.Error || "Network error");
+              toast.error(e.message || e.Error || "Network error");
             }
           }, 4000);
         })
@@ -406,11 +407,11 @@ class ElectionNotification extends PureComponent {
         })
         .then((res) => {
           if (res.error) {
-            message.error(res.error.message || res.errorMessage.message);
+            toast.error(res.error.message || res.errorMessage.message);
             return;
           }
           if (!res) {
-            message.error(UNKNOWN_ERROR_TIP);
+            toast.error(UNKNOWN_ERROR_TIP);
             return;
           }
           const transactionId = res.result
@@ -432,7 +433,7 @@ class ElectionNotification extends PureComponent {
               }
             } catch (e) {
               console.log(e);
-              message.error(e.message || e.Error || "Network error");
+              toast.error(e.message || e.Error || "Network error");
             }
           }, 4000);
         })

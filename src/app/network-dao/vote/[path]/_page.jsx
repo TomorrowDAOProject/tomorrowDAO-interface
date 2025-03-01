@@ -39,6 +39,7 @@ import addressFormat from "@utils/addressFormat";
 import { WebLoginInstance } from "@utils/webLogin";
 import { fakeWallet } from "../../_src/common/utils";
 import LinkNetworkDao from "components/LinkNetworkDao";
+import {toast} from 'react-toastify'
 
 const voteConfirmFormItemLayout = {
   labelCol: {
@@ -199,7 +200,7 @@ class VoteContainer extends Component {
     try {
       const result = await getContractAddress();
       if (!result.chainInfo) {
-        message.error(
+        toast.error(
           "The chain has stopped or cannot be connected to the chain. Please check your network or contact us.",
           10
         );
@@ -698,7 +699,7 @@ class VoteContainer extends Component {
     // no batch redeem
     const [item] = votesToRedeem;
     if (!item) {
-      message.error("No selected vote");
+      toast.error("No selected vote");
       this.setVoteConfirmLoading(false);
       this.setRedeemConfirmLoading(false);
     } else {
@@ -731,7 +732,7 @@ class VoteContainer extends Component {
           } else {
             this.setVoteConfirmLoading(false);
             this.setRedeemConfirmLoading(false);
-            message.error(errorMessage.message);
+            toast.error(errorMessage.message);
           }
         })
         .catch((err) => {
@@ -862,7 +863,7 @@ class VoteContainer extends Component {
             );
           });
         } else {
-          message.error(error.message || errorMessage.message);
+          toast.error(error.message || errorMessage.message);
           this.setState({
             voteConfirmLoading: false,
           });
@@ -947,7 +948,7 @@ class VoteContainer extends Component {
             );
           });
         } else {
-          message.error(errorMessage.message);
+          toast.error(errorMessage.message);
           this.setVoteConfirmLoading(false);
         }
       })
@@ -983,7 +984,7 @@ class VoteContainer extends Component {
               clearInterval(interval);
               return reject(error);
             } else if (result?.Status === "NODEVALIDATIONFAILED") {
-              message.error(error?.Error || error?.message);
+              toast.error(error?.Error || error?.message);
               cancelFlag = true;
               clearInterval(interval);
               return reject(error);
@@ -1003,10 +1004,10 @@ class VoteContainer extends Component {
         }, 7000);
         setTimeout(() => {
           if (!cancelFlag) {
-            message.info(
+            toast.info(
               "Temporaryly didn' get the transaction info. Please query the transaction later"
             );
-            message.info(`Your transaction id is: ${transactionId}`);
+            toast.info(`Your transaction id is: ${transactionId}`);
           }
           clearInterval(interval);
           return resolve();
@@ -1015,10 +1016,10 @@ class VoteContainer extends Component {
         setTimeout(() => {
           aelf.chain.getTxResult(transactionId, (error, result) => {
             if (!result) {
-              message.info(
+              toast.info(
                 "Temporaryly didn' get the transaction info. Please query the transaction later"
               );
-              message.info(`Your transaction id is: ${transactionId}`);
+              toast.info(`Your transaction id is: ${transactionId}`);
               reject();
               return;
             }
@@ -1125,7 +1126,7 @@ class VoteContainer extends Component {
           await this.fetchGetContractsAndProfitAmount();
         } catch (e) {
           console.log(e);
-          message.error("Error happened when getting claim amount");
+          toast.error("Error happened when getting claim amount");
         } finally {
           this.setState({
             dividendLoading: false,
@@ -1204,7 +1205,7 @@ class VoteContainer extends Component {
                 console.error("handleClaimDividendClick", err);
               });
           } else {
-            message.error(errorMessage.message);
+            toast.error(errorMessage.message);
             this.setState({
               claimLoading: {
                 ...this.state.claimLoading,

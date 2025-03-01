@@ -12,6 +12,7 @@ import { LockTwoTone } from "@ant-design/icons";
 import { connect } from "react-redux";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
+import {toast} from 'react-toastify'
 
 const { TextArea } = Input;
 
@@ -387,7 +388,7 @@ class KeyInTeamInfo extends PureComponent {
             if (+res.code === 0) {
               this.props.navigate(`/vote/team?pubkey=${publicKey}`);
             } else {
-              message.error(res.msg);
+              toast.error(res.msg);
             }
           });
         });

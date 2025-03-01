@@ -11,6 +11,7 @@ import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import { useParams } from 'next/navigation';
 import { SkeletonLine } from 'components/Skeleton';
 import ProgressBar from 'components/Progress';
+import { toast } from 'react-toastify';
 
 interface IHeaderInfoProps {
   proposalDetailData?: IProposalDetailData;
@@ -143,7 +144,7 @@ const VoteInfo = (props: IHeaderInfoProps) => {
     loading: daoLoading,
   } = useRequest(async () => {
     if (!aliasName) {
-      message.error('aliasName is required');
+      toast.error('aliasName is required');
       return null;
     }
     return fetchDaoInfo({ alias: aliasName, chainId: curChain });
