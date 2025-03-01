@@ -7,6 +7,7 @@ import { useRequest } from 'ahooks';
 import breadCrumb from 'utils/breadCrumb';
 import { fetchDaoInfo } from 'api/request';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 interface ITreasuryDetailsProps {
   aliasName: string;

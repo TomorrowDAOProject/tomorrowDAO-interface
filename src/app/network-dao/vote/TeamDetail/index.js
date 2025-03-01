@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 import "./index.css";
 import addressFormat from '@utils/addressFormat';
 import CopyButton from "@components/CopyButton/CopyButton";
+import {toast} from 'react-toastify'
 
 const { Paragraph } = Typography;
 
