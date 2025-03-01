@@ -8,7 +8,6 @@ import "./index.css";
 import CopyButton from "@components/CopyButton/CopyButton";
 import { explorer, mainExplorer } from "config";
 import { useChainSelect } from "hooks/useChainSelect";
-import { toast } from "react-toastify";
 
 const checkName = (name: string) => {
   if (name === "-1") {

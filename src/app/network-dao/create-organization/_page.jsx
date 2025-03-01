@@ -31,7 +31,6 @@ import { getTokenList, getContract, sleep } from "@common/utils";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
-import { toast } from "react-toastify";
 
 
 const { Switch: ConditionSwitch, Case } = ReactIf;
