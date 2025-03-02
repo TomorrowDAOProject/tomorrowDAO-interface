@@ -289,7 +289,7 @@ class MyWalletCard extends PureComponent {
           <Button
             type="primary"
             size="small"
-            className="my-wallet-card-body-wallet-content-withdraw-btn font-Montserrat w-[46px] h-[20px] leading-[20px] text-[11px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+            className="my-wallet-card-body-wallet-content-withdraw-btn !inline-block font-Montserrat w-[46px] h-[20px] leading-[20px] !text-[11px] !px-[2px] !py-[2px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             disabled={isActivityBrowser()}
             onClick={handleDividendClick}
           >
@@ -323,20 +323,9 @@ class MyWalletCard extends PureComponent {
               <h2 className="my-wallet-card-header-title !text-white font-Montserrat text-[12px] font-medium">
                 My Wallet
               </h2>
-              <div>
-                {!isActivityBrowser() &&
-                  !currentWallet?.address && (
-                    <Button
-                      type="primary"
-                      className="my-wallet-card-header-sync-btn font-Montserrat login-btn !rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
-                      onClick={this.loginOrUnlock}
-                    >
-                      <i className="tmrwdao-icon-profile text-[16px] text-inherit mr-[6px]"></i>
-                      Log in
-                    </Button>
-                  )}
+              <div className="flex items-center">
                 <Button
-                  className="my-wallet-card-header-sync-btn font-Montserrat refresh-btn hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                  className="font-Montserrat refresh-btn hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                   disabled={!currentWallet?.address}
                   onClick={this.handleUpdateWalletClick}
                   size="small"
@@ -344,6 +333,17 @@ class MyWalletCard extends PureComponent {
                   <IconFont type="reload" />
                   Refresh
                 </Button>
+                {!isActivityBrowser() &&
+                  !currentWallet?.address && (
+                    <Button
+                      type="primary"
+                      className="login-btn leading-[20px] !py-[4px] font-Montserrat !rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                      onClick={this.loginOrUnlock}
+                    >
+                      <i className="tmrwdao-icon-profile text-[16px] text-inherit mr-[6px]"></i>
+                      Log in
+                    </Button>
+                  )}
               </div>
             </div>
             <div className="my-wallet-card-body-wallet-title">
