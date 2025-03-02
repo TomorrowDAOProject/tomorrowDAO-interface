@@ -43,17 +43,6 @@
   height: 12px;
 }
 
-.my-wallet-card-header-sync-btn {
-  display: flex;
-  align-items: center;
-  float: right;
-}
-
-.my-wallet-card-header-sync-btn .antExplorericon.antExplorericon-sync {
-  display: flex;
-  align-items: center;
-}
-
 .my-wallet-card-body {
   display: flex;
 }
@@ -168,7 +157,7 @@
 }
 
 .my-wallet-card .login-btn {
-  font-size: 12px;
+  font-size: 12px !important;
   margin-left: 8px;
   border-radius: 4px;
   display: flex;
