@@ -84,7 +84,7 @@ function getColumns() {
       ...this.getColumnSearchProps("name"),
       render: (text, record) => (
         // todo: consider to extract the component as a independent component
-        <Tooltip title={text} className="max-w-[150px] w-[150px]">
+        <Tooltip title={text} className="max-w-[150px] !w-[150px] !p-[2px] !text-[11px]">
           <LinkNetworkDao
             href={{
               pathname: "/vote/team",
@@ -329,7 +329,6 @@ class VoteModal extends Component {
               >
                 <Table
                   size="middle"
-                  className="relative left-[-14px]"
                   dataSource={switchableVoteRecords}
                   columns={columns}
                   rowSelection={switchVoteRowSelection}
@@ -557,6 +556,7 @@ class VoteModal extends Component {
             type="primary"
             className="w-full h-[40px] rounded-[42px] bg-mainColor text-white font-Montserrat border border-solid border-borderColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             onClick={this.handleOk}
+            loading={voteConfirmLoading}
           >
             OK
           </Button>
