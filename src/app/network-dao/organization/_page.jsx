@@ -145,7 +145,8 @@ const OrganizationList = () => {
               className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg mr-[18px] md:mr-[38px]"
             >
               <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat !rounded-[42px] px-[10px] py-[6px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
-                Create Organisation
+                <span className="hidden md:block">Create Organisation</span>
+                <span className="block md:hidden">Create</span>
               </LinkNetworkDao>
             </div>
           ) : null

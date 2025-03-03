@@ -110,7 +110,7 @@
 }
 
 .card-header {
-  padding: 10px 10px 10px 10px;
+  padding: 10px;
   margin-bottom: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   font-size: 18px;
@@ -135,7 +135,14 @@
   }
 
   .team-detail .team-detail-header .card-container-left .team-detail-team-avatar-info .team-avatar-container {
-    padding-top: 12px;
+    min-height: 100px;
+    margin-bottom: 30px;
+  }
+
+  .team-detail .team-detail-header .card-container-left .team-detail-team-avatar-info .team-avatar-container .TMRWDAO-avatar {
+    display: inline-block;
+    height: 100px !important;
+    line-height: 100px !important;
   }
 
   .team-detail .team-detail-header .card-container-left .team-detail-team-avatar-info .team-detail-team-info {
@@ -166,7 +173,8 @@
   }
 
   .team-detail .team-detail-header .card-container-right {
-    display: none;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 }
 

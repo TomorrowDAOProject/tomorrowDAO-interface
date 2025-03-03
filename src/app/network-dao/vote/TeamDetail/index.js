@@ -371,7 +371,7 @@ class TeamDetail extends PureComponent {
               </Col>
             </Row>
           </Col>
-          <Col md={6} xs={0} className="card-container-right">
+          <Col md={6} sm={24}  xs={24} className="card-container-right">
             <Button
               className="w-[80px] mb-[6px] text-center vote-btn text-white !bg-mainColor !rounded-[8px] !border border-solid !border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
               type="primary"

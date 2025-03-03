@@ -266,7 +266,7 @@ input[type='number'] {
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-thead > tr > th,
 .TMRWDAO-table-wrapper .TMRWDAO-table-tbody > tr > td {
-  @apply border-0 !border-b-[1px] !border-solid !border-b-fillBg8 text-desc10 font-normal font-Montserrat;
+  @apply border-0 !border-b-[1px] !border-solid !border-b-fillBg8 text-desc11 font-normal font-Montserrat;
 }
 
 .TMRWDAO-table-wrapper .TMRWDAO-table-tbody > tr.TMRWDAO-table-measure-row > td {
