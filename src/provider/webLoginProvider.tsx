@@ -186,7 +186,12 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
 
   const config: IConfigProps = {
     didConfig,
-    baseConfig,
+    baseConfig: {
+      ...baseConfig,
+      PortkeyProviderProps: {
+        theme: 'dark',
+      },
+    },
     wallets,
   };
 

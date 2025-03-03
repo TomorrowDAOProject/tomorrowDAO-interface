@@ -93,6 +93,7 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
       >
         <DayPicker
           mode="single"
+          captionLayout="dropdown"
           selected={new Date(selected)}
           onSelect={(date) => date && setSelected(dayjs(date).format('YYYY-MM-DD'))}
           disabled={
