@@ -99,3 +99,25 @@
     @apply !bg-transparent !text-mainColor;
   }
 }
+.dao-detail-content-left {
+  .TMRWDAO-spin-container {
+    .TMRWDAO-list-item {
+      @apply p-0;
+      .TMRWDAO-skeleton {
+        @apply border border-solid border-fillBg8 bg-darkBg mb-[25px] rounded-[8px] px-[32px] py-[22px];
+        .TMRWDAO-skeleton-content .TMRWDAO-skeleton-title + .TMRWDAO-skeleton-paragraph {
+          margin-block-start: 14px;
+        }
+        .TMRWDAO-skeleton-content .TMRWDAO-skeleton-paragraph > li + li {
+          margin-block-start: 14px;
+        }
+        .TMRWDAO-skeleton-title {
+          @apply bg-darkGray h-[20px];
+        }
+        .TMRWDAO-skeleton-paragraph > li {
+          @apply bg-darkGray h-[20px];
+        }
+      }
+    }
+  }
+}

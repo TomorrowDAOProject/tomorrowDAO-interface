@@ -270,10 +270,11 @@ export default function Discussion(props: IDiscussionProps) {
             <Button
               type="primary"
               onClick={handleSendComment}
-              className={clsx('send-button flex gap-[10px]', {
+              className={clsx('send-button flex gap-[10px] disabled:border-fillBg8', {
                 disabled: disabled,
               })}
               loading={addCommentLoading}
+              disabled={Boolean(disabled)}
             >
               <span>Send it</span>
               <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
