@@ -52,7 +52,7 @@ class RedeemAnVoteModal extends PureComponent {
     return (
       <Modal
         title="Redeem The Vote"
-        rootClassName="!max-w-[calc(100vw-12px)] !max-h-[calc(100vh-44px)] p-[22px] md:!py-[30px] md:!px-[38px]"
+        rootClassName="!max-w-[740px] !max-h-[calc(100vh-44px)] p-[22px] md:!py-[30px] md:!px-[38px]"
         isVisible={redeemOneVoteModalVisible}
         onClose={() => {
           changeVoteState({

@@ -33,7 +33,7 @@ function genMyVoteRecordsCols() {
       render: (text, record) => (
         <Tooltip title={text}>
           <LinkNetworkDao
-            className="text-desc10 font-Montserrat text-white hover:text-mainColor"
+            className="text-desc11 font-Montserrat text-white hover:text-mainColor"
             href={{
               pathname: '/vote/team',
               query: {
@@ -103,7 +103,7 @@ function genMyVoteRecordsCols() {
         <Button
           type="default"
           size="small"
-          className="!py-[2px] !px-1 !rounded-[4px] !text-[8px] !font-Montserrat"
+          className="!py-[2px] !px-1 !rounded-[4px] !text-desc10 !font-Montserrat"
           data-role="redeemOne"
           data-nodeaddress={publicKeyToAddress(record.candidate)}
           data-nodename={record.nane || publicKeyToAddress(record.candidate)}
