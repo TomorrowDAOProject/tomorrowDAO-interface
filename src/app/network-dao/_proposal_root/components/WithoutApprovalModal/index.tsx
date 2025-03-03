@@ -102,7 +102,6 @@ const getMessage = (props: IModalProps, isSideChain: boolean) => {
       return (
         <div className="w-full">
           <div className="flex items-center justify-center gap-2">
-            <i className="tmrwdao-icon-circle-add text-[30px] text-white rotate-45" />
             <span className="font-Unbounded text-[15px] font-light -tracking-[0.6px] text-white">
               {`${title || `Transaction pre-validation failed!`}`}
             </span>
