@@ -50,32 +50,30 @@ const getMessageByExec = (props: IModalProps, isSideChain: Boolean) => {
   switch (execution) {
     case 2:
       return (
-        <div className="execution-loading">
+        <div className="font-Unbounded text-[15px] font-light -tracking-[0.6px] text-white text-center">
           {`Executing contract  ${isUpdate ? "update" : "deployment"}...`}
         </div>
-      );
+      ); 
     case 0:
       return (
-        <div className="execution-success">
-          <div className="title">
-            <CheckCircleFilled className="circle-icon check" />
-            <span className="success-message">{`The contract is ${
+        <div className="w-full">
+          <div className="flex items-center justify-center gap-2">
+            <span className="font-Unbounded text-[15px] font-light -tracking-[0.6px] text-white text-center">{`The contract is ${
               isUpdate ? "updated" : "deployed"
             }!`}</span>
           </div>
-          <div className="content">{message}</div>
+          <div className="mt-[30px] font-Montserrat text-desc12 text-white">{message}</div>
         </div>
       );
     case 1:
       return (
-        <div className="execution-fail">
-          <div className="title">
-            <CloseCircleFilled className="circle-icon close" />
-            <span className="fail-message">
+        <div className="w-full">
+          <div className="flex items-center justify-center gap-2">
+            <span className="font-Unbounded text-[15px] font-light -tracking-[0.6px] text-white text-center">
               {`Contract ${isUpdate ? "update" : "deployment"}  failure！`}
             </span>
           </div>
-          <div className="content">{message}</div>
+          <div className="mt-[30px] font-Montserrat text-desc12 text-white">{message}</div>
           <CopylistItem
             label="Transaction ID"
             value={transactionId}
