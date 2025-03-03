@@ -43,5 +43,5 @@
   }
 }
 .send-tool-tip .TMRWDAO-tooltip-inner {
-  @apply flex items-center;
+  @apply flex items-center font-Montserrat;
 }
