@@ -93,7 +93,7 @@ function getColumns() {
               }
             }}
             replaceStart="vote"
-            className="node-name-in-table"
+            className="node-name-in-table text-white font-Montserrat !text-[11px]"
             // style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}
             style={{ width: 150 }}
             onClick={() => {
@@ -328,7 +328,7 @@ class VoteModal extends Component {
                 ]}
               >
                 <Table
-                  size="middle"
+                  size="small"
                   dataSource={switchableVoteRecords}
                   columns={columns}
                   rowSelection={switchVoteRowSelection}
