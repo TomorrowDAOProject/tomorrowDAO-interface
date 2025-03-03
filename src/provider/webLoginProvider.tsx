@@ -21,6 +21,7 @@ import {
   rpcUrlTDVW,
 } from 'config';
 import { useEffect, useMemo } from 'react';
+import useResponsive from 'hooks/useResponsive';
 // import './telegram';
 
 type TNodes = {
@@ -76,6 +77,7 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
 
   const pathName = usePathname();
   const isNetWorkDao = pathName.startsWith(NetworkDaoHomePathName);
+  const { isMD } = useResponsive();
 
   const getChainId = () => {
     if (isNetWorkDao) {
@@ -192,7 +194,7 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
         theme: 'dark',
       },
     },
-    wallets,
+    wallets: isMD ? wallets.filter((x) => !['NightElf'].includes(x.name)) : wallets,
   };
 
   useEffect(() => {
