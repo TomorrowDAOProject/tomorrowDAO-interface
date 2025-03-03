@@ -198,7 +198,7 @@ function Vote(props: TVoteTypes) {
       <Button
         type="primary"
         size="medium"
-        className="!bg-mainColor flex-1 font-Montserrat hover:!bg-transparent hover:!border-mainColor hover:!text-mainColor disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
+        className="!bg-mainColor flex-1 font-Montserrat hover:!bg-transparent hover:!border-mainColor hover:!text-mainColor disabled:!text-lightGrey border border-solid disabled:!border-fillBg8 disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.APPROVED)}
         disabled={!canVote}
       >
@@ -207,7 +207,7 @@ function Vote(props: TVoteTypes) {
       <Button
         type="warning"
         size="medium"
-        className="bg-[#FF485D] hover:!bg-[#FF485D] flex-1 hover:!bg-transparent hover:!border-[#FF485D] hover:!text-[#FF485D] font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
+        className="bg-[#FF485D] hover:!bg-[#FF485D] flex-1 hover:!bg-transparent hover:!border-[#FF485D] hover:!text-[#FF485D] font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-fillBg8 disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.REJECTED)}
         disabled={!canVote}
       >
@@ -216,7 +216,7 @@ function Vote(props: TVoteTypes) {
       <Button
         type="default"
         size="medium"
-        className="bg-fillBg8 text-lightGrey hover:!bg-fillBg8 flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-lightGrey disabled:!bg-fillBg8 !rounded-[42px]"
+        className="!bg-fillBg8 text-lightGrey hover:!bg-transparent flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-fillBg8 disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.ABSTAINED)}
         disabled={!canVote}
       >
