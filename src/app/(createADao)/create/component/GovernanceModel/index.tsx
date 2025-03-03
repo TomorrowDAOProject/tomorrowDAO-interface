@@ -18,6 +18,7 @@ const GovernanceModel = () => {
       minimalApproveThreshold: '50',
       proposalThreshold: '',
     },
+    mode: 'onChange',
   });
   const {
     control,
