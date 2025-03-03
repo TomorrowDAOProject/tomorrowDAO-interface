@@ -289,7 +289,7 @@ class MyWalletCard extends PureComponent {
           <Button
             type="primary"
             size="small"
-            className="my-wallet-card-body-wallet-content-withdraw-btn !inline-block font-Montserrat w-[46px] h-[20px] leading-[20px] !text-[11px] !px-[2px] !py-[2px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+            className="my-wallet-card-body-wallet-content-withdraw-btn !inline-block font-Montserrat w-[46px] h-[20px] !leading-[14px] !text-[11px] !px-[2px] !py-[2px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             disabled={isActivityBrowser()}
             onClick={handleDividendClick}
           >
