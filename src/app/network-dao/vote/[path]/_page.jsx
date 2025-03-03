@@ -1270,13 +1270,13 @@ class VoteContainer extends Component {
   renderSecondaryLevelNav() {
     const { pagePath } = this.props;
     return (
-      <section className="h-[56px] vote-container vote-container-simple basic-container basic-container-white vote-menu">
-        <Menu selectedKeys={pagePath} mode="horizontal" className="h-[56px] rounded-t-lg bg-darkBg border-b border-solid border-borderColor">
+      <section className="sm:h-[46px] md:h-[56px] vote-container vote-container-simple basic-container basic-container-white vote-menu">
+        <Menu selectedKeys={pagePath} mode="horizontal" className="sm:h-[46px] md:h-[56px] rounded-t-lg bg-darkBg border-b border-solid border-borderColor">
           <Menu.Item
             key={allowPathMap.election}
             className="!px-[48px] relative left-[-17px]"
           >
-            <LinkNetworkDao href="/vote/election" className="h-[56px] leading-[56px] !text-white font-medium font-Montserrat">
+            <LinkNetworkDao href="/vote/election" className="sm:h-[46px] md:h-[56px] sm:leading-[46px]  md:leading-[56px] !text-white font-medium font-Montserrat">
               Election Notification
             </LinkNetworkDao>
             
@@ -1285,7 +1285,7 @@ class VoteContainer extends Component {
             key={allowPathMap.myvote}
             className="!px-[48px] relative left-[-17px]"
           >
-            <LinkNetworkDao href="/vote/myvote" className="h-[56px] leading-[56px] !text-white font-medium font-Montserrat">
+            <LinkNetworkDao href="/vote/myvote" className="sm:h-[46px] md:h-[56px] sm:leading-[46px]  md:leading-[56px] !text-white font-medium font-Montserrat">
               My Vote
             </LinkNetworkDao>
           </Menu.Item>
