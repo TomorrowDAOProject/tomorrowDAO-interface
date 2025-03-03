@@ -164,10 +164,6 @@
   @apply text-white bg-darkBg text-center text-[20px] font-Unbounded;
 }
 
-.node-vote-modal .TMRWDAO-table-wrapper {
-  max-width: 90% !important;
-}
-
 .node-vote-modal .TMRWDAO-tabs .TMRWDAO-tabs-tab {
   @apply pl-[0px];
 }
@@ -238,6 +234,10 @@
 }
 
 @media screen and (max-width: 576px) {
+  .node-vote-modal .TMRWDAO-table-wrapper {
+    max-width: 90% !important;
+  }
+
   .node-vote-modal .TMRWDAO-tabs-nav-list {
     @apply block;
   }
