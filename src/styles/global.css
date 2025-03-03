@@ -458,7 +458,7 @@ input[type='number'] {
 }
 
 .Toastify__toast {
-  @apply !text-desc11 !font-Montserrat border border-solid border-fillBg8 bg-borderColor;
+  @apply !text-desc11 !font-Montserrat border border-solid border-fillBg8 bg-borderColor !w-auto;
 }
 
 .Toastify__toast-icon {
