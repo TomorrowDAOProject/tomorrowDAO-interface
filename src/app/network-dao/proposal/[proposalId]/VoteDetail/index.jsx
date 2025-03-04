@@ -254,9 +254,9 @@ const VoteDetail = (props) => {
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <span className="text-descM13 font-Montserrat text-white">Token Voted:</span>
-                <span>
+                <span className="text-white font-Montserrat">
                   {personVote.left}
-                  <Tag color="blue">{symbol}</Tag> left
+                  <Tag className="mx-1" color="blue">{symbol}</Tag> left
                 </span>
               </div>
               <Button
