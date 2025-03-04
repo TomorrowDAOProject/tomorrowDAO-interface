@@ -6,5 +6,6 @@ import Reddit from './reddit.svg';
 import station from './station.svg';
 import Telegram from './telegram.svg';
 import Twitter from './x.svg';
+import Others from './others.svg';
 
-export { Discord, Facebook, Github, Medium, Reddit, station, Telegram, Twitter };
+export { Discord, Facebook, Github, Medium, Reddit, station, Telegram, Twitter, Others };

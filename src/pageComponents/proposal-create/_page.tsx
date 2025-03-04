@@ -1,6 +1,6 @@
 'use client';
 import { memo, useEffect } from 'react';
-import { Result } from 'antd';
+import Result from 'components/Result';
 import { useParams } from 'next/navigation';
 import DeployForm from './DeployForm';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
@@ -15,16 +15,24 @@ const ProposalDeploy = () => {
   useEffect(() => {
     breadCrumb.updateCreateProposalPage(aliasName);
   }, [aliasName]);
-  return walletInfo ? (
-    <div className="deploy-form">
-      <DeployForm aliasName={aliasName} />
-    </div>
-  ) : (
-    <Result
-      className="px-4 lg:px-8"
-      status="warning"
-      title="Please log in before creating a proposal"
-    />
+  return (
+    <>
+      {walletInfo ? (
+        <div className="deploy-form">
+          <DeployForm aliasName={aliasName} />
+        </div>
+      ) : (
+        <Result
+          className="px-4 lg:px-8 !font-Montserrat !text-white"
+          status="warning"
+          title={
+            <span className="text-white font-Montserrat font-medium">
+              Please log in before creating a proposal
+            </span>
+          }
+        />
+      )}
+    </>
   );
 };
 

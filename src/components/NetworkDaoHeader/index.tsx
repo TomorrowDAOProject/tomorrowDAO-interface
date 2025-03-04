@@ -2,12 +2,11 @@
 import { HeaderLogo } from 'components/Logo';
 import './index.css';
 import { PCMenu } from 'components/Menu';
-import { Select, SelectProps } from 'antd';
+import Select from 'components/Select';
 import qs from 'query-string';
 import Link from 'next/link';
 import useResponsive from 'hooks/useResponsive';
 import { MobileMenu } from 'components/Menu';
-import { ReactComponent as MenuArrow } from 'assets/imgs/menu-arrow.svg';
 import { MenuProps } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -99,10 +98,9 @@ export default function Header() {
     const chainId = (searchParams.chainId ?? 'AELF') as string;
     setSelectedChain(chainId);
   }, []);
-  const handleChange: SelectProps['onChange'] = (obj) => {
-    console.log('obj', obj);
+  const handleChange = (obj: string | number) => {
     const url = new URL(window.location.protocol + window.location.host + `/network-dao`);
-    url.searchParams.set('chainId', obj);
+    url.searchParams.set('chainId', obj.toString());
     window.history.replaceState({}, '', url.toString());
     window.location.reload();
   };
@@ -110,32 +108,33 @@ export default function Header() {
   return (
     <header className="header-container networkdao-header-container">
       <div className="header-banner">
-        <div className="header-logo">
-          <div className="header-menu">
+        <div className="header-logo flex items-center justify-between">
+          <div className="">
             <Link href="/">
-              <HeaderLogo />
+              <HeaderLogo isSmall={!isLG} />
             </Link>
-            {!isLG && (
-              <PCMenu
-                overflowedIndicatorPopupClassName="network-dao-menu-pop"
-                selectedKeys={[current]}
-                items={items}
-                onClick={onClick}
-              />
-            )}
           </div>
+          {!isLG && (
+            <PCMenu
+              overflowedIndicatorPopupClassName="network-dao-menu-pop"
+              selectedKeys={[current]}
+              items={items}
+              onClick={onClick}
+            />
+          )}
           <div className="flex items-center">
             <div className="chain-id-select-wrap">
               <Select
                 value={selectedChain}
-                onChange={handleChange}
+                onChange={(val) => handleChange(val.value)}
                 options={chainIdSelect.map((item) => {
                   return {
                     ...item,
-                    label: isLG ? item.label?.split(' ')?.[0] ?? item.label : item.label,
+                    label: item.label,
                   };
                 })}
-                className="chain-id-select"
+                className="!rounded-[42px] border-white h-[32px] px-[12px] font-medium"
+                iconClassName="!ml-0"
               />
             </div>
             <DynamicLogin isNetWorkDao={true} />

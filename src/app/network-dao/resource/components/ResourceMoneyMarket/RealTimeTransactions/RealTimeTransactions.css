@@ -9,32 +9,36 @@
 
 .real-time-transactions .real-time-transactions-body {
   padding-top: 4px;
-  color: #000;
-  background: #ffffff;
+  color: white;
+  background: transparent;
   padding-bottom: 16px;
   min-height: 268px;
 }
+.real-time-transactions .table-head .antExplorer-col {
+  @apply font-Montserrat text-[12px] text-lightGrey;
+}
 
 .real-time-transactions .antExplorer-col {
-  font-size: inherit;
+  @apply font-Montserrat text-[12px] text-white;
+  a {
+    @apply text-white;
+  }
 }
 
 .real-time-transactions .real-time-transactions-body .table-head {
-  background: var(--Neutral-Hover-BG, #FAFAFA);
+  @apply font-Montserrat text-lightGrey border-0 border-b border-solid border-fillBg8 ;
+  background: transparent;
   height: 48px;
   margin-bottom: 8px;
-  color: #000;
   text-align: center;
   font-size: 12px;
-  color: var(--Neutral-Secondary-Text, #919191);
-  font-family: Roboto;
-  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 20px;
 }
 
 .real-time-transactions .real-time-transactions-body .table-sell {
+  @apply border-0 border-b border-solid border-fillBg8;
   color: #000;
   text-align: center;
   font-size: 12px;
@@ -54,10 +58,10 @@
 
 .real-time-transactions .real-time-transactions-body .table-sell .antExplorer-col {
   white-space: nowrap;
-  font-size: inherit;
 }
 
 .real-time-transactions .real-time-transactions-body .table-buy {
+  @apply border-0 border-b border-solid border-fillBg8;
   color: #000;
   text-align: center;
   font-size: 12px;
@@ -81,10 +85,8 @@
 
 @media screen and (max-width: 768px) {
   .real-time-transactions .real-time-transactions-body .table-head {
-    background-color: #f7f8f9;
     height: 48px;
     margin-bottom: 8px;
-    color: #000;
     text-align: center;
     font-weight: 300;
     font-size: 9px;
@@ -102,13 +104,9 @@
     
   }
   .buy-tag {
-    border: 1px rgba(56, 136, 255, 0.40);
-    background: var(--Approve-Approve-Container, #EBF3FF);
-    color: var(--Approve-Approve, #3888FF);
+    @apply text-white bg-mainColor border border-solid border-fillBg8 font-medium;
   }
   .sell-tag {
-    border: 1px rgba(245, 93, 110, 0.40);
-    background: var(--Reject-Reject-Container, #FEEFF1);
-    color: var(--Reject-Reject, #F55D6E);
+   @apply border border-solid border-fillBg8 font-medium bg-[rgba(255,55,77,0.15)] text-[#FF485D];
   }
 }

@@ -1,6 +1,5 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { fetchToken } from 'api/request';
-import { message } from 'antd';
 import useDiscoverProvider from './useTokenDiscoverProvider';
 import { sleep } from '@portkey/utils';
 import { IContractError } from 'types';
@@ -11,6 +10,7 @@ import { getLocalJWT } from 'utils/localJWT';
 import { curChain, networkType } from 'config';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
+import { toast } from 'react-toastify';
 
 const AElf = require('aelf-sdk');
 
@@ -50,7 +50,7 @@ export const useGetToken = () => {
             retryCount: retry,
           });
         } else {
-          message.error('Failed to obtain authorization token');
+          toast.error('Failed to obtain authorization token');
           isConnectWallet && disConnectWallet();
           needLoading && emitLoading(false);
           return null;
@@ -99,7 +99,7 @@ export const useGetToken = () => {
       } catch (error) {
         const resError = error as IContractError;
         const errorMessage = formatErrorMsg(resError).errorMessage.message;
-        message.error(errorMessage);
+        toast.error(errorMessage);
         isConnectWallet && disConnectWallet();
         return null;
       }
@@ -115,7 +115,7 @@ export const useGetToken = () => {
       if (sign?.errorMessage) {
         const errorMessage = formatErrorMsg(sign?.errorMessage as unknown as IContractError)
           .errorMessage.message;
-        message.error(errorMessage);
+        toast.error(errorMessage);
         isConnectWallet && disConnectWallet();
         return null;
       }

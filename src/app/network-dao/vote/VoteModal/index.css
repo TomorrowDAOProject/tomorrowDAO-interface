@@ -37,7 +37,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  overflow: hidden;
   background: #fff;
   padding: 10px;
 }
@@ -150,4 +149,99 @@
   box-shadow: 0 0 0 2px rgba(92, 40, 169, 0.3);
   border-color: #266cd3;
   outline: none;
+}
+
+.node-vote-modal .TMRWDAO-modal-content {
+  @apply bg-darkBg overflow-hidden;
+}
+
+.node-vote-modal .TMRWDAO-modal-close-icon {
+  @apply text-white;
+}
+
+.node-vote-modal .TMRWDAO-modal-title {
+  font-weight: 300;
+  @apply text-white bg-darkBg text-center text-[20px] font-Unbounded;
+}
+
+.node-vote-modal .TMRWDAO-tabs .TMRWDAO-tabs-tab {
+  @apply pl-[0px];
+}
+
+.node-vote-modal .TMRWDAO-tabs-nav {
+  @apply mt-[20px];
+}
+
+.node-vote-modal .TMRWDAO-tabs-nav::before {
+  @apply !border-none mt-[20px];
+}
+
+.node-vote-modal .TMRWDAO-tabs-ink-bar {
+  display: none;
+}
+
+.node-vote-modal .TMRWDAO-tabs-tab-btn input {
+  @apply accent-mainColor;
+}
+
+.node-vote-modal .TMRWDAO-tabs-tab-btn label {
+  @apply text-white text-[13px] font-Montserrat;
+}
+
+.node-vote-modal .TMRWDAO-form-item-label {
+  text-align: left !important;
+}
+
+.node-vote-modal .TMRWDAO-form-item-label > label {
+  text-align: start !important;
+  @apply !text-white !text-[13px] !font-Montserrat !font-medium;
+}
+
+.node-vote-modal .TMRWDAO-form-item-explain-error {
+  @apply !text-mainColor;
+}
+
+.node-vote-modal .antExplorer-input-number-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.node-vote-modal .TMRWDAO-input-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.node-vote-modal .TMRWDAO-form-item-required::before {
+  @apply !text-white;
+}
+
+.TMRWDAO-form-item-control-input-content > div > span:first-child {
+  @apply flex-1;
+}
+
+.vote-lock-data-picker {
+  @apply w-full !text-lightGrey !text-[14px] font-Montserrat !bg-darkBg border border-solid border-borderColor py-[12px];
+}
+
+.vote-lock-data-picker:hover {
+  @apply border border-solid border-borderColor;
+}
+
+.vote-lock-data-picker input::placeholder {
+  @apply !text-lightGrey !text-[14px] font-Montserrat;
+}
+
+.vote-lock-data-picker .TMRWDAO-picker-suffix {
+  @apply text-lightGrey text-[20px];
+}
+
+@media screen and (max-width: 576px) {
+  .node-vote-modal .TMRWDAO-table-wrapper {
+    max-width: 90% !important;
+  }
+
+  .node-vote-modal .TMRWDAO-tabs-nav-list {
+    @apply block;
+  }
+  .node-vote-modal .TMRWDAO-tabs .TMRWDAO-tabs-tab {
+    @apply block !m-0;
+  }
 }

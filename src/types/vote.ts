@@ -4,7 +4,7 @@ export enum EVoteOption {
   ABSTAINED = 2,
 }
 export const EVoteOptionLabel: Record<EVoteOption, string> = {
-  [EVoteOption.APPROVED]: 'Approve',
+  [EVoteOption.APPROVED]: 'Approved',
   [EVoteOption.REJECTED]: 'Reject',
   [EVoteOption.ABSTAINED]: 'Abstain',
 };

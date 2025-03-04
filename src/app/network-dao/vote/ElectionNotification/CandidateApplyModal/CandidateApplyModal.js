@@ -8,8 +8,8 @@
  */
 import React, { PureComponent, forwardRef } from "react";
 import AElf from "aelf-sdk";
-import { QuestionCircleOutlined } from "@ant-design/icons";
-import { Form, Input, Modal, Tooltip } from "antd";
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { Button, Divider, Form, Modal, Tooltip, Row, Col } from "antd";
 import { RUN_INDIVIDUAL_NODES_TIP, SYMBOL } from "@src/constants";
 import {
   ELECTION_MORTGAGE_NUM_STR,
@@ -22,7 +22,7 @@ import { NETWORK_TYPE } from "@config/config";
 import { connect } from "react-redux";
 import "./CandidateApplyModal.style.css";
 import addressFormat from "@utils/addressFormat";
-import IconFont from "@components/IconFont";
+import Input from 'components/Input';
 
 const handleStrToArr = (str) => {
   const arr = str.split(",");
@@ -56,7 +56,7 @@ function generateCandidateApplyForm(currentWallet) {
             <Tooltip
               title={`You cannot redeem the staked ${SYMBOL} until you quit the election and your last term ends.`}
             >
-              <QuestionCircleOutlined />
+              <InfoCircleOutlined className="!text-lightGrey" />
             </Tooltip>
           </span>
         ),
@@ -139,32 +139,36 @@ class CandidateApplyModal extends PureComponent {
             ref={ref}
             {...props}
             placeholder="Please enter admin address"
+            className="w-[90%] inline-block bg-darkBg text-lightGrey border-borderColor placeholder:text-lightGrey hover:bg-darkBg hover:border-borderColor focus:bg-darkBg"
           />
           <Tooltip
             className="candidate-admin-tip"
             title="Admin account has the right to replace candidate node's public key, set/change the reward receiving address, and quit the node election. If you are running a node yourself, you can set your own node address as the admin. If you are operating a node on other's behalf, please decide whether you need to assign this role to some other addresses."
           >
-            <QuestionCircleOutlined />
+            <InfoCircleOutlined className="!text-lightGrey ml-[6px]" />
           </Tooltip>
         </>
       );
     });
     return (
       <Modal
-        className="apply-node-modal"
+        className="apply-node-modal candidate-apply-modal"
         destroyOnClose
         getContainer={document.querySelector("#portkey-ui-root")}
         title={`Apply to Become a Candidate Node ${NETWORK_TYPE === "MAIN" ? "" : "on the Testnet"
           } `}
         visible={visible}
+        open={visible}
         okText="Apply Now"
-        onOk={this.handleOk}
+        // onOk={this.handleOk}
         onCancel={onCancel}
+        footer={null}
         centered
         maskClosable
         keyboard
         width={725}
       >
+        <Divider className="mt-[30px] mb-[25px] bg-borderColor" />
         <Form ref={this.formRef}>
           {candidateApplyForm.formItems &&
             candidateApplyForm.formItems.map((item) => {
@@ -183,33 +187,43 @@ class CandidateApplyModal extends PureComponent {
             <TooltipInput />
           </Form.Item>
         </Form>
-        <p className="tip-color">
-          <IconFont type="circle-warning" />
-          <strong>Important Notice:</strong>
-          <span className="notice-text">
-            <div>{RUN_INDIVIDUAL_NODES_TIP}</div>
-            {/* {NETWORK_TYPE === "MAIN" ? (
-            <>
-              <strong>Important Notice:</strong> <div>{RUN_INDIVIDUAL_NODES_TIP}</div>
-            </>
-          ) : null} */}
-            <div>
-              Please read the{" "}
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={
-                  NETWORK_TYPE === "MAIN"
-                    ? "https://docs.aelf.io/en/latest/tutorials/mainnet.html"
-                    : "https://docs.aelf.io/en/latest/tutorials/testnet.html"
-                }
-              >
-                dev docs
-              </a>{" "}
-              for instructions on node deployment.
+        <Divider className="mt-[30px] mb-[30px] bg-borderColor" />
+        <Row gutter={{ sm: 16, md: 24 }} className="tip-color text-white bg-borderColor rounded-[10px] mb-[50px] py-[8px] px-[12px]">
+          <Col span={{sm: 24, md: 6}} className="mb-[12px] md:mb-0">
+            <div className="w-full h-full flex items-center justify-between">
+              <InfoCircleOutlined className="!text-white mr-[12px]" />
+              <strong className="text-[11px] font-medium font-Montserrat">Important Notice:</strong>
             </div>
-          </span>
-        </p>
+          </Col>
+          <Col span={{sm: 24, md: 18}}>
+            <span className="notice-text text-[11px] font-Montserrat">
+              <div>{RUN_INDIVIDUAL_NODES_TIP}</div>
+              <div>
+                Please read the{" "}
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={
+                    NETWORK_TYPE === "MAIN"
+                      ? "https://docs.aelf.io/en/latest/tutorials/mainnet.html"
+                      : "https://docs.aelf.io/en/latest/tutorials/testnet.html"
+                  }
+                >
+                  dev docs
+                </a>{" "}
+                for instructions on node deployment.
+              </div>
+            </span>
+          </Col>
+        </Row>
+        <div className="mb-[10px]">
+          <Button
+            className="w-full h-[40px] rounded-[42px] bg-mainColor font-Montserrat text-white border border-solid border-borderColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+            onClick={this.handleOk}
+          >
+            Apply Now
+          </Button>
+        </div>
       </Modal>
     );
   }

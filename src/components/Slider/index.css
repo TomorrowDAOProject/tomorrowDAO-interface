@@ -1,0 +1,57 @@
+.slider-warp {
+  position: relative;
+  
+  .custom-slider {
+    --value: 50;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, var(--main-color) var(--value), #ededed var(--value));
+    border-radius: 5px;
+    outline: none;
+  }
+  .custom-slider::-webkit-slider-runnable-track {
+    height: 8px;
+    background: linear-gradient(to right, var(--main-color) var(--value), #ededed var(--value));
+    border-radius: 5px;
+  }
+  .custom-slider::-moz-range-track {
+    height: 8px;
+    background: linear-gradient(to right, var(--main-color) var(--value), #ededed var(--value));
+    border-radius: 5px;
+  }
+  .custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #ededed;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -4px;
+    border: 5px solid var(--main-color);
+  }
+  .custom-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #ededed;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -4px;
+    border: 5px solid var(--main-color);
+  }
+
+  .slider-tooltip {
+    @apply absolute -top-8 bg-black text-white text-[12px] px-2 py-1 rounded whitespace-nowrap;
+    position: absolute;
+  }
+
+  .slider-tooltip::after {
+    content: '';
+    @apply absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid black;
+  }
+}

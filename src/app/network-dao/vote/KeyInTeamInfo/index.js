@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Form, Input, Button, Result, message, Spin } from "antd";
+import { Form, Button, Input, Result, Spin } from "antd";
 import queryString from "query-string";
 import { APPNAME } from "@config/config";
 import { post, get } from "@src/utils";
@@ -11,10 +11,8 @@ import { addUrlPrefix, removeUrlPrefix } from "@utils/formater";
 import { LockTwoTone } from "@ant-design/icons";
 import { connect } from "react-redux";
 import "./index.css";
-// import { withRouter } from "../../../routes/utils";
-import { getPublicKeyFromObject } from "@utils/getPublicKey";
 import { WebLoginInstance } from "@utils/webLogin";
-
+import { toast } from 'react-toastify';
 const { TextArea } = Input;
 
 const TeamInfoFormItemLayout = {
@@ -243,7 +241,7 @@ class KeyInTeamInfo extends PureComponent {
             {hasAuth ? (
               // eslint-disable-next-line react/jsx-fragments
               <React.Fragment>
-                <h3 className={`${clsPrefix}-title`}>Edit Team Info</h3>
+                <h3 className={`${clsPrefix}-title !text-mainColor`}>Edit Team Info</h3>
                 <Form
                   ref={this.formRef}
                   className={`${clsPrefix}-form`}
@@ -274,23 +272,24 @@ class KeyInTeamInfo extends PureComponent {
                       );
                     })}
                   {socialFormItems}
+                  <div className={`${clsPrefix}-footer`}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      onClick={this.handleSubmit}
+                      className="!rounded-[42px] text-white hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </Form>
-                <div className={`${clsPrefix}-footer`}>
-                  <Button
-                    type="submit"
-                    htmlType="submit"
-                    onClick={this.handleSubmit}
-                  >
-                    Submit
-                  </Button>
-                </div>
               </React.Fragment>
             ) : (
               <Result
                 status="403"
                 title={NO_AUTHORIZATION_ERROR_TIP}
                 extra={
-                  <Button type="primary" onClick={this.handleBack}>
+                  <Button type="primary" onClick={this.handleBack} className="hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor">
                     Go Back
                   </Button>
                 }
@@ -388,7 +387,7 @@ class KeyInTeamInfo extends PureComponent {
             if (+res.code === 0) {
               this.props.navigate(`/vote/team?pubkey=${publicKey}`);
             } else {
-              message.error(res.msg);
+              toast.error(res.msg);
             }
           });
         });

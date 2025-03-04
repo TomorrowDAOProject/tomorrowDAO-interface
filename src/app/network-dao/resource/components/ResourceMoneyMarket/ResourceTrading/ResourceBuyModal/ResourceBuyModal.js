@@ -4,7 +4,8 @@
  */
 
 import React, { PureComponent } from "react";
-import { Row, Col, Spin, message, Button } from "antd";
+import Button from 'components/Button';
+import Spin from 'components/Spin';
 import {
   SYMBOL,
   ELF_DECIMAL,
@@ -18,7 +19,7 @@ import getStateJudgment from "@utils/getStateJudgment";
 import { aelf } from "@utils";
 import "./ResourceBuyModal.css";
 import { WebLoginInstance } from "@utils/webLogin";
-
+import { toast } from 'react-toastify';
 export default class ResourceBuyModal extends PureComponent {
   constructor(props) {
     super(props);
@@ -51,6 +52,7 @@ export default class ResourceBuyModal extends PureComponent {
 
     try {
       const chainIdQuery = getChainIdQuery();
+
       const result = await WebLoginInstance.get().callContract({
         contractAddress: contracts.tokenConverter,
         methodName: "Buy",
@@ -63,7 +65,7 @@ export default class ResourceBuyModal extends PureComponent {
 
       console.log("Buy", result);
       if (result.error && result.error !== 0) {
-        message.error(result.errorMessage.message, 3);
+        toast.error(result.errorMessage.message, 3);
         this.props.handleCancel();
         return;
       }
@@ -105,21 +107,21 @@ export default class ResourceBuyModal extends PureComponent {
               },
               () => {
                 if (regBuyTooManyResource.test(err.Error)) {
-                  message.error(
+                  toast.error(
                     BUY_MORE_THAN_HALT_OF_INVENTORY_TIP,
                     FAILED_MESSAGE_DISPLAY_TIME
                   );
-                  message.error(
+                  toast.error(
                     `Transaction id: ${transactionId}`,
                     FAILED_MESSAGE_DISPLAY_TIME
                   );
                   return;
                 }
-                message.error(
+                toast.error(
                   "Your transaction seems to has some problem, please query the transaction later:",
                   FAILED_MESSAGE_DISPLAY_TIME
                 );
-                message.error(
+                toast.error(
                   `Transaction id: ${transactionId}`,
                   FAILED_MESSAGE_DISPLAY_TIME
                 );
@@ -128,7 +130,7 @@ export default class ResourceBuyModal extends PureComponent {
           });
       }, 4000);
     } catch (error) {
-      message.error(error.message, 3);
+      toast.error(error.message, 3);
       this.setState({
         loading: false,
       });
@@ -156,7 +158,7 @@ export default class ResourceBuyModal extends PureComponent {
   //     .Buy(payload)
   //     .then((result) => {
   //       if (result.error && result.error !== 0) {
-  //         message.error(result.errorMessage.message, 3);
+  //         toast.error(result.errorMessage.message, 3);
   //         this.props.handleCancel();
   //         return;
   //       }
@@ -191,21 +193,21 @@ export default class ResourceBuyModal extends PureComponent {
   //               },
   //               () => {
   //                 if (regBuyTooManyResource.test(err.Error)) {
-  //                   message.error(
+  //                   toast.error(
   //                     BUY_MORE_THAN_HALT_OF_INVENTORY_TIP,
   //                     FAILED_MESSAGE_DISPLAY_TIME
   //                   );
-  //                   message.error(
+  //                   toast.error(
   //                     `Transaction id: ${transactionId}`,
   //                     FAILED_MESSAGE_DISPLAY_TIME
   //                   );
   //                   return;
   //                 }
-  //                 message.error(
+  //                 toast.error(
   //                   "Your transaction seems to has some problem, please query the transaction later:",
   //                   FAILED_MESSAGE_DISPLAY_TIME
   //                 );
-  //                 message.error(
+  //                 toast.error(
   //                   `Transaction id: ${transactionId}`,
   //                   FAILED_MESSAGE_DISPLAY_TIME
   //                 );
@@ -236,48 +238,46 @@ export default class ResourceBuyModal extends PureComponent {
 
     const CHAIN_ID = 'AELF'
     return (
-      <div className="modal resource-modal">
-        <Row className="modal-form-item">
-          <Col span={6}>Address</Col>
-          <Col
-            className="text-ellipse"
-            span={18}
-            title={`ELF_${currentWallet.address}_${CHAIN_ID}`}
+      <div className="modal resource-modal text-white font-Montserrat">
+        <div className="modal-form-item mt-[30px] pt-[24px] border-0 border-t border-solid border-fillBg8 justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Address</div>
+          <div
+            className="font-Montserrat text-[13px] break-all"
           >
             {`ELF_${currentWallet.address}_${CHAIN_ID}`}
-          </Col>
-        </Row>
-        <Row className="modal-form-item">
-          <Col span={6}>Buy {currentResourceType} Quantity</Col>
-          <Col span={18}>
+          </div>
+        </div>
+        <div className="modal-form-item pt-[24px]  justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Buy {currentResourceType} Quantity</div>
+          <div className="font-Montserrat text-[13px]">
             <Spin spinning={buyInputLoading}>
-              {thousandsCommaWithDecimal(buyNum)}
+              <span className="!text-white text-[13px]">{thousandsCommaWithDecimal(buyNum)}</span>
             </Spin>
-          </Col>
-        </Row>
-        <Row className="modal-form-item">
-          <Col span={6}>{SYMBOL}</Col>
-          <Col span={18}>
-            <Spin spinning={buyEstimateValueLoading}>
-              {thousandsCommaWithDecimal(buyElfValue)}
+          </div>
+        </div>
+        <div className="modal-form-item pt-[24px] justify-between flex flex-col lg:flex-row gap-2">
+          <div span={6} className="font-Montserrat text-lightGrey text-[13px] font-medium">{SYMBOL}</div>
+          <div span={18} className="font-Montserrat">
+            <Spin spinning={buyEstimateValueLoading} className="font-Montserrat">
+              <span className="!text-white text-[13px]">{thousandsCommaWithDecimal(buyElfValue)}</span>
             </Spin>
-          </Col>
-        </Row>
-        <div className="service-charge">
+          </div>
+        </div>
+        <div className="font-Montserrat !text-white mt-[7px] text-[12px] text-left lg:text-right">
           *Service Charge: {thousandsCommaWithDecimal(buyFee)} {SYMBOL}
         </div>
+
+        <div className="font-Montserrat text-[11px] text-white bg-[#404040] border border-solid border-fillBg8 px-3 py-2 rounded-[5px] mt-[24px]">
+          * To avoid price fluctuations leading to transaction failure, please
+          complete the transaction within 30 seconds.
+        </div>
         <Button
-          type="primary"
-          className="modal-button buy-btn"
+          className="w-full mt-[50px] my-[14px] h-[40px] border-none rounded-[42px] !bg-mainColor text-white font-Montserrat text-[15px] font-medium border hover:border-solid hover:!border-mainColor hover:!text-mainColor hover:!bg-transparent"
           onClick={this.getBuyRes.bind(this)}
           loading={loading}
         >
           Buy
         </Button>
-        <div className="modal-tip">
-          * To avoid price fluctuations leading to transaction failure, please
-          complete the transaction within 30 seconds.
-        </div>
       </div>
     );
   }

@@ -2,6 +2,7 @@ import { CommonOperationResultModalType } from 'components/CommonOperationResult
 import { eventBus, ResultModal } from 'utils/myEvent';
 import { INIT_RESULT_MODAL_CONFIG } from 'components/ResultModal';
 import React from 'react';
+import Button from 'components/Button';
 
 interface ShowSuccessModalParams {
   primaryContent: React.ReactNode;
@@ -19,12 +20,18 @@ export const showSuccessModal = (params: ShowSuccessModalParams) => {
     footerConfig: {
       buttonList: [
         {
-          onClick: () => {
-            eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-            params.onOk?.();
-          },
-          children: 'OK',
-          type: 'primary',
+          children: (
+            <Button
+              type="primary"
+              className="w-full"
+              onClick={() => {
+                eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                params.onOk?.();
+              }}
+            >
+              OK
+            </Button>
+          ),
         },
       ],
     },
@@ -41,10 +48,17 @@ export const showErrorModal = (primaryContent: string, secondaryContent: string)
     footerConfig: {
       buttonList: [
         {
-          children: <span>OK</span>,
-          onClick: () => {
-            eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-          },
+          children: (
+            <Button
+              type="danger"
+              className="w-full"
+              onClick={() => {
+                eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+              }}
+            >
+              Back
+            </Button>
+          ),
         },
       ],
     },

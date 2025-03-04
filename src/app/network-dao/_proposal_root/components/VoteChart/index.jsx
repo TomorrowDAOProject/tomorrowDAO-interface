@@ -4,12 +4,13 @@
  */
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { Col, Row } from "antd";
+import Row from 'components/Grid/Row';
+import Col from 'components/Grid/Col';
 import roundTo from "round-to";
 import constants, { organizationInfoPropTypes } from "@redux/common/constants";
 import Circle from "../Circle";
 import "./index.css";
-import { isPhoneCheck } from "@common/utils";
+import { useLandingPageResponsive } from "hooks/useResponsive";
 
 const { proposalActions, proposalTypes } = constants;
 
@@ -109,6 +110,7 @@ const VoteChart = (props) => {
     abstentions,
     size = 'default'
   } = props;
+  const { isPad } = useLandingPageResponsive();
   const votesData = useMemo(() => {
     return getCircleValues(
       proposalType,
@@ -123,116 +125,98 @@ const VoteChart = (props) => {
   }, [proposalType, organizationInfo, bpCount]);
 
   return (
-    <div className='proposal-vote pc'>
-      <p className="proposal-vote-title">Voting Data: Votes <span>(Votes / Minimum Votes)</span></p>
-      <Row  className='proposal-vote-chart'>
-        <Col>
-          <div className="proposal-vote-chart-wrap">
+    <div className='pc'>
+      <span className="block mb-5 text-descM12 text-white font-Montserrat">Voting Data: Votes <span>(Votes / Minimum Votes)</span></span>
+      <Row gutter={43} className="!mx-0">
+        <Col sm={12}  md={12} lg={6} className="!px-0">
+          <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
-              className='proposal-vote-chart-circle'
               isInProgress
               type={proposalActions.APPROVE}
               {...votesData[proposalActions.APPROVE]}
             />
             <div
-              className='text-ellipsis proposal-vote-chart-count'
+              className='absolute top-1/2 left-1/2 flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2'
               title={`${approvals}${votesData[proposalActions.APPROVE].rate}`}
             >
-              <span className='sub-title'>{approvals}</span>
-              <span>{votesData[proposalActions.APPROVE].rate}</span>
+              <span className='text-[20px] font-light text-white font-Unbounded'>{Math.round(approvals * 1000) / 1000}</span>
+              <span className='text-desc10 font-normal text-lightGrey font-Montserrat'>{votesData[proposalActions.APPROVE].rate}</span>
             </div>
           </div>
-          <div className='proposal-vote-desc text-center'>
-            <div className='text-ellipsis' title='Approved Votes'>
+          <div className='flex items-center justify-center mt-[9px]'>
+            <span className='text-ellipsis text-descM10 font-normal text-white font-Montserrat' title='Approved Votes'>
               Approved Votes
-            </div>
+            </span>
           </div>
         </Col>
-        <Col  >
-          <div className="proposal-vote-chart-wrap">
+        <Col sm={12} md={12} lg={6} className="!px-0">
+          <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
-              className='proposal-vote-chart-circle'
               isInProgress
               type={proposalActions.REJECT}
               {...votesData[proposalActions.REJECT]}
             />
             <div
-              className='text-ellipsis proposal-vote-chart-count'
+              className='absolute top-1/2 left-1/2 flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2'
               title={`${rejections}(${votesData[proposalActions.REJECT].rate})`}
             >
-              <span className='sub-title'>{rejections}</span>
-              <span>{votesData[proposalActions.REJECT].rate}</span>
+              <span className='text-[20px] font-light text-white font-Unbounded'>{Math.round(rejections * 1000) / 1000}</span>
+              <span className='text-desc10 font-normal text-lightGrey font-Montserrat'>{votesData[proposalActions.REJECT].rate}</span>
             </div>
           </div>
-          <div className='proposal-vote-desc text-center'>
-            <div className='text-ellipsis' title='Rejected Votes'>
+          <div className='flex items-center justify-center mt-[9px]'>
+            <span className='text-ellipsis text-descM10 font-normal text-white font-Montserrat' title='Rejected Votes'>
               Rejected Votes
-            </div>
+            </span>
           </div>
         </Col>
-        <Col >
-          <div className="proposal-vote-chart-wrap">
+        <Col sm={12} md={12} lg={6} className="!px-0">
+          <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
-              className='proposal-vote-chart-circle'
               isInProgress
               type={proposalActions.ABSTAIN}
               {...votesData[proposalActions.ABSTAIN]}
             />
             <div
-              className='text-ellipsis proposal-vote-chart-count'
+              className='absolute top-1/2 left-1/2 flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2'
               title={`${abstentions}(${votesData[proposalActions.ABSTAIN].rate
                 })`}
             >
-              <span className='sub-title'>{abstentions}</span>
-              <span>{votesData[proposalActions.ABSTAIN].rate}</span>
+              <span className='text-[20px] font-light text-white font-Unbounded'>{Math.round(abstentions * 1000) / 1000}</span>
+              <span className='text-desc10 font-normal text-lightGrey font-Montserrat'>{votesData[proposalActions.ABSTAIN].rate}</span>
             </div>
           </div>
-          <div className='proposal-vote-desc text-center'>
-            <div className='text-ellipsis' title='Abstained Votes'>
+          <div className='flex items-center justify-center mt-[9px]'>
+            <span className='text-ellipsis text-descM10 font-normal text-white font-Montserrat' title='Abstained Votes'>
               Abstained Votes
-            </div>
+            </span>
           </div>
         </Col>
-        <Col >
-          <div className="proposal-vote-chart-wrap">
+        <Col sm={12} md={12} lg={6} className="!px-0">
+          <div className="relative mx-auto w-[93px] h-[93px]">
             <Circle
-              className='proposal-vote-chart-circle'
               isInProgress={proposalType !== proposalTypes.REFERENDUM}
               type='Total'
               {...votesData.Total}
             />
             <div
-              className='text-ellipsis proposal-vote-chart-count'
+              className='absolute top-1/2 left-1/2 flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2'
               title={`${approvals + rejections + abstentions}(${votesData.Total.rate
                 })`}
             >
-              <span className='sub-title'>
-                {approvals + rejections + abstentions}
+              <span className='text-[20px] font-light text-white font-Unbounded'>
+                {Math.round((approvals + rejections + abstentions) * 1000) / 1000}
               </span>
-              <span>{votesData.Total.rate}</span>
+              <span className='text-desc10 font-normal text-lightGrey font-Montserrat'>{votesData.Total.rate}</span>
             </div>
           </div>
-          <div className='proposal-vote-desc text-center'>
-            <div className='text-ellipsis' title='Total Votes'>
+          <div className='flex items-center justify-center mt-[9px]'>
+            <span className='text-ellipsis text-descM10 font-normal text-white font-Montserrat' title='Total Votes'>
               Total Votes
-            </div>
+            </span>
           </div>
         </Col>
       </Row>
-      {/* <Row gutter={16} className="proposal-vote-chart-text">
-        <Col span={6}>
-
-        </Col>
-        <Col span={6}>
-
-        </Col>
-        <Col span={6}>
-
-        </Col>
-        <Col span={6}>
-
-        </Col>
-      </Row> */}
     </div>
   );
 };

@@ -76,6 +76,7 @@ interface ICommentListsItem {
   commentStatus: string;
   createTime: number;
   modificationTime: number;
+  commenterPhoto: string;
 }
 interface ICommentListsRes {
   code: string;
@@ -257,6 +258,8 @@ interface IDaoInfoData {
       Discord?: string;
       Telegram?: string;
       Reddit?: string;
+      Github?: string;
+      Others?: string;
     };
   };
   governanceMechanism: number;
@@ -338,7 +341,8 @@ interface IDaoMembersResponse {
 // -------------------------------------dao-HC-members-----------------------------
 interface IDaoHCMembersRequestParams {
   chainId: string;
-  alias: string;
+  alias?: string;
+  daoId?: string;
 }
 type IDaoHCMembersData = string[];
 interface IDaoHCMembersResponse {

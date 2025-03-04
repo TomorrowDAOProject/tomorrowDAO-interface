@@ -108,7 +108,6 @@ export enum ProposalTypeString {
   Governance = 'Governance',
   Improvement = 'Advisory',
   Veto = 'Veto',
-  'On-Chain' = 'OnChain',
 }
 
 // all ProposalStatusString

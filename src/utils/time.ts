@@ -16,3 +16,18 @@ export function getFormattedDate(date: number, type: string) {
   }
   return '';
 }
+
+export function combineDateAndTime(dateA: number | string, dateB: number | string) {
+  if (!dayjs(dateA).isValid() || !dayjs(dateB).isValid()) {
+    return dateA;
+  }
+  const dateAPart = dayjs(dateA);
+  const dateBPart = dayjs(dateB);
+
+  const combinedDate = dateAPart
+    .hour(dateBPart.hour())
+    .minute(dateBPart.minute())
+    .second(dateBPart.second());
+
+  return combinedDate.valueOf();
+}

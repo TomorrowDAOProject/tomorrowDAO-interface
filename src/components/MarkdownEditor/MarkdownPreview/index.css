@@ -1,4 +1,5 @@
 .markdown-preview {
+  @apply text-lightGrey;
   overflow-wrap: break-word;
   ul {
     @apply list-disc;

@@ -26,10 +26,10 @@ export const checkMultisigProposal = async (daoData: IDaoInfoRes, address: strin
       type: CommonOperationResultModalType.Warning,
       primaryContent: "You can't create a proposal",
       secondaryContent: (
-        <div>
+        <>
           You are not a member. Creating proposals in {daoData.data.metadata.name} can only be done
           by addresses that have been added to its member list.
-        </div>
+        </>
       ),
       footerConfig: {
         buttonList: [okButtonConfig],

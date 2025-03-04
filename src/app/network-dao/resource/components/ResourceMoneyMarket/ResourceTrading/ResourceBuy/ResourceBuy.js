@@ -9,11 +9,8 @@ import debounce from "lodash.debounce";
 import { connect } from "react-redux";
 import {
   Input,
-  InputNumber,
   Slider,
-  message,
   Spin,
-  Button,
   Tooltip,
   Form,
 } from "antd";
@@ -39,8 +36,8 @@ import getEstimatedValueRes from "@utils/getEstimatedValueRes";
 import getEstimatedValueELF from "@utils/getEstimatedValueELF";
 import getFees from "@utils/getFees";
 import "./ResourceBuy.css";
-import { isPhoneCheck } from "@utils/deviceCheck";
 import { isActivityBrowser } from "@utils/isWebView";
+import { toast } from 'react-toastify';
 
 const A_PARAM_TO_AVOID_THE_MAX_BUY_AMOUNT_LARGE_THAN_ELF_BALANCE = 0.01;
 const status = { ERROR: "error" };
@@ -209,7 +206,7 @@ class ResourceBuy extends Component {
         buyEstimateValueLoading: false,
       });
       if (input !== "" && input !== 0) {
-        message.error("Only support positive float or integer.");
+        toast.error("Only support positive float or integer.");
       }
       return;
     }
@@ -271,7 +268,7 @@ class ResourceBuy extends Component {
               buyEstimateValueLoading: false,
             });
           } else {
-            message.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
+            toast.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
             this.setState({
               operateNumToSmall: true,
             });
@@ -294,7 +291,7 @@ class ResourceBuy extends Component {
       })
       .catch((e) => {
         console.log("Error happened: ", e);
-        message.error(e.message || e.msg || "Error happened");
+        toast.error(e.message || e.msg || "Error happened");
       });
   }
 
@@ -411,7 +408,7 @@ class ResourceBuy extends Component {
     });
 
     if (!regPos.test(buyNum) || buyNum === 0) {
-      message.error(
+      toast.error(
         `${ONLY_POSITIVE_FLOAT_OR_INTEGER_TIP}${CHECK_BALANCE_TIP}`
       );
       this.setState({
@@ -420,28 +417,28 @@ class ResourceBuy extends Component {
       return;
     }
     if (+buyNum === 0) {
-      message.warning(TRANSACT_LARGE_THAN_ZERO_TIP);
+      toast.warning(TRANSACT_LARGE_THAN_ZERO_TIP);
       this.setState({
         buyBtnLoading: false,
       });
       return;
     }
     if (operateNumToSmall) {
-      message.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
+      toast.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
       this.setState({
         buyBtnLoading: false,
       });
       return;
     }
     if (buyElfValue > account.balance) {
-      message.warning(BUY_OR_SELL_MORE_THAN_ASSETS_TIP);
+      toast.warning(BUY_OR_SELL_MORE_THAN_ASSETS_TIP);
       this.setState({
         buyBtnLoading: false,
       });
       return;
     }
     if (!toBuy) {
-      message.warning(BUY_OR_SELL_MORE_THAN_THE_INVENTORY_TIP);
+      toast.warning(BUY_OR_SELL_MORE_THAN_THE_INVENTORY_TIP);
       this.setState({
         buyBtnLoading: false,
       });
@@ -516,7 +513,7 @@ class ResourceBuy extends Component {
       disabled = true;
     }
     return (
-      <Tooltip title={BALANCE_LESS_THAN_OPERATE_LIMIT_TIP}>
+      <Tooltip title={<span className="font-Montserrat">{BALANCE_LESS_THAN_OPERATE_LIMIT_TIP}</span>}>
         <Slider
           marks={this.getSlideMarks()}
           dots={false}
@@ -539,7 +536,7 @@ class ResourceBuy extends Component {
             ).toFixed(GENERAL_PRECISION)
           }
           tipFormatter={
-            disabled ? () => BALANCE_LESS_THAN_OPERATE_LIMIT_TIP : null
+            disabled ? () => <span className="font-Montserrat">{BALANCE_LESS_THAN_OPERATE_LIMIT_TIP}</span> : null
           }
         />
       </Tooltip>
@@ -580,7 +577,7 @@ class ResourceBuy extends Component {
         <div className="trading">
           <div className="trading-input">
             <div className="resource-action-block">
-              <span className="resource-action-title">Buying quantity:</span>
+              <span className="w-[120px] font-Montserrat text-white text-[14px] font-medium">Buying quantity:</span>
               <Spin
                 spinning={buyInputLoading}
                 wrapperClassName="resource-action-input"
@@ -589,7 +586,7 @@ class ResourceBuy extends Component {
                   validateStatus={validate.validateStatus}
                   help={validate.help}
                 >
-                  {!isPhoneCheck() ? (
+                  {/* {!isPhoneCheck() ? (
                     <InputNumber
                       value={buyNum}
                       onChange={this.onChangeResourceValue}
@@ -615,7 +612,22 @@ class ResourceBuy extends Component {
                       min={0}
                       max={processedBuyNumMax}
                     />
-                  )}
+                  )} */}
+                    <Input
+                      className="placeholder:text-lightGrey !text-white disabled:!bg-fillBg8"
+                      value={buyNum}
+                      onChange={this.onChangeResourceValue}
+                      placeholder={`Enter ${currentResourceType} amount`}
+                      // todo: use parser to set the max decimal to 8, e.g. using parseFloat
+                      // parser={value => value.replace(/[^.\d]+/g, '')}
+                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                      formatter={(value) =>
+                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      }
+                      disabled={rawBuyNumMax <= 0}
+                      min={0}
+                      max={processedBuyNumMax}
+                    />
                 </Form.Item>
               </Spin>
             </div>
@@ -629,8 +641,8 @@ class ResourceBuy extends Component {
               </Spin>
             </div>
             <div className="resource-action-block">
-              <span className="resource-action-title">Available:</span>
-              {isPhoneCheck() ? (
+              <span className="w-[120px] font-Montserrat text-white text-[14px] font-medium">Available:</span>
+              {/* {isPhoneCheck() ? (
                 <div className="resource-action-input">
                   {account.balance
                     ? thousandsCommaWithDecimal(account.balance)
@@ -645,7 +657,14 @@ class ResourceBuy extends Component {
                   addonAfter={SYMBOL}
                   disabled
                 />
-              )}
+              )} */}
+               <Input
+                className="resource-action-input"
+                value={thousandsCommaWithDecimal(account.balance)}
+                placeholder={thousandsCommaWithDecimal(account.balance)}
+                addonAfter={SYMBOL}
+                disabled
+              />
             </div>
           </div>
           <div className="trading-slide">
@@ -658,7 +677,7 @@ class ResourceBuy extends Component {
             </div>
           </div>
           <ButtonWithLoginCheck
-            className="trading-button buy-btn"
+            className="w-full my-[14px] h-[40px] border-none rounded-[42px] !bg-mainColor text-white font-Montserrat text-[15px] font-medium border hover:border-solid hover:!border-mainColor hover:!text-mainColor hover:!bg-transparent"
             onClick={this.checkAndShowBuyModal}
             checkAccountInfoSync
             loading={

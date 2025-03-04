@@ -13,8 +13,9 @@
 }
 
 .my-wallet-card .my-wallet-content {
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid;
   padding-bottom: 16px;
+  @apply border-borderColor;
 }
 
 .my-wallet-card-header {
@@ -28,10 +29,9 @@
 .my-wallet-card-header-title {
   display: inline-block;
   vertical-align: middle;
-  color: #000;
   height: 22px;
   line-height: 22px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .my-wallet-card-header-title .wallet-icon {
@@ -41,17 +41,6 @@
 .my-wallet-card-header-title .wallet-icon svg {
   width: 12px;
   height: 12px;
-}
-
-.my-wallet-card-header-sync-btn {
-  display: flex;
-  align-items: center;
-  float: right;
-}
-
-.my-wallet-card-header-sync-btn .antExplorericon.antExplorericon-sync {
-  display: flex;
-  align-items: center;
 }
 
 .my-wallet-card-body {
@@ -77,6 +66,7 @@
 }
 
 .my-wallet-card-body-wallet-title-value {
+  font-size: 11px;
   margin-left: 8px;
   line-height: 20px;
   display: inline-block;
@@ -119,7 +109,7 @@
   margin-left: 8px;
   border-radius: 4px;
   height: 24px;
-  padding: 0px 12px;
+  padding: 0 12px;
   font-size: 12px;
 }
 
@@ -149,16 +139,15 @@
 }
 
 .my-wallet-card .refresh-btn {
-  width: 94px;
   font-size: 12px;
-  border-radius: 4px;
+  border-radius: 42px;
   display: flex;
-  height: 32px;
-  line-height: 32px;
-  padding: 0px 16px;
-  border: 1px solid var(--color-brand-default, #FA9D2B);
-  background: var(--color-white, #fff);
-  color: var(--color-brand-default, #FA9D2B);
+  height: 24px;
+  line-height: 24px;
+  padding: 0 6px;
+  border: 1px solid var(--color-brand-default, #fff);
+  background: transparent;
+  color: var(--color-brand-default, #fff);
 }
 
 
@@ -167,7 +156,17 @@
   background: var(--color-hover, #f7f8fa) !important;
 }
 
-.my-wallet-card .login-btn,
+.my-wallet-card .login-btn {
+  font-size: 12px !important;
+  margin-left: 8px;
+  border-radius: 4px;
+  display: flex;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 8px;
+  color: #fff;
+}
+
 .my-wallet-card .logout-btn {
   width: 94px;
   font-size: 12px;
@@ -176,7 +175,7 @@
   display: flex;
   height: 32px;
   line-height: 32px;
-  padding: 0px 16px;
+  padding: 0 16px;
   border: 1px solid #266cd3;
   background-color: #266cd3 !important;
   color: #fff;

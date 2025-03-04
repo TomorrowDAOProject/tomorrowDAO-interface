@@ -2,7 +2,9 @@
 
 import 'styles/global.css';
 import 'styles/button.css';
+import 'styles/theme.css';
 import 'aelf-design/css';
+import 'assets/fonts/tmrwdao-icon.css';
 import Provider from 'provider/';
 import Script from 'next/script';
 import StyleRegistry from './StyleRegistry';
@@ -22,7 +24,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <head>
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no"
         ></meta>
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <VconsoleScript />
@@ -52,6 +54,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           `}
         </Script>
         <GtagConfigScript />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body>
         <noscript>
@@ -65,11 +74,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             }}
           ></iframe>
         </noscript>
-        <StyleRegistry>
+        <div id="root">
           <Provider>
             <LayoutContent>{children}</LayoutContent>
           </Provider>
-        </StyleRegistry>
+        </div>
       </body>
     </html>
   );

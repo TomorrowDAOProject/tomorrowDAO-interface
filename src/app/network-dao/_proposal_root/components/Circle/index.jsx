@@ -24,58 +24,69 @@ const circleTypes = [
 
 const OUTER_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
-    pathColor: '#266CD3',
-    trailColor: '#F7F8FA',
+    pathColor: '#5D49F6',
+    trailColor: '#404040',
+    textColor: '#989DA0',
   }),
   [proposalActions.REJECT]: buildStyles({
-    pathColor: '#FF4D4F',
-    trailColor: '#F7F8FA',
+    pathColor: '#FF485D',
+    trailColor: '#404040',
+    textColor: '#989DA0',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
-    pathColor: '#D0D0D0',
-    trailColor: '#F7F8FA',
+    pathColor: '#989DA0',
+    trailColor: '#404040',
   }),
   Total: buildStyles({
-    pathColor: '#1D2A51',
-    trailColor: '#F7F8FA',
+    pathColor: '#6E81FF',
+    trailColor: '#404040',
+    textColor: '#989DA0',
   }),
 };
 
 const INNER_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
-    pathColor: '#266CD3',
+    pathColor: '#5D49F6',
     trailColor: 'transparent',
+    textColor: '#989DA0',
   }),
   [proposalActions.REJECT]: buildStyles({
-    pathColor: '#FF4D4F',
+    pathColor: '#FF485D',
     trailColor: 'transparent',
+    textColor: '#989DA0',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
-    pathColor: '#D0D0D0',
+    pathColor: '#989DA0',
     trailColor: 'transparent',
+    textColor: '#989DA0',
   }),
   Total: buildStyles({
-    pathColor: '#1D2A51',
+    pathColor: '#6E81FF',
     trailColor: 'transparent',
+    textColor: '#989DA0',
   }),
 };
 
 const NORMAL_STYLE_MAP = {
   [proposalActions.APPROVE]: buildStyles({
-    pathColor: '#266CD3',
-    trailColor: '#F7F8FA',
+    pathColor: '#5D49F6',
+    trailColor: '#404040',
+    textColor: '#989DA0',
   }),
   [proposalActions.REJECT]: buildStyles({
-    pathColor: '#FF4D4F',
-    trailColor: '#F7F8FA',
+    pathColor: '#FF485D',
+    trailColor: '#404040',
+    textColor: '#989DA0',
   }),
   [proposalActions.ABSTAIN]: buildStyles({
-    pathColor: '#D0D0D0',
-    trailColor: '#F7F8FA',
+    pathColor: '#989DA0',
+    trailColor: '#404040',
+    textColor: '#989DA0',
   }),
   Total: buildStyles({
-    pathColor: '#1D2A51',
-    trailColor: '#F7F8FA',
+    pathColor: '#6E81FF',
+    trailColor: '#404040',
+    textColor: '#989DA0',
   }),
 };
 
@@ -86,6 +97,7 @@ const Circle = (props) => {
     threshold,
     type,
     maxValue,
+    text,
     ...rest
   } = props;
   return (
@@ -101,6 +113,7 @@ const Circle = (props) => {
           <CircularProgressbar
             value={value}
             minValue={0}
+            text={text}
             styles={INNER_STYLE_MAP[type]}
             maxValue={maxValue}
           />
@@ -110,6 +123,7 @@ const Circle = (props) => {
         <CircularProgressbar
           value={value}
           minValue={0}
+          text={text}
           styles={NORMAL_STYLE_MAP[type]}
           maxValue={maxValue}
           {...rest}

@@ -41,32 +41,4 @@ export class WebLoginInstance {
       this._context.disConnectWallet();
     });
   }
-
-  // Not referenced to
-  // onLoginStateChanged(loginState, loginError) {
-  //   if (
-  //     loginState === WebLoginState.initial &&
-  //     this._loginState === WebLoginState.logouting
-  //   ) {
-  //     this._loginState = loginState;
-  //     if (loginError) {
-  //       this._logoutReject?.(loginError);
-  //     } else {
-  //       this._logoutResolve?.();
-  //     }
-  //     this._logoutReject = null;
-  //     this._logoutResolve = null;
-  //     return;
-  //   }
-  //   this._loginState = loginState;
-  //   if (loginState === WebLoginState.initial && loginError) {
-  //     this._loginReject?.(loginError);
-  //     this._loginReject = null;
-  //     this._loginResolve = null;
-  //   } else if (loginState === WebLoginState.logined) {
-  //     this._loginResolve?.();
-  //     this._loginReject = null;
-  //     this._loginResolve = null;
-  //   }
-  // }
 }

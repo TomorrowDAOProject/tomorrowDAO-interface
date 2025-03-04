@@ -1,13 +1,23 @@
 import Image from 'next/image';
-import HeaderLogoIcon from 'assets/imgs/header-logo.svg';
-import FooterLogoIcon from 'assets/imgs/footer-logo.svg';
+import HeaderLogoAllIcon from 'assets/revamp-icon/network-logo-all.svg';
+import HeaderLogoIcon from 'assets/revamp-icon/network-logo.svg';
 
-function HeaderLogo() {
-  return <Image width={82.024} height={40} src={HeaderLogoIcon} alt="" />;
+import FooterLogoIcon from 'assets/revamp-icon/network-logo.svg';
+
+function HeaderLogo(props: { isSmall?: boolean }) {
+  const { isSmall } = props;
+  return (
+    <Image
+      width={isSmall ? 18 : 117}
+      height={isSmall ? 18 : 19}
+      src={isSmall ? HeaderLogoIcon : HeaderLogoAllIcon}
+      alt=""
+    />
+  );
 }
 
 function FooterLogo() {
-  return <Image width={98.428} height={48} src={FooterLogoIcon} alt="" />;
+  return <Image width={18} height={18} src={FooterLogoIcon} alt="" />;
 }
 
 export { HeaderLogo, FooterLogo };

@@ -7,6 +7,6 @@
     @apply lg:ml-[24px];
   }
   .radio-buttons-active {
-    @apply border-colorPrimary text-colorPrimary text-[16px] leading-[24px] font-medium;;
+    @apply border-colorPrimary text-mainColor text-[16px] leading-[24px] font-medium;;
   }
 }

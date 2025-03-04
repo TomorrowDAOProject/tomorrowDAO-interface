@@ -1,4 +1,115 @@
 .my-proposal {
+  @apply bg-darkBg border border-solid border-fillBg8 rounded-lg overflow-hidden min-h-[calc(100vh-200px)];
+  .antExplorer-tabs-nav {
+    @apply bg-darkBg;
+  }
+  .antExplorer-spin-nested-loading .antExplorer-spin-container::after {
+    @apply bg-transparent;
+  }
+
+  .antExplorer-menu-light .antExplorer-menu-item-disabled {
+    @apply !text-lightGrey;
+  }
+  .antExplorer-menu-submenu-disabled {
+    @apply !text-lightGrey;
+    .antExplorer-menu-title-content {
+      @apply text-lightGrey;
+    }
+  } 
+  .antExplorer-tabs-tab {
+    @apply font-Montserrat !ml-0;
+
+  }
+  .antExplorer-tabs-tab-active,
+  .antExplorer-tabs-tab {
+    .antExplorer-tabs-tab-btn {
+      @apply !text-white;
+    }
+  }
+  .antExplorer-tabs-top >.antExplorer-tabs-nav::before {
+    @apply border-b border-fillBg8;
+  }
+  .antExplorer-menu {
+    @apply bg-darkBg font-Montserrat text-[12px];
+  }
+  .antExplorer-menu-item {
+    @apply text-lightGrey sm:pl-[20px];
+  }
+  .antExplorer-menu-item-active {
+    @apply !text-white;
+  }
+  .antExplorer-menu-submenu-title {
+    @apply text-lightGrey sm:pl-[20px];
+  }
+  .antExplorer-menu-item-selected {
+    @apply text-white;
+  }
+  .antExplorer-menu-submenu-selected {
+    .antExplorer-menu-submenu-title {
+      @apply text-white;
+    }
+  }
+  .my-proposal-content {
+    @apply lg:pr-[30px] xl:pr-[30px] md:pr-[30px] px-[20px];
+  }
+  .my-proposal-content-list {
+    @apply !bg-darkBg !p-0;
+  }
+
+  .antExplorer-pagination {
+    @apply text-lightGrey font-Montserrat text-[12px];
+    .antExplorer-pagination-options-quick-jumper input {
+      @apply h-[24px] text-[12px];
+    }
+    .antExplorer-pagination-item-link {
+      @apply text-lightGrey;
+    }
+    .antExplorer-pagination-item {
+      @apply bg-fillBg8 border-fillBg8 font-Montserrat;
+      a {
+        @apply text-lightGrey;
+      } 
+    }
+    .antExplorer-pagination-item-active {
+      @apply border-lightGrey;
+    }
+    .antExplorer-pagination-options-quick-jumper {
+      input {
+        @apply bg-fillBg8 border-fillBg8 text-lightGrey;
+      }
+     
+    }
+    .antExplorer-pagination-item-ellipsis {
+      @apply !text-lightGrey;
+    }
+  }
+  .antExplorer-table {
+    @apply bg-darkBg;
+  }
+  .antExplorer-table-content {
+    .antExplorer-table-thead {
+      @apply !bg-darkBg;
+      tr th {
+        @apply !bg-darkBg text-lightGrey text-[12px] !px-0 font-Montserrat border-0 border-b !border-solid !border-fillBg8;
+      }
+    }
+    .antExplorer-table-tbody {
+      @apply !bg-darkBg;
+      tr td {
+        @apply !bg-darkBg text-lightGrey text-[10px] !px-0 font-Montserrat;
+        a {
+          @apply px-0 text-[11px] font-Montserrat;
+        }
+        .antExplorer-btn-link {
+          @apply px-0 text-[11px] font-Montserrat text-left;
+        }
+      }
+    }
+    .antExplorer-table-placeholder {
+      @apply !bg-darkBg;
+    }
+  }
+  
   &-content {
     position: relative;
     &-filter {

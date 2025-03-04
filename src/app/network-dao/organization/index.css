@@ -7,6 +7,87 @@
   border: 1px solid #d9d9d9;
 }
 
+.organization-list-modal .ant-modal-content {
+  @apply bg-darkGray !important;
+}
+
+.organization-list-modal .ant-modal-confirm-title {
+  color: #fff;
+}
+
+.organization-list-modal .ant-modal-confirm-content {
+  color: #fff;
+}
+
 .organization-list-modal.antExplorer-modal .antExplorer-modal-content {
   text-align: initial;
 }
+
+.organization-list-tab .antExplorer-tabs-nav .antExplorer-tabs-tab-btn {
+  color: #fff !important;
+}
+
+.organization-list-tab .antExplorer-tabs-nav .ant-tabs-tab.ant-tabs-tab-active {
+  color: #fff !important;
+}
+
+.organization-list .antExplorer-tabs-top  .antExplorer-tabs-nav::before {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.organization-list .antExplorer-tabs-nav-list {
+  z-index: 1 !important;
+  position: relative;
+}
+
+.organization-list .antExplorer-tabs-extra-content {
+  z-index: 10 !important;
+  position: relative;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .antExplorer-tabs-extra-content {
+    z-index: 9999 !important;
+    position: relative !important;
+  }
+}
+
+.organization-list-filter-input .antExplorer-input::placeholder {
+  @apply text-lightGrey font-Montserrat !important;
+}
+
+.organization-list-tab .antExplorer-tabs-tab-btn {
+  @apply font-Montserrat;
+}
+
+.modify-organisation-modal .ant-modal-content {
+  @apply bg-darkBg;
+}
+
+.modify-organisation-modal .ant-modal-confirm-title {
+  @apply text-white text-[20px] font-Unbounded font-light text-center;
+}
+
+.modify-organisation-modal .ant-modal-confirm-content {
+  @apply text-white text-[15px] font-Montserrat;
+}
+
+.modify-organisation-modal .ant-modal-confirm-btns {
+  @apply flex items-center justify-between;
+}
+
+.modify-organisation-modal .ant-modal-confirm-btns button:first-child {
+  @apply flex-1 text-white bg-darkBg rounded-[42px] border border-solid border-white mr-[12px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}
+
+.modify-organisation-modal .ant-modal-confirm-btns button:last-child {
+  @apply flex-1 text-white bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}
+
+@media screen and (max-width: 579px) {
+  .organization-list {
+    overflow: hidden;
+  }
+}
+
+

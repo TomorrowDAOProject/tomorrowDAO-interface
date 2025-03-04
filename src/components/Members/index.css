@@ -3,7 +3,7 @@
 }
 
 .dao-members-manage {
-  @apply w-[154px] lg:mt-0 mt-[16px];
+  @apply !px-[14px] !py-2 lg:mt-0 mt-[16px] !text-[12px] !rounded-[42px] bg-mainColor !h-auto;
 }
 
 .dao-members-wrap {
@@ -11,6 +11,15 @@
 }
 
 .dao-members-item {
-  @apply h-[62px] flex items-center;
-  border-bottom: 1px solid #EDEDED;
+  @apply h-[62px] flex items-center font-Montserrat text-white border-0 border-b border-solid border-[#404040];
+  &:last-child {
+    @apply border-none;
+  }
+  .TMRWDAO-members-hash-address
+    >span {
+      @apply text-white;
+    }
+   .TMRWDAO-icon {
+    @apply text-[16px];
+  }
 }

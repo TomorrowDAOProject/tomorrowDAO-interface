@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Modal, Form, Input, Button, Table } from "antd";
+import { Divider, Modal, Form, Input, Button, Table } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import {
 import BigNumber from "bignumber.js";
 import { ELF_DECIMAL } from "../constants";
 import TableLayer from "@components/TableLayer/TableLayer";
+import "./index.css";
 
 const formItemLayout = {
   labelCol: {
@@ -257,18 +258,20 @@ class RedeemModal extends PureComponent {
 
     return (
       <Modal
-        className="vote-redeem-modal"
-        title="Vote Redeem"
+        className="vote-redeem-modal vote-redeem-modal-new"
+        title="Node Redeem"
         visible={voteRedeemModalVisible}
-        onOk={this.handleOk}
         confirmLoading={redeemConfirmLoading}
+        // onOk={this.handleOk}
         onCancel={handleCancel.bind(this, "voteRedeemModalVisible")}
-        width={960}
+        footer={null}
+        width={740}
         centered
         maskClosable
         keyboard
         destroyOnClose
       >
+        <Divider className="my-[30px]" />
         <Form
           ref={this.formRef}
           {...formItemLayout}
@@ -292,10 +295,17 @@ class RedeemModal extends PureComponent {
               </Form.Item>
             ))}
         </Form>
-        <p className="tip-color" style={{ fontSize: 12 }}>
-          {FEE_TIP}
-        </p>
-        <p style={{ marginTop: 10 }}>{NEED_PLUGIN_AUTHORIZE_TIP}</p>
+        <p className="fee-tip-class">{FEE_TIP}</p>
+        <p className="auth-tip-class">{NEED_PLUGIN_AUTHORIZE_TIP}</p>
+        <div className="w-full flex items-center justify-between">
+          <Button
+            type="primary"
+            onClick={this.handleOk}
+            className="flex-1 h-[40px] leading-[30px] text-[15px] text-white font-medium font-Montserrat bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+          >
+            OK
+          </Button>
+        </div>
       </Modal>
     );
   }

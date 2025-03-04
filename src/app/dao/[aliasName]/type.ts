@@ -57,8 +57,8 @@ export enum EFilterParams {
 export interface IProposalTableParams {
   pagination: IPaginationProps;
   // governanceMechanism?: string;
-  [EFilterParams.proposalStatus]?: string;
-  [EFilterParams.proposalType]?: string;
+  proposalStatus?: string;
+  proposalType?: string;
   content?: string;
 }
 

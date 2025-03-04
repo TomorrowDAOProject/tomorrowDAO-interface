@@ -1,5 +1,5 @@
 import { HubConnection, HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
-import { message } from 'antd';
+import { toast } from 'react-toastify';
 // import { IBidInfo, IBidInfosResponse } from './types';
 
 type SignalRParams = {
@@ -59,7 +59,7 @@ export default class SignalR {
           resolve(this.connection);
         })
         .catch((e) => {
-          message.error('The establishment of a WebSocket connection with the service failed.');
+          toast.error('The establishment of a WebSocket connection with the service failed.');
           console.log('signalR---initAndStart---err', e);
           reject(e);
         });

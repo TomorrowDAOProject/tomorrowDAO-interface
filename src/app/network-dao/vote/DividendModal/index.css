@@ -33,13 +33,6 @@
   font-size: 12px;
 }
 
-.dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .claim-profit-item {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 140px 1fr 128px;
-  grid-gap: 8px;
-}
-
 .dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .claim-profit-item .text-center {
   text-align: left;
 }
@@ -96,4 +89,43 @@
     grid-template-areas: "left ." "center right";
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.governance-rewards-modal .TMRWDAO-modal-content {
+  @apply !bg-darkBg;
+}
+
+.governance-rewards-modal .TMRWDAO-modal-close-icon {
+  @apply !text-white;
+}
+
+.governance-rewards-modal .TMRWDAO-modal-title {
+  font-weight: 300;
+  @apply !text-white !bg-darkBg !text-center !text-[20px] !font-Unbounded;
+}
+
+.governance-rewards-modal .profit-item-key {
+  font-size: 13px;
+  font-weight: 500;
+  @apply text-lightGrey font-Montserrat;
+}
+
+.governance-rewards-modal .claim-profit-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.governance-rewards-modal .claim-profit-item .profit-item-key {
+  @apply w-[190px] inline-block text-white font-Montserrat text-[13px] font-medium;
+}
+
+.candidate-apply-modal .list-item-value {
+  @apply text-white font-Montserrat;
+}
+
+.claim-rewards-btn[disabled] {
+  @apply !bg-darkGray border border-solid !border-borderColor hover:!text-white;
 }

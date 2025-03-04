@@ -1,26 +1,26 @@
 .myRecord {
   .TMRWDAO-card-head {
-    @apply lg:px-8 px-4; 
+    @apply lg:px-8 px-4;
   }
   .TMRWDAO-pagination-container {
-    @apply lg:px-8 px-4; 
+    @apply lg:px-8 px-4;
   }
 
   .TMRWDAO-select-single {
     @apply h-[32px];
   }
-
+}
+.custom-table-style {
   .vote-record-0 {
-    @apply text-approve;
+    @apply text-[#00C84D] bg-[rgba(0,200,77,0.25)] px-2 py-1 rounded-[4px] text-[12px] border border-solid border-fillBg8;
   }
 
   .vote-record-1 {
-    @apply text-rejection;
-
+    @apply text-[#FF485D] bg-[rgba(255,55,77,0.15)] px-2 py-1 rounded-[4px] text-[12px] border border-solid border-fillBg8;
   }
 
   .vote-record-2 {
-    @apply text-abstention;
+    @apply text-[#B9B9B9] bg-[rgba(185,185,185,0.15)] px-2 py-1 rounded-[4px] text-[12px] border border-solid border-fillBg8;
   }
   .vote-option-column {
     .TMRWDAO-table-filter-column {
@@ -29,7 +29,112 @@
   }
   .my-record-tx-hash {
     &.TMRWDAO-hash-address > span {
-      @apply font-bold;
+      @apply font-medium text-[12px] text-white;
+    }
+  }
+  .TMRWDAO-table {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-table-placeholder {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-table-cell {
+    @apply !bg-transparent;
+    &::before {
+      @apply !bg-transparent;
+    }
+  }
+  .TMRWDAO-table-thead {
+    @apply font-Montserrat !bg-transparent text-lightGrey;
+    > tr > th {
+      @apply !bg-transparent text-[12px] font-medium border-fillBg8 !rounded-none;
+      &:first-child {
+        @apply pl-[12px];
+      }
+    }
+  }
+  .TMRWDAO-table-tbody {
+    > tr > td {
+      @apply !bg-transparent text-white text-[12px] font-normal border-fillBg8 font-Montserrat;
+      &:first-child {
+        @apply pl-[12px];
+      }
+    }
+  }
+}
+.TMRWDAO-pagination-container {
+  @apply text-white px-0 font-Montserrat flex justify-between flex-wrap;
+  .TMRWDAO-pagesize-label {
+    @apply text-lightGrey text-[10px];
+  }
+  .TMRWDAO-pagination-button {
+    @apply border border-solid border-lightGrey rounded-[4px] bg-fillBg8 hover:!border-lightGrey disabled:!border-fillBg8  max-w-[60px] text-[10px];
+    span {
+      @apply text-lightGrey font-Montserrat text-[10px];
+    }
+  }
+
+  .TMRWDAO-select-selection-item {
+    @apply font-Montserrat text-[10px] !text-white;
+  }
+  .TMRWDAO-pageNumber-container {
+    @apply bg-fillBg8 text-lightGrey rounded-[4px] max-w-[200px] text-[10px];
+  }
+  .TMRWDAO-select {
+    @apply focus:border-lightGrey hover:border-lightGrey;
+    .TMRWDAO-select-selector {
+      @apply bg-fillBg8 text-lightGrey !border-fillBg8 max-w-[60px] text-[12px];
+    }
+    .TMRWDAO-select-arrow svg {
+      @apply max-w-[10px];
+    }
+    .TMRWDAO-select-arrow {
+      @apply text-white;
+    }
+  }
+}
+.TMRWDAO-table-column-sorter-up,
+.TMRWDAO-table-column-sorter-down {
+  @apply !text-lightGrey !text-[10px];
+}
+.TMRWDAO-table-column-sorter-up.active,
+.TMRWDAO-table-column-sorter-down.active {
+  @apply !text-white !text-[10px];
+}
+.TMRWDAO-select-dropdown {
+  @apply bg-darkGray font-Montserrat;
+  .TMRWDAO-select-item {
+    @apply text-white;
+  }
+  .TMRWDAO-select-item-option-active {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected {
+    @apply text-mainColor active:!bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected:not(.TMRWDAO-select-item-option-disabled) {
+    @apply !bg-transparent !text-mainColor;
+  }
+}
+.TMRWDAO-table-filter-dropdown {
+  @apply border-fillBg8 w-[140px];
+
+  .TMRWDAO-dropdown-menu {
+    @apply !bg-darkBg;
+    .TMRWDAO-dropdown-menu-item-active {
+      @apply !bg-fillBg8;
+    }
+    .TMRWDAO-dropdown-menu-title-content {
+      @apply text-white font-Montserrat text-[14px];
+    }
+  }
+  .TMRWDAO-table-filter-dropdown-btns {
+    @apply items-center !border-fillBg8 h-[32px];
+    .TMRWDAO-btn-link {
+      @apply text-white font-Montserrat hover:text-white text-[10px];
+    }
+    .TMRWDAO-btn-primary {
+      @apply w-[40px] h-[20px] !rounded-[42px] text-[10px] py-[2px] hover:bg-transparent hover:border-mainColor hover:text-mainColor;
     }
   }
 }

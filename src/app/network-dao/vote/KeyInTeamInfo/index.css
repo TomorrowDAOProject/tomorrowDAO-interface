@@ -29,9 +29,45 @@
   margin: 0 auto;
 }
 
+.candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form label {
+  @apply w-[160px] text-white text-[16px] text-right font-Montserrat font-medium mt-[10px];
+}
+
+.candidate-apply-team-info-key-in-container .TMRWDAO-form-item-label {
+  @apply mr-[20px] inline-block;
+}
+
+.candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form label::before {
+  @apply !text-white;
+}
+
+.candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form .TMRWDAO-input {
+  @apply h-[43px] text-lightGrey bg-darkBg border border-solid border-borderColor;
+}
+
+.candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form .TMRWDAO-input:hover {
+  @apply text-lightGrey bg-darkBg border border-solid border-borderColor shadow-none;
+}
+
+.candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form .TMRWDAO-input:focus {
+  @apply text-lightGrey bg-darkBg border border-solid border-borderColor shadow-none;
+}
+
+.candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form .TMRWDAO-input::placeholder {
+  @apply text-lightGrey;
+}
+
+.candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form .TMRWDAO-input-group-addon {
+  @apply bg-darkBg text-lightGrey border-borderColor;
+}
+
+.candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-form .TMRWDAO-form-item-explain-error {
+  @apply text-mainColor;
+}
+
 .candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-footer {
-  margin-top: 100px;
-  text-align: center;
+  margin-top: 32px;
+  text-align: right;
 }
 
 .candidate-apply-team-info-key-in-container .candidate-apply-team-info-key-in-footer .antExplorer-btn+.antExplorer-btn {

@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { connect } from "react-redux";
-import { Input, Button, Tooltip, Table } from "antd";
+import { Table, ConfigProvider, Tooltip } from 'antd';
+import NoData from 'components/NoData';
+import Button from 'components/Button';
+import Input from 'components/Input';
 
 import { SearchOutlined } from "@ant-design/icons";
 import publicKeyToAddress from "@utils/publicKeyToAddress";
 
 import "./MyVoteRecords.css";
 import { ELF_DECIMAL } from "../../constants";
-import TableLayer from "@components/TableLayer/TableLayer";
-
-const clsPrefix = "my-vote-records";
 
 function genMyVoteRecordsCols() {
   const { isSmallScreen } = this.props;
@@ -33,6 +33,7 @@ function genMyVoteRecordsCols() {
       render: (text, record) => (
         <Tooltip title={text}>
           <LinkNetworkDao
+            className="text-desc11 font-Montserrat text-white hover:text-mainColor"
             href={{
               pathname: '/vote/team',
               query: {
@@ -99,21 +100,20 @@ function genMyVoteRecordsCols() {
       title: "Operations",
       key: "operations",
       render: (text, record) => (
-        <div className="node-list-btn-group">
-          <Button
-            type="primary"
-            className="table-btn redeem-btn"
-            data-role="redeemOne"
-            data-nodeaddress={publicKeyToAddress(record.candidate)}
-            data-nodename={record.nane || publicKeyToAddress(record.candidate)}
-            data-amount={record.amount}
-            disabled={!record.isRedeemable || record.type === "Redeem"}
-            data-shoulddetectlock
-            data-voteId={JSON.stringify(record.voteId)}
-          >
-            Redeem
-          </Button>
-        </div>
+        <Button
+          type="default"
+          size="small"
+          className="!py-[2px] !px-1 !rounded-[4px] !text-desc10 !font-Montserrat"
+          data-role="redeemOne"
+          data-nodeaddress={publicKeyToAddress(record.candidate)}
+          data-nodename={record.nane || publicKeyToAddress(record.candidate)}
+          data-amount={record.amount}
+          disabled={!record.isRedeemable || record.type === "Redeem"}
+          data-shoulddetectlock
+          data-voteId={JSON.stringify(record.voteId)}
+        >
+          Redeem
+        </Button>
       ),
     },
   ];
@@ -145,35 +145,39 @@ class MyVoteRecords extends Component {
       confirm,
       clearFilters,
     }) => (
-      <div style={{ padding: 8 }}>
+      <div className="p-4">
         <Input
           ref={(node) => {
             this.searchInput = node;
           }}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          onChange={(value) =>
+            setSelectedKeys(value ? [value] : [])
           }
           onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
           style={{ width: 188, marginBottom: 8, display: "block" }}
         />
-        <Button
-          type="primary"
-          onClick={() => this.handleSearch(selectedKeys, confirm)}
-          icon={<SearchOutlined />}
-          size="small"
-          style={{ width: 90, marginRight: 8 }}
-        >
-          Search
-        </Button>
-        <Button
-          onClick={() => this.handleReset(clearFilters, confirm)}
-          size="small"
-          style={{ width: 90 }}
-        >
-          Reset
-        </Button>
+        <div className="flex items-center gap-2 mt-2">
+          <Button
+            type="primary"
+            className="flex-1"
+            onClick={() => this.handleSearch(selectedKeys, confirm)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90, marginRight: 8 }}
+          >
+            Search
+          </Button>
+          <Button
+            className="flex-1"
+            onClick={() => this.handleReset(clearFilters, confirm)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </div>
       </div>
     ),
     filterIcon: (filtered) => (
@@ -202,11 +206,10 @@ class MyVoteRecords extends Component {
     const myVoteRecordsCols = genMyVoteRecordsCols.call(this);
 
     return (
-      <section className={`${clsPrefix}-section`}>
-        <h2 className={`${clsPrefix}-header table-card-header`}>
-          <span>My Votes</span>
-        </h2>
-        <TableLayer>
+      <section className="pt-5 border-0 border-t border-solid border-t-fillBg8">
+        <h2 className="mb-1 text-white text-descM12 font-Montserrat">My Votes</h2>
+
+        <ConfigProvider renderEmpty={() => <NoData></NoData>}>
           <Table
             showSorterTooltip={false}
             columns={myVoteRecordsCols}
@@ -215,7 +218,7 @@ class MyVoteRecords extends Component {
             rowKey={(record) => record.voteId}
             scroll={{ x: 'max-content' }}
           />
-        </TableLayer>
+        </ConfigProvider>
       </section>
     );
   }

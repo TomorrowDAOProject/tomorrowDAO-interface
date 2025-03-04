@@ -8,7 +8,7 @@
  */
 import React, { PureComponent } from "react";
 import Decimal from "decimal.js";
-import { message } from "antd";
+import { toast } from "react-toastify";
 import getChainIdQuery from 'utils/url';
 import moment from "moment";
 
@@ -22,7 +22,6 @@ import {
 import { aelf } from "@src/utils";
 import getStateJudgment from "@utils/getStateJudgment";
 import { connect } from "react-redux";
-// import { withRouter } from "../../../routes/utils";
 import NodeTable from "./NodeTable";
 import ElectionRuleCard from "./ElectionRuleCard/ElectionRuleCard";
 import MyWalletCard from "./MyWalletCard/MyWalletCard";
@@ -34,6 +33,7 @@ import { WebLoginInstance } from "@utils/webLogin";
 import { onlyOkModal } from "@components/SimpleModal/index.tsx";
 import { fetchAllCandidateInfo } from "../utils";
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
+
 
 const electionNotifiStatisData = {
   termEndTime: {
@@ -108,9 +108,9 @@ const Display = (props) => {
   const { dividends } = props;
   return (
     <div className="ant-statistic vote-statistic">
-      <div className="ant-statistic-title">Current Mining Reward</div>
+      <div className="ant-statistic-title text-desc12 text-Neutral-Secondary-Text font-Montserrat pt-[14px] mb-4">Current Mining Reward</div>
       <div className="ant-statistic-content">
-        <span className="ant-statistic-content-value">
+        <span className="ant-statistic-content-value text-descM18 text-white font-Montserrat">
           <Dividends dividends={dividends} useButton={false} />
         </span>
       </div>
@@ -215,7 +215,10 @@ class ElectionNotification extends PureComponent {
         contract: consensusContract,
         method: "GetCurrentTermNumber",
         statisDataKey: "termEndTime",
-        processor: (value) => `Current Term's Countdown (${value}th term)`,
+        processor: (value) => (<div className="text-center mr-[4px]">
+          <div className="mb-[2px]">Current Term's Countdown</div>
+          <div>({value}th term)</div>
+        </div>),
         dataKey: "title",
       },
       {
@@ -338,11 +341,11 @@ class ElectionNotification extends PureComponent {
         })
         .then((res = {}) => {
           if (res.error) {
-            message.error(res.errorMessage.message);
+            toast.error(res.errorMessage.message);
             return;
           }
           if (!res) {
-            message.error(UNKNOWN_ERROR_TIP);
+            toast.error(UNKNOWN_ERROR_TIP);
             return;
           }
           const transactionId = res.result
@@ -356,7 +359,7 @@ class ElectionNotification extends PureComponent {
               judgeCurrentUserIsCandidate();
             } catch (e) {
               console.log(e);
-              message.error(e.message || e.Error || "Network error");
+              toast.error(e.message || e.Error || "Network error");
             }
           }, 4000);
         })
@@ -404,11 +407,11 @@ class ElectionNotification extends PureComponent {
         })
         .then((res) => {
           if (res.error) {
-            message.error(res.error.message || res.errorMessage.message);
+            toast.error(res.error.message || res.errorMessage.message);
             return;
           }
           if (!res) {
-            message.error(UNKNOWN_ERROR_TIP);
+            toast.error(UNKNOWN_ERROR_TIP);
             return;
           }
           const transactionId = res.result
@@ -430,7 +433,7 @@ class ElectionNotification extends PureComponent {
               }
             } catch (e) {
               console.log(e);
-              message.error(e.message || e.Error || "Network error");
+              toast.error(e.message || e.Error || "Network error");
             }
           }, 4000);
         })
@@ -475,7 +478,7 @@ class ElectionNotification extends PureComponent {
     return (
       <section className="election-notification">
         <div className="statistical-data-content">
-          <StatisticalData data={statisData} spinning={statisDataLoading} />
+          <StatisticalData data={statisData} spinning={statisDataLoading} tooltipClassName="!max-w-[440px] !w-[400px]" />
         </div>
         <ElectionRuleCard
           isCandidate={isCandidate}

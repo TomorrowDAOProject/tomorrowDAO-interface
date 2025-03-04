@@ -1,14 +1,11 @@
 // eslint-disable-next-line no-use-before-define
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, message } from "antd";
 import copy from "copy-to-clipboard";
 import Link from 'next/link';
-import { ShareInternalOutlined, CopyOutlined } from '@aelf-design/icons'
-// import IconFont from "../../../../components/IconFont";
 import { omitString } from "@common/utils";
 import "./index.css";
-
+import { toast } from "react-toastify";
 const CopylistItem = (props) => {
   const {
     label,
@@ -21,52 +18,42 @@ const CopylistItem = (props) => {
     try {
       copy(value);
       // eslint-disable-next-line no-undef
-      message.success("Copied!");
+      toast.success("Copied!");
     } catch (e) {
-      message.error("Copy failed, please copy by yourself.");
+      toast.error("Copy failed, please copy by yourself.");
     }
   };
   return !value ? (
-    <div>
-      <span>{label}</span>
+    <div className="flex items-center justify-center mt-5">
+      <span className="text-desc12 text-white font-Montserrat">{label}</span>
     </div>
   ) : (
-    <div className="copy-list-item-wrapper">
-      <span className="copy-list-label">{label}:</span>
-      <span className="copy-list-value">
+    <div className="flex items-center justify-center gap-5 mt-5">
+      <span className="text-desc12 text-white font-Montserrat">{label}:</span>
+      <>
         {valueHref ? (
-          <a href={valueHref}>{omitString(value, 10, 10)}</a>
+          <a href={valueHref} className="text-desc12 text-secondaryMainColor font-Montserrat">{omitString(value, 10, 10)}</a>
         ) : (
           omitString(value, 10, 10)
         )}
         {href ? (
           <>
             {isParentHref ? (
-              <Button
-                type="circle"
+              <i
                 onClick={() => {
                   window.parent.location.replace(href);
                 }}
-              >
-                <ShareInternalOutlined />
-              </Button>
+                className="tmrwdao-icon-logout text-[18px] text-lightGray ml-2 -rotate-90"
+              />
             ) : (
-              <Button type="circle">
-                <Link to={href}>
-                  <ShareInternalOutlined />
-                </Link>
-              </Button>
+              <Link to={href}>
+                <i className="tmrwdao-icon-logout text-[18px] text-lightGray ml-2 -rotate-90" />
+              </Link>
             )}
           </>
         ) : null}
-
-        <Button
-          onClick={handleCopy}
-          type="circle"
-          icon={<CopyOutlined />}
-          title="Copy code"
-        />
-      </span>
+        <i className="tmrwdao-icon-duplicate text-[18px] text-lightGray ml-2" onClick={handleCopy} />
+      </>
     </div>
   );
 };

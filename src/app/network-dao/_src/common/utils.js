@@ -429,19 +429,9 @@ export const isPhoneCheck = () => {
 };
 
 export async function _redirectPageToIframeMode() {
-  console.log("RELOAD_ENV", process.env.RELOAD_ENV, process.env.NODE_ENV);
-  // if (process.env.RELOAD_ENV !== 'reload') {
-  //   return;
-  // }
-  // if (process.env.NODE_ENV !== 'production') {
-  //   console.log('window.location.href reload');
-  // }
-
   if (!window.frameElement) {
     if (window.location.href.match("contract")) {
       window.location.href = `/contract?#${window.location.href}`;
-      // } else if (window.location.href.match('proposalsDetail')) {
-      //   window.location.href = `/viewer/proposal.html?#${window.location.href}`;
     } else if (window.location.href.match("proposal")) {
       window.location.href = `/proposal?#${window.location.href}`;
     } else if (window.location.href.match("address")) {

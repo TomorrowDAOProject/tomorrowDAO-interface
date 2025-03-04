@@ -1,26 +1,52 @@
-import { useContext, useMemo } from 'react';
-import { Typography, FontWeightEnum } from 'aelf-design';
-import { Form } from 'antd';
-import IPFSUpload from 'components/IPFSUpload';
+import { useMemo, useState } from 'react';
 import './index.css';
-import { StepEnum, StepsContext } from '../../type';
-import { useRegisterForm, validatorCreate } from '../utils';
+import { StepEnum } from '../../type';
+import { useRegisterForm } from '../utils';
+import { Controller, useForm } from 'react-hook-form';
+import FormItem from 'components/FormItem';
+import Upload from 'components/Upload';
+import Spinner from 'components/Spinner';
+import { shortenFileName } from 'utils/file';
 
-const { Title } = Typography;
+type ReturnUploadType = {
+  url: string;
+  name: string;
+  response: { url: string };
+};
 
 const FILE_LIMIT = '20 MB';
 const MAX_FILE_COUNT = 20;
-const MAX_FILE_NAME_LENGTH = 128;
 export default function ContractsAndFiles() {
-  const [form] = Form.useForm();
+  const form = useForm({
+    defaultValues: {
+      files: [],
+    },
+  });
+  const {
+    watch,
+    control,
+    formState: { errors },
+    setValue,
+  } = form;
+  const [loading, setLoading] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
   useRegisterForm(form, StepEnum.step3);
-  const { stepForm } = useContext(StepsContext);
 
-  const fileList = Form.useWatch('files', form) ?? [];
+  const fileList: ReturnUploadType[] = watch('files') ?? [];
 
   const isUploadDisabled = useMemo(() => {
     return fileList.length >= MAX_FILE_COUNT;
   }, [fileList.length]);
+
+  const handleFileChange = (file: File) => {
+    setFiles((prev) => [...prev, file]);
+  };
+
+  const handleRemoveFile = (key: string) => {
+    setFiles((prev) => prev.filter((file, index) => `${file.name}_${index}` !== key));
+    const updateList: any = fileList.filter((file, index) => `${file.name}_${index}` !== key);
+    setValue('files', updateList);
+  };
 
   const uploadTips = useMemo(() => {
     if (isUploadDisabled) {
@@ -46,54 +72,77 @@ export default function ContractsAndFiles() {
   }, [isUploadDisabled]);
 
   return (
-    <div className="contracts-and-files">
-      <Title className="primary-text" level={6} fontWeight={FontWeightEnum.Medium}>
-        Documentation
-      </Title>
-      <Title className="secondary-text">
-        It is recommended to upload at least a project whitepaper and roadmap
-      </Title>
-      <Form
-        form={form}
-        layout="vertical"
-        autoComplete="off"
-        requiredMark={false}
-        scrollToFirstError={true}
-        onValuesChange={(_a, values) => {
-          stepForm[StepEnum.step3].submitedRes = values;
-        }}
-      >
-        <Form.Item
-          name={'files'}
-          validateFirst={true}
-          rules={[
-            {
-              required: true,
-              type: 'array',
-              message: 'Add at least one documentation',
-            },
-            validatorCreate(
-              (v) => v.length > 20,
+    <FormItem
+      label={
+        <>
+          <p className="flex item-center !mb-[15px] text-descM16 text-white font-Montserrat">
+            Documentation
+            <span className="ml-[10px] px-3 py-[3px] bg-fillBg8 rounded-[25px] inline-block text-descM12 font-Montserrat text-lightGrey">
+              Optional
+            </span>
+          </p>
+          <p className="font-Montserrat text-desc12 text-lightGrey font-Montserrat">
+            A comprehensive guide detailing the technical specifications, usage, and integration
+            processes for the project.
+          </p>
+        </>
+      }
+      errorText={errors?.files?.message}
+    >
+      <Controller
+        name="files"
+        control={control}
+        rules={{
+          required: false,
+          validate: {
+            validator: (v) =>
+              v.length <= 20 ||
               `You have reached the maximum limit of 20 files. Please consider removing some files before uploading a new one. If you need further assistance, you can join TMRWDAO's Telegram group.`,
-            ),
-          ]}
-          valuePropName="fileList"
-          initialValue={[]}
-        >
-          <IPFSUpload
-            className="upload"
-            isAntd
+          },
+        }}
+        render={({ field }) => (
+          <Upload
             accept=".pdf"
+            className="mx-auto"
             fileLimit={FILE_LIMIT}
-            maxCount={MAX_FILE_COUNT}
-            fileNameLengthLimit={MAX_FILE_NAME_LENGTH}
-            uploadIconColor="#1A1A1A"
             uploadText="Click to Upload"
             tips={uploadTips}
-            disabled={isUploadDisabled}
+            onStart={() => setLoading(true)}
+            onFileChange={handleFileChange}
+            onFinish={(file) => {
+              const newFiles = [...fileList, file];
+              field.onChange(newFiles);
+            }}
           />
-        </Form.Item>
-      </Form>
-    </div>
+        )}
+      />
+      <div className="mt-[15px]">
+        {files?.map(({ name }, index) => (
+          <div
+            className="flex items-center justify-between py-1 px-3 mt-2"
+            key={`${name}_${index}`}
+          >
+            <div className="flex items-center flex-grow">
+              {fileList.filter((item) => item.name === name).length > 0 ? (
+                <i className="text-lightGrey tmrwdao-icon-document text-[20px]" />
+              ) : loading ? (
+                <Spinner size={20} />
+              ) : (
+                <span className="w-[20px] h-[20px] rounded-[10px] bg-danger leading-[20px] text-center">
+                  <i className="tmrwdao-icon-cross text-[12px] text-darkBg" />
+                </span>
+              )}
+              <span className="ml-2 text-lightGrey text-desc12 font-Montserrat">
+                {shortenFileName(name)}
+              </span>
+            </div>
+            <i
+              className="tmrwdao-icon-delete text-[20px] text-Neutral-Secondary-Text"
+              onClick={() => handleRemoveFile(`${name}_${index}`)}
+            />
+          </div>
+        ))}
+      </div>
+    </FormItem>
   );
 }

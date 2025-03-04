@@ -9,8 +9,11 @@
 }
 
 .skeleton-line {
-  @apply !py-[10px] !px-[0];
+  @apply !py-[7px] !px-[0] bg-transparent;
   &.border-none {
     border-block-end: none;
+  }
+  .TMRWDAO-skeleton-title {
+    @apply !bg-darkGray !h-[20px];
   }
 }

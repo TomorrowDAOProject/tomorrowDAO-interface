@@ -23,8 +23,8 @@ export default function CommonHeader({ title, onClose }: ICommonHeaderProps) {
         className="common-header-close"
         src={closeIcon}
         alt="close"
-        width={16}
-        height={16}
+        width={24}
+        height={24}
         onClick={onClose}
       />
     </Flex>

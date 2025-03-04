@@ -1,6 +1,22 @@
-.dao-steps-wrap {
+.dao-steps-box {
+  /* min-height: calc(100vh - 69.69px); */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+ 
+}
 
-  @apply mb-6;
+.dao-steps-wrap {
+  box-sizing: border-box;
+  align-items: flex-start;
+  @media screen and (max-width: 1120px) {
+    min-height: calc(100vh - 69.69px - 169.06px - 67px - 24px);
+  }
+  @media screen and (min-width: 1121px) {
+    min-height: calc(100vh - 82.09px - 169.06px - 67px - 24px);
+  }
+
+  @apply mb-6 xl:w-[930px] lg:w-[750px] m-auto;
 
   .title-wrap {
     @apply flex justify-between items-center;
@@ -19,7 +35,7 @@
   }
 
   .title {
-    @apply font-medium text-[16px] leading-[24px] text-colorPrimary;
+    @apply font-medium text-[16px] leading-[24px] text-mainColor;
   }
 
   .step-title {
@@ -35,7 +51,7 @@
   }
 
   .current-text {
-    @apply text-colorPrimary;
+    @apply text-mainColor;
   }
 }
 
@@ -47,10 +63,34 @@
     @apply text-[#B8B8B8] ml-[8px];
   }
 }
+.dao-create-first-header {
+  span {
+    font-family: Montserrat;
+    font-weight: 400;
+  }
+}
 
 .dao-create-first-screen {
   .dao-create-first-screen-title {
-    @apply font-medium lg:text-[24px] lg:leading-[32px] text-neutralTitle text-[20px] leading-[28px];
+    font-family: Unbounded;
+    @apply font-[300] lg:text-[22px] lg:leading-[32px] md:text-[20px] md:leading-[28px] text-white text-[20px] leading-[28px];
+  }
+  .login-btn {
+    border:  1.5px solid #fff;
+    border-radius: 42px;
+    margin-left: auto;
+   
+    @apply text-white flex items-center gap-[10px] text-[12px] md:text-[12px] lg:text-[15px] bg-[transparent] px-[14px] py-[8px] lg:px-[20px] lg:py-[11px] md:px-[14px] md:py-[8px];
+    span {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    &:hover {
+      color: #5D49F6;
+      border: 1px solid #5D49F6
+    }
   }
 
   .icon {
@@ -58,22 +98,33 @@
   }
 
   .icon-wrap {
-    @apply bg-Neutral-Hover-BG flex items-center justify-center py-[50px] rounded-md;
+    @apply flex items-center justify-center py-0 xl:py-[12.5px] rounded-md;
+    
   }
 
   .dao-create-preview {
-    @apply flex justify-between gap-[18px];
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); */
+    gap: 18px;
+    @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 lg:w-full xl:w-full md:w-[366px] md:m-auto;
   }
 
+
   .dao-create-preview-item {
-    @apply flex-1 p-[16px] dao-border-round bg-white;
-
-    p {
-      @apply font-medium text-[14px] leading-[22px] text-Neutral-Disable-Text mt-[10px] mb-[8px];
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #171717;
+    display: flex;
+    flex-direction: column;
+    @apply flex-1 lg:py-[15px] xl:py-[15px] md:py-[15px] rounded-xl lg:w-auto sm:w-full md:w-[174px] sm:pb-[15px];
+    .step {
+      font-family: Montserrat;
+      @apply font-medium text-[14px] leading-[22px] text-lightGrey md:mt-[3px] lg:mt-[3px] xl:mt-[18px] mb-[8px] px-[15px] sm:mt-0;
     }
 
-    h3 {
-      @apply font-medium text-[16px] leading-[24px] text-neutralTitle;
+    .basic {
+      font-family: Montserrat;
+      @apply font-medium lg:text-[15px] md:text-[14px] text-[14px] leading-[24px] text-white px-[15px];
     }
+   
   }
 }

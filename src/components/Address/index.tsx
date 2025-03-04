@@ -1,17 +1,30 @@
-import { HashAddress, IHashAddressProps } from 'aelf-design';
+import { useCopyToClipboard } from 'react-use';
 import './index.css';
-export interface IAddress extends IHashAddressProps {
+import { toast } from 'react-toastify';
+interface IAddress {
   address: string;
+  chainId: string;
   info?: string;
 }
 
-export default function Address(props: IAddress) {
+export default function Address({ address, info, chainId }: IAddress) {
+  const [, setCopied] = useCopyToClipboard();
+  const handleCopy = () => {
+    setCopied(`ELF_${address}_${chainId}`);
+    toast.success('Copy success');
+  };
   return (
-    <div className="address-container">
-      <div className="address">
-        <HashAddress {...props} />
+    <>
+      <div className="w-full flex flex-row items-center justify-between border border-solid border-fillBg16 rounded-[8px] px-[16px] py-[13px] bg-fillBg8">
+        <span className="inline-block max-w-[calc(100%-60px)] whitespace-normal break-words text-lightGrey text-descM14 font-Montserrat font-normal">
+          {`ELF_${address}_${chainId}`}
+        </span>
+        <i
+          className="tmrwdao-icon-duplicate text-white text-[20px] cursor-pointer"
+          onClick={handleCopy}
+        />
       </div>
-      {props.info && <div className="address-info">{props.info}</div>}
-    </div>
+      {info && <div className="mt-2 text-desc12 text-lightGrey font-Montserrat">{info}</div>}
+    </>
   );
 }

@@ -2,21 +2,20 @@
 
 import { useMachine } from '@xstate/react';
 import { formMachine } from './xstate';
-import { Button, Progress } from 'aelf-design';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { message as antdMessage, FormInstance, Result, Switch, Tag } from 'antd';
+import { Result } from 'antd';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import SubmitButton, { ISubmitRef } from './component/SubmitButton';
-import { daoCreateContractRequest } from 'contract/daoCreateContract';
 import { useSelector } from 'redux/store';
 import { timesDecimals } from 'utils/calculate';
-import { ReactComponent as ArrowRight } from 'assets/imgs/arrow-right.svg';
-import { ReactComponent as ArrowLeft } from 'assets/imgs/arrow-left.svg';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import {
+  BasicInfoSubmitedRes,
   EDaoGovernanceMechanism,
+  FilesSubmitedRes,
   IFile,
+  IGovernanceSchemeThreshold,
   IHighCouncilInput,
   IStepsContext,
   StepEnum,
@@ -27,14 +26,23 @@ import { emitLoading } from 'utils/myEvent';
 import Link from 'next/link';
 import { IFormValidateError, IContractError } from 'types';
 import { cloneDeep, cloneDeepWith } from 'lodash-es';
-import { NetworkName } from 'config';
-import formValidateScrollFirstError from 'utils/formValidateScrollFirstError';
+import { curChain, daoAddress, NetworkName } from 'config';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import breadCrumb from 'utils/breadCrumb';
 import { FirstScreen } from './FirstScreen';
 import './index.css';
 import { trimAddress } from 'utils/address';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import ProgressBar from 'components/Progress';
+import Button from 'components/Button';
+import Navigation from './component/Navigation';
+import { UseFormReturn } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import Switch from 'components/Switch';
+import { formatErrorMsg } from 'contract/util';
+import { sleep } from 'utils/common';
+import { getTxResult } from 'utils/getTxResult';
+import { filterInvalidFields } from 'utils/parseJSON';
 
 const CreateDaoPage = () => {
   const [snapshot, send] = useMachine(formMachine);
@@ -42,7 +50,6 @@ const CreateDaoPage = () => {
   const currentStepString = currentStep.toString() as StepEnum;
 
   const isHighCouncilStep = currentStepString === StepEnum.step2;
-  const [messageApi, contextHolder] = antdMessage.useMessage();
   const daoCreateToken = useSelector((store) => store.daoCreate.token);
   const { isSyncQuery } = useAelfWebLoginSync();
   const submitButtonRef = useRef<ISubmitRef>(null);
@@ -54,38 +61,37 @@ const CreateDaoPage = () => {
   const [isShowSecondScreen, setIsShowSecondScreen] = useState(false);
 
   const stepsFormMapRef = useRef<IStepsContext>(cloneDeepWith(defaultStepsFormMap));
-  const { isConnected } = useConnectWallet();
+  const { isConnected, callSendMethod } = useConnectWallet();
 
   const handleNextStep = () => {
     const form = stepsFormMapRef.current.stepForm[currentStepString].formInstance;
     if (form) {
       setNextLoading(true);
       form
-        ?.validateFields()
-        .then((res) => {
+        ?.trigger()
+        .then((isValid: boolean) => {
           setNextLoading(false);
-          stepsFormMapRef.current.stepForm[currentStepString].submitedRes = res;
-          send({ type: 'NEXT' });
+          if (isValid) {
+            const values = form?.getValues();
+            stepsFormMapRef.current.stepForm[currentStepString].submitedRes = values;
+            send({ type: 'NEXT' });
+          }
         })
         .catch((err: IFormValidateError) => {
+          console.error(err);
           setNextLoading(false);
-          formValidateScrollFirstError(form, err);
         });
     } else {
-      messageApi.open({
-        type: 'error',
-        content: 'No registration form',
-      });
+      toast.error('No registration form');
     }
   };
-  // const handleSkip = () => {
-  //   isSkipHighCouncil.current = true;
-  //   stepsFormMapRef.current.stepForm[StepEnum.step2].submitedRes = undefined;
-  //   send({ type: 'NEXT' });
-  // };
 
   const onRegisterHandler = useCallback(
-    (ins: FormInstance) => {
+    (
+      ins: UseFormReturn<
+        BasicInfoSubmitedRes | IGovernanceSchemeThreshold | IHighCouncilInput | FilesSubmitedRes
+      >,
+    ) => {
       stepsFormMapRef.current.stepForm[currentStepString].formInstance = ins;
     },
     [currentStepString],
@@ -101,26 +107,22 @@ const CreateDaoPage = () => {
     const form = stepForm[StepEnum.step3].formInstance;
     const isNetworkDaoLocal = localStorage.getItem('is_network_dao');
     if (form) {
-      const res = await form?.validateFields();
-      stepForm[StepEnum.step3].submitedRes = res;
+      await form?.trigger();
       const originMetadata = stepForm[StepEnum.step0].submitedRes;
-      const originSocialMedia = (originMetadata?.metadata?.socialMedia ?? {}) as object;
-      const socialMedia = Object.keys(originSocialMedia).reduce((acc, key) => {
-        const k = key as keyof typeof originSocialMedia;
-        if (originSocialMedia[k]) {
-          acc[key] = originSocialMedia[k];
-        }
-        return acc;
-      }, {} as Record<string, string>);
+      const socialMedia =
+        Array.isArray(originMetadata?.metadata?.socialMedia) &&
+        Object.fromEntries(originMetadata?.metadata?.socialMedia);
       const metadata = {
         ...originMetadata,
-        members: {
-          value: originMetadata?.members?.value?.map((item) => trimAddress(item)) ?? [],
-        },
         metadata: {
           ...originMetadata?.metadata,
-          logoUrl: originMetadata?.metadata?.logoUrl?.[0]?.response?.url,
-          socialMedia,
+          socialMedia: socialMedia ? filterInvalidFields(socialMedia) : {},
+        },
+        members: {
+          value:
+            originMetadata?.members?.value
+              ?.filter((address) => address)
+              ?.map((item) => trimAddress(item)) ?? [],
         },
       };
 
@@ -128,7 +130,6 @@ const CreateDaoPage = () => {
         const files: IFile[] =
           stepForm[StepEnum.step3].submitedRes?.files?.map((file) => {
             const url = new URL(file.response.url);
-            // const url = file.response.url;
             const id = url.pathname.split('/').pop() ?? '';
             return {
               cid: id,
@@ -148,15 +149,8 @@ const CreateDaoPage = () => {
         if (governanceConfig) {
           governanceConfig = {
             ...governanceConfig,
-            minimalApproveThreshold: governanceConfig.minimalApproveThreshold * 100,
-            // maximalRejectionThreshold: governanceConfig.maximalRejectionThreshold * 100,
-            // maximalAbstentionThreshold: governanceConfig.maximalAbstentionThreshold * 100,
+            minimalApproveThreshold: (governanceConfig?.minimalApproveThreshold || 0) * 100,
           };
-          // isMultisig, it is a percentage
-          // if (isMultisig) {
-          //   governanceConfig.minimalRequiredThreshold =
-          //     governanceConfig.minimalRequiredThreshold * 100;
-          // }
         }
         // eslint-disable-next-line prefer-const
         let { proposalThreshold, ...restGovernanceConfig } = governanceConfig ?? {};
@@ -172,38 +166,22 @@ const CreateDaoPage = () => {
           files,
           isNetworkDao: isNetworkDaoLocal
             ? isNetworkDaoLocal === 'true'
-            : metadata.metadata.name === NetworkName,
+            : metadata?.metadata?.name === NetworkName,
         };
         // highCouncil not skip
         if (isShowHighCouncil && !isMultisig) {
           let highCouncilForm = stepForm[StepEnum.step2].submitedRes;
           if (highCouncilForm && daoCreateToken?.decimals) {
-            // const stakingAmount = 1;
             const minimalVoteThreshold =
               highCouncilForm.governanceSchemeThreshold.minimalVoteThreshold;
-            // const stakingAmountDecimals = Number(
-            //   timesDecimals(stakingAmount, daoCreateToken.decimals),
-            // );
             highCouncilForm = {
-              // highCouncilConfig: {
-              //   maxHighCouncilMemberCount: 10000,
-              //   stakingAmount: stakingAmountDecimals,
-              //   electionPeriod: Number.MAX_SAFE_INTEGER,
-              //   maxHighCouncilCandidateCount: 10000,
-              // },
               governanceSchemeThreshold: {
                 ...highCouncilForm.governanceSchemeThreshold,
-                // minimalRequiredThreshold:
-                //   highCouncilForm.governanceSchemeThreshold.minimalRequiredThreshold * 100,
                 minimalVoteThreshold: Number(
                   timesDecimals(minimalVoteThreshold, daoCreateToken.decimals),
                 ),
                 minimalApproveThreshold:
-                  highCouncilForm.governanceSchemeThreshold.minimalApproveThreshold * 100,
-                // maximalRejectionThreshold:
-                //   highCouncilForm.governanceSchemeThreshold.maximalRejectionThreshold * 100,
-                // maximalAbstentionThreshold:
-                //   highCouncilForm.governanceSchemeThreshold.maximalAbstentionThreshold * 100,
+                  (highCouncilForm?.governanceSchemeThreshold?.minimalApproveThreshold || 0) * 100,
               },
               highCouncilMembers: {
                 value:
@@ -219,23 +197,37 @@ const CreateDaoPage = () => {
           };
         }
         emitLoading(true, 'The transaction is being processed...');
-        await daoCreateContractRequest('CreateDAO', params);
+        const res = await callSendMethod({
+          contractAddress: daoAddress,
+          methodName: 'CreateDAO',
+          args: params,
+          chainId: curChain,
+        });
+        const result = res as IContractError;
+        if (result?.error || result?.code || result?.Error) {
+          throw formatErrorMsg(result);
+        }
+
+        const { transactionId, TransactionId } = result.result || result;
+        const resTransactionId = TransactionId || transactionId;
+        await sleep(1000);
+        await getTxResult(resTransactionId!, curChain as Chain);
         emitLoading(false);
         submitButtonRef.current?.setResultModalConfig({
           open: true,
           type: CommonOperationResultModalType.Success,
-          primaryContent: `${originMetadata?.metadata.name} Created Successfully`,
+          primaryContent: `${originMetadata?.metadata.name} is successfully created`,
           secondaryContent: (
             <>
-              Feel free to join Tomorrow DAO&apos;s{' '}
+              {`If you wish to modify the DAO's display information, \nyou can join the`}{' '}
               <Link
-                className="text-colorPrimary cursor-pointer"
+                className="text-mainColor cursor-pointer underline"
                 href={'https://t.me/tmrwdao'}
                 target="_blank"
               >
                 Telegram group
-              </Link>{' '}
-              to connect with the team and receive timely assistance
+              </Link>
+              {`.`}
             </>
           ),
           footerConfig: {
@@ -243,13 +235,12 @@ const CreateDaoPage = () => {
               {
                 children: (
                   <Link
+                    className="py-2 px-[14px] w-full lg:py-[11px] lg:px-5 flex items-center justify-center border border-solid text-descM12 font-Montserrat lg:text-descM15 rounded-[42px] bg-mainColor border-mainColor text-white hover:bg-transparent hover:text-mainColor hover:border-mainColor appearence-none outline-none transition-[background,color] duration-300 ease-in-out"
                     href={`/explore`}
                     onClick={() => {
-                      antdMessage.open({
-                        type: 'success',
-                        content:
-                          'created successfully, it will appear in the list in a few minutes',
-                      });
+                      toast.success(
+                        'created successfully, it will appear in the list in a few minutes',
+                      );
                     }}
                   >
                     <span className="text-white">View My DAO</span>
@@ -261,10 +252,7 @@ const CreateDaoPage = () => {
         });
       } catch (err) {
         if (typeof err === 'string') {
-          antdMessage.open({
-            type: 'error',
-            content: 'Please check your internet connection and try again. ',
-          });
+          toast.error('Please check your internet connection and try again. ');
           return;
         }
         const error = err as IFormValidateError | IContractError;
@@ -282,10 +270,15 @@ const CreateDaoPage = () => {
           footerConfig: {
             buttonList: [
               {
-                children: 'Back',
-                onClick: () => {
-                  submitButtonRef.current?.initResultModalConfig();
-                },
+                children: (
+                  <Button
+                    type="danger"
+                    className="w-full"
+                    onClick={() => submitButtonRef.current?.initResultModalConfig()}
+                  >
+                    Back
+                  </Button>
+                ),
               },
             ],
           },
@@ -312,42 +305,39 @@ const CreateDaoPage = () => {
 
   return isShowSecondScreen ? (
     isConnected ? (
-      <>
-        <div className="page-content-bg-border  dao-steps-wrap">
-          <p className="title-wrap">
-            <h3 className="title">Create your DAO</h3>
-            <span className="current-step-number">
-              <span className="current-text">Step {currentStep + 1}</span> / 4
+      <div className="w-full m-auto min-h-[calc(100vh-260px)]">
+        <Navigation />
+        <div className="mb-[15px] py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid ">
+          <p className="!mb-[22px] flex items-center justify-between">
+            <p className="text-h5 text-white font-Unbounded">Create your DAO</p>
+            <span className="text-descM14 text-white font-Montserrat">
+              <span>Step {currentStep + 1}</span>
             </span>
           </p>
-          <Progress
-            percent={((currentStep + 1) / 4) * 100}
-            showInfo={false}
-            size={['100%', 6]}
-            className="step-progress"
-            strokeColor="#FA9D2B"
-          />
-          <div className="current-step-desc">
+          <ProgressBar percent={((currentStep + 1) / 4) * 100} />
+          <div className="mt-[22px]">
             {currentStep == 0 && (
               <>
-                <h2 className="step-title">Basic Information</h2>
-                <p className="step-subtext">Basic Details.</p>
+                <h2 className="text-descM15 text-white font-Montserrat mb-2">Basic Information</h2>
+                <p className="text-desc12 text-lightGrey font-Montserrat">Basic Details</p>
               </>
             )}
             {currentStep == 1 && (
               <>
-                <h2 className="step-title">Referendum</h2>
-                <p className="step-subtitle">The primary governance mechanism</p>
+                <h2 className="text-descM15 text-white font-Montserrat mb-2">Referendum</h2>
+                <p className="text-desc12 text-lightGrey font-Montserrat">
+                  The primary governance mechanism
+                </p>
               </>
             )}
             {currentStep == 2 && (
               <>
                 <div className="flex justify-between">
-                  <h2 className="step-title flex items-center">
-                    High Council{' '}
-                    {/* <Tag color="#F6F6F6" className="h-[30px] ml-2 flex-center">
-                      <span className="normal-text-bold text-Neutral-Secondary-Text">Optional</span>
-                    </Tag> */}
+                  <h2 className="text-descM15 text-white mb-2 flex items-center">
+                    High Council
+                    <span className="ml-[10px] px-3 py-[3px] bg-fillBg8 rounded-[25px] inline-block text-descM12 font-Montserrat text-lightGrey">
+                      Optional
+                    </span>
                   </h2>
                   <Switch
                     disabled={isMultisig}
@@ -357,26 +347,27 @@ const CreateDaoPage = () => {
                     value={isShowHighCouncil}
                   />
                 </div>
-                <p className="step-subtitle">A supplementary governance mechanism</p>
-                <p className="step-subtext">
-                  High Council is an optional governance mechanism that supplements Referendum. High
-                  Council members are granted authority and the responsibility to partake in DAO
-                  governance.
+                <p className="!mb-2 text-descM13 text-white font-Montserrat">
+                  A supplementary governance mechanism
+                </p>
+                <p className="text-desc12 text-lightGrey font-Montserrat">
+                  High Council is a group of top-ranked addresses, chosen through votes by
+                  governance tokens, holding governance responsibilities, as a supplyment of the
+                  Democracy.
                 </p>
               </>
             )}
             {currentStep == 3 && (
               <>
-                <h2 className="step-title">Docs</h2>
-                <p className="step-subtext">
+                <h2 className="text-descM15 text-white mb-2">Docs</h2>
+                <p className="text-desc12 text-lightGrey font-Montserrat">
                   It is recommended to upload at least a project whitepaper and roadmap
                 </p>
               </>
             )}
           </div>
         </div>
-        <div className="page-content-bg-border">
-          {contextHolder}
+        <div className="py-[25px] px-[30px] lg:mb-[25px] lg:px-[38px] rounded-[8px] bg-darkBg border-fillBg8 border border-solid">
           <StepsContext.Provider
             value={{
               ...stepsFormMapRef.current,
@@ -388,7 +379,7 @@ const CreateDaoPage = () => {
 
             <div
               className={clsx(
-                'flex py-6 lg:py-8 border-0 border-t border-solid border-Neutral-Divider',
+                'flex',
                 isNotFirstStep ? 'gap-3 justify-between' : 'justify-end',
                 isHighCouncilStep && !isShowHighCouncil ? 'border-t-0' : '',
               )}
@@ -396,42 +387,33 @@ const CreateDaoPage = () => {
               {isNotFirstStep && (
                 <Button
                   type="primary"
-                  ghost
-                  className="flex-1 lg:w-40 lg:flex-none gap-2"
+                  className="lg:flex-none gap-2 border border-white bg-transparent hover:border-white hover:text-white"
                   onClick={() => send({ type: 'PREVIOUS' })}
                 >
-                  <ArrowLeft />
-                  <span>Back</span>
+                  Back
                 </Button>
               )}
 
               {currentStep === 3 ? (
-                <SubmitButton
-                  buttonProps={{
-                    type: 'primary',
-                    className: 'flex-1 lg:w-40 lg:flex-none gap-2',
-                  }}
-                  onConfirm={handleCreateDao}
-                  ref={submitButtonRef}
-                >
-                  <span>Submit</span>
-                  <ArrowRight />
+                <SubmitButton onConfirm={handleCreateDao} ref={submitButtonRef}>
+                  <span>Submit</span>{' '}
+                  <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </SubmitButton>
               ) : (
                 <Button
                   type="primary"
-                  className="flex-1 lg:w-40 lg:flex-none gap-2"
+                  className="lg:flex-none gap-2"
                   onClick={handleNextStep}
                   loading={nextLoading}
                 >
                   <span>Next</span>
-                  <ArrowRight />
+                  <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </Button>
               )}
             </div>
           </StepsContext.Provider>
         </div>
-      </>
+      </div>
     ) : (
       <Result
         className="px-4 lg:px-8"

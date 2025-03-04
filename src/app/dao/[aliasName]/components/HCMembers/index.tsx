@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { checkCreateProposal } from 'utils/proposal';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
-import { message } from 'antd';
+import { toast } from 'react-toastify';
 
 interface IProps {
   daoRes?: IDaoInfoRes | null;
@@ -46,7 +46,7 @@ const DaoMembers: React.FC<IProps> = (props) => {
     setCreateProposalLoading(true);
     try {
       if (!daoRes) {
-        message.error('The DAO information is not available.');
+        toast.error('The DAO information is not available.');
         setCreateProposalLoading(false);
         return;
       }
@@ -75,7 +75,9 @@ const DaoMembers: React.FC<IProps> = (props) => {
       createButtonLoading={createProposalLoading}
       descriptionNode={
         <>
-          <h2 className="card-title-lg mb-[4px]">{totalCount} Members</h2>
+          <span className="text-[15px] text-white font-Montserrat mb-[4px]">
+            {totalCount} Members
+          </span>
         </>
       }
     />
