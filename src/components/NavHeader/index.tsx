@@ -61,7 +61,11 @@ const items: MenuItem[] = [
         label: (
           <Link
             target="_blank"
-            href="https://tmrwdao-docs-testnet.aelf.dev/"
+            href={`${
+              process.env.NODE_ENV == 'production'
+                ? 'https://docs.tmrwdao.com/'
+                : 'https://tmrwdao-docs-testnet.aelf.dev/'
+            }`}
             className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
           >
             Documentation
@@ -112,7 +116,11 @@ const items: MenuItem[] = [
     label: (
       <Link
         target="_blank"
-        href="https://tomorrows-blogs.webflow.io/"
+        href={`${
+          process.env.NODE_ENV == 'production'
+            ? 'https://blog.tmrwdao.com/'
+            : 'https://tomorrows-blogs.webflow.io/'
+        }`}
         className="text-[15px] font-medium text-white no-underline font-Montserrat hover:text-mainColor"
       >
         Blog
@@ -120,6 +128,8 @@ const items: MenuItem[] = [
     ),
   },
 ];
+
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 
 const NavHeader = ({ className, style }: { className?: string; style?: React.CSSProperties }) => {
   const { login, isLogin, walletType, logout } = useWalletService();

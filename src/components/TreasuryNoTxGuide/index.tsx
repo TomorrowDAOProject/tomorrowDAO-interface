@@ -137,7 +137,11 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
             </ButtonCheckLogin>
             <Button type="default" className="h-[32px] w-[120px] border-white">
               <a
-                href="https://medium.com/@tmrwdao/how-to-enable-and-manage-a-dao-treasury-with-tmrwdao-ead8168d4c9a"
+                href={`${
+                  process.env.NODE_ENV == 'production'
+                    ? 'https://docs.tmrwdao.com/'
+                    : 'https://tmrwdao-docs-testnet.aelf.dev/'
+                }`}
                 target="_blank"
                 rel="noreferrer"
               >

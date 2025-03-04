@@ -74,7 +74,11 @@ const Page = () => {
                   <i className="tmrwdao-icon-default-arrow text-[16px] text-inherit" />
                 </Link>
                 <Link
-                  href="https://tmrwdao-docs-testnet.aelf.dev/"
+                  href={`${
+                    process.env.NODE_ENV == 'production'
+                      ? 'https://docs.tmrwdao.com/'
+                      : 'https://tmrwdao-docs-testnet.aelf.dev/'
+                  }`}
                   className="default-button inline-flex items-center gap-[10px]"
                 >
                   View Documentations
@@ -446,7 +450,11 @@ const Page = () => {
 
             <Link
               target="_blank"
-              href="https://tomorrows-blogs.webflow.io/"
+              href={`${
+                process.env.NODE_ENV == 'production'
+                  ? 'https://blog.tmrwdao.com/'
+                  : 'https://tomorrows-blogs.webflow.io/'
+              }`}
               className="default-button hidden items-center gap-[10px] lg:inline-flex"
             >
               View More

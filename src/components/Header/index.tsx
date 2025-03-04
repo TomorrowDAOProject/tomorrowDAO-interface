@@ -61,7 +61,14 @@ export default function Header() {
           },
           {
             label: (
-              <Link href="https://tmrwdao-docs-testnet.aelf.dev/" target="_blank">
+              <Link
+                href={`${
+                  process.env.NODE_ENV == 'production'
+                    ? 'https://docs.tmrwdao.com/'
+                    : 'https://tmrwdao-docs-testnet.aelf.dev/'
+                }`}
+                target="_blank"
+              >
                 Documentation
               </Link>
             ),
