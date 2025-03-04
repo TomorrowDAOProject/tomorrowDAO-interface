@@ -1,11 +1,11 @@
 .my-votes-wrap {
   .vote-0 {
-    @apply text-approve;
+    @apply text-[#00C84D] font-medium text-[12px]  bg-[rgba(0,200,77,0.25)] rounded-[4px] font-Montserrat py-1 px-2;
   }
   .vote-1 {
-    @apply text-rejection;
+    @apply text-[#FF485D] font-medium text-[12px]  bg-[rgba(255,55,77,0.15)] rounded-[4px] font-Montserrat py-1 px-2;
   }
   .vote-2 {
-    @apply text-abstention;
+    @apply text-[#B9B9B9] font-medium text-[12px]  bg-[rgba(185,185,185,0.15)] rounded-[4px] font-Montserrat py-1 px-2;
   }
 }

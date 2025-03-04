@@ -1,6 +1,7 @@
 .deploy-proposal-form {
+  @apply font-Montserrat;
   .title-primary {
-    @apply text-[20px] leading-[28px] text-neutralTitle font-medium;
+    @apply text-[20px] leading-[28px] text-lightGrey font-medium;
   }
 }
 
@@ -23,7 +24,7 @@
 
   .item-selected {
     .label-text {
-      @apply text-colorPrimary;
+      @apply text-mainColor;
     }
   }
 }

@@ -1,6 +1,6 @@
 .proposal-action-tabs {
   .proposal-action-tabs-label {
-    @apply flex items-center font-[500];
+    @apply flex items-center font-medium;
     .TMRWDAO-icon {
       @apply text-[16px];
     }
@@ -9,7 +9,7 @@
   .proposal-action-tabs-text {
     @apply ml-2 card-sm-text-bold text-neutralPrimaryText;
     &.active {
-      @apply text-colorPrimary;
+      @apply text-mainColor;
     }
   }
 
@@ -42,14 +42,6 @@
 
     &.error {
       @apply border-error
-    }
-  }
-  .proposal-custom-action-params-editor {
-    * {
-      font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-    }
-    .monaco-editor .overflow-guard {
-      @apply border-solid border-[#E1E1E1] border-[1px] rounded-[6px];
     }
   }
 }

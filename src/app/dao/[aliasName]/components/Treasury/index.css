@@ -1,6 +1,4 @@
 .treasury-wrap {
-  @apply min-h-[398px] mb-[16px];
-
   .token img {
     @apply pr-[4px];
   }
@@ -9,66 +7,71 @@
     @apply !h-[30px] w-[104px];
   }
   .token-list-table {
-    @apply mb-[32px];
-    .TMRWDAO-table-container {
-      border-end-start-radius:8px;
-      border-end-end-radius:8px;
+    margin-bottom: 24px;
+    .TMRWDAO-table-content {
+      @apply bg-darkBg font-Montserrat border border-solid border-fillBg8 rounded-[6px];
+      .TMRWDAO-table-thead {
+        .TMRWDAO-table-cell {
+          @apply bg-darkBg !text-white font-medium text-[13px];
+        }
+        > tr > th {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        > tr:first-child > *:first-child {
+          @apply !pl-[20px];
+        }
+      }
+      .TMRWDAO-table-tbody {
+        .TMRWDAO-table-cell {
+          @apply bg-darkBg text-lightGrey text-[12px];
+        }
+        > tr > td {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        > tr > td *:first-child {
+          @apply !ml-[10px];
+        }
+      }
+      .TMRWDAO-hash-address > span {
+        @apply text-white !text-[12px];
+      }
+      .TMRWDAO-table-thead
+        > tr
+        > th:not(:last-child):not(.TMRWDAO-table-selection-column):not(
+          .TMRWDAO-table-row-expand-icon-cell
+        ):not([colspan])::before {
+        background-color: transparent;
+      }
     }
-    .TMRWDAO-table-thead > tr > th {
-      @apply table-title-text h-[48px] lg:py-[14px];
-    }
-    .TMRWDAO-table-thead > tr > th:not(:last-child)  {
-      border-inline-end: none !important;
-    }
-    .TMRWDAO-table-thead > tr > th:last-child,
-    tbody>tr>td:last-child
-    {
-      @apply text-right pr-[32px];
-    }
-    .TMRWDAO-table-thead > tr > th:first-child,
-    tbody>tr>td:first-child
-    {
-      @apply pl-[32px];
-    }
-    tbody>tr:last-child > td:first-child {
-      border-radius: 0 0 0 8px;
-    }
-    tbody>tr:last-child > td:last-child {
-      border-radius: 0 0 8px 0;
-    }
-
-    tbody>tr>td {
-      @apply card-xsm-text h-[52px] lg:py-[16px];
-    }
-    tbody>tr:not(:last-child)>td {
-      @apply border-b-0;
-    }
-    tbody>tr>td:not(:last-child) {
-      border-inline-end: none !important;
-    }
-    thead th {
-      @apply bg-Neutral-Hover-BG ;
+    .TMRWDAO-table {
+      background-color: transparent;
     }
   }
 
-  .treasury-info-item+.treasury-info-item {
+  .treasury-info-item + .treasury-info-item {
     @apply mt-6;
+  }
+
+  .treasury-info-item {
+    .TMRWDAO-hash-address > span {
+      @apply text-white !text-[12px];
+    }
   }
 
   .treasury-icon {
-    @apply mt-6;
+    @apply mt-0;
   }
 
   .assets-title {
-    @apply font-[500] text-[20px] leading-[28px] mt-6;
+    @apply font-medium text-[18px] leading-[28px] mt-6 font-Montserrat text-white;
   }
 
   .text-14-22-500 {
-    @apply text-[14px] leading-[22px] font-[500];
+    @apply text-[14px] leading-[22px] font-medium;
   }
 
   .assets-help-message {
-    @apply font-normal text-[14px] leading-[22px] mt-[8px] text-Neutral-Secondary-Text text-center;
+    @apply font-normal text-[12px] mt-[8px] text-lightGrey text-center font-Montserrat leading-[16px];
   }
 
   .assets-help-message-text-wrap {
@@ -76,48 +79,52 @@
   }
 
   .card-title {
-    @apply font-[500] text-[20px] leading-[28px];
+    @apply font-medium text-[18px] leading-[28px] font-Montserrat;
   }
 
   .usd-value {
-    @apply font-[500] text-[24px] leading-[32px] flex-1;
+    @apply font-medium text-[18px] leading-[32px] flex-1 text-white font-Montserrat;
   }
 
   .treasury-info-item-line-1 {
-    @apply text-Neutral-Secondary-Text text-[12px] leading-[20px] mb-1;
+    @apply text-lightGrey text-[12px] leading-[20px] mb-1;
   }
 
   .treasury-info-item-line-2 {
-    @apply text-Neutral-Primary-Text mb-1 flex justify-between;
+    @apply text-lightGrey mb-1 flex justify-between;
   }
 
   .treasury-info-item-line-3 {
-    @apply text-Neutral-Primary-Text flex justify-between;
+    @apply text-lightGrey flex justify-between;
   }
 }
 
 .treasury-choice-modal {
+  @apply xl:!w-[465px] lg:!w-[465px] md:!w-[465px];
   .choice-item {
     @apply flex-1 flex items-center justify-between;
-
-    .choice-item-btn {
-      @apply w-[124px];
-    }
   }
-
 
   .choice-item-text-subtitle {
     @apply text-Primary-Text text-[14px] leading-[22px];
-
   }
-
 }
 
 .choice-items {
   @apply flex justify-between gap-[16px] flex-col;
-
 }
 
 .choice-modal-wrap {
-  /* @apply !z-[999]; */
+  .TMRWDAO-modal-content {
+    @apply bg-darkBg xl:!px-[38px] xl:!py-[30px] lg:!px-[38px] lg:!py-[30px] md:!px-[38px] md:!py-[30px] !p-[22px] border border-solid border-fillBg8;
+  }
+  .TMRWDAO-modal-header {
+    @apply bg-darkBg text-white !p-0;
+    .common-header {
+      @apply border-0 border-b border-solid border-fillBg8 !h-auto xl:pb-[30px] lg:pb-[30px] md:pb-[30px] pb-[22px];
+    }
+  }
+  .TMRWDAO-modal-body {
+    @apply !p-0;
+  }
 }

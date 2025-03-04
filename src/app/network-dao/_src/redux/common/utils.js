@@ -2,12 +2,10 @@
  * @file utils
  * @author atom-yang
  */
-import { message } from "antd";
-import moment from "moment";
 import dayjs from "dayjs";
 import getChainIdQuery from 'utils/url';
 import constants from "./constants";
-
+import { toast } from "react-toastify";
 const { viewer } = constants;
 
 export const arrayToMap = (arr) =>
@@ -49,7 +47,7 @@ export const getSignParams = async (wallet, currentWallet) => {
       timestamp,
     };
   } catch (e) {
-    message.warn((e.errorMessage || {}).message || "night ELF is locked!");
+    toast.warn((e.errorMessage || {}).message || "night ELF is locked!");
     return {};
   }
 };
@@ -70,13 +68,15 @@ export const showTransactionResult = (result) => {
       result.result ||
       result.data ||
       result;
-    message.info(
-      "The transaction is in progress. Please query the transaction ID",
-      10
-    );
-    message.info(
+    toast.info(
+      "The transaction is in progress. Please query the transaction ID", {
+        icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+      });
+    toast.info(
       `Transaction ID: ${ret.transactionId || ret.TransactionId}`,
-      10
+      {
+        icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+      }
     );
     return result;
   }
@@ -209,7 +209,7 @@ export const sendTransaction = async (
     showTransactionResult(result);
     return result;
   } catch (e) {
-    message.error(
+    toast.error(
       (e.errorMessage || {}).message || e.message || "Send Transaction failed"
     );
   }
@@ -246,7 +246,7 @@ export const sendTransactionWith = async (
     return result;
   } catch (e) {
     console.log('sendTransactionWith error', e)
-    message.error(
+    toast.error(
       (e?.errorMessage || {})?.message?.Message || e.message || "Send Transaction failed"
     );
   }

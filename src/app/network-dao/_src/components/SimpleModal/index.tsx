@@ -1,20 +1,19 @@
-import { Modal } from "antd";
-import React from "react";
-import { isPhoneCheck } from "../../utils/deviceCheck";
-import "./index.css";
+import ConfirmModal from "../ConfirmModal";
 
 interface IOnlyOkModal {
+  title?: string;
+  titleClassName?: string;
   message: string;
+  contentClassName?: string;
 }
-export const onlyOkModal = ({ message }: IOnlyOkModal) => {
-  const isMobile = isPhoneCheck();
-  Modal.confirm({
-    className: `only-ok-modal ${isMobile ? "only-ok-modal-mobile" : ""}`,
-    width: "680",
-    title: <div style={{ textAlign: "left" }}>{message}</div>,
-    icon: null,
-    cancelButtonProps: { style: { display: "none" } },
-    transitionName: "ant-fade",
+export const onlyOkModal = ({ message, contentClassName, title, titleClassName }: IOnlyOkModal) => {
+  ConfirmModal.confirm({
+    title: title,
+    titleClassName,
+    content: message,
+    contentClassName,
+    okText: 'OK',
+    showCancel: false,
   });
 };
 

@@ -1,12 +1,8 @@
 import { ReactNode } from 'react';
-import { Flex } from 'antd';
-import { FontWeightEnum, Typography } from 'aelf-design';
-import CommonModal, { TCommonModalProps } from 'components/CommonModal';
 import successFilledIcon from 'assets/imgs/successFilled.svg';
 import errorFilledIcon from 'assets/imgs/errorFilled.svg';
 import warningFilledIcon from 'assets/imgs/warningFilled.svg';
-
-const { Text, Title } = Typography;
+import Modal from 'components/Modal';
 
 export enum CommonOperationResultModalType {
   Success = 'success',
@@ -20,30 +16,49 @@ const ICON_MAP = {
   [CommonOperationResultModalType.Warning]: warningFilledIcon,
 };
 
-export type TCommonOperationResultModalProps = Pick<
-  TCommonModalProps,
-  'footerConfig' | 'open' | 'onCancel' | 'viewTransactionId'
-> & {
+type ButtonItem = {
+  children: React.ReactNode;
+};
+
+export interface TCommonOperationResultModalProps {
   type: CommonOperationResultModalType;
+  open: boolean;
+  footerConfig?: { buttonList: ButtonItem[] };
   primaryContent: ReactNode;
   secondaryContent?: ReactNode;
-};
+  onCancel?(): void;
+}
 
 export default function CommonOperationResultModal({
   type = CommonOperationResultModalType.Success,
+  open,
   primaryContent,
   secondaryContent,
-  ...modalProps
+  onCancel,
+  footerConfig,
 }: TCommonOperationResultModalProps) {
   return (
-    <CommonModal {...modalProps}>
-      <Flex vertical align="center" gap={16}>
+    <Modal
+      isVisible={open}
+      rootClassName="px-[28px] md:px-[38px] py-[30px] md:w-[471px]"
+      onClose={onCancel}
+    >
+      <div className="flex flex-col items-center">
         <img src={ICON_MAP[type]} alt="icon" width={56} height={56} />
-        <Title className="text-center" level={6} fontWeight={FontWeightEnum.Medium}>
+        <span className="my-4 block text-descM18 text-white text-center font-Montserrat">
           {primaryContent}
-        </Title>
-        <Text className="text-center text-[#919191]">{secondaryContent}</Text>
-      </Flex>
-    </CommonModal>
+        </span>
+        <span className="block font-Montserrat text-desc12 text-center text-lightGrey whitespace-pre-wrap">
+          {secondaryContent}
+        </span>
+        <div className="flex flex-row items-center gap-4 mt-[48px] w-full">
+          {footerConfig?.buttonList?.map(({ children }, index) => (
+            <div className="w-full" key={index} onClick={onCancel}>
+              {children}
+            </div>
+          ))}
+        </div>
+      </div>
+    </Modal>
   );
 }

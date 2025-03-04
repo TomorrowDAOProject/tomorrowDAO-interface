@@ -1,6 +1,6 @@
 .login-container {
   .user-info {
-    @apply bg-white border flex items-center border-solid border-Neutral-Border h-10 lg:h-12 px-3 lg:px-[14px] lg:py-2 rounded-md cursor-pointer hover:border-Neutral-Secondary-Text;
+    @apply bg-mainColor !h-[32px] flex items-center lg:h-12 px-2 lg:px-[12px] lg:py-2 rounded-[42px] cursor-pointer text-[12px];
   }
 
   .avatar-container {
@@ -8,13 +8,13 @@
   }
 
   .user-name {
-    @apply text-sm leading-[22px] text-Primary-Text font-medium whitespace-nowrap;
+    @apply font-Montserrat leading-[22px] text-white font-medium whitespace-nowrap;
   }
 }
 
 @media (max-width: 640px) {
   .user-name {
-    @apply max-w-[30px] overflow-hidden;
+    @apply truncate;
   }
 }
 
@@ -23,17 +23,17 @@
 
   .TMRWDAO-popover-inner {
     box-shadow: none;
-    @apply border border-solid border-Neutral-Border bg-white rounded-md p-0 overflow-hidden;
+    @apply bg-darkGray rounded-md p-0 overflow-hidden text-white font-Montserrat;
   }
 }
 
 .header-dropdown-container {
   .drop-down-items {
-    @apply flex cursor-pointer h-[48px] text-Primary-Text text-[14px] font-[400] leading-[22px] px-[24px] py-[13px];
+    @apply flex cursor-pointer h-[48px] text-white text-[14px] font-[400] leading-[22px] px-[24px] py-[13px];
   }
 
   .drop-down-items:hover {
-    @apply bg-Neutral-Hover-BG;
+    @apply bg-darkGray;
   }
 
   .prefix-icon {
@@ -44,11 +44,11 @@
     @apply items-center;
   }
 
-  .TMRWDAO-hash-address>span {
+  .TMRWDAO-hash-address > span {
     font-size: inherit;
   }
 
   .icon {
-    @apply text-[16px]
+    @apply text-[16px];
   }
 }

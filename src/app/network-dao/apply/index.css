@@ -117,8 +117,9 @@
 }
 
 .contract-proposal-notice-content {
-  color: #858585;
-  font-size: 12px;
+  color: var(--light-gray);
+  font-size: 14px;
+  font-family: "Montserrat";
 }
 
 .contract-proposal-notice-content div {
@@ -129,11 +130,6 @@
   display: flex;
   align-items: flex-start;
 }
-
-.contract-proposal-notice-content .content-item :first-child {
-  width: 4%;
-}
-
 
 .proposal-apply-tab.antExplorer-tabs-mobile .apply-btn {
   margin: 16px auto 0;

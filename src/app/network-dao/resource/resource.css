@@ -4,7 +4,10 @@
   background-color: transparent;
 }
 .resource-money-market {
-
+  @apply bg-darkBg;
+  .resource-market-body {
+    @apply bg-darkBg;
+  }
 }
 @media screen and (max-width: 992px) {
 }
@@ -14,32 +17,22 @@
   margin-right: 12px;
 }
 .resource-title {
-  @apply card-title;
+  @apply card-title font-[300];
 }
 .resource-block {
-  background-color: #ffffff;
-  border-radius: 8px;
-  border: 1px solid var(--Neutral-Divider, #EDEDED);
-  background: var(--Neutral-White-BG, #FFF);
+  @apply bg-darkBg rounded-[8px] border border-solid border-fillBg8;
 }
 .resource-header {
-  border-bottom: 1px solid #EDEDED;
-  padding-left: 32px;
-  padding-right: 32px;
-  height: 78px;
+  @apply border-0 border-b border-solid border-fillBg8 h-[56px] xl:px-[32px] lg:px-[32px] md:px-[32px] px-[16px];
 }
 .resource-money-market {
   margin-top: 24px;
   .resource-header  {
-    padding-top: 32px;
-    padding-bottom: 32px;
-    padding-left: 24px;
-    padding-right: 24px;
-    @apply lg:h-[78px] h-auto;
+    @apply xl:px-[32px] lg:px-[32px] md:px-[32px] px-[16px];
   }
 }
 .resource-sub-container {
-  padding: 0 32px;
+  @apply px-[38px];
 }
 .resource-blank {
   height: 25px;

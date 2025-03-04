@@ -3,33 +3,38 @@
  * @author zhouminghui
  */
 
-import { message } from 'antd';
+import { toast } from 'react-toastify';
+
 
 export default function getStateJudgment(status, hash) {
   switch ((status || '').toUpperCase()) {
     case 'NOTEXISTED':
-      message.error(
+      toast.error(
         'The transaction is no existed. Please make sure you have enough balance or query the transaction ID',
         10,
       );
-      message.error(`Transaction ID: ${hash}`, 10);
+      toast.error(`Transaction ID: ${hash}`, 10);
       break;
     case 'PENDING':
-      message.info(
+      toast.info(
         'The transaction is in progress. Please query the transaction ID',
-        10,
+        {
+          icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+        }
       );
-      message.info(`Transaction ID: ${hash}`, 10);
+      toast.info(`Transaction ID: ${hash}`, {
+        icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+      });
       break;
     case 'MINED':
-      message.success('Successful operation', 3);
-      message.success(`Transaction ID: ${hash}`, 6);
+      toast.success('Successful operation', 3);
+      toast.success(`Transaction ID: ${hash}`, 6);
       break;
     case 'FAILED':
-      message.error('Operation failed', 3);
+      toast.error('Operation failed', 3);
       break;
     case 'UNEXECUTABLE':
-      message.error('Unexecutable Operation', 3);
+      toast.error('Unexecutable Operation', 3);
       break;
   }
 }

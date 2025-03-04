@@ -3,13 +3,13 @@
 }
 
 .dao-detail-dis {
-  @apply border border-Neutral-Divider border-solid rounded-lg bg-white pt-6;
+  @apply border border-fillBg8 border-solid rounded-lg bg-darkBg px-[30px] py-[32px];
 
-  .TMRWDAO-descriptions .TMRWDAO-descriptions-row>td {
+  .TMRWDAO-descriptions .TMRWDAO-descriptions-row > td {
     @apply pb-[12px];
   }
 
-  .TMRWDAO-descriptions .TMRWDAO-descriptions-row>th {
+  .TMRWDAO-descriptions .TMRWDAO-descriptions-row > th {
     @apply pb-0;
   }
 
@@ -25,11 +25,11 @@
     @apply lg:order-1 order-2;
 
     .title {
-      @apply font-[500] lg:text-[40px] lg:leading-[48px] text-[24px] leading-[32px] text-neutralTitle lg:pt-[0px] pt-[8px];
+      @apply font-[300] lg:leading-[48px] text-[24px] lg:text-[30px] -tracking-[0.24px] leading-[32px] text-white lg:pt-[0px] pt-[8px] font-Unbounded;
     }
 
     .description {
-      @apply font-[400] lg:text-[16px] lg:leading-[24px] text-[14px] leading-[22px] lg:pt-[8px] pt-[16px] lg:mb-[24px] mb-[16px] text-neutralTitle;
+      @apply font-[400] lg:text-[15px] lg:leading-[24px] text-[14px] leading-[22px] lg:pt-[8px] pt-[16px] lg:mb-[24px] mb-[16px] text-white font-Montserrat;
     }
 
     .social-media-item-logo {
@@ -38,18 +38,18 @@
   }
 
   .dis-item {
-    @apply flex items-center text-neutralTitle;
+    @apply flex items-center text-white;
 
     .dis-common-span {
       @apply mr-1;
     }
     .dis-common-span-cursor {
-      @apply text-colorPrimary mr-1 cursor-pointer;
+      @apply text-mainColor mr-1 cursor-pointer;
     }
   }
 
   .TMRWDAO-collapse-header {
-    @apply px-4 lg:px-8 py-6 !important ;
+    @apply px-4 lg:px-8 py-6 !important;
   }
 
   .TMRWDAO-collapse-content-box {
@@ -64,13 +64,21 @@
 }
 
 .dao-collapse-panel {
-  @apply font-[500] text-[16px] leading-[24px] text-neutralTitle;
+  @apply font-[300] text-[15px] leading-[24px] text-white font-Unbounded;
 }
 
 .dao-collapse-panel-label {
-  @apply font-[400] text-[14px] leading-[22px] text-Neutral-Secondary-Text;
+  @apply font-[300] text-[14px] leading-[22px] text-lightGrey font-Montserrat;
 }
 
 .dao-collapse-panel-child {
-  @apply font-[500] text-[14px] leading-[22px] text-neutralTitle;
+  @apply text-[14px] leading-[22px] text-white font-Montserrat;
+}
+.dao-detail-dis .ant-collapse-header {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.dao-detail-dis .ant-collapse-content-box {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

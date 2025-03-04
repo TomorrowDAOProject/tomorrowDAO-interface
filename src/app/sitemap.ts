@@ -79,7 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
     },
     {
-      url: 'https://docs.tmrwdao.com',
+      url: 'https://tmrwdao-docs-testnet.aelf.dev/',
       changeFrequency: 'weekly',
     },
     {

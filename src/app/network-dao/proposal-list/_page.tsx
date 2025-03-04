@@ -5,8 +5,6 @@ import { networkDaoId } from 'config';
 
 export default function DeoDetails() {
   return (
-    <div>
-      <DaoDetail daoId={networkDaoId} isNetworkDAO={true} />
-    </div>
+    <DaoDetail daoId={networkDaoId} isNetworkDAO={true} />
   );
 }

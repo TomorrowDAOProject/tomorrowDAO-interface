@@ -1,7 +1,25 @@
 .dao-edit {
-  @apply w-full block flex-col items-center bg-white p-4 lg:p-8 rounded-lg;
+  @apply bg-darkBg border border-solid border-fillBg8 p-4 lg:p-8 rounded-lg md:px-[38px] md:py-[30] lg:px-[38px] lg:py-[30] xl:px-[38px] xl:py-[30] md:w-[608px] lg:w-[870px] xl:w-[930px] md:m-auto lg:m-auto xl:m-auto sm:mx-[20px] sm:p-[22px] md:!mt-[53px] lg:!mt-[53px] xl:!mt-[53px] sm:!mt-[20px];
 
   .TMRWDAO-upload-select {
     width: 100%;
+  }
+  .TMRWDAO-form-item-required {
+    @apply font-Montserrat !text-white text-[16px] font-medium;
+    &::before {
+      content: '' !important;
+    }
+  }
+  .Description-textArea {
+    textarea {
+      @apply h-[250px];
+    }
+  }
+
+  .upload {
+    @apply !bg-[#2E2E2E];
+    .TMRWDAO-upload-button {
+      @apply !bg-[#2E2E2E] border-0 font-Montserrat !text-white;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { memo, useEffect, useState } from 'react';
-import { HashAddress, Table } from 'aelf-design';
+import { Table } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import { ConfigProvider } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import Link from 'next/link';
@@ -9,12 +10,13 @@ import { curChain, explorer, sideChainSuffix } from 'config';
 import NoData from 'components/NoData';
 import { fetchVoteHistory } from 'api/request';
 import { useRequest } from 'ahooks';
-import { EVoteOption } from 'types/vote';
+import { EVoteOption, EVoteOptionLabel } from 'types/vote';
 import BigNumber from 'bignumber.js';
+import LoadingComponent from 'components/LoadingComponent';
 
 const columns: ColumnsType<IVoteHistoryItem> = [
   {
-    width: 328,
+    width: 228,
     title: 'Voter',
     dataIndex: 'voter',
     render: (text) => {
@@ -25,53 +27,75 @@ const columns: ColumnsType<IVoteHistoryItem> = [
             preLen={8}
             endLen={9}
             chain={sideChainSuffix}
-            className="card-sm-text-bold"
+            iconColor="#989DA0"
+            iconSize="14px"
+            className="card-sm-text-bold text-white !text-[12px]"
+            primaryIconColor={'#989DA0'}
+            addressHoverColor={'white'}
+            addressActiveColor={'white'}
           />
         </a>
       );
     },
   },
   {
-    width: 344,
+    width: 244,
     title: 'Transaction ID',
     dataIndex: 'transactionId',
     render: (text) => {
       return (
         <Link href={`${explorer}/tx/${text}`} target="_blank">
           <HashAddress
-            className="card-sm-text-bold"
+            className="card-sm-text-bold text-white !text-[12px]"
+            iconColor="#989DA0"
+            iconSize="14px"
             ignorePrefixSuffix={true}
             preLen={8}
             endLen={9}
             address={text}
+            primaryIconColor={'#989DA0'}
+            addressHoverColor={'white'}
+            addressActiveColor={'white'}
           />
         </Link>
       );
     },
   },
   {
-    width: 224,
+    width: 124,
     title: 'Result',
     dataIndex: 'myOption',
-    render: (text) => {
+    render: (text: 0 | 1 | 2) => {
+      console.log('text', text);
       return (
         <span
           className={clsx(
-            'card-sm-text-bold',
+            'px-2 py-1 rounded-[4px]',
             text === EVoteOption.APPROVED
-              ? 'text-approve'
+              ? 'bg-[rgba(0,200,77,0.25)]'
               : text === EVoteOption.REJECTED
-              ? 'text-rejection'
-              : 'text-abstention',
+              ? 'text-[rgba(255,55,77,0.15)]'
+              : 'text-[rgba(185,185,185,0.15)]',
           )}
         >
-          {EVoteOption[text]}
+          <span
+            className={clsx(
+              'card-sm-text-bold text-[12px]',
+              text === EVoteOption.APPROVED
+                ? 'text-[#00C84D]'
+                : text === EVoteOption.REJECTED
+                ? 'text-[#FF485D]'
+                : 'text-[#687083]',
+            )}
+          >
+            {EVoteOptionLabel[text]}
+          </span>
         </span>
       );
     },
   },
   {
-    width: 224,
+    width: 124,
     title: 'Votes',
     dataIndex: 'amount',
     render: (_, record) => {
@@ -83,6 +107,7 @@ const columns: ColumnsType<IVoteHistoryItem> = [
     },
   },
   {
+    width: 124,
     title: 'Time',
     dataIndex: 'timeStamp',
     align: 'right',
@@ -136,24 +161,38 @@ const VoteResultTable = (props: IVoteResultTableProps) => {
     run();
   }, [run, tableParams]);
   return (
-    <div className="card-shape vote-result-table-wrap">
-      <div className="flex justify-between px-8 py-6 title">
-        <h3 className="card-title">Voting Results</h3>
+    <div className="border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px]">
+      <div className="flex justify-between">
+        <span className="text-[18px] font-medium font-Montserrat text-white mb-[20px]">
+          Voting Results
+        </span>
       </div>
-      <ConfigProvider renderEmpty={() => <NoData></NoData>}>
-        <Table
-          rowKey={'transactionId'}
-          columns={columns as any}
-          scroll={{ x: 'max-content' }}
-          pagination={{
-            ...tableParams,
-            total: voteHistoryData?.data?.totalCount ?? 0,
-            onChange: pageChange,
-          }}
-          loading={voteHistoryLoading}
-          dataSource={voteHistoryData?.data?.items}
-        ></Table>
-      </ConfigProvider>
+      <div className="voting-table">
+        <ConfigProvider renderEmpty={() => <NoData></NoData>}>
+          <Table
+            bordered={false}
+            rowKey={'transactionId'}
+            columns={columns as any}
+            scroll={{ x: 'max-content' }}
+            pagination={{
+              ...tableParams,
+              total: voteHistoryData?.data?.totalCount ?? 0,
+              onChange: pageChange,
+            }}
+            loading={{
+              spinning: voteHistoryLoading,
+              indicator: (
+                <LoadingComponent
+                  className="-my-3 md:my-0 scale-[0.7] md:scale-[1.0]"
+                  size={36}
+                  strokeWidth={4}
+                />
+              ),
+            }}
+            dataSource={voteHistoryData?.data?.items}
+          ></Table>
+        </ConfigProvider>
+      </div>
     </div>
   );
 };

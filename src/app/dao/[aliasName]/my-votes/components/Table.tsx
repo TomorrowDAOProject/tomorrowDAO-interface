@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useEffect, useState } from 'react';
-import { Table, HashAddress } from 'aelf-design';
+import { Table } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import { ConfigProvider } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { fetchDaoInfo, fetchVoteHistory } from 'api/request';
@@ -14,6 +15,7 @@ import Link from 'next/link';
 import breadCrumb from 'utils/breadCrumb';
 import BigNumber from 'bignumber.js';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import LoadingComponent from 'components/LoadingComponent';
 
 const defaultPageSize = 20;
 const allValue = 'All';
@@ -62,16 +64,23 @@ export default function RecordTable() {
         return dayjs(a.timeStamp).unix() - dayjs(b.timeStamp).unix();
       },
       defaultSortOrder: 'descend',
+      showSorterTooltip: false,
       render(time) {
-        return <span>{dayjs(time).format('YYYY-MM-DD HH:mm:ss')}</span>;
+        return (
+          <span className="font-Montserrat text-white font-medium">
+            {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}222
+          </span>
+        );
       },
     },
     {
       title: 'Proposal Name',
       dataIndex: 'proposalTitle',
-      width: 576,
+      width: 200,
       render: (text, record) => {
-        const renderProposalNode = <div className="text-neutralPrimaryText font-bold">{text}</div>;
+        const renderProposalNode = (
+          <div className="text-white font-medium font-Montserrat">{text}</div>
+        );
         return (
           <Link href={`/dao/${aliasName}/proposal/${record.proposalId}`}>{renderProposalNode}</Link>
         );
@@ -96,7 +105,16 @@ export default function RecordTable() {
         return record.myOption === value;
       },
       render(option) {
-        return <span className={`vote-record-${option} font-bold`}>{EVoteOption[option]}</span>;
+        return (
+          <div
+            className={`vote-record-${option} !px-0 font-medium !w-[76px] !h-[23px] flex items-center justify-center text-[12px]`}
+          >
+            <span>
+              {EVoteOption[option].toLocaleLowerCase().charAt(0).toUpperCase() +
+                EVoteOption[option].toLocaleLowerCase().slice(1)}
+            </span>
+          </div>
+        );
       },
     },
     {
@@ -104,7 +122,11 @@ export default function RecordTable() {
       dataIndex: 'voteNumAfterDecimals',
       width: 206,
       render(voteNum) {
-        return <span>{BigNumber(voteNum).toFormat()}</span>;
+        return (
+          <span className="text-white font-medium font-Montserrat">
+            {BigNumber(voteNum).toFormat()}
+          </span>
+        );
       },
     },
     {
@@ -114,11 +136,16 @@ export default function RecordTable() {
         return (
           <Link href={`${explorer}/tx/${transactionId}`}>
             <HashAddress
-              className="pl-[4px] my-record-tx-hash"
+              className="pl-[4px] my-record-tx-hash text-white !text-[12px]"
               ignorePrefixSuffix={true}
+              iconSize="14px"
+              iconColor="#989DA0"
               preLen={8}
               endLen={11}
               address={transactionId}
+              primaryIconColor={'#989DA0'}
+              addressHoverColor={'white'}
+              addressActiveColor={'white'}
             ></HashAddress>
           </Link>
         );
@@ -146,9 +173,18 @@ export default function RecordTable() {
     <ConfigProvider renderEmpty={() => <NoData></NoData>}>
       <Table
         scroll={{ x: 'max-content' }}
-        className="custom-table-style full-table table-header-normal table-td-sm clear-table-padding table-padding-large"
+        className="custom-table-style"
         columns={columns as any}
-        loading={voteHistoryLoading}
+        loading={{
+          spinning: voteHistoryLoading,
+          indicator: (
+            <LoadingComponent
+              className="-my-3 md:my-0 scale-[0.7] md:scale-[1.0]"
+              size={36}
+              strokeWidth={4}
+            />
+          ),
+        }}
         pagination={{
           ...tableParams,
           total: voteHistoryData?.data?.totalCount ?? 0,

@@ -1,9 +1,8 @@
 'use client';
 
 import React, { Component } from "react";
-import { message, ConfigProvider } from "antd";
 import { connect } from "react-redux";
-
+import { toast } from 'react-toastify';
 import { aelf } from "../_src/utils";
 import configJSON from "../_src/config/config-testnet-aelf.json";
 import DownloadPlugins from "@components/DownloadPlugins/DownloadPlugins";
@@ -40,7 +39,7 @@ class Resource extends Component {
         contracts: result,
       });
       if (!result.chainInfo) {
-        message.error(
+        toast.error(
           "The chain has stopped or cannot be connected to the chain. Please check your network or contact us.",
           10
         );
@@ -128,7 +127,7 @@ class Resource extends Component {
   //       instance.chain.getChainStatus(() => {
   //         this.getNightElfKeyPair(wallet);
   //       });
-  //       toastMessage && message.success("Login success!!", 3);
+  //       toastMessage && toast.success("Login success!!", 3);
   //     },
   //     () => {
   //       this.loginFailed();
@@ -145,7 +144,7 @@ class Resource extends Component {
         ? "Please Login."
         : result && result.errorMessage.message) ||
       "Please check your NightELF browser extension.";
-    message.warn(warningStr);
+    toast.warn(warningStr);
   }
 
   // getNightElfKeyPair(wallet) {

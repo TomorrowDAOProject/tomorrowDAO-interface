@@ -1,11 +1,8 @@
-import { Collapse, HashAddress } from 'aelf-design';
 import Image from 'next/image';
-import { Divider, Descriptions, DescriptionsProps } from 'antd';
 import useResponsive from 'hooks/useResponsive';
 import PreviewFile from 'components/PreviewFile';
 import { Skeleton } from 'components/Skeleton';
 import { colorfulSocialMediaIconMap } from 'assets/imgs/socialMediaIcon';
-import settingSrc from 'assets/imgs/setting-icon.svg';
 import DaoLogo from 'assets/imgs/dao-logo.svg';
 import ErrorResult from 'components/ErrorResult';
 import Link from 'next/link';
@@ -16,6 +13,12 @@ import { curChain, explorer, NetworkDaoHomePathName } from 'config';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { EDaoGovernanceMechanism } from 'app/(createADao)/create/type';
 import ImageWithPlaceHolder from 'components/ImageWithPlaceHolder';
+import HashAddress from 'components/HashAddress';
+
+import { ReactComponent as ArrowDown } from 'assets/revamp-icon/arrow-down.svg';
+import { ReactComponent as Settings } from 'assets/revamp-icon/settings.svg';
+
+import { useState } from 'react';
 
 const firstLetterToLowerCase = (str: string) => {
   return str.charAt(0).toLowerCase() + str.slice(1);
@@ -88,18 +91,22 @@ export default function DaoInfo(props: IParams) {
               <HashAddress
                 preLen={8}
                 endLen={11}
-                className="address"
+                className="address text-white hover:text-white"
                 address={address as string}
                 chain={curChain}
+                size={'small'}
+                primaryIconColor={'#989DA0'}
+                addressHoverColor={'white'}
+                addressActiveColor={'white'}
               ></HashAddress>
             </Link>
           </span>
         ),
       };
     })
-    .filter(Boolean) as DescriptionsProps['items'];
+    .filter(Boolean);
 
-  const items: DescriptionsProps['items'] | Array<null> = [
+  const items = [
     !isNetworkDAO
       ? {
           key: '1',
@@ -108,11 +115,14 @@ export default function DaoInfo(props: IParams) {
             <a href={`${explorer}/address/${data?.creator}`} target="_blank" rel="noreferrer">
               <span className="dao-collapse-panel-child">
                 <HashAddress
-                  className="address"
+                  className="address text-white"
                   preLen={8}
                   endLen={11}
                   chain={curChain}
                   address={data?.creator ?? '-'}
+                  primaryIconColor={'#989DA0'}
+                  addressHoverColor={'white'}
+                  addressActiveColor={'white'}
                 ></HashAddress>
               </span>
             </a>
@@ -192,7 +202,9 @@ export default function DaoInfo(props: IParams) {
     //     </div>
     //   ),
     // },
-  ].filter(Boolean) as DescriptionsProps['items'];
+  ].filter(Boolean);
+
+  const [activePanel, setActivePanel] = useState<boolean>(true);
 
   return (
     <div className="dao-detail-dis">
@@ -205,7 +217,7 @@ export default function DaoInfo(props: IParams) {
       ) : (
         <>
           <div className="dao-basic-info">
-            <div className="dao-detail-logo px-4 lg:px-8">
+            <div className="dao-detail-logo">
               <div className="dao-detail-logo-content">
                 <ImageWithPlaceHolder
                   alias={aliasName ?? ''}
@@ -217,7 +229,7 @@ export default function DaoInfo(props: IParams) {
                   }}
                 />
               </div>
-              <div className="flex">
+              <div className="flex xl:mt-[24px] lg:mt-[24px]">
                 {wallet?.address === data?.creator && (
                   <Link
                     href={
@@ -225,20 +237,21 @@ export default function DaoInfo(props: IParams) {
                     }
                     className="mr-[10px]"
                   >
-                    <div className="flex items-center justify-center h-8 bg-Neutral-Default-BG px-2 leading-8 rounded-md cursor-pointer">
-                      <Image width={14} height={14} src={settingSrc} alt=""></Image>
-                      {!isSM && <span className="ml-1 text-neutralPrimaryText">Settings</span>}
+                    <div className="flex items-center justify-center bg-fillBg8 h-[32px] px-[14px] rounded-xl cursor-pointer gap-2">
+                      <Settings />
+                      {!isSM && (
+                        <span className="text-lightGrey text-[12px] font-Montserrat">Settings</span>
+                      )}
                     </div>
                   </Link>
                 )}
-
-                <PreviewFile list={fileInfoList} />
+                {fileInfoList.length > 0 && <PreviewFile list={fileInfoList} />}
               </div>
             </div>
-            <div className="dao-detail-desc px-4 lg:px-8">
-              <div>
-                <h2 className="title">{metadata?.name}</h2>
-                <p className="description">{metadata?.description}</p>
+            <div className="dao-detail-desc">
+              <div className="flex flex-col">
+                <span className="title">{metadata?.name}</span>
+                <span className="description">{metadata?.description}</span>
               </div>
               <div className="flex gap-4">
                 {socialMediaList.map(
@@ -258,20 +271,31 @@ export default function DaoInfo(props: IParams) {
               </div>
             </div>
           </div>
-          <Divider className="mb-0" />
-          <Collapse defaultActiveKey={isNetworkDAO ? [] : ['1']} ghost>
-            <Collapse.Panel
-              className="dao-info-collapse-panel"
-              header={<h3 className="dao-collapse-panel">Dao Information</h3>}
-              key="1"
+          <div className="h-0 w-full border-0 border-t border-solid border-fillBg8 my-[22px]"></div>
+          <div>
+            <div
+              className="dao-collapse-panel flex items-center justify-between cursor-pointer"
+              onClick={() => setActivePanel((preValue: boolean) => (preValue = !preValue))}
             >
-              <Descriptions
-                layout={isLG ? 'vertical' : 'horizontal'}
-                items={items}
-                column={{ xs: 1, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }}
-              />
-            </Collapse.Panel>
-          </Collapse>
+              <span>Dao Information</span>
+              <ArrowDown className={`transition-all ${activePanel ? 'rotate-180' : 'rotate-0'}`} />
+            </div>
+            {activePanel && (
+              <div className="grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 pt-[30px] gap-4">
+                {items.map((list, index) => {
+                  return (
+                    <div
+                      className="flex flex-col xl:flex-row lg:flex-row md:flex-row gap-[5px]"
+                      key={list?.key || index}
+                    >
+                      <div className="text-lightGrey">{list?.label}:</div>
+                      <div>{list?.children}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </>
       )}
     </div>

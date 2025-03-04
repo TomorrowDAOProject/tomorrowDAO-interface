@@ -1,23 +1,21 @@
 .table-layer {
-  display: flex;
-  background-color: #ffffff !important;
+  @apply bg-darkBg lg:px-[38px] xl:px-[38px] md:px-[38px] px-[22px];
+  /* display: flex;
   overflow-x: auto;
   padding-bottom: 16px;
   padding-top: 8px;
   width: 100%;
-  border-radius: 8px;
+  border-radius: 8px; */
 }
 
 
 .table-layer .antExplorer-table-wrapper {
-  min-width: calc(100% - 32px);
+  @apply font-Montserrat;
+  /* min-width: calc(100% - 32px); */
 }
 
 .table-layer .antExplorer-table-wrapper .antExplorer-table-thead tr th {
-  font-family: "Roboto-Medium";
-  background: #ffffff !important;
-  border-bottom: #e6e6e6 1px solid !important;
-  font-weight: 400;
+  font-weight: 500;
   max-height: 20px;
 }
 
@@ -27,13 +25,74 @@
 }
 
 .table-layer .antExplorer-table-wrapper .antExplorer-table-tbody tr td {
-  border: none;
+  @apply border-0 !text-white;
 }
 
 .table-layer.mobile {
   padding: 0 0 10px;
   overflow-x: scroll;
-  background: white;
   border-radius: 4px;
   padding-bottom: 10px;
 }
+.table-layer {
+  .antExplorer-table {
+    @apply bg-darkBg;
+  }
+  .antExplorer-table-content {
+    .antExplorer-table-thead {
+      @apply !bg-darkBg;
+      tr th {
+        @apply !bg-darkBg text-lightGrey text-[12px] !border-none font-Montserrat;
+
+        &:first-child {
+          @apply !px-0;
+        }
+      }
+    }
+    .antExplorer-table-tbody {
+      @apply !bg-darkBg;
+      tr td {
+        @apply !bg-darkBg text-lightGrey text-[10px] font-Montserrat;
+
+        &:first-child {
+          @apply !px-0;
+        }
+
+        a {
+          @apply px-0 text-[10px] font-Montserrat !text-white;
+        }
+        .antExplorer-btn-link {
+          @apply px-0 text-[10px] font-Montserrat text-left;
+        }
+      }
+    }
+    .antExplorer-table-placeholder {
+      @apply !bg-darkBg;
+    }
+  }
+  .antExplorer-pagination {
+    @apply text-white font-Montserrat text-[12px];
+    .antExplorer-pagination-item-link {
+      @apply text-white hover:text-white;
+    }
+    .antExplorer-pagination-disabled {
+      .antExplorer-pagination-item-link {
+        @apply text-lightGrey hover:text-lightGrey;
+      }
+    }
+    .antExplorer-pagination-item {
+      @apply w-[24px] h-[24px] leading-[24px] bg-transparent border border-lightGrey;
+      a {
+        @apply  h-[24px] text-white text-[10px];
+      }
+    }
+    .antExplorer-pagination-item-active {
+      @apply w-[24px] h-[24px] leading-[24px] bg-transparent border border-white;
+      a {
+        @apply text-white text-[10px];
+      }
+    }
+  }
+}
+
+

@@ -38,7 +38,7 @@ export default function Header() {
   const items: MenuProps['items'] = useMemo(() => {
     return [
       {
-        label: <Link href={'/create'}>Create a DAO</Link>,
+        label: <Link href="/create">Create a DAO</Link>,
         key: ENavKeys.CreateDAO,
       },
       {
@@ -61,7 +61,7 @@ export default function Header() {
           },
           {
             label: (
-              <Link href="https://docs.tmrwdao.com/" target="_blank">
+              <Link href="https://tmrwdao-docs-testnet.aelf.dev/" target="_blank">
                 Documentation
               </Link>
             ),
@@ -163,7 +163,7 @@ export default function Header() {
         <div className="header-logo">
           <div className="header-menu">
             <Link href="/">
-              <HeaderLogo />
+              <HeaderLogo isSmall={true} />
             </Link>
             {!menuCondition && <PCMenu selectedKeys={[current]} items={items} onClick={onClick} />}
           </div>

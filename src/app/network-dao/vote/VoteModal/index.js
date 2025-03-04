@@ -1,19 +1,14 @@
 // eslint-disable-next-line no-use-before-define
 import React, { Component } from "react";
-import Link from 'next/link';
 import {
   Table,
   Tabs,
   Modal,
   Form,
-  Input,
   DatePicker,
-  Button,
-  Tooltip,
 } from "antd";
-import { SearchOutlined, InfoCircleFilled } from "@ant-design/icons";
+import { SearchOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import LinkNetworkDao from 'components/LinkNetworkDao';
-import DatePickerReact from "react-datepicker";
 import moment from "moment";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -36,6 +31,10 @@ import {
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import "./index.css";
 import { isIPhone } from "@utils/deviceCheck";
+import Input from "components/Input";
+import Button from "components/Button";
+import Tooltip from "components/Tooltip";
+import SimpleDatePicker from 'components/SimpleDatePicker';
 
 const { TabPane } = Tabs;
 
@@ -85,7 +84,7 @@ function getColumns() {
       ...this.getColumnSearchProps("name"),
       render: (text, record) => (
         // todo: consider to extract the component as a independent component
-        <Tooltip title={text}>
+        <Tooltip title={text} className="max-w-[150px] !w-[150px] !p-[2px] !text-[11px]">
           <LinkNetworkDao
             href={{
               pathname: "/vote/team",
@@ -94,7 +93,7 @@ function getColumns() {
               }
             }}
             replaceStart="vote"
-            className="node-name-in-table"
+            className="node-name-in-table text-white font-Montserrat !text-[11px]"
             // style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}
             style={{ width: 150 }}
             onClick={() => {
@@ -160,33 +159,13 @@ class VoteModal extends Component {
       balance,
       nodeAddress,
       nodeName,
-      currentWalletName,
-      // handleVoteNext,
-      voteAmountInput,
-      lockTime,
       handleLockTimeChange,
-      expiredVotesAmount,
       switchableVoteRecords,
-      withdrawnableVoteRecords,
-      estimatedProfit,
       switchVoteSelectedRowKeys,
       handleSwitchVoteSelectedRowChange,
-      voteFromExpiredVoteAmount,
-      voteFromExpiredSelectedRowKeys,
-      handleVoteFromExpiredSelectedRowChange,
-      changeVoteState,
     } = this.props;
 
-    const { datePickerTime } = this.state;
-
     const columns = getColumns.call(this);
-
-    const voteFromExpiredRowSelection = {
-      selectedRowKeys: voteFromExpiredSelectedRowKeys,
-      onChange: handleVoteFromExpiredSelectedRowChange,
-      hideDefaultSelections: true,
-      type: "checkbox",
-    };
     const switchVoteRowSelection = {
       selectedRowKeys: [
         switchVoteSelectedRowKeys.length > 0
@@ -207,11 +186,6 @@ class VoteModal extends Component {
       type: "radio",
     };
 
-    const switchVoteRecord = switchableVoteRecords.find(
-      (record) => record.key === switchVoteSelectedRowKeys[0]
-    );
-    const switchVoteAmount = switchVoteRecord && switchVoteRecord.amount;
-
     return [
       {
         type: FROM_WALLET,
@@ -222,7 +196,7 @@ class VoteModal extends Component {
             label: "Node Name",
             // FIXME: handle the other case
             render: (
-              <span className="form-item-value">
+              <span className="w-full text-lightGrey font-Montserrat !break-words">
                 {/* {centerEllipsis(nodeName)} */}
                 {nodeName}
               </span>
@@ -231,7 +205,7 @@ class VoteModal extends Component {
           {
             label: "Node Address",
             render: (
-              <span className="form-item-value">
+              <span className="w-full text-lightGrey font-Montserrat !break-words">
                 {/* {centerEllipsis(nodeAddress)} */}
                 {nodeAddress}
               </span>
@@ -296,55 +270,20 @@ class VoteModal extends Component {
                   name="lockTime"
                 >
                   {
-                    //   isIPhone() ? (
-                    //   <DatePickerReact
-                    //     dateFormat="yyyy-MM-dd"
-                    //     minDate={
-                    //       new Date(moment().add(SHORTEST_LOCK_TIME + 1, "d"))
-                    //     }
-                    //     maxDate={new Date(moment().add(1080, "d"))}
-                    //     showYearDropdown
-                    //     selected={
-                    //       this.formRef?.current?.getFieldValue("lockTime")
-                    //         ? new Date(
-                    //           this.formRef?.current?.getFieldValue("lockTime")
-                    //         )
-                    //         : null
-                    //     }
-                    //     onChange={(date) => {
-                    //       this.setState({
-                    //         datePickerTime: date,
-                    //       });
-                    //       this.formRef.current.setFieldsValue({
-                    //         lockTime: moment(date),
-                    //       });
-                    //       // todo: edit
-                    //       handleLockTimeChange(moment(date));
-                    //     }}
-                    //     className="react-datepicker-custom-container date-picker-in-modal"
-                    //     dayClassName={() => "day-class"}
-                    //     includeDateIntervals={[
-                    //       {
-                    //         start: new Date(
-                    //           moment().add(SHORTEST_LOCK_TIME, "d")
-                    //         ),
-                    //         end: new Date(moment().add(1080, "d")),
-                    //       },
-                    //     ]}
-                    //     placeholderText="Select date"
-                    //   />
-                    // ) :
                     (
-                      <DatePicker
-                        disabledDate={disabledDate}
+                      <SimpleDatePicker
+                        className="vote-lock-data-picker"
+                        disabled={disabledDate}
+                        showDefaultFormat={true}
                         onChange={(value) => {
+                          console.log("value", value);
                           this.setState({
                             datePickerTime: new Date(value),
                           });
                           // todo: edit
-                          handleLockTimeChange(value);
+                          handleLockTimeChange(moment(value));
                           this.formRef.current.setFieldsValue({
-                            lockTime: value,
+                            lockTime: moment(value),
                           });
                         }}
                       />
@@ -365,11 +304,11 @@ class VoteModal extends Component {
         formItems: [
           {
             label: "Node Name",
-            render: <span className="form-item-value">{nodeName}</span>,
+            render: <span className="w-full text-lightGrey font-Montserrat !break-words">{nodeName}</span>,
           },
           {
             label: "Node Address",
-            render: <span className="form-item-value">{nodeAddress}</span>,
+            render: <span className="w-full text-lightGrey font-Montserrat !break-words">{nodeAddress}</span>,
           },
           {
             label: "Select Vote",
@@ -389,48 +328,16 @@ class VoteModal extends Component {
                 ]}
               >
                 <Table
-                  size="middle"
+                  size="small"
                   dataSource={switchableVoteRecords}
                   columns={columns}
                   rowSelection={switchVoteRowSelection}
                   pagination={switchVotePagination}
-                  scroll={{ x: 798 }}
+                  scroll={{ x: true }}
                 />
               </Form.Item>
             ),
           },
-          // {
-          //   label: "Lock Time",
-          //   render: (
-          //     <Form.Item
-          //       name='lockTime'
-          //       validateTrigger={["onChange", "onBlur"]}
-          //       rules={[
-          //         // todo: add the validator rule
-          //         {
-          //           required: true,
-          //           message: "Please select your lock time!",
-          //         },
-          //       ]}
-          //     >
-          //       <div>
-          //         <DatePicker
-          //           disabledDate={disabledDate}
-          //           onChange={(value) => {
-          //             handleLockTimeChange(value);
-          //             this.formRef.current.setFieldsValue({
-          //               lockTime: value,
-          //             });
-          //           }}
-          //         />
-          //         <span className='tip-color' style={{ marginLeft: 10 }}>
-          //           Withdrawal and transfer are not supported during the lock-up
-          //           period
-          //         </span>
-          //       </div>
-          //     </Form.Item>
-          //   ),
-          // },
         ],
       },
     ];
@@ -499,22 +406,24 @@ class VoteModal extends Component {
           onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
           style={{ width: 188, marginBottom: 8, display: "block" }}
         />
-        <Button
-          type="primary"
-          onClick={() => this.handleSearch(selectedKeys, confirm)}
-          icon="search"
-          size="small"
-          style={{ width: 90, marginRight: 8 }}
-        >
-          Search
-        </Button>
-        <Button
-          onClick={() => this.handleReset(clearFilters, confirm)}
-          size="small"
-          style={{ width: 90 }}
-        >
-          Reset
-        </Button>
+        <div className="my-[10px] flex items-center justify-between">
+          <Button
+            type="primary"
+            onClick={() => this.handleSearch(selectedKeys, confirm)}
+            icon={<i className="tmrwdao-icon-search text-inherit relative top-[2px]" />}
+            size="small"
+            className="h-[30px]"
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => this.handleReset(clearFilters, confirm)}
+            size="small"
+            className="h-[30px]"
+          >
+            Reset
+          </Button>
+        </div>
       </div>
     ),
     filterIcon: (filtered) => (
@@ -527,14 +436,6 @@ class VoteModal extends Component {
         setTimeout(() => this.searchInput.select());
       }
     },
-    // render: text => (
-    //   <Highlighter
-    //     highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-    //     searchWords={[this.state.searchText]}
-    //     autoEscape
-    //     textToHighlight={text.toString()}
-    //   />
-    // )
   });
 
   handleSearch = (selectedKeys, confirm) => {
@@ -554,17 +455,15 @@ class VoteModal extends Component {
       handleVoteTypeChange,
       voteType,
       voteConfirmLoading,
-      isLockTimeForTest,
-      changeVoteState,
     } = this.props;
     const formItems = this.getFormItems();
 
     const { formattedLockTime } = this.state;
-    let tipHTML = <p className="tip-color">{FEE_TIP}</p>;
+    let tipHTML = <p className="tip-color text-[11px] text-white font-Montserrat font-medium text-center mt-[30px] mb-[40px]">{FEE_TIP}</p>;
     if (voteType !== "fromWallet") {
       tipHTML = (
         <>
-          <p className="tip-color">
+          <p className="tip-color text-[11px] text-white font-Montserrat font-medium text-center mt-[30px] mb-[40px]">
             <div>
               Once the transfer is confirmed, your lock-up time will be reset.
               Another {formattedLockTime || "days"} will be counted from today.
@@ -577,21 +476,18 @@ class VoteModal extends Component {
 
     return (
       <Modal
-        className="vote-modal"
+        className="vote-modal node-vote-modal"
         title="Node Vote"
         visible={voteModalVisible}
-        onOk={this.handleOk}
-        okText="OK"
+        open={voteModalVisible}
+        footer={null}
+        onCancel={this.handleCancel}
         confirmLoading={voteConfirmLoading}
-        width={980}
-        // okText='Next'
+        width={740}
         centered
         maskClosable
         keyboard
         destroyOnClose
-        okButtonProps={{
-          type: "primary",
-        }}
         // todo: optimize, can I use ...this.props instead of the code on the top?
         {...this.props}
       >
@@ -621,7 +517,7 @@ class VoteModal extends Component {
             >
               <Form
                 ref={this.formRef}
-                className="vote-modal-form"
+                className="vote-modal-form mt-[20px]"
                 {...formItemLayout}
                 onSubmit={this.handleSubmit}
               >
@@ -638,14 +534,16 @@ class VoteModal extends Component {
                     key={item.label}
                     className={item.extra ? "form-item-with-extra" : ""}
                   >
-                    {item.validator ? item.render || <Input /> : item.render}
-                    {item.tip ? (
-                      <span style={{ position: "relative" }}>
-                        <Tooltip title={item.tip}>
-                          <InfoCircleFilled className="right-icon" />
-                        </Tooltip>
-                      </span>
-                    ) : null}
+                    <div className="flex items-center justify-start">
+                      {item.validator ? item.render || <Input className="w-full" /> : item.render}
+                      {item.tip ? (
+                        <span className="relative ml-[8px]">
+                          <Tooltip title={item.tip}>
+                            <InfoCircleOutlined className="right-icon !text-lightGrey" />
+                          </Tooltip>
+                        </span>
+                      ) : null}
+                    </div>
                   </Form.Item>
                 ))}
               </Form>
@@ -653,6 +551,16 @@ class VoteModal extends Component {
           ))}
         </Tabs>
         {tipHTML}
+        <div className="w-full mb-[10px]">
+          <Button
+            type="primary"
+            className="w-full h-[40px] rounded-[42px] bg-mainColor text-white font-Montserrat border border-solid border-borderColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+            onClick={this.handleOk}
+            loading={voteConfirmLoading}
+          >
+            OK
+          </Button>
+        </div>
       </Modal>
     );
   }

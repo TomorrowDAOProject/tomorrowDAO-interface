@@ -1,0 +1,36 @@
+
+.vote-redeem-modal-new .TMRWDAO-modal-content {
+  @apply bg-darkBg text-white font-Montserrat;
+}
+
+.vote-redeem-modal-new .TMRWDAO-modal-title {
+  @apply text-[20px] font-light font-Unbounded text-center bg-darkBg text-white;
+}
+
+.vote-redeem-modal-new  .TMRWDAO-modal-close-x {
+  @apply text-white;
+}
+
+.vote-redeem-modal-new .TMRWDAO-form-item-label > label  {
+  @apply w-[170px] text-left text-[13px] !text-white font-medium font-Montserrat;
+}
+
+.vote-redeem-modal-new .TMRWDAO-form-item-control-input {
+  @apply text-white font-Montserrat;
+}
+
+.vote-redeem-modal-new .fee-tip-class {
+  @apply text-[11px] text-white text-center font-Montserrat;
+}
+
+.vote-redeem-modal-new .auth-tip-class {
+  @apply text-[11px] text-white text-center font-Montserrat mb-[50px];
+}
+
+.vote-redeem-modal-new .TMRWDAO-modal-footer {
+  @apply w-full flex items-center justify-between;
+}
+
+.vote-redeem-modal-new .ant-modal-confirm-btns button:last-child {
+  @apply flex-1 text-white bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}

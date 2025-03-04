@@ -97,6 +97,7 @@ export default function RecordTable(props: IRecordTableProps) {
       width: 144,
       title: <div className="time">{timeFormat}</div>,
       render: (text) => {
+        console.log('text', text, getFormattedDate(text, timeFormat));
         return <div>{getFormattedDate(text, timeFormat)}</div>;
       },
     },
@@ -209,6 +210,8 @@ export default function RecordTable(props: IRecordTableProps) {
   const handleRowClassName = (): string => {
     return 'customRow';
   };
+
+  console.log('columns', columns);
 
   return (
     <ConfigProvider renderEmpty={() => <NoData></NoData>}>

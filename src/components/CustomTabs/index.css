@@ -1,0 +1,15 @@
+.custom-tabs-container {
+  @apply flex flex-col;
+}
+
+.custom-tabs-header {
+  @apply flex gap-[1px] border-b border-fillBg8;
+}
+
+.custom-tab-item {
+  @apply px-6 py-[13px] flex items-center gap-2 bg-darkGray rounded-t-[8px] border border-solid border-fillBg8 whitespace-nowrap cursor-pointer text-lightGrey font-Montserrat text-descM13 hover:text-white transition-colors;
+}
+
+.custom-tab-active {
+  @apply text-white border-b-0 bg-transparent;
+}

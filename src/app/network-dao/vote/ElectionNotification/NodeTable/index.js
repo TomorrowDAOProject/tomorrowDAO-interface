@@ -11,7 +11,6 @@ import LinkNetworkDao from 'components/LinkNetworkDao';
 import { Table, Button, Input, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import moment from "moment";
-// import Highlighter from 'react-highlight-words';
 import io from "socket.io-client";
 
 import {
@@ -44,6 +43,7 @@ class NodeTable extends PureComponent {
         showQuickJumper: true,
         total: 0,
         showTotal: (total) => `Total ${total} items`,
+        pageNum: 1,
         pageSize: 20,
         showSizeChanger: false,
       },
@@ -133,20 +133,21 @@ class NodeTable extends PureComponent {
           }
           onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
           style={{ width: 188, marginBottom: 8, display: "block" }}
+          className='!bg-darkBg !text-lightGrey !border-borderColor placeholder:!text-lightGrey'
         />
         <Button
           type="primary"
           onClick={() => this.handleSearch(selectedKeys, confirm)}
-          icon={<SearchOutlined />}
+          icon={<i className="tmrwdao-icon-search text-inherit relative top-[2px]" />}
           size="small"
-          style={{ width: 90, marginRight: 8 }}
+          className="w-[90px] rounded-[42px] mr-[8px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
         >
           Search
         </Button>
         <Button
           onClick={() => this.handleReset(clearFilters, confirm)}
           size="small"
-          style={{ width: 90 }}
+          className="w-[90px] rounded-[42px] text-white bg-darkBg border border-solid border-white hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
         >
           Reset
         </Button>
@@ -197,18 +198,20 @@ class NodeTable extends PureComponent {
         dataIndex: "name",
         key: "nodeName",
         width: 200,
-        ellipsis: true,
         // todo: ellipsis useless
         // ellipsis: true,
         render: (text, record) => (
-          <Tooltip title={text}>
-            <LinkNetworkDao
-              href={{ pathname: '/vote/team', query: { pubkey: record.pubkey } }}
-              replaceStart="vote"
-            >
-              {text}
-            </LinkNetworkDao>
-          </Tooltip>
+          <div className="text-ellipsis">
+            <Tooltip title={text} placement="topLeft">
+              <LinkNetworkDao
+                href={{ pathname: '/vote/team', query: { pubkey: record.pubkey } }}
+                replaceStart="vote"
+                className="text-white font-Montserrat text-[11px] cursor-pointer"
+              >
+                {text}
+              </LinkNetworkDao>
+            </Tooltip>
+          </div>
         ),
         ...this.getColumnSearchProps("name"),
       },
@@ -269,11 +272,12 @@ class NodeTable extends PureComponent {
         title: "Operations",
         key: "operations",
         width: this.getWidth(),
-        fixed: "right",
+        className: 'operations-fixed',
         render: (text, record) => (
           <div className={`${clsPrefix}-btn-group`}>
             <Button
-              className="table-btn vote-btn"
+              size="small"
+              className="w-[80px] text-center vote-btn text-white !bg-mainColor !rounded-[8px] !border border-solid !border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
               key={record.pubkey}
               disabled={isActivityBrowser()}
               data-nodeaddress={record.formattedAddress}
@@ -286,7 +290,8 @@ class NodeTable extends PureComponent {
               Vote
             </Button>
             <Button
-              className="table-btn redeem-btn"
+              size="small"
+              className="redeem-btn w-[80px] text-center !text-lightGrey !rounded-[8px] bg-transparent !border border-solid !border-lightGrey hover:!bg-darkBg hover:!text-white hover:border hover:border-solid hover:!border-white"
               key={record.pubkey + 1}
               data-role="redeem"
               data-shoulddetectlock
@@ -549,26 +554,39 @@ class NodeTable extends PureComponent {
       });
   }
 
+  deduplicateByName(arr) {
+    const seen = new Set();
+    return arr.filter(item => {
+      if (seen.has(item.name)) {
+        return false;
+      } else {
+        seen.add(item.name);
+        return true;
+      }
+    });
+  }
+
   render() {
     const { nodeList, isLoading, pagination } = this.state;
+    const nodeListData = this.deduplicateByName(nodeList);
     const nodeListCols = this.getCols();
     return (
-      <section className={`${clsPrefix}`}>
-        <h2 className={`${clsPrefix}-header table-card-header`}>
+      <section className={`${clsPrefix} px-[18px]`}>
+        <h2 className={`${clsPrefix}-header table-card-header text-white font-medium font-Montserrat`}>
           Node Table
         </h2>
-        <TableLayer className="node-table-wrapper">
+        <TableLayer className="node-table-wrapper !bg-darkGray">
           <Table
             showSorterTooltip={false}
             columns={nodeListCols}
-            dataSource={nodeList}
+            dataSource={nodeListData}
             // onChange={handleTableChange}
-            loading={isLoading}
             pagination={pagination}
+            loading={isLoading}
             // cannot use publicKey, because publicKey will not change when updating producedBlocks
-            rowKey={(record) => record.producedBlocks}
-            scroll={{ x: 1024 }}
-          // size='middle'
+            rowKey={(record) => record.name}
+            scroll={{ x: 'max-content' }}
+            // size='middle'
           />
         </TableLayer>
       </section>

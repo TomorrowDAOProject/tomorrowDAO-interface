@@ -1,10 +1,8 @@
 'use client';
 import { useEffect } from 'react';
-import DAOHeader from './components/DAOHeader';
 import DAOList from './components/DAOList';
 import breadCrumb from 'utils/breadCrumb';
 import './index.css';
-import useResponsive from 'hooks/useResponsive';
 
 interface IProps {
   ssrData: {
@@ -18,14 +16,10 @@ export default function Home(props: IProps) {
   useEffect(() => {
     breadCrumb.clearBreadCrumb();
   }, []);
-  const { isLG } = useResponsive();
   return (
-    <div className="home-container">
-      <div className="home-header-container">
-        {!isLG && <DAOHeader />}
-        {/* <DAOHeader /> */}
-        <DAOList ssrData={ssrData} />
-      </div>
+    <div className="tmrwdao-grid !gap-[20px]">
+      {/* <DAOHeader /> */}
+      <DAOList ssrData={ssrData} />
     </div>
   );
 }

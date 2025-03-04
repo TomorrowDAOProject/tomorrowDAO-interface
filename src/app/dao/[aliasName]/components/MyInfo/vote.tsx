@@ -1,5 +1,4 @@
-import { Divider, Form, InputNumber, message } from 'antd';
-import { Button } from 'aelf-design';
+import { Divider, Form, InputNumber } from 'antd';
 import { useState, useCallback } from 'react';
 import CommonModal from 'components/CommonModal';
 import Image from 'next/image';
@@ -17,8 +16,10 @@ import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
-import { okButtonConfig } from 'components/ResultModal';
-
+import { INIT_RESULT_MODAL_CONFIG, okButtonConfig } from 'components/ResultModal';
+import { ReactComponent as Info } from 'assets/revamp-icon/info.svg';
+import Button from 'components/Button';
+import { toast } from 'react-toastify';
 type TVoteTypes = {
   proposalId: string;
   voteMechanismName?: string;
@@ -58,7 +59,9 @@ function Vote(props: TVoteTypes) {
   const handlerModal = (voteType: number) => {
     // if have voted, can't vote again
     if (votesAmount > 0) {
-      message.info('You have already voted!');
+      toast.info('You have already voted!', {
+        icon: <i className="tmrwdao-icon-information-filled text-[16px] text-white" />,
+      });
       return;
     }
     setCurrentVoteType(voteType);
@@ -116,7 +119,7 @@ function Vote(props: TVoteTypes) {
           },
         );
         if (allowance.error) {
-          message.error(allowance.errorMessage?.message || 'unknown error');
+          toast.error(allowance.errorMessage?.message || 'unknown error');
         }
         const bigA = BigNumber(contractParams.voteAmount);
         const allowanceBN = BigNumber(allowance?.allowance);
@@ -156,7 +159,21 @@ function Vote(props: TVoteTypes) {
         primaryContent: 'Transaction Failed',
         secondaryContent: message?.toString?.(),
         footerConfig: {
-          buttonList: [okButtonConfig],
+          buttonList: [
+            {
+              children: (
+                <Button
+                  type="danger"
+                  className="w-full"
+                  onClick={() => {
+                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                  }}
+                >
+                  OK
+                </Button>
+              ),
+            },
+          ],
         },
       });
       emitLoading(false);
@@ -182,28 +199,25 @@ function Vote(props: TVoteTypes) {
       <Button
         type="primary"
         size="medium"
-        millisecondOfDebounce={1000}
-        className="approve-button flex-1"
+        className="!bg-mainColor flex-1 font-Montserrat hover:!bg-transparent hover:!border-mainColor hover:!text-mainColor disabled:!text-lightGrey border border-solid disabled:!border-fillBg8 disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.APPROVED)}
         disabled={!canVote}
       >
         Approve
       </Button>
       <Button
-        type="primary"
+        type="warning"
         size="medium"
-        className="reject-button flex-1"
-        millisecondOfDebounce={1000}
+        className="bg-[#FF485D] hover:!bg-[#FF485D] flex-1 hover:!bg-transparent hover:!border-[#FF485D] hover:!text-[#FF485D] font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-fillBg8 disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.REJECTED)}
         disabled={!canVote}
       >
         Reject
       </Button>
       <Button
-        type="primary"
+        type="default"
         size="medium"
-        millisecondOfDebounce={1000}
-        className="abstention-button flex-1"
+        className="!bg-fillBg8 text-lightGrey hover:!bg-transparent flex-1 font-Montserrat disabled:!text-lightGrey border border-solid disabled:!border-fillBg8 disabled:!bg-fillBg8 !rounded-[42px]"
         onClick={() => handlerModal(EVoteOption.ABSTAINED)}
         disabled={!canVote}
       >
@@ -212,17 +226,20 @@ function Vote(props: TVoteTypes) {
 
       {/* vote TokenBallot 1t1v Modal  */}
       <CommonModal
+        className="vote-modal"
         open={showTokenBallotModal}
         destroyOnClose
-        title={<div className="text-center">{currentTitle}</div>}
+        title={
+          <div className="text-center text-white font-Unbounded font-[300]">{currentTitle}</div>
+        }
         onCancel={() => {
           form.setFieldValue('stakeAmount', 1);
           setShowTokenBallotModal(false);
         }}
       >
         <div className="text-center color-text-Primary-Text font-medium">
-          <span className="text-[32px] mr-1">{elfBalance}</span>
-          <span>{symbol}</span>
+          <span className="text-[34px] mr-1 text-white font-Montserrat">{elfBalance}</span>
+          <span className="text-lightGrey font-normal">{symbol}</span>
         </div>
         {/* <div className="text-center text-Neutral-Secondary-Text">Available for Unstaking</div> */}
         <Form
@@ -234,11 +251,23 @@ function Vote(props: TVoteTypes) {
           requiredMark={false}
         >
           <Form.Item<TFieldType>
-            label="Stake and Vote"
+            label={
+              <span className="text-white font-medium font-Montserrat !text-[15px]">
+                Stake and Vote
+              </span>
+            }
             name="stakeAmount"
             validateFirst
             initialValue={1}
-            tooltip={`Currently, the only supported method is to unstake all the available ${symbol} in one time.`}
+            tooltip={{
+              title: (
+                <span className="font-Montserrat">
+                  Currently, the only supported method is to unstake all the available ${symbol} in
+                  one time.
+                </span>
+              ),
+              icon: <Info />,
+            }}
             rules={[
               { required: true, message: 'Please input stake amount' },
               {
@@ -261,22 +290,27 @@ function Vote(props: TVoteTypes) {
             ]}
           >
             <InputNumber
-              className="w-full"
+              className="w-full !border-fillBg8 !rounded-[8px] input-number"
               placeholder="Please input stake amount"
+              controls={false}
               autoFocus
               prefix={
                 <div className="flex items-center">
                   {TokenIconMap[symbol] && (
                     <Image width={24} height={24} src={TokenIconMap[symbol]} alt="" />
                   )}
-                  <span className="text-Neutral-Secondary-Text ml-1">{symbol}</span>
+                  <span className="text-lightGrey ml-[6px] font-Montserrat">{symbol}</span>
                   <Divider type="vertical" />
                 </div>
               }
             />
           </Form.Item>
           <div>
-            <Button className="mx-auto mt-[24px]" type="primary" htmlType="submit">
+            <Button
+              className="mx-auto !h-[40px] font-Montserrat !text-[15px] mt-[50px] bg-mainColor w-full !rounded-[42px] text-white hover:!bg-transparent hover:border hover:border-solid hover:border-mainColor hover:!text-mainColor"
+              type="primary"
+              onClick={() => handlerVote()}
+            >
               Stake and Vote
             </Button>
           </div>
@@ -284,18 +318,19 @@ function Vote(props: TVoteTypes) {
       </CommonModal>
       {/* UniqueVote vote 1a1v 1 approve  2 Reject  3 Abstain  */}
       <CommonModal
+        className="vote-modal"
         open={showVoteModal}
-        title={<div className="text-center">{currentTitle}</div>}
+        title={
+          <div className="text-center text-white font-Unbounded font-[300]">{currentTitle}</div>
+        }
         onCancel={() => {
           setShowVoteModal(false);
         }}
         footer={null}
       >
-        <div className="card-sm-text text-center text-Neutral-Primary-Text mb-6">
-          {currentMessage}
-        </div>
+        <div className="card-sm-text text-center text-lightGrey mb-6">{currentMessage}</div>
         <Button
-          className="mx-auto"
+          className="mx-auto !h-[40px] font-Montserrat !text-[15px] mt-[50px] bg-mainColor w-full !rounded-[42px] text-white hover:!bg-transparent hover:border hover:border-solid hover:border-mainColor hover:!text-mainColor"
           type="primary"
           size="medium"
           onClick={() => {

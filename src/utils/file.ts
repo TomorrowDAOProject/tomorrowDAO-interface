@@ -30,3 +30,32 @@ export const preloadImages = (imageUrls: string[]) => {
     img.src = url;
   });
 };
+
+export const shortenFileName = (str: string, maxLength = 20, prev = 8, next = 8) => {
+  if (str.length <= maxLength) {
+    return str;
+  }
+
+  const frontChars = str.slice(0, prev);
+  const backChars = str.slice(-next);
+
+  return `${frontChars}...${backChars}`;
+};
+
+export function generateRandomString(len = 10) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < len; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
+export function blobToFile(blob: Blob, fileName?: string) {
+  const fileNameWithExtension = fileName || generateRandomString(10) + '.png';
+  const file = new File([blob], fileNameWithExtension, {
+    type: blob.type,
+    lastModified: Date.now(),
+  });
+  return file;
+}

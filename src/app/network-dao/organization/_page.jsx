@@ -4,8 +4,6 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import LinkNetworkDao from "components/LinkNetworkDao";
 import {
   Tabs,
-  Pagination,
-  Input,
   Spin,
   Row,
   Col,
@@ -16,19 +14,18 @@ import {
 import { Switch, Case, If, Then } from "react-if";
 import constants, { LOADING_STATUS, LOG_STATUS } from "@redux/common/constants";
 import { setCurrentOrg } from "@actions/proposalDetail";
-import Total from "@components/Total";
 import getChainIdQuery from 'utils/url';
 import Organization from "./Organization";
-import dynamicReq from 'next/dynamic';
 import { getOrganizations } from "@redux/actions/organizationList";
 import "./index.css";
 import { removePrefixOrSuffix, sendHeight } from "@common/utils";
 import removeHash from "@utils/removeHash";
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
 import useResponsive from "hooks/useResponsive";
+import Input from 'components/Input';
+import Pagination from "components/Pagination";
 
 const { TabPane } = Tabs;
-const { Search } = Input;
 const { proposalTypes } = constants;
 const keyFromHash = {
   "#association": proposalTypes.ASSOCIATION,
@@ -83,6 +80,13 @@ const OrganizationList = () => {
       pageNum,
     });
 
+  const onPageSizeChange = (pageSize) =>
+    fetchList({
+      ...params,
+      pageSize,
+      pageNum: 1,
+    });
+
   const onSearch = (value) => {
     fetchList({
       ...params,
@@ -115,7 +119,7 @@ const OrganizationList = () => {
   const editOrganization = (orgAddress) => {
     const org = list.filter((item) => item.orgAddress === orgAddress)[0];
     Modal.confirm({
-      className: "organization-list-modal",
+      className: "modify-organisation-modal",
       title: "Modify Organisation?",
       content:
         "Modifying the organisation requires initiating a proposal to modify. Are you sure you want to modify?",
@@ -131,18 +135,23 @@ const OrganizationList = () => {
   };
 
   return (
-    <div className="organization-list bg-white overflow-hidden page-content-padding">
+    <div className="organization-list bg-darkBg text-white font-Montserrat rounded-lg border border-solid border-fillBg8 overflow-visible">
       <Tabs
         size={isLG ? 'small' : 'middle'}
         animated={false}
         tabBarExtraContent={
           logStatus === LOG_STATUS.LOGGED ? (
-            <LinkNetworkDao href="/create-organization">
-              Create Organisation&gt;
-            </LinkNetworkDao>
+            <div
+              className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!bg-darkBg mr-[18px] md:mr-[38px]"
+            >
+              <LinkNetworkDao href="/create-organization" className="text-white font-Montserrat !rounded-[42px] px-[10px] py-[6px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
+                <span className="hidden md:block">Create Organisation</span>
+                <span className="block md:hidden">Create</span>
+              </LinkNetworkDao>
+            </div>
           ) : null
         }
-        className="organization-list-tab"
+        className="organization-list-tab relative"
         activeKey={activeKey}
         onChange={handleTabChange}
       >
@@ -159,76 +168,79 @@ const OrganizationList = () => {
           key={proposalTypes.REFERENDUM}
         />
       </Tabs>
-      <div className="organization-list-filter gap-top-large gap-bottom-large">
-        <Row gutter={16}>
-          <Col sm={6} xs={24}>
-            <Search
-              className="organization-list-search-input"
-              placeholder="Organisation Address"
-              defaultValue={params.search}
-              allowClear
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onSearch={onSearch}
-            />
-          </Col>
-        </Row>
-      </div>
-      <div className="organization-list-list">
-        <Switch>
-          <Case
+      <div className="page-content-padding">
+        <div className="organization-list-filter gap-top-large gap-bottom-large">
+          <Row gutter={16}>
+            <Col sm={6} xs={24} className="organization-list-filter-input">
+              <Input
+                className="w-[306px] md:!w-[406px] h-[36px]"
+                placeholder="Organisation Address"
+                prefix={<i className="tmrwdao-icon-search text-lightGrey" />}
+                defaultValue={params.search}
+                allowClear
+                value={searchValue}
+                onChange={(value) => setSearchValue(value)}
+                onPressEnter={(value) => onSearch(value)}
+                enterKeyHint="search"
+              />
+            </Col>
+          </Row>
+        </div>
+        <div className="organization-list-list">
+          <Switch>
+            <Case
+              condition={
+                loadingStatus === LOADING_STATUS.LOADING ||
+                loadingStatus === LOADING_STATUS.SUCCESS
+              }
+            >
+              <Spin spinning={loadingStatus === LOADING_STATUS.LOADING}>
+                <Row gutter={16}>
+                  {list.map((item) => (
+                    <Col sm={12} xs={24} key={item.orgAddress} className="mt-[12px]">
+                      <Organization
+                        {...item}
+                        bpList={bpList}
+                        logStatus={logStatus}
+                        editOrganization={editOrganization}
+                        parliamentProposerList={parliamentProposerList}
+                        currentWallet={currentWallet}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              </Spin>
+            </Case>
+            <Case condition={loadingStatus === LOADING_STATUS.FAILED}>
+              <Result
+                status="error"
+                title="Error Happened"
+                subTitle="Please check your network"
+              />
+            </Case>
+          </Switch>
+          <If
             condition={
-              loadingStatus === LOADING_STATUS.LOADING ||
-              loadingStatus === LOADING_STATUS.SUCCESS
+              loadingStatus === LOADING_STATUS.SUCCESS && list.length === 0
             }
           >
-            <Spin spinning={loadingStatus === LOADING_STATUS.LOADING}>
-              <Row gutter={16}>
-                {list.map((item) => (
-                  <Col sm={12} xs={24} key={item.orgAddress} className="mt-[12px]">
-                    <Organization
-                      {...item}
-                      bpList={bpList}
-                      logStatus={logStatus}
-                      editOrganization={editOrganization}
-                      parliamentProposerList={parliamentProposerList}
-                      currentWallet={currentWallet}
-                    />
-                  </Col>
-                ))}
-              </Row>
-            </Spin>
-          </Case>
-          <Case condition={loadingStatus === LOADING_STATUS.FAILED}>
-            <Result
-              status="error"
-              title="Error Happened"
-              subTitle="Please check your network"
-            />
-          </Case>
-        </Switch>
-        <If
-          condition={
-            loadingStatus === LOADING_STATUS.SUCCESS && list.length === 0
-          }
-        >
-          <Then>
-            <Empty description="No results found"/>
-          </Then>
-        </If>
-      </div>
-      <div className="flex justify-end organization-list-pagination">
-        <Pagination
-          className="gap-top mt-[12px]"
-          showQuickJumper
-          total={total}
-          current={params.pageNum}
-          pageSize={params.pageSize}
-          hideOnSinglePage
-          onChange={onPageNumChange}
-          showTotal={Total}
+            <Then>
+              <Empty description="No Results found"/>
+            </Then>
+          </If>
+        </div>
+        <div className="w-full">
+          <Pagination
+            className="mt-[12px] mb-[60px]"
+            total={total}
+            current={params.pageNum ?? 1}
+            pageSize={params.pageSize ?? 10}
+            hideOnSinglePage
+            onChange={onPageNumChange}
+            onPageSizeChange={onPageSizeChange}
           />
         </div>
+      </div>
     </div>
   );
 };

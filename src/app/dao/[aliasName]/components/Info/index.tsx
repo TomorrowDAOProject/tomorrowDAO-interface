@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import { Button } from 'aelf-design';
 import SuccessGreenIcon from 'assets/imgs/success-green.svg';
 import WaringIcon from 'assets/imgs/waring.svg';
+import Button from 'components/Button';
 
 type TPropsType = {
   onOk: (p: boolean) => void;
@@ -24,13 +24,13 @@ export default function Info(props: TPropsType) {
       {type && (
         <Image className="mx-auto block" width={56} height={56} src={typeMap[type]} alt="" />
       )}
-      <div className="text-center text-Primary-Text font-medium mt-2">{title}</div>
+      <div className="text-center text-white font-medium mt-4 text-[18px]">{title}</div>
 
-      <p className="text-center text-Neutral-Secondary-Text font-medium">{firstText}</p>
-      <p className="text-center text-Neutral-Secondary-Text font-medium">{secondText}</p>
+      <p className="text-center text-lightGrey font-medium text-[12px]">{firstText}</p>
+      <p className="text-center text-lightGrey font-medium text-[12px]">{secondText}</p>
       {btnText && (
         <Button
-          className="mx-auto mt-6 w-[206px]"
+          className="mx-auto mt-[30px] w-full"
           type="primary"
           onClick={() => {
             onOk(false);

@@ -1,60 +1,66 @@
-import { HashAddress } from 'aelf-design';
-import { Checkbox, CheckboxProps } from 'antd';
+import clsx from 'clsx';
+import Checkbox from 'components/Checkbox';
 import { curChain } from 'config';
-import { formatAddress } from 'utils/address';
+import { shortenFileName } from 'utils/file';
 interface IFormDeleteItemProps {
   value?: string[];
   onChange?: (v: string[]) => void;
   lists: string[];
 }
-const CheckboxGroup = Checkbox.Group;
 function FormDeleteItem(props: IFormDeleteItemProps) {
   const { value = [], onChange, lists } = props;
   const checkAll = value.length === lists.length;
-  const indeterminate = value.length > 0 && value.length < lists.length;
 
-  const handleChange = (list: string[]) => {
-    onChange?.(list);
+  const handleChange = (item: string, checked: boolean) => {
+    if (checked) {
+      onChange?.(value.concat(item));
+    } else {
+      onChange?.(value.filter((v) => v !== item));
+    }
   };
 
-  const onCheckAllChange: CheckboxProps['onChange'] = (e) => {
-    onChange?.(e.target.checked ? lists : []);
+  const onCheckAllChange = (checked: boolean) => {
+    onChange?.(checked ? lists : []);
   };
+  console.log('lists', lists, value);
+
   return (
     <>
-      <div className="flex justify-between items-center">
-        <p className="form-item-title text-Neutral-Secondary-Text">
+      <div className="flex justify-between items-center mb-5">
+        <p className="font-Montserrat text-descM16 text-Neutral-Secondary-Text">
           {value.length} address selected
         </p>
-        <div>
-          <span className="form-item-title pr-[16px]">Select All</span>
-          <Checkbox
-            indeterminate={indeterminate}
-            onChange={onCheckAllChange}
-            checked={checkAll}
-            className="delete-multisig-members-check"
-          />
+        <div className="flex items-center gap-[16px]">
+          <span className="font-Montserrat text-descM16 text-lightGrey">Select All</span>
+          <Checkbox onChange={onCheckAllChange} checked={checkAll} />
         </div>
       </div>
-      <CheckboxGroup onChange={handleChange} value={value} className="w-full">
-        <ul className="delete-multisig-members-list w-full">
-          {lists?.map((item) => {
-            return (
-              <li key={item} className="delete-multisig-members-item w-full">
-                <HashAddress
-                  hasCopy={false}
-                  className="normal-text"
-                  preLen={8}
-                  endLen={11}
-                  address={item}
-                  chain={curChain}
-                ></HashAddress>
-                <Checkbox value={item} className="delete-multisig-members-check"></Checkbox>
-              </li>
-            );
-          })}
-        </ul>
-      </CheckboxGroup>
+      <ul className="flex flex-col gap-4 mb-6">
+        {lists?.map((item) => {
+          return (
+            <li
+              key={item}
+              className={clsx(
+                'w-full flex items-center justify-between border border-solid border-transparent rounded-[8px] p-3',
+                value.includes(item) && '!border-mainColor',
+              )}
+            >
+              <span
+                className={clsx(
+                  'font-Roboto text-[16px] font-normal text-lightGrey',
+                  value.includes(item) && 'text-white',
+                )}
+              >
+                {shortenFileName(`ELF_${item}_${curChain}`)}
+              </span>
+              <Checkbox
+                checked={value.includes(item)}
+                onChange={(checked) => handleChange(item, checked)}
+              ></Checkbox>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 }

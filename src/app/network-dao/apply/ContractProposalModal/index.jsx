@@ -1,16 +1,13 @@
-import { Button, Modal } from "antd";
-// eslint-disable-next-line no-use-before-define
 import React from "react";
+import Modal from "components/Modal";
+import Button from "components/Button";
 
-// eslint-disable-next-line react/prop-types
 const ContractProposalModal = ({ applyModal, contractModalCancle }) => (
   <Modal
-    wrapClassName="contract-proposal-modal"
     closable={false}
-    maskClosable={false}
     width={720}
     footer={
-      <Button type="primary" onClick={contractModalCancle}>
+      <Button className="w-full" type="primary" onClick={contractModalCancle}>
         OK
       </Button>
     }

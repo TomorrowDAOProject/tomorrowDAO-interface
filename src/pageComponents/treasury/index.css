@@ -1,57 +1,37 @@
-.treasury-table-column-clear-pl {
+.approve-button:not(:disabled) {
+  @apply !text-white !bg-[#3888FF] border-[#3888FF] ;
+  &:hover {
+    @apply !text-white !bg-[#5A9CFF] border-[#5A9CFF];
+  }
+  &:active {
+    @apply !text-white !bg-[#2777ED] border-[#2777ED];
+  }
+}
+.reject-button:not(:disabled)  {
+  @apply !text-white !bg-[#F55D6E] border-[#F55D6E];
+  &:hover {
+    @apply !text-white !bg-[#F77987] border-[#F77987];
+  }
+  &:active {
+    @apply !text-white !bg-[#DF4F5F] border-[#DF4F5F];
+  }
 }
 
-.table-header-sorter-left {
-  .TMRWDAO-table-column-sorters {
-    @apply justify-normal;
+.abstention-button:not(:disabled)  {
+  @apply !text-white !bg-[#687083] border-[#687083];
+  &:hover {
+    @apply !text-white !bg-[#828898] border-[#828898];
   }
-
-  .TMRWDAO-table-column-title {
-    @apply flex-grow-0 pl-[8px];
+  &:active {
+    @apply !text-white !bg-[#5D6579] border-[#5D6579];
+  }
+}
+.unstake-form-token {
+  img {
+    @apply w-[24px] h-[24px] mr-[8px];
+  }
+  .token-text {
+    @apply text-[16px] leading-[24px] text-Neutral-Disable-Text;
   }
 }
 
-.treasury-tab {
-  .TMRWDAO-tabs-nav .TMRWDAO-tabs-tab:first-child {
-    @apply lg:ml-[16px] ml-0;
-  }
-}
-.interactive-tag {
-  @apply w-[36px] inline-block text-center;
-  &.in {
-    color: #05C4A2;
-    border-radius: 4px;
-    border: 1px solid rgba(5, 196, 162, 0.40);
-    background: var(--Executed-Executed-Container, #E4F8F5);
-  }
-  &.out {
-    color: #F8B042;
-    border-radius: 4px;
-    border: 1px solid rgba(248, 176, 66, 0.40);
-    background: var(--Active-Active-Container, #FEF7EC);
-  }
-}
-.treasury-page-content {
-  .method-tag {
-    border-radius: 4px;
-    border: 1px solid var(--Neutral-Border, #E1E1E1);
-    background: var(--Neutral-Default-BG, #F6F6F6);
-    @apply w-[96px] h-[24px] text-center leading-[24px] truncate px-[8px];
-  }
-  .treasury-token {
-    @apply text-[12px] leading-[20px] font-normal text-neutralTitle; 
-  }
-  .treasury-token-list-table {
-    .TMRWDAO-table-tbody>tr:last-child>td {
-      @apply border-b-0;
-   }
-   .token-pair {
-    .token-text {
-      @apply normal-text-bold;
-    }
-    .token-logo {
-      @apply w-[32px] h-[32px] pr-[8px];
-    }
-   }
-  }
-}

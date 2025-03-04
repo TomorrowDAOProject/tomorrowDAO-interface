@@ -5,8 +5,9 @@
  */
 
 import React, { PureComponent } from "react";
-import { Row, Col, Modal, Divider } from "antd";
+// import { Row, Col, Modal, Divider } from "antd";
 import { connect } from "react-redux";
+import Modal from 'components/Modal'
 
 import ResourceBuy from "./ResourceBuy/ResourceBuy";
 import ResourceSell from "./ResourceSell/ResourceSell";
@@ -134,9 +135,9 @@ class ResourceTrading extends PureComponent {
           </div>
         ) : null}
         <div className="resource-trading-body">
-          <Row>
-            <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
-              {isPhoneCheck() && <div className="trading-title-buy">Buy</div>}
+          <div className="flex gap-[30px] flex-col lg:flex-row xl:flex-row md:flex-row">
+            <div className="w-full">
+              {/* {isPhoneCheck() && <div className="trading-title-buy">Buy</div>} */}
               <ResourceBuy
                 loginAndInsertKeypairs={loginAndInsertKeypairs}
                 currentResourceType={currentResourceType}
@@ -152,17 +153,9 @@ class ResourceTrading extends PureComponent {
                 buyEstimateValueLoading={buyEstimateValueLoading}
                 handleModifyTradingState={this.handleModifyTradingState}
               />
-            </Col>
-            <Col
-              offset={isPhoneCheck() ? 0 : 1}
-              xxl={11}
-              xl={11}
-              lg={11}
-              md={11}
-              sm={24}
-              xs={24}
-            >
-              {isPhoneCheck() && <div className="trading-title-sell">Sell</div>}
+            </div>
+            <div className="w-full">
+              {/* {isPhoneCheck() && <div className="trading-title-sell">Sell</div>} */}
               <ResourceSell
                 loginAndInsertKeypairs={loginAndInsertKeypairs}
                 currentResourceType={currentResourceType}
@@ -177,10 +170,10 @@ class ResourceTrading extends PureComponent {
                 sellEstimateValueLoading={sellEstimateValueLoading}
                 handleModifyTradingState={this.handleModifyTradingState}
               />
-            </Col>
-          </Row>
+            </div>
+          </div>
         </div>
-        <Modal
+        {/* <Modal
           className="modal-display-box"
           title="Resource buying"
           destroyOnClose
@@ -191,7 +184,17 @@ class ResourceTrading extends PureComponent {
           maskClosable
           onCancel={this.handleCancel}
           width={700}
-        >
+        > */}
+          <Modal
+            title={<span className="font-Unbounded text-[20px] font-[300]">Resource buying</span>}
+            // footerConfig={{
+            //   buttonList: [{ children: 'Confirm', onClick: onConfirm, disabled: disabled }],
+            // }}
+            // rootClassName="modal-display-box"
+            isVisible={buyVisible}
+            onClose={this.handleCancel}
+            rootClassName="w-screen xl:w-[740px] md:w-[740px] lg:w-[740px] xl:px-[38px] xl:py-[30px] lg:px-[38px] lg:py-[30px] md:px-[38px] md:py-[30px] p-[22px]"
+          >
           <ResourceBuyModal
             currentResourceType={currentResourceType}
             currentWallet={currentWallet}
@@ -212,16 +215,20 @@ class ResourceTrading extends PureComponent {
           />
         </Modal>
         <Modal
-          className="modal-display-box"
-          title="Resource selling"
-          destroyOnClose
-          closable={false}
-          footer={null}
-          visible={sellVisible}
-          centered
-          maskClosable
-          onCancel={this.handleCancel}
-          width={700}
+          // className="modal-display-box"
+          // title="Resource selling"
+          // destroyOnClose
+          // closable={false}
+          // footer={null}
+          // visible={sellVisible}
+          // centered
+          // maskClosable
+          // onCancel={this.handleCancel}
+          // width={700}
+          title={<span className="font-Unbounded text-[20px] font-[300]">Resource selling</span>}
+          isVisible={sellVisible}
+          onClose={this.handleCancel}
+          rootClassName="w-screen xl:w-[740px] md:w-[740px] lg:w-[740px] w-full xl:px-[38px] xl:py-[30px] lg:px-[38px] lg:py-[30px] md:px-[38px] md:py-[30px] p-[22px]"
         >
           <ResourceSellModal
             currentResourceType={currentResourceType}
