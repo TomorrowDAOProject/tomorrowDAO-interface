@@ -32,7 +32,11 @@ const NavFooter = () => {
         <div className="flex flex-row justify-between items-center py-[14px]">
           <div className="flex flex-row items-center gap-[12px] lg:gap-[27px] xl:gap-[34px]">
             <Link
-              href="https://tmrwdao-docs-testnet.aelf.dev/"
+              href={`${
+                process.env.NODE_ENV == 'production'
+                  ? 'https://docs.tmrwdao.com/'
+                  : 'https://tmrwdao-docs-testnet.aelf.dev/'
+              }`}
               className="text-white font-Syne no-underline text-[11.5px] lg:text-[9.5px] xl:text-[11.5px] hover:text-mainColor active:text-mainColor"
             >
               Docs
