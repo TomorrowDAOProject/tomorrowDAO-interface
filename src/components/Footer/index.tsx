@@ -34,7 +34,7 @@ const NavFooter = () => {
                 href="/"
                 className="text-white font-Syne no-underline text-[11.5px] lg:text-[7px] xl:text-[8.54px] hover:text-mainColor active:text-mainColor"
               >
-                TMRW DAO@2024
+                TMRW DAO©2025
               </Link>
             </div>
           </div>
