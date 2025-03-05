@@ -139,8 +139,8 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
               <a
                 href={`${
                   process.env.NODE_ENV == 'production'
-                    ? 'https://docs.tmrwdao.com/'
-                    : 'https://tmrwdao-docs-testnet.aelf.dev/'
+                    ? 'https://docs.tmrwdao.com/introduction/how-to-manage.html'
+                    : 'https://tmrwdao-docs-testnet.aelf.dev/introduction/how-to-manage.html'
                 }`}
                 target="_blank"
                 rel="noreferrer"
