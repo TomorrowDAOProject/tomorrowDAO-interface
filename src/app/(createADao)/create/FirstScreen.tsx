@@ -1,13 +1,14 @@
-import React from 'react';
-
+import React, { useCallback } from 'react';
+import { useEffect } from 'react';
 import { ReactComponent as BaseInfo } from 'assets/revamp-icon/base-info.svg';
 import { ReactComponent as Dao } from 'assets/revamp-icon/dao.svg';
 import { ReactComponent as HighCouncil } from 'assets/revamp-icon/high-council.svg';
 import { ReactComponent as Docs } from 'assets/revamp-icon/docs.svg';
-import { ReactComponent as GoStart } from 'assets/revamp-icon/go-start.svg';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 import { useRouter } from 'next/navigation';
+
+import { fetchProposalList } from 'api/request';
 
 import './index.css';
 
@@ -27,6 +28,20 @@ export const FirstScreen = (props: IFirstScreenProps) => {
     }
     onClick();
   };
+
+  const fetchProposalListTemp = useCallback(async () => {
+    const proposalList = await fetchProposalList({
+      chainId: 'tDVW',
+      maxResultCount: 10,
+      skipCount: 0,
+      alias: 'network-dao',
+    });
+    console.log('proposalList ----', proposalList);
+  }, []);
+
+  useEffect(() => {
+    fetchProposalListTemp();
+  }, [fetchProposalListTemp]);
 
   return (
     <div className="dao-steps-wrap">

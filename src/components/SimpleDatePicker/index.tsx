@@ -18,6 +18,8 @@ interface ISimpleDatePickerProps {
   className?: string;
   onChange?: (value: string) => void;
   showDefaultFormat?: boolean;
+  startMonth?: Date;
+  endMonth?: Date;
 }
 
 const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
@@ -28,6 +30,8 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
     disabled,
     onChange,
     showDefaultFormat,
+    startMonth,
+    endMonth,
     ...dayPickerProps
   } = props;
   const baseValue =
@@ -94,6 +98,8 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
         <DayPicker
           mode="single"
           captionLayout="dropdown"
+          startMonth={startMonth || new Date(2020, 6)}
+          endMonth={endMonth || new Date(2030, 9)}
           selected={new Date(selected)}
           onSelect={(date) => date && setSelected(dayjs(date).format('YYYY-MM-DD'))}
           disabled={

@@ -4,16 +4,9 @@
  */
 import React from "react";
 import Link from 'next/link';
-import { ArrowRightOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-// { DEFAUTRPCSERVER, SYMBOL, CHAIN_ID }
 import config from "./config/config";
-import addressFormat from "./utils/addressFormat";
-// eslint-disable-next-line import/no-cycle
-import { removeAElfPrefix } from "./utils/utils";
-// eslint-disable-next-line import/no-cycle
-import Dividends from "./components/Dividends";
 import { mainExplorer } from "config";
 const { SYMBOL, CHAIN_ID } = config;
 dayjs.extend(relativeTime);
