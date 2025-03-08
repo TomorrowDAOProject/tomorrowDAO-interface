@@ -111,6 +111,8 @@ const VoteChart = (props) => {
     size = 'default'
   } = props;
   const { isPad } = useLandingPageResponsive();
+
+
   const votesData = useMemo(() => {
     return getCircleValues(
       proposalType,
@@ -123,6 +125,10 @@ const VoteChart = (props) => {
       bpCount
     );
   }, [proposalType, organizationInfo, bpCount]);
+
+  console.log('3213213', proposalType,approvals,rejections, abstentions, organizationInfo, bpCount, votesData)
+
+  
 
   return (
     <div className='pc'>

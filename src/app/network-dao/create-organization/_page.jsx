@@ -7,6 +7,7 @@ import getChainIdQuery from 'utils/url';
 import ReactIf from "react-if";
 import { useSelector } from "react-redux";
 import { InfoCircleOutlined } from "@ant-design/icons";
+import { apiServer } from 'api/axios'
 import {
   Button,
   Select,
@@ -313,14 +314,13 @@ function getContractParams(formValue, tokenList) {
 }
 
 function getWhiteList() {
-  return request(
+  const chainIdQuery = getChainIdQuery();
+  return apiServer.get(
     API_PATH.GET_ORGANIZATIONS,
     {
       pageNum: 1,
       proposalType: proposalTypes.PARLIAMENT,
-    },
-    {
-      method: "GET",
+      chainId: chainIdQuery.chainId,
     }
   )
     .then((res) => {

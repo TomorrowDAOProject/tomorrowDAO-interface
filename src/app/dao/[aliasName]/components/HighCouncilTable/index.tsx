@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import NoData from 'components/NoData';
 import { consensusDPoSAddr, electionContractAddr, SOCKET_URL_NEW } from 'config';
 import { callMainNetViewContract } from 'contract/callContract';
-import { explorerServer } from 'api/axios';
+import { apiServer, explorerServer } from 'api/axios';
 import dayjs from 'dayjs';
 import { useAsyncEffect } from 'ahooks';
 import LinkNetworkDao from 'components/LinkNetworkDao';
@@ -16,6 +16,8 @@ import Tooltip from 'components/Tooltip';
 import Spin from 'components/Spin';
 import Divider from 'components/Divider';
 import clsx from 'clsx';
+
+import getChainIdQuery from 'utils/url';
 
 const TableItemCount = 20;
 
@@ -27,12 +29,12 @@ export default function HighCounCilTab() {
   const nodeListRef = useRef([]);
   const producedBlocksRef = useRef<any>();
   nodeListRef.current = nodeList;
+  const chain = getChainIdQuery();
 
   const getAllTeamDesc = async () => {
-    return explorerServer.get('/explorer-api/vote/getAllTeamDesc', {
-      params: {
-        isActive: true,
-      },
+    return apiServer.get('/networkdao/vote/getAllTeamDesc', {
+      isActive: true,
+      chainId: chain.chainId,
     });
   };
   const fetchCurrentRoundInformation = async () => {

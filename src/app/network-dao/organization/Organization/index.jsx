@@ -111,7 +111,7 @@ function isProposer(
     return false;
   }
   const { proposerAuthorityRequired, proposerWhiteList = {} } = leftOrgInfo;
-  let { proposers = [] } = proposerWhiteList;
+  let proposers = proposerWhiteList?.proposers??[];
   if (proposalType === proposalTypes.PARLIAMENT) {
     if (proposerAuthorityRequired === true) {
       proposers = [...bpList, ...parliamentProposerList];
@@ -131,14 +131,20 @@ export function getOrganizationLeftInfo(
   organizationCaseClass,
   organizationItemClass,
 ) {
+
+  console.log('leftOrgInfo', leftOrgInfo)
   const {
     tokenSymbol,
     proposerAuthorityRequired,
     proposerWhiteList = {},
     organizationMemberList = {},
   } = leftOrgInfo;
-  let { proposers = [] } = proposerWhiteList;
-  let { organizationMembers = [] } = organizationMemberList;
+
+  console.log('proposerWhiteList', proposerWhiteList)
+
+
+  let proposers = proposerWhiteList?.proposers??[];
+  let organizationMembers = organizationMemberList?.organizationMembers??[];
   if (proposalType === proposalTypes.PARLIAMENT) {
     organizationMembers = [...bpList];
     if (proposerAuthorityRequired === true) {

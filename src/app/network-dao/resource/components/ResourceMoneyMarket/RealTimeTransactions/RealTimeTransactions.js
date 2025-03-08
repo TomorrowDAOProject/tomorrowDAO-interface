@@ -22,6 +22,7 @@ import { thousandsCommaWithDecimal } from "@utils/formater";
 import { get } from "../../../../_src/utils";
 import "./RealTimeTransactions.css";
 import { mainExplorer } from "config";
+import { apiServer } from "api/axios";
 
 const fetchLimit = 20;
 const displayLimit = 5;
@@ -66,10 +67,11 @@ class RealTimeTransactions extends PureComponent {
   async getResourceRealtimeRecords() {
     const { type } = this.props;
     try {
-      const data = await get(RESOURCE_REALTIME_RECORDS, {
+      const res = await apiServer.get(RESOURCE_REALTIME_RECORDS, {
         limit: fetchLimit,
         type,
       });
+      const data = res?.data
       // todo: move the logic to backend
       // todo: repeating code
       data.buyRecords = data.buyRecords
@@ -78,7 +80,7 @@ class RealTimeTransactions extends PureComponent {
       data.soldRecords = data.soldRecords
         .sort((a, b) => moment(b.time).unix() - moment(a.time).unix())
         .slice(0, displayLimit);
-      // console.log('data', data);
+
       this.setState({
         recordsData: data || [],
       });
@@ -103,6 +105,8 @@ class RealTimeTransactions extends PureComponent {
 
   // eslint-disable-next-line consistent-return
   getSellInfoHTML() {
+    console.log('recordsData', this.state)
+
     const { recordsData } = this.state;
     let data = null;
     if (recordsData) {
