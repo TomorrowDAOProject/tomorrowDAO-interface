@@ -351,7 +351,13 @@ const MyProposal = () => {
       ...params,
       loading: true,
     });
-    apiServer.get(apiPath, {...apiParams, chainId: chain.chainId})
+    const newParams = {
+      ...apiParams,
+      chainId: chain.chainId,
+      skipCount: apiParams.pageNum,
+      maxResultCount: apiParams.pageSize
+    }
+    apiServer.get(apiPath, newParams)
       .then((res) => {
         const { items: list, totalCount: total } = res.data;
         setParams({

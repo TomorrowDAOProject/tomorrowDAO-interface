@@ -14,7 +14,7 @@ export const FAKE_WALLET = AElf.wallet.getWalletByPrivateKey(wallet.privateKey);
 export const API_PATH = {
   GET_ALL_CONTRACTS: '/viewer/allContracts',
   GET_PROPOSAL_LIST: '/networkdao/proposals',
-  GET_PROPOSAL_INFO: '/proposal/proposalInfo',
+  GET_PROPOSAL_INFO: '/networkdao/proposal/info',
   CHECK_CONTRACT_NAME: '/proposal/checkContractName',
   ADD_CONTRACT_NAME: '/proposal/addContractName',
   UPDATE_CONTRACT_NAME: '/proposal/updateContractName',
