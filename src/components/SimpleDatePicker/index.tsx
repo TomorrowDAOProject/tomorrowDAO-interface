@@ -98,8 +98,8 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
         <DayPicker
           mode="single"
           captionLayout="dropdown"
-          startMonth={startMonth || new Date(2020, 6)}
-          endMonth={endMonth || new Date(2030, 9)}
+          startMonth={startMonth || dayjs().subtract(5, 'year').toDate()}
+          endMonth={endMonth || dayjs().add(5, 'year').toDate()}
           selected={new Date(selected)}
           onSelect={(date) => date && setSelected(dayjs(date).format('YYYY-MM-DD'))}
           disabled={

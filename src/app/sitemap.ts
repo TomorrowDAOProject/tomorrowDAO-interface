@@ -58,6 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
     tmrwSiteMap.push(...currentDaoSiteMap);
     try {
+      // todo: params need to be updated when use the new api
       const proposalList = await fetchProposalList({
         chainId: curChain,
         maxResultCount: 10,

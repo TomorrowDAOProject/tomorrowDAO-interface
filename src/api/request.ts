@@ -47,7 +47,7 @@ export const fetchHcMembers = async (
 };
 
 export const fetchProposalList = async (params: IProposalListReq): Promise<IProposalListRes> => {
-  return apiServer.get('/networkdao/proposal/list', {
+  return apiServer.get('/proposal/list', {
     ...params,
   });
 };
