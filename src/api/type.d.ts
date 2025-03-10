@@ -355,6 +355,12 @@ interface IDaoHCMembersResponse {
 interface IProposalListReq {
   skipCount?: number;
   maxResultCount?: number;
+  isContract?: number;
+  pageNum?: number;
+  pageSize?: number;
+  proposalType?: string;
+  search?: string;
+  status?: string;
   chainId: string;
   alias: string;
   // governanceMechanism: string;
