@@ -45,6 +45,10 @@ const OrganizationList = () => {
   );
   const { params, total, list, bpList, parliamentProposerList, loadingStatus } =
     organizationList;
+
+
+  console.log('list', params,total, list, parliamentProposerList)
+
   const { logStatus, isALLSettle, currentWallet } = common;
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState(params.search);
@@ -53,6 +57,8 @@ const OrganizationList = () => {
     dispatch(getOrganizations(param));
   };
 
+  const chainIdQuery = getChainIdQuery()
+
   useEffect(() => {
     // get activeKey according to hash
     const { hash } = location;
@@ -60,6 +66,7 @@ const OrganizationList = () => {
     fetchList({
       ...params,
       proposalType: activeKey,
+      chainId: chainIdQuery.chainId,
     });
     if (isALLSettle === true) {
       // change redux state

@@ -13,6 +13,9 @@ import { connect } from "react-redux";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
 import { toast } from 'react-toastify';
+import { apiServer } from "api/axios";
+import getChainIdQuery from 'utils/url';
+
 const { TextArea } = Input;
 
 const TeamInfoFormItemLayout = {
@@ -27,6 +30,8 @@ const TeamInfoFormItemLayout = {
 };
 
 const clsPrefix = "candidate-apply-team-info-key-in";
+
+const chain = getChainIdQuery()
 
 class KeyInTeamInfo extends PureComponent {
   formRef = React.createRef();
@@ -304,8 +309,9 @@ class KeyInTeamInfo extends PureComponent {
   fetchCandidateInfo() {
     const { currentWallet } = this.props;
 
-    get("/vote/getTeamDesc", {
+    apiServer.get("/networkdao/vote/getTeamDesc", {
       publicKey: currentWallet.publicKey,
+      chainId: chain.chainId
     })
       .then((res) => {
         this.setState({
@@ -376,7 +382,11 @@ class KeyInTeamInfo extends PureComponent {
             address: currentWallet.address,
             signInfo: randomNum,
           });
-          post("/vote/addTeamDesc", {
+
+          console.log('currentWallet.address', currentWallet.address)
+
+          apiServer.post("/networkdao/vote/addTeamDesc", {
+            chainId: chain.chainId,
             isActive: true,
             publicKey,
             address: currentWallet.address,
@@ -384,7 +394,7 @@ class KeyInTeamInfo extends PureComponent {
             signature,
             ...submitValues,
           }).then((res) => {
-            if (+res.code === 0) {
+            if (res.code === '2000') {
               this.props.navigate(`/vote/team?pubkey=${publicKey}`);
             } else {
               toast.error(res.msg);

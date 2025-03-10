@@ -25,8 +25,21 @@ export const getProposals = (params) => async (dispatch) => {
     const chain = getChainIdQuery();
     const result = await fetchNetworkDaoProposalList({
       ...params,
-      chainId: chain.chainId
+      isContract: Boolean(params.isContract),
+      chainId: chain.chainId,
+      skipCount: params.pageNum,
+      maxResultCount: params.pageSize
     });
+
+
+    result.data.list = result.data.items.map(item=>{
+      item.status = item.status.toLowerCase()
+      return item
+    })
+
+    result.data.total = result.data.totalCount
+
+
     dispatch({
       type: GET_PROPOSALS_LIST.GET_PROPOSALS_LIST_SUCCESS,
       payload: result.data,
