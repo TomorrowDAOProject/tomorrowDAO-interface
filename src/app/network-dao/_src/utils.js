@@ -64,33 +64,6 @@ const get = async (url, params, config) => {
   httpErrorHandler(res.problem, res.problem);
 };
 
-let CONTRACT_NAMES = {};
-const getContractNames = async () => {
-  if (Object.keys(CONTRACT_NAMES).length > 0) {
-    return CONTRACT_NAMES;
-  }
-  let res = {};
-  try {
-    res = await get('/viewer/allContracts');
-  } catch (e) {
-    return CONTRACT_NAMES;
-  }
-  const {
-    code,
-    data = {},
-  } = res || {};
-  if (+code === 0) {
-    const {
-      list = [],
-    } = data;
-    CONTRACT_NAMES = (list || []).reduce((acc, v) => ({
-      ...acc,
-      [v.address]: v,
-    }), {});
-  }
-  return CONTRACT_NAMES;
-};
-
 const post = async (url, data, config) => {
   // todo: handle the other case
   if (!config) { config = { headers: {} }; }
@@ -161,6 +134,5 @@ export {
   formatKey,
   transactionFormat,
   transactionInfo,
-  getContractNames,
   isAElfAddress,
 };

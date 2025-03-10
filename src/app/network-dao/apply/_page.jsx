@@ -41,10 +41,8 @@ import {
 import WithoutApprovalModal from "../_proposal_root/components/WithoutApprovalModal/index";
 import { deserializeLog, isPhoneCheck } from "@common/utils";
 import { interval } from "@utils/timeUtils";
-import { useRouter, usePathname, useSearchParams, useParams } from 'next/navigation'
-import { get } from "../_src/utils.js";
-// import { isPortkeyApp } from "../../../../utils/isWebView";
-import { VIEWER_GET_CONTRACT_NAME } from "@api/url";
+import { useSearchParams } from 'next/navigation'
+import { getAddress, fetchContractName } from 'api/request';
 import {
   base64ToByteArray,
   byteArrayToHexString,
@@ -254,9 +252,11 @@ const CreateProposal = () => {
           "GetContractInfo",
           address
         );
-        const {
-          data: { name: contractName },
-        } = await get(VIEWER_GET_CONTRACT_NAME, { address });
+        const res = await fetchContractName({
+          chainId: getChainIdQuery()?.chainId || 'AELF',
+          address: getAddress(address)
+        }, isSideChain);
+        const contractName = res?.data?.contractName;
         return {
           status: "success",
           contractAddress: address,
@@ -290,11 +290,11 @@ const CreateProposal = () => {
                   const { contractAddress, contractVersion } =
                     contractRegistration;
                   // get contractName
-                  const {
-                    data: { name: contractName },
-                  } = await get(VIEWER_GET_CONTRACT_NAME, {
-                    address: contractAddress,
-                  });
+                  const res = await fetchContractName({
+                    chainId: getChainIdQuery()?.chainId || 'AELF',
+                    address: getAddress(contractAddress)
+                  }, isSideChain);
+                  const contractName = res?.data?.contractName;
                   intervalInstance.clear();
                   resolve({
                     status: "success",
