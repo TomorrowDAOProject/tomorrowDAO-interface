@@ -23,7 +23,6 @@ export const TXS_INFO_API_URL = "/block/txInfo";
 export const BLOCK_INFO_API_URL = "/block/blockInfo";
 const ADDRESS_TXS_API_URL = "/address/transactions";
 const ADDRESS_BALANCE_API_URL = "/api/address/balance";
-const VIEWER_GET_ALL_TOKENS = "/viewer/getAllTokens";
 const TPS_LIST_API_URL = "/tps/all";
 const ADDRESS_TOKENS_API_URL = "/address/tokens";
 const ELF_REALTIME_PRICE_URL = "/token/price";
@@ -419,7 +418,6 @@ export {
   TXS_BLOCK_API_URL,
   ADDRESS_TXS_API_URL,
   ADDRESS_BALANCE_API_URL,
-  VIEWER_GET_ALL_TOKENS,
   ADDRESS_TOKENS_API_URL,
   TPS_LIST_API_URL,
   ELF_REALTIME_PRICE_URL,

@@ -184,12 +184,6 @@ async function getContractAddress(host, fileName) {
   console.log('writeFileSync', `/config/viewer/${fileName}`);
 }
 
-// getConfig().catch(console.error);
-
-// // for viewer
-// (async () => {
-//   await getContractAddress();
-// })();
 const queryConfig = async () => {
   const fileList = [
     {
@@ -215,7 +209,3 @@ const queryConfig = async () => {
   }
 };
 queryConfig();
-// module.exports = {
-//   getConfig,
-//   getContractAddress,
-// };

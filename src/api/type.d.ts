@@ -355,12 +355,6 @@ interface IDaoHCMembersResponse {
 interface IProposalListReq {
   skipCount?: number;
   maxResultCount?: number;
-  isContract?: number;
-  pageNum?: number;
-  pageSize?: number;
-  proposalType?: string;
-  search?: string;
-  status?: string;
   chainId: string;
   alias: string;
   // governanceMechanism: string;
@@ -848,4 +842,19 @@ interface IUploadFileRes {
   code: string;
   data: string;
   message: string;
+}
+
+type TChainID = 'AELF' | 'tDVV' | 'tDVW' | '' | 'multiChain';
+interface IContractHistoryRequestParams {
+  chainId: TChainID;
+  address: string;
+  skipCount?: number;
+  maxResultCount?: number;
+}
+
+interface IContractSourceCode {
+  contractName: string;
+  contractVersion: string;
+  isVerify: boolean;
+  contractSourceCode: any[];
 }

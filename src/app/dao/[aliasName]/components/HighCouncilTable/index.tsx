@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import NoData from 'components/NoData';
 import { consensusDPoSAddr, electionContractAddr, SOCKET_URL_NEW } from 'config';
 import { callMainNetViewContract } from 'contract/callContract';
-import { apiServer, explorerServer } from 'api/axios';
+import { apiServer } from 'api/axios';
 import dayjs from 'dayjs';
 import { useAsyncEffect } from 'ahooks';
 import LinkNetworkDao from 'components/LinkNetworkDao';

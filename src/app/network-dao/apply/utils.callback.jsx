@@ -9,14 +9,10 @@ import getChainIdQuery from 'utils/url';
 import { useChainSelect } from "hooks/useChainSelect";
 import CopylistItem from "../_proposal_root/components/CopylistItem/index.jsx";
 import { getDeserializeLog } from "./utils.js";
-import { get } from "../_src/utils.js";
-import { VIEWER_GET_CONTRACT_NAME } from "@api/url";
 import { mainExplorer, explorer } from "config";
 import AddressNameVer from "../_proposal_root/components/AddressNameVer/index";
-
+import { getAddress, fetchContractName } from 'api/request';
 export const useCallbackAssem = () => {
-  const common = useSelector((state) => state.common);
-  const { wallet } = common;
   const { callSendMethod: callContract } = useConnectWallet();
   // eslint-disable-next-line no-return-await
   const contractSend =  async (action, params, isOriginResult) => {
@@ -70,7 +66,7 @@ export const useCallGetMethod = () => {
 };
 
 export const useReleaseApprovedContractAction = () => {
-  const { isSideChain } = useChainSelect()
+  const { isSideChain } = useChainSelect();
   const proposalSelect = useSelector((state) => state.proposalSelect);
   const common = useSelector((state) => state.common);
   const { contractSend } = useCallbackAssem();
@@ -143,6 +139,7 @@ export const useReleaseApprovedContractAction = () => {
 export const useReleaseCodeCheckedContractAction = () => {
   const proposalSelect = useSelector((state) => state.proposalSelect);
   const common = useSelector((state) => state.common);
+  const { isSideChain } = useChainSelect();
   const { contractSend } = useCallbackAssem();
   const { callGetMethodSend } = useCallGetMethod();
   const { aelf } = common;
@@ -218,10 +215,11 @@ export const useReleaseCodeCheckedContractAction = () => {
         contractVersion = verRes.contractVersion;
       }
       // get contractName
-      const nameRes = await get(VIEWER_GET_CONTRACT_NAME, {
-        address: contractAddress,
-      });
-      contractName = nameRes.data.name;
+      const res = await fetchContractName({
+        chainId: getChainIdQuery()?.chainId || 'AELF',
+        address: getAddress(contractAddress)
+      }, isSideChain);
+      contractName = res?.data?.contractName;
     }
 
     return {

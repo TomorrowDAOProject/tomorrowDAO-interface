@@ -27,7 +27,6 @@ import constants, {
   STATUS_COLOR_MAP,
   PROPOSAL_STATUS_CAPITAL,
 } from "@redux/common/constants";
-import { request } from "@common/request";
 import VoteData from "./VoteData/index.jsx";
 import VoteDetail from "./VoteDetail/index.jsx";
 import OrganizationCard from "./OrganizationCard/index.jsx";

@@ -12,7 +12,7 @@ const explorerRPC = getExplorerRPC();
 export const FAKE_WALLET = AElf.wallet.getWalletByPrivateKey(wallet.privateKey);
 
 export const API_PATH = {
-  GET_ALL_CONTRACTS: '/viewer/allContracts',
+  GET_ALL_CONTRACTS: '/app/address/contracts',
   GET_PROPOSAL_LIST: '/networkdao/proposals',
   GET_PROPOSAL_INFO: '/networkdao/proposal/info',
   CHECK_CONTRACT_NAME: '/proposal/checkContractName',
@@ -22,7 +22,6 @@ export const API_PATH = {
   GET_ORGANIZATIONS: '/networkdao/org',
   GET_VOTED_LIST: '/networkdao/votes',
   GET_PERSONAL_VOTED_LIST: '/proposal/personalVotedList',
-  GET_CONTRACT_NAME: '/viewer/getContractName',
   GET_AUDIT_ORG_BY_PAGE: '/networkdao/org/proposer',
   GET_ORG_OF_OWNER: '/networkdao/org/owner',
   GET_APPLIED_PROPOSALS: '/networkdao/proposal/applied',
