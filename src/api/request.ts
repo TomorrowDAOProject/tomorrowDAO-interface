@@ -47,7 +47,7 @@ export const fetchHcMembers = async (
 };
 
 export const fetchProposalList = async (params: IProposalListReq): Promise<IProposalListRes> => {
-  return apiServer.get('/proposal/list', {
+  return apiServer.post('/proposal/list', {
     ...params,
   });
 };
@@ -189,6 +189,24 @@ export const fetchOldAddressTokenList = async (
     params,
   });
 };
+
+// todo need to know feature from page  -  symbol or nft
+// export async function fetchAccountsDetailTokens(params: IAccountTokensRequestParams): Promise<ITokens> {
+//   const result = await request.address.getAccountsDetailTokens({
+//     params: params,
+//   });
+//   const data = result?.data || defaultListData;
+//   return data;
+// }
+
+// export async function fetchAccountsDetailNFTAssets(params: IAccountTokensRequestParams): Promise<INfts> {
+//   const result = await request.address.getAccountsDetailNFTAssets({
+//     params: params,
+//   });
+//   const data = result?.data || defaultListData;
+//   return data;
+// }
+
 export const fetchAddressTransferList = async (
   params: IAddressTransferListReq,
   currentChain?: string,

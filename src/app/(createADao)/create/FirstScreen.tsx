@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { ReactComponent as BaseInfo } from 'assets/revamp-icon/base-info.svg';
 import { ReactComponent as Dao } from 'assets/revamp-icon/dao.svg';
 import { ReactComponent as HighCouncil } from 'assets/revamp-icon/high-council.svg';
