@@ -19,7 +19,7 @@ export default function Page(props) {
       },
     }}
     >
-      < PageIndex />
+      <PageIndex />
     </ConfigProvider>
   )
 }

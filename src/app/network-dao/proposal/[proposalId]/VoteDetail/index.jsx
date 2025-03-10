@@ -35,13 +35,24 @@ import addressFormat from "@utils/addressFormat";
 import { isSideChainByQueryParams } from 'utils/chain'
 import { explorer, mainExplorer } from "config";
 import { toast } from "react-toastify";
+import { apiServer } from "api/axios";
+import getChainIdQuery from 'utils/url';
+
 
 const { viewer } = config;
 
 const { proposalTypes, proposalStatus } = constants;
 
 function getList(params) {
-  return request(API_PATH.GET_VOTED_LIST, params, { method: "GET" });
+  const chain = getChainIdQuery();
+  const newParams = {
+    ...params,
+    skipCount: params.pageNum,
+    maxResultCount: params.pageSize,
+    chainId: chain.chainId
+  }
+  
+  return apiServer.get(API_PATH.GET_VOTED_LIST, newParams);
 }
 
 async function getPersonalVote(params) {
@@ -164,8 +175,8 @@ const VoteDetail = (props) => {
         setList({
           ...list,
           params,
-          list: result.list,
-          total: result.total,
+          list: result.items,
+          total: result.totalCount,
           loadingStatus: LOADING_STATUS.SUCCESS,
         });
       })

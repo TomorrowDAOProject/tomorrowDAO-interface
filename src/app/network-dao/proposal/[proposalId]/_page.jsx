@@ -52,6 +52,7 @@ import getChainIdQuery from "utils/url";
 import { fetchURLDescription } from "api/request";
 import Tag from "components/Tag";
 import { shortenFileName } from "utils/file";
+import { apiServer } from "api/axios";
 const {
   proposalActions,
 } = constants;
@@ -70,13 +71,14 @@ export const ACTIONS_ICON_MAP = {
   ),
 };
 async function getData(currentWallet, proposalId) {
-  return request(
+  const chain = getChainIdQuery()
+  return apiServer.get(
     API_PATH.GET_PROPOSAL_INFO,
     {
       address: currentWallet.address,
       proposalId,
-    },
-    { method: "GET" }
+      chainId: chain.chainId
+    }
   );
 }
 
@@ -185,7 +187,13 @@ const ProposalDetail = () => {
   useEffect(() => {
     // todo 2 get proposal detail
     getData(currentWallet, proposalId)
-      .then((result) => {
+      .then((res) => {
+
+        const result = res?.data;
+        result.organization.leftOrgInfo = result.organization.networkDaoOrgLeftOrgInfoDto;
+
+        result.proposal.status = result.proposal.status.toLowerCase();
+
         setInfo({
           ...info,
           bpList: result.bpList,
@@ -227,7 +235,7 @@ const ProposalDetail = () => {
     leftInfo,
   } = info.proposal;
 
-  const { leftOrgInfo = {} } = info.organization;
+  const leftOrgInfo = info?.organization?.networkDaoOrgLeftOrgInfoDto
 
   const { callSendMethod: callContract } = useConnectWallet()
   const { isSideChain  } = useChainSelect()
@@ -491,7 +499,7 @@ const ProposalDetail = () => {
                       status={status}
                       currentWallet={currentWallet}
                       wallet={wallet}
-                      symbol={leftOrgInfo.tokenSymbol || "ELF"}
+                      symbol={leftOrgInfo?.tokenSymbol??"ELF"}
                     />
                   ),
                 },
@@ -502,7 +510,7 @@ const ProposalDetail = () => {
                 aelf={aelf}
                 {...info.proposal}
                 action={visible}
-                tokenSymbol={leftOrgInfo.tokenSymbol || "ELF"}
+                tokenSymbol={leftOrgInfo?.tokenSymbol??"ELF"}
                 onCancel={handleConfirm}
                 onConfirm={handleConfirm}
                 wallet={wallet}

@@ -39,6 +39,8 @@ const MyVote = ({ currentWallet, electionContract, checkExtensionLockStatus }) =
 
   const processTableData = (myVoteRecords, allTeamInfo) => {
     const tableData = myVoteRecords;
+
+    console.log('myVoteRecords', myVoteRecords)
     tableData.forEach((record) => {
       const teamInfo = allTeamInfo.find(
         (team) => team.public_key === record.candidate
@@ -94,7 +96,7 @@ const MyVote = ({ currentWallet, electionContract, checkExtensionLockStatus }) =
     let allTeamInfo = null;
     const withdrawableVoteRecords = [];
     let withdrawableVoteAmount = 0;
-    if (resArr[1].code === 0) {
+    if (resArr[1].code === '20000') {
       allTeamInfo = resArr[1].data;
     }
 
@@ -157,6 +159,7 @@ const MyVote = ({ currentWallet, electionContract, checkExtensionLockStatus }) =
       }),
     ])
       .then((resArr) => {
+        console.log('resArr', resArr)
         processData(resArr);
       })
       .catch((err) => {

@@ -568,6 +568,7 @@ class NodeTable extends PureComponent {
 
   render() {
     const { nodeList, isLoading, pagination } = this.state;
+
     const nodeListData = this.deduplicateByName(nodeList);
     const nodeListCols = this.getCols();
     return (
