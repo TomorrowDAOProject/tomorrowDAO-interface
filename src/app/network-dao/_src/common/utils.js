@@ -208,7 +208,7 @@ export async function getTokenList(search = "") {
   return tokens.reduce(
     (acc, v) => ({
       ...acc,
-      [v.symbol]: v,
+      [v?.token?.symbol]: v?.token,
     }),
     {}
   );

@@ -9,6 +9,6 @@ const { originQueriedConfig } = viewerInfo;
 export default {
   ...originQueriedConfig,
   API_PATH: {
-    GET_TOKEN_LIST: "/proposal/tokenList",
+    GET_TOKEN_LIST: "/app/token/list",
   },
 };

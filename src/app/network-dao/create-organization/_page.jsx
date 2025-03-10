@@ -27,7 +27,6 @@ import {
   showTransactionResult,
   rand16Num,
 } from "@redux/common/utils";
-import { request } from "@common/request";
 import { getTokenList, getContract, sleep } from "@common/utils";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
