@@ -100,7 +100,11 @@ class NodeTable extends PureComponent {
       this.setState({
         producedBlocks: data,
       });
+      
       const { nodeList } = this.state;
+
+      
+
       if (!nodeList || !nodeList.length) {
         return;
       }
@@ -108,6 +112,8 @@ class NodeTable extends PureComponent {
         item.producedBlocks = data[item.pubkey];
         return item;
       });
+
+      console.log('newNodeList', newNodeList)
       this.setState({
         nodeList: newNodeList,
       });
@@ -445,9 +451,13 @@ class NodeTable extends PureComponent {
     });
     const { activeVotingRecords } = resArr[3] || {};
     let teamInfos = null;
-    if (resArr[2]?.code === 0) {
+    if (resArr[2]?.code == '20000') {
       teamInfos = resArr[2]?.data;
     }
+
+
+    console.log('teamInfos', teamInfos, nodeInfos)
+
     const BPNodes = resArr[4].pubkeys;
     // add node name, add my vote amount
     nodeInfos.forEach((item) => {
@@ -455,9 +465,10 @@ class NodeTable extends PureComponent {
       // FIXME: It will result in some problem when getPageable can only get 20 nodes info at most in one time
       totalActiveVotesAmount += +item.obtainedVotesAmount;
       // add node name
-      const teamInfo = teamInfos.find(
-        (team) => team.public_key === item.candidateInformation.pubkey
+      const teamInfo = teamInfos?.find(
+        (team) => team.publicKey == item.candidateInformation.pubkey
       );
+      console.log('teamInfo', teamInfo)
       // get address from pubkey
       item.candidateInformation.address = publicKeyToAddress(
         item.candidateInformation.pubkey
@@ -568,6 +579,8 @@ class NodeTable extends PureComponent {
 
   render() {
     const { nodeList, isLoading, pagination } = this.state;
+
+    console.log('nodeList', nodeList)
 
     const nodeListData = this.deduplicateByName(nodeList);
     const nodeListCols = this.getCols();

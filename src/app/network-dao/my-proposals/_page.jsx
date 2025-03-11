@@ -354,7 +354,8 @@ const MyProposal = () => {
     const newParams = {
       ...apiParams,
       chainId: chain.chainId,
-      skipCount: apiParams.pageNum,
+      pageNum: apiParams.pageNum - 1,
+      skipCount: apiParams.pageNum - 1,
       maxResultCount: apiParams.pageSize
     }
     apiServer.get(apiPath, newParams)

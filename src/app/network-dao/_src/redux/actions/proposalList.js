@@ -14,6 +14,20 @@ export const GET_PROPOSALS_LIST = arrayToMap([
   'GET_PROPOSALS_LIST_FAIL',
 ]);
 
+const statusList = {
+  'all': 0,
+  'pending': 1,
+  'approved': 2,
+  'released': 3,
+  'expired': 4
+}
+const proposalTypeList = {
+  'All': 0,
+  'Parliament': 1,
+  'Association':2,
+  'Referendum': 3
+}
+
 export const getProposals = (params) => async (dispatch) => {
   dispatch({
     type: GET_PROPOSALS_LIST.GET_PROPOSALS_LIST_START,
@@ -27,8 +41,10 @@ export const getProposals = (params) => async (dispatch) => {
       ...params,
       isContract: Boolean(params.isContract),
       chainId: chain.chainId,
-      skipCount: params.pageNum,
-      maxResultCount: params.pageSize
+      skipCount: params.pageNum - 1,
+      maxResultCount: params.pageSize,
+      status: statusList[params.status],
+      proposalType: proposalTypeList[params.proposalType]
     });
 
 

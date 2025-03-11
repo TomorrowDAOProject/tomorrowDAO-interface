@@ -47,7 +47,7 @@ const OrganizationList = () => {
     organizationList;
 
 
-  console.log('list', params,total, list, parliamentProposerList)
+  console.log('list2222', list)
 
   const { logStatus, isALLSettle, currentWallet } = common;
   const dispatch = useDispatch();
