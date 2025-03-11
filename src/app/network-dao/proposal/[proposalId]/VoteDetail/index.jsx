@@ -47,7 +47,7 @@ function getList(params) {
   const chain = getChainIdQuery();
   const newParams = {
     ...params,
-    skipCount: params.pageNum,
+    skipCount: params.pageNum - 1,
     maxResultCount: params.pageSize,
     chainId: chain.chainId
   }

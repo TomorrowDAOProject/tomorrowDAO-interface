@@ -33,6 +33,9 @@ import { debounce } from "lodash";
 import { eventBus } from "utils/myEvent";
 import Segmented from 'components/Segmented';
 import Pagination from "components/Pagination";
+import { apiServer } from "api/axios";
+import getChainIdQuery from "utils/url";
+
 
 const handleStatusChangeEvent = 'handleStatusChange';
 const handleSearchChangeEvent = 'handleSearchChange';
@@ -220,13 +223,14 @@ const ProposalList = () => {
     });
   }
   const updateVotedStatus = async (proposalId) => {
-    const data = await request(
+    const chain = getChainIdQuery()
+    const data = await apiServer.get(
       API_PATH.GET_PROPOSAL_INFO,
       {
         address: currentWallet.address,
         proposalId,
-      },
-      { method: "GET" }
+        chainId: chain.chainId
+      }
     );
     const votedStatus = data?.proposal?.votedStatus;
     dispatch({
@@ -272,6 +276,7 @@ const ProposalList = () => {
     // update votedStatus
     debounce(async () => {
       const votedStatus = await updateVotedStatus(id);
+      console.log('votedStatus', votedStatus)
       if (votedStatus === "none") {
         await send(id, "Approve");
       }

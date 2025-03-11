@@ -25,7 +25,7 @@ export const getOrganizations = (params) => async (dispatch) => {
     payload: params,
   });
   try {
-    const result = await apiServer.get(API_PATH.GET_ORGANIZATIONS, {...params, maxResultCount: params.pageSize, skipCount: params.pageNum, proposalType: changeProposalType[params.proposalType]});
+    const result = await apiServer.get(API_PATH.GET_ORGANIZATIONS, {...params, maxResultCount: params.pageSize, skipCount: params.pageNum - 1, proposalType: changeProposalType[params.proposalType]});
 
     result.data.list = result.data.items.map(item => {
       item.leftOrgInfo = item.networkDaoOrgLeftOrgInfoDto

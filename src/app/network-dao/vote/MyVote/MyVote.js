@@ -38,12 +38,13 @@ const MyVote = ({ currentWallet, electionContract, checkExtensionLockStatus }) =
   };
 
   const processTableData = (myVoteRecords, allTeamInfo) => {
+
     const tableData = myVoteRecords;
 
     console.log('myVoteRecords', myVoteRecords)
     tableData.forEach((record) => {
       const teamInfo = allTeamInfo.find(
-        (team) => team.public_key === record.candidate
+        (team) => team.publicKey === record.candidate
       );
       if (teamInfo === undefined) {
         record.address = publicKeyToAddress(record.candidate);

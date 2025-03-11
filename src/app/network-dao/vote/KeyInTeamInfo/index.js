@@ -317,7 +317,7 @@ class KeyInTeamInfo extends PureComponent {
         this.setState({
           isLoading: false,
         });
-        if (+res.code !== 0) return;
+        if (+res.code !== 20000) return;
         const values = res.data;
         this.processUrl(values, removeUrlPrefix);
         this.setState({
