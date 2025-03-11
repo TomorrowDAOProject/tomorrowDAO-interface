@@ -317,7 +317,7 @@ function getWhiteList() {
   return apiServer.get(
     API_PATH.GET_ORGANIZATIONS,
     {
-      pageNum: 1,
+      skipCount: 1,
       proposalType: proposalTypes.PARLIAMENT,
       chainId: chainIdQuery.chainId,
     }

@@ -13,13 +13,19 @@ export const GET_ORGANIZATIONS_LIST = arrayToMap([
   'GET_ORGANIZATIONS_LIST_FAIL',
 ]);
 
+const changeProposalType = {
+  'Parliament': 1,
+  'Association': 2,
+  'Referendum': 3
+}
+
 export const getOrganizations = (params) => async (dispatch) => {
   dispatch({
     type: GET_ORGANIZATIONS_LIST.GET_ORGANIZATIONS_LIST_START,
     payload: params,
   });
   try {
-    const result = await apiServer.get(API_PATH.GET_ORGANIZATIONS, params);
+    const result = await apiServer.get(API_PATH.GET_ORGANIZATIONS, {...params, maxResultCount: params.pageSize, skipCount: params.pageNum, proposalType: changeProposalType[params.proposalType]});
 
     result.data.list = result.data.items.map(item => {
       item.leftOrgInfo = item.networkDaoOrgLeftOrgInfoDto
