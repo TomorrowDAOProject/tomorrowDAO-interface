@@ -23,6 +23,8 @@ import {
 } from "@redux/actions/proposalSelectList";
 import { getContractAddress } from "@redux/common/utils";
 import { request } from "@common/request";
+import { apiServer } from 'api/axios';
+import { deduplicateByKey } from "../../_src/utils";
 import ProposalSearch from "../../_proposal_root/components/ProposalSearch";
 import { useCallGetMethod } from "../utils.callback";
 import { CHAIN_ID } from "../../_src/constants";
@@ -91,7 +93,6 @@ const noticeUpdateList = [
 
 
 async function checkContractName(
-  rule,
   value,
   isUpdate,
   currentContractInfo,
@@ -119,14 +120,15 @@ async function checkContractName(
     throw new Error("The maximum input character is 150");
   }
 
-  const result = await request(
+  const result = await apiServer.get(
     API_PATH.CHECK_CONTRACT_NAME,
     {
+      chainId: CHAIN_ID,
       contractName: value,
     },
     { method: "GET" }
   );
-  const { isExist = true } = result;
+  const { isExist = true } = result?.data;
   if (!isExist) {
     // eslint-disable-next-line consistent-return
     return true;
@@ -248,7 +250,6 @@ const ContractProposal = (props) => {
       });
       try {
         await checkContractName(
-          "",
           name,
           isUpdate,
           currentContractInfo,
@@ -512,10 +513,12 @@ const ContractProposal = (props) => {
   };
 
   const contractAddressFormItem = () => {
-    const list =
+    let list =
       approvalMode === "withoutApproval"
         ? contractList.filter((ele) => !ele.isSystemContract)
         : contractList;
+    // deduplicate by address
+    list = deduplicateByKey(list, 'address');
     return (
       <FormItem
         label="Contract Address"

@@ -29,60 +29,6 @@ async function sign(currentWallet, hexToBeSign) {
   });
   return signature;
 }
-export async function updateContractName(currentWallet, params) {
-  const timestamp = new Date().getTime();
-  const signature = await sign(currentWallet, timestamp);
-  const signedParams = {
-    // differ to addContractName
-    address: currentWallet.address,
-    signature,
-    pubKey: currentWallet.publicKey,
-    timestamp,
-  };
-  if (Object.keys(signedParams).length > 0) {
-    return request(
-      API_PATH.UPDATE_CONTRACT_NAME,
-      {
-        ...params,
-        ...signedParams,
-      },
-      {
-        headers: {
-          "x-csrf-token": getCsrfToken(),
-        },
-      }
-    );
-  }
-  throw new Error("get signature failed");
-}
-
-export async function addContractName(currentWallet, params) {
-  const timestamp = new Date().getTime();
-  const signature = await sign(currentWallet, timestamp);
-  const signedParams = {
-    address: currentWallet.portkeyInfo
-      ? currentWallet.portkeyInfo.walletInfo.address
-      : currentWallet.address,
-    signature,
-    pubKey: currentWallet.publicKey,
-    timestamp,
-  };
-  if (Object.keys(signedParams).length > 0) {
-    return request(
-      API_PATH.ADD_CONTRACT_NAME,
-      {
-        ...params,
-        ...signedParams,
-      },
-      {
-        headers: {
-          "x-csrf-token": getCsrfToken(),
-        },
-      }
-    );
-  }
-  throw new Error("get signature failed");
-}
 
 export async function getDeserializeLog(aelf, txId, logName) {
   if (!txId)

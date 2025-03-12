@@ -126,6 +126,22 @@ function isAElfAddress(address) {
   }
 }
 
+function deduplicateByKey(arr, key) {
+  if (!Array.isArray(arr)) {
+    return [];
+  }
+  const seen = new Set();
+  return arr.filter(item => {
+    const val = item[key];
+    if (seen.has(val)) {
+      return false;
+    } else {
+      seen.add(val);
+      return true;
+    }
+  });
+}
+
 export {
   get,
   post,
@@ -135,4 +151,5 @@ export {
   transactionFormat,
   transactionInfo,
   isAElfAddress,
+  deduplicateByKey,
 };
