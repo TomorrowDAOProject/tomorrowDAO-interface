@@ -320,6 +320,7 @@ function getWhiteList() {
       skipCount: 0,
       proposalType: proposalTypes.PARLIAMENT,
       chainId: chainIdQuery.chainId,
+      maxResultCount: 100
     }
   )
     .then((res) => {
