@@ -2,7 +2,6 @@
 import React, { PureComponent } from "react";
 import { Table, ConfigProvider } from "antd";
 import NoData from 'components/NoData';
-import { get } from "../../_src/utils";
 import {
   RESOURCE_RECORDS,
   RESOURCE_DETAILS_COLUMN,

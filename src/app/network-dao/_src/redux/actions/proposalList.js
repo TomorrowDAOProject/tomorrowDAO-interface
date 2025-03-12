@@ -3,8 +3,6 @@
  * @author atom-yang
  */
 import { fetchNetworkDaoProposalList } from 'api/request';
-// import { request } from '../../common/request';
-// import { API_PATH } from '../common/constants';
 import { arrayToMap } from '../common/utils';
 import getChainIdQuery from 'utils/url';
 

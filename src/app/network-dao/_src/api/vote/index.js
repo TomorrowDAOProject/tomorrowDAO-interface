@@ -6,10 +6,8 @@
  * @LastEditTime: 2019-09-27 18:47:29
  * @Description: the api of vote consensus and others vote need
  */
-import { get } from "@src/utils";
 import { apiServer } from 'api/axios'
 import getChainIdQuery from 'utils/url';
-
 
 const chain = getChainIdQuery()
 

@@ -4,7 +4,7 @@
  */
 
 import React, { PureComponent } from "react";
-import { Row, Col, Divider } from "antd";
+import { Row, Col } from "antd";
 import moment from "moment";
 import { connect } from "react-redux";
 
@@ -14,12 +14,10 @@ import {
   SYMBOL,
   ELF_DECIMAL,
   ELF_PRECISION,
-  TXSSTATUS,
   REAL_TIME_FETCH_INTERVAL,
   RESOURCE_REALTIME_RECORDS,
 } from "@src/constants";
 import { thousandsCommaWithDecimal } from "@utils/formater";
-import { get } from "../../../../_src/utils";
 import "./RealTimeTransactions.css";
 import { mainExplorer } from "config";
 import { apiServer } from "api/axios";

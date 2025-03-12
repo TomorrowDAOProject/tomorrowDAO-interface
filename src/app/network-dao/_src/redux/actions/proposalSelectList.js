@@ -3,7 +3,6 @@
  * @author atom-yang
  */
 import { API_PATH } from '../common/constants';
-import { request } from '../../common/request';
 import { arrayToMap } from '../common/utils';
 import { apiServer } from 'api/axios';
 import getChainIdQuery from 'utils/url';

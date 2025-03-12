@@ -27,7 +27,6 @@ import {
 } from "@redux/common/utils";
 import { removePrefixOrSuffix, sendHeight } from "@common/utils";
 import removeHash from "@utils/removeHash";
-import { request } from "@common/request";
 import { GET_PROPOSALS_LIST } from "@redux/actions/proposalList";
 import { debounce } from "lodash";
 import { eventBus } from "utils/myEvent";

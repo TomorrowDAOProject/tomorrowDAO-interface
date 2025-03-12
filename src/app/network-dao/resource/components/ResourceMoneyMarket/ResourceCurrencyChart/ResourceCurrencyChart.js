@@ -19,13 +19,11 @@ import "echarts/lib/component/dataZoom";
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/toolbox";
 import "echarts/lib/component/legend";
-import { get } from "../../../../_src/utils";
 import {
   RESOURCE_CURRENCY_CHART_FETCH_INTERVAL,
   RESOURCE_TURNOVER,
 } from "../../../../_src/constants";
 import "./ResourceCurrencyChart.css";
-import { color } from "framer-motion";
 import { apiServer } from "api/axios";
 
 function calculateMA(dayCount, data) {

@@ -6,8 +6,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { If, Then } from "react-if";
-import { API_PATH } from "@redux/common/constants";
-import { request } from "@common/request";
 import config from "@common/config";
 import { base64ToHex } from "@redux/common/utils";
 import { getContract } from "@common/utils";

@@ -1,34 +1,7 @@
-import AElf from "aelf-sdk";
-import { getCsrfToken, getTxResult } from "@redux/common/utils";
-import { request } from "@common/request";
-import { API_PATH } from "@redux/common/constants";
+import { getTxResult } from "@redux/common/utils";
 
 import { deserializeLog } from "@common/utils";
-import { WebLoginInstance } from "@utils/webLogin";
-import { APPNAME } from "../_src/config/config";
 console.log('location search', process.env.APP_ENV)
-async function sign(currentWallet, hexToBeSign) {
-  if (currentWallet.portkeyInfo) {
-    const keypair = currentWallet.portkeyInfo.walletInfo.keyPair;
-    const keypairAndUtils = AElf.wallet.ellipticEc.keyFromPrivate(
-      keypair.getPrivate()
-    );
-    const signedMsgObject = keypairAndUtils.sign(hexToBeSign);
-    const signature = [
-      signedMsgObject.r.toString(16, 64),
-      signedMsgObject.s.toString(16, 64),
-      `0${signedMsgObject.recoveryParam.toString()}`,
-    ].join("");
-    return signature;
-  }
-  const { getSignature } = WebLoginInstance.get().getWebLoginContext();
-  const { signature } = await getSignature({
-    appName: APPNAME,
-    address: currentWallet.address,
-    signInfo: hexToBeSign,
-  });
-  return signature;
-}
 
 export async function getDeserializeLog(aelf, txId, logName) {
   if (!txId)
