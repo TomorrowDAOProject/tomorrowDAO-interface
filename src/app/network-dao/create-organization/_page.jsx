@@ -323,7 +323,7 @@ function getWhiteList() {
     }
   )
     .then((res) => {
-      const { bpList = [], parliamentProposerList = [] } = res;
+      const { bpList = [], parliamentProposerList = [] } = res.data;
       return {
         bpList,
         parliamentProposerList,
