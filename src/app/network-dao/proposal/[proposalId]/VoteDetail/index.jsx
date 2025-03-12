@@ -23,6 +23,7 @@ import constants, {
   LOG_STATUS,
   LOADING_STATUS,
   ACTIONS_COLOR_MAP,
+  ACTIONS_TEXT_MAP,
 } from "@redux/common/constants";
 import {
   getContractAddress,
@@ -46,8 +47,9 @@ const { proposalTypes, proposalStatus } = constants;
 function getList(params) {
   const chain = getChainIdQuery();
   const newParams = {
-    ...params,
-    skipCount: params.pageNum - 1,
+    proposalId: params.proposalId,
+    search: params.search,
+    skipCount: (params.pageNum - 1) * params.pageSize,
     maxResultCount: params.pageSize,
     chainId: chain.chainId
   }
@@ -105,7 +107,7 @@ const listColumn = [
     dataIndex: "action",
     key: "action",
     render(action) {
-      return <Tag color={ACTIONS_COLOR_MAP[action]}>{action}</Tag>;
+      return <Tag color={ACTIONS_COLOR_MAP[ACTIONS_TEXT_MAP[action]]}>{ACTIONS_TEXT_MAP[action]}</Tag>;
     },
   },
   {
@@ -172,11 +174,12 @@ const VoteDetail = (props) => {
     });
     getList(params)
       .then((result) => {
+        const { data } = result
         setList({
           ...list,
           params,
-          list: result.items,
-          total: result.totalCount,
+          list: data?.items,
+          total: data?.totalCount,
           loadingStatus: LOADING_STATUS.SUCCESS,
         });
       })
