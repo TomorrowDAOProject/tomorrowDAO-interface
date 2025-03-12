@@ -426,7 +426,8 @@ const NormalProposal = (props) => {
     try {
       const res = await trigger();
       if (!res) return;
-      const data = getValues();const {
+      const data = getValues();
+      const {
         formProposalType,
         formOrgAddress,
         formContractAddress,

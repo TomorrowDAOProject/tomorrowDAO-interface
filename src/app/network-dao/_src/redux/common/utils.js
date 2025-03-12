@@ -163,7 +163,7 @@ export function formatTimeToNano(time) {
   return {
     seconds: dayjs(time).unix(),
     // todo: edit
-    nanos: dayjs(time).valueOf() * 1000000,
+    // nanos: dayjs(time).valueOf() * 1000000,
   };
 }
 

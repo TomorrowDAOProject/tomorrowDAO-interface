@@ -223,7 +223,7 @@ const ProposalList = () => {
   }
   const updateVotedStatus = async (proposalId) => {
     const chain = getChainIdQuery()
-    const data = await apiServer.get(
+    const { data } = await apiServer.get(
       API_PATH.GET_PROPOSAL_INFO,
       {
         address: currentWallet.address,
@@ -273,9 +273,10 @@ const ProposalList = () => {
 
   const handleApprove = async (id) => {
     // update votedStatus
+
     debounce(async () => {
       const votedStatus = await updateVotedStatus(id);
-      console.log('votedStatus', votedStatus)
+      console.log('votedStatus', votedStatus, id)
       if (votedStatus === "none") {
         await send(id, "Approve");
       }
