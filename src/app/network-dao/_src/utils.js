@@ -39,13 +39,6 @@ api.addResponseTransform((res) => {
   }
 });
 
-const timeout = null;
-const user = null;
-const password = null;
-const header = [{
-  name: 'Accept',
-  value: 'text/plain;v=1.0',
-}];
 // console.log('RPCSERVER', RPCSERVER);
 const aelf = new AElf(new AElf.providers.HttpProvider(
   explorerRPC,

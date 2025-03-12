@@ -3,7 +3,6 @@
  * @author atom-yang
  */
 import { apiServer } from 'api/axios';
-import { request } from '../../common/request';
 import { API_PATH } from '../common/constants';
 import { arrayToMap } from '../common/utils';
 

@@ -11,29 +11,14 @@ import { mainExplorer } from "config";
 const { SYMBOL, CHAIN_ID } = config;
 dayjs.extend(relativeTime);
 
-const ALL_BLOCKS_API_URL = "/all/blocks";
-const ALL_UNCONFIRMED_BLOCKS_API_URL = "/all/unconfirmedBlocks";
-const ALL_BLOCKS_UNCONFIRMED_BLOCKS_API_URL = "/all/block";
-const ALL_TXS_API_URL = "/all/transactions";
-const ALL_UNCONFIRMED_TXS_API_URL = "/all/unconfirmedTransactions";
 const TXS_BLOCK_API_URL = "/block/transactions";
-const ALL_TXS_UNCONFIRMED_TXS_API_URL = "/all/transaction";
 
-export const TXS_INFO_API_URL = "/block/txInfo";
-export const BLOCK_INFO_API_URL = "/block/blockInfo";
-const ADDRESS_TXS_API_URL = "/address/transactions";
-const ADDRESS_BALANCE_API_URL = "/api/address/balance";
-const TPS_LIST_API_URL = "/tps/all";
-const ADDRESS_TOKENS_API_URL = "/address/tokens";
 const ELF_REALTIME_PRICE_URL = "/token/price";
 const HISTORY_PRICE = "/token/price-history";
-const ELF_REST_TRADE_API = "https://www.bcex.top/Api_Market/getCoinTrade";
 const RESOURCE_REALTIME_RECORDS = "/resource/realtime-records";
 const RESOURCE_TURNOVER = "/resource/turnover";
 const RESOURCE_RECORDS = "/resource/records";
-const SOCKET_URL = "/socket";
 const SOCKET_URL_NEW = "https://explorer-test.aelf.io/new-socket";
-const BASIC_INFO = "/chain-info";
 
 const LOWER_SYMBOL = SYMBOL.toLocaleLowerCase();
 const PAGE_SIZE = 25;
@@ -109,184 +94,7 @@ const GET_NULL = "Cannot read property 'error' of null";
 const FEE_RATE = 0.005;
 const SHORTEST_LOCK_TIME = 90; // day
 
-// TODO 
-// var RPCSERVER = DEFAUTRPCSERVER;
-
-// TODO: Why is this undefined?
-// const BLOCKS_LIST_COLUMNS = [
-//   {
-//     title: "Height",
-//     dataIndex: "block_height",
-//     key: "block_height",
-//     width: 150,
-//     render: (text) => <Link href={`/block/${text}`}> {text} </Link>,
-//   },
-//   {
-//     title: "Block Hash",
-//     dataIndex: "block_hash",
-//     key: "block_hash",
-//     width: 280,
-//     ellipsis: true,
-//     render: (text, row) => (
-//       <Link title={text} href={`/block/${row.block_height}`}>
-//         {" "}
-//         {text}{" "}
-//       </Link>
-//     ),
-//   },
-//   {
-//     title: "Miner",
-//     dataIndex: "miner",
-//     key: "miner",
-//     width: 280,
-//     ellipsis: true,
-//     render(text) {
-//       return (
-//         <Link
-//           title={`${SYMBOL}_${text}_${CHAIN_ID}`}
-//           href={`/address/${addressFormat(text)}`}
-//         >{`${SYMBOL}_${text}_${CHAIN_ID}`}</Link>
-//       );
-//     },
-//   },
-//   {
-//     title: "Dividends",
-//     dataIndex: "dividends",
-//     key: "dividends",
-//     width: 120,
-//     render(text) {
-//       return <Dividends dividends={JSON.parse(text)} />;
-//     },
-//   },
-//   {
-//     title: "Txs",
-//     dataIndex: "tx_count ",
-//     key: "tx_count ",
-//     width: 60,
-//     render: (text, row) =>
-//       !Number.isNaN(+row.tx_count) && +row.tx_count !== 0 ? (
-//         <Link href={`${mainExplorer}/txs/block?${row.block_hash}`}> {row.tx_count} </Link>
-//       ) : (
-//         row.tx_count
-//       ),
-//   },
-//   {
-//     title: "Time",
-//     dataIndex: "time",
-//     key: "time",
-//     render: (time) => (
-//       <span> {dayjs(time).format("YYYY/MM/DD HH:mm:ss")} </span>
-//     ),
-//     //     return <span> {dayjs().from(dayjs(time), true)} </span>;
-//   },
-// ];
-
 export const CONTRACT_VIEWER_URL = "/viewer/address.html#/contract/";
-
-// const ALL_TXS_LIST_COLUMNS = [
-//   {
-//     title: "Tx Id",
-//     dataIndex: "tx_id",
-//     key: "tx_id",
-//     width: 300,
-//     ellipsis: true,
-//     render: (text, row) => (
-//       <Link href={`${mainExplorer}/tx/${row.tx_id}`} title={row.tx_id}>
-//         {row.tx_id}
-//       </Link>
-//     ),
-//   },
-//   {
-//     title: "Height",
-//     dataIndex: "block_height",
-//     key: "block_height",
-//     width: 150,
-//     align: "center",
-//     render: (text, row) => (
-//       <Link href={`${mainExplorer}/block/${row.block_height}`} title={row.block_height}>
-//         {" "}
-//         {row.block_height}{" "}
-//       </Link>
-//     ),
-//   },
-//   {
-//     title: "From ",
-//     dataIndex: "address_from",
-//     key: "address_from",
-//     ellipsis: true,
-//     render: (text) => (
-//       <Link href={`${mainExplorer}/address/${text}`} title={addressFormat(text)}>
-//         {" "}
-//         {addressFormat(text)}
-//       </Link>
-//     ),
-//   },
-//   {
-//     title: null,
-//     key: "payIcon",
-//     width: 50,
-//     render: () => <ArrowRightOutlined />,
-//   },
-//   {
-//     title: "To",
-//     dataIndex: "address_to",
-//     key: "address_to",
-//     ellipsis: true,
-//     render: (text, row) => {
-//       const { contractName, isSystemContract } = row.contractName || {};
-//       const name = isSystemContract
-//         ? removeAElfPrefix(contractName)
-//         : contractName;
-//       return (
-//         <Link href={`/contract/${text}`} title={addressFormat(text)}>
-//           {name || addressFormat(text)}
-//         </Link>
-//       );
-//     },
-//   },
-//   {
-//     title: "Method",
-//     dataIndex: "method",
-//     key: "method",
-//     ellipsis: true,
-//   },
-//   {
-//     title: "Tx Fee",
-//     dataIndex: "tx_fee",
-//     key: "tx_fee",
-//     render(text) {
-//       return <Dividends dividends={JSON.parse(text)} />;
-//     },
-//   },
-//   {
-//     title: "Amount",
-//     dataIndex: "amount",
-//     key: "amount",
-//     render: (text, row) => {
-//       let amount = "-";
-//       let symbol;
-//       if (row.quantity && row.decimals) {
-//         // 1e-7
-//         if (row.quantity <= 99) {
-//           amount = `0.000000${row.quantity}`;
-//         } else if (row.quantity <= 9) {
-//           amount = `0.0000000${row.quantity}`;
-//         } else {
-//           amount = row.quantity / 10 ** row.decimals;
-//         }
-//       }
-//       if (row.symbol) {
-//         symbol = `(${row.symbol})`;
-//       }
-//       return (
-//         <span>
-//           {amount}
-//           {symbol}
-//         </span>
-//       );
-//     },
-//   },
-// ];
 
 const ADDRESS_INFO_COLUMN = [
   {
@@ -409,33 +217,17 @@ const RESOURCE_DETAILS_COLUMN = [
 
 
 export {
-  ALL_BLOCKS_API_URL,
-  ALL_UNCONFIRMED_BLOCKS_API_URL,
-  ALL_BLOCKS_UNCONFIRMED_BLOCKS_API_URL,
-  ALL_TXS_UNCONFIRMED_TXS_API_URL,
-  ALL_TXS_API_URL,
-  ALL_UNCONFIRMED_TXS_API_URL,
   TXS_BLOCK_API_URL,
-  ADDRESS_TXS_API_URL,
-  ADDRESS_BALANCE_API_URL,
-  ADDRESS_TOKENS_API_URL,
-  TPS_LIST_API_URL,
   ELF_REALTIME_PRICE_URL,
-  ELF_REST_TRADE_API,
   PAGE_SIZE,
   TXSSTATUS,
   txStatusInUpperCase,
-  // RPCSERVER,
-  // BLOCKS_LIST_COLUMNS,
-  // ALL_TXS_LIST_COLUMNS,
   ADDRESS_INFO_COLUMN,
   RESOURCE_REALTIME_RECORDS,
   RESOURCE_TURNOVER,
   RESOURCE_RECORDS,
   RESOURCE_DETAILS_COLUMN,
-  SOCKET_URL,
   SOCKET_URL_NEW,
-  BASIC_INFO,
   IE_ADVICE,
   INPUT_STARTS_WITH_MINUS_TIP,
   INPUT_ZERO_TIP,

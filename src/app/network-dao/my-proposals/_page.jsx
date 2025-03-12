@@ -25,7 +25,6 @@ import {
 import { isSideChainByQueryParams } from 'utils/chain'
 import { explorer, mainExplorer } from "config";
 import OrgAddress from "../_proposal_root/components/OrgAddress";
-import { request } from "@common/request";
 import { ReactComponent as WaringIcon } from 'assets/revamp-icon/waring.svg';
 import { toast } from 'react-toastify';
 import getChainIdQuery from 'utils/url';
