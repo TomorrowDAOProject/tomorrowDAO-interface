@@ -69,7 +69,7 @@ export default function HighCounCilTab() {
     });
     const { activeVotingRecords } = resArr[3] || {};
     let teamInfos = null;
-    if (resArr[2].code === 0) {
+    if (resArr[2].code === '20000') {
       teamInfos = resArr[2].data;
     }
     const BPNodes = resArr[4].pubkeys;
@@ -80,7 +80,7 @@ export default function HighCounCilTab() {
       totalActiveVotesAmount += +item.obtainedVotesAmount;
       // add node name
       const teamInfo = teamInfos.find(
-        (team: any) => team.public_key === item.candidateInformation.pubkey,
+        (team: any) => team.publicKey === item.candidateInformation.pubkey,
       );
       // get address from pubkey
       item.candidateInformation.address = publicKeyToAddress(item.candidateInformation.pubkey);

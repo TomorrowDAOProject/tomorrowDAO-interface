@@ -351,10 +351,13 @@ const MyProposal = () => {
       loading: true,
     });
     const newParams = {
-      ...apiParams,
+      address: apiParams.address,
+      currentMenu: apiParams.currentMenu,
+      loading: apiParams.loading,
+      proposalType: apiParams.proposalType,
+      search: apiParams.search,
       chainId: chain.chainId,
-      pageNum: apiParams.pageNum - 1,
-      skipCount: apiParams.pageNum - 1,
+      skipCount:(apiParams.pageNum - 1) * apiParams.pageSize,
       maxResultCount: apiParams.pageSize
     }
     apiServer.get(apiPath, newParams)

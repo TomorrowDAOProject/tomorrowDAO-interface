@@ -36,13 +36,13 @@ export const getProposals = (params) => async (dispatch) => {
     // const searchParams = qs.parse(window.location.search);
     const chain = getChainIdQuery();
     const result = await fetchNetworkDaoProposalList({
-      ...params,
       isContract: Boolean(params.isContract),
       chainId: chain.chainId,
-      skipCount: params.pageNum - 1,
+      skipCount: (params.pageNum - 1) * params.pageSize,
       maxResultCount: params.pageSize,
       status: statusList[params.status],
-      proposalType: proposalTypeList[params.proposalType]
+      proposalType: proposalTypeList[params.proposalType],
+      search: params.search
     });
 
 
