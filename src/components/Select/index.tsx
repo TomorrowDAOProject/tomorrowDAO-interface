@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 import NoData from 'components/NoData';
+import Input from 'components/Input';
 
 export interface SelectOption {
   label: React.ReactNode;
@@ -22,6 +23,8 @@ interface ISelectProps {
   overlayItemClassName?: string;
   isOpenStyle?: boolean;
   onChange?(option: SelectOption): void;
+  useInput?: boolean;
+  onInputChange?(value: string): void;
 }
 
 const Select: React.FC<ISelectProps> = ({
@@ -37,6 +40,8 @@ const Select: React.FC<ISelectProps> = ({
   overlayClassName,
   overlayItemClassName,
   onChange,
+  useInput = false,
+  onInputChange,
 }) => {
   const [selected, setSelected] = useState<SelectOption | undefined>();
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +89,7 @@ const Select: React.FC<ISelectProps> = ({
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selected ? (
+        {selected && !useInput && (
           <span
             className={clsx(
               'inline-block text-white text-desc14 font-Montserrat max-w-[calc(100%-22px)] text-ellipsis whitespace-nowrap',
@@ -93,17 +98,36 @@ const Select: React.FC<ISelectProps> = ({
           >
             {selected?.label}
           </span>
-        ) : (
+        )}
+        {!selected && !useInput && (
           <span className={clsx('text-lightGrey text-desc14 font-Montserrat', labelClassName)}>
             {placeholder ?? ''}
           </span>
         )}
-        <span
-          className={clsx(
-            'tmrwdao-icon-down-arrow text-[20px] leading-[20px] text-lightGrey',
-            iconClassName,
-          )}
-        />
+        {!useInput && (
+          <span
+            className={clsx(
+              'tmrwdao-icon-down-arrow text-[20px] leading-[20px] text-lightGrey',
+              iconClassName,
+            )}
+          />
+        )}
+        {useInput && (
+          <Input
+            className="border-none"
+            placeholder={placeholder}
+            value={String(value)}
+            onChange={onInputChange}
+            suffix={
+              <span
+                className={clsx(
+                  'tmrwdao-icon-down-arrow text-[20px] leading-[20px] text-lightGrey',
+                  iconClassName,
+                )}
+              />
+            }
+          />
+        )}
       </div>
       {isOpen && (
         <ul
