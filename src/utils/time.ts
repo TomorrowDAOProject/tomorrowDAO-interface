@@ -1,4 +1,8 @@
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+// set utc plugin
+dayjs.extend(utc);
+
 export function getFormattedDate(date: number, type: string) {
   if (date) {
     if (type === 'Date Time') {

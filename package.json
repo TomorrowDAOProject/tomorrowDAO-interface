@@ -57,6 +57,7 @@
     "core-js-pure": "3.20.0",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.7.5",
+    "dayjs-plugin-utc": "^0.1.2",
     "decimal.js": "^10.2.0",
     "echarts": "4.5.0",
     "echarts-for-react": "^2.0.14",
