@@ -7,8 +7,7 @@ import roundTo from "round-to";
 import { Switch, Case } from "react-if";
 import moment from "moment";
 import PropTypes from "prop-types";
-import { EditOutlined } from "@ant-design/icons";
-import { Card,Row,Select,Col,Divider } from "antd";
+import { Card,Row,Col,Divider } from "antd";
 import { mainExplorer, explorer } from 'config'
 import constants, {
   LOG_STATUS,
@@ -18,21 +17,28 @@ import config from "@common/config";
 import Circle from "../../_proposal_root/components/Circle/index";
 import "./index.css";
 import { isPhoneCheck } from "@common/utils";
-import { PRIMARY_COLOR } from "@common/constants";
 import addressFormat from "@utils/addressFormat";
 import { useChainSelect } from "hooks/useChainSelect";
+import Select from 'components/Select';
+import clsx from "clsx";
 
 const { viewer } = config;
 
-const { Option } = Select;
-
 const { proposalTypes, proposalActions } = constants;
+
+
+const getProposalTypeText = {
+  1: 'Parliament',
+  2: 'Association',
+  3: 'Referendum'
+}
 
 const Title = (props) => {
   const { proposalType } = props;
+ 
   return (
     <div className="organization-list-item-title">
-      <span className="gap-right-small">{proposalType} Organisation</span>
+      <span className="gap-right-small text-[14px] text-white font-Montserrat font-medium">{getProposalTypeText[proposalType]} Organisation</span>
     </div>
   );
 };
@@ -60,12 +66,13 @@ export function getCircleValues(
   let total;
   let coef = 1;
   let precision = 0;
-  if (proposalType === proposalType.ASSOCIATION) {
-    const {
-      organizationMemberList: { organizationMembers },
-    } = leftOrgInfo;
-    total = organizationMembers.length;
-  } else if (proposalType === proposalTypes.PARLIAMENT) {
+  if (proposalType == 2) {
+    const organizationMembers = leftOrgInfo?.organizationMemberList?.organizationMembers
+    // const {
+    //   organizationMemberList: { organizationMembers },
+    // } = leftOrgInfo;
+    total = organizationMembers?.length??0;
+  } else if (proposalType == 1) {
     coef = bpCount / abstractVoteTotal;
     total = abstractVoteTotal;
   } else {
@@ -113,8 +120,8 @@ function isProposer(
     return false;
   }
   const { proposerAuthorityRequired, proposerWhiteList = {} } = leftOrgInfo;
-  let { proposers = [] } = proposerWhiteList;
-  if (proposalType === proposalTypes.PARLIAMENT) {
+  let proposers = proposerWhiteList?.proposers??[];
+  if (proposalType == 1) {
     if (proposerAuthorityRequired === true) {
       proposers = [...bpList, ...parliamentProposerList];
       proposers = [...new Set(proposers)];
@@ -129,88 +136,113 @@ export function getOrganizationLeftInfo(
   proposalType,
   leftOrgInfo,
   bpList,
-  parliamentProposerList
+  parliamentProposerList,
+  organizationCaseClass,
+  organizationItemClass,
 ) {
+
+  console.log('leftOrgInfo',proposalType, leftOrgInfo,bpList, parliamentProposerList, organizationCaseClass, organizationItemClass)
   const {
     tokenSymbol,
     proposerAuthorityRequired,
     proposerWhiteList = {},
     organizationMemberList = {},
   } = leftOrgInfo;
-  let { proposers = [] } = proposerWhiteList;
-  let { organizationMembers = [] } = organizationMemberList;
-  if (proposalType === proposalTypes.PARLIAMENT) {
+
+  console.log('proposerWhiteList', proposerWhiteList)
+
+
+  let proposers = proposerWhiteList?.proposers??[];
+  let organizationMembers = organizationMemberList?.organizationMembers??[];
+  if (proposalType == 1) {
     organizationMembers = [...bpList];
     if (proposerAuthorityRequired === true) {
       proposers = [...bpList, ...parliamentProposerList];
       proposers = [...new Set(proposers)];
     }
   }
+
+  const proposersOptions = [];
+  proposers?.map((v) => {
+    proposersOptions.push({ label: `ELF_${v}_${viewer.chainId}`, value: v });
+  })
+
   const proposerList =
     proposers.length > 0 ? (
-      // eslint-disable-next-line max-len
-      <Select size="small" defaultValue={proposers[0]} className="w-full">
-        {proposers.map((v) => (
-          <Option key={v} value={v}>{`ELF_${v}_${viewer.chainId}`}</Option>
-        ))}
-      </Select>
+      <Select
+        // className="!h-[43px] !bg-fillBg8 !border-fillBg16"
+        // labelClassName="!text-desc12"
+        value={proposers[0]}
+        className="w-full !h-[43px] !bg-fillBg8 !border-fillBg16"
+        labelClassName="!max-w-[100%] !text-lightGrey text-ellipsis !text-[11px]"
+        overlayItemClassName="text-ellipsis !text-[11px]"
+        options={proposersOptions}
+      />
     ) : (
       "None"
     );
+
+  const membersOptions = [];
+  organizationMembers?.map((v) => {
+    membersOptions.push({ label: `ELF_${v}_${viewer.chainId}`, value: v });
+  })
   const members =
     organizationMembers.length > 0 ? (
-      // eslint-disable-next-line max-len
-      <Select size="small" defaultValue={organizationMembers[0]} className="w-full">
-        {organizationMembers.map((v) => (
-          <Option key={v} value={v}>{`ELF_${v}_${viewer.chainId}`}</Option>
-        ))}
-      </Select>
+      <Select
+        // className="!h-[43px] !bg-fillBg8 !border-fillBg16"
+        // labelClassName="!text-desc12"
+        value={organizationMembers[0]}
+        className="w-full !h-[43px] !bg-fillBg8 !border-fillBg16"
+        labelClassName="!max-w-[100%] !text-lightGrey text-ellipsis !text-[11px]"
+        overlayItemClassName="text-ellipsis !text-[11px]"
+        options={membersOptions}
+      />
     ) : (
       "None"
     );
   return (
     <Switch>
-      <Case condition={proposalType === proposalTypes.REFERENDUM}>
-        <>
-          <div className="gap-bottom-small card-list-desc-item">
-            <span className="sub-title">Token:</span>
-            <span className="desc">{tokenSymbol}</span>
+      <Case condition={proposalType == 3}>
+        <div className={clsx("flex flex-col", organizationCaseClass)}>
+          <div className={clsx("mb-[20px]", organizationItemClass)}>
+            <span className="card-list-desc-item-label mr-[6px]">Token:</span>
+            <span className="card-list-desc-item-desc">{tokenSymbol}</span>
           </div>
-          <div className="gap-bottom-small card-list-desc-item">
-            <span className="sub-title">Members:</span>
-            <span className="desc">All Users</span>
+          <div className={clsx("mb-[20px]", organizationItemClass)}>
+            <span className="card-list-desc-item-label mr-[6px]">Members:</span>
+            <span className="card-list-desc-item-desc">All Users</span>
           </div>
-          <div className="card-list-desc-item">
-            <span className="sub-title">Proposer White List:</span>
-            <span className="desc select">{proposerList}</span>
+          <div className={clsx("mb-[10px]", organizationItemClass)}>
+            <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
+            <span className="card-list-desc-item-desc select">{proposerList}</span>
           </div>
-        </>
+        </div>
       </Case>
-      <Case condition={proposalType === proposalTypes.PARLIAMENT}>
-        <>
-          <div className="gap-bottom-small card-list-desc-item">
-            <span className="sub-title">Members:</span>
-            <span className="desc select">{members}</span>
+      <Case condition={proposalType == 1}>
+        <div className={clsx("flex flex-col", organizationCaseClass)}>
+          <div className={clsx("mb-[20px]", organizationItemClass)}>
+            <span className="card-list-desc-item-label mr-[6px]">Members:</span>
+            <span className="card-list-desc-item-desc select">{members}</span>
           </div>
-          <div className="card-list-desc-item">
-            <span className="sub-title">Proposer White List:</span>
-            <span className="desc select">
+          <div className={clsx("mb-[10px]", organizationItemClass)}>
+            <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
+            <span className="card-list-desc-item-desc select">
               {proposerAuthorityRequired === false ? "All Users" : proposerList}
             </span>
           </div>
-        </>
+        </div>
       </Case>
-      <Case condition={proposalType === proposalTypes.ASSOCIATION}>
-        <>
-          <div className="gap-bottom-small card-list-desc-item">
-            <span className="sub-title">Members:</span>
-            <span className="desc select">{members}</span>
+      <Case condition={proposalType == 2}>
+        <div className={clsx("flex flex-col", organizationCaseClass)}>
+          <div className={clsx("mb-[20px]", organizationItemClass)}>
+            <span className="card-list-desc-item-label mr-[6px]">Members:</span>
+            <span className="card-list-desc-item-desc select">{members}</span>
           </div>
-          <div className="card-list-desc-item">
-            <span className="sub-title">Proposer White List:</span>
-            <span className="desc select">{proposerList}</span>
+          <div className={clsx("mb-[10px]", organizationItemClass)}>
+            <span className="card-list-desc-item-label mr-[6px]">Proposer White List:</span>
+            <span className="card-list-desc-item-desc select">{proposerList}</span>
           </div>
-        </>
+        </div>
       </Case>
     </Switch>
   );
@@ -230,6 +262,8 @@ const Organization = (props) => {
     parliamentProposerList,
     currentWallet,
   } = props;
+
+
   const votesData = useMemo(
     () =>
       getCircleValues(
@@ -274,42 +308,44 @@ const Organization = (props) => {
       <div className="organization-list-item gap-bottom">
         <Card title={<Title proposalType={proposalType} />}>
           <div className="organization-list-item-id">
-            <div className="gap-right-large text-ellipsis">
+            <div className="text-lightGrey text-[11px] font-Montserrat gap-right-large text-ellipsis">
               {addressFormat(orgAddress)}
             </div>
             {canEdit ? (
-              <EditOutlined color={PRIMARY_COLOR} onClick={handleEdit} />
+              <i className="tmrwdao-icon-edit cursor-pointer !text-lightGrey" onClick={handleEdit}  />
             ) : null}
           </div>
-          <Divider />
+          <Divider className="bg-borderColor my-[20px]" />
           <div className="organization-list-item-info">
             <div className="organization-list-item-info-item">
-              <span className="sub-title gap-right">Author:</span>
+              <span className="sub-title gap-right text-white !text-[11px] !font-medium">Author:</span>
               <span className="text-ellipsis">
                 <a
                   href={`${isSideChain ? explorer : mainExplorer}/address/${addressFormat(creator)}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="text-secondaryMainColor !text-[11px] font-Montserrat"
                 >
                   {addressFormat(creator)}
                 </a>
               </span>
             </div>
-            <div className="organization-list-item-info-item">
-              <span className="sub-title gap-right">Update Time:</span>
-              <span className="text-ellipsis">
+            <div className="organization-list-item-info-item flex items-center justify-start">
+              <span className="sub-title gap-right !text-[11px] !font-medium">Update Time:</span>
+              <span className="text-ellipsis text-[11px] text-lightGrey font-Montserrat">
                 {moment(updatedAt).format("YYYY/MM/DD HH:mm:ss")}
               </span>
             </div>
           </div>
-          <Divider />
+          <Divider className="bg-borderColor my-[20px]" />
           <div className="organization-list-item-votes">
-            <p>Voting Data: Votes (Votes / Minimum Votes)</p>
+            <p className="text-white font-medium font-Montserrat text-xs !mb-[20px]">Voting Data: Votes (Votes / Minimum Votes)</p>
             <Row gutter={16} className="organization-list-item-vote-chart">
               <Col span={8} offset={2}>
                 <Circle
                   className="organization-list-item-vote-chart-circle"
                   type={proposalActions.APPROVE}
+                  text={votesData[proposalActions.APPROVE].rate}
                   {...votesData[proposalActions.APPROVE]}
                 />
               </Col>
@@ -317,6 +353,7 @@ const Organization = (props) => {
                 <Circle
                   className="organization-list-item-vote-chart-circle"
                   type={proposalActions.REJECT}
+                  text={votesData[proposalActions.REJECT].rate}
                   {...votesData[proposalActions.REJECT]}
                 />
               </Col>
@@ -324,7 +361,7 @@ const Organization = (props) => {
             <Row gutter={16}>
               <Col span={12}>
                 <div className="organization-list-item-vote-desc text-center">
-                  <div className="text-ellipsis" title="Approved Votes">
+                  <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Approved Votes">
                     Approved Votes
                   </div>
                   <div
@@ -333,16 +370,16 @@ const Organization = (props) => {
                       votesData[proposalActions.APPROVE].rate
                     })`}
                   >
-                    <span className="sub-title gap-right-small">
+                    <div className="text-white font-Montserrat font-light">
                       {votesData[proposalActions.APPROVE].num}
-                    </span>
-                    <span>({votesData[proposalActions.APPROVE].rate})</span>
+                    </div>
+                    {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.APPROVE].rate}</div> */}
                   </div>
                 </div>
               </Col>
               <Col span={12}>
                 <div className="organization-list-item-vote-desc text-center">
-                  <div className="text-ellipsis" title="Rejected Votes">
+                  <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Rejected Votes">
                     Rejected Votes
                   </div>
                   <div
@@ -351,20 +388,20 @@ const Organization = (props) => {
                       votesData[proposalActions.REJECT].rate
                     })`}
                   >
-                    <span className="sub-title gap-right-small">
+                    <div className="text-white font-Montserrat font-light">
                       {votesData[proposalActions.REJECT].num}
-                    </span>
-                    <span>({votesData[proposalActions.REJECT].rate})</span>
+                    </div>
+                    {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.REJECT].rate}</div> */}
                   </div>
                 </div>
               </Col>
             </Row>
-
             <Row gutter={16} className="organization-list-item-vote-chart">
               <Col span={8} offset={2}>
                 <Circle
                   className="organization-list-item-vote-chart-circle"
                   type={proposalActions.ABSTAIN}
+                  text={votesData[proposalActions.ABSTAIN].rate}
                   {...votesData[proposalActions.ABSTAIN]}
                 />
               </Col>
@@ -372,6 +409,7 @@ const Organization = (props) => {
                 <Circle
                   className="organization-list-item-vote-chart-circle"
                   type="Total"
+                  text={votesData.Total.rate}
                   {...votesData.Total}
                 />
               </Col>
@@ -379,7 +417,7 @@ const Organization = (props) => {
             <Row gutter={16}>
               <Col span={12}>
                 <div className="organization-list-item-vote-desc text-center">
-                  <div className="text-ellipsis" title="Abstained Votes">
+                  <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Abstained Votes">
                     Abstained Votes
                   </div>
                   <div
@@ -388,32 +426,32 @@ const Organization = (props) => {
                       votesData[proposalActions.ABSTAIN].rate
                     })`}
                   >
-                    <span className="sub-title gap-right-small">
+                    <div className="text-white font-Montserrat font-light">
                       {votesData[proposalActions.ABSTAIN].num}
-                    </span>
-                    <span>({votesData[proposalActions.ABSTAIN].rate})</span>
+                    </div>
+                    {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.ABSTAIN].rate}</div> */}
                   </div>
                 </div>
               </Col>
               <Col span={12}>
                 <div className="organization-list-item-vote-desc text-center">
-                  <div className="text-ellipsis" title="Total Votes">
+                  <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Total Votes">
                     Total Votes
                   </div>
                   <div
                     className="text-ellipsis"
                     title={`${votesData.Total.num}(${votesData.Total.rate})`}
                   >
-                    <span className="sub-title gap-right-small">
+                    <div className="text-white font-Montserrat font-light">
                       {votesData.Total.num}
-                    </span>
-                    <span>({votesData.Total.rate})</span>
+                    </div>
+                    {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData.Total.rate}</div> */}
                   </div>
                 </div>
               </Col>
             </Row>
           </div>
-          <Divider />
+          <Divider className="bg-borderColor my-[20px]" />
           <div className="organization-list-item-extra">{leftOrg}</div>
         </Card>
       </div>
@@ -424,71 +462,76 @@ const Organization = (props) => {
     <div className="organization-list-item gap-bottom">
       <Card title={<Title proposalType={proposalType} />}>
         <div className="organization-list-item-id">
-          <div className="gap-right-large text-ellipsis">
+          <div className="text-lightGrey text-[11px] font-Montserrat gap-right-large text-ellipsis">
             {addressFormat(orgAddress)}
           </div>
           {canEdit ? (
-            <EditOutlined color={PRIMARY_COLOR} onClick={handleEdit} />
+            <i className="tmrwdao-icon-edit cursor-pointer !text-lightGrey" onClick={handleEdit}  />
           ) : null}
         </div>
-        <Divider />
+        <Divider className="bg-borderColor my-[20px]" />
         <div className="organization-list-item-info">
           <div className="organization-list-item-info-item">
-            <span className="sub-title gap-right">Author:</span>
+            <span className="sub-title gap-right text-white !text-[11px] font-medium">Author:</span>
             <span className="text-ellipsis">
               <a
                 href={`${isSideChain ? explorer : mainExplorer}/address/${addressFormat(creator)}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-secondaryMainColor text-[11px] font-Montserrat"
               >
                 {addressFormat(creator)}
               </a>
             </span>
           </div>
-          <div className="organization-list-item-info-item">
-            <span className="sub-title gap-right">Update Time:</span>
-            <span className="text-ellipsis">
+          <div className="organization-list-item-info-item flex items-center justify-start">
+            <span className="sub-title gap-right !text-[11px] font-medium">Update Time:</span>
+            <span className="text-ellipsis text-[11px] text-lightGrey font-Montserrat">
               {moment(updatedAt).format("YYYY/MM/DD HH:mm:ss")}
             </span>
           </div>
         </div>
-        <Divider />
+        <Divider className="bg-borderColor my-[20px]" />
         <div className="organization-list-item-votes">
-          <p>Voting Data: Votes (Votes / Minimum Votes)</p>
-          <Row gutter={16} className="organization-list-item-vote-chart">
-            <Col span={4} offset={1}>
+          <p className="text-white font-medium font-Montserrat text-xs !mb-[20px]">Voting Data: Votes (Votes / Minimum Votes)</p>
+          <Row gutter={24} className="organization-list-item-vote-chart">
+            <Col span={6}>
               <Circle
                 className="organization-list-item-vote-chart-circle"
                 type={proposalActions.APPROVE}
+                text={votesData[proposalActions.APPROVE].rate}
                 {...votesData[proposalActions.APPROVE]}
               />
             </Col>
-            <Col span={4} offset={2}>
+            <Col span={6}>
               <Circle
                 className="organization-list-item-vote-chart-circle"
                 type={proposalActions.REJECT}
+                text={votesData[proposalActions.REJECT].rate}
                 {...votesData[proposalActions.REJECT]}
               />
             </Col>
-            <Col span={4} offset={2}>
+            <Col span={6}>
               <Circle
                 className="organization-list-item-vote-chart-circle"
                 type={proposalActions.ABSTAIN}
+                text={votesData[proposalActions.ABSTAIN].rate}
                 {...votesData[proposalActions.ABSTAIN]}
               />
             </Col>
-            <Col span={4} offset={2}>
+            <Col span={6}>
               <Circle
                 className="organization-list-item-vote-chart-circle"
                 type="Total"
+                text={votesData.Total.rate}
                 {...votesData.Total}
               />
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={24} className="mt-[10px]">
             <Col span={6}>
               <div className="organization-list-item-vote-desc text-center">
-                <div className="text-ellipsis" title="Approved Votes">
+                <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Approved Votes">
                   Approved Votes
                 </div>
                 <div
@@ -497,16 +540,16 @@ const Organization = (props) => {
                     votesData[proposalActions.APPROVE].rate
                   })`}
                 >
-                  <span className="sub-title gap-right-small">
+                  <div className="text-white font-Montserrat font-light">
                     {votesData[proposalActions.APPROVE].num}
-                  </span>
-                  <span>({votesData[proposalActions.APPROVE].rate})</span>
+                  </div>
+                  {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.APPROVE].rate}</div> */}
                 </div>
               </div>
             </Col>
             <Col span={6}>
               <div className="organization-list-item-vote-desc text-center">
-                <div className="text-ellipsis" title="Rejected Votes">
+                <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Rejected Votes">
                   Rejected Votes
                 </div>
                 <div
@@ -515,16 +558,16 @@ const Organization = (props) => {
                     votesData[proposalActions.REJECT].rate
                   })`}
                 >
-                  <span className="sub-title gap-right-small">
+                  <div className="text-white font-Montserrat font-light">
                     {votesData[proposalActions.REJECT].num}
-                  </span>
-                  <span>({votesData[proposalActions.REJECT].rate})</span>
+                  </div>
+                  {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.REJECT].rate}</div> */}
                 </div>
               </div>
             </Col>
             <Col span={6}>
               <div className="organization-list-item-vote-desc text-center">
-                <div className="text-ellipsis" title="Abstained Votes">
+                <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Abstained Votes">
                   Abstained Votes
                 </div>
                 <div
@@ -533,32 +576,32 @@ const Organization = (props) => {
                     votesData[proposalActions.ABSTAIN].rate
                   })`}
                 >
-                  <span className="sub-title gap-right-small">
+                  <div className="text-white font-Montserrat font-light">
                     {votesData[proposalActions.ABSTAIN].num}
-                  </span>
-                  <span>({votesData[proposalActions.ABSTAIN].rate})</span>
+                  </div>
+                  {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData[proposalActions.ABSTAIN].rate}</div> */}
                 </div>
               </div>
             </Col>
             <Col span={6}>
               <div className="organization-list-item-vote-desc text-center">
-                <div className="text-ellipsis" title="Total Votes">
+                <div className="text-ellipsis text-white text-[11px] font-Montserrat font-medium" title="Total Votes">
                   Total Votes
                 </div>
                 <div
                   className="text-ellipsis"
                   title={`${votesData.Total.num}(${votesData.Total.rate})`}
                 >
-                  <span className="sub-title gap-right-small">
+                  <div className="text-white font-Montserrat font-light">
                     {votesData.Total.num}
-                  </span>
-                  <span>({votesData.Total.rate})</span>
+                  </div>
+                  {/* <div className="text-[10px] text-lightGrey font-Montserrat">{votesData.Total.rate}</div> */}
                 </div>
               </div>
             </Col>
           </Row>
         </div>
-        <Divider />
+        <Divider className="bg-borderColor my-[20px]" />
         <div className="organization-list-item-extra">{leftOrg}</div>
       </Card>
     </div>

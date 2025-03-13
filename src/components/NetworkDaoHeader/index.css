@@ -1,8 +1,8 @@
 .header-container {
-  @apply w-full bg-white border border-Neutral-Divider border-solid;
+  @apply w-full;
 
   .header-banner {
-    @apply max-w-[1440px] m-auto lg:px-10 px-4 py-3 lg:h-20 h-16 lg:py-5 flex items-center justify-between;
+    @apply max-w-[1200px] m-auto lg:px-10 px-4 py-3 lg:h-20 h-16 lg:py-5 flex items-center justify-between w-full bg-fillBg sticky top-0 z-10 transition-[top] duration-300 ease-in-out backdrop-blur-[10px];
   }
 
   .header-logo {
@@ -10,7 +10,7 @@
   }
 
   .header-menu {
-    @apply flex w-[60%] items-center;
+    @apply flex w-[60%] items-center justify-between;
   }
 
   .header-menu-icon {
@@ -18,17 +18,21 @@
   }
 }
 .networkdao-header-container {
-  .custom-menu .TMRWDAO-menu-overflow-item, .custom-menu .TMRWDAO-menu-item {
-    padding-left: 32px !important;
-    padding-inline-start: 32px !important;
+  .custom-menu .TMRWDAO-menu-overflow-item,
+  .custom-menu .TMRWDAO-menu-item {
+    padding-left: 25px !important;
+    padding-inline-start: 25px !important;
   }
   &.header-container .header-menu {
     @apply flex-1;
   }
-  .TMRWDAO-menu .TMRWDAO-menu-overflow-item-rest  {
+  .TMRWDAO-menu-light {
+    @apply !bg-transparent text-lightGrey;
+  }
+  .TMRWDAO-menu .TMRWDAO-menu-overflow-item-rest {
     @apply flex items-center;
     .TMRWDAO-menu-submenu-title {
-      @apply w-[32px] h-[32px];
+      @apply w-[32px] h-[32px] text-white;
     }
     .anticon {
       @apply text-[32px];
@@ -36,19 +40,38 @@
   }
 }
 .chain-id-select-wrap {
-  @apply mr-1 flex-shrink;
+  @apply mr-1 flex-shrink text-[12px];
+  .TMRWDAO-select-selector {
+    @apply !bg-transparent text-white font-Montserrat !rounded-[42px] !border-white;
+  }
   .TMRWDAO-select.chain-id-select {
     @apply w-auto h-10 lg:h-12;
   }
+  .tmrwdao-icon-down-arrow {
+    @apply text-white text-[14px] ml-1;
+  }
+  .text-desc14 {
+    @apply text-[10px];
+  }
 }
 .network-dao-menu-pop.TMRWDAO-menu-submenu-popup {
-   .TMRWDAO-menu-vertical .TMRWDAO-menu-item {
-    margin-inline: 0px;
-    margin-block: 0px;
-    width: auto;
-    display: flex;
-    align-items: center;
-    padding-inline: 24px;
-    height: 48px;
+  .TMRWDAO-menu-vertical {
+    @apply bg-darkGray;
+    .TMRWDAO-menu-item {
+      @apply font-Montserrat text-[12px] text-lightGrey;
+      margin-inline: 0px;
+      margin-block: 0px;
+      width: auto;
+      display: flex;
+      align-items: center;
+      padding-inline: 24px;
+      height: 48px;
+    }
+    .TMRWDAO-menu-item-active {
+      @apply !text-white;
+    }
+    .TMRWDAO-menu-item-selected {
+      @apply text-white;
+    }
   }
 }

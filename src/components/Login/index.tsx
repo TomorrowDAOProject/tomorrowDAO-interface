@@ -1,4 +1,5 @@
-import { Button, HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
+import Button from 'components/Button';
 import useResponsive from 'hooks/useResponsive';
 import { useCheckLoginAndToken, useWalletService } from 'hooks/useWallet';
 import { useSelector } from 'redux/store';
@@ -8,7 +9,6 @@ import {
   UserProfileOutlined,
   WalletOutlined,
 } from '@aelf-design/icons';
-import { ReactComponent as AvatarIcon } from 'assets/imgs/avatar-icon.svg';
 import { useMemo, useState } from 'react';
 import { Popover } from 'antd';
 import Link from 'next/link';
@@ -18,32 +18,32 @@ import getChainIdQuery from 'utils/url';
 import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 export const LoginAuth = () => {
-  const { isLG } = useResponsive();
   const { connectWallet, walletInfo } = useConnectWallet();
 
   const { getTokenUpdate } = useCheckLoginAndToken();
   if (walletInfo) {
     return (
       <Button
-        size={isLG ? 'medium' : 'large'}
         type="primary"
+        className="h-[32px]"
         onClick={() => {
           getTokenUpdate();
         }}
       >
-        Authorization
+        <span className="text-[12px]">Authorization</span>
       </Button>
     );
   }
   return (
     <Button
-      size={isLG ? 'medium' : 'large'}
       type="primary"
+      className="h-[32px]"
       onClick={() => {
         connectWallet();
       }}
     >
-      Log in
+      <i className="tmrwdao-icon-profile text-[22px] text-inherit mr-[6px]"></i>
+      <span className="text-[12px]">Log in</span>
     </Button>
   );
 };
@@ -52,6 +52,7 @@ interface ILoginProps {
 }
 export default function Login(props: ILoginProps) {
   const { isNetWorkDao } = props;
+  const { isSM } = useResponsive();
   const { disConnectWallet } = useConnectWallet();
   const [hovered, setHovered] = useState(false);
   const chainIdQuery = getChainIdQuery();
@@ -98,7 +99,7 @@ export default function Login(props: ILoginProps) {
               <Link href={`${explorer}/address/${walletInfo.address}`} target="_blank">
                 <div className="drop-down-items">
                   <span className="prefix-icon">
-                    <InfoCircleOutlined />
+                    <i className="tmrwdao-icon-wallet text-[18px] text-white" />
                   </span>
                   <HashAddress
                     size="small"
@@ -106,6 +107,8 @@ export default function Login(props: ILoginProps) {
                     address={walletInfo.address}
                     preLen={8}
                     endLen={9}
+                    iconColor="#989DA0"
+                    iconSize="18px"
                   />
                 </div>
               </Link>
@@ -137,10 +140,8 @@ export default function Login(props: ILoginProps) {
           }
         >
           <div className="user-info">
-            <div className="avatar-container">
-              <AvatarIcon width={12} height={12} />
-            </div>
-            <div className="user-name">{userName}</div>
+            <i className="tmrwdao-icon-profile text-[22px] text-inherit text-white"></i>
+            {!isSM && <div className="user-name ml-[6px]">{userName}</div>}
           </div>
         </Popover>
       )}

@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-use-before-define
 import React from "react";
-import { message } from "antd";
+import { toast } from "react-toastify";
 import copy from "copy-to-clipboard";
 import { omitString } from "@common/utils";
 import addressFormat from "@utils/addressFormat";
@@ -21,9 +21,9 @@ const AddressNameVer = ({ address, name, ver }) => {
     try {
       copy(address);
       // eslint-disable-next-line no-undef
-      message.success("Copied!");
+      toast.success("Copied!");
     } catch (e) {
-      message.error("Copy failed, please copy by yourself.");
+      toast.error("Copy failed, please copy by yourself.");
     }
   };
   return (

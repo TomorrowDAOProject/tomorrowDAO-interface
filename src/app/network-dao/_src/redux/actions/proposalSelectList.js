@@ -3,8 +3,11 @@
  * @author atom-yang
  */
 import { API_PATH } from '../common/constants';
-import { request } from '../../common/request';
 import { arrayToMap } from '../common/utils';
+import { apiServer } from 'api/axios';
+import getChainIdQuery from 'utils/url';
+
+const chain = getChainIdQuery()
 
 export const GET_PROPOSAL_SELECT_LIST = arrayToMap([
   'SET_PROPOSALS_SELECT_LIST_START',
@@ -33,10 +36,19 @@ const dispatchSelectList = ({ params, result }) => (dispatch) => {
 };
 
 export const getProposalSelectListWrap = async (dispatch, params) => {
-  const result = await request(API_PATH.GET_PROPOSAL_LIST, params, {
-    method: 'GET',
-  });
-  dispatch(dispatchSelectList({ params, result }));
+  const updataParams = {
+    ...params,
+    chainId: chain.chainId,
+    isContract: Boolean(params.isContract)
+  }
+  const result = await apiServer.get(API_PATH.GET_PROPOSAL_LIST, updataParams);
+
+  result.data.list = result.data.items
+  result.data.total = result.data.totalCount
+
+  const res = result.data
+
+  dispatch(dispatchSelectList({ params, res }));
   return true;
 };
 

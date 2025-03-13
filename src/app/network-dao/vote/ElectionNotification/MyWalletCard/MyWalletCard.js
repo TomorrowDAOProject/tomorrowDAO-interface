@@ -8,9 +8,7 @@
  */
 import React, { PureComponent } from "react";
 import Link from 'next/link';
-import { Button, message, Spin } from "antd";
 import moment from "moment";
-import { SyncOutlined, LogoutOutlined } from "@ant-design/icons";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { ELF_DECIMAL, SYMBOL } from "@src/constants";
 import { connect } from "react-redux";
@@ -23,6 +21,9 @@ import { WebLoginInstance } from "@utils/webLogin";
 import { isActivityBrowser } from "@utils/isWebView";
 import IconFont from "@components/IconFont";
 import { mainExplorer } from "config";
+import Spin from "components/Spin";
+import Button from 'components/Button';
+import { toast } from 'react-toastify';
 
 class MyWalletCard extends PureComponent {
   constructor(props) {
@@ -241,12 +242,12 @@ class MyWalletCard extends PureComponent {
       .logoutAsync()
       .then(
         () => {
-          message.success("Logout successful, refresh after 3s.", 3, () => {
+          toast.success("Logout successful, refresh after 3s.", 3, () => {
             window.location.reload();
           });
         },
         () => {
-          message.error("logout failed");
+          toast.error("logout failed");
         }
       );
   }
@@ -262,6 +263,7 @@ class MyWalletCard extends PureComponent {
       lastestUnlockTime,
     } = this.state;
     const { isConnected } = WebLoginInstance.get().getWebLoginContext();
+    console.log("isConnected", isConnected);
     const formattedAddress = addressFormat(currentWallet.address);
     const walletItems = [
       {
@@ -280,13 +282,14 @@ class MyWalletCard extends PureComponent {
           <Dividends
             className="wallet-dividends"
             dividends={dividends.total || "-"}
+            valueClassName="inline-block mr-[6px]"
           />
         ),
         extra: (
           <Button
             type="primary"
             size="small"
-            className="my-wallet-card-body-wallet-content-withdraw-btn"
+            className="my-wallet-card-body-wallet-content-withdraw-btn !inline-block font-Montserrat w-[46px] h-[20px] !leading-[14px] !text-[11px] !px-[2px] !py-[2px] ml-[4px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             disabled={isActivityBrowser()}
             onClick={handleDividendClick}
           >
@@ -317,67 +320,51 @@ class MyWalletCard extends PureComponent {
         <div className="my-wallet-content">
           <Spin spinning={loading}>
             <div className="my-wallet-card-header">
-              <h2 className="my-wallet-card-header-title">
-                <IconFont
-                  type="vote-group"
-                  className="card-header-icon wallet-icon"
-                />
+              <h2 className="my-wallet-card-header-title !text-white font-Montserrat text-[12px] font-medium">
                 My Wallet
               </h2>
-              <div>
-                {!isActivityBrowser() &&
-                  !isConnected && (
-                    <Button
-                      type="text"
-                      className="my-wallet-card-header-sync-btn login-btn"
-                      onClick={this.loginOrUnlock}
-                    >
-                      <IconFont type="vote-login" />
-                      Log in
-                    </Button>
-                  )}
-                {/* 
-                {!this.isPhone && currentWallet?.address && (
-                  <Button
-                    type="text"
-                    className="my-wallet-card-header-sync-btn logout-btn"
-                    disabled={!currentWallet?.address}
-                    onClick={this.extensionLogout}
-                  >
-                    <LogoutOutlined />
-                    Log Out
-                  </Button>
-                )} */}
-
+              <div className="flex items-center">
                 <Button
-                  className="my-wallet-card-header-sync-btn refresh-btn "
+                  className="font-Montserrat refresh-btn hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
                   disabled={!currentWallet?.address}
                   onClick={this.handleUpdateWalletClick}
+                  size="small"
                 >
                   <IconFont type="reload" />
                   Refresh
                 </Button>
+                {!isActivityBrowser() &&
+                  !currentWallet?.address && (
+                    <Button
+                      type="primary"
+                      className="login-btn leading-[20px] !py-[4px] font-Montserrat !rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                      onClick={this.loginOrUnlock}
+                    >
+                      <i className="tmrwdao-icon-profile text-[16px] text-inherit mr-[6px]"></i>
+                      Log in
+                    </Button>
+                  )}
               </div>
             </div>
             <div className="my-wallet-card-body-wallet-title">
               <>
                 <div className="name">
-                  <span className="my-wallet-card-body-wallet-title-key">
+                  <span className="my-wallet-card-body-wallet-title-key text-white text-[11px] font-Montserrat">
                     Name:
                   </span>
-                  <span className="my-wallet-card-body-wallet-title-value">
+                  <span className="my-wallet-card-body-wallet-title-value text-lightGrey">
                     {currentWallet?.name || "-"}
                   </span>
                 </div>
                 <div className="address">
-                  <span className="my-wallet-card-body-wallet-title-key">
+                  <span className="my-wallet-card-body-wallet-title-key text-white text-[11px] font-Montserrat">
                     Address:
                   </span>
                   <span className="my-wallet-card-body-wallet-title-value">
                     {formattedAddress ? (
                       <>
                         <Link
-                          className="info"
+                          className="info text-white text-[10px] font-Montserrat"
                           href={`${mainExplorer}/address/${formattedAddress}`}
                           title={formattedAddress}
                         >
@@ -396,11 +383,11 @@ class MyWalletCard extends PureComponent {
               <ul className="my-wallet-card-body-wallet-content">
                 {walletItems.map((item) => (
                   <li key={item.type} className={item.class}>
-                    <span className="item-type">{item.type}:</span>
+                    <span className="item-type !text-white text-[11px] font-medium font-Montserrat">{item.type}:</span>
                     <span>
-                      <span className="item-value">{item.value}</span>
+                      <span className="item-value !text-lightGrey text-[11px]">{item.value}</span>
                       {item.extra && (
-                        <span className="item-extra">{item.extra}</span>
+                        <span className="item-extra text-lightGrey">{item.extra}</span>
                       )}
                     </span>
                   </li>

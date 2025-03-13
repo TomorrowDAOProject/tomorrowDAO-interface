@@ -2,7 +2,7 @@ import { IContractError } from 'types';
 
 export const DEFAULT_ERROR = 'Something went wrong. Please try again later.';
 
-export const UserDeniedMessage = 'Request rejected. TMRW DAO needs your permission to continue';
+export const UserDeniedMessage = `Request rejected. \nTMRW DAO needs your permission to continue`;
 export const EventEnded = 'The event has ended';
 export const AIServerError =
   'The network is currently congested due to the simultaneous generation of numerous images. Please consider trying again later.';
@@ -31,7 +31,7 @@ export enum TargetErrorType {
   Error7 = UserDeniedMessage,
 }
 
-export const matchErrorMsg = <T>(message: T, method?: string) => {
+export const matchErrorMsg = <T>(message: T, _method?: string) => {
   // console.log('errorMsg', message);
   if (typeof message === 'string') {
     const sourceErrors = [

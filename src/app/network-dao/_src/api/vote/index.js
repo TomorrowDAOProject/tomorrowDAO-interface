@@ -6,16 +6,21 @@
  * @LastEditTime: 2019-09-27 18:47:29
  * @Description: the api of vote consensus and others vote need
  */
-import { get } from "@src/utils";
+import { apiServer } from 'api/axios'
+import getChainIdQuery from 'utils/url';
+
+const chain = getChainIdQuery()
 
 export const getAllTeamDesc = () =>
-  get("/vote/getAllTeamDesc", {
+  apiServer.get("/networkdao/vote/getAllTeamDesc", {
     isActive: true,
+    chainId: chain.chainId
   });
 
 export const getTeamDesc = (publicKey) =>
-  get("/vote/getTeamDesc", {
+  apiServer.get("/networkdao/vote/getTeamDesc", {
     publicKey,
+    chainId: chain.chainId
   });
 
 export const fetchPageableCandidateInformation = (contract, payload) =>

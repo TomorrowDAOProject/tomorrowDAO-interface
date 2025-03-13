@@ -1,12 +1,9 @@
 'use client';
 import React, { useEffect, Suspense } from 'react';
-import { Provider } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'redux/store';
 import clsx from 'clsx';
-import { WebLoginInstance } from "@utils/webLogin";
 import { LOG_OUT_ACTIONS, LOG_IN_ACTIONS } from 'app/network-dao/_src/redux/actions/proposalCommon';
-import store from "./_src/redux/store";
 import dynamicReq from 'next/dynamic';
 import Footer from 'components/Footer';
 import NetworkDaoHeader from 'components/NetworkDaoHeader';
@@ -16,6 +13,8 @@ import './layout.css';
 import './_src/common/index.css';
 import { usePathname } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import WebLoginInstance from 'contract/webLogin';
+import { WebLoginInstance as WebLoginInstanceClass } from './_src/utils/webLogin';
 
 const Layout = dynamicReq(
   async () => {
@@ -23,32 +22,9 @@ const Layout = dynamicReq(
       const dispatch = useDispatch();
       const webLoginContext = useConnectWallet();
       const { walletInfo: wallet, isConnected } = webLoginContext;
-      const currentWallet = useSelector((state) => {
-        return state.common.currentWallet;
-      });
       WebLoginInstance.get().setWebLoginContext(webLoginContext);
-      // dispatch wallet to network-dao redux
-      // useEffect(() => {
-      //   if (loginState === WebLoginState.initial && currentWallet.address) {
-      //     dispatch({
-      //       type: LOG_OUT_ACTIONS.LOG_OUT_SUCCESS,
-      //     });
-      //   } else if (loginState === WebLoginState.initial && loginError) {
-      //     dispatch({
-      //       type: LOG_IN_ACTIONS.LOG_IN_FAILED,
-      //     });
-      //   } else if (loginState === WebLoginState.logining) {
-      //     dispatch({
-      //       type: LOG_IN_ACTIONS.LOG_IN_START,
-      //     });
-      //   } else if (loginState === WebLoginState.logined) {
-      //     dispatch({
-      //       type: LOG_IN_ACTIONS.LOG_IN_SUCCESS,
-      //       payload: wallet,
-      //     });
-      //   }
-      // }, [loginState])
-
+      WebLoginInstanceClass.get().setWebLoginContext(webLoginContext);
+      
       useEffect(() => {
         if(isConnected && wallet){
           const newWallet = {
@@ -74,7 +50,7 @@ const Layout = dynamicReq(
       const isProposalApply = pathName.includes('/network-dao/apply')
       return (
         <div>
-            <div className="flex w-[100vw] h-[100vh] flex-col relative box-border min-h-screen bg-global-grey">
+            <div className="flex w-[100vw] h-[100vh] flex-col relative box-border min-h-screen bg-black">
               <Suspense>
                 <NetworkDaoHeader />
               </Suspense>
@@ -83,7 +59,7 @@ const Layout = dynamicReq(
                   <div>
                     <div
                       className={
-                        clsx('flex-1 max-w-[1440px] mx-auto pt-4 lg:pt-6 mb-6 lg:px-10 px-4 page-content-wrap', {
+                        clsx('flex-1 xl:w-[1122px] lg:w-[904px] md:w-[688px] xl:mt-[51px] lg:mt-[30px] md:mt-[20px] mt-[16px]  xl:m-auto lg:m-auto md:m-auto mx-[20px] mb-6 page-content-wrap network-dao', {
                           'max-w-[898px]': isProposalApply
                         })
                       }

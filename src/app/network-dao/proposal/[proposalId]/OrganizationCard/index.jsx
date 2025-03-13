@@ -4,7 +4,6 @@
  */
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { Card, Row, Col } from "antd";
 import {
   getOrganizationLeftInfo,
   getCircleValues,
@@ -25,7 +24,6 @@ const OrganizationCard = (props) => {
     orgAddress,
     bpList,
     parliamentProposerList,
-    className,
   } = props;
   const thresholdValue = useMemo(
     () =>
@@ -43,80 +41,61 @@ const OrganizationCard = (props) => {
         proposalType,
         leftOrgInfo,
         bpList,
-        parliamentProposerList
+        parliamentProposerList,
+        'lg:flex-row gap-[14px] lg:gap-[39px]',
+        'flex flex-col gap-y-[10px] flex-1 lg:w-[calc((100%-39px)/2)]'
       ),
     [proposalType, leftOrgInfo, bpList, parliamentProposerList]
   );
   return (
-    <div className={className} title="Organisation Info">
-      <h3 className="pb-[24px] title">Organization Info</h3>
-      <div className="gap-bottom-large">
-        <span className="network-dao-lable-key">Address:</span>
-        <span className="network-dao-lable-value break-all">{addressFormat(orgAddress)}</span>
+    <>
+      <h3 className="mb-6 text-descM13 text-white font-Montserrat">Organization Info</h3>
+      <span className="mb-6 text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap">
+        <span className="text-lightGrey">Address:</span>
+        {addressFormat(orgAddress)}
+      </span>
+      <div className="mb-[24px] flex flex-wrap justify-between gap-y-[14px]">
+        <div
+          className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
+          title={`${thresholdValue[proposalActions.APPROVE].num}(${
+            thresholdValue[proposalActions.APPROVE].rate
+          })`}
+        >
+          <span className="text-lightGrey mr-[5px]">Minimal Approval Threshold:</span>
+          {thresholdValue[proposalActions.APPROVE].num}(
+          {thresholdValue[proposalActions.APPROVE].rate})
+        </div>
+        <div
+          className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
+          title={`${thresholdValue[proposalActions.REJECT].num}(${
+            thresholdValue[proposalActions.REJECT].rate
+          })`}
+        >
+          <span className="text-lightGrey mr-[5px]">Maximal Rejection Threshold:</span>  
+          {thresholdValue[proposalActions.REJECT].num}(
+          {thresholdValue[proposalActions.REJECT].rate})
+        </div>
+        <div
+          className="mb-[10px] text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
+          title={`${thresholdValue[proposalActions.ABSTAIN].num}(${
+            thresholdValue[proposalActions.ABSTAIN].rate
+          })`}
+        >
+          <span className="text-lightGrey mr-[5px]">Maximal Abstention Threshold:</span>
+          {thresholdValue[proposalActions.ABSTAIN].num}(
+          {thresholdValue[proposalActions.ABSTAIN].rate})
+        </div>
+        <div
+          className="text-desc12 text-white font-Montserrat text-ellipsis whitespace-nowrap"
+          title={`${thresholdValue.Total.num}(${thresholdValue.Total.rate})`}
+        >
+          <span className="text-lightGrey mr-[5px]">Minimal Vote Threshold:</span>
+          {thresholdValue.Total.num}({thresholdValue.Total.rate})
+        </div>
       </div>
-      <Row>
-        <Col span={24} className="threshold-values">
-          <>
-            <div
-              className=" text-ellipsis threshold-values-item"
-              title={`${thresholdValue[proposalActions.APPROVE].num}(${
-                thresholdValue[proposalActions.APPROVE].rate
-              })`}
-            >
-              <span className="network-dao-lable-key">
-                Minimal Approval Threshold:
-              </span>
-              <span className="network-dao-lable-value text-ell">
-                {thresholdValue[proposalActions.APPROVE].num}(
-                {thresholdValue[proposalActions.APPROVE].rate})
-              </span>
-            </div>
-            <div
-              className=" text-ellipsis threshold-values-item"
-              title={`${thresholdValue[proposalActions.REJECT].num}(${
-                thresholdValue[proposalActions.REJECT].rate
-              })`}
-            >
-              <span className="network-dao-lable-key">
-                Maximal Rejection Threshold:
-              </span>
-              <span className="network-dao-lable-value">
-                {thresholdValue[proposalActions.REJECT].num}(
-                {thresholdValue[proposalActions.REJECT].rate})
-              </span>
-            </div>
-            <div
-              className=" text-ellipsis threshold-values-item"
-              title={`${thresholdValue[proposalActions.ABSTAIN].num}(${
-                thresholdValue[proposalActions.ABSTAIN].rate
-              })`}
-            >
-              <span className="network-dao-lable-key">
-                Maximal Abstention Threshold:
-              </span>
-              <span className="network-dao-lable-value">
-                {thresholdValue[proposalActions.ABSTAIN].num}(
-                {thresholdValue[proposalActions.ABSTAIN].rate})
-              </span>
-            </div>
-            <div
-              className=" text-ellipsis threshold-values-item"
-              title={`${thresholdValue.Total.num}(${thresholdValue.Total.rate})`}
-            >
-              <span className="network-dao-lable-key">
-                Minimal Vote Threshold:
-              </span>
-              <span className="network-dao-lable-value">
-                {thresholdValue.Total.num}({thresholdValue.Total.rate})
-              </span>
-            </div>
-          </>
-        </Col>
-        <Col span={24} className="org-info">
-          {leftInfo}
-        </Col>
-      </Row>
-    </div>
+
+      {leftInfo}
+    </>
   );
 };
 

@@ -5,22 +5,19 @@ import React, {
   useImperativeHandle,
 } from "react";
 // import { Link } from "react-router-dom";
-import Link from "next/link";
-import { Row, Col, Spin, Button, message } from "antd";
+import { Row, Col } from "antd";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { resourceTokens } from "@config/config";
-import {
-  WalletOutlined,
-  SyncOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import Button from 'components/Button'
+import RefreshIcon from 'assets/revamp-icon/refresh.svg';
 import "./ResourceAElfWallet.css";
 import addressFormat from "@utils/addressFormat";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import { isActivityBrowser } from "@utils/isWebView";
 import LinkNetworkDao from "components/LinkNetworkDao";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
+import Spin from 'components/Spin'
 
 const ResourceWallet = React.forwardRef(
   (
@@ -105,11 +102,11 @@ const ResourceWallet = React.forwardRef(
     //       if (result) {
     //         const isPluginLock = result.error === 200005;
     //         if (isPluginLock) {
-    //           message.warn(result.message || result.errorMessage.message);
+    //           toast.warn(result.message || result.errorMessage.message);
     //         } else {
     //           walletInstance.logout(currentWallet.address).then(
     //             () => {
-    //               message.success(
+    //               toast.success(
     //                 "Logout successful, refresh after 3s.",
     //                 3,
     //                 () => {
@@ -120,7 +117,7 @@ const ResourceWallet = React.forwardRef(
     //             },
     //             () => {
     //               setLoading(false);
-    //               message.error("logout failed");
+    //               toast.error("logout failed");
     //             }
     //           );
     //         }
@@ -141,48 +138,22 @@ const ResourceWallet = React.forwardRef(
 
     return (
       <div className="resource-wallet resource-block">
-        <Spin tip="loading...." size="large" spinning={loading}>
+        <Spin spinning={loading}>
           <div className="resource-wallet-header resource-header">
-            <span className="resource-title">{propsTile}</span>
+            <span className="!font-Unbounded !font-[300] text-[15px] text-white">{propsTile}</span>
           </div>
           <div className="resource-sub-container">
             <Row className="resource-wallet-address">
-              {isPhone ? (
-                <Col className="resource-wallet-address-name">
-                  <div className="card-sm-text">
-                    Name:
-                    {wallet.name}
-                  </div>
-                  <div className="card-sm-text-bold">
-                    Address:
-                    {addressFormat(wallet.address)}
-                  </div>
-                  <div className="link-detail-button">
-                    {wallet.address !== "-" && (
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-white font-Montserrat text-[13px] leading-[22px]">{wallet.address=='-' ? wallet.address : addressFormat(wallet.address)}</span>
+                  {wallet.address !== "-" && (
+                    <div className="link-detail-button">
                       <LinkNetworkDao href={`/resource-detail/${wallet.address}`}>
                         Transaction Details
                       </LinkNetworkDao>
-                    )}
-                  </div>
-                </Col>
-              ) : (
-                <Col className="resource-wallet-address-name">
-                  <span className="card-sm-text">
-                  {wallet.name}
-                  </span>
-                  &nbsp;&nbsp;&nbsp;
-                  <span className="card-sm-text-bold"> {addressFormat(wallet.address)}</span>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div className="link-detail-button">
-                  {wallet.address !== "-" && (
-                    <LinkNetworkDao href={`/resource-detail/${wallet.address}`}>
-                      Transaction Details
-                    </LinkNetworkDao>
+                    </div>
                   )}
-                  </div>
-                </Col>
-              )}
-
+                </div>
               <Col className="resource-wallet-operation-container">
                 {/* {!(currentWallet && currentWallet.address && tokenContract) && (
                 <Button
@@ -194,25 +165,27 @@ const ResourceWallet = React.forwardRef(
                 </Button>
               )} */}
 
-                {!isActivityBrowser() && !isConnected && (
-                    <Button
-                      type="text"
-                      className="resource-wallet-address-update update-btn"
-                      onClick={() => connectWallet()}
-                    >
-                      Login
-                    </Button>
-                  )}
-
                 <Button
-                  type="primary"
-                  className="resource-wallet-address-update update-btn"
+                  className={`border border-solid !border-white text-white bg-mainColor !text-[10px] w-[77px] h-[24px] gap-1 ${isConnected && 'border-none !bg-mainColor text-white'}`}
                   disabled={!isConnected}
                   onClick={refreshWalletInfo}
                 >
-                  Refresh
-                  <SyncOutlined type="sync" spin={loading} />
+                  {/* <SyncOutlined className="text-[10px]" type="sync" spin={loading} /> */}
+                  <img className="w-[16px] h-[16px]" src={RefreshIcon} alt="" />
+                  <span className="text-[10px] text-white">Refresh</span>
                 </Button>
+
+                {!isActivityBrowser() && !isConnected && (
+                    <Button
+                      type="text"
+                      className="text-white bg-mainColor !text-[10px] hover:!text-mainColor hover:bg-transparent hover:border hover:border-solid hover:border-mainColor w-[70px] h-[24px] gap-1 ml-[11px]"
+                      onClick={() => connectWallet()}
+                    >
+                      <i className="tmrwdao-icon-profile text-[16px] text-inherit" />
+                      <span className="text-[10px]">Log in</span>
+                    </Button>
+                  )}
+
 
                 {/* {!isPhone && currentWallet && currentWallet.address && (
                   <Button

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Table, Typography, FontWeightEnum, Tooltip } from 'aelf-design';
-import { ConfigProvider } from 'antd';
+import { Table, ConfigProvider } from 'antd';
 import publicKeyToAddress from 'app/network-dao/_src/utils/publicKeyToAddress';
 import addressFormat from 'app/network-dao/_src/utils/addressFormat';
 import { useSelector } from 'react-redux';
@@ -8,14 +7,20 @@ import io from 'socket.io-client';
 import NoData from 'components/NoData';
 import { consensusDPoSAddr, electionContractAddr, SOCKET_URL_NEW } from 'config';
 import { callMainNetViewContract } from 'contract/callContract';
-import { explorerServer } from 'api/axios';
+import { apiServer } from 'api/axios';
 import dayjs from 'dayjs';
 import { useAsyncEffect } from 'ahooks';
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { ELF_DECIMAL } from 'app/network-dao/vote/constants';
+import Tooltip from 'components/Tooltip';
+import Spin from 'components/Spin';
+import Divider from 'components/Divider';
+import clsx from 'clsx';
 
-import './index.css';
+import getChainIdQuery from 'utils/url';
+
 const TableItemCount = 20;
+
 export default function HighCounCilTab() {
   const { walletInfo } = useSelector((store: any) => store.userInfo);
   const socketRef = useRef<any>();
@@ -24,12 +29,12 @@ export default function HighCounCilTab() {
   const nodeListRef = useRef([]);
   const producedBlocksRef = useRef<any>();
   nodeListRef.current = nodeList;
+  const chain = getChainIdQuery();
 
   const getAllTeamDesc = async () => {
-    return explorerServer.get('/explorer-api/vote/getAllTeamDesc', {
-      params: {
-        isActive: true,
-      },
+    return apiServer.get('/networkdao/vote/getAllTeamDesc', {
+      isActive: true,
+      chainId: chain.chainId,
     });
   };
   const fetchCurrentRoundInformation = async () => {
@@ -64,7 +69,7 @@ export default function HighCounCilTab() {
     });
     const { activeVotingRecords } = resArr[3] || {};
     let teamInfos = null;
-    if (resArr[2].code === 0) {
+    if (resArr[2].code === '20000') {
       teamInfos = resArr[2].data;
     }
     const BPNodes = resArr[4].pubkeys;
@@ -75,7 +80,7 @@ export default function HighCounCilTab() {
       totalActiveVotesAmount += +item.obtainedVotesAmount;
       // add node name
       const teamInfo = teamInfos.find(
-        (team: any) => team.public_key === item.candidateInformation.pubkey,
+        (team: any) => team.publicKey === item.candidateInformation.pubkey,
       );
       // get address from pubkey
       item.candidateInformation.address = publicKeyToAddress(item.candidateInformation.pubkey);
@@ -213,8 +218,14 @@ export default function HighCounCilTab() {
       dataIndex: 'name',
       key: 'nodeName',
       render: (text: any, record: any) => (
-        <Tooltip title={text}>
+        <Tooltip
+          title={text}
+          className={clsx({
+            '!w-[160px]': text?.length < 20,
+          })}
+        >
           <LinkNetworkDao
+            className="text-descM10 font-Montserrat !text-secondaryMainColor"
             href={{
               pathname: '/vote/team',
               query: {
@@ -264,23 +275,24 @@ export default function HighCounCilTab() {
     },
   ];
   return (
-    <div className="high-council">
-      <div className="high-council-header">
-        <Typography.Title fontWeight={FontWeightEnum.Medium} level={6}>
+    <>
+      <div className="py-6 px-[38px]">
+        <span className="block mb-6 text-[15px] font-Unbounded font-light text-white -tracking-[0.6px]">
           High Council Members
-        </Typography.Title>
+        </span>
+        <Divider />
+        <Spin spinning={loading}>
+          <ConfigProvider renderEmpty={() => <NoData></NoData>}>
+            <Table
+              scroll={{ x: true }}
+              rowKey="rank"
+              columns={nodeListCols as any}
+              dataSource={nodeList}
+            ></Table>
+          </ConfigProvider>
+        </Spin>
         {/* <Typography.Text fontWeight={FontWeightEnum.Medium}>-num- Members in Total</Typography.Text> */}
       </div>
-      <ConfigProvider renderEmpty={() => <NoData></NoData>}>
-        <Table
-          // sortDirections={['asc', 'desc']}
-          scroll={{ x: true }}
-          rowKey="rank"
-          columns={nodeListCols as any}
-          loading={loading}
-          dataSource={nodeList}
-        ></Table>
-      </ConfigProvider>
-    </div>
+    </>
   );
 }

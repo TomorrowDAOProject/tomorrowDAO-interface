@@ -1,64 +1,47 @@
-import './index.css';
-import { FooterLogo } from 'components/Logo';
-import { Divider } from 'antd';
-import TwitterIcon from 'assets/imgs/twitter.svg';
-import TGIcon from 'assets/imgs/telegram.svg';
-import DiscordIcon from 'assets/imgs/icon_discord.svg';
-import dayjs from 'dayjs';
-const DocsItems: any[] = [
-  // {
-  //   title: 'Docs',
-  //   path: '/Docs',
-  // },
-  // {
-  //   title: 'White Paper',
-  //   path: '/White Paper',
-  // },
-  // {
-  //   title: 'Send Feedback',
-  //   path: '/Feedback',
-  // },
-];
-export default function Footer() {
+import LogoIcon from 'assets/revamp-icon/network-logo.svg';
+import Link from 'next/link';
+
+const NavFooter = () => {
   return (
-    <div className="footer-container">
-      <div className="footer-main">
-        <div className="footer-top">
-          <div className="footer-logo">
-            <FooterLogo />
-          </div>
-          <div className="footer-docs">
-            {DocsItems.map((item) => {
-              return (
-                <div className="footer-docs-item" key={item.title}>
-                  <a href={item.path}>{item.title}</a>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <Divider />
-        <div className="footer-media">
-          <div className="footer-media-items">
-            <div className="footer-media-item">
-              <a target="_blank" rel="noreferrer" href="https://discord.com/invite/gTWkeR5pQB">
-                <img src={DiscordIcon} alt="discord" />
-              </a>
+    <div className="tmrwdao-grid">
+      <div className="col-12 py-[20px]">
+        <div className="flex flex-row justify-between items-start">
+          <img src={LogoIcon} className="h-[18px] w-[18px]" alt="" />
+
+          <div>
+            <div className="flex flex-row items-center justify-end gap-[11px] lg:gap-[9px] xl:gap-[11px]">
+              <Link
+                href="https://t.me/tmrwdao"
+                className="w-[24px] h-[24px] border-white border rounded-md border-solid flex justify-center items-center"
+              >
+                <i className="tmrwdao-icon-telegram text-[16px] text-white" />
+              </Link>
+              <Link
+                href="https://github.com/TomorrowDAOProject"
+                className="w-[24px] h-[24px] border-white border rounded-md border-solid flex justify-center items-center"
+              >
+                <i className="tmrwdao-icon-github text-[16px] text-white" />
+              </Link>
+              <Link
+                href="https://x.com/tmrwdao"
+                className="w-[24px] h-[24px] border-white border rounded-md border-solid flex justify-center items-center"
+              >
+                <i className="tmrwdao-icon-twitter text-[16px] text-white" />
+              </Link>
             </div>
-            <div className="footer-media-item">
-              <a target="_blank" rel="noreferrer" href="https://t.me/tmrwdao">
-                <img src={TGIcon} alt="telegram" />
-              </a>
-            </div>
-            <div className="footer-media-item">
-              <a target="_blank" rel="noreferrer" href="https://twitter.com/tmrwdao">
-                <img src={TwitterIcon} alt="twitter" />
-              </a>
+            <div className="mt-[10px] text-right">
+              <Link
+                href="/"
+                className="text-white font-Syne no-underline text-[11.5px] lg:text-[7px] xl:text-[8.54px] hover:text-mainColor active:text-mainColor"
+              >
+                TMRW DAO©2025
+              </Link>
             </div>
           </div>
-          <div className="footer-time">{`Copyright © ${dayjs().year()} Tomorrow DAO`}</div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default NavFooter;

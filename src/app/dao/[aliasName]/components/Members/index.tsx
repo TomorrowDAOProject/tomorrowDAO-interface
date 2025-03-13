@@ -49,7 +49,9 @@ const DaoMembers: React.FC<IProps> = (props) => {
       managerUrl={`/dao/${aliasName}/proposal/create?tab=${EProposalActionTabs.AddMultisigMembers}`}
       descriptionNode={
         <>
-          <h2 className="card-title-lg mb-[4px]">{daoMembersData?.data?.totalCount} Members</h2>
+          <h2 className="text-[15px] text-white mb-[4px]">
+            {daoMembersData?.data?.totalCount} Members
+          </h2>
           <span className="dao-members-normal-text text-Neutral-Secondary-Text">
             {daoData?.governanceMechanism === EDaoGovernanceMechanism.Token
               ? 'Token-based'

@@ -5,7 +5,7 @@ import { useRequest } from 'ahooks';
 import breadCrumb from 'utils/breadCrumb';
 import { fetchDaoInfo, fetchHcMembers } from 'api/request';
 import { EProposalActionTabs } from 'pageComponents/proposal-create/type';
-import { message } from 'antd';
+import { toast } from 'react-toastify';
 import MembersPage from 'pageComponents/members';
 import './index.css';
 import { checkCreateProposal } from 'utils/proposal';
@@ -29,7 +29,7 @@ export default function TreasuryDetails(props: ITreasuryDetailsProps) {
     loading: daoLoading,
   } = useRequest(async () => {
     if (!aliasName) {
-      message.error('aliasName is required');
+      toast.error('aliasName is required');
       return null;
     }
     return fetchDaoInfo({ chainId: curChain, alias: aliasName });

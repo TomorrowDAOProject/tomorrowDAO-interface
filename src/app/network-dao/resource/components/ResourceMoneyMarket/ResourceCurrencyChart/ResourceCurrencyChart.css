@@ -3,11 +3,13 @@
 }
 
 .resource-currency-chart .resource-header {
+  @apply xl:px-[32px] lg:px-[32px] md:px-[32px] px-[16px];
+  height: 56px!important;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  line-height: 32px;
+  
 }
 
 .resource-currency-chart .resource-header-title {
@@ -30,6 +32,14 @@
 .resource-currency-chart .antExplorer-divider.antExplorer-divider-horizontal {
   margin: 0;
   margin-top: 20px;
+}
+.resource-type-switch {
+  .antExplorer-tabs-tab-btn {
+    @apply !text-white text-[12px];
+  }
+}
+.antExplorer-tabs-top >.antExplorer-tabs-nav::before {
+  @apply border-b border-fillBg8;
 }
 
 @media (min-width: 1600px) {

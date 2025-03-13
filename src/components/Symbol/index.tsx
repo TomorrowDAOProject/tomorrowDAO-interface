@@ -9,11 +9,11 @@ interface SymbolProps {
 export default function Symbol(props: SymbolProps) {
   const { symbol, className } = props;
   return (
-    <div className={`${className} token flex items-center`}>
+    <div className={`${className} token flex items-center gap-1`}>
       {TokenIconMap[symbol] && (
         <img src={TokenIconMap[symbol]} className="token-logo pr-[2px]" alt="" />
       )}
-      <span className="token-text">{symbol}</span>
+      <span className="font-Montserrat text-desc12 text-lightGrey symbol-color">{symbol}</span>
     </div>
   );
 }

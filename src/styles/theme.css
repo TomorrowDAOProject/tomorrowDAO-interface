@@ -1,5 +1,38 @@
 :root {
     --brand-base: #1b76e2;
+    --base-bg: #000;
+    --base-text: #fff;
+    --base-border: #333;
+    --secondary: #919191;
+    --fill-bg: rgb(255 255 255 / 1%);
+    --fill-bg-8: rgb(255 255 255 / 8%);
+    --fill-bg-16: rgb(255 255 255 / 16%);
+    --fill-bg-40: rgb(255 255 255 / 40%);
+    --fill-black-15: rgb(0 0 0 / 15%);
+    --main-color: #5D49F6;
+    --secondary-main-color: #6E81FF;
+    --main-color-60: rgb(93 73 246 / 60%);
+    --secondary-main-text-color: #C0B8FF;
+    --dark-gray: #292929;
+    --light-gray: #989DA0;
+    --dark-bg: #171717;
+    --danger: #FF374D;
+    --neutral-hover-bg: rgb(250 250 250 / 40%);
+    --border-color: #404040;
+    --tag-warning-bg: rgba(255, 174, 0, 0.20);
+    --tag-success-bg: rgba(0, 200, 77, 0.25);
+    --tag-danger-bg: rgba(244, 67, 54, 0.20);
+    --tag-primary-bg: rgba(93, 73, 246, 0.60);
+    --tag-secondary-bg: rgba(185, 185, 185, 0.15);
+    --tag-warning-text: #FFAE00;
+    --tag-success-text: #00C84D;
+    --tag-danger-text: #F44336;
+    --tag-primary-text: #C0B8FF;
+    --tag-secondary-text: #B9B9B9;
+    --toastify-container-width: auto;
+    --toastify-toast-width: auto;
+    --toastify-toast-min-height: 34px;
+    --toastify-toast-padding: 8px 12px;
 }
 
 .dark-theme {

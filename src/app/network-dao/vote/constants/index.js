@@ -92,14 +92,6 @@ const voteTypeFormItemsMap = {
 // When the team I voted is not candidate in current term, use the symbol to display.
 const RANK_NOT_EXISTED_SYMBOL = "-";
 
-const routePaths = {
-  vote: "/vote",
-  electionNotifi: "/vote/election",
-  applyToBeANode: "/vote/apply",
-  teamInfoKeyin: "/vote/apply/keyin",
-  teamDetail: "/vote/team",
-  myVote: "/vote/myvote",
-};
 const allowPathMap = {
   'election': 'election',
   'apply': 'apply',
@@ -125,7 +117,6 @@ export {
   NODE_DEFAULT_NAME,
   RANK_NOT_EXISTED_SYMBOL,
   A_NUMBER_LARGE_ENOUGH_TO_GET_ALL,
-  routePaths,
   voteTypeFormItemsMap,
   allowPathMap
 };

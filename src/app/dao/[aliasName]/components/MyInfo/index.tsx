@@ -1,6 +1,7 @@
-import { Descriptions, Divider, Form, InputNumber, message } from 'antd';
-import { HashAddress, Button, Tooltip } from 'aelf-design';
-import { InfoCircleOutlined } from '@aelf-design/icons';
+import { Descriptions, Divider, Form, InputNumber } from 'antd';
+import { Tooltip, Button as ButtonAntd } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
+import { toast } from 'react-toastify';
 import React, { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
 import CommonModal from 'components/CommonModal';
 import { useWalletService } from 'hooks/useWallet';
@@ -15,10 +16,10 @@ import { IContractError } from 'types';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
 import './index.css';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
-import { okButtonConfig } from 'components/ResultModal';
-import Symbol from 'components/Symbol';
+import { INIT_RESULT_MODAL_CONFIG, okButtonConfig } from 'components/ResultModal';
 import { useParams } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import Button from 'components/Button';
 
 type TInfoTypes = {
   height?: number | string;
@@ -129,46 +130,50 @@ export default function MyInfo(props: TInfoTypes) {
       key: '0',
       label: '',
       children: info && (
-        <a href={`${explorer}/address/${wallet?.address}`} target="_blank" rel="noreferrer">
+        <a
+          className="w-full"
+          href={`${explorer}/address/${wallet?.address}`}
+          target="_blank"
+          rel="noreferrer"
+        >
           <HashAddress
             preLen={8}
             endLen={11}
             address={wallet?.address ?? ''}
-            className="form-item-title"
+            className="form-item-title !text-white justify-between"
             chain={sideChainSuffix}
+            primaryIconColor={'#989DA0'}
+            addressHoverColor={'white'}
+            addressActiveColor={'white'}
           ></HashAddress>
         </a>
       ),
     },
     {
       key: '1',
-      label: (
-        <span className="card-sm-text text-Neutral-Secondary-Text">
-          {info?.symbol || 'ELF'} Balance
-        </span>
-      ),
+      label: <span className="card-sm-text text-lightGrey">{info?.symbol || 'ELF'} Balance</span>,
       children: (
-        <div className="w-full text-right card-sm-text-bold">
+        <div className="w-full text-right card-sm-text-bold text-white">
           {elfBalance} <SymbolText symbol={info?.symbol || 'ELF'} />
         </div>
       ),
     },
     {
       key: '2',
-      label: (
-        <span className="card-sm-text text-Neutral-Secondary-Text">{info?.symbol} Staked</span>
-      ),
+      label: <span className="card-sm-text text-lightGrey">{info?.symbol} Staked</span>,
       children: (
-        <div className="w-full text-right card-sm-text-bold">
+        <div className="w-full text-right card-sm-text-bold text-white">
           {info?.stakeAmount} <SymbolText symbol={info?.symbol || 'ELF'} />
         </div>
       ),
     },
     {
       key: '3',
-      label: <span className="card-sm-text text-Neutral-Secondary-Text">Votes</span>,
+      label: <span className="card-sm-text text-lightGrey">Votes</span>,
       children: (
-        <div className="w-full text-right card-sm-text-bold">{info?.votesAmount} Votes</div>
+        <div className="w-full text-right card-sm-text-bold text-white">
+          {info?.votesAmount} Votes
+        </div>
       ),
     },
   ];
@@ -180,7 +185,7 @@ export default function MyInfo(props: TInfoTypes) {
   const handleClaim = useCallback(async () => {
     // call contract
     if (!daoId) {
-      message.error('daoId is required');
+      toast.error('daoId is required');
       return;
     }
     const contractParams = {
@@ -216,7 +221,21 @@ export default function MyInfo(props: TInfoTypes) {
         primaryContent: 'Transaction Failed',
         secondaryContent: message?.toString?.(),
         footerConfig: {
-          buttonList: [okButtonConfig],
+          buttonList: [
+            {
+              children: (
+                <Button
+                  type="danger"
+                  className="w-full"
+                  onClick={() => {
+                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                  }}
+                >
+                  OK
+                </Button>
+              ),
+            },
+          ],
         },
       });
       emitLoading(false);
@@ -225,12 +244,14 @@ export default function MyInfo(props: TInfoTypes) {
 
   return (
     <div
-      className={`my-info-wrap flex flex-col border border-Neutral-Divider border-solid rounded-lg bg-white lg:px-8 px-[16px] py-6 ${clssName}`}
+      className={`my-info-wrap flex flex-col border border-fillBg8 border-solid rounded-lg bg-darkBg px-[24px] py-[25px] ${clssName}`}
       style={{
         height: height || 'auto',
       }}
     >
-      <div className="card-title mb-[24px]">{titleNode ?? 'My Info'}</div>
+      <div className="text-[18px] text-white font-Montserrat mb-[20px] font-medium">
+        {titleNode ?? 'My Info'}
+      </div>
       {isLogin ? (
         isLoading || isExtraDataLoading ? (
           <SkeletonLine lines={6} />
@@ -238,30 +259,36 @@ export default function MyInfo(props: TInfoTypes) {
           <>
             {!isOnlyShowVoteOption && (
               <>
-                <Descriptions colon={false} title="" items={myInfoItems} column={1} />
+                <Descriptions
+                  colon={false}
+                  title=""
+                  className="font-Montserrat"
+                  items={myInfoItems}
+                  column={1}
+                />
                 {/* cliam */}
-                <Divider className="my-0" />
-                <div className="flex justify-between items-start my-[16px]">
+                <div className="h-0 w-full border-0 border-t border-solid border-fillBg8"></div>
+                <div className="flex justify-between items-center my-[16px]">
                   <div>
-                    <div className="card-sm-text text-Neutral-Secondary-Text mb-1">
+                    <div className="text-lightGrey mb-1 font-Montserrat">
                       Available for Unstaking
                     </div>
-                    <div className="text-Primary-Text  card-sm-text-bold">
+                    <div className="text-white card-sm-text-bold font-Montserrat">
                       {info?.availableUnStakeAmount} {info?.symbol}
                     </div>
                   </div>
                   <Button
                     type="primary"
-                    size="medium"
+                    className="!rounded-[42px] !h-[32px]"
                     onClick={() => {
                       if (info?.availableUnStakeAmount === 0) {
-                        message.info('Available for Unstaking is 0');
+                        toast.error('Available for Unstaking is 0');
                       } else {
                         setIsModalOpen(true);
                       }
                     }}
                   >
-                    Unstake
+                    <span className="text-[12px]">Unstake</span>
                   </Button>
                 </div>
               </>
@@ -282,21 +309,26 @@ export default function MyInfo(props: TInfoTypes) {
 
             {/* Claim Modal  */}
             <CommonModal
+              className="claim-modal"
               open={isModalOpen}
-              title={<div className="text-center">Unstake {info?.symbol} on aelf SideChain</div>}
+              title={
+                <div className="text-center text-white font-Unbounded !font-[300] xl:text-[20px] md:text-[20px] lg:text-[20px] text-[16px]">
+                  Unstake {info?.symbol}
+                </div>
+              }
               destroyOnClose
               onCancel={() => {
                 form.setFieldValue('unStakeAmount', 0);
                 setIsModalOpen(false);
               }}
             >
-              <div className="text-center color-text-Primary-Text font-medium">
-                <span className="text-[32px] leading-[40px] font-medium">
+              <div className="text-center color-white font-medium">
+                <span className="text-[18px] leading-[40px] font-medium text-white font-Montserrat">
                   {info?.availableUnStakeAmount}
                 </span>
-                <span className="normal-text-bold pl-[8px]">{info.symbol}</span>
+                <span className="text-white font-medium pl-[10px] text-[18px]">{info.symbol}</span>
               </div>
-              <div className="text-center card-sm-text text-Neutral-Secondary-Text mb-[24px]">
+              <div className="text-center text-[12px] text-lightGrey mb-[30px]">
                 Available for Unstaking
               </div>
               <Form form={form} layout="vertical" variant="filled" onFinish={handleClaim}>
@@ -304,15 +336,17 @@ export default function MyInfo(props: TInfoTypes) {
                   label={
                     <Tooltip
                       title={
-                        <div>
+                        <div className="font-Montserrat">
                           Currently, the only supported method is to unstake all the available{' '}
                           {info.symbol} in one time.
                         </div>
                       }
                     >
                       <div className="flex items-center">
-                        <span className="form-item-title font-normal ">Unstake Amount</span>
-                        <InfoCircleOutlined className="cursor-pointer pl-[8px] text-Neutral-Disable-Text" />
+                        <span className="text-[13px] text-white font-medium font-Montserrat">
+                          Unstake Amount
+                        </span>
+                        {/* <InfoCircleOutlined className="cursor-pointer pl-[8px] text-Neutral-Disable-Text" /> */}
                       </div>
                     </Tooltip>
                   }
@@ -320,21 +354,25 @@ export default function MyInfo(props: TInfoTypes) {
                   className=""
                 >
                   <InputNumber
-                    className="w-full"
+                    className="w-full border border-solid border-fillBg8 text-white"
                     placeholder="pleas input Unstake Amount"
                     defaultValue={info?.availableUnStakeAmount}
                     disabled
                     prefix={
                       <div className="flex items-center">
-                        <Symbol symbol={info.symbol} className="unstake-form-token" />
+                        <span className="text-lightGrey text-[14px]">{info.symbol}</span>
                         <Divider type="vertical" />
                       </div>
                     }
                   />
                 </Form.Item>
-                <Button className="mx-auto" type="primary" htmlType="submit">
+                <ButtonAntd
+                  className="w-full font-Montserrat text-white bg-mainColor hover:border-mainColor hover:!text-mainColor hover:!bg-transparent !rounded-[42px]"
+                  type="primary"
+                  htmlType="submit"
+                >
                   Unstake
-                </Button>
+                </ButtonAntd>
               </Form>
             </CommonModal>
             {/* Unstake Amount  */}
@@ -364,10 +402,16 @@ export default function MyInfo(props: TInfoTypes) {
         )
       ) : (
         <div>
-          <Button className="w-full mb-4" type="primary" onClick={login}>
+          <Button
+            className="w-full mb-4 !rounded-[42px] bg-mainColor !h-auto !py-2"
+            type="primary"
+            onClick={login}
+          >
             Log in
           </Button>
-          <div className="text-center text-Neutral-Secondary-Text">{notLoginTip}</div>
+          <div className="text-center text-lightGrey font-Montserrat text-[12px]">
+            {notLoginTip}
+          </div>
         </div>
       )}
       <div>{props.children}</div>

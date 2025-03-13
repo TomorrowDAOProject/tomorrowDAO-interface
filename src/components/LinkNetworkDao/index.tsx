@@ -5,9 +5,10 @@ import getChainIdQuery from 'utils/url';
 
 interface ILinkReplaceLastPathNameProps extends LinkProps {
   children?: React.ReactNode;
+  className?: string;
 }
 export default function LinkNetworkDao(props: ILinkReplaceLastPathNameProps) {
-  const { href: originHref } = props;
+  const { href: originHref, className } = props;
   const [chainIdQuery, setChainIdQuery] = useState({});
   const newPath = useMemo(() => {
     if (typeof originHref === 'string') {
@@ -33,5 +34,5 @@ export default function LinkNetworkDao(props: ILinkReplaceLastPathNameProps) {
       chainId: chainIdQuery.chainId,
     });
   }, []);
-  return <Link {...props} href={newPath} />;
+  return <Link {...props} href={newPath} className={className} />;
 }

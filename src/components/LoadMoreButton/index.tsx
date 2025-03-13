@@ -1,5 +1,4 @@
-import { DownOutlined } from '@aelf-design/icons';
-import loadingSrc from '../../assets/imgs/loading.svg';
+import LoadingComponent from 'components/LoadingComponent';
 
 import './index.css';
 
@@ -10,14 +9,17 @@ interface ILoadMoreButtonProps {
 export default function LoadMoreButton(props: ILoadMoreButtonProps) {
   const { loadingMore } = props;
   return (
-    <div className="more-button" onClick={props.onClick}>
+    <div>
       {loadingMore ? (
-        <img src={loadingSrc} className="loading" alt="" />
+        <LoadingComponent
+          className="-my-3 md:my-0 scale-[0.7] md:scale-[1.0]"
+          size={18}
+          strokeWidth={2}
+        />
       ) : (
-        <>
-          <span className="more-text">Load More</span>
-          <DownOutlined />
-        </>
+        <div className="more-button font-Montserrat !border-white" onClick={props.onClick}>
+          <span className="more-text text-white text-[12px]">Load More</span>
+        </div>
       )}
     </div>
   );

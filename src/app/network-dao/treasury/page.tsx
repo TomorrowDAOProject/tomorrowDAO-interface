@@ -5,7 +5,7 @@ import { Result } from 'antd';
 import { useChainSelect } from 'hooks/useChainSelect';
 import dynamicReq from 'next/dynamic';
 import { SkeletonList } from 'components/Skeleton';
-const PageIndex = dynamicReq(() => import('pageComponents/treasury'), {
+const PageIndex = dynamicReq(() => import('pageComponents/treasuryNew'), {
   ssr: false,
   loading: () => <SkeletonList />,
 });

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { message } from 'antd';
+import { toast } from 'react-toastify';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { apiServerBase } from 'config';
 
@@ -42,7 +42,7 @@ class Request {
         case '50000':
           return null;
         default:
-          message.error(errorMessage);
+          toast.error(errorMessage);
           return res;
       }
     });

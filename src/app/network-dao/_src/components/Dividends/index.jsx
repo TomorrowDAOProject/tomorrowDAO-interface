@@ -9,7 +9,7 @@ import { DownOutlined } from "@ant-design/icons";
 import { numberFormatter } from "../../utils/formater";
 
 const Dividends = (props) => {
-  const { dividends, defaultSymbol, useButton = true, ...rest } = props;
+  const { dividends, defaultSymbol, useButton = true, valueClassName, buttonClassName, ...rest } = props;
   const keys = Object.keys(dividends || {});
   const defaultKey =
     defaultSymbol !== undefined
@@ -20,7 +20,9 @@ const Dividends = (props) => {
   return (
     <>
       <If condition={!dividends || !dividends.ELF}>
-        <Then>-</Then>
+        <Then>
+          <span className={valueClassName}>-</span>
+        </Then>
         <Else>
           <If condition={keys.length > 1}>
             <Then>
@@ -37,7 +39,7 @@ const Dividends = (props) => {
                 {...rest}
               >
                 {useButton ? (
-                  <Button>
+                  <Button className={buttonClassName}>
                     {(dividends ?? {})[defaultKey] || 0}&nbsp;{defaultKey}
                     <DownOutlined />
                   </Button>
@@ -50,7 +52,7 @@ const Dividends = (props) => {
               </Dropdown>
             </Then>
             <Else>
-              <div {...rest}>
+              <div {...rest} className={valueClassName}>
                 {numberFormatter((dividends ?? {})[defaultKey]) || 0}&nbsp;
                 {defaultKey}
               </div>

@@ -1,5 +1,4 @@
-import { message } from 'antd';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { dispatch, useSelector } from 'redux/store';
 import { setWalletInfo } from 'redux/reducer/userInfo';
 import { cloneDeep } from 'lodash-es';
@@ -18,6 +17,7 @@ import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { TWalletInfoType } from 'types';
 import { webLoginInstance } from 'contract/webLogin';
+import { toast } from 'react-toastify';
 
 export const useWalletService = () => {
   const { connectWallet, disConnectWallet, walletType, walletInfo, isConnected, lock } =
@@ -63,13 +63,12 @@ export const useCheckLoginAndToken = () => {
     } else {
       await disConnectWallet();
       dispatch(resetLoginStatus());
-      message.error('login failed');
+      toast.error('login failed');
     }
   };
   useAsyncEffect(async () => {
     const waitPublicKey =
       walletType === WalletTypeEnum.discover ? true : wallet?.extraInfo?.publicKey;
-    console.log('isConnectWallet', isConnectWallet, wallet, waitPublicKey);
     if (isConnectWallet && wallet && waitPublicKey) {
       if (authManager.isAuthing) return;
       authManager.isAuthing = true;
@@ -158,13 +157,12 @@ export const useWalletInit = () => {
     if (!walletInfo) {
       return;
     }
-    console.log('webLoginContext.isConnected', webLoginContext.isConnected, webLoginContext);
     webLoginInstance.setWebLoginContext(webLoginContext);
   }, [webLoginContext, walletInfo]);
 
   useEffect(() => {
     if (loginError) {
-      message.error(`${loginError?.nativeError?.message || loginError?.message || 'LOGIN_ERROR'}`);
+      toast.error(`${loginError?.nativeError?.message || loginError?.message || 'LOGIN_ERROR'}`);
     }
   }, [loginError]);
 

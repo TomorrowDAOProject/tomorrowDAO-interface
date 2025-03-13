@@ -1,3 +1,17 @@
+.transaction-details {
+  @apply min-h-[calc(100vh-200px)];
+  .table-layer .antExplorer-table-content {
+    .antExplorer-table-thead tr th{
+    @apply border-0 !border-solid !border-fillBg8;
+    } 
+    .antExplorer-table-tbody tr {
+    @apply hover:!bg-fillBg8 bg-darkBg;
+      td {
+        @apply border-0 !border-solid !border-b !border-fillBg8 !bg-transparent;
+      }
+    }
+  } 
+}
 .transaction-details .transaction-details-head {
     height: 50px;
     line-height: 50px;
@@ -9,4 +23,14 @@
 .transaction-details .antExplorer-table table {
     word-break: break-all;
     word-wrap: break-word;
+   
+}
+.transaction-details .antExplorer-spin-nested-loading .antExplorer-spin-container::after {
+    background-color: transparent;
+}
+.transaction-details .antExplorer-pagination-item a {
+  @apply font-Montserrat;
+}
+.transaction-details .antExplorer-pagination .antExplorer-pagination-options-quick-jumper input {
+  @apply h-[24px] bg-fillBg8 border-fillBg8 text-lightGrey text-[12px];
 }

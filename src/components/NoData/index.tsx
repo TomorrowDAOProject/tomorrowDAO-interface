@@ -1,16 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
-import NoDataIcon from 'assets/imgs/no-data.svg';
-type TNoDataType = {
-  imgW?: number;
-  imgH?: number;
-};
-export default function NoData(props: TNoDataType) {
-  const { imgW = 80, imgH = 80 } = props;
+import { ReactComponent as NoDataIcon } from 'assets/imgs/no-data.svg';
+
+export default function NoData() {
   return (
-    <div>
-      <Image className="mx-auto block" width={imgW} height={imgH} src={NoDataIcon} alt="" />
-      <p className="card-sm-text text-neutralTitle mt-[16px] text-center">No results found</p>
+    <div className="flex flex-col items-center">
+      <NoDataIcon className="my-4" />
+      <div className="text-lightGrey text-center font-Montserrat text-[12px]">No data</div>
     </div>
   );
 }

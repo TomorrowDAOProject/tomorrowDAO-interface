@@ -1,24 +1,18 @@
 import { useRequest } from 'ahooks';
 import { fetchHcMembers } from 'api/request';
 import { curChain } from 'config';
-import { FormInstance } from 'antd';
 import DeleteMembers from '../DeleteMembers';
 interface IDeleteMultisigMembersProps {
   daoId: string;
-  form: FormInstance;
+  form: any;
 }
-const removeNamePath = ['removeHighCouncils', 'value'];
 function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
   const { daoId, form } = props;
-
-  const {
-    data: daoMembersData,
-    // error: transferListError,
-    loading: daoMembersDataLoading,
-  } = useRequest(() => {
+  const { errors } = form.formState;
+  const { data: daoMembersData, loading: daoMembersDataLoading } = useRequest(() => {
     return fetchHcMembers({
       chainId: curChain,
-      daoId: daoId,
+      daoId,
     });
   });
 
@@ -26,9 +20,9 @@ function DeleteMultisigMembers(props: IDeleteMultisigMembersProps) {
     <DeleteMembers
       lists={daoMembersData?.data ?? []}
       form={form}
-      removeNamePath={removeNamePath}
+      removeNamePath={'removeHighCouncils.value'}
       isLoading={daoMembersDataLoading}
-      overLimitErrorText="High Council requires members"
+      errorMessage={errors?.removeHighCouncils?.value?.message}
     />
   );
 }

@@ -1,0 +1,177 @@
+.no-mask .TMRWDAO-spin-container::after {
+  background: transparent !important;
+}
+
+.table-header-sorter-left {
+  .TMRWDAO-table-column-sorters {
+    @apply justify-normal;
+  }
+
+  .TMRWDAO-table-column-title {
+    @apply flex-grow-0 pl-[8px];
+  }
+}
+
+.treasury-tab {
+  .TMRWDAO-tabs-nav {
+    margin: 0 !important;
+  }
+  .TMRWDAO-tabs-tab:first-child {
+    @apply !m-0;
+  }
+}
+.interactive-tag {
+  @apply w-[36px] inline-block text-center;
+  &.in {
+    color: #fff;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 200, 77, 0.25);
+  }
+  &.out {
+    color: #ffae00;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 174, 0, 0.2);
+  }
+}
+.revamp-dao,
+.network-dao {
+  .treasury-page-content {
+    @apply font-Montserrat;
+    .method-tag {
+      @apply font-Montserrat text-[8px] h-[18px] text-center leading-[18px] truncate px-[8px] text-white bg-[rgba(185,185,185,0.15)] border-fillBg8 border border-solid rounded-[4px];
+    }
+    .treasury-token {
+      @apply text-[12px] leading-[20px] font-normal text-white;
+    }
+    .treasury-token-list-table {
+      .TMRWDAO-table-tbody > tr:last-child > td {
+        @apply border-b-0;
+      }
+      .token-pair {
+        .symbol-color {
+          @apply !text-white;
+        }
+        .token-logo {
+          @apply w-[32px] h-[32px] pr-[8px];
+        }
+      }
+    }
+    .treasury-token {
+      @apply !justify-end;
+      .symbol-color {
+        @apply !text-white;
+      }
+      .token-logo {
+        @apply w-[14px] h-[14px] pr-[2px];
+      }
+    }
+    .treasury-address {
+      @apply flex items-center;
+      > span {
+        @apply text-[12px];
+      }
+      > div {
+        @apply ml-[4px];
+      }
+    }
+  }
+}
+.treasury-page-content {
+  @apply min-h-[calc(100vh-222px)];
+  .TMRWDAO-table {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-table-placeholder {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-table-cell {
+    @apply !bg-transparent;
+    &::before {
+      @apply !bg-transparent;
+    }
+  }
+  .TMRWDAO-table-thead {
+    @apply font-Montserrat !bg-transparent text-lightGrey;
+    > tr > th {
+      @apply !bg-transparent !text-[12px] font-medium border-fillBg8 !rounded-none;
+      &:first-child {
+        @apply pl-[12px];
+      }
+    }
+  }
+  .TMRWDAO-table-tbody {
+    > tr > td {
+      @apply !bg-transparent text-white text-[12px] font-normal border-fillBg8 font-Montserrat;
+      &:first-child {
+        @apply pl-[12px];
+      }
+      .TMRWDAO-hash-address {
+        > span {
+          @apply text-white;
+        }
+      }
+    }
+  }
+
+  .TMRWDAO-pagination-container {
+    @apply text-white px-0 font-Montserrat flex justify-between text-[10px];
+    .TMRWDAO-pagesize-label {
+      @apply text-lightGrey text-[10px];
+    }
+    .TMRWDAO-pagination-button {
+      @apply border border-solid border-lightGrey rounded-[4px] bg-fillBg8 hover:!border-lightGrey disabled:!border-fillBg8 max-w-[60px] text-[10px];
+      span {
+        @apply text-lightGrey font-Montserrat;
+      }
+    }
+    .TMRWDAO-pageNumber-container {
+      @apply bg-fillBg8 text-lightGrey rounded-[4px] max-w-[200px] border border-solid border-fillBg8 text-[10px];
+    }
+    .TMRWDAO-select {
+      @apply focus:border-lightGrey hover:border-lightGrey;
+      .TMRWDAO-select-selector {
+        @apply bg-fillBg8 text-lightGrey !border-fillBg8 max-w-[60px];
+        .TMRWDAO-select-selection-item {
+          @apply !text-white font-Montserrat text-[10px];
+        }
+      }
+      .TMRWDAO-select-arrow {
+        @apply text-white text-[10px];
+      }
+    }
+  }
+  .TMRWDAO-hash-address {
+    > span {
+      @apply text-white;
+    }
+  }
+
+  .TMRWDAO-table-column-sorter-up,
+  .TMRWDAO-table-column-sorter-down {
+    @apply !text-lightGrey !text-[10px];
+  }
+  .TMRWDAO-table-column-sorter-up.active,
+  .TMRWDAO-table-column-sorter-down.active {
+    @apply !text-white !text-[10px];
+  }
+}
+.TMRWDAO-select-dropdown {
+  @apply bg-darkGray font-Montserrat;
+  .TMRWDAO-select-item {
+    @apply text-white;
+  }
+  .TMRWDAO-select-item-option-active {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected {
+    @apply text-mainColor active:!bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected:not(.TMRWDAO-select-item-option-disabled) {
+    @apply !bg-transparent !text-mainColor;
+  }
+}
+.TMRWDAO-form-item .TMRWDAO-form-item-explain-error {
+  @apply text-mainColor;
+}

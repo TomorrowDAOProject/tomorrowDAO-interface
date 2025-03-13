@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Upload, IUploadProps } from 'aelf-design';
 import { RefreshOutlined } from '@aelf-design/icons';
-import { GetProp, UploadFile, UploadProps, message } from 'antd';
+import { GetProp, UploadFile } from 'antd';
 import ImgCrop, { ImgCropProps } from 'antd-img-crop';
 import clsx from 'clsx';
 import { fileUplaod } from 'api/request';
@@ -11,7 +11,7 @@ import './index.css';
 import { CloseIcon } from 'components/Icons';
 import { RcFile } from 'antd/es/upload';
 import { useUrlPath } from 'hooks/useUrlPath';
-
+import { toast } from 'react-toastify';
 const COMMON_UPLOAD_INPUT_ID = 'common-upload-input-id';
 
 export interface IFUploadProps extends Omit<IUploadProps, 'onChange'> {
@@ -116,14 +116,14 @@ const AWSUpload: React.FC<IFUploadProps> = ({
     const acceptCheckResult = props?.extensions ? acceptCheck(file) : true;
     console.log('acceptCheckResult', acceptCheckResult, props?.extensions);
     if (!acceptCheckResult) {
-      message.error('The file format is incorrect, please upload the correct file format');
+      toast.error('The file format is incorrect, please upload the correct file format');
       return false;
     }
 
     const isLteLimit = file.size <= handleLimit(fileLimit);
     if (!isLteLimit) {
       const contentType = needCheckImgSize ? 'Image' : 'File';
-      message.error(
+      toast.error(
         `${contentType} too large. Please upload an ${contentType} no larger than ${
           fileLimitTip ?? fileLimit
         }`,
@@ -134,7 +134,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
     if (needCheckImgSize) {
       const checkSize = await checkImgRatio(file, ratio ?? 0);
       if (!checkSize) {
-        message.error(ratioErrorText ?? 'Please upload an image with a aspect ratio.');
+        toast.error(ratioErrorText ?? 'Please upload an image with a aspect ratio.');
       }
       result = result && checkSize;
     }
@@ -142,7 +142,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
     if (fileNameLengthLimit) {
       const isLengthLteLimit = file.name.length <= fileNameLengthLimit;
       if (!isLengthLteLimit) {
-        message.error(
+        toast.error(
           `The filename is too long, please shorten it to ${fileNameLengthLimit} characters.`,
         );
       }
@@ -164,7 +164,7 @@ const AWSUpload: React.FC<IFUploadProps> = ({
       const fileUrl = uploadData?.data ?? '';
       onSuccess?.({ url: fileUrl });
     } catch (error) {
-      message.error(`Please check your internet connection and try again.`);
+      toast.error(`Please check your internet connection and try again.`);
       onError?.(error as Error);
     } finally {
       //

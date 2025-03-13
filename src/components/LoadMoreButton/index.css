@@ -1,5 +1,5 @@
 .more-button {
-  @apply flex items-center justify-center rounded-lg button-border-normal w-[200px] px-[48px] py-[14px] cursor-pointer;
+  @apply flex items-center justify-center rounded-[42px] border border-solid border-fillBg8 px-[20px] py-[8px] cursor-pointer;
 
 
   &:hover {
@@ -7,7 +7,7 @@
   }
 
   .more-text {
-    @apply mr-2 text-sm font-[500];
+    @apply mr-2 text-sm font-medium;
   }
 
   .loading {

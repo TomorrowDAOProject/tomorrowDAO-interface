@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Form, TableProps, Table, Skeleton, message } from 'antd';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Form, TableProps, Table, Skeleton } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
-import { Button, HashAddress } from 'aelf-design';
+import HashAddress from 'components/HashAddress';
 import { callContract } from 'contract/callContract';
 import CommonModal from 'components/CommonModal';
 import { emitLoading, eventBus, ResultModal } from 'utils/myEvent';
@@ -27,6 +27,8 @@ import BigNumber from 'bignumber.js';
 import Symbol from 'components/Symbol';
 import { checkCreateProposal } from 'utils/proposal';
 import useAelfWebLoginSync from 'hooks/useAelfWebLoginSync';
+import Button from 'components/Button';
+import { toast } from 'react-toastify';
 interface IProps {
   clssName?: string;
   daoRes?: IDaoInfoRes | null;
@@ -107,7 +109,7 @@ const Treasury: React.FC<IProps> = (props) => {
     setCreateProposalLoading(true);
     try {
       if (!daoRes) {
-        message.error('The DAO information is not available.');
+        toast.error('The DAO information is not available.');
         setCreateProposalLoading(false);
         return;
       }
@@ -140,10 +142,17 @@ const Treasury: React.FC<IProps> = (props) => {
         footerConfig: {
           buttonList: [
             {
-              onClick: () => {
-                eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-              },
-              children: 'OK',
+              children: (
+                <Button
+                  className="!w-full"
+                  type="primary"
+                  onClick={() => {
+                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                  }}
+                >
+                  OK
+                </Button>
+              ),
             },
           ],
         },
@@ -159,7 +168,11 @@ const Treasury: React.FC<IProps> = (props) => {
         footerConfig: {
           buttonList: [
             {
-              children: <span>OK</span>,
+              children: (
+                <Button className="!w-full text-white" type="danger">
+                  OK
+                </Button>
+              ),
               onClick: () => {
                 eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
               },
@@ -174,10 +187,27 @@ const Treasury: React.FC<IProps> = (props) => {
       run();
     }
   }, [run, treasuryAddress]);
-  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[10px] border-Neutral-Divider border-solid rounded-lg bg-white px-4 lg:px-8  lg:py-6`;
+  const cls = `${clssName} treasury-wrap border-0 lg:border lg:mb-[25px] xl:mb-[25px] md:mb-[25px] border-fillBg8 border-solid rounded-lg bg-darkBg p-[22px] lg:px-[24px] lg:py-[24px] xl:px-[24px] xl:py-[24px] md:px-[24px] md:py-[24px]`;
   const existTransaction = Boolean(transferList?.length);
+
+  const [list, setList] = useState(transferList);
+
+  useEffect(() => {
+    setList(transferList?.slice(0, LoadCount));
+  }, [transferList]);
+
+  const showLoadMore = useMemo(() => {
+    return Number(transferList?.length) > Number(list?.length);
+  }, [list, transferList]);
+
+  const [index, setIndex] = useState(1);
+
+  useEffect(() => {
+    setList(transferList?.slice(0, LoadCount * index));
+  }, [transferList, index]);
+
   return (
-    <div className={cls}>
+    <div className={`${cls} min-w-[288px]`}>
       {treasuryAddressLoading || transferListLoading ? (
         <SkeletonLine />
       ) : (
@@ -190,7 +220,11 @@ const Treasury: React.FC<IProps> = (props) => {
                 The treasury function is not currently enabled for this DAO.
               </p>
               {wallet?.address === creator && (
-                <Button className="w-[172px] mt-6" type="primary" onClick={initTreasury}>
+                <Button
+                  className="bg-mainColor !rounded-[42px] py-2 px-[14px] mt-6"
+                  type="primary"
+                  onClick={initTreasury}
+                >
                   Enable Treasury
                 </Button>
               )}
@@ -202,8 +236,8 @@ const Treasury: React.FC<IProps> = (props) => {
                 <div className="flex items-center justify-between">
                   <h2 className="card-title">Treasury Assets</h2>
                   <Link href={`/dao/${aliasName}/treasury`} prefetch={true}>
-                    <Button size="medium" type="primary" className="small-button">
-                      View all
+                    <Button type="primary" size="small" className="!h-[32px]">
+                      <span className="text-[12px] font-medium">View More</span>
                     </Button>
                   </Link>
                 </div>
@@ -220,10 +254,9 @@ const Treasury: React.FC<IProps> = (props) => {
                     onClick={() => {
                       setChoiceOpen(true);
                     }}
-                    className="small-button"
-                    size="medium"
+                    className="bg-mainColor !h-[32px] !rounded-[42px] font-Montserrat hover:!bg-transparent hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
                   >
-                    New transfer
+                    <span className="text-[12px] font-medium">New transfer</span>
                   </ButtonCheckLogin>
                 </div>
                 {tokenListLoading ? (
@@ -233,7 +266,7 @@ const Treasury: React.FC<IProps> = (props) => {
                     <Table
                       className="token-list-table"
                       columns={tokenListColumns}
-                      bordered
+                      bordered={false}
                       dataSource={tokenList}
                       pagination={false}
                       scroll={{ x: true }}
@@ -248,33 +281,41 @@ const Treasury: React.FC<IProps> = (props) => {
                     <SkeletonLine />
                   ) : (
                     <ul>
-                      {transferList?.slice(0, LoadCount).map((item) => {
+                      {list?.map((item) => {
                         const isOut = treasuryAddress === item.fromAddress;
                         return (
-                          <li className="treasury-info-item" key={item.transactionId}>
-                            <div className="flex justify-between treasury-info-item-line-1 ">
-                              <span className="">
+                          <li
+                            className="treasury-info-item font-Montserrat"
+                            key={item.transactionId}
+                          >
+                            <div className="flex justify-between treasury-info-item-line-1 flex-row">
+                              <span className="text-[11px]">
                                 {dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')}{' '}
                                 {isOut ? 'Withdraw' : 'Deposit'}
                               </span>
-                              <span>
+                              <span className="text-[11px]">
                                 {numberFormatter(item.amountAfterDecimals)} {item.symbol}
                               </span>
                             </div>
-                            <div className="treasury-info-item-line-2 text-14-22-500">
-                              <span>Transaction ID:</span>
+                            <div className="treasury-info-item-line-2 text-14-22-500 flex-row">
+                              <span className="text-white text-[13px]">Transaction ID:</span>
                               <Link href={`${explorer}/tx/${item.transactionId}`} target="_blank">
                                 <HashAddress
-                                  className="pl-[4px]"
+                                  className="pl-[4px] text-white !text-[12px]"
                                   ignorePrefixSuffix={true}
                                   preLen={8}
                                   endLen={11}
+                                  iconSize={'16px'}
+                                  iconColor={'#989DA0'}
                                   address={item.transactionId}
+                                  primaryIconColor={'#989DA0'}
+                                  addressHoverColor={'white'}
+                                  addressActiveColor={'white'}
                                 ></HashAddress>
                               </Link>
                             </div>
-                            <div className="treasury-info-item-line-3 text-14-22-500">
-                              <span>Address:</span>
+                            <div className="treasury-info-item-line-3 text-14-22-500 flex-row">
+                              <span className="text-white">Address:</span>
                               <Link
                                 href={`${explorer}/address/${
                                   isOut ? item.toAddress : item.fromAddress
@@ -282,17 +323,35 @@ const Treasury: React.FC<IProps> = (props) => {
                                 target="_blank"
                               >
                                 <HashAddress
-                                  className="pl-[4px]"
+                                  className="pl-[4px] text-white !text-[12px]"
                                   preLen={8}
                                   endLen={11}
                                   address={isOut ? item.toAddress : item.fromAddress}
                                   chain={curChain}
+                                  iconSize={'16px'}
+                                  iconColor={'#989DA0'}
+                                  primaryIconColor={'#989DA0'}
+                                  addressHoverColor={'white'}
+                                  addressActiveColor={'white'}
                                 ></HashAddress>
                               </Link>
                             </div>
                           </li>
                         );
                       })}
+                      {showLoadMore && (
+                        <div className="flex items-center justify-center mt-[24px]">
+                          <Button
+                            size="small"
+                            className="w-[93px] h-[32px] border-white text-white"
+                            onClick={() => {
+                              setIndex((pre) => pre + 1);
+                            }}
+                          >
+                            <span className="text-[12px]">Load More</span>
+                          </Button>
+                        </div>
+                      )}
                     </ul>
                   )}
                 </div>
@@ -310,7 +369,7 @@ const Treasury: React.FC<IProps> = (props) => {
       {/* choice: Deposit /  WithDraw*/}
       <CommonModal
         open={choiceOpen}
-        title={<div className="text-center">New transfer</div>}
+        title={<div className="text-center text-white font-Unbounded font-[300]">New transfer</div>}
         wrapClassName="choice-modal-wrap"
         destroyOnClose
         onCancel={() => {
@@ -320,7 +379,9 @@ const Treasury: React.FC<IProps> = (props) => {
       >
         <ul className="choice-items">
           <li className="choice-item">
-            <p className="choice-item-text-subtitle">Send assets to the DAO treasury</p>
+            <p className="text-white font-Montserrat font-medium text-[15px]">
+              Send assets to the DAO treasury
+            </p>
             <Button
               type="primary"
               onClick={() => {
@@ -328,19 +389,21 @@ const Treasury: React.FC<IProps> = (props) => {
                 treasuryNoTxGuideref.current?.setDepoistOpen(true);
                 setChoiceOpen(false);
               }}
-              className="choice-item-btn"
+              className="w-[120px] h-[32px] flex-shrink-0"
             >
-              Deposit
+              <span className="text-[12px]">Deposit</span>
             </Button>
           </li>
           <li className="choice-item">
-            <p className="choice-item-text-subtitle">Create a proposal to withdraw assets</p>
+            <p className="text-white font-Montserrat font-medium text-[15px]">
+              Create a proposal to withdraw assets
+            </p>
             <Button
               loading={createProposalLoading}
               onClick={handleCreateProposal}
-              className="choice-item-btn"
+              className="w-[120px] h-[32px] flex-shrink-0 text-white border-white font-medium"
             >
-              Withdraw
+              <span className="text-[12px]">Withdraw</span>
             </Button>
           </li>
         </ul>

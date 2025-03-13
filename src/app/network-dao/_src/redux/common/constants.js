@@ -12,21 +12,18 @@ const explorerRPC = getExplorerRPC();
 export const FAKE_WALLET = AElf.wallet.getWalletByPrivateKey(wallet.privateKey);
 
 export const API_PATH = {
-  GET_ALL_CONTRACTS: '/viewer/allContracts',
-  GET_PROPOSAL_LIST: '/proposal/list',
-  GET_PROPOSAL_INFO: '/proposal/proposalInfo',
-  CHECK_CONTRACT_NAME: '/proposal/checkContractName',
-  ADD_CONTRACT_NAME: '/proposal/addContractName',
-  UPDATE_CONTRACT_NAME: '/proposal/updateContractName',
+  GET_ALL_CONTRACTS: '/app/address/contracts',
+  GET_PROPOSAL_LIST: '/networkdao/proposals',
+  GET_PROPOSAL_INFO: '/networkdao/proposal/info',
+  CHECK_CONTRACT_NAME: '/networkdao/contract/check',
   GET_AUDIT_ORGANIZATIONS: '/proposal/auditOrganizations',
-  GET_ORGANIZATIONS: '/proposal/organizations',
-  GET_VOTED_LIST: '/proposal/votedList',
+  GET_ORGANIZATIONS: '/networkdao/org',
+  GET_VOTED_LIST: '/networkdao/votes',
   GET_PERSONAL_VOTED_LIST: '/proposal/personalVotedList',
-  GET_CONTRACT_NAME: '/viewer/getContractName',
-  GET_AUDIT_ORG_BY_PAGE: '/proposal/auditOrganizationsByPage',
-  GET_ORG_OF_OWNER: '/proposal/orgOfOwner',
-  GET_APPLIED_PROPOSALS: '/proposal/appliedList',
-  GET_ALL_PERSONAL_VOTES: '/proposal/allPersonalVotes',
+  GET_AUDIT_ORG_BY_PAGE: '/networkdao/org/proposer',
+  GET_ORG_OF_OWNER: '/networkdao/org/owner',
+  GET_APPLIED_PROPOSALS: '/networkdao/proposal/applied',
+  GET_ALL_PERSONAL_VOTES: '/networkdao/vote/personal',
 };
 
 export const LOG_STATUS = {
@@ -81,17 +78,34 @@ export const organizationInfoPropTypes = {
 
 const { proposalStatus, proposalActions } = constants;
 
+console.log('proposalActions', proposalActions)
+
+
+
 export const ACTIONS_COLOR_MAP = {
-  [proposalActions.APPROVE]: '#05ac90',
-  [proposalActions.REJECT]: '#d34a64',
-  [proposalActions.ABSTAIN]: '#646464',
+  [proposalActions.APPROVE]: 'success',
+  [proposalActions.REJECT]: 'error',
+  [proposalActions.ABSTAIN]: 'secondary',
+};
+
+export const ACTIONS_TEXT_MAP = {
+  1: 'Approve',
+  2: 'Reject',
+  3: 'Abstain',
 };
 
 export const STATUS_COLOR_MAP = {
-  [proposalStatus.PENDING]: '#d34a64',
-  [proposalStatus.APPROVED]: '#05ac90',
-  [proposalStatus.RELEASED]: '#FA9D2B',
-  [proposalStatus.EXPIRED]: '#646464',
+  [proposalStatus.PENDING]: 'warning',
+  [proposalStatus.APPROVED]: 'success',
+  [proposalStatus.RELEASED]: 'primary',
+  [proposalStatus.EXPIRED]: 'secondary',
+};
+
+export const STATUS_TEXT_MAP = {
+  1: 'pending',
+  2: 'approved',
+  3: 'expired',
+  4: 'released',
 };
 
 export const CONTRACT_TEXT_MAP = {

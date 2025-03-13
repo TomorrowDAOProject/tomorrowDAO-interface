@@ -1,0 +1,104 @@
+.contract-proposal {
+  @apply !mt-0 pt-10 pb-6 !px-[38px];
+
+  .antExplorer-form-item {
+    @apply !mb-[50px];
+  }
+
+  .antExplorer-form-item-control-input {
+    @apply min-h-[18px];
+  }
+
+  .antExplorer-form-item .antExplorer-form-item-label >label {
+    @apply !text-descM16 !text-white font-Montserrat;
+  }
+
+  .antExplorer-form-vertical .antExplorer-form-item-label, .antExplorer-col-24.antExplorer-form-item-label, .antExplorer-col-xl-24.antExplorer-form-item-label {
+    @apply !pb-0 !mb-[15px];
+  }
+
+  .antExplorer-form-item .antExplorer-form-item-label >label.antExplorer-form-item-required:not(.antExplorer-form-item-required-mark-optional)::before {
+    @apply !hidden;
+  }
+
+  .antExplorer-select-single {
+    @apply !h-[46px];
+  }
+
+  .antExplorer-input {
+    @apply !bg-transparent !h-[46px] border border-fillBg8 border-solid rounded-[8px] text-desc14 font-Montserrat !text-white placeholder:text-lightGrey;
+
+    &:-webkit-autofill {
+      @apply !bg-darkBg shadow-none !text-white;
+      -webkit-text-fill-color: var(--light-gray);
+    }
+  }
+
+  .antExplorer-select,
+  .antExplorer-select-single .antExplorer-select-selector {
+    @apply !text-lightGrey;
+  }
+
+  .antExplorer-select-outlined:not(.antExplorer-select-customize-input) .antExplorer-select-selector {
+    @apply !border !border-fillBg8 !bg-transparent;
+  }
+
+  .antExplorer-select-focused:not(.antExplorer-select-disabled) .antExplorer-select-selector {
+    @apply !border-mainColor;
+  }
+
+  .antExplorer-select .antExplorer-select-arrow {
+    @apply !text-lightGrey text-[20px] font-['tmrwdao-icon'];
+
+    & > span {
+      @apply hidden;
+    }
+
+    &::after {
+      @apply !content-["\ea0c"];
+    }
+  }
+  
+  .antExplorer-radio-wrapper {
+    @apply !text-white !text-desc15 font-Montserrat me-[20px] md:me-[150px];
+
+    &:last-child {
+      @apply !mr-0;
+    }
+  }
+
+  .antExplorer-radio-button-wrapper {
+    @apply h-[32px] leading-[32px] border !border-s rounded-[42px] text-descM12 font-Montserrat text-white bg-transparent;
+
+    &:hover {
+      @apply !bg-mainColor !border-mainColor;
+    }
+  }
+
+  .antExplorer-radio-group {
+    @apply !flex !flex-col md:!flex-row !gap-[15px];
+  }
+
+  .antExplorer-radio-button-wrapper:not(:first-child)::before,
+  .antExplorer-radio-button-wrapper-checked:not(.antExplorer-radio-button-wrapper-disabled)::before {
+    @apply hidden;
+  }
+
+  .upload-file-form-item {
+    @apply !mb-0;
+  }
+
+  .antExplorer-upload-wrapper .antExplorer-upload-list .antExplorer-upload-list-item {
+    @apply hover:!bg-transparent;
+
+    .antExplorer-upload-list-item-actions .anticon,
+    .antExplorer-upload-icon .anticon {
+      @apply !text-lightGrey;
+    }
+
+    .antExplorer-upload-list-item-name {
+      @apply !text-desc11 !text-lightGrey;
+    }
+  }
+
+}

@@ -1,6 +1,5 @@
 .resource-trading {
-  position: relative;
-  margin-bottom: 20px;
+  @apply relative pb-[40px] pt-[16px] border-0 border-t border-b border-solid border-fillBg8;
 }
 
 .resource-trading .resource-action-block {
@@ -8,6 +7,7 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  margin-top: 24px;
 }
 
 .resource-trading .resource-action-block .resource-action-title {
@@ -19,7 +19,55 @@
   height: 16px;
 }
 
+.resource-trading .antExplorer-input {
+  @apply border border-solid border-fillBg8;
+}
+.resource-trading .antExplorer-spin-container {
+  @apply text-mainColor font-Montserrat;
+}
+.trading-box .antExplorer-input-number {
+  @apply border-fillBg8;
+ 
+}
+.trading-box .antExplorer-input {
+  @apply text-lightGrey font-Montserrat;
+}
+.resource-trading .ElF-value {
+  @apply text-mainColor font-Montserrat;
+}
+.trading-slide {
+  @apply py-[12px];
+  .antExplorer-slider {
+    .antExplorer-slider-step {
+      @apply bg-fillBg8 rounded-xl;
+    }
+    .antExplorer-slider-handle {
+      @apply bg-transparent border-transparent; 
+      inset-block-start: 4px!important;
+      &::after {
+        @apply w-[12px] h-[12px] shadow-none;
+      }
+    }
+    .antExplorer-slider-disabled .antExplorer-slider-handle::after {
+      @apply w-[12px] h-[12px]
+    }
+  }
+}
+
+.resource-trading .antExplorer-input-number-input {
+  @apply font-Montserrat border-fillBg8 hover:!border-red-50 disabled:border-fillBg8;
+  &::placeholder {
+    @apply text-lightGrey;
+  }
+}
+
+.antExplorer-input-group-wrapper-outlined.antExplorer-input-group-wrapper-disabled .antExplorer-input-group-addon {
+  @apply text-lightGrey font-Montserrat !border-fillBg8;
+}
+
+
 .resource-trading .resource-action-block .resource-action-input {
+  @apply text-white font-Montserrat text-right;
   min-width: 140px;
   flex: 1 1;
   display: inline-block;
@@ -146,15 +194,14 @@
 }
 
 .mobile-trading-input {
+  @apply border border-fillBg8 bg-transparent font-Montserrat !rounded-[8px];
   width: 100%;
   height: 28px;
   line-height: 28px;
-  border: 1px solid #d9d9d9;
   padding: 0 8px 0 8px;
-  border-radius: 3px;
   -webkit-appearance: none;
 }
 
 .mobile-trading-input::placeholder {
-  color: #bfbfbf;
+  @apply text-lightGrey;
 }

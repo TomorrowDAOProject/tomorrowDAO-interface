@@ -1,10 +1,8 @@
 import React, { PureComponent } from "react";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { If, Then, Else } from "react-if";
-import { Row, Col, Button, Avatar, Tag, Typography, message } from "antd";
+import { Row, Col, Button, Avatar, Tag, Typography } from "antd";
 import queryString from "query-string";
-import { EditOutlined, TeamOutlined } from "@ant-design/icons";
-
 import StatisticalData from "@components/StatisticalData/";
 import {
   getTeamDesc,
@@ -22,6 +20,7 @@ import {
 import { connect } from "react-redux";
 import "./index.css";
 import addressFormat from '@utils/addressFormat';
+import CopyButton from "@components/CopyButton/CopyButton";
 
 const { Paragraph } = Typography;
 
@@ -107,7 +106,9 @@ class TeamDetail extends PureComponent {
         const formattedAddress = addressFormat(data.address);
         this.setState({ data, formattedAddress });
       })
-      .catch((err) => message.error(err));
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   fetchDataFromElectionContract() {
@@ -304,54 +305,59 @@ class TeamDetail extends PureComponent {
         <Row>
           <Col md={18} sm={24} xs={24} className="card-container-left">
             <Row className={`${clsPrefix}-team-avatar-info`}>
-              <Col md={6} sm={6} xs={6} className="team-avatar-container">
+              <Col md={5} sm={5} xs={5} className="team-avatar-container rounded-[12px] bg-[#D9D9D9]">
                 {data.avatar ? (
-                  <Avatar shape="square" size={avatarSize} src={data.avatar} />
+                  <Avatar shape="square" className="!w-full !h-full min-w[150px] min-height-[150px]" size={avatarSize} src={data.avatar} />
                 ) : (
-                  <Avatar shape="square" size={avatarSize}>
+                  <Avatar shape="square" className="!w-full !h-full min-w[150px] min-height-[150px]" size={avatarSize}>
                     U
                   </Avatar>
                 )}
               </Col>
-              <Col className={`${clsPrefix}-team-info`} md={18} sm={18} xs={18}>
-                <div className="flex items-center">
-                  <h5 className={`${clsPrefix}-node-name ellipsis`}>
+              <Col className={`${clsPrefix}-team-info`} md={18} sm={18} xs={18} offset={1}>
+                <div className="flex items-center mb-[10px]">
+                  <h5 className={`${clsPrefix}-node-name ellipsis !text-white !text-[15px] !font-light !font-Unbounded mr-[6px]`}>
                     {data.name ? data.name : formattedAddress}
                   </h5>
-                  <Tag color="#f50" className="pl-[4px]">{getTag()}</Tag>
+                  <Tag className="pl-[4px] !text-white !bg-mainColor border border-solid border-mainColor">{getTag()}</Tag>
                 </div>
                 <Paragraph ellipsis={{ rows: 1 }}>
-                  Location: {data.location || "-"}
+                  <span className="text-lightGrey text-[14px] font-Montserrat mr-[4px]">Location:</span>
+                  <span className="text-white text-[14px] font-Montserrat">{data.location || "-"}</span>
                 </Paragraph>
-                <Paragraph
-                  copyable={{ text: formattedAddress }}
-                  ellipsis={ellipsis}
-                >
-                  Address: {formattedAddress}
-                </Paragraph>
+                <div className="mb-[1em]">
+                  <span className="text-lightGrey text-[14px] font-Montserrat mr-[4px]">Address:</span>
+                  <span className="text-white text-[14px] font-Montserrat max-w-[400px] text-ellipsis !inline-block align-middle">{formattedAddress}</span>
+                  <CopyButton value={formattedAddress} copyIconClassName="!text-lightGrey text-[14px] font-Montserrat" />
+                </div>
                 <If condition={!!data.officialWebsite}>
                   <Then>
                     <Paragraph ellipsis={ellipsis}>
-                      Official Website:&nbsp;
-                      <a href={data.officialWebsite} target="_blank" rel="noreferrer noopener">
-                        {data.officialWebsite}
-                      </a>
+                      <span className="text-lightGrey text-[14px] font-Montserrat mr-[4px]">Official Website:&nbsp;</span>
+                      <span className="text-white text-[14px] font-Montserrat">
+                        <a href={data.officialWebsite} target="_blank" rel="noreferrer noopener">
+                          {data.officialWebsite}
+                        </a>
+                      </span>
                     </Paragraph>
                   </Then>
                 </If>
                 <If condition={!!data.mail}>
                   <Then>
                     <Paragraph ellipsis={ellipsis}>
-                      Email:&nbsp;
-                      <a href={`mailto:${data.mail}`} target="_blank" rel="noreferrer noopener">
-                        {data.mail}
-                      </a>
+                      <span className="text-lightGrey text-[14px] font-Montserrat mr-[4px]">Email:&nbsp;</span>
+                      <span className="text-white text-[14px] font-Montserrat">
+                        <a href={`mailto:${data.mail}`} target="_blank" rel="noreferrer noopener">
+                          {data.mail}
+                        </a>
+                      </span>
                     </Paragraph>
                   </Then>
                 </If>
                 {hasAuth ? (
-                  <Button type="primary" className="edit-btn">
+                  <Button type="primary" className="edit-btn rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer hover:!text-mainColor hover:!bg-darkBg hover:border hover:border-solid hover:border-mainColor">
                     <LinkNetworkDao
+                      className="text-white font-Montserrat hover:!text-mainColor"
                       href={{
                         pathname: '/vote/apply',
                         query: {
@@ -366,9 +372,9 @@ class TeamDetail extends PureComponent {
               </Col>
             </Row>
           </Col>
-          <Col md={6} xs={0} className="card-container-right">
+          <Col md={6} sm={24}  xs={24} className="card-container-right">
             <Button
-              className="table-btn vote-btn flex justify-center align-middle team-detail-btn"
+              className="w-[80px] mb-[6px] text-center vote-btn text-white !bg-mainColor !rounded-[8px] !border border-solid !border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
               type="primary"
               disabled={!isCandidate}
               data-role="vote"
@@ -381,8 +387,7 @@ class TeamDetail extends PureComponent {
               Vote
             </Button>
             <Button
-              className="table-btn redeem-btn flex justify-center align-middle team-detail-btn"
-              type="primary"
+              className="w-[80px] text-center !text-lightGrey !rounded-[8px] bg-transparent !border border-solid !border-lightGrey hover:!bg-darkBg hover:!text-white hover:border hover:border-solid hover:!border-white"
               data-role="redeem"
               data-shoulddetectlock
               data-nodeaddress={formattedAddress}
@@ -407,16 +412,17 @@ class TeamDetail extends PureComponent {
     return (
       <section className={`${clsPrefix}`}>
         {topTeamInfo}
-        <StatisticalData data={staticsData} />
+        <div className="team-statistical-data-container">
+          <StatisticalData data={staticsData} />
+        </div>
         <section className={`${clsPrefix}-intro card-container`}>
-          <h5 className="card-header">
-            <EditOutlined className="card-header-icon" />
+          <div className="text-white text-[13px] font-Montserrat font-medium mb-[12px]">
             Introduction
-          </h5>
+          </div>
           <div className="card-content">
             <If condition={!!data.intro}>
               <Then>
-                <p>{data.intro}</p>
+                <p className="text-lightGrey font-Montserrat">{data.intro}</p>
               </Then>
               <Else>
                 <div className="vote-team-detail-empty">
@@ -427,14 +433,13 @@ class TeamDetail extends PureComponent {
           </div>
         </section>
         <section className={`${clsPrefix}-social-network card-container`}>
-          <h5 className="card-header">
-            <TeamOutlined className="card-header-icon" />
+          <div className="text-white text-[13px] font-Montserrat font-medium mb-[12px]">
             Social Network
-          </h5>
+          </div>
           <div className="card-content">
             <If condition={!!(data.socials && data.socials.length > 0)}>
               <Then>
-                <div className="vote-team-detail-social-network">
+                <div className="vote-team-detail-social-network text-lightGrey font-Montserrat">
                   {(data.socials || []).map((item) => (
                     <div className="vote-team-detail-social-network-item">
                       <span className="vote-team-detail-social-network-item-title">

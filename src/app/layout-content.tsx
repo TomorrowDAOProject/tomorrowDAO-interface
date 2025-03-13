@@ -7,6 +7,10 @@ import { useUrlPath } from 'hooks/useUrlPath';
 import Layout from 'pageComponents/layout';
 import AELFDProviderWrap from 'provider/AELFDProviderWrap';
 import AELFDTelegramProviderWrap from 'provider/AELFDTelegramProviderWrap';
+import { ToastContainer } from 'react-toastify';
+
+import '../assets/fonts/tmrwdao-icon.css';
+
 const WalletInit = dynamicReq(
   async () => {
     return () => {
@@ -31,6 +35,14 @@ export const LayoutContent = ({ children }: { children: React.ReactNode }) => {
           {isNetWorkDao || isTelegram ? <div>{children}</div> : <Layout>{children}</Layout>}
         </AELFDProviderWrap>
       )}
+      <ToastContainer
+        position="top-center"
+        hideProgressBar
+        closeButton={false}
+        pauseOnHover
+        theme="dark"
+        autoClose={2000}
+      />
     </>
   );
 };

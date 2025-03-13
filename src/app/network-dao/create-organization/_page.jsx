@@ -2,13 +2,12 @@
 import React, { useEffect, useState, useMemo } from "react";
 import AElf from "aelf-sdk";
 import Decimal from "decimal.js";
-// import {  } from "react-router-dom";
 import LinkNetworkDao  from "components/LinkNetworkDao";
-import { useRouter } from 'next/navigation'
 import getChainIdQuery from 'utils/url';
 import ReactIf from "react-if";
 import { useSelector } from "react-redux";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { apiServer } from 'api/axios'
 import {
   Button,
   Select,
@@ -16,12 +15,11 @@ import {
   InputNumber,
   Input,
   Switch,
-  message,
   Divider,
   Form,
   Modal,
 } from "antd";
-import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
+import { toast } from 'react-toastify';
 import constants, { API_PATH } from "@redux/common/constants";
 import {
   commonFilter,
@@ -29,12 +27,11 @@ import {
   showTransactionResult,
   rand16Num,
 } from "@redux/common/utils";
-import { request } from "@common/request";
 import { getTokenList, getContract, sleep } from "@common/utils";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
-import { showAccountInfoSyncingModal } from "@components/SimpleModal/index";
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
+
 
 const { Switch: ConditionSwitch, Case } = ReactIf;
 
@@ -81,7 +78,7 @@ const FIELDS_MAP = {
           After selecting one, you will need to operate according to its rules.
           For specific rules, see 'Proposal rules'"
         >
-          <QuestionCircleOutlined className="main-color" />
+          <InfoCircleOutlined className="!text-lightGrey" />
         </Tooltip>
       </span>
     ),
@@ -165,7 +162,7 @@ const FIELDS_MAP = {
       <span>
         Proposer Authority Required&nbsp;
         <Tooltip title="set to false to allow anyone to create a new proposal">
-          <QuestionCircleOutlined className="main-color" />
+          <InfoCircleOutlined className="!text-lightGrey" />
         </Tooltip>
       </span>
     ),
@@ -188,7 +185,7 @@ const FIELDS_MAP = {
           separated by commas, such as
           `28Y8JA1i2cN6oHvdv7EraXJr9a1gY6D1PpJXw9QtRMRwKcBQMK,x7G7VYqqeVAH8aeAsb7gYuTQ12YS1zKuxur9YES3cUj72QMxJ`"
         >
-          <QuestionCircleOutlined className="main-color" />
+          <InfoCircleOutlined className="!text-lightGrey" />
         </Tooltip>
       </span>
     ),
@@ -214,7 +211,7 @@ const FIELDS_MAP = {
           separated by commas, such as
            `28Y8JA1i2cN6oHvdv7EraXJr9a1gY6D1PpJXw9QtRMRwKcBQMK,x7G7VYqqeVAH8aeAsb7gYuTQ12YS1zKuxur9YES3cUj72QMxJ`"
         >
-          <QuestionCircleOutlined className="main-color" />
+          <InfoCircleOutlined className="!text-lightGrey" />
         </Tooltip>
       </span>
     ),
@@ -229,15 +226,6 @@ const FIELDS_MAP = {
         validator: validateAddressList,
       }),
     ],
-  },
-};
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    sm: {
-      span: 16,
-      offset: 6,
-    },
   },
 };
 
@@ -325,18 +313,18 @@ function getContractParams(formValue, tokenList) {
 }
 
 function getWhiteList() {
-  return request(
+  const chainIdQuery = getChainIdQuery();
+  return apiServer.get(
     API_PATH.GET_ORGANIZATIONS,
     {
-      pageNum: 1,
+      skipCount: 0,
       proposalType: proposalTypes.PARLIAMENT,
-    },
-    {
-      method: "GET",
+      chainId: chainIdQuery.chainId,
+      maxResultCount: 100
     }
   )
     .then((res) => {
-      const { bpList = [], parliamentProposerList = [] } = res;
+      const { bpList = [], parliamentProposerList = [] } = res.data;
       return {
         bpList,
         parliamentProposerList,
@@ -381,8 +369,6 @@ const CreateOrganization = () => {
   const [formData, setFormData] = useState({
     proposalType: proposalTypes.ASSOCIATION,
   });
-
-  const { walletInfo: wallet } = useConnectWallet();
 
   const [whiteList, setWhiteList] = useState([]);
   useEffect(() => {
@@ -491,7 +477,7 @@ const CreateOrganization = () => {
       if (content) {
         let modalIns = modal.info({
           wrapClassName: 'create-organization-modal',
-          title: 'Organisation Creation Failed',
+          title: 'Organization Creation Failed',
           closable: true,
           icon: null,
           content: (
@@ -499,9 +485,15 @@ const CreateOrganization = () => {
               <p>{content}</p>
             </div>
           ),
-          footer: <Button type="primary" onClick={() => { 
-            modalIns.destroy();
-          }}>Got It</Button>,
+          footer: <Button
+            type="primary"
+            onClick={() => { 
+              modalIns.destroy();
+            }}
+            className="hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
+          >
+            Got It
+          </Button>,
         });
         return;
       }
@@ -524,7 +516,7 @@ const CreateOrganization = () => {
       const msg = (e?.errorMessage || {})?.message?.Message ||
       e.message || e?.Error?.Message
       if (msg) {
-        message.error(msg.toString());
+        toast.error(msg.toString());
       }
     } finally {
       setIsLoading(false);
@@ -549,20 +541,24 @@ const CreateOrganization = () => {
   );
 
   return (
-    <div className="create-organization page-content-bg-border">
+    <div className="create-organization page-content-bg-border !bg-darkBg">
       {contextHolder}
       <div className="create-organization-header">
-        <div className="create-organization-header-title">
+        <div className="create-organization-header-title font-Montserrat">
           Create Organisation
         </div>
         <div className="create-organization-header-action">
-          <LinkNetworkDao href="/organization">
-            &lt;Back to Organisation List
-          </LinkNetworkDao>
+          <div
+            className="rounded-[42px] bg-mainColor flex items-center gap-[6px] cursor-pointer"
+          >
+            <LinkNetworkDao href="/organization" className="text-white font-Montserrat px-[10px] py-[6px] rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor">
+              Back to Organisation List
+            </LinkNetworkDao>
+          </div>
         </div>
       </div>
-      <Divider />
-      <Form form={form} initialValues={FORM_INITIAL} {...formItemLayout}>
+      <Divider className="bg-borderColor my-[20px]" />
+      <Form form={form} initialValues={FORM_INITIAL} {...formItemLayout} className="w-full px-[40px] py-[24px] create-organization-form">
         <FormItem
           label={FIELDS_MAP.proposalType.label}
           required
@@ -571,6 +567,7 @@ const CreateOrganization = () => {
           <Select
             placeholder={FIELDS_MAP.proposalType.placeholder}
             onChange={handleProposalTypeChange}
+            className="proposalSelect"
           >
             {selectOptions.map((v) => (
               <Select.Option value={v} key={v}>
@@ -653,16 +650,18 @@ const CreateOrganization = () => {
         >
           <InputNumber {...INPUT_PROPS_MAP} />
         </FormItem>
-        <FormItem {...tailFormItemLayout}>
+        <div className="w-full text-right">
           <Button
             shape="round"
             type="primary"
             loading={isLoading}
             onClick={handleSubmit}
+            className="hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
           >
-            Apply
+            <span className="relative top-[-3px]">Apply</span>
+            <i className="tmrwdao-icon-default-arrow ml-[10px]" />
           </Button>
-        </FormItem>
+        </div>
       </Form>
     </div>
   );

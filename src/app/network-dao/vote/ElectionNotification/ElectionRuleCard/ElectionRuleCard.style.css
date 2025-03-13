@@ -11,12 +11,11 @@
 }
 
 .election-rule-card .election-rule-content {
-  border-bottom: 1px solid #e6e6e6;
-  padding-bottom: 16px;
+  @apply border-t border-b border-x-0 border-solid border-borderColor py-[20px];
 }
 
 .election-rule-card .election-intro {
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 22px;
@@ -61,21 +60,20 @@
 }
 
 .election-rule-card .btn-group .apply-to-be-a-node-btn {
-  height: 32px;
   border: none;
   border-radius: 4px;
   height: 40px;
-  padding: 0px 20px;
+  padding: 0 20px;
 }
 
 
 .election-rule-card .btn-group .quit-button {
   cursor: pointer;
-  color: #266cd3;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 12px 0 0 0;
+  margin: 12px 0 0;
+  @apply text-lightGrey;
 }
 
 .election-rule-card .btn-group .quit-button .quit-logo {
@@ -83,6 +81,7 @@
   height: 18px;
   width: 18px;
   margin: 0 0 0 4px;
+  @apply text-lightGrey;
 }
 
 @media (max-width: 640px) {

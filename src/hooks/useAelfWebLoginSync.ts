@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-// import { message } from 'antd';
 
 export default function useAelfWebLoginSync() {
   // const { wallet } = useWebLogin();

@@ -43,7 +43,7 @@ export default class TradeCards extends Component {
   }
 
   render() {
-    const { price, tick } = this.state;
+    const { price } = this.state;
     return (
       <div className="tradecards-container">
         <div className="tradecard">

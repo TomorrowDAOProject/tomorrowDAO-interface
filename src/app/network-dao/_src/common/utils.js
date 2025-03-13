@@ -180,54 +180,6 @@ export const defaultAElfInstance = new AElf(
   new AElf.providers.HttpProvider(DEFAUT_RPCSERVER)
 );
 
-export async function getBalances(address, search = "") {
-  try {
-    const balances = await request(
-      config.API_PATH.GET_BALANCES_BY_ADDRESS,
-      {
-        address,
-        search,
-      },
-      {
-        method: "GET",
-      }
-    );
-    if (balances.length === 0) {
-      throw new Error("Zero Balances");
-    }
-    return balances;
-  } catch (e) {
-    console.error(e);
-    return [
-      {
-        balance: 0,
-        symbol: "ELF",
-      },
-    ];
-  }
-}
-
-export async function getTokenAllInfo(symbol) {
-  try {
-    const info = await request(
-      config.API_PATH.GET_TOKEN_INFO,
-      {
-        symbol,
-      },
-      {
-        method: "GET",
-      }
-    );
-    if (Object.keys(info).length === 0) {
-      throw new Error(`not exist token ${symbol}`);
-    }
-    return info;
-  } catch (e) {
-    console.error(e);
-    return {};
-  }
-}
-
 export async function getTokenList(search = "") {
   let tokens;
   try {
@@ -256,39 +208,11 @@ export async function getTokenList(search = "") {
   return tokens.reduce(
     (acc, v) => ({
       ...acc,
-      [v.symbol]: v,
+      [v?.token?.symbol]: v?.token,
     }),
     {}
   );
 }
-
-let CONTRACT_NAMES = {};
-export const getContractNames = async () => {
-  if (Object.keys(CONTRACT_NAMES).length > 0) {
-    return CONTRACT_NAMES;
-  }
-  let res = {};
-  try {
-    res = await request(
-      config.API_PATH.GET_ALL_CONTRACT_NAME,
-      {},
-      {
-        method: "GET",
-      }
-    );
-  } catch (e) {
-    return CONTRACT_NAMES;
-  }
-  const { list } = res || {};
-  CONTRACT_NAMES = (list || []).reduce(
-    (acc, v) => ({
-      ...acc,
-      [v.address]: v,
-    }),
-    {}
-  );
-  return CONTRACT_NAMES;
-};
 
 export function removeAElfPrefix(name) {
   if (/^(AElf\.)(.*?)+/.test(name)) {
@@ -429,19 +353,9 @@ export const isPhoneCheck = () => {
 };
 
 export async function _redirectPageToIframeMode() {
-  console.log("RELOAD_ENV", process.env.RELOAD_ENV, process.env.NODE_ENV);
-  // if (process.env.RELOAD_ENV !== 'reload') {
-  //   return;
-  // }
-  // if (process.env.NODE_ENV !== 'production') {
-  //   console.log('window.location.href reload');
-  // }
-
   if (!window.frameElement) {
     if (window.location.href.match("contract")) {
       window.location.href = `/contract?#${window.location.href}`;
-      // } else if (window.location.href.match('proposalsDetail')) {
-      //   window.location.href = `/viewer/proposal.html?#${window.location.href}`;
     } else if (window.location.href.match("proposal")) {
       window.location.href = `/proposal?#${window.location.href}`;
     } else if (window.location.href.match("address")) {

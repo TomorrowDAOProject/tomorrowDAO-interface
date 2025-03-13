@@ -1,18 +1,18 @@
-import {
-  IContractOptions,
-  ContractMethodType,
-  ISendResult,
-  IContractError,
-  SupportedELFChainId,
-} from 'types';
+import { IContractOptions, ISendResult, IContractError, SupportedELFChainId } from 'types';
 import { store } from 'redux/store';
 import { formatErrorMsg } from './util';
 import { getTxResult } from 'utils/getTxResult';
 import { sleep } from 'utils/common';
 import { daoAddress } from 'config';
-import { webLoginInstance } from './webLogin';
+
+type CreateDaoContractParams = {
+  contractAddress: string;
+  methodName: string;
+  args?: unknown;
+};
 
 export const daoCreateContractRequest = async <T, R>(
+  callSendMethod: (chainId: string, params: CreateDaoContractParams) => R,
   methodName: string,
   params?: T,
   options?: IContractOptions,
@@ -32,7 +32,7 @@ export const daoCreateContractRequest = async <T, R>(
   );
 
   try {
-    const res: R = await webLoginInstance.callSendMethod(curChain, {
+    const res: R = await callSendMethod?.(curChain, {
       contractAddress,
       methodName,
       args: params,

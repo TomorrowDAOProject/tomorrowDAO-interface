@@ -3,33 +3,25 @@
  * @author atom-yang
  */
 // eslint-disable-next-line no-use-before-define
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { If, Then } from "react-if";
-import { QuestionCircleOutlined } from "@ant-design/icons";
-import { Tooltip, Row, Col, Tag } from "antd";
-import { API_PATH } from "@redux/common/constants";
-import { request } from "@common/request";
 import config from "@common/config";
 import { base64ToHex } from "@redux/common/utils";
 import { getContract } from "@common/utils";
-import { PRIMARY_COLOR } from "@common/constants";
 import addressFormat from "@utils/addressFormat";
 import { isJsonString } from "@utils/utils";
 import { explorer, mainExplorer } from "config";
 import { useChainSelect } from "hooks/useChainSelect";
+import Tooltip from "components/Tooltip";
+import Row from "components/Grid/Row";
+import Col from "components/Grid/Col";
+import Tag from "components/Tag";
+import { getAddress, fetchContractName } from 'api/request';
+import getChainIdQuery from 'utils/url';
 
 const { viewer } = config;
 
-function getContractName(address) {
-  return request(
-    API_PATH.GET_CONTRACT_NAME,
-    {
-      address,
-    },
-    { method: "GET" }
-  );
-}
 export function getContractURL(address, isSideChain) {
   // eslint-disable-next-line max-len
   return `${isSideChain ? explorer : mainExplorer}/address/${address}?tab=contract`;
@@ -46,15 +38,23 @@ const ContractDetail = (props) => {
   } = props;
   const [name, setName] = useState("");
   const [params, setParams] = useState(contractParams);
-  const { isSideChain } = useChainSelect()
+  const { isSideChain } = useChainSelect();
+
+  const getContractName = useCallback(async (address, isSideChain) => {
+    const res = await fetchContractName({
+      chainId: getChainIdQuery()?.chainId || 'AELF',
+      address: getAddress(address)
+    }, isSideChain);
+    const contractName = res?.data?.contractName;
+    if (contractName) {
+      setName(contractName);
+    } else {
+      setName("");
+    }
+  }, [setName]);
+
   useEffect(() => {
-    getContractName(contractAddress)
-      .then((data) => {
-        setName(data.name);
-      })
-      .catch(() => {
-        setName("");
-      });
+    getContractName(contractAddress, isSideChain);
     // history reason:
     // deploy contract on mainnet before node code update
     // will cause the contractParams cannot be parsed to json
@@ -101,62 +101,59 @@ const ContractDetail = (props) => {
     <div
       {...rest}
     >
-      <h2 className="title">
-        <span>
-          Contract Details
-          <Tooltip title="Specific information about the contract invoked by the proposal">
-            <QuestionCircleOutlined className="icon" />
-          </Tooltip>
-        </span>
-      </h2>
-      <If condition={!!name}>
-        <Then>
-          <>
-            <Row>
-              <Col sm={4} xs={24}>
-                <span className="network-dao-lable-key">Contract Name</span>
-              </Col>
-              <Col sm={20} xs={24}>
-                {name}
-              </Col>
-            </Row>
-            
-          </>
-        </Then>
-      </If>
-      <Row>
-        <Col sm={4} xs={24}>
-          <span className="network-dao-lable-key">Contract Address</span>
-        </Col>
-        <Col sm={20} xs={24}>
-          <a
-            className="break-all"
-            href={getContractURL(addressFormat(contractAddress), isSideChain)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {`ELF_${contractAddress}_${viewer.chainId}`}
-          </a>
-        </Col>
-      </Row>
-      
-      <Row>
-        <Col sm={4} xs={24}>
-          <span className="network-dao-lable-key">Contract Method Name</span>
-        </Col>
-        <Col sm={20} xs={24}>
-          <Tag color={PRIMARY_COLOR}>{contractMethod}</Tag>
-        </Col>
-      </Row>
-      
-      <Row>
-        <Col sm={4} xs={24}>
-          <span className="network-dao-lable-key">Contract Params</span>
-        </Col>
-        <Col sm={20} xs={24}>
-          <pre className="view-params" ref={ref}>{params}</pre>
-        </Col>
-      </Row>
+      <span className="block mb-[30px] text-descM13 text-white font-Montserrat">
+        Contract Details
+        <Tooltip title="Specific information about the contract invoked by the proposal">
+          <i className="tmrwdao-icon-information ml-2 text-[18px] text-lightGrey align-middle" />
+        </Tooltip>
+      </span>
+      <div className="flex flex-col gap-6">
+        <If condition={!!name}>
+          <Then>
+            <>
+              <Row gutter={24} className="!gap-y-[5px]">
+                <Col sm={24} md={6}>
+                    <span className="text-desc12 text-lightGrey font-Montserrat">Contract Name</span>
+                  </Col>
+                  <Col sm={24} md={18}>
+                    <span className="text-desc12 text-white font-Montserrat">{name}</span>
+                  </Col>
+                </Row>
+              </>
+            </Then>
+          </If>
+          <Row gutter={24} className="!gap-y-[5px]">
+            <Col sm={24} md={6}>
+              <span className="text-desc12 text-lightGrey font-Montserrat">Contract Address</span>
+            </Col>
+          <Col sm={24} md={18}>
+            <a
+              className="text-desc12 text-secondaryMainColor font-Montserrat break-words whitespace-pre-wrap hover:text-mainColor"
+              href={getContractURL(addressFormat(contractAddress), isSideChain)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {`ELF_${contractAddress}_${viewer.chainId}`}
+            </a>
+          </Col>
+        </Row>
+        <Row gutter={24} className="!gap-y-[5px]">
+          <Col sm={24} md={6}>
+            <span className="text-desc12 text-lightGrey font-Montserrat">Contract Method Name</span>
+          </Col>
+          <Col sm={24} md={18}>
+            <Tag color="primary">{contractMethod}</Tag>
+          </Col>
+        </Row>
+        <Row gutter={24} className="!gap-y-[5px]">
+          <Col sm={24} md={6}>
+            <span className="text-desc12 text-lightGrey font-Montserrat">Contract Params</span>
+          </Col>
+          <Col sm={24} md={18}>
+            <pre className="bg-transparent rounded-[8px] p-4 border border-fillBg8 border-solid text-desc14 text-lightGrey font-Montserrat" ref={ref}>{params}</pre>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

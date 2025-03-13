@@ -26,6 +26,7 @@ import "./ResourceSell.css";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import ButtonWithLoginCheck from "@components/ButtonWithLoginCheck";
 import { isActivityBrowser } from "@utils/isWebView";
+import { toast } from 'react-toastify';
 
 const status = { ERROR: "error" };
 
@@ -178,7 +179,7 @@ class ResourceSell extends Component {
         sellNum: null,
       });
       if (input !== "" && +input !== 0) {
-        message.error("Only support positive float or integer.");
+        toast.error("Only support positive float or integer.");
       }
       return;
     }
@@ -233,7 +234,7 @@ class ResourceSell extends Component {
             operateNumToSmall: false,
           });
         } else {
-          message.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
+          toast.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
           this.setState({
             operateNumToSmall: true,
           });
@@ -246,7 +247,7 @@ class ResourceSell extends Component {
         }
       })
       .catch((err) => {
-        message.error(err.message || err.msg || "Error happened");
+        toast.error(err.message || err.msg || "Error happened");
         console.error("err", err);
       });
   }
@@ -280,13 +281,13 @@ class ResourceSell extends Component {
     //       const msg =
     //         error === 200010
     //           ? "Please Login."
-    //           : errorMessage.message ||
+    //           : errortoast.message ||
     //             "Please check your NightELF browser extension.";
-    //       message.warn(msg);
+    //       toast.warn(msg);
     //     }
     //   },
     //   () => {
-    //     message.warn("Please download and install NightELF browser extension.");
+    //     toast.warn("Please download and install NightELF browser extension.");
     //   }
     // );
   }
@@ -300,7 +301,7 @@ class ResourceSell extends Component {
     });
 
     if (!regPos.test(sellNum) || sellNum === 0) {
-      message.error(
+      toast.error(
         `${ONLY_POSITIVE_FLOAT_OR_INTEGER_TIP}${CHECK_BALANCE_TIP}`
       );
       this.setState({
@@ -309,28 +310,28 @@ class ResourceSell extends Component {
       return;
     }
     if (+sellNum === 0) {
-      message.warning(TRANSACT_LARGE_THAN_ZERO_TIP);
+      toast.warning(TRANSACT_LARGE_THAN_ZERO_TIP);
       this.setState({
         sellBtnLoading: false,
       });
       return;
     }
     if (operateNumToSmall) {
-      message.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
+      toast.warning(OPERATE_NUM_TOO_SMALL_TO_CALCULATE_REAL_PRICE_TIP);
       this.setState({
         sellBtnLoading: false,
       });
       return;
     }
     if (sellNum > account.resourceTokens[currentResourceIndex].balance) {
-      message.warning(BUY_OR_SELL_MORE_THAN_ASSETS_TIP);
+      toast.warning(BUY_OR_SELL_MORE_THAN_ASSETS_TIP);
       this.setState({
         sellBtnLoading: false,
       });
       return;
     }
     if (!toSell) {
-      message.warning(BUY_OR_SELL_MORE_THAN_THE_INVENTORY_TIP);
+      toast.warning(BUY_OR_SELL_MORE_THAN_THE_INVENTORY_TIP);
       this.setState({
         sellBtnLoading: false,
       });
@@ -405,14 +406,14 @@ class ResourceSell extends Component {
         <div className="trading">
           <div className="trading-input">
             <div className="resource-action-block">
-              <span className="resource-action-title">Selling quantity:</span>
+              <span className="w-[120px] font-Montserrat text-white text-[14px] font-medium">Selling quantity:</span>
               <Form.Item
                 className="resource-action-input"
                 validateStatus={validate.validateStatus}
                 help={validate.help}
                 style={{ padding: 3 }}
               >
-                {!isPhoneCheck() ? (
+                {/* {!isPhoneCheck() ? (
                   <InputNumber
                     value={sellNum}
                     onChange={this.onChangeResourceValue}
@@ -437,7 +438,21 @@ class ResourceSell extends Component {
                     min={0}
                     max={this.inputMax}
                   />
-                )}
+                )} */}
+                <Input
+                  className="placeholder:text-lightGrey !text-white disabled:!bg-fillBg8"
+                  value={sellNum}
+                  onChange={this.onChangeResourceValue}
+                  placeholder={`Enter ${currentResourceType} amount`}
+                  // todo: use parser to set the max decimal to 8, e.g. using parseFloat
+                  parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                  formatter={(value) =>
+                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  disabled={!this.inputMax}
+                  min={0}
+                  max={this.inputMax}
+                />
               </Form.Item>
             </div>
             <div className="ELF-value">
@@ -450,8 +465,8 @@ class ResourceSell extends Component {
               </Spin>
             </div>
             <div className="resource-action-block">
-              <span className="resource-action-title">Available:</span>
-              {isPhoneCheck() ? (
+              <span className="w-[120px] font-Montserrat text-white text-[14px] font-medium">Available:</span>
+              {/* {isPhoneCheck() ? (
                 <div className="resource-action-input">
                   {this.inputMax
                     ? thousandsCommaWithDecimal(this.inputMax)
@@ -466,7 +481,14 @@ class ResourceSell extends Component {
                   addonAfter={currentResourceType}
                   disabled
                 />
-              )}
+              )} */}
+               <Input
+                  className="resource-action-input"
+                  value={thousandsCommaWithDecimal(this.inputMax)}
+                  placeholder={thousandsCommaWithDecimal(this.inputMax)}
+                  addonAfter={currentResourceType}
+                  disabled
+                />
             </div>
           </div>
           <div className="trading-slide">
@@ -479,7 +501,7 @@ class ResourceSell extends Component {
             </div>
           </div>
           <ButtonWithLoginCheck
-            className="trading-button sell-btn"
+            className="w-full my-[14px] h-[40px] border-none rounded-[42px] !bg-[#FF485D] text-white font-Montserrat text-[15px] font-medium border hover:border-solid hover:!border-[#FF485D] hover:!text-[#FF485D] hover:!bg-transparent"
             checkAccountInfoSync
             onClick={this.checkAndShowSellModal}
             loading={sellBtnLoading || sellEstimateValueLoading}

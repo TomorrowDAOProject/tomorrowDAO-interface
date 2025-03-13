@@ -1,0 +1,15 @@
+.address-contain {
+  & * {
+    @apply font-Montserrat text-descM14;
+  }
+
+  svg path {
+    fill: var(--light-gray);
+  }
+
+  &:hover * {
+    path {
+      fill: white !important;
+    }
+  }
+}

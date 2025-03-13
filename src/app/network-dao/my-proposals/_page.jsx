@@ -5,14 +5,18 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { Tooltip, Menu, message, Tabs, Tag, Row, Col, Result } from "antd";
+import { Tooltip, Menu, Tabs, Row, Col } from "antd";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import List from "./List";
 import constants, {
   ACTIONS_COLOR_MAP,
   API_PATH,
   STATUS_COLOR_MAP,
+  STATUS_TEXT_MAP,
+  PROPOSAL_STATUS_CAPITAL,
+  ACTIONS_TEXT_MAP
 } from "@redux/common/constants";
+import Tag from 'components/Tag'
 import {
   omitString,
   removePrefixOrSuffix,
@@ -20,16 +24,20 @@ import {
 } from "@common/utils";
 import { isSideChainByQueryParams } from 'utils/chain'
 import { explorer, mainExplorer } from "config";
-import config from "@common/config";
 import OrgAddress from "../_proposal_root/components/OrgAddress";
-import { request } from "@common/request";
+import { ReactComponent as WaringIcon } from 'assets/revamp-icon/waring.svg';
+import { toast } from 'react-toastify';
+import getChainIdQuery from 'utils/url';
 
 
 import "./index.css";
+import { apiServer } from "api/axios";
 const isSideChain = isSideChainByQueryParams()
 const { SubMenu, Item: MenuItem } = Menu;
 const { TabPane } = Tabs;
 const { proposalTypes } = constants;
+
+const chain = getChainIdQuery()
 
 const MENU_PATH = {
   APPLIED: "applied",
@@ -51,14 +59,15 @@ const LIST_TABS = {
         dataIndex: "proposalId",
         key: "proposalId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <LinkNetworkDao
               href={{
                 pathname: `/proposal/${text}`,
             }}>
-              <Tooltip title={text} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+                <span className="font-Montserrat text-white">{omitString(text)}</span>
               </Tooltip>
             </LinkNetworkDao>
           );
@@ -69,6 +78,7 @@ const LIST_TABS = {
         dataIndex: "createTxId",
         key: "createTxId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <a
@@ -76,8 +86,8 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={text} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+                <span className="font-Montserrat text-white">{omitString(text)}</span>
               </Tooltip>
             </a>
           );
@@ -88,13 +98,21 @@ const LIST_TABS = {
         dataIndex: "status",
         key: "status",
         width: 100,
-        render: (text) => <Tag color={STATUS_COLOR_MAP[text]}>{text}</Tag>,
+        render (text) {
+          console.log('STATUS_COLOR_MAP[text]', STATUS_TEXT_MAP[text], text)
+          return (
+            <div>
+              <Tag color={STATUS_COLOR_MAP[STATUS_TEXT_MAP[text]]}>{PROPOSAL_STATUS_CAPITAL[STATUS_TEXT_MAP[text]]}</Tag>
+            </div>
+          )
+        }
       },
       {
         title: "Application Time",
         dataIndex: "createAt",
         key: "createAt",
         width: 200,
+        align: 'right',
         render(text) {
           return moment(text).format("YYYY/MM/DD HH:mm:ss");
         },
@@ -111,6 +129,7 @@ const LIST_TABS = {
         dataIndex: "orgAddress",
         key: "orgAddress",
         ellipsis: true,
+        width: 200,
         render(_, record) {
           return (
             <OrgAddress
@@ -125,6 +144,7 @@ const LIST_TABS = {
         dataIndex: "txId",
         key: "txId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <a
@@ -132,8 +152,8 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={text} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-white text-[10px]">{text}</span>} placement="topLeft">
+               <span className="font-Montserrat text-white">{omitString(text)}</span>
               </Tooltip>
             </a>
           );
@@ -144,6 +164,7 @@ const LIST_TABS = {
         dataIndex: "updatedAt",
         key: "updatedAt",
         width: 200,
+        align: 'right',
         render(text) {
           return moment(text).format("YYYY/MM/DD HH:mm:ss");
         },
@@ -160,6 +181,7 @@ const LIST_TABS = {
         dataIndex: "orgAddress",
         key: "orgAddress",
         ellipsis: true,
+        width: 200,
         render(_, record) {
           return (
             <OrgAddress
@@ -174,6 +196,7 @@ const LIST_TABS = {
         dataIndex: "txId",
         key: "txId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <a
@@ -181,8 +204,8 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={text} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+              <span className="font-Montserrat text-white">{omitString(text)}</span>
               </Tooltip>
             </a>
           );
@@ -193,6 +216,7 @@ const LIST_TABS = {
         dataIndex: "updatedAt",
         key: "updatedAt",
         width: 200,
+        align: 'right',
       },
     ],
     rowKey: "orgAddress",
@@ -206,6 +230,7 @@ const LIST_TABS = {
         dataIndex: "proposalId",
         key: "proposalId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <LinkNetworkDao
@@ -213,8 +238,8 @@ const LIST_TABS = {
                 pathname: `/proposal/${text}`,
               }}
             >
-              <Tooltip title={text} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+                <span className="font-Montserrat font-white">{omitString(text)}</span>
               </Tooltip>
             </LinkNetworkDao>
           );
@@ -226,7 +251,7 @@ const LIST_TABS = {
         key: "action",
         width: 120,
         render(text) {
-          return <Tag color={ACTIONS_COLOR_MAP[text]}>{text}</Tag>;
+          return <Tag color={ACTIONS_COLOR_MAP[ACTIONS_TEXT_MAP[text]]}>{ACTIONS_TEXT_MAP[text]}</Tag>;
         },
       },
       {
@@ -234,6 +259,7 @@ const LIST_TABS = {
         dataIndex: "txId",
         key: "txId",
         ellipsis: true,
+        width: 200,
         render(text) {
           return (
             <a
@@ -241,8 +267,8 @@ const LIST_TABS = {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Tooltip title={text} placement="topLeft">
-                {omitString(text)}
+              <Tooltip title={<span className="font-Montserrat text-[10px]">{text}</span>} placement="topLeft">
+                <span className="font-Montserrat font-white">{omitString(text)}</span>
               </Tooltip>
             </a>
           );
@@ -253,6 +279,7 @@ const LIST_TABS = {
         dataIndex: "time",
         key: "time",
         width: 200,
+        align: 'right',
         render(time) {
           return moment(time).format("YYYY/MM/DD HH:mm:ss");
         },
@@ -266,6 +293,7 @@ const REFERENDUM_TOKEN_COLUMN_ITEM = {
   title: "Amount",
   dataIndex: "amount",
   key: "amount",
+  width: 150,
   render(text, record) {
     if (text) {
       return (
@@ -312,6 +340,7 @@ const MyProposal = () => {
   const { currentWallet } = common;
 
   function fetch(apiParams, menuKey) {
+    console.log('apiParams', apiParams)
     const apiPath = LIST_TABS[menuKey].api;
     setResult({
       list: [],
@@ -321,11 +350,19 @@ const MyProposal = () => {
       ...params,
       loading: true,
     });
-    request(apiPath, apiParams, {
-      method: "GET",
-    })
+    const newParams = {
+      address: apiParams.address,
+      currentMenu: apiParams.currentMenu,
+      loading: apiParams.loading,
+      proposalType: apiParams.proposalType,
+      search: apiParams.search,
+      chainId: chain.chainId,
+      skipCount:(apiParams.pageNum - 1) * apiParams.pageSize,
+      maxResultCount: apiParams.pageSize
+    }
+    apiServer.get(apiPath, newParams)
       .then((res) => {
-        const { list, total } = res;
+        const { items: list, totalCount: total } = res.data;
         setParams({
           ...params,
           ...apiParams,
@@ -341,7 +378,7 @@ const MyProposal = () => {
       .catch((e) => {
         sendHeight(400);
         console.error(e);
-        message.error("Network error");
+        toast.error("Network error");
       });
   }
   const tableColumns = useMemo(
@@ -359,7 +396,10 @@ const MyProposal = () => {
     );
   }, [currentWallet.address]);
 
+  const [type, setType] = useState('Parliament')
+
   const handleProposalTypeChange = async (type) => {
+    setType(type)
     const { pageSize } = params;
     const { address } = currentWallet;
     await fetch(
@@ -419,15 +459,18 @@ const MyProposal = () => {
     );
   }
   if (!currentWallet.address) {
-    return <Result
-      className="px-4 lg:px-8"
-      status="warning"
-      title="Please log in before viewing the content"
-    />;
+    return (
+    <div className="px-4 lg:px-8 text-center h-[calc(100vh-200px)] flex flex-col items-center justify-center">
+      <WaringIcon />
+      <div className="text-white text-[18px] font-Montserrat mt-[18px] font-medium">
+        <p>Please log in first before</p>
+        <p>creating a proposal</p>
+      </div>
+    </div>);
   }
 
   return (
-    <div className="my-proposal bg-white h-full page-content-padding">
+    <div className="my-proposal bg-white h-full">
       <Tabs
         className="proposal-list-tab"
         onChange={handleProposalTypeChange}
@@ -448,7 +491,7 @@ const MyProposal = () => {
       </Tabs>
       <Row gutter={16} className="my-proposal-list gap-top">
         <Col sm={6} xs={24}>
-          <div className="my-proposal-list-menu">
+          <div className="my-proposal-list-menu border-0 border-r border-solid lg:border-fillBg8 xl:border-fillBg8 md:border-fillBg8 border-transparent">
             <Menu
               onClick={handleMenuChange}
               defaultSelectedKeys={defaultSelectedKey}
@@ -493,6 +536,7 @@ const MyProposal = () => {
             searchPlaceholder={LIST_TABS[params.currentMenu].placeholder}
             loading={params.loading}
             rowKey={LIST_TABS[params.currentMenu].rowKey}
+            type={type}
           />
         </Col>
       </Row>

@@ -4,14 +4,15 @@
  */
 
 import React, { PureComponent } from "react";
-import { Row, Col, Spin, message, Button } from "antd";
 import { thousandsCommaWithDecimal } from "@utils/formater";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import getChainIdQuery from 'utils/url';
 import getStateJudgment from "@utils/getStateJudgment";
 import { aelf } from "../../../../../_src/utils";
-import walletInstance from "@redux/common/wallet";
 import { WebLoginInstance } from "@utils/webLogin";
+import { toast } from 'react-toastify';
+import Button from 'components/Button';
+import Spin from 'components/Spin';
 
 export default class ResourceSellModal extends PureComponent {
   constructor(props) {
@@ -36,7 +37,7 @@ export default class ResourceSellModal extends PureComponent {
     // todo: maybe we can move the judge to component ResourceSell
     // todo: handle the edge case that account.balance is just equal to the sellFee or nearly equal
     if (account.balance <= sellFee) {
-      message.warning(
+      toast.warning(
         `Your ${SYMBOL} balance is insufficient to pay the service charge.`
       );
       return;
@@ -68,7 +69,7 @@ export default class ResourceSellModal extends PureComponent {
         this.setState({
           loading: false,
         });
-        message.error(result.errorMessage.message, 3);
+        toast.error(result.errorMessage.message, 3);
         this.props.handleCancel();
         return;
       }
@@ -105,7 +106,7 @@ export default class ResourceSellModal extends PureComponent {
       this.setState({
         loading: false,
       });
-      message.fail("Sell failed, please try again");
+      toast.fail("Sell failed, please try again");
       console.error("result.Sell error", error);
     }
   }
@@ -127,43 +128,42 @@ export default class ResourceSellModal extends PureComponent {
 
     const CHAIN_ID = 'AELF'
     return (
-      <div className="modal resource-modal">
-        <Row className="modal-form-item">
-          <Col span={6}>Address</Col>
-          <Col
-            span={18}
-            className="text-ellipse"
-            title={`ELF_${currentWallet.address}_${CHAIN_ID}`}
+      <div className="modal resource-modal text-white font-Montserrat">
+        <div className="modal-form-item mt-[30px] pt-[24px] border-0 border-t border-solid border-fillBg8 justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Address</div>
+          <div
+            className="font-Montserrat text-[13px] break-all"
           >
             {`ELF_${currentWallet.address}_${CHAIN_ID}`}
-          </Col>
-        </Row>
-        <Row className="modal-form-item">
-          <Col span={6}>Sell {currentResourceType} Quantity</Col>
-          <Col span={18}>{thousandsCommaWithDecimal(sellNum)}</Col>
-        </Row>
-        <Row className="modal-form-item">
-          <Col span={6}>Sell {SYMBOL}</Col>
-          <Col span={18}>
+          </div>
+        </div>
+        <div className="modal-form-item pt-[24px] justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Sell {currentResourceType} Quantity</div>
+          <div className="font-Montserrat text-[13px] text-white">{thousandsCommaWithDecimal(sellNum)}</div>
+        </div>
+        <div className="modal-form-item pt-[24px] justify-between flex flex-col lg:flex-row gap-2">
+          <div className="font-Montserrat text-lightGrey text-[13px] font-medium">Sell {SYMBOL}</div>
+          <div >
             <Spin spinning={sellEstimateValueLoading}>
-              {thousandsCommaWithDecimal(SellELFValue)}
+              <span className="font-Montserrat text-[13px] text-white">{thousandsCommaWithDecimal(SellELFValue)}</span>
             </Spin>
-          </Col>
-        </Row>
-        <div className="service-charge">
+          </div>
+        </div>
+        <div className="lg:text-right font-Montserrat !text-white mt-[7px] text-[12px] text-left">
           *Service Charge: {thousandsCommaWithDecimal(sellFee)} {SYMBOL}
         </div>
+        <div className="font-Montserrat text-[11px] text-white bg-[#404040] border border-solid border-fillBg8 px-3 py-2 rounded-[5px] mt-[24px]">
+          * To avoid price fluctuations leading to transaction failure, please
+          complete the transaction within 30 seconds.
+        </div>
         <Button
-          className="modal-button sell-btn"
+          className="w-full mt-[50px] my-[14px] h-[40px] border-none rounded-[42px] !bg-[#FF485D] text-white font-Montserrat text-[15px] font-medium border hover:border-solid hover:!border-[#FF485D] hover:!text-[#FF485D] hover:!bg-transparent"
           loading={sellEstimateValueLoading || loading}
           onClick={this.getSellRes}
         >
           Sell
         </Button>
-        <div className="modal-tip">
-          * To avoid price fluctuations leading to transaction failure, please
-          complete the transaction within 30 seconds.
-        </div>
+       
       </div>
     );
   }

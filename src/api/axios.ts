@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { message } from 'antd';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { apiServer } from './request/api-server';
 import { tokenServer } from './request/token-server';
+import { toast } from 'react-toastify';
 
 const explorerUrlList = ['explorer-api', 'side-explorer-api', 'token-price-api'];
 interface ResponseType<T> {
@@ -41,7 +41,7 @@ class Request {
             case 200:
               return res;
             default:
-              message.error(errorMessage);
+              toast.error(errorMessage);
               return res;
           }
         }
@@ -54,7 +54,7 @@ class Request {
           case '50000':
             return null;
           default:
-            message.error(errorMessage);
+            toast.error(errorMessage);
             return res;
         }
       },
@@ -66,7 +66,7 @@ class Request {
             break;
 
           case 401:
-            message.error('The signature has expired. Please Login again.');
+            toast.error('The signature has expired. Please Login again.');
             setTimeout(() => {
               location.pathname = '/';
             }, 3000);
@@ -90,7 +90,7 @@ class Request {
         }
 
         console.error(`errMessage`, errMessage);
-        message.error(errMessage);
+        // toast.error(errMessage);
         return Promise.reject(errMessage);
       },
     );

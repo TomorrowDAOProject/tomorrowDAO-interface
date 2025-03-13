@@ -1,33 +1,17 @@
-/* eslint-disable react/jsx-no-bind */
-/**
- * @file proposal list
- * @author atom-yang
- */
-// eslint-disable-next-line no-use-before-define
 import React, { useEffect, useRef, useState } from "react";
-import { If, Then, Switch, Case } from "react-if";
-import { Search } from 'aelf-design';
+import { Switch, Case, If, Then } from "react-if";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import {
-  message,
-  Tabs,
-  Pagination,
-  Input,
-  Checkbox,
-  Select,
-  Spin,
-  Row,
-  Col,
-  Empty,
-  Result,
-  Modal,
-  ConfigProvider,
-  Segmented
-} from "antd";
+import { ReactComponent as WarningFilled } from 'assets/icons/warning-filled.svg';
+import Spin from 'components/Spin';
+import Result from 'components/Result';
+import NoData from 'components/NoData';
+import Row from 'components/Grid/Row';
+import Col from 'components/Grid/Col';
 import { useEffectOnce } from "react-use";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
-import { showAccountInfoSyncingModal } from "@components/SimpleModal/index";
-import Total from "@components/Total";
+import Select from 'components/Select';
+import Input from 'components/Input';
+import Checkbox from 'components/Checkbox';
 import constants, {
   API_PATH,
   LOADING_STATUS,
@@ -43,15 +27,17 @@ import {
 } from "@redux/common/utils";
 import { removePrefixOrSuffix, sendHeight } from "@common/utils";
 import removeHash from "@utils/removeHash";
-import { request } from "@common/request";
 import { GET_PROPOSALS_LIST } from "@redux/actions/proposalList";
 import { debounce } from "lodash";
 import { eventBus } from "utils/myEvent";
+import Segmented from 'components/Segmented';
+import Pagination from "components/Pagination";
+import { apiServer } from "api/axios";
+import getChainIdQuery from "utils/url";
+
 
 const handleStatusChangeEvent = 'handleStatusChange';
 const handleSearchChangeEvent = 'handleSearchChange';
-const { TabPane } = Tabs;
-const { Option } = Select;
 const { proposalTypes, proposalStatus } = constants;
 const keyFromHash = {
   "#association": proposalTypes.ASSOCIATION,
@@ -118,6 +104,13 @@ const ProposalList = () => {
       pageNum,
     });
 
+  const onPageSizeChange = (pageSize) =>
+    fetchList({
+      ...params,
+      pageSize,
+      pageNum: 1,
+    });
+
   const onSearch = async (value) => {
     await fetchList({
       ...params,
@@ -136,11 +129,11 @@ const ProposalList = () => {
   handleSearchChangeRef.current = onSearch;
   handleStatusChangeRef.current = handleStatusChange;
 
-  const handleContractFilter = (e) => {
+  const handleContractFilter = (checked) => {
     fetchList({
       ...params,
       pageNum: 1,
-      isContract: e.target.checked ? 1 : 0,
+      isContract: checked ? 1 : 0,
     });
   };
   const handleTabChange = (key) => {
@@ -194,11 +187,6 @@ const ProposalList = () => {
         visible: true,
       });
     } else {
-      // if (!webLoginWallet.accountInfoSync.syncCompleted) {
-      //   showAccountInfoSyncingModal();
-      //   return;
-      // }
-
       await sendTransactionWith(
         callContract,
         getContractAddress(params.proposalType),
@@ -234,13 +222,14 @@ const ProposalList = () => {
     });
   }
   const updateVotedStatus = async (proposalId) => {
-    const data = await request(
+    const chain = getChainIdQuery()
+    const { data } = await apiServer.get(
       API_PATH.GET_PROPOSAL_INFO,
       {
         address: currentWallet.address,
         proposalId,
-      },
-      { method: "GET" }
+        chainId: chain.chainId
+      }
     );
     const votedStatus = data?.proposal?.votedStatus;
     dispatch({
@@ -257,12 +246,7 @@ const ProposalList = () => {
     });
     return votedStatus;
   };
-  const handleRelease = async (event) => {
-    // if (!webLoginWallet.accountInfoSync.syncCompleted) {
-    //   showAccountInfoSyncingModal();
-    //   return;
-    // }
-    const id = event.currentTarget.getAttribute("proposal-id");
+  const handleRelease = async (id) => {
     debounce(async () => {
       setLoading({
         ...loading,
@@ -287,18 +271,18 @@ const ProposalList = () => {
     }, 200)();
   };
 
-  const handleApprove = async (event) => {
-    const id = event.currentTarget.getAttribute("proposal-id");
+  const handleApprove = async (id) => {
     // update votedStatus
+
     debounce(async () => {
       const votedStatus = await updateVotedStatus(id);
+      console.log('votedStatus', votedStatus, id)
       if (votedStatus === "none") {
         await send(id, "Approve");
       }
     }, 200)();
   };
-  const handleReject = async (event) => {
-    const id = event.currentTarget.getAttribute("proposal-id");
+  const handleReject = async (id) => {
     debounce(async () => {
       const votedStatus = await updateVotedStatus(id);
       if (votedStatus === "none") {
@@ -306,8 +290,7 @@ const ProposalList = () => {
       }
     }, 200)();
   };
-  const handleAbstain = async (event) => {
-    const id = event.currentTarget.getAttribute("proposal-id");
+  const handleAbstain = async (id) => {
     debounce(async () => {
       const votedStatus = await updateVotedStatus(id);
       if (votedStatus === "none") {
@@ -331,59 +314,27 @@ const ProposalList = () => {
   }, [])
 
   return (
-    <ConfigProvider prefixCls="antExplorer"
-    theme={{
-      token: {
-        controlHeight: 32
-      },
-      components: {
-        Input: {
-          paddingBlock: 4
-        },
-      },
-    }}
-    >
     <div className="proposal-list">
       <Segmented
-        className="proposal-list-segmented"
         value={activeKey}
         options={[
-          proposalTypes.PARLIAMENT, proposalTypes.ASSOCIATION, proposalTypes.REFERENDUM
+          proposalTypes.PARLIAMENT,
+          proposalTypes.ASSOCIATION,
+          proposalTypes.REFERENDUM
         ]}
         onChange={handleTabChange}
+        itemClassName="text-[11px]"
       />
-      {/* <Tabs
-        className="proposal-list-tab"
-        activeKey={activeKey}
-        onChange={handleTabChange}
-        animated={false}
-        size="small"
-      >
-        <TabPane
-          tab={proposalTypes.PARLIAMENT}
-          key={proposalTypes.PARLIAMENT}
-        />
-        <TabPane
-          tab={proposalTypes.ASSOCIATION}
-          key={proposalTypes.ASSOCIATION}
-        />
-        <TabPane
-          tab={proposalTypes.REFERENDUM}
-          key={proposalTypes.REFERENDUM}
-        />
-      </Tabs> */}
-      <div className="proposal-list-filter">
-        <If condition={params.proposalType === proposalTypes.PARLIAMENT}>
-          <Then>
-            <Checkbox
-              onChange={handleContractFilter}
-            >
-              Deploy/Update Contract Proposal
-            </Checkbox>
-          </Then>
-        </If>
+      <div className="my-[26px]">
+        {params.proposalType === proposalTypes.PARLIAMENT && (
+          <Checkbox
+            label={<span className="text-descM12 font-Montserrat text-white">Deploy/Update Contract Proposal</span>}
+            uncheckedClassName="!bg-white !border-lightGrey !border-solid !border"
+            onChange={handleContractFilter}
+          />
+        )}
       </div>
-      <div className="proposal-list-list">
+      <div className="mb-[26px]">
         <Switch>
           <Case
             condition={
@@ -392,9 +343,9 @@ const ProposalList = () => {
             }
           >
             <Spin spinning={loadingStatus === LOADING_STATUS.LOADING}>
-              <Row type="flex" gutter={16}>
+              <Row gutter={16}>
                 {list.map((item) => (
-                  <Col xs={24} sm={12} key={item.proposalId}>
+                  <Col sm={24} md={12} key={item.proposalId}>
                     <Proposal
                       bpCount={bpCount}
                       {...item}
@@ -413,6 +364,7 @@ const ProposalList = () => {
           </Case>
           <Case condition={loadingStatus === LOADING_STATUS.FAILED}>
             <Result
+              icon={<WarningFilled className="w-[74px] h-[74px]" />}
               status="error"
               title="Error Happened"
               subTitle="Please check your network"
@@ -425,23 +377,18 @@ const ProposalList = () => {
           }
         >
           <Then>
-            <Empty />
+            <NoData />
           </Then>
         </If>
       </div>
-      <div className="flex justify-end">
-        <Pagination
-          className="gap-top page-content-padding"
-          showQuickJumper
-          total={total}
-          current={params.pageNum}
-          pageSize={params.pageSize}
-          hideOnSinglePage
-          onChange={onPageNumChange}
-          showTotal={Total}
-          showSizeChanger={false}
-        />
-      </div>
+      <Pagination
+        total={total}
+        current={params.pageNum}
+        pageSize={params.pageSize || 10}
+        hideOnSinglePage
+        onChange={onPageNumChange}
+        onPageSizeChange={onPageSizeChange}
+      />
       {proposalInfo.visible ? (
         <ApproveTokenModal
           aelf={aelf}
@@ -452,8 +399,7 @@ const ProposalList = () => {
           owner={currentWallet.address}
         />
       ) : null}
-      </div>
-      </ConfigProvider>
+    </div>
   );
 };
 const ExplorerProposalListFilter = () => {
@@ -462,35 +408,38 @@ const ExplorerProposalListFilter = () => {
   const handleStatusChange = (value) => {
     eventBus.emit(handleStatusChangeEvent, value)
   }
-  const onSearch = (e) => {
-    eventBus.emit(handleSearchChangeEvent, e?.target?.value)
+  const onSearch = (value) => {
+    eventBus.emit(handleSearchChangeEvent, value)
   }
   const [searchValue, setSearchValue] = useState(params.search);
   useEffect(() => {
     setSearchValue(params.search);
   }, [params.search]);
-  return <div className="explorer-proposal-list-filter">
+  return <div className="flex flex-col md:flex-row gap-2 md:gap-5">
     <Select
-      className="explorer-select"
-      defaultValue={proposalStatus.ALL}
+      className="md:w-[132px] w-full"
       value={params.status}
-      onChange={handleStatusChange}
-    >
-      <Option value={proposalStatus.ALL}>All</Option>
-      <Option value={proposalStatus.PENDING}>Pending</Option>
-      <Option value={proposalStatus.APPROVED}>Approved</Option>
-      <Option value={proposalStatus.RELEASED}>Released</Option>
-      <Option value={proposalStatus.EXPIRED}>Expired</Option>
-    </Select>
-    <Search
-      className="proposal-list-filter-form-input"
+      options={[
+        { label: 'All', value: proposalStatus.ALL },
+        { label: 'Pending', value: proposalStatus.PENDING },
+        { label: 'Approved', value: proposalStatus.APPROVED },
+        { label: 'Released', value: proposalStatus.RELEASED },
+        { label: 'Expired', value: proposalStatus.EXPIRED } 
+      ]}
+      onChange={(option) => handleStatusChange(option.value)}
+    />
+    <Input
       placeholder="Proposal ID/Contract Address/Proposer"
+      prefix={
+        <i className="tmrwdao-icon-search text-[20px] text-inherit" />
+      }
       defaultValue={params.search}
-      allowClear
+      showClearBtn
       value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
+      onChange={setSearchValue}
       onPressEnter={onSearch}
       inputSize={'small'}
+      enterKeyHint="search"
     />
   </div>
 }

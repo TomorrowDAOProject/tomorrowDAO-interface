@@ -1,9 +1,10 @@
 /* eslint-disable consistent-return */
 
 import AElf from "aelf-sdk";
-import { request } from "../../common/request";
 import { deserializeLog } from "../../common/utils";
 import constants, { API_PATH } from "./constants";
+import { apiServer } from "api/axios";
+
 
 const { DEFAUT_RPCSERVER } = constants;
 
@@ -17,7 +18,7 @@ const aelf = new AElf(new AElf.providers.HttpProvider(DEFAUT_RPCSERVER));
 // }]
 
 async function getProposalIndoData(proposalId) {
-  return request(API_PATH.GET_PROPOSAL_INFO, proposalId, { method: "GET" });
+  return apiServer.get(API_PATH.GET_PROPOSAL_INFO, proposalId);
 }
 
 export async function getTxInfo(txId) {

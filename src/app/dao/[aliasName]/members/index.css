@@ -1,22 +1,39 @@
 .members-lists {
   .TMRWDAO-select-selector {
-    @apply !border-Neutral-Disable-Text;
+    @apply bg-fillBg8 text-lightGrey !border-fillBg8 max-w-[60px];
+  }
+  .TMRWDAO-select-arrow {
+    @apply text-white text-[10px];
   }
   .TMRWDAO-select-single {
     @apply h-[32px];
   }
   .members-lists-item {
     @apply h-[64px] flex items-center;
-    border-top: 1px solid #EDEDED;
+    border-top: 1px solid #ededed;
     &:hover {
-     @apply bg-Neutral-Hover-BG;
+      @apply bg-Neutral-Hover-BG;
     }
   }
   .TMRWDAO-members-hash-address > span {
     @apply normal-text-bold;
   }
-
 }
 .members-padding {
   @apply lg:px-[32px] px-[16px];
+}
+.TMRWDAO-select-dropdown {
+  @apply bg-darkGray;
+  .TMRWDAO-select-item {
+    @apply text-white;
+  }
+  .TMRWDAO-select-item-option-active {
+    @apply !bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected {
+    @apply text-mainColor active:!bg-transparent;
+  }
+  .TMRWDAO-select-item-option-selected:not(.TMRWDAO-select-item-option-disabled) {
+    @apply !bg-transparent !text-mainColor;
+  }
 }

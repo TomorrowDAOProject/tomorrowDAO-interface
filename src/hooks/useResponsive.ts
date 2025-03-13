@@ -33,8 +33,10 @@ export function useLandingPageResponsive() {
   const { width } = useWindowSize();
 
   const isPad = width < 992;
+  const isPhone = width < 768;
 
   return {
     isPad,
+    isPhone,
   };
 }

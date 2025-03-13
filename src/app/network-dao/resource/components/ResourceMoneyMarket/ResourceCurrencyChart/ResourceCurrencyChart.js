@@ -6,7 +6,8 @@
 
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { Tabs, Button } from "antd";
+import { Tabs } from "antd";
+import Button from 'components/Button'
 
 import ReactEchartsCore from "echarts-for-react/lib/core";
 import echarts from "echarts/lib/echarts";
@@ -18,12 +19,12 @@ import "echarts/lib/component/dataZoom";
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/toolbox";
 import "echarts/lib/component/legend";
-import { get } from "../../../../_src/utils";
 import {
   RESOURCE_CURRENCY_CHART_FETCH_INTERVAL,
   RESOURCE_TURNOVER,
 } from "../../../../_src/constants";
 import "./ResourceCurrencyChart.css";
+import { apiServer } from "api/axios";
 
 function calculateMA(dayCount, data) {
   const result = [];
@@ -123,17 +124,17 @@ function getMAData(list = []) {
 }
 
 const colorList = [
-  "#c23531",
-  "#2f4554",
-  "#61a0a8",
-  "#d48265",
-  "#91c7ae",
-  "#749f83",
-  "#ca8622",
-  "#bda29a",
-  "#6e7074",
-  "#546570",
-  "#c4ccd3",
+  "#FF485D",
+  "#ffffff",
+  "#23A756",
+  "#FFAE00",
+  // "#91c7ae",
+  // "#749f83",
+  // "#ca8622",
+  // "#bda29a",
+  // "#6e7074",
+  // "#546570",
+  // "#c4ccd3",
 ];
 
 const timeZone = (new Date().getTimezoneOffset() / 60) * -1;
@@ -190,15 +191,17 @@ class ResourceCurrencyChart extends PureComponent {
     });
 
     try {
-      const list = await get(RESOURCE_TURNOVER, {
+      const list = await apiServer.get(RESOURCE_TURNOVER, {
         range: QUERY_RANGE,
         timeZone,
         interval: intervalTime,
         type: currentResourceType,
       });
 
+      const data = list?.data
+
       this.setState({
-        list,
+        list: data,
         loading: false,
       });
       this.props.getEchartsLoading();
@@ -238,16 +241,29 @@ class ResourceCurrencyChart extends PureComponent {
       QUERY_RANGE
     );
     const { legend, series } = getMAData(list);
+
+    const dataList = [currentResourceType, ...legend].map(list => {
+      return { name: list, itemStyle: { color: list == currentResourceType ? '#00C84D': '#292929'}}
+    })
+
+    console.log('dataList', dataList)
+
     return {
+      textStyle:{
+        fontFamily: 'Montserrat', 
+      },
       animation: false,
-      color: colorList,
       title: {
         left: "center",
         text: "Resource Trade",
       },
+      color: colorList,
       legend: {
         top: 30,
-        data: [currentResourceType, ...legend],
+        data: dataList,
+        textStyle: {
+          color: '#ffffff',
+        }
       },
       tooltip: {
         trigger: "axis",
@@ -281,7 +297,7 @@ class ResourceCurrencyChart extends PureComponent {
           type: "category",
           data: dates,
           boundaryGap: true,
-          axisLine: { lineStyle: { color: "#777" } },
+          axisLine: { lineStyle: { color: "#989DA0" } },
           axisLabel: {
             formatter(value) {
               if (buttonIndex >= 4) {
@@ -312,7 +328,7 @@ class ResourceCurrencyChart extends PureComponent {
             show: false,
             alignWithLabel: true,
           },
-          axisLine: { lineStyle: { color: "#777" } },
+          axisLine: { lineStyle: { color: "#989DA0" } },
           splitNumber: 20,
           min: "dataMin",
           max: "dataMax",
@@ -322,8 +338,14 @@ class ResourceCurrencyChart extends PureComponent {
         {
           scale: true,
           splitNumber: 2,
-          axisLine: { lineStyle: { color: "#777" } },
-          splitLine: { show: true },
+          axisLine: { lineStyle: { color: "#989DA0" } },
+          splitLine: { 
+            show: true,
+            lineStyle: {
+              color: '#535353',
+              type: 'solid',
+            },
+          },
           axisTick: { show: false },
           min(value) {
             return Math.min(value.min, 0);
@@ -354,7 +376,7 @@ class ResourceCurrencyChart extends PureComponent {
           yAxisIndex: 1,
           itemStyle: {
             color(params) {
-              return params.data[2] >= 0 ? "#05ac90" : "#d34a64";
+              return params.data[2] >= 0 ? "#00C84D" : "#00C84D";
             },
           },
           data: volumes,
@@ -364,10 +386,10 @@ class ResourceCurrencyChart extends PureComponent {
           name: currentResourceType,
           data: prices,
           itemStyle: {
-            color: "#05ac90",
-            color0: "#d34a64",
-            borderColor: "#05ac90",
-            borderColor0: "#d34a64",
+            color: "#00C84D",
+            color0: "#00C84D",
+            borderColor: "#00C84D",
+            borderColor0: "#00C84D",
           },
         },
         ...series,
@@ -385,15 +407,13 @@ class ResourceCurrencyChart extends PureComponent {
     const { buttonIndex } = this.state;
     const buttonsHTML = buttons.map((item, index) => (
       <Button
-        className="time-button"
-        shape="round"
-        type={index === buttonIndex ? "primary" : ""}
+        className={`!rounded-[4px] w-[43px] !h-[14px] font-Montserrat bg-transparent border-white !py-1 ${index === buttonIndex && "!bg-mainColor !border-mainColor"}`}
         size="small"
         // eslint-disable-next-line react/no-array-index-key
         key={index}
         onClick={this.handleButtonClick.bind(this, index)}
       >
-        {item}
+       <span className="text-[8px] text-white font-medium">{item}</span>
       </Button>
     ));
     return buttonsHTML;
@@ -407,17 +427,19 @@ class ResourceCurrencyChart extends PureComponent {
       <div className="resource-currency-chart">
         <div className="resource-header">
           <div className="resource-header-title">
-            <span className="resource-title">Resource Money Market</span>
+            <span className="!font-Unbounded !font-[300] text-white">Resource Money Market</span>
           </div>
-          <div className="resource-header-title-btn">{selectButton}</div>
+          <div className="xl:flex lg:flex md:flex items-center gap-1 sm:hidden">{selectButton}</div>
         </div>
-        <div className="resource-sub-container">
-          <Tabs className="resource-type-switch" onChange={this.typeChange}>
+        <div>
+          <Tabs className="resource-type-switch font-Montserrat" onChange={this.typeChange}>
             {list.map((v) => (
-              <Tabs.TabPane key={v} tab={v} />
+              <Tabs.TabPane className="text-white ml-0" key={v} tab={v} />
             ))}
           </Tabs>
+          <div className="xl:hidden lg:hidden md:hidden items-center justify-center gap-1 flex">{selectButton}</div>
           <ReactEchartsCore
+            className="lg:px-[38px] xl:px-[38px] md:px-[38px] px-[16px] !font-Montserrat"
             echarts={echarts}
             option={this.getOption()}
             style={this.echartStyle}

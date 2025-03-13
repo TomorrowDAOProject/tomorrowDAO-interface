@@ -5,22 +5,20 @@
 
 import React, { PureComponent } from "react";
 // import { Link } from "react-router-dom";
-import Link from 'next/link'
-import { Row, Col, Spin, Button, Icon, message } from "antd";
+import { Row, Col, Spin, Button } from "antd";
 import { SYMBOL, ELF_DECIMAL } from "@src/constants";
 import { thousandsCommaWithDecimal } from "@utils/formater";
-import { APPNAME, resourceTokens } from "@config/config";
+import { resourceTokens } from "@config/config";
 import LinkNetworkDao from "components/LinkNetworkDao";
 import {
   WalletOutlined,
   SyncOutlined,
-  LogoutOutlined,
 } from "@ant-design/icons";
 import "./ResourceAElfWallet.css";
 import addressFormat from "@utils/addressFormat";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import walletInstance from "@redux/common/wallet";
-
+import { toast } from 'react-toastify';
 export default class ResourceAElfWallet extends PureComponent {
   constructor(props) {
     super(props);
@@ -91,11 +89,11 @@ export default class ResourceAElfWallet extends PureComponent {
         if (result) {
           const isPluginLock = result.error === 200005;
           if (isPluginLock) {
-            message.warn(result.message || result.errorMessage.message);
+            toast.warn(result.message || result.errorMessage.message);
           } else {
             walletInstance.logout(currentWallet.address).then(
               () => {
-                message.success(
+                toast.success(
                   "Logout successful, refresh after 3s.",
                   3,
                   () => {
@@ -108,7 +106,7 @@ export default class ResourceAElfWallet extends PureComponent {
                 this.setState({
                   loading: false,
                 });
-                message.error("logout failed");
+                toast.error("logout failed");
               }
             );
           }
@@ -179,7 +177,7 @@ export default class ResourceAElfWallet extends PureComponent {
         <Spin tip="loading...." size="large" spinning={loading}>
           <div className="resource-wallet-header resource-header">
             <WalletOutlined className="resource-icon" />
-            <span className="resource-title">{propsTile}</span>
+            <span className="resource-title !text-[#000] !font-sans">{propsTile}</span>
           </div>
           <div className="resource-sub-container">
             <Row className="resource-wallet-address">

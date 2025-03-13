@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Form, Input, Button, Result, message, Spin } from "antd";
+import { Form, Button, Input, Result, Spin } from "antd";
 import queryString from "query-string";
 import { APPNAME } from "@config/config";
 import { post, get } from "@src/utils";
@@ -11,9 +11,10 @@ import { addUrlPrefix, removeUrlPrefix } from "@utils/formater";
 import { LockTwoTone } from "@ant-design/icons";
 import { connect } from "react-redux";
 import "./index.css";
-// import { withRouter } from "../../../routes/utils";
-import { getPublicKeyFromObject } from "@utils/getPublicKey";
 import { WebLoginInstance } from "@utils/webLogin";
+import { toast } from 'react-toastify';
+import { apiServer } from "api/axios";
+import getChainIdQuery from 'utils/url';
 
 const { TextArea } = Input;
 
@@ -29,6 +30,8 @@ const TeamInfoFormItemLayout = {
 };
 
 const clsPrefix = "candidate-apply-team-info-key-in";
+
+const chain = getChainIdQuery()
 
 class KeyInTeamInfo extends PureComponent {
   formRef = React.createRef();
@@ -243,7 +246,7 @@ class KeyInTeamInfo extends PureComponent {
             {hasAuth ? (
               // eslint-disable-next-line react/jsx-fragments
               <React.Fragment>
-                <h3 className={`${clsPrefix}-title`}>Edit Team Info</h3>
+                <h3 className={`${clsPrefix}-title !text-mainColor`}>Edit Team Info</h3>
                 <Form
                   ref={this.formRef}
                   className={`${clsPrefix}-form`}
@@ -274,23 +277,24 @@ class KeyInTeamInfo extends PureComponent {
                       );
                     })}
                   {socialFormItems}
+                  <div className={`${clsPrefix}-footer`}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      onClick={this.handleSubmit}
+                      className="!rounded-[42px] text-white hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </Form>
-                <div className={`${clsPrefix}-footer`}>
-                  <Button
-                    type="submit"
-                    htmlType="submit"
-                    onClick={this.handleSubmit}
-                  >
-                    Submit
-                  </Button>
-                </div>
               </React.Fragment>
             ) : (
               <Result
                 status="403"
                 title={NO_AUTHORIZATION_ERROR_TIP}
                 extra={
-                  <Button type="primary" onClick={this.handleBack}>
+                  <Button type="primary" onClick={this.handleBack} className="hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor">
                     Go Back
                   </Button>
                 }
@@ -305,14 +309,15 @@ class KeyInTeamInfo extends PureComponent {
   fetchCandidateInfo() {
     const { currentWallet } = this.props;
 
-    get("/vote/getTeamDesc", {
+    apiServer.get("/networkdao/vote/getTeamDesc", {
       publicKey: currentWallet.publicKey,
+      chainId: chain.chainId
     })
       .then((res) => {
         this.setState({
           isLoading: false,
         });
-        if (+res.code !== 0) return;
+        if (+res.code !== 20000) return;
         const values = res.data;
         this.processUrl(values, removeUrlPrefix);
         this.setState({
@@ -377,7 +382,11 @@ class KeyInTeamInfo extends PureComponent {
             address: currentWallet.address,
             signInfo: randomNum,
           });
-          post("/vote/addTeamDesc", {
+
+          console.log('currentWallet.address', currentWallet.address)
+
+          apiServer.post("/networkdao/vote/addTeamDesc", {
+            chainId: chain.chainId,
             isActive: true,
             publicKey,
             address: currentWallet.address,
@@ -385,10 +394,10 @@ class KeyInTeamInfo extends PureComponent {
             signature,
             ...submitValues,
           }).then((res) => {
-            if (+res.code === 0) {
+            if (res.code === '2000') {
               this.props.navigate(`/vote/team?pubkey=${publicKey}`);
             } else {
-              message.error(res.msg);
+              toast.error(res.msg);
             }
           });
         });

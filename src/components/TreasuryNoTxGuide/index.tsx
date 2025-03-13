@@ -1,8 +1,9 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import { Form, InputNumber } from 'antd';
+import { Form, Button as ButtonAntd } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import treasuryIconSrc from 'assets/imgs/treasury-icon.svg';
-import { Button, Input } from 'aelf-design';
+// import { Input } from 'aelf-design';
+import Button from 'components/Button';
 
 import { callContract } from 'contract/callContract';
 import CommonModal from 'components/CommonModal';
@@ -19,6 +20,7 @@ import { timesDecimals } from 'utils/calculate';
 import { ButtonCheckLogin } from 'components/ButtonCheckLogin';
 import { getExploreLink } from 'utils/common';
 import './index.css';
+import Input from 'components/Input';
 
 const formSymbol = 'symbol';
 const formAmount = 'amount';
@@ -70,11 +72,17 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           footerConfig: {
             buttonList: [
               {
-                onClick: () => {
-                  eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-                },
-                children: 'OK',
-                type: 'primary',
+                children: (
+                  <Button
+                    className="w-full"
+                    type="primary"
+                    onClick={() => {
+                      eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                    }}
+                  >
+                    OK
+                  </Button>
+                ),
               },
             ],
           },
@@ -91,7 +99,11 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           footerConfig: {
             buttonList: [
               {
-                children: <span>OK</span>,
+                children: (
+                  <Button className="w-full" type="primary">
+                    OK
+                  </Button>
+                ),
                 onClick: () => {
                   eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
                 },
@@ -116,20 +128,26 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           <div className="treasury-no-tx-button-wrap">
             <ButtonCheckLogin
               type="primary"
-              className="treasury-no-tx-button-item"
+              className=" w-[120px] !h-[32px] py-[8px] !rounded-[42px] bg-mainColor hover:!bg-transparent hover:!text-mainColor hover:!border-mainColor font-Montserrat !px-[20px]"
               onClick={() => {
                 setDepoistOpen(true);
               }}
             >
-              Deposit
+              <span className="text-[12px] font-medium font-Montserrat">Deposit</span>
             </ButtonCheckLogin>
-            <Button className="treasury-no-tx-button-item">
+            <Button type="default" className="h-[32px] w-[120px] border-white">
               <a
-                href="https://medium.com/@tmrwdao/how-to-enable-and-manage-a-dao-treasury-with-tmrwdao-ead8168d4c9a"
+                href={`${
+                  process.env.NODE_ENV == 'production'
+                    ? 'https://docs.tmrwdao.com/'
+                    : 'https://tmrwdao-docs-testnet.aelf.dev/'
+                }`}
                 target="_blank"
                 rel="noreferrer"
               >
-                Learn More
+                <span className="text-white hover:text-white font-Montserrat text-[12px] py-[8px] font-medium">
+                  Learn More
+                </span>
               </a>
             </Button>
           </div>
@@ -138,7 +156,7 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
           open={depoistOpen}
           destroyOnClose={true}
           wrapClassName="treasury-no-tx-modal"
-          title={<div className="text-center">Deposit</div>}
+          title={<div className="text-center text-white font-Unbounded font-[300]">Deposit</div>}
           onCancel={() => {
             setDepoistOpen(false);
           }}
@@ -197,6 +215,7 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
                     const token = form.getFieldValue('symbol');
                     form.setFieldValue('symbol', token?.toUpperCase());
                   }}
+                  className="text-[14px]"
                 />
               </Form.Item>
               <Form.Item
@@ -265,17 +284,21 @@ const TreasuryNoTxGuide = forwardRef<ITreasuryNoTxGuideRef, ITreasuryNoTxGuidePr
                 ]}
                 label={<span className="treasury-no-tx-label">Amount</span>}
               >
-                <InputNumber
+                <Input
                   placeholder="Please enter the amount you want to deposit"
-                  className="w-full"
-                  controls={false}
+                  className="w-full text-[14px]"
                 />
               </Form.Item>
             </Form>
             <div className="flex justify-center">
-              <Button type="primary" size="medium" onClick={handleDeposit} loading={depositLoading}>
-                Submit
-              </Button>
+              <ButtonAntd
+                className="w-full bg-mainColor font-Montserrat !rounded-[42px] hover:!text-mainColor hover:!bg-transparent hover:border-mainColor"
+                type="primary"
+                onClick={handleDeposit}
+                loading={depositLoading}
+              >
+                <span className="text-[15px] font-medium">Submit</span>
+              </ButtonAntd>
             </div>
           </div>
         </CommonModal>

@@ -2,11 +2,14 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useCallback, useState } from "react";
 import AElf from "aelf-sdk";
-import { Tabs, Modal, message, Result, Tooltip } from "antd";
+import Result from "components/Result";
+import dayjs from "dayjs";
 import { useSelector } from "react-redux";
-import { ResultModal, emitLoading, eventBus } from 'utils/myEvent';
+import { ResultModal, eventBus } from 'utils/myEvent';
 import { CommonOperationResultModalType } from 'components/CommonOperationResultModal';
 import { okButtonConfig, INIT_RESULT_MODAL_CONFIG } from 'components/ResultModal';
+import { ReactComponent as WarningFilled } from 'assets/icons/warning-filled.svg';
+import Editor from '@monaco-editor/react';
 import {
   omitString
 } from "@common/utils";
@@ -14,7 +17,6 @@ import {
   formatTimeToNano,
   getContractAddress,
   getTxResult,
-  showTransactionResult,
   uint8ToBase64,
 } from "@redux/common/utils";
 import debounce from "lodash.debounce";
@@ -39,10 +41,8 @@ import {
 import WithoutApprovalModal from "../_proposal_root/components/WithoutApprovalModal/index";
 import { deserializeLog, isPhoneCheck } from "@common/utils";
 import { interval } from "@utils/timeUtils";
-import { useRouter, usePathname, useSearchParams, useParams } from 'next/navigation'
-import { get } from "../_src/utils.js";
-// import { isPortkeyApp } from "../../../../utils/isWebView";
-import { VIEWER_GET_CONTRACT_NAME } from "@api/url";
+import { useSearchParams } from 'next/navigation'
+import { getAddress, fetchContractName } from 'api/request';
 import {
   base64ToByteArray,
   byteArrayToHexString,
@@ -51,14 +51,17 @@ import {
 import AddressNameVer from "../_proposal_root/components/AddressNameVer/index";
 import {
   onlyOkModal,
-  showAccountInfoSyncingModal,
 } from "@components/SimpleModal/index.tsx";
 import { mainExplorer, explorer } from 'config';
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
 import { useChainSelect } from "hooks/useChainSelect";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
-
-const { TabPane } = Tabs;
+import Tabs from 'components/Tabs';
+import Modal from 'components/Modal';
+import Tooltip from 'components/Tooltip';
+import Button from 'components/Button';
+import ConfirmModal from 'components/ConfirmModal';
+import { toast } from "react-toastify";
 
 const initApplyModal = {
   visible: false,
@@ -94,6 +97,7 @@ const CreateProposal = () => {
   const [applyModal, setApplyModal] = useState(initApplyModal);
   const [withoutApprovalProps, setWithoutApprovalProps] = useState({});
   const [withoutApprovalOpen, setWithoutApprovalOpen] = useState(false);
+  const [activeKey, setActiveKey] = useState('normal');
 
   const { walletInfo: webLoginWallet, callSendMethod: callContract } = useConnectWallet();
 
@@ -144,7 +148,6 @@ const CreateProposal = () => {
 
   const cancelWithoutApproval = () => {
     // to destroy sure modal
-    Modal.destroyAll();
     setContractResult({
       confirming: false,
     });
@@ -191,7 +194,7 @@ const CreateProposal = () => {
         }, 3000);
       } catch (e) {
         interval.clear();
-        message.error(e);
+        toast.error(e);
       }
     });
   };
@@ -249,9 +252,11 @@ const CreateProposal = () => {
           "GetContractInfo",
           address
         );
-        const {
-          data: { name: contractName },
-        } = await get(VIEWER_GET_CONTRACT_NAME, { address });
+        const res = await fetchContractName({
+          chainId: getChainIdQuery()?.chainId || 'AELF',
+          address: getAddress(address)
+        }, isSideChain);
+        const contractName = res?.data?.contractName;
         return {
           status: "success",
           contractAddress: address,
@@ -285,11 +290,11 @@ const CreateProposal = () => {
                   const { contractAddress, contractVersion } =
                     contractRegistration;
                   // get contractName
-                  const {
-                    data: { name: contractName },
-                  } = await get(VIEWER_GET_CONTRACT_NAME, {
-                    address: contractAddress,
-                  });
+                  const res = await fetchContractName({
+                    chainId: getChainIdQuery()?.chainId || 'AELF',
+                    address: getAddress(contractAddress)
+                  }, isSideChain);
+                  const contractName = res?.data?.contractName;
                   intervalInstance.clear();
                   resolve({
                     status: "success",
@@ -300,17 +305,17 @@ const CreateProposal = () => {
                 }
               } catch (e) {
                 intervalInstance.clear();
-                message.error(e.message);
+                toast.error(e.message);
               }
             }
           }, 10000);
         } catch (e) {
           interval.clear();
-          message.error(e.message);
+          toast.error(e.message);
         }
       });
     } catch (e) {
-      message.error(e.message);
+      toast.error(e.message);
     }
   };
 
@@ -345,7 +350,7 @@ const CreateProposal = () => {
             !holderInfo.caHolderManagerInfo ||
             !holderInfo.caHolderManagerInfo.length
           ) {
-            message.error("Can't query holder info");
+            toast.error("Can't query holder info");
             return;
           }
           caHash = holderInfo.caHolderManagerInfo[0].caHash;
@@ -356,7 +361,7 @@ const CreateProposal = () => {
           address: currentWallet.address,
           caHash,
         });
-        message.success("Contract Name has been updated！");
+        toast.success("Contract Name has been updated！");
         return;
       }
       switch (contractMethod) {
@@ -495,7 +500,7 @@ const CreateProposal = () => {
           }
         } catch (e) {
           console.error(e);
-          message.error(e.message);
+          toast.error(e.message);
         }
         return;
       }
@@ -569,7 +574,7 @@ const CreateProposal = () => {
       });
     } catch (e) {
       console.error(e);
-      message.error(
+      toast.error(
         (e.errorMessage || {})?.message?.toString() || e.message || e.msg || "Error happened"
       );
     } finally {
@@ -590,13 +595,6 @@ const CreateProposal = () => {
     const { isOnlyUpdateName } = results;
     const isMobile = isPhoneCheck();
 
-    // if (!webLoginWallet.accountInfoSync.syncCompleted) {
-    //   setContractResult((v) => ({ ...v, confirming: false }));
-    //   handleCancel();
-    //   showAccountInfoSyncingModal();
-    //   return;
-    // }
-
     if (results.name && currentWallet.discoverInfo) {
       setContractResult((v) => ({ ...v, confirming: false }));
       handleCancel();
@@ -606,18 +604,17 @@ const CreateProposal = () => {
       return;
     }
 
-    Modal.confirm({
-      className: `sure-modal-content${isMobile ? "-mobile" : ""}`,
-      width: "720",
-      cancelButtonProps: { type: "primary", ghost: true },
-      title: (
-        <div style={{ textAlign: "left" }}>
+    ConfirmModal.confirm({
+      content: (
+        <>
           {isOnlyUpdateName
             ? "Are you sure you want to update this contract name?"
             : "Are you sure you want to submit this application?"}
-        </div>
+        </>
       ),
-      icon: null,
+      okText: 'Yes',
+      cancelText: 'No',
+      type: 'warning',
       onOk: debounce(() => submitContract(results), 500),
       onCancel: () => {
         setContractResult((v) => ({ ...v, confirming: false }));
@@ -627,7 +624,6 @@ const CreateProposal = () => {
   }
   // normal proposal
   async function submitNormalResult() {
-    console.log('normalResult', normalResult);
     setNormalResult({
       ...normalResult,
       confirming: true,
@@ -697,12 +693,18 @@ const CreateProposal = () => {
           </div>,
           footerConfig: {
             buttonList: [{
-              onClick: () => {
-                router.push(`/?${chainIdQuery.chainIdQueryString}`);
-                eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
-              },
-              children: 'OK',
-              type: 'primary',
+              children: (
+                <Button
+                  type="primary"
+                  className="w-full"
+                  onClick={() => {
+                    router.push(`/?${chainIdQuery.chainIdQueryString}`);
+                    eventBus.emit(ResultModal, INIT_RESULT_MODAL_CONFIG);
+                  }}
+                >
+                  OK
+                </Button>
+              ),
             }],
           },
         });
@@ -732,107 +734,137 @@ const CreateProposal = () => {
   }, []);
 
   if (!webLoginWallet?.address) {
-    return <Result
-    className="px-4 lg:px-8"
-    status="warning"
-    title="Please log in before creating a proposal"
-  /> 
+    return (
+      <Result
+        icon={<WarningFilled className="w-[74px] h-[74px]" />}
+        className="h-[calc(100vh-200px)]"
+        title={`Please log in first before \ncreating a proposal`}
+      />
+    );
   }
   return (
-    <div className="proposal-apply bg-white h-full">
-      <Tabs className="proposal-apply-tab" defaultActiveKey="normal">
-        <TabPane tab="Ordinary Proposal" key="normal">
-          <NormalProposal
-            isModify={orgAddress === modifyData.orgAddress}
-            {...(orgAddress === modifyData.orgAddress ? modifyData : {})}
-            contractAddress={
-              orgAddress === modifyData.orgAddress
-                ? getContractAddress(modifyData.proposalType)
-                : ""
-            }
-            aelf={aelf}
-            wallet={wallet}
-            currentWallet={currentWallet}
-            submit={handleNormalSubmit}
-          />
-        </TabPane>
-        {/* contract deploy */}
-        <TabPane tab="Deploy/Update Contract" key="contract">
-          <ContractProposal
-            loading={contractResult.confirming}
-            submit={handleContractSubmit}
-          />
-        </TabPane>
-      </Tabs>
+    <div className="bg-darkBg border border-solid border-fillBg8 rounded-[8px]">
+      <Tabs
+        activeKey={activeKey}
+        items={[
+          {
+            key: 'normal',
+            label: 'Ordinary Proposal',
+            children: (
+              <NormalProposal
+                isModify={orgAddress === modifyData.orgAddress}
+                {...(orgAddress === modifyData.orgAddress ? modifyData : {})}
+                contractAddress={
+                  orgAddress === modifyData.orgAddress
+                    ? getContractAddress(modifyData.proposalType)
+                    : ""
+                }
+                aelf={aelf}
+                wallet={wallet}
+                currentWallet={currentWallet}
+                submit={handleNormalSubmit}
+              />
+            ),
+          },
+          {
+            key: 'contract',
+            label: 'Deploy/Update Contract',
+            children: (
+              <ContractProposal
+                loading={contractResult.confirming}
+                submit={handleContractSubmit}
+              />
+            ),
+          },
+        ]}
+        onChange={(key) => {
+          setActiveKey(key);
+        }}
+      />
       <Modal
-        wrapClassName="create-proposal-modal"
-        title="Are you sure create this new proposal?"
+        rootClassName="md:!max-w-[740px] !w-[calc(100vw-12)] py-[22px] md:py-[30px] px-[22px] md:px-[38px]"
+        title="Are you sure you want to create this new proposal?"
         width={720}
-        visible={normalResult.isModalVisible}
-        confirmLoading={normalResult.confirming}
-        onOk={submitNormalResult}
-        onCancel={handleCancel}
+        isVisible={normalResult.isModalVisible}
+        onClose={handleCancel}
       >
-        <div className="proposal-result-list">
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">title:</span>
-            <span className="proposal-result-list-item-value text-ellipsis">
-              {normalResult.title}
+        <div className="flex flex-col gap-[25px] pt-[22px] mt-[30px]">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Title:</span>
+            <span className="basis-full sm:basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
+              {normalResult.title || '-'}
             </span>
           </div>
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">description:</span>
-            <span className="proposal-result-list-item-value text-ellipsis">
-              {normalResult.description}
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Description:</span>
+            <span className="basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
+              {normalResult.description || '-'}
             </span>
           </div>
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">Proposal Type:</span>
-            <span className="proposal-result-list-item-value text-ellipsis">
-              {normalResult.proposalType}
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Proposal Type:</span>
+            <span className="basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
+              {normalResult.proposalType || '-'}
             </span>
           </div>
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">Organisation Address:</span>
-            <span className="proposal-result-list-item-value text-ellipsis">
-              {normalResult.organizationAddress}
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Organisation Address:</span>
+            <span className="w-full md:w-2/3 md:basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
+              {normalResult.organizationAddress || '-'}
             </span>
           </div>
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">Contract Address:</span>
-            <span className="proposal-result-list-item-value text-ellipsis">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Contract Address:</span>
+            <span className="w-full md:w-2/3 md:basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
               {normalResult.toAddress}
             </span>
           </div>
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">Contract Method:</span>
-            <span className="proposal-result-list-item-value text-ellipsis">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Contract Method:</span>
+            <span className="w-full md:w-2/3 md:basis-2/3 text-desc13 text-white font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap">
               {normalResult.contractMethodName}
             </span>
           </div>
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">Contract Params:</span>
-            <pre className="proposal-result-list-item-value contract-params">
-              {JSON.stringify((normalResult.params || {}).origin, null, 2)}
-            </pre>
+          <div className="flex flex-col md:flex-row items-start gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Contract Params:</span>
+            <div className="w-full md:w-2/3 md:basis-2/3 h-[120px] py-[13px] border border-solid border-fillBg8 rounded-[8px]">
+              <Editor
+                value={JSON.stringify((normalResult.params || {}).origin, null, 2)}
+                language="json"
+                theme="vs-dark"
+                className="proposal-custom-action-params-editor"
+                options={{
+                  minimap: {
+                    enabled: false,
+                  },
+                  fontSize: 14,
+                  codeLensFontSize: 14,
+                  readOnly: true,
+                }}
+              />
+            </div>
           </div>
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">Description URL:</span>
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Description URL:</span>
             <a
               href={normalResult.proposalDescriptionUrl}
-              className="proposal-result-list-item-value text-ellipsis"
+              className="basis-2/3 text-desc13 text-secondaryMainColor font-Montserrat overflow-hidden text-ellipsis whitespace-nowrap"
               target="_blank"
               rel="noopener noreferrer"
             >
               {normalResult.proposalDescriptionUrl}
             </a>
           </div>
-          <div className="proposal-result-list-item gap-bottom">
-            <span className="sub-title gap-right">Expiration Time:</span>
-            <span className="proposal-result-list-item-value text-ellipsis">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <span className="basis-1/3 text-descM13 text-lightGrey font-Montserrat text-right">Expiration Time:</span>
+            <span className="basis-2/3 text-desc13 text-white font-Montserrat">
               {normalResult.expiredTime &&
-                normalResult.expiredTime.format("YYYY/MM/DD HH:mm:ss")}
+                dayjs(normalResult.expiredTime).format("YYYY/MM/DD HH:mm:ss")}
             </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button type="default" className="flex-1 !text-white !border-white" onClick={handleCancel}>Cancel</Button>
+            <Button type="primary" className="flex-1" loading={normalResult.confirming} onClick={submitNormalResult}>OK</Button>
           </div>
         </div>
       </Modal>

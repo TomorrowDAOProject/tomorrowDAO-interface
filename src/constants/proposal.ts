@@ -6,3 +6,8 @@ export const VoteMechanismNameLabel: Record<string, string> = {
 export const HighCouncilName = 'HighCouncil';
 export const ReferendumName = 'Referendum';
 export const Organization = 'Organization';
+
+export enum TIME_OPTIONS {
+  Now = 1,
+  Specific = 2,
+}

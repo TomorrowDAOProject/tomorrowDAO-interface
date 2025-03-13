@@ -76,6 +76,7 @@ interface ICommentListsItem {
   commentStatus: string;
   createTime: number;
   modificationTime: number;
+  commenterPhoto: string;
 }
 interface ICommentListsRes {
   code: string;
@@ -257,6 +258,8 @@ interface IDaoInfoData {
       Discord?: string;
       Telegram?: string;
       Reddit?: string;
+      Github?: string;
+      Others?: string;
     };
   };
   governanceMechanism: number;
@@ -338,7 +341,8 @@ interface IDaoMembersResponse {
 // -------------------------------------dao-HC-members-----------------------------
 interface IDaoHCMembersRequestParams {
   chainId: string;
-  alias: string;
+  alias?: string;
+  daoId?: string;
 }
 type IDaoHCMembersData = string[];
 interface IDaoHCMembersResponse {
@@ -605,6 +609,7 @@ interface ITokenInfoData {
   decimals?: number;
   imageUrl?: string;
   isNFT?: boolean;
+  tokenType?: 0 | 1;
   name?: string;
   supply?: string;
   symbol?: string;
@@ -634,22 +639,36 @@ interface IAddressTransferListTxFee {
 }
 
 interface IAddressTransferListDataListItem {
-  id: number;
-  txId: string;
-  from: string;
-  to: string;
-  amount: string;
-  symbol: string;
-  action: string;
-  isCrossChain: string;
-  relatedChainId: string;
-  memo: null;
-  txFee: IAddressTransferListTxFee;
-  time: string;
+  chainId: string;
+  chainIds: string[];
+  transactionId: string;
   method: string;
   blockHeight: number;
-  addressFrom: string;
-  addressTo: string;
+  blockTime: number;
+  symbol: string;
+  symbolName: string;
+  isIn: number;
+  dateTime: string;
+  symbolImageUrl: string;
+  from: {
+    name: string;
+    address: string;
+    addressType: number;
+    isManager: boolean;
+    isProducer: boolean;
+    chainId: string;
+  };
+  to: {
+    name: string;
+    address: string;
+    addressType: number;
+    isManager: boolean;
+    isProducer: boolean;
+    chainId: string;
+  };
+  quantity: number;
+  status: number;
+  transactionFeeList: IAddressTransferListTxFee[];
 }
 
 interface IAddressTransferListData {
@@ -657,10 +676,11 @@ interface IAddressTransferListData {
   total: number;
 }
 interface IAddressTransferListReq {
-  pageSize: number;
-  pageNum: number;
   address: string;
-  isNft?: boolean;
+  chainId?: string;
+  tokenType?: 0 | 1;
+  skipCount?: number;
+  maxResultCount: number;
 }
 interface IAddressTransferListRes {
   msg: string;
@@ -838,4 +858,19 @@ interface IUploadFileRes {
   code: string;
   data: string;
   message: string;
+}
+
+type TChainID = 'AELF' | 'tDVV' | 'tDVW' | '' | 'multiChain';
+interface IContractHistoryRequestParams {
+  chainId: TChainID;
+  address: string;
+  skipCount?: number;
+  maxResultCount?: number;
+}
+
+interface IContractSourceCode {
+  contractName: string;
+  contractVersion: string;
+  isVerify: boolean;
+  contractSourceCode: any[];
 }

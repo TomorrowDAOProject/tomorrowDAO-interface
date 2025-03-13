@@ -6,7 +6,7 @@
 }
 
 .resource-wallet .resource-wallet-address {
-  border-bottom: 1px solid #e5e5e5;
+  @apply border-0 border-solid border-b border-fillBg8;
   word-break: break-word;
 }
 
@@ -20,41 +20,19 @@
   flex-wrap: wrap;
   padding-top: 24px;
   padding-bottom: 24px;
-  @apply lg:gap-0 gap-[4px];
+  @apply lg:gap-0 gap-[15px];
 }
 
-.resource-wallet-address-name {
-  flex-grow: 1;
-  .link-detail-button {
-    border-radius: 6px;
-    border: 1px solid var(--Neutral-Border, #E1E1E1);
-    background: var(--Neutral-White-BG, #FFF);
-    text-align: center;
-    width: 136px;
-    height: 30px;
-    align-items: center;
-    justify-content: center;
-    display: inline-flex;
-    a {
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px; 
-      color: var(--Neutral-Title, var(--AELF-Design-Primary-Text, #1A1A1A));
-    }
+.link-detail-button {
+  @apply font-Montserrat bg-fillBg8 rounded-[6px] px-1 h-[22px] border border-solid border-white;
+  a {
+    @apply text-[10px] leading-5 font-medium text-white hover:text-white;
   }
 }
 
 .resource-wallet-address-update {
   display: flex;
   align-items: center;
-}
-
-
-.resource-wallet-address-update:hover,
-.resource-wallet-address-update:active,
-.resource-wallet-address-update:focus {
-  color: #327dec;
 }
 
 .resource-wallet-operation-container {
@@ -71,26 +49,16 @@
   padding-bottom: 24px;
 }
 .resource-wallet-info .antExplorer-row .antExplorer-col {
-  margin-bottom: 16px;
-}
-
-.resource-wallet-info-name {
-  &.balance {
-    color: var(--Neutral-Title, var(--AELF-Design-Primary-Text, #1A1A1A));
-    font-weight: 700;
-  }
+  @apply mb-[16px] flex items-center;
 }
 
 .resource-wallet-info-value {
-  font-weight: 500;
-  color: var(--Neutral-Primary-Text, #434343);
+  @apply font-Montserrat text-[12px] text-lightGrey;
 }
 .resource-wallet-info .antExplorer-row .last-col {
   margin-bottom: 0;
 }
 
 .resource-wallet-info-name {
-  color: #4c4c4c;
-  width: 180px;
-  display: inline-block;
+  @apply font-Montserrat text-[12px] text-white w-[180px] font-medium;
 }
