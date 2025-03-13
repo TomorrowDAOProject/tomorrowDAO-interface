@@ -7,7 +7,7 @@ const getExplorerRPC = () => {
   const chainIdQuery = getChainIdQuery();
   if (networkType === 'TESTNET') {
     if (isSideChain(chainIdQuery.chainId)) {
-      explorerRPC = 'https://tdvw-test-node.aelf.io'
+      explorerRPC = 'https://tdvw-test-node.aelf.io';
       // 'https://explorer-test-side02.aelf.io/chain';
     } else {
       explorerRPC = 'https://aelf-test-node.aelf.io';
@@ -17,10 +17,10 @@ const getExplorerRPC = () => {
     }
   } else if (networkType === 'MAINNET') {
     if (isSideChain(chainIdQuery.chainId)) {
-      explorerRPC = 'https://tdvv-public-node.aelf.io'
+      explorerRPC = 'https://tdvv-public-node.aelf.io';
       // 'https://tdvv-explorer.aelf.io/chain';
     } else {
-      explorerRPC = 'https://aelf-public-node.aelf.io'
+      explorerRPC = 'https://aelf-public-node.aelf.io';
       // 'https://explorer.aelf.io/chain';
     }
   }
