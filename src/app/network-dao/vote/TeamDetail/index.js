@@ -99,7 +99,7 @@ class TeamDetail extends PureComponent {
     const teamPubkey = this.getTeamPubkey();
     getTeamDesc(teamPubkey)
       .then((res) => {
-        if (res.code !== 0) {
+        if (res.code !== '20000') {
           return;
         }
         const { data } = res;
