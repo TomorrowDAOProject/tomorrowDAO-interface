@@ -160,10 +160,17 @@ export function getParams(inputType) {
 }
 
 export function formatTimeToNano(time) {
+  let millseconds = 1;
+  const now = new Date().toISOString();
+  const nanosecondsMatch = now.match(/\.(\d{1,9})Z$/);
+  if (nanosecondsMatch) {
+    millseconds = nanosecondsMatch[1]
+  }
+
   return {
     seconds: dayjs(time).unix(),
     // todo: edit
-    // nanos: dayjs(time).valueOf() * 1000000,
+    nanos: millseconds * 1000000,
   };
 }
 
