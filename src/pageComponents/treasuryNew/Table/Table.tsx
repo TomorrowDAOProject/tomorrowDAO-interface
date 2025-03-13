@@ -3,11 +3,9 @@ import { Table, IHashAddressProps } from 'aelf-design';
 import { ConfigProvider, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import Link from 'next/link';
-// import NoData from './NoData';
 import { explorer, mainExplorer } from 'config';
 import { useRequest } from 'ahooks';
 import { fetchAddressTransferList } from 'api/request';
-// import useResponsive from 'hooks/useResponsive';
 import { getFormattedDate } from 'utils/time';
 import { numberFormatter } from 'utils/numberFormatter';
 import NoData from 'components/NoData';
@@ -25,8 +23,7 @@ interface IRecordTableProps {
 }
 export default function RecordTable(props: IRecordTableProps) {
   const { address, currentChain, isNft } = props;
-  const [timeFormat, setTimeFormat] = useState('Timestamp');
-  // const { isLG } = useResponsive();
+  const timeFormat = 'Timestamp';
 
   const [tableParams, setTableParams] = useState<{ page: number; pageSize: number }>({
     page: 1,
@@ -53,14 +50,11 @@ export default function RecordTable(props: IRecordTableProps) {
       manual: true,
     },
   );
-  // const handleFormatChange = () => {
-  //   setTimeFormat(timeFormat === 'Age' ? 'Date Time' : 'Age');
-  // };
 
   const columns: ColumnsType<IAddressTransferListDataListItem> = [
     {
       title: 'Txn Hash',
-      dataIndex: 'txId',
+      dataIndex: 'transactionId',
       width: 184,
       className: 'treasury-table-column-clear-pl ',
       render(hash) {
@@ -83,14 +77,13 @@ export default function RecordTable(props: IRecordTableProps) {
                 addressActiveColor={'white'}
                 isHash={true}
               />
-              {/* <span>{hash.slice(0, 15)}...</span> */}
             </Link>
           </span>
         );
       },
     },
     {
-      dataIndex: 'action',
+      dataIndex: 'method',
       title: 'Method',
       render: (text) => {
         return (
@@ -101,7 +94,7 @@ export default function RecordTable(props: IRecordTableProps) {
       },
     },
     {
-      dataIndex: 'time',
+      dataIndex: 'dateTime',
       title: <div className="time">{timeFormat}</div>,
       render: (text) => {
         console.log('text', text, timeFormat, getFormattedDate(text, timeFormat));
@@ -115,13 +108,15 @@ export default function RecordTable(props: IRecordTableProps) {
         return (
           <div className="from">
             <Link
-              href={`${isSideChain(currentChain) ? explorer : mainExplorer}/address/${from}`}
+              href={`${isSideChain(currentChain) ? explorer : mainExplorer}/address/${
+                record?.from?.address
+              }`}
               target="_blank"
             >
               <HashAddress
                 className="text-white !text-[12px]"
                 chain={currentChain as IHashAddressProps['chain']}
-                address={from}
+                address={record?.from?.address}
                 preLen={8}
                 endLen={9}
                 iconColor="#989DA0"
@@ -153,17 +148,18 @@ export default function RecordTable(props: IRecordTableProps) {
       dataIndex: 'to',
       className: 'interactive-withto',
       render(to, record) {
-        const isOut = checkIsOut(address, record);
         return (
           <div className="to flex interactive-withto-address">
             <Link
-              href={`${isSideChain(currentChain) ? explorer : mainExplorer}/address/${to}`}
+              href={`${isSideChain(currentChain) ? explorer : mainExplorer}/address/${
+                record?.to?.address
+              }`}
               target="_blank"
             >
               <HashAddress
                 chain={currentChain as IHashAddressProps['chain']}
                 className="text-white !text-[12px]"
-                address={to}
+                address={record?.to?.address}
                 preLen={8}
                 endLen={9}
                 iconColor="#989DA0"
@@ -179,16 +175,15 @@ export default function RecordTable(props: IRecordTableProps) {
     },
     {
       title: 'Amount',
-      dataIndex: 'amount',
-      render(amount) {
-        return `${numberFormatter(amount)}`;
+      dataIndex: 'quantity',
+      render(quantity) {
+        return `${numberFormatter(quantity)}`;
       },
     },
     {
       title: 'Token',
       dataIndex: 'symbol',
       align: 'right',
-      // width: 200,
       render(symbol) {
         return (
           <Link
@@ -200,16 +195,6 @@ export default function RecordTable(props: IRecordTableProps) {
         );
       },
     },
-    // {
-    //   title: 'Txn Fee',
-    //   dataIndex: 'txFee',
-    //   align: 'right',
-    //   width: 150,
-    //   render(fee, record) {
-    //     const { symbol } = record;
-    //     return <div>{fee[symbol] ? `${fee[symbol]}${symbol}` : '-'}</div>;
-    //   },
-    // },
   ];
 
   const pageChange = (page: number, pageSize: number) => {
@@ -220,7 +205,7 @@ export default function RecordTable(props: IRecordTableProps) {
   };
   useEffect(() => {
     run();
-  }, [tableParams]);
+  }, [run, tableParams]);
 
   const handleRowClassName = (): string => {
     return 'customRow';

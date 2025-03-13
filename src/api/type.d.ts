@@ -638,22 +638,36 @@ interface IAddressTransferListTxFee {
 }
 
 interface IAddressTransferListDataListItem {
-  id: number;
-  txId: string;
-  from: string;
-  to: string;
-  amount: string;
-  symbol: string;
-  action: string;
-  isCrossChain: string;
-  relatedChainId: string;
-  memo: null;
-  txFee: IAddressTransferListTxFee;
-  time: string;
+  chainId: string;
+  chainIds: string[];
+  transactionId: string;
   method: string;
   blockHeight: number;
-  addressFrom: string;
-  addressTo: string;
+  blockTime: number;
+  symbol: string;
+  symbolName: string;
+  isIn: number;
+  dateTime: string;
+  symbolImageUrl: string;
+  from: {
+    name: string;
+    address: string;
+    addressType: number;
+    isManager: boolean;
+    isProducer: boolean;
+    chainId: string;
+  };
+  to: {
+    name: string;
+    address: string;
+    addressType: number;
+    isManager: boolean;
+    isProducer: boolean;
+    chainId: string;
+  };
+  quantity: number;
+  status: number;
+  transactionFeeList: IAddressTransferListTxFee[];
 }
 
 interface IAddressTransferListData {
