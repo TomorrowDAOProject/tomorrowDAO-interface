@@ -14,8 +14,8 @@ import { isSideChain } from 'utils/chain';
 import Symbol from 'components/Symbol';
 import LoadingComponent from 'components/LoadingComponent';
 import HashAddress from 'components/HashAddress';
+import getChainIdQuery from 'utils/url';
 
-const defaultPageSize = 20;
 interface IRecordTableProps {
   address: string;
   isNft: boolean;
@@ -24,10 +24,9 @@ interface IRecordTableProps {
 export default function RecordTable(props: IRecordTableProps) {
   const { address, currentChain, isNft } = props;
   const timeFormat = 'Timestamp';
-
   const [tableParams, setTableParams] = useState<{ page: number; pageSize: number }>({
     page: 1,
-    pageSize: defaultPageSize,
+    pageSize: 10,
   });
   const {
     data: transferListData,
@@ -36,13 +35,17 @@ export default function RecordTable(props: IRecordTableProps) {
     run,
   } = useRequest(
     () => {
+      const chain = getChainIdQuery();
       const params: IAddressTransferListReq = {
         address,
-        pageSize: tableParams.pageSize,
-        pageNum: tableParams.page,
+        skipCount: (tableParams.page - 1) * tableParams.pageSize,
+        maxResultCount: tableParams.pageSize,
+        chainId: chain?.chainId,
       };
       if (isNft) {
-        params.isNft = isNft;
+        params.tokenType = 1;
+      } else {
+        params.tokenType = 0;
       }
       return fetchAddressTransferList(params, currentChain);
     },

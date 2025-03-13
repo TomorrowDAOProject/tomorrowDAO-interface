@@ -609,6 +609,7 @@ interface ITokenInfoData {
   decimals?: number;
   imageUrl?: string;
   isNFT?: boolean;
+  tokenType?: 0 | 1;
   name?: string;
   supply?: string;
   symbol?: string;
@@ -675,10 +676,11 @@ interface IAddressTransferListData {
   total: number;
 }
 interface IAddressTransferListReq {
-  pageSize: number;
-  pageNum: number;
   address: string;
-  isNft?: boolean;
+  chainId?: string;
+  tokenType?: 0 | 1;
+  skipCount?: number;
+  maxResultCount: number;
 }
 interface IAddressTransferListRes {
   msg: string;
