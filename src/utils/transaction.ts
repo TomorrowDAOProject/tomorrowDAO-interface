@@ -3,15 +3,19 @@ import { getRawTransactionPortkey } from './getRawTransactionPortkey';
 import { getRawTransactionDiscover } from './getRawTransactionDiscover';
 import { getRawTransactionNightELF } from './getRawTransactionNightELF';
 const checkIsOut = (address: string, record: IAddressTransferListDataListItem) => {
-  const { from, to, isCrossChain } = record;
-  if (isCrossChain === 'Transfer' || isCrossChain === 'no') {
-    if (from === address) {
+  const { from, to } = record;
+  let isCrossChain = true;
+  if (from?.chainId === to?.chainId) {
+    isCrossChain = false;
+  }
+  if (!isCrossChain) {
+    if (from?.address === address) {
       return true;
     }
     return false;
   }
   // isCrossChain: Receive
-  if (to === address) {
+  if (to?.address === address) {
     return false;
   }
   return true;

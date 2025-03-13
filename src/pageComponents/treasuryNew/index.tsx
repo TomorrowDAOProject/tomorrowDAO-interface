@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Divider, ConfigProvider, Tabs } from 'antd';
+import { ConfigProvider } from 'antd';
 import { IHashAddressProps, Table } from 'aelf-design';
 import TransferTable from './Table/Table';
 import { TableProps } from 'antd/es/table';
@@ -205,27 +205,6 @@ export default function Transparent(props: ITransparentProps) {
               <TransferTable address={address} currentChain={currentChain} isNft={true} />
             </div>
           )}
-          {/* <Tabs
-            defaultActiveKey="1"
-            size="small"
-            className="treasury-tab"
-            items={[
-              {
-                key: '1',
-                label: 'Token Transfers',
-                children: (
-                 
-                ),
-              },
-              {
-                key: '2',
-                label: 'NFT Transfers',
-                children: (
-                  
-                ),
-              },
-            ]}
-          /> */}
         </div>
       )}
     </div>
