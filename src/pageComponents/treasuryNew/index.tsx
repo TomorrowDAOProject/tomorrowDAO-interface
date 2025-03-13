@@ -18,6 +18,8 @@ import { useRequest } from 'ahooks';
 import NoData from 'components/NoData';
 import LoadingComponent from 'components/LoadingComponent';
 import HashAddress from 'components/HashAddress';
+import getChainIdQuery from 'utils/url';
+
 interface ITransparentProps {
   address: string;
   isNetworkDao: boolean;
@@ -78,19 +80,27 @@ export default function Transparent(props: ITransparentProps) {
   ];
   const { data: transferList, loading: queryTransferListLoading } = useRequest(async () => {
     const pageQuery = {
-      pageSize: 20,
-      pageNum: 1,
+      skipCount: 0,
+      maxResultCount: 10,
     };
+    const chain = getChainIdQuery();
     const params: IAddressTransferListReq = {
       address,
+      chainId: chain?.chainId,
       ...pageQuery,
     };
     const [tokenTransfer, nftTransfer] = await Promise.all([
-      fetchAddressTransferList(params, currentChain),
       fetchAddressTransferList(
         {
           ...params,
-          isNft: true,
+          tokenType: 0, // 0: token, 1: nft
+        },
+        currentChain,
+      ),
+      fetchAddressTransferList(
+        {
+          ...params,
+          tokenType: 1,
         },
         currentChain,
       ),
