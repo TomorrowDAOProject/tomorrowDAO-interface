@@ -11,9 +11,7 @@ const getExplorerRPC = () => {
       // 'https://explorer-test-side02.aelf.io/chain';
     } else {
       explorerRPC = 'https://aelf-test-node.aelf.io';
-
-      //'https://explorer-test.aelf.io' 
-
+      //'https://explorer-test.aelf.io';
     }
   } else if (networkType === 'MAINNET') {
     if (isSideChain(chainIdQuery.chainId)) {
