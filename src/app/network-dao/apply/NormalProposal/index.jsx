@@ -32,6 +32,7 @@ import TextArea from "components/Textarea";
 import { toast } from "react-toastify";
 import getChainIdQuery from 'utils/url';
 import { apiServer } from "api/axios";
+import { useDebounceCallback } from 'utils/useDebounce';
 
 const { proposalTypes } = constants;
 
@@ -103,6 +104,7 @@ const FIELDS_MAP = {
     rules: {
       required: "Contract Address is required",
     },
+    placeholder: "Please select a contract address",
   },
   formContractMethod: {
     name: "formContractMethod",
@@ -341,7 +343,7 @@ const NormalProposal = (props) => {
 
   const formExpiredTime = watch('formExpiredTime');
 
-  const handleContractAddressChange = async (address) => {
+  const handleContractAddressChange = useDebounceCallback(async (address) => {
     let list = [];
     try {
       setValue("formContractMethod", "");
@@ -372,7 +374,7 @@ const NormalProposal = (props) => {
         methodName: "",
       });
     }
-  };
+  }, [loadingStatus, methods], 2000);
 
   const handleProposalTypeChange = async (type) => {
     let list = [];
@@ -425,10 +427,10 @@ const NormalProposal = (props) => {
       ...methods,
       methodName: method,
       isSingleString: isSingleStringParameter(
-        CONTRACT_INSTANCE_MAP[methods.contractAddress][method].inputType
+        CONTRACT_INSTANCE_MAP[methods.contractAddress][method]?.inputType
       ),
       isEmpty: isEmptyInputType(
-        CONTRACT_INSTANCE_MAP[methods.contractAddress][method].inputType
+        CONTRACT_INSTANCE_MAP[methods.contractAddress][method]?.inputType
       ),
     });
   };
@@ -614,6 +616,12 @@ const NormalProposal = (props) => {
                 filterOption={(...args) => contractFilter(...args, contractList)}
                 loading={loadingStatus.contractAddress}
                 isError={!!errors?.formContractAddress}
+                className="!p-0"
+                useInput={true}
+                onInputChange={(value) => {
+                  field.onChange(value);
+                  handleContractAddressChange(value);
+                }}
               />
             )}
           />
