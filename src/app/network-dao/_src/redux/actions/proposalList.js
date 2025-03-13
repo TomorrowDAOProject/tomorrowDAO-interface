@@ -42,7 +42,8 @@ export const getProposals = (params) => async (dispatch) => {
       maxResultCount: params.pageSize,
       status: statusList[params.status],
       proposalType: proposalTypeList[params.proposalType],
-      search: params.search
+      search: params.search,
+      address: params.address
     });
 
 
