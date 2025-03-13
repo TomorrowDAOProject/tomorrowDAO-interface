@@ -823,6 +823,12 @@ class VoteContainer extends Component {
     const { voteAmountInput, targetPublicKey, electionContractFromExt } =
       this.state;
     const { lockTime } = this.state;
+    let millseconds = 1;
+    const now = new Date().toISOString();
+    const nanosecondsMatch = now.match(/\.(\d{1,9})Z$/);
+    if (nanosecondsMatch) {
+      millseconds = nanosecondsMatch[1]
+    }
 
     const payload = {
       candidatePubkey: targetPublicKey,
@@ -830,7 +836,7 @@ class VoteContainer extends Component {
       amount: voteAmountInput * ELF_DECIMAL,
       endTimestamp: {
         seconds: lockTime.unix(),
-        nanos: lockTime.valueOf() * 1000000,
+        nanos: millseconds * 1000000,
       },
     };
     const chainIdQuery = getChainIdQuery();
