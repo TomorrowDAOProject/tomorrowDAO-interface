@@ -58,12 +58,11 @@ function getList(params) {
 }
 
 async function getPersonalVote(params) {
-  return request(
+  return apiServer.get(
     API_PATH.GET_PERSONAL_VOTED_LIST,
     {
       ...params,
-    },
-    { method: "GET" }
+    }
   );
 }
 const isSideChain = isSideChainByQueryParams();
@@ -214,16 +213,21 @@ const VoteDetail = (props) => {
       proposalType === proposalTypes.REFERENDUM
     ) {
       getPersonalVote({
+        chainId: getChainIdQuery()?.chainId,
         proposalId,
+        proposalType: 3, //All=0,Parliament=1,Association=2,Referendum=3
         address: currentWallet.address,
+        skipCount: 0,
+        maxResultCount: 1000,
       })
         .then((votes) => {
-          const left = votes.reduce(
+          const votesList = votes?.data?.items || [];
+          const left = votesList?.reduce(
             (acc, v) => (v.claimed ? acc : acc.add(new Decimal(v.amount))),
             new Decimal(0)
           );
           setPersonVote({
-            list: votes,
+            list: votesList,
             left: left.toString(),
             // eslint-disable-next-line max-len
             canReclaim:

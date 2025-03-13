@@ -30,6 +30,8 @@ import Button from "components/Button";
 import Tooltip from "components/Tooltip";
 import TextArea from "components/Textarea";
 import { toast } from "react-toastify";
+import getChainIdQuery from 'utils/url';
+import { apiServer } from "api/axios";
 
 const { proposalTypes } = constants;
 
@@ -169,24 +171,33 @@ const contractFilter = (input, _, list) =>
 async function getOrganizationBySearch(
   currentWallet,
   proposalType,
-  search = ""
+  search = "",
+  chainId,
+  skipCount = 0,
+  maxResultCount = 1000,
 ) {
-  return request(
+  return apiServer.get(
     API_PATH.GET_AUDIT_ORGANIZATIONS,
     {
+      chainId: chainId || getChainIdQuery()?.chainId,
       address: currentWallet.address,
       search,
       proposalType,
-    },
-    { method: "GET" }
+      skipCount,
+      maxResultCount,
+    }
   );
 }
 
 async function getContractAddress(search = "") {
+  const chainIdQuery = getChainIdQuery();
   return request(
     API_PATH.GET_ALL_CONTRACTS,
     {
       search,
+      chainId: chainIdQuery?.chainId,
+      skipCount: 0,
+      maxResultCount: 1000,
     },
     { method: "GET" }
   );
@@ -372,8 +383,8 @@ const NormalProposal = (props) => {
         contractAddress: false,
         orgAddress: true,
       });
-      list = await getOrganizationBySearch(currentWallet, type);
-      list = list || [];
+      const orgRes = await getOrganizationBySearch(currentWallet, type);
+      list = orgRes?.data?.items || [];
     } catch (e) {
       toast.error(e.message || "Querying contract address list failed!");
     } finally {
@@ -404,7 +415,7 @@ const NormalProposal = (props) => {
     if (isModify === true) {
       handleContractAddressChange(contractAddress);
       getOrganizationBySearch(currentWallet, proposalType).then((res) => {
-        setOrganizationList(res);
+        setOrganizationList(res?.data?.items);
       });
     }
   }, []);
@@ -573,7 +584,7 @@ const NormalProposal = (props) => {
                 {...field}
                 placeholder={FIELDS_MAP.formOrgAddress.placeholder}
                 loading={loadingStatus.orgAddress}
-                options={organizationList.map((v) => ({ label: v, value: v }))}
+                options={organizationList.map((item) => ({ label: item?.orgAddress, value: item?.orgAddress }))}
                 showSearch
                 filterOption={commonFilter}
                 onChange={({ value }) => field.onChange(value)}

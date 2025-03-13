@@ -30,6 +30,7 @@ import { useCallGetMethod } from "../utils.callback";
 import { CHAIN_ID } from "../../_src/constants";
 import "./index.css";
 import { toast } from "react-toastify";
+import getChainIdQuery from 'utils/url';
 
 const FormItem = Form.Item;
 const InputNameReg = /^[.,a-zA-Z\d]+$/;
@@ -189,12 +190,16 @@ const ContractProposal = (props) => {
   const [approvalMode, setApprovalMode] = useState("withoutApproval");
   const [update, setUpdate] = useState();
   const { callGetMethodSend } = useCallGetMethod();
+  const chain = getChainIdQuery();
 
   useEffect(() => {
     request(
       API_PATH.GET_ALL_CONTRACTS,
       {
         search: "",
+        chainId: chain?.chainId,
+        skipCount: 0,
+        maxResultCount: 1000,
       },
       { method: "GET" }
     )
