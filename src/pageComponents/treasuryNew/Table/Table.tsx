@@ -101,7 +101,7 @@ export default function RecordTable(props: IRecordTableProps) {
       title: <div className="time">{timeFormat}</div>,
       render: (text) => {
         console.log('text', text, timeFormat, getFormattedDate(text, timeFormat));
-        return <div>{getFormattedDate(text, timeFormat)}</div>;
+        return <div>{getFormattedDate(text + 'Z', timeFormat)}</div>;
       },
     },
     {

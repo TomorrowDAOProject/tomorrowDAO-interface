@@ -68,7 +68,7 @@ export default function RecordTable() {
       render(time) {
         return (
           <span className="font-Montserrat text-white font-medium">
-            {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}222
+            {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}
           </span>
         );
       },

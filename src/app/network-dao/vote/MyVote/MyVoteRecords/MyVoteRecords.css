@@ -7,3 +7,7 @@
   display: flex;
   justify-content: center;
 }
+
+.vote-table-wrapper .redeem-btn[disabled] {
+  @apply !text-[#404040] border border-solid !border-[#404040];
+}
