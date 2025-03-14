@@ -16,6 +16,7 @@ import Tooltip from 'components/Tooltip';
 import Spin from 'components/Spin';
 import Divider from 'components/Divider';
 import clsx from 'clsx';
+import { producedBlocks } from 'app/network-dao/_src/utils/producedBlocks';
 
 import getChainIdQuery from 'utils/url';
 
@@ -168,10 +169,7 @@ export default function HighCounCilTab() {
   };
 
   useEffect(() => {
-    socketRef.current = io(SOCKET_URL_NEW, {
-      path: '/new-socket',
-    });
-    socketRef.current?.on('produced_blocks', (data: any) => {
+    producedBlocks().then((data: any) => {
       producedBlocksRef.current = data;
       const nodeList = nodeListRef.current;
       if (!nodeList || !nodeList.length) {
@@ -183,9 +181,6 @@ export default function HighCounCilTab() {
       });
       setNodeList(newNodeList);
     });
-    return () => {
-      socketRef.current?.disconnect();
-    };
   }, []);
   useAsyncEffect(async () => {
     try {
