@@ -80,7 +80,6 @@ const CreateProposal = () => {
   const orgAddress = searchParams.get('orgAddress');
   const modifyData = useSelector((state) => state.proposalModify);
   const common = useSelector((state) => state.common);
-  const proposalSelect = useSelector((state) => state.proposalSelect);
   const [normalResult, setNormalResult] = useState({
     isModalVisible: false,
     confirming: false,

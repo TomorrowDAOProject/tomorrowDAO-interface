@@ -80,8 +80,6 @@ const { proposalStatus, proposalActions } = constants;
 
 console.log('proposalActions', proposalActions)
 
-
-
 export const ACTIONS_COLOR_MAP = {
   [proposalActions.APPROVE]: 'success',
   [proposalActions.REJECT]: 'error',
