@@ -37,6 +37,13 @@ import sortContracts from '../../_src/utils/sortContracts';
 
 const { proposalTypes } = constants;
 
+
+const TYPE_TEXT_MAP = {
+  1: 'Parliament',
+  2: 'Association',
+  3: 'Referendum',
+};
+
 const FIELDS_MAP = {
   title: {
     name: "title",
@@ -510,8 +517,11 @@ const NormalProposal = (props) => {
             name="formProposalType"
             control={control}
             rules={FIELDS_MAP.formProposalType.rules}
-            render={({ field }) => (
-              <Select
+            render={({ field }) => {
+              if ([1,2,3].includes(field.value)) {
+                field.value = TYPE_TEXT_MAP[field.value]
+              }
+              return <Select
                 {...field}
                 placeholder={FIELDS_MAP.formProposalType.placeholder}
                 options={[
@@ -526,7 +536,7 @@ const NormalProposal = (props) => {
                 }}
                 isError={!!errors?.formProposalType}
               />
-            )}
+            }}
           />
         </FormItem>
         <FormItem
