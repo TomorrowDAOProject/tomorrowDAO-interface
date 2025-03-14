@@ -11,7 +11,7 @@ import LinkNetworkDao from 'components/LinkNetworkDao';
 import { Table, Button, Input, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import moment from "moment";
-import io from "socket.io-client";
+import { producedBlocks } from '@utils/producedBlocks'
 
 import {
   getAllTeamDesc,
@@ -24,7 +24,6 @@ import publicKeyToAddress from "@utils/publicKeyToAddress";
 import { FROM_WALLET, ELF_DECIMAL } from "../../constants";
 import { connect } from "react-redux";
 import "./index.css";
-import { SOCKET_URL_NEW } from 'config';
 import addressFormat from "@utils/addressFormat";
 import TableLayer from "@components/TableLayer/TableLayer";
 import { isActivityBrowser } from "@utils/isWebView";
@@ -55,11 +54,8 @@ class NodeTable extends PureComponent {
     this.wsProducedBlocks();
     if (this.props.electionContract && this.props.consensusContract) {
       this.fetchNodes();
+      
     }
-  }
-
-  componentWillUnmount() {
-    this.socket.disconnect();
   }
 
   componentDidUpdate(prevProps) {
@@ -93,18 +89,12 @@ class NodeTable extends PureComponent {
   }
 
   wsProducedBlocks() {
-    this.socket = io(SOCKET_URL_NEW, {
-      path: '/new-socket',
-    });
-    this.socket.on("produced_blocks", (data) => {
+    producedBlocks().then(data => {
+      console.log('res11111', data)
       this.setState({
         producedBlocks: data,
       });
-      
       const { nodeList } = this.state;
-
-      
-
       if (!nodeList || !nodeList.length) {
         return;
       }
@@ -117,7 +107,7 @@ class NodeTable extends PureComponent {
       this.setState({
         nodeList: newNodeList,
       });
-    });
+    })
   }
 
   getColumnSearchProps = (dataIndex) => ({
