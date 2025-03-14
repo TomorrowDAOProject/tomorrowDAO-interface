@@ -3,15 +3,16 @@ import utc from 'dayjs/plugin/utc';
 // set utc plugin
 dayjs.extend(utc);
 
-export function getFormattedDate(date: number, type: string) {
+export function getFormattedDate(date: number | string, type: string) {
   if (date) {
     if (type === 'Date Time') {
-      return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+      return dayjs.utc(date).format('YYYY-MM-DD HH:mm:ss');
     }
-    const seconds = dayjs().diff(date, 'seconds');
-    const minutes = dayjs().diff(date, 'minutes');
-    const hours = dayjs().diff(date, 'hours');
-    const days = dayjs().diff(date, 'days');
+    const localTimestampInSeconds = dayjs.utc();
+    const seconds = localTimestampInSeconds.diff(date, 'seconds');
+    const minutes = localTimestampInSeconds.diff(date, 'minutes');
+    const hours = localTimestampInSeconds.diff(date, 'hours');
+    const days = localTimestampInSeconds.diff(date, 'days');
 
     if (minutes < 1) return `${seconds < 0 ? 0 : seconds} secs ago`;
     if (minutes < 60) return `${minutes % 60} mins ago`;
