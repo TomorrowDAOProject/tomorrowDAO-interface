@@ -31,6 +31,7 @@ import { CHAIN_ID } from "../../_src/constants";
 import "./index.css";
 import { toast } from "react-toastify";
 import getChainIdQuery from 'utils/url';
+import sortContracts from '../../_src/utils/sortContracts';
 
 const FormItem = Form.Item;
 const InputNameReg = /^[.,a-zA-Z\d]+$/;
@@ -204,7 +205,7 @@ const ContractProposal = (props) => {
       { method: "GET" }
     )
       .then((res) => {
-        setContractList(res.list || []);
+        setContractList(sortContracts(res.list) || []);
       })
       .catch((e) => {
         toast.error(e.message || "Network Error");

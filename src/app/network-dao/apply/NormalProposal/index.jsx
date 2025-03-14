@@ -33,6 +33,7 @@ import { toast } from "react-toastify";
 import getChainIdQuery from 'utils/url';
 import { apiServer } from "api/axios";
 import { useDebounceCallback } from 'utils/useDebounce';
+import sortContracts from '../../_src/utils/sortContracts';
 
 const { proposalTypes } = constants;
 
@@ -401,7 +402,7 @@ const NormalProposal = (props) => {
   useEffect(() => {
     getContractAddress("")
       .then((res) => {
-        setContractList(res.list);
+        setContractList(sortContracts(res.list) || []);
         setLoadingStatus({
           ...loadingStatus,
           contractAddress: false,
