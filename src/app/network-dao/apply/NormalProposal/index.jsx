@@ -254,53 +254,6 @@ function parsedParams(inputType, originalParams) {
   return result;
 }
 
-// eslint-disable-next-line no-unused-vars
-function parsedParamsWithoutSpecial(inputType, originalParams) {
-  const fieldsLength = Object.keys(inputType.toJSON().fields || {}).length;
-  let result = {};
-  if (fieldsLength === 0) {
-    return result;
-  }
-  Object.keys(originalParams).forEach((name) => {
-    const value = originalParams[name];
-    const type = inputType.fields[name];
-    if (value === "" || value === null || value === undefined) {
-      return;
-    }
-    if (
-      !Array.isArray(value) &&
-      typeof value === "object" &&
-      value !== null &&
-      (type.type || "").indexOf("google.protobuf.Timestamp") === -1
-    ) {
-      result = {
-        ...result,
-        [name]: parsedParams(type.resolvedType, value),
-      };
-    } else if ((type.type || "").indexOf("google.protobuf.Timestamp") > -1) {
-      result = {
-        ...result,
-        [name]: Array.isArray(value)
-          ? value.filter((v) => v).map(formatTimeToNano)
-          : formatTimeToNano(value),
-      };
-    } else if ((type.type || "").indexOf("int") > -1) {
-      result = {
-        ...result,
-        [name]: Array.isArray(value)
-          ? value.filter((v) => parseInt(v, 10))
-          : parseInt(value, 10),
-      };
-    } else {
-      result = {
-        ...result,
-        [name]: Array.isArray(value) ? value.filter((v) => v) : value,
-      };
-    }
-  });
-  return result;
-}
-
 // Ordinary Proposal
 const NormalProposal = (props) => {
   const {
@@ -458,18 +411,27 @@ const NormalProposal = (props) => {
       let parsed;
       if (methods.isSingleString) {
         parsed = parsedParams(inputType, leftParams);
+        if (!parsed) {
+          toast.error("Please input right Method Params!");
+          return;
+        }
       } else {
         parsed = parseJSON(leftParams.realSpecialPlain);
       }
-
       let decoded;
-      if (Array.isArray(parsed)) {
-        decoded = method.packInput([...parsed]);
-      } else if (typeof parsed === "object" && parsed !== null) {
-        decoded = method.packInput(JSON.parse(JSON.stringify(parsed)));
-      } else {
-        decoded = method.packInput(parsed);
+      try {
+        if (Array.isArray(parsed)) {
+          decoded = method.packInput([...parsed]);
+        } else if (typeof parsed === "object" && parsed !== null) {
+          decoded = method.packInput(JSON.parse(JSON.stringify(parsed)));
+        } else {
+          decoded = method.packInput(parsed);
+        }
+      } catch (e) {
+        toast.error(e && e?.message);
+        return;
       }
+      
       submit({
         title,
         description,
