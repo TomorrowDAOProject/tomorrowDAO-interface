@@ -181,7 +181,7 @@ const ProposalList = () => {
       const [proposal] = list.filter((item) => item.proposalId === id);
       setProposalInfo({
         ...proposalInfo,
-        tokenSymbol: proposal.organizationInfo.leftOrgInfo.tokenSymbol,
+        tokenSymbol: proposal.organizationInfo.networkDaoOrgLeftOrgInfoDto.tokenSymbol,
         action,
         proposalId: proposal.proposalId,
         visible: true,
