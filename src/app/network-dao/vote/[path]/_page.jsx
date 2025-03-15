@@ -35,7 +35,7 @@ import {
   FROM_ACTIVE_VOTES,
 } from "../constants";
 import { getFormatedLockTime } from "../utils";
-// import getAllTokens from "@utils/getAllTokens";
+import getAllTokens from "@utils/getAllTokens";
 import addressFormat from "@utils/addressFormat";
 import { WebLoginInstance } from "@utils/webLogin";
 import { fakeWallet } from "../../_src/common/utils";
@@ -1067,7 +1067,7 @@ class VoteContainer extends Component {
     }
     const { profitContractFromExt } = this.state;
     return Promise.all([
-      // getAllTokens(),
+      getAllTokens(),
       ...schemeIds.map((item) => {
         return profitContractFromExt.GetAllProfitsMap.call({
           beneficiary: currentWallet?.address,
