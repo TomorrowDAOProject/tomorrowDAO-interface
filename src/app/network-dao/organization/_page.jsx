@@ -61,8 +61,9 @@ const OrganizationList = () => {
 
   useEffect(() => {
     // get activeKey according to hash
-    const { hash } = location;
-    setActiveKey(keyFromHash[hash] || proposalTypes.PARLIAMENT);
+    if (location?.hash) {
+      setActiveKey(keyFromHash[location?.hash]);
+    }
     fetchList({
       ...params,
       proposalType: activeKey,
@@ -103,9 +104,9 @@ const OrganizationList = () => {
   };
 
   const handleTabChange = (key) => {
+    setActiveKey(key);
     if (key === proposalTypes.PARLIAMENT) {
       removeHash();
-      setActiveKey(proposalTypes.PARLIAMENT);
     } else {
       const index = Object.values(keyFromHash).findIndex((ele) => ele === key);
       window.location.hash = Object.keys(keyFromHash)[index];

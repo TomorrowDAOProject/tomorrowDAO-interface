@@ -418,10 +418,6 @@ const NormalProposal = (props) => {
       let parsed;
       if (methods.isSingleString) {
         parsed = parsedParams(inputType, leftParams);
-        if (!parsed) {
-          toast.error("Please input right Method Params!");
-          return;
-        }
       } else {
         parsed = parseJSON(leftParams.realSpecialPlain);
       }
