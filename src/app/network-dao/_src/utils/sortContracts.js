@@ -7,7 +7,16 @@ function getNameInitials(contractName) {
 }
 
 export default function sortContracts(contracts) {
-  return contracts.sort(function(a, b) {
+  // contractName: Genesis  is a system contract , need fill contractName
+  const GenesisContractsAddress = "pykr77ft9UUKJZLVq15wCH8PinBSjVRQ12sD1Ayq92mKFsJ1i";
+  let contractsTemp = contracts.map(function(item) {
+    if (item.address === GenesisContractsAddress) {
+      item.contractName = "Genesis";
+    }
+    return item;
+  });
+
+  return contractsTemp.sort(function(a, b) {
     // rule1: type SYSTEM_CONTRACT first
     var aIsSystem = a.type === 'SYSTEM_CONTRACT';
     var bIsSystem = b.type === 'SYSTEM_CONTRACT';
