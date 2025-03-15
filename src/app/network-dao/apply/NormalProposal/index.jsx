@@ -408,12 +408,7 @@ const NormalProposal = (props) => {
       } = data;
       const method = CONTRACT_INSTANCE_MAP[methods.contractAddress][methods.methodName];
       const { inputType } = method;
-      console.log('methods', methods);
-      console.log('method', method);
-      console.log('inputType', inputType);
-
       let parsed;
-      console.log('leftParams', leftParams);
       if (methods.isSingleString) {
         parsed = parsedParams(inputType, leftParams);
         if (!parsed) {
