@@ -388,10 +388,10 @@ const NormalProposal = (props) => {
       ...methods,
       methodName: method,
       isSingleString: isSingleStringParameter(
-        CONTRACT_INSTANCE_MAP[methods.contractAddress][method]?.inputType
+        CONTRACT_INSTANCE_MAP[methods.contractAddress][method].inputType
       ),
       isEmpty: isEmptyInputType(
-        CONTRACT_INSTANCE_MAP[methods.contractAddress][method]?.inputType
+        CONTRACT_INSTANCE_MAP[methods.contractAddress][method].inputType
       ),
     });
   };
