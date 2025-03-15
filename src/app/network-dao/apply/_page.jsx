@@ -72,6 +72,12 @@ const initApplyModal = {
 // 10 minutes
 const GET_CONTRACT_VERSION_TIMEOUT = 1000 * 60 * 10;
 
+const getProposalTypeText = {
+  1: 'Parliament',
+  2: 'Association',
+  3: 'Referendum'
+}
+
 const CreateProposal = () => {
   // const { orgAddress = "" } = useSearchParams();
   const { isSideChain } = useChainSelect()
@@ -762,7 +768,7 @@ const CreateProposal = () => {
                 {...(orgAddress === modifyData.orgAddress ? modifyData : {})}
                 contractAddress={
                   orgAddress === modifyData.orgAddress
-                    ? getContractAddress(modifyData.proposalType)
+                    ? getContractAddress(getProposalTypeText[modifyData.proposalType])
                     : ""
                 }
                 aelf={aelf}
