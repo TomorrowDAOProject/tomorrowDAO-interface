@@ -116,7 +116,7 @@ const Select: React.FC<ISelectProps> = ({
           <Input
             className="border-none"
             placeholder={placeholder}
-            value={String(value)}
+            value={String(selected?.label || value)}
             onChange={onInputChange}
             suffix={
               <span
