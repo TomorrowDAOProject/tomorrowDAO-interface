@@ -62,14 +62,7 @@ const ProposalSearch = ({ selectMehtod = "ReleaseApprovedContract" }) => {
         },
       ]}
     >
-      <Select
-        onSearch={proposalIdSearch}
-        filterOption={false}
-        onPopupScroll={onPopupScroll}
-        // open
-      >
-        {proposalSelect?.list
-          ?.filter(({ contractMethod }) => {
+      {/* ?.filter(({ contractMethod }) => {
             if (selectMehtod === "ReleaseApprovedContract") {
               return contractMethod === "ProposeContractCodeCheck";
             }
@@ -80,8 +73,14 @@ const ProposalSearch = ({ selectMehtod = "ReleaseApprovedContract" }) => {
               );
             }
             return true;
-          })
-          .map((item) => (
+          }) */}
+      <Select
+        onSearch={proposalIdSearch}
+        filterOption={false}
+        onPopupScroll={onPopupScroll}
+        // open
+      >
+        {proposalSelect?.list?.map((item) => (
             <Select.Option key={item.proposalId} value={item.proposalId}>
               {item.proposalId}
             </Select.Option>

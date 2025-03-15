@@ -48,7 +48,8 @@ export const getProposalSelectListWrap = async (dispatch, params) => {
 
   const res = result.data
 
-  dispatch(dispatchSelectList({ params, res }));
+  dispatch(dispatchSelectList({ params, result: res } ));
+  
   return true;
 };
 
