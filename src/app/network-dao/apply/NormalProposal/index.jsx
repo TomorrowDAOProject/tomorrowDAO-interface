@@ -579,12 +579,6 @@ const NormalProposal = (props) => {
                 filterOption={(...args) => contractFilter(...args, contractList)}
                 loading={loadingStatus.contractAddress}
                 isError={!!errors?.formContractAddress}
-                className="!p-0"
-                useInput={true}
-                onInputChange={(value) => {
-                  field.onChange(value);
-                  handleContractAddressChange(value);
-                }}
               />
             )}
           />
