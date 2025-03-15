@@ -355,6 +355,9 @@ const CreateProposal = () => {
           caHash = holderInfo.caHolderManagerInfo[0].caHash;
         }
         await updateContractName(currentWallet, {
+          chainId: currentWallet?.chainId || 'AELF',
+          operateChainId: getChainIdQuery()?.chainId || 'AELF',
+          action: "UPDATE",
           contractAddress: address,
           contractName: name,
           address: currentWallet.address,
@@ -443,6 +446,8 @@ const CreateProposal = () => {
             // add contract name
             if (name && +name !== -1) {
               await addContractName(currentWallet, {
+                chainId: currentWallet?.chainId || 'AELF',
+                operateChainId: getChainIdQuery()?.chainId || 'AELF',
                 contractName: name,
                 txId: transactionId,
                 action: isUpdate ? "UPDATE" : "DEPLOY",
@@ -533,6 +538,8 @@ const CreateProposal = () => {
       const { proposalId } = Log ?? "";
       if (name && +name !== -1) {
         await addContractName(currentWallet, {
+          chainId: currentWallet?.chainId || 'AELF',
+          operateChainId: getChainIdQuery()?.chainId || 'AELF',
           contractName: name,
           txId:
             result?.TransactionId ||

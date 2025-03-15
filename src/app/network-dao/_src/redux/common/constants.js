@@ -16,6 +16,8 @@ export const API_PATH = {
   GET_PROPOSAL_LIST: '/networkdao/proposals',
   GET_PROPOSAL_INFO: '/networkdao/proposal/info',
   CHECK_CONTRACT_NAME: '/networkdao/contract/check',
+  ADD_CONTRACT_NAME: '/networkdao/contract/add',
+  UPDATE_CONTRACT_NAME: '/networkdao/contract/update',
   GET_AUDIT_ORGANIZATIONS: '/networkdao/org/proposer',
   GET_ORGANIZATIONS: '/networkdao/org',
   GET_VOTED_LIST: '/networkdao/votes',
