@@ -381,10 +381,10 @@ const NormalProposal = (props) => {
       ...methods,
       methodName: method,
       isSingleString: isSingleStringParameter(
-        CONTRACT_INSTANCE_MAP[methods.contractAddress][method]?.inputType
+        CONTRACT_INSTANCE_MAP[methods.contractAddress][method].inputType
       ),
       isEmpty: isEmptyInputType(
-        CONTRACT_INSTANCE_MAP[methods.contractAddress][method]?.inputType
+        CONTRACT_INSTANCE_MAP[methods.contractAddress][method].inputType
       ),
     });
   };
@@ -408,7 +408,12 @@ const NormalProposal = (props) => {
       } = data;
       const method = CONTRACT_INSTANCE_MAP[methods.contractAddress][methods.methodName];
       const { inputType } = method;
+      console.log('methods', methods);
+      console.log('method', method);
+      console.log('inputType', inputType);
+
       let parsed;
+      console.log('leftParams', leftParams);
       if (methods.isSingleString) {
         parsed = parsedParams(inputType, leftParams);
         if (!parsed) {
