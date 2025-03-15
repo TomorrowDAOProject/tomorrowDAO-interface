@@ -76,6 +76,7 @@ export const useReleaseApprovedContractAction = () => {
     const proposalItem = proposalSelect.list.find(
       (item) => item.proposalId === proposalId
     );
+
     if (!proposalItem)
       throw new Error("Please check if the proposalId is valid");
     const res = await getDeserializeLog(
@@ -83,7 +84,11 @@ export const useReleaseApprovedContractAction = () => {
       proposalItem.createTxId,
       "ContractProposed"
     );
+
+
     const { proposedContractInputHash } = res ?? {};
+
+
     if (!proposedContractInputHash)
       throw new Error("Please check if the proposalId is valid");
     const param = {
@@ -148,12 +153,15 @@ export const useReleaseCodeCheckedContractAction = () => {
     const proposalItem = proposalSelect.list.find(
       (item) => item.proposalId === proposalId
     );
+
     if (!proposalItem)
       throw new Error("Please check if the proposalId is valid");
+
     const proposedContractInputHash =
       await getOriginProposedContractInputHash({
         txId: proposalItem.createTxId,
       });
+
     if (!proposedContractInputHash)
       throw new Error("Please check if the proposalId is valid");
     const param = {
