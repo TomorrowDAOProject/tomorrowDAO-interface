@@ -186,6 +186,14 @@ class VoteModal extends Component {
       type: "radio",
     };
 
+
+    const validateDate = (_, value) => {
+      if (value && value.isSame(moment(), 'day')) {
+        return Promise.reject(new Error(SELECT_SOMETHING_TIP));
+      }
+      return Promise.resolve();
+    };
+
     return [
       {
         type: FROM_WALLET,
@@ -264,6 +272,9 @@ class VoteModal extends Component {
                     {
                       required: true,
                       message: SELECT_SOMETHING_TIP,
+                    },
+                    {
+                      validator: validateDate,
                     },
                   ]}
                   // initialValue={defaultDate}
