@@ -52,7 +52,7 @@ import AddressNameVer from "../_proposal_root/components/AddressNameVer/index";
 import {
   onlyOkModal,
 } from "@components/SimpleModal/index.tsx";
-import { mainExplorer, explorer } from 'config';
+import { mainExplorer, explorer, NetworkDaoHomePathName } from 'config';
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
 import { useChainSelect } from "hooks/useChainSelect";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
@@ -62,6 +62,7 @@ import Tooltip from 'components/Tooltip';
 import Button from 'components/Button';
 import ConfirmModal from 'components/ConfirmModal';
 import { toast } from "react-toastify";
+
 
 const initApplyModal = {
   visible: false,
