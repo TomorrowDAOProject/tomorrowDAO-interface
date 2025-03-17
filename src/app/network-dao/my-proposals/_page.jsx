@@ -99,7 +99,6 @@ const LIST_TABS = {
         key: "status",
         width: 100,
         render (text) {
-          console.log('STATUS_COLOR_MAP[text]', STATUS_TEXT_MAP[text], text)
           return (
             <div>
               <Tag color={STATUS_COLOR_MAP[STATUS_TEXT_MAP[text]]}>{PROPOSAL_STATUS_CAPITAL[STATUS_TEXT_MAP[text]]}</Tag>

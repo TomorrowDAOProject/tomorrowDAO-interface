@@ -104,8 +104,8 @@ export const STATUS_COLOR_MAP = {
 export const STATUS_TEXT_MAP = {
   1: 'pending',
   2: 'approved',
-  3: 'expired',
-  4: 'released',
+  3: 'released',
+  4: 'expired',
 };
 
 export const CONTRACT_TEXT_MAP = {
