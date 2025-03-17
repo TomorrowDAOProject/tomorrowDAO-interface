@@ -416,11 +416,12 @@ const NormalProposal = (props) => {
       const method = CONTRACT_INSTANCE_MAP[methods.contractAddress][methods.methodName];
       const { inputType } = method;
       let parsed;
-      if (methods.isSingleString) {
-        parsed = parsedParams(inputType, leftParams);
-      } else {
-        parsed = parseJSON(leftParams.realSpecialPlain);
-      }
+      // no use to verify about integer string
+      // if (methods.isSingleString) {
+      //   parsed = parsedParams(inputType, leftParams);
+      // } else {
+      parsed = parseJSON(leftParams.realSpecialPlain);
+      // }
       let decoded;
       try {
         if (Array.isArray(parsed)) {
