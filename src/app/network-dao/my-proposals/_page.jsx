@@ -12,6 +12,9 @@ import constants, {
   ACTIONS_COLOR_MAP,
   API_PATH,
   STATUS_COLOR_MAP,
+  STATUS_TEXT_MAP,
+  PROPOSAL_STATUS_CAPITAL,
+  ACTIONS_TEXT_MAP
 } from "@redux/common/constants";
 import Tag from 'components/Tag'
 import {
@@ -22,15 +25,19 @@ import {
 import { isSideChainByQueryParams } from 'utils/chain'
 import { explorer, mainExplorer } from "config";
 import OrgAddress from "../_proposal_root/components/OrgAddress";
-import { request } from "@common/request";
 import { ReactComponent as WaringIcon } from 'assets/revamp-icon/waring.svg';
 import { toast } from 'react-toastify';
+import getChainIdQuery from 'utils/url';
+
 
 import "./index.css";
+import { apiServer } from "api/axios";
 const isSideChain = isSideChainByQueryParams()
 const { SubMenu, Item: MenuItem } = Menu;
 const { TabPane } = Tabs;
 const { proposalTypes } = constants;
+
+const chain = getChainIdQuery()
 
 const MENU_PATH = {
   APPLIED: "applied",
@@ -92,10 +99,9 @@ const LIST_TABS = {
         key: "status",
         width: 100,
         render (text) {
-          console.log('STATUS_COLOR_MAP[text]', STATUS_COLOR_MAP[text], text)
           return (
             <div>
-              <Tag color={STATUS_COLOR_MAP[text]}>{text}</Tag>
+              <Tag color={STATUS_COLOR_MAP[STATUS_TEXT_MAP[text]]}>{PROPOSAL_STATUS_CAPITAL[STATUS_TEXT_MAP[text]]}</Tag>
             </div>
           )
         }
@@ -244,7 +250,7 @@ const LIST_TABS = {
         key: "action",
         width: 120,
         render(text) {
-          return <Tag color={ACTIONS_COLOR_MAP[text]}>{text}</Tag>;
+          return <Tag color={ACTIONS_COLOR_MAP[ACTIONS_TEXT_MAP[text]]}>{ACTIONS_TEXT_MAP[text]}</Tag>;
         },
       },
       {
@@ -333,6 +339,7 @@ const MyProposal = () => {
   const { currentWallet } = common;
 
   function fetch(apiParams, menuKey) {
+    console.log('apiParams', apiParams)
     const apiPath = LIST_TABS[menuKey].api;
     setResult({
       list: [],
@@ -342,11 +349,19 @@ const MyProposal = () => {
       ...params,
       loading: true,
     });
-    request(apiPath, apiParams, {
-      method: "GET",
-    })
+    const newParams = {
+      address: apiParams.address,
+      currentMenu: apiParams.currentMenu,
+      loading: apiParams.loading,
+      proposalType: apiParams.proposalType,
+      search: apiParams.search,
+      chainId: chain.chainId,
+      skipCount:(apiParams.pageNum - 1) * apiParams.pageSize,
+      maxResultCount: apiParams.pageSize
+    }
+    apiServer.get(apiPath, newParams)
       .then((res) => {
-        const { list, total } = res;
+        const { items: list, totalCount: total } = res.data;
         setParams({
           ...params,
           ...apiParams,

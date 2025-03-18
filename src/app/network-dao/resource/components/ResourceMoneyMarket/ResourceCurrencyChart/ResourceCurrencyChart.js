@@ -19,13 +19,12 @@ import "echarts/lib/component/dataZoom";
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/toolbox";
 import "echarts/lib/component/legend";
-import { get } from "../../../../_src/utils";
 import {
   RESOURCE_CURRENCY_CHART_FETCH_INTERVAL,
   RESOURCE_TURNOVER,
 } from "../../../../_src/constants";
 import "./ResourceCurrencyChart.css";
-import { color } from "framer-motion";
+import { apiServer } from "api/axios";
 
 function calculateMA(dayCount, data) {
   const result = [];
@@ -192,15 +191,17 @@ class ResourceCurrencyChart extends PureComponent {
     });
 
     try {
-      const list = await get(RESOURCE_TURNOVER, {
+      const list = await apiServer.get(RESOURCE_TURNOVER, {
         range: QUERY_RANGE,
         timeZone,
         interval: intervalTime,
         type: currentResourceType,
       });
 
+      const data = list?.data
+
       this.setState({
-        list,
+        list: data,
         loading: false,
       });
       this.props.getEchartsLoading();

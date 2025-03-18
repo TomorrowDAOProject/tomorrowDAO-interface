@@ -30,8 +30,19 @@ import Button from "components/Button";
 import Tooltip from "components/Tooltip";
 import TextArea from "components/Textarea";
 import { toast } from "react-toastify";
+import getChainIdQuery from 'utils/url';
+import { apiServer } from "api/axios";
+import { useDebounceCallback } from 'utils/useDebounce';
+import sortContracts from '../../_src/utils/sortContracts';
 
 const { proposalTypes } = constants;
+
+
+const TYPE_TEXT_MAP = {
+  1: 'Parliament',
+  2: 'Association',
+  3: 'Referendum',
+};
 
 const FIELDS_MAP = {
   title: {
@@ -101,6 +112,7 @@ const FIELDS_MAP = {
     rules: {
       required: "Contract Address is required",
     },
+    placeholder: "Please select a contract address",
   },
   formContractMethod: {
     name: "formContractMethod",
@@ -169,24 +181,33 @@ const contractFilter = (input, _, list) =>
 async function getOrganizationBySearch(
   currentWallet,
   proposalType,
-  search = ""
+  search = "",
+  chainId,
+  skipCount = 0,
+  maxResultCount = 1000,
 ) {
-  return request(
+  return apiServer.get(
     API_PATH.GET_AUDIT_ORGANIZATIONS,
     {
+      chainId: chainId || getChainIdQuery()?.chainId,
       address: currentWallet.address,
       search,
       proposalType,
-    },
-    { method: "GET" }
+      skipCount,
+      maxResultCount,
+    }
   );
 }
 
 async function getContractAddress(search = "") {
+  const chainIdQuery = getChainIdQuery();
   return request(
     API_PATH.GET_ALL_CONTRACTS,
     {
       search,
+      chainId: chainIdQuery?.chainId,
+      skipCount: 0,
+      maxResultCount: 1000,
     },
     { method: "GET" }
   );
@@ -229,53 +250,6 @@ function parsedParams(inputType, originalParams) {
       result = {
         ...result,
         [name]: Array.isArray(value) ? value.filter((v) => v) : value,
-      };
-    } else {
-      result = {
-        ...result,
-        [name]: Array.isArray(value) ? value.filter((v) => v) : value,
-      };
-    }
-  });
-  return result;
-}
-
-// eslint-disable-next-line no-unused-vars
-function parsedParamsWithoutSpecial(inputType, originalParams) {
-  const fieldsLength = Object.keys(inputType.toJSON().fields || {}).length;
-  let result = {};
-  if (fieldsLength === 0) {
-    return result;
-  }
-  Object.keys(originalParams).forEach((name) => {
-    const value = originalParams[name];
-    const type = inputType.fields[name];
-    if (value === "" || value === null || value === undefined) {
-      return;
-    }
-    if (
-      !Array.isArray(value) &&
-      typeof value === "object" &&
-      value !== null &&
-      (type.type || "").indexOf("google.protobuf.Timestamp") === -1
-    ) {
-      result = {
-        ...result,
-        [name]: parsedParams(type.resolvedType, value),
-      };
-    } else if ((type.type || "").indexOf("google.protobuf.Timestamp") > -1) {
-      result = {
-        ...result,
-        [name]: Array.isArray(value)
-          ? value.filter((v) => v).map(formatTimeToNano)
-          : formatTimeToNano(value),
-      };
-    } else if ((type.type || "").indexOf("int") > -1) {
-      result = {
-        ...result,
-        [name]: Array.isArray(value)
-          ? value.filter((v) => parseInt(v, 10))
-          : parseInt(value, 10),
       };
     } else {
       result = {
@@ -330,7 +304,7 @@ const NormalProposal = (props) => {
 
   const formExpiredTime = watch('formExpiredTime');
 
-  const handleContractAddressChange = async (address) => {
+  const handleContractAddressChange = useDebounceCallback(async (address) => {
     let list = [];
     try {
       setValue("formContractMethod", "");
@@ -361,7 +335,7 @@ const NormalProposal = (props) => {
         methodName: "",
       });
     }
-  };
+  }, [loadingStatus, methods], 2000);
 
   const handleProposalTypeChange = async (type) => {
     let list = [];
@@ -372,8 +346,8 @@ const NormalProposal = (props) => {
         contractAddress: false,
         orgAddress: true,
       });
-      list = await getOrganizationBySearch(currentWallet, type);
-      list = list || [];
+      const orgRes = await getOrganizationBySearch(currentWallet, type);
+      list = orgRes?.data?.items || [];
     } catch (e) {
       toast.error(e.message || "Querying contract address list failed!");
     } finally {
@@ -388,7 +362,7 @@ const NormalProposal = (props) => {
   useEffect(() => {
     getContractAddress("")
       .then((res) => {
-        setContractList(res.list);
+        setContractList(sortContracts(res.list) || []);
         setLoadingStatus({
           ...loadingStatus,
           contractAddress: false,
@@ -404,7 +378,7 @@ const NormalProposal = (props) => {
     if (isModify === true) {
       handleContractAddressChange(contractAddress);
       getOrganizationBySearch(currentWallet, proposalType).then((res) => {
-        setOrganizationList(res);
+        setOrganizationList(res?.data?.items);
       });
     }
   }, []);
@@ -426,7 +400,8 @@ const NormalProposal = (props) => {
     try {
       const res = await trigger();
       if (!res) return;
-      const data = getValues();const {
+      const data = getValues();
+      const {
         formProposalType,
         formOrgAddress,
         formContractAddress,
@@ -441,20 +416,26 @@ const NormalProposal = (props) => {
       const method = CONTRACT_INSTANCE_MAP[methods.contractAddress][methods.methodName];
       const { inputType } = method;
       let parsed;
-      if (methods.isSingleString) {
-        parsed = parsedParams(inputType, leftParams);
-      } else {
-        parsed = parseJSON(leftParams.realSpecialPlain);
-      }
-
+      // no use to verify about integer string
+      // if (methods.isSingleString) {
+      //   parsed = parsedParams(inputType, leftParams);
+      // } else {
+      parsed = parseJSON(leftParams.realSpecialPlain);
+      // }
       let decoded;
-      if (Array.isArray(parsed)) {
-        decoded = method.packInput([...parsed]);
-      } else if (typeof parsed === "object" && parsed !== null) {
-        decoded = method.packInput(JSON.parse(JSON.stringify(parsed)));
-      } else {
-        decoded = method.packInput(parsed);
+      try {
+        if (Array.isArray(parsed)) {
+          decoded = method.packInput([...parsed]);
+        } else if (typeof parsed === "object" && parsed !== null) {
+          decoded = method.packInput(JSON.parse(JSON.stringify(parsed)));
+        } else {
+          decoded = method.packInput(parsed);
+        }
+      } catch (e) {
+        toast.error(e && e?.message);
+        return;
       }
+      
       submit({
         title,
         description,
@@ -533,8 +514,11 @@ const NormalProposal = (props) => {
             name="formProposalType"
             control={control}
             rules={FIELDS_MAP.formProposalType.rules}
-            render={({ field }) => (
-              <Select
+            render={({ field }) => {
+              if ([1,2,3].includes(field.value)) {
+                field.value = TYPE_TEXT_MAP[field.value]
+              }
+              return <Select
                 {...field}
                 placeholder={FIELDS_MAP.formProposalType.placeholder}
                 options={[
@@ -549,7 +533,7 @@ const NormalProposal = (props) => {
                 }}
                 isError={!!errors?.formProposalType}
               />
-            )}
+            }}
           />
         </FormItem>
         <FormItem
@@ -572,7 +556,7 @@ const NormalProposal = (props) => {
                 {...field}
                 placeholder={FIELDS_MAP.formOrgAddress.placeholder}
                 loading={loadingStatus.orgAddress}
-                options={organizationList.map((v) => ({ label: v, value: v }))}
+                options={organizationList.map((item) => ({ label: item?.orgAddress, value: item?.orgAddress }))}
                 showSearch
                 filterOption={commonFilter}
                 onChange={({ value }) => field.onChange(value)}
@@ -602,6 +586,12 @@ const NormalProposal = (props) => {
                 filterOption={(...args) => contractFilter(...args, contractList)}
                 loading={loadingStatus.contractAddress}
                 isError={!!errors?.formContractAddress}
+                className="!p-0"
+                useInput={true}
+                onInputChange={(value) => {
+                  field.onChange(value);
+                  handleContractAddressChange(value);
+                }}
               />
             )}
           />

@@ -2,7 +2,6 @@
 import React, { PureComponent } from "react";
 import { Table, ConfigProvider } from "antd";
 import NoData from 'components/NoData';
-import { get } from "../../_src/utils";
 import {
   RESOURCE_RECORDS,
   RESOURCE_DETAILS_COLUMN,
@@ -12,6 +11,8 @@ import {
 import "./index.css";
 import TableLayer from "@components/TableLayer/TableLayer";
 import LoadingComponent from 'components/LoadingComponent';
+import { apiServer } from "api/axios";
+
 
 const page = 0;
 class ResourceDetail extends PureComponent {
@@ -40,7 +41,7 @@ class ResourceDetail extends PureComponent {
     this.setState({
       loading: true,
     });
-    const data = await get(RESOURCE_RECORDS, {
+    const { data } = await apiServer.get(RESOURCE_RECORDS, {
       limit: PAGE_SIZE,
       page,
       order: "desc",

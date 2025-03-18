@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import LinkNetworkDao from 'components/LinkNetworkDao';
 import { connect } from "react-redux";
-import { Table, ConfigProvider, Tooltip } from 'antd';
+import { Button, Table, ConfigProvider, Input, Tooltip } from 'antd';
 import NoData from 'components/NoData';
-import Button from 'components/Button';
-import Input from 'components/Input';
 
 import { SearchOutlined } from "@ant-design/icons";
 import publicKeyToAddress from "@utils/publicKeyToAddress";
@@ -103,7 +101,7 @@ function genMyVoteRecordsCols() {
         <Button
           type="default"
           size="small"
-          className="!py-[2px] !px-1 !rounded-[4px] !text-desc10 !font-Montserrat"
+          className="redeem-btn w-[80px] text-center !text-lightGrey !rounded-[8px] bg-transparent !border border-solid !border-lightGrey hover:!bg-darkBg hover:!text-white hover:border hover:border-solid hover:!border-white"
           data-role="redeemOne"
           data-nodeaddress={publicKeyToAddress(record.candidate)}
           data-nodename={record.nane || publicKeyToAddress(record.candidate)}
@@ -145,35 +143,34 @@ class MyVoteRecords extends Component {
       confirm,
       clearFilters,
     }) => (
-      <div className="p-4">
+      <div style={{ padding: 8 }}>
         <Input
           ref={(node) => {
             this.searchInput = node;
           }}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(value) =>
-            setSelectedKeys(value ? [value] : [])
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
           }
           onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
           style={{ width: 188, marginBottom: 8, display: "block" }}
+          className='!bg-darkBg !text-lightGrey !border-borderColor placeholder:!text-lightGrey'
         />
         <div className="flex items-center gap-2 mt-2">
           <Button
             type="primary"
-            className="flex-1"
+            className="w-[90px] rounded-[42px] mr-[8px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor"
             onClick={() => this.handleSearch(selectedKeys, confirm)}
-            icon={<SearchOutlined />}
+            icon={<i className="tmrwdao-icon-search text-inherit relative top-[2px]" />}
             size="small"
-            style={{ width: 90, marginRight: 8 }}
           >
             Search
           </Button>
           <Button
-            className="flex-1"
+            className="w-[90px] rounded-[42px] text-white bg-darkBg border border-solid border-white hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
             onClick={() => this.handleReset(clearFilters, confirm)}
             size="small"
-            style={{ width: 90 }}
           >
             Reset
           </Button>
@@ -204,13 +201,13 @@ class MyVoteRecords extends Component {
   render() {
     const { data } = this.props;
     const myVoteRecordsCols = genMyVoteRecordsCols.call(this);
-
     return (
       <section className="pt-5 border-0 border-t border-solid border-t-fillBg8">
         <h2 className="mb-1 text-white text-descM12 font-Montserrat">My Votes</h2>
 
         <ConfigProvider renderEmpty={() => <NoData></NoData>}>
           <Table
+            className="vote-table-wrapper"
             showSorterTooltip={false}
             columns={myVoteRecordsCols}
             dataSource={data}

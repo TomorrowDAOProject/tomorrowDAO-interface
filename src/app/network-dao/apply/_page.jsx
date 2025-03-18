@@ -41,10 +41,8 @@ import {
 import WithoutApprovalModal from "../_proposal_root/components/WithoutApprovalModal/index";
 import { deserializeLog, isPhoneCheck } from "@common/utils";
 import { interval } from "@utils/timeUtils";
-import { useRouter, usePathname, useSearchParams, useParams } from 'next/navigation'
-import { get } from "../_src/utils.js";
-// import { isPortkeyApp } from "../../../../utils/isWebView";
-import { VIEWER_GET_CONTRACT_NAME } from "@api/url";
+import { useSearchParams } from 'next/navigation'
+import { getAddress, fetchContractName } from 'api/request';
 import {
   base64ToByteArray,
   byteArrayToHexString,
@@ -54,7 +52,7 @@ import AddressNameVer from "../_proposal_root/components/AddressNameVer/index";
 import {
   onlyOkModal,
 } from "@components/SimpleModal/index.tsx";
-import { mainExplorer, explorer } from 'config';
+import { mainExplorer, explorer, NetworkDaoHomePathName } from 'config';
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
 import { useChainSelect } from "hooks/useChainSelect";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
@@ -65,6 +63,7 @@ import Button from 'components/Button';
 import ConfirmModal from 'components/ConfirmModal';
 import { toast } from "react-toastify";
 
+
 const initApplyModal = {
   visible: false,
   title: "",
@@ -74,6 +73,12 @@ const initApplyModal = {
 // 10 minutes
 const GET_CONTRACT_VERSION_TIMEOUT = 1000 * 60 * 10;
 
+const getProposalTypeText = {
+  1: 'Parliament',
+  2: 'Association',
+  3: 'Referendum'
+}
+
 const CreateProposal = () => {
   // const { orgAddress = "" } = useSearchParams();
   const { isSideChain } = useChainSelect()
@@ -82,7 +87,6 @@ const CreateProposal = () => {
   const orgAddress = searchParams.get('orgAddress');
   const modifyData = useSelector((state) => state.proposalModify);
   const common = useSelector((state) => state.common);
-  const proposalSelect = useSelector((state) => state.proposalSelect);
   const [normalResult, setNormalResult] = useState({
     isModalVisible: false,
     confirming: false,
@@ -254,9 +258,11 @@ const CreateProposal = () => {
           "GetContractInfo",
           address
         );
-        const {
-          data: { name: contractName },
-        } = await get(VIEWER_GET_CONTRACT_NAME, { address });
+        const res = await fetchContractName({
+          chainId: getChainIdQuery()?.chainId || 'AELF',
+          address: getAddress(address)
+        }, isSideChain);
+        const contractName = res?.data?.contractName;
         return {
           status: "success",
           contractAddress: address,
@@ -290,11 +296,11 @@ const CreateProposal = () => {
                   const { contractAddress, contractVersion } =
                     contractRegistration;
                   // get contractName
-                  const {
-                    data: { name: contractName },
-                  } = await get(VIEWER_GET_CONTRACT_NAME, {
-                    address: contractAddress,
-                  });
+                  const res = await fetchContractName({
+                    chainId: getChainIdQuery()?.chainId || 'AELF',
+                    address: getAddress(contractAddress)
+                  }, isSideChain);
+                  const contractName = res?.data?.contractName;
                   intervalInstance.clear();
                   resolve({
                     status: "success",
@@ -356,6 +362,9 @@ const CreateProposal = () => {
           caHash = holderInfo.caHolderManagerInfo[0].caHash;
         }
         await updateContractName(currentWallet, {
+          chainId: currentWallet?.chainId || 'AELF',
+          operateChainId: getChainIdQuery()?.chainId || 'AELF',
+          action: "UPDATE",
           contractAddress: address,
           contractName: name,
           address: currentWallet.address,
@@ -444,6 +453,8 @@ const CreateProposal = () => {
             // add contract name
             if (name && +name !== -1) {
               await addContractName(currentWallet, {
+                chainId: currentWallet?.chainId || 'AELF',
+                operateChainId: getChainIdQuery()?.chainId || 'AELF',
                 contractName: name,
                 txId: transactionId,
                 action: isUpdate ? "UPDATE" : "DEPLOY",
@@ -534,6 +545,8 @@ const CreateProposal = () => {
       const { proposalId } = Log ?? "";
       if (name && +name !== -1) {
         await addContractName(currentWallet, {
+          chainId: currentWallet?.chainId || 'AELF',
+          operateChainId: getChainIdQuery()?.chainId || 'AELF',
           contractName: name,
           txId:
             result?.TransactionId ||
@@ -756,7 +769,7 @@ const CreateProposal = () => {
                 {...(orgAddress === modifyData.orgAddress ? modifyData : {})}
                 contractAddress={
                   orgAddress === modifyData.orgAddress
-                    ? getContractAddress(modifyData.proposalType)
+                    ? getContractAddress(getProposalTypeText[modifyData.proposalType])
                     : ""
                 }
                 aelf={aelf}

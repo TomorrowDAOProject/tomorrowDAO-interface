@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import NoData from 'components/NoData';
 import { consensusDPoSAddr, electionContractAddr, SOCKET_URL_NEW } from 'config';
 import { callMainNetViewContract } from 'contract/callContract';
-import { explorerServer } from 'api/axios';
+import { apiServer } from 'api/axios';
 import dayjs from 'dayjs';
 import { useAsyncEffect } from 'ahooks';
 import LinkNetworkDao from 'components/LinkNetworkDao';
@@ -16,6 +16,9 @@ import Tooltip from 'components/Tooltip';
 import Spin from 'components/Spin';
 import Divider from 'components/Divider';
 import clsx from 'clsx';
+import { producedBlocks } from 'app/network-dao/_src/utils/producedBlocks';
+
+import getChainIdQuery from 'utils/url';
 
 const TableItemCount = 20;
 
@@ -27,12 +30,12 @@ export default function HighCounCilTab() {
   const nodeListRef = useRef([]);
   const producedBlocksRef = useRef<any>();
   nodeListRef.current = nodeList;
+  const chain = getChainIdQuery();
 
   const getAllTeamDesc = async () => {
-    return explorerServer.get('/explorer-api/vote/getAllTeamDesc', {
-      params: {
-        isActive: true,
-      },
+    return apiServer.get('/networkdao/vote/getAllTeamDesc', {
+      isActive: true,
+      chainId: chain.chainId,
     });
   };
   const fetchCurrentRoundInformation = async () => {
@@ -67,7 +70,7 @@ export default function HighCounCilTab() {
     });
     const { activeVotingRecords } = resArr[3] || {};
     let teamInfos = null;
-    if (resArr[2].code === 0) {
+    if (resArr[2].code === '20000') {
       teamInfos = resArr[2].data;
     }
     const BPNodes = resArr[4].pubkeys;
@@ -78,7 +81,7 @@ export default function HighCounCilTab() {
       totalActiveVotesAmount += +item.obtainedVotesAmount;
       // add node name
       const teamInfo = teamInfos.find(
-        (team: any) => team.public_key === item.candidateInformation.pubkey,
+        (team: any) => team.publicKey === item.candidateInformation.pubkey,
       );
       // get address from pubkey
       item.candidateInformation.address = publicKeyToAddress(item.candidateInformation.pubkey);
@@ -166,10 +169,7 @@ export default function HighCounCilTab() {
   };
 
   useEffect(() => {
-    socketRef.current = io(SOCKET_URL_NEW, {
-      path: '/new-socket',
-    });
-    socketRef.current?.on('produced_blocks', (data: any) => {
+    producedBlocks().then((data: any) => {
       producedBlocksRef.current = data;
       const nodeList = nodeListRef.current;
       if (!nodeList || !nodeList.length) {
@@ -181,9 +181,6 @@ export default function HighCounCilTab() {
       });
       setNodeList(newNodeList);
     });
-    return () => {
-      socketRef.current?.disconnect();
-    };
   }, []);
   useAsyncEffect(async () => {
     try {

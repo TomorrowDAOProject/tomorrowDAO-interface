@@ -1,11 +1,11 @@
 import AElf from "aelf-sdk";
 import { getCsrfToken, getTxResult } from "@redux/common/utils";
-import { request } from "@common/request";
 import { API_PATH } from "@redux/common/constants";
 
 import { deserializeLog } from "@common/utils";
 import { WebLoginInstance } from "@utils/webLogin";
 import { APPNAME } from "../_src/config/config";
+import { apiServer } from "api/axios";
 console.log('location search', process.env.APP_ENV)
 async function sign(currentWallet, hexToBeSign) {
   if (currentWallet.portkeyInfo) {
@@ -40,7 +40,7 @@ export async function updateContractName(currentWallet, params) {
     timestamp,
   };
   if (Object.keys(signedParams).length > 0) {
-    return request(
+    return apiServer.post(
       API_PATH.UPDATE_CONTRACT_NAME,
       {
         ...params,
@@ -68,7 +68,7 @@ export async function addContractName(currentWallet, params) {
     timestamp,
   };
   if (Object.keys(signedParams).length > 0) {
-    return request(
+    return apiServer.post(
       API_PATH.ADD_CONTRACT_NAME,
       {
         ...params,

@@ -49,7 +49,7 @@ const Title = (props) => {
   const now = moment();
   const threshold = moment().add(3, "days");
   const showExpired =
-    status !== proposalStatus.RELEASED &&
+    status.toLowerCase() !== proposalStatus.RELEASED &&
     momentExpired.isAfter(now) &&
     momentExpired.isBefore(threshold);
   return (
@@ -106,6 +106,11 @@ const Proposal = (props) => {
     title,
     description,
   } = props;
+
+
+  console.log('status === proposalStatus.PENDING', status, proposalStatus.PENDING)
+
+
 
   const bpCountNumber =
     NETWORK_TYPE === "MAIN"

@@ -39,13 +39,6 @@ api.addResponseTransform((res) => {
   }
 });
 
-const timeout = null;
-const user = null;
-const password = null;
-const header = [{
-  name: 'Accept',
-  value: 'text/plain;v=1.0',
-}];
 // console.log('RPCSERVER', RPCSERVER);
 const aelf = new AElf(new AElf.providers.HttpProvider(
   explorerRPC,
@@ -62,33 +55,6 @@ const get = async (url, params, config) => {
   }
 
   httpErrorHandler(res.problem, res.problem);
-};
-
-let CONTRACT_NAMES = {};
-const getContractNames = async () => {
-  if (Object.keys(CONTRACT_NAMES).length > 0) {
-    return CONTRACT_NAMES;
-  }
-  let res = {};
-  try {
-    res = await get('/viewer/allContracts');
-  } catch (e) {
-    return CONTRACT_NAMES;
-  }
-  const {
-    code,
-    data = {},
-  } = res || {};
-  if (+code === 0) {
-    const {
-      list = [],
-    } = data;
-    CONTRACT_NAMES = (list || []).reduce((acc, v) => ({
-      ...acc,
-      [v.address]: v,
-    }), {});
-  }
-  return CONTRACT_NAMES;
 };
 
 const post = async (url, data, config) => {
@@ -153,6 +119,22 @@ function isAElfAddress(address) {
   }
 }
 
+function deduplicateByKey(arr, key) {
+  if (!Array.isArray(arr)) {
+    return [];
+  }
+  const seen = new Set();
+  return arr.filter(item => {
+    const val = item[key];
+    if (seen.has(val)) {
+      return false;
+    } else {
+      seen.add(val);
+      return true;
+    }
+  });
+}
+
 export {
   get,
   post,
@@ -161,6 +143,6 @@ export {
   formatKey,
   transactionFormat,
   transactionInfo,
-  getContractNames,
   isAElfAddress,
+  deduplicateByKey,
 };

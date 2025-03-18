@@ -3,7 +3,6 @@ import LinkNetworkDao from 'components/LinkNetworkDao';
 import { If, Then, Else } from "react-if";
 import { Row, Col, Button, Avatar, Tag, Typography } from "antd";
 import queryString from "query-string";
-import { toast } from 'react-toastify';
 import StatisticalData from "@components/StatisticalData/";
 import {
   getTeamDesc,
@@ -100,14 +99,16 @@ class TeamDetail extends PureComponent {
     const teamPubkey = this.getTeamPubkey();
     getTeamDesc(teamPubkey)
       .then((res) => {
-        if (res.code !== 0) {
+        if (res.code !== '20000') {
           return;
         }
         const { data } = res;
         const formattedAddress = addressFormat(data.address);
         this.setState({ data, formattedAddress });
       })
-      .catch((err) => toast.error(err));
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   fetchDataFromElectionContract() {

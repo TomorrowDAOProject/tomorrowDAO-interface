@@ -26,11 +26,19 @@ const { viewer } = config;
 
 const { proposalTypes, proposalActions } = constants;
 
+
+const getProposalTypeText = {
+  1: 'Parliament',
+  2: 'Association',
+  3: 'Referendum'
+}
+
 const Title = (props) => {
   const { proposalType } = props;
+ 
   return (
     <div className="organization-list-item-title">
-      <span className="gap-right-small text-[14px] text-white font-Montserrat font-medium">{proposalType} Organisation</span>
+      <span className="gap-right-small text-[14px] text-white font-Montserrat font-medium">{getProposalTypeText[proposalType]} Organisation</span>
     </div>
   );
 };
@@ -58,12 +66,13 @@ export function getCircleValues(
   let total;
   let coef = 1;
   let precision = 0;
-  if (proposalType === proposalType.ASSOCIATION) {
-    const {
-      organizationMemberList: { organizationMembers },
-    } = leftOrgInfo;
-    total = organizationMembers.length;
-  } else if (proposalType === proposalTypes.PARLIAMENT) {
+  if (proposalType == 2) {
+    const organizationMembers = leftOrgInfo?.organizationMemberList?.organizationMembers
+    // const {
+    //   organizationMemberList: { organizationMembers },
+    // } = leftOrgInfo;
+    total = organizationMembers?.length??0;
+  } else if (proposalType == 1) {
     coef = bpCount / abstractVoteTotal;
     total = abstractVoteTotal;
   } else {
@@ -111,8 +120,8 @@ function isProposer(
     return false;
   }
   const { proposerAuthorityRequired, proposerWhiteList = {} } = leftOrgInfo;
-  let { proposers = [] } = proposerWhiteList;
-  if (proposalType === proposalTypes.PARLIAMENT) {
+  let proposers = proposerWhiteList?.proposers??[];
+  if (proposalType == 1) {
     if (proposerAuthorityRequired === true) {
       proposers = [...bpList, ...parliamentProposerList];
       proposers = [...new Set(proposers)];
@@ -131,15 +140,21 @@ export function getOrganizationLeftInfo(
   organizationCaseClass,
   organizationItemClass,
 ) {
+
+  console.log('leftOrgInfo',proposalType, leftOrgInfo,bpList, parliamentProposerList, organizationCaseClass, organizationItemClass)
   const {
     tokenSymbol,
     proposerAuthorityRequired,
     proposerWhiteList = {},
     organizationMemberList = {},
   } = leftOrgInfo;
-  let { proposers = [] } = proposerWhiteList;
-  let { organizationMembers = [] } = organizationMemberList;
-  if (proposalType === proposalTypes.PARLIAMENT) {
+
+  console.log('proposerWhiteList', proposerWhiteList)
+
+
+  let proposers = proposerWhiteList?.proposers??[];
+  let organizationMembers = organizationMemberList?.organizationMembers??[];
+  if (proposalType == 1) {
     organizationMembers = [...bpList];
     if (proposerAuthorityRequired === true) {
       proposers = [...bpList, ...parliamentProposerList];
@@ -187,7 +202,7 @@ export function getOrganizationLeftInfo(
     );
   return (
     <Switch>
-      <Case condition={proposalType === proposalTypes.REFERENDUM}>
+      <Case condition={proposalType == 3}>
         <div className={clsx("flex flex-col", organizationCaseClass)}>
           <div className={clsx("mb-[20px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Token:</span>
@@ -203,7 +218,7 @@ export function getOrganizationLeftInfo(
           </div>
         </div>
       </Case>
-      <Case condition={proposalType === proposalTypes.PARLIAMENT}>
+      <Case condition={proposalType == 1}>
         <div className={clsx("flex flex-col", organizationCaseClass)}>
           <div className={clsx("mb-[20px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Members:</span>
@@ -217,7 +232,7 @@ export function getOrganizationLeftInfo(
           </div>
         </div>
       </Case>
-      <Case condition={proposalType === proposalTypes.ASSOCIATION}>
+      <Case condition={proposalType == 2}>
         <div className={clsx("flex flex-col", organizationCaseClass)}>
           <div className={clsx("mb-[20px]", organizationItemClass)}>
             <span className="card-list-desc-item-label mr-[6px]">Members:</span>
@@ -247,6 +262,8 @@ const Organization = (props) => {
     parliamentProposerList,
     currentWallet,
   } = props;
+
+
   const votesData = useMemo(
     () =>
       getCircleValues(

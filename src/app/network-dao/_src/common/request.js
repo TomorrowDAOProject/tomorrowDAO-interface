@@ -30,7 +30,8 @@ const purify = (rawData) => (needPurify(rawData)
  * @param response
  */
 const handleInvalidError = ({ data }) => {
-  if (+data.code === 0) {
+  // v1 code 0  or  v2 code '20000'
+  if (+data.code === 0 || data.code === '20000') {
     return data.data;
   }
   throw data;

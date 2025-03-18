@@ -41,7 +41,7 @@
 }
 
 .organization-list .antExplorer-tabs-extra-content {
-  z-index: 10 !important;
+  z-index: 9 !important;
   position: relative;
 }
 

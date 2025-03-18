@@ -23,6 +23,7 @@ import constants, {
   LOG_STATUS,
   LOADING_STATUS,
   ACTIONS_COLOR_MAP,
+  ACTIONS_TEXT_MAP,
 } from "@redux/common/constants";
 import {
   getContractAddress,
@@ -35,22 +36,33 @@ import addressFormat from "@utils/addressFormat";
 import { isSideChainByQueryParams } from 'utils/chain'
 import { explorer, mainExplorer } from "config";
 import { toast } from "react-toastify";
+import { apiServer } from "api/axios";
+import getChainIdQuery from 'utils/url';
+
 
 const { viewer } = config;
 
 const { proposalTypes, proposalStatus } = constants;
 
 function getList(params) {
-  return request(API_PATH.GET_VOTED_LIST, params, { method: "GET" });
+  const chain = getChainIdQuery();
+  const newParams = {
+    proposalId: params.proposalId,
+    search: params.search,
+    skipCount: (params.pageNum - 1) * params.pageSize,
+    maxResultCount: params.pageSize,
+    chainId: chain.chainId
+  }
+  
+  return apiServer.get(API_PATH.GET_VOTED_LIST, newParams);
 }
 
 async function getPersonalVote(params) {
-  return request(
+  return apiServer.get(
     API_PATH.GET_PERSONAL_VOTED_LIST,
     {
       ...params,
-    },
-    { method: "GET" }
+    }
   );
 }
 const isSideChain = isSideChainByQueryParams();
@@ -94,7 +106,7 @@ const listColumn = [
     dataIndex: "action",
     key: "action",
     render(action) {
-      return <Tag color={ACTIONS_COLOR_MAP[action]}>{action}</Tag>;
+      return <Tag color={ACTIONS_COLOR_MAP[ACTIONS_TEXT_MAP[action]]}>{ACTIONS_TEXT_MAP[action]}</Tag>;
     },
   },
   {
@@ -161,11 +173,12 @@ const VoteDetail = (props) => {
     });
     getList(params)
       .then((result) => {
+        const { data } = result
         setList({
           ...list,
           params,
-          list: result.list,
-          total: result.total,
+          list: data?.items,
+          total: data?.totalCount,
           loadingStatus: LOADING_STATUS.SUCCESS,
         });
       })
@@ -200,16 +213,21 @@ const VoteDetail = (props) => {
       proposalType === proposalTypes.REFERENDUM
     ) {
       getPersonalVote({
+        chainId: getChainIdQuery()?.chainId,
         proposalId,
+        proposalType: 3, //All=0,Parliament=1,Association=2,Referendum=3
         address: currentWallet.address,
+        skipCount: 0,
+        maxResultCount: 1000,
       })
         .then((votes) => {
-          const left = votes.reduce(
+          const votesList = votes?.data?.items || [];
+          const left = votesList?.reduce(
             (acc, v) => (v.claimed ? acc : acc.add(new Decimal(v.amount))),
             new Decimal(0)
           );
           setPersonVote({
-            list: votes,
+            list: votesList,
             left: left.toString(),
             // eslint-disable-next-line max-len
             canReclaim:

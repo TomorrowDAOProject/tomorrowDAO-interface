@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'redux/store';
 import clsx from 'clsx';
 import { LOG_OUT_ACTIONS, LOG_IN_ACTIONS } from 'app/network-dao/_src/redux/actions/proposalCommon';
-import store from "./_src/redux/store";
 import dynamicReq from 'next/dynamic';
 import Footer from 'components/Footer';
 import NetworkDaoHeader from 'components/NetworkDaoHeader';
@@ -23,9 +22,6 @@ const Layout = dynamicReq(
       const dispatch = useDispatch();
       const webLoginContext = useConnectWallet();
       const { walletInfo: wallet, isConnected } = webLoginContext;
-      const currentWallet = useSelector((state) => {
-        return state.common.currentWallet;
-      });
       WebLoginInstance.get().setWebLoginContext(webLoginContext);
       WebLoginInstanceClass.get().setWebLoginContext(webLoginContext);
       

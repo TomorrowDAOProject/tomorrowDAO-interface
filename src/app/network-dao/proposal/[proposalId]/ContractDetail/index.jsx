@@ -3,11 +3,9 @@
  * @author atom-yang
  */
 // eslint-disable-next-line no-use-before-define
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { If, Then } from "react-if";
-import { API_PATH } from "@redux/common/constants";
-import { request } from "@common/request";
 import config from "@common/config";
 import { base64ToHex } from "@redux/common/utils";
 import { getContract } from "@common/utils";
@@ -19,18 +17,11 @@ import Tooltip from "components/Tooltip";
 import Row from "components/Grid/Row";
 import Col from "components/Grid/Col";
 import Tag from "components/Tag";
+import { getAddress, fetchContractName } from 'api/request';
+import getChainIdQuery from 'utils/url';
 
 const { viewer } = config;
 
-function getContractName(address) {
-  return request(
-    API_PATH.GET_CONTRACT_NAME,
-    {
-      address,
-    },
-    { method: "GET" }
-  );
-}
 export function getContractURL(address, isSideChain) {
   // eslint-disable-next-line max-len
   return `${isSideChain ? explorer : mainExplorer}/address/${address}?tab=contract`;
@@ -47,15 +38,23 @@ const ContractDetail = (props) => {
   } = props;
   const [name, setName] = useState("");
   const [params, setParams] = useState(contractParams);
-  const { isSideChain } = useChainSelect()
+  const { isSideChain } = useChainSelect();
+
+  const getContractName = useCallback(async (address, isSideChain) => {
+    const res = await fetchContractName({
+      chainId: getChainIdQuery()?.chainId || 'AELF',
+      address: getAddress(address)
+    }, isSideChain);
+    const contractName = res?.data?.contractName;
+    if (contractName) {
+      setName(contractName);
+    } else {
+      setName("");
+    }
+  }, [setName]);
+
   useEffect(() => {
-    getContractName(contractAddress)
-      .then((data) => {
-        setName(data.name);
-      })
-      .catch(() => {
-        setName("");
-      });
+    getContractName(contractAddress, isSideChain);
     // history reason:
     // deploy contract on mainnet before node code update
     // will cause the contractParams cannot be parsed to json

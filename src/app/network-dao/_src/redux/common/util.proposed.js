@@ -1,9 +1,12 @@
 /* eslint-disable consistent-return */
 
 import AElf from "aelf-sdk";
-import { request } from "../../common/request";
 import { deserializeLog } from "../../common/utils";
 import constants, { API_PATH } from "./constants";
+import { apiServer } from "api/axios";
+import { PortkeyDid } from "@aelf-web-login/wallet-adapter-bridge";
+
+import getChainIdQuery from 'utils/url';
 
 const { DEFAUT_RPCSERVER } = constants;
 
@@ -16,8 +19,10 @@ const aelf = new AElf(new AElf.providers.HttpProvider(DEFAUT_RPCSERVER));
 //   NonIndexed: "CiIKIL8udonDvjbE76sHFme7tY1hpeCoMs5kKmATewiqtfa7"
 // }]
 
+const chain = getChainIdQuery();
+
 async function getProposalIndoData(proposalId) {
-  return request(API_PATH.GET_PROPOSAL_INFO, proposalId, { method: "GET" });
+  return apiServer.get(API_PATH.GET_PROPOSAL_INFO, {proposalId, chainId: chain.chainId});
 }
 
 export async function getTxInfo(txId) {
@@ -37,11 +42,14 @@ export const getPreStepProposalId = async ({ logs, txId }) => {
   return "";
 };
 
-export const getCreatedTxIdOfProposal = async (proposalId) => {
+export const getCreatedTxIdOfProposal = async ({ proposalId }) => {
   if (!proposalId) return "";
   try {
-    const data = await getProposalIndoData(proposalId);
+
+    const { data } = await getProposalIndoData(proposalId);
+
     const { proposal } = data;
+
     return proposal.createTxId || "";
   } catch (e) {
     return "";
