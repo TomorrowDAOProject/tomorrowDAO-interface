@@ -178,39 +178,12 @@ export const fetchAddressTokenList = async (
 
 // explore
 // get balance by address explore api
-export const fetchOldAddressTokenList = async (
-  params: {
-    address: string;
-  },
-  currentChain?: string,
-): Promise<IAddressTokenListRes> => {
-  const prefix = currentChain ? '/side-explorer-api' : '/explorer-api';
-  return explorerServer.get(prefix + '/viewer/balances', {
-    params,
-  });
-};
 export const fetchAddressTransferList = async (
   params: IAddressTransferListReq,
   currentChain?: string,
 ): Promise<IAddressTransferListRes> => {
   const prefix = currentChain ? '/side-explorer-api' : '/explorer-api';
-  return explorerServer.get(prefix + '/viewer/transferList', {
-    params,
-  });
-};
-export const fetchTokenPrice = async (
-  params: {
-    fsym: string;
-    tsyms?: string;
-  },
-  currentChain?: string,
-): Promise<ITokenPriceRes> => {
-  if (!params.tsyms) {
-    params.tsyms = 'USD';
-  }
-  const prefix = currentChain ? '/token-price-api' : '/token-price-api';
-
-  return explorerServer.get(prefix + '/token/price', {
+  return explorerServer.get(prefix + '/app/address/transfers', {
     params,
   });
 };
@@ -252,3 +225,18 @@ export const fileUplaod = async (params: { file: File }): Promise<IUploadFileRes
   formData.append('file', params.file);
   return apiServer.post(fileUploadUrl, formData);
 };
+
+export const getAddress = (address: string) => {
+  if (!address) return '';
+  const match = address.match(/(?:ELF_)?(.+?)(?:_[^_]+)?$/);
+  const substring = match ? match[1] : '';
+  return substring;
+};
+export async function fetchContractName(
+  params: IContractHistoryRequestParams,
+  isSideChain: boolean,
+): Promise<IContractSourceCode> {
+  const prefix = isSideChain ? '/side-explorer-api' : '/explorer-api';
+  const result = await explorerServer.get(prefix + '/app/address/contract/file', { params });
+  return result as IContractSourceCode;
+}

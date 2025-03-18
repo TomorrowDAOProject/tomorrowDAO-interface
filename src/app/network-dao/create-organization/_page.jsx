@@ -7,6 +7,7 @@ import getChainIdQuery from 'utils/url';
 import ReactIf from "react-if";
 import { useSelector } from "react-redux";
 import { InfoCircleOutlined } from "@ant-design/icons";
+import { apiServer } from 'api/axios'
 import {
   Button,
   Select,
@@ -26,7 +27,6 @@ import {
   showTransactionResult,
   rand16Num,
 } from "@redux/common/utils";
-import { request } from "@common/request";
 import { getTokenList, getContract, sleep } from "@common/utils";
 import "./index.css";
 import { WebLoginInstance } from "@utils/webLogin";
@@ -313,18 +313,18 @@ function getContractParams(formValue, tokenList) {
 }
 
 function getWhiteList() {
-  return request(
+  const chainIdQuery = getChainIdQuery();
+  return apiServer.get(
     API_PATH.GET_ORGANIZATIONS,
     {
-      pageNum: 1,
+      skipCount: 0,
       proposalType: proposalTypes.PARLIAMENT,
-    },
-    {
-      method: "GET",
+      chainId: chainIdQuery.chainId,
+      maxResultCount: 100
     }
   )
     .then((res) => {
-      const { bpList = [], parliamentProposerList = [] } = res;
+      const { bpList = [], parliamentProposerList = [] } = res.data;
       return {
         bpList,
         parliamentProposerList,

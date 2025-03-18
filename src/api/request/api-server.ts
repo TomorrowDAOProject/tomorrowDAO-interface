@@ -105,7 +105,7 @@ class RequestFetch {
         return json as T;
       }
       if (typeof window !== 'undefined') {
-        toast.error(errorMessage);
+        // toast.error(errorMessage);
       } else {
         Sentry.captureMessage(SentryEvents.SERVER_API_REQUEST_ERROR, {
           level: 'info',
@@ -150,7 +150,7 @@ class RequestFetch {
       }
 
       if (typeof window !== 'undefined') {
-        toast.error(errMessage);
+        // toast.error(errMessage);
       } else {
         Sentry.captureMessage(SentryEvents.SERVER_API_REQUEST_ERROR, {
           level: 'info',

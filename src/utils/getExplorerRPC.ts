@@ -7,15 +7,19 @@ const getExplorerRPC = () => {
   const chainIdQuery = getChainIdQuery();
   if (networkType === 'TESTNET') {
     if (isSideChain(chainIdQuery.chainId)) {
-      explorerRPC = 'https://explorer-test-side02.aelf.io/chain';
+      explorerRPC = 'https://tdvw-test-node.aelf.io';
+      // 'https://explorer-test-side02.aelf.io/chain';
     } else {
-      explorerRPC = 'https://explorer-test.aelf.io/chain';
+      explorerRPC = 'https://aelf-test-node.aelf.io';
+      //'https://explorer-test.aelf.io';
     }
   } else if (networkType === 'MAINNET') {
     if (isSideChain(chainIdQuery.chainId)) {
-      explorerRPC = 'https://tdvv-explorer.aelf.io/chain';
+      explorerRPC = 'https://tdvv-public-node.aelf.io';
+      // 'https://tdvv-explorer.aelf.io/chain';
     } else {
-      explorerRPC = 'https://explorer.aelf.io/chain';
+      explorerRPC = 'https://aelf-public-node.aelf.io';
+      // 'https://explorer.aelf.io/chain';
     }
   }
   return explorerRPC;

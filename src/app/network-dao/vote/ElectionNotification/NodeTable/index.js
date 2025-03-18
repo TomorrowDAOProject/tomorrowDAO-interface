@@ -11,7 +11,7 @@ import LinkNetworkDao from 'components/LinkNetworkDao';
 import { Table, Button, Input, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import moment from "moment";
-import io from "socket.io-client";
+import { producedBlocks } from '@utils/producedBlocks'
 
 import {
   getAllTeamDesc,
@@ -24,7 +24,6 @@ import publicKeyToAddress from "@utils/publicKeyToAddress";
 import { FROM_WALLET, ELF_DECIMAL } from "../../constants";
 import { connect } from "react-redux";
 import "./index.css";
-import { SOCKET_URL_NEW } from 'config';
 import addressFormat from "@utils/addressFormat";
 import TableLayer from "@components/TableLayer/TableLayer";
 import { isActivityBrowser } from "@utils/isWebView";
@@ -55,11 +54,8 @@ class NodeTable extends PureComponent {
     this.wsProducedBlocks();
     if (this.props.electionContract && this.props.consensusContract) {
       this.fetchNodes();
+      
     }
-  }
-
-  componentWillUnmount() {
-    this.socket.disconnect();
   }
 
   componentDidUpdate(prevProps) {
@@ -93,10 +89,8 @@ class NodeTable extends PureComponent {
   }
 
   wsProducedBlocks() {
-    this.socket = io(SOCKET_URL_NEW, {
-      path: '/new-socket',
-    });
-    this.socket.on("produced_blocks", (data) => {
+    producedBlocks().then(data => {
+      console.log('res11111', data)
       this.setState({
         producedBlocks: data,
       });
@@ -108,10 +102,12 @@ class NodeTable extends PureComponent {
         item.producedBlocks = data[item.pubkey];
         return item;
       });
+
+      console.log('newNodeList', newNodeList)
       this.setState({
         nodeList: newNodeList,
       });
-    });
+    })
   }
 
   getColumnSearchProps = (dataIndex) => ({
@@ -445,9 +441,13 @@ class NodeTable extends PureComponent {
     });
     const { activeVotingRecords } = resArr[3] || {};
     let teamInfos = null;
-    if (resArr[2]?.code === 0) {
+    if (resArr[2]?.code == '20000') {
       teamInfos = resArr[2]?.data;
     }
+
+
+    console.log('teamInfos', teamInfos, nodeInfos)
+
     const BPNodes = resArr[4].pubkeys;
     // add node name, add my vote amount
     nodeInfos.forEach((item) => {
@@ -455,9 +455,10 @@ class NodeTable extends PureComponent {
       // FIXME: It will result in some problem when getPageable can only get 20 nodes info at most in one time
       totalActiveVotesAmount += +item.obtainedVotesAmount;
       // add node name
-      const teamInfo = teamInfos.find(
-        (team) => team.public_key === item.candidateInformation.pubkey
+      const teamInfo = teamInfos?.find(
+        (team) => team.publicKey == item.candidateInformation.pubkey
       );
+      console.log('teamInfo', teamInfo)
       // get address from pubkey
       item.candidateInformation.address = publicKeyToAddress(
         item.candidateInformation.pubkey
@@ -568,6 +569,9 @@ class NodeTable extends PureComponent {
 
   render() {
     const { nodeList, isLoading, pagination } = this.state;
+
+    console.log('nodeList', nodeList)
+
     const nodeListData = this.deduplicateByName(nodeList);
     const nodeListCols = this.getCols();
     return (

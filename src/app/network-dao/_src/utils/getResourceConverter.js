@@ -4,8 +4,6 @@
  * @description
 */
 
-import getResourceWeight from './getResourceWeight';
-import getTokenWeight from './getTokenWeight';
 import getWeight from './getWeight';
 import getResourceBalance from './getResourceBalance';
 import getTokenBalance from './getTokenBalance';

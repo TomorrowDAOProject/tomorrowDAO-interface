@@ -398,7 +398,7 @@ class VoteContainer extends Component {
     const electorVote = resArr[0] || {};
     let allTeamInfo = null;
     let expiredVotesAmount = 0;
-    if (resArr[1].code === 0) {
+    if (resArr[1].code === '20000') {
       allTeamInfo = resArr[1].data;
     }
     const { activeVotingRecords = [] } = electorVote;
@@ -420,8 +420,9 @@ class VoteContainer extends Component {
 
     [...switchableVoteRecords, ...withdrawableVoteRecords].forEach((record) => {
       const { voteTimestamp, lockTime } = record;
+      console.log('allTeamInfo', allTeamInfo)
       const teamInfo = allTeamInfo.find(
-        (team) => team.public_key === record.candidate
+        (team) => team.publicKey === record.candidate
       );
       if (teamInfo === undefined) {
         record.address = publicKeyToAddress(record.candidate);
@@ -769,6 +770,7 @@ class VoteContainer extends Component {
     this.getElectorVote(currentWallet, electionContract)
       .then((res) => {
         // todo: error handle
+        console.log('res.activeVotingRecords', res.activeVotingRecords, targetPublicKey)
         const activeVoteRecordsForOneCandidate = res.activeVotingRecords.filter(
           (item) => item.candidate === targetPublicKey
         );
@@ -823,6 +825,12 @@ class VoteContainer extends Component {
     const { voteAmountInput, targetPublicKey, electionContractFromExt } =
       this.state;
     const { lockTime } = this.state;
+    let millseconds = 1;
+    const now = new Date().toISOString();
+    const nanosecondsMatch = now.match(/\.(\d{1,9})Z$/);
+    if (nanosecondsMatch) {
+      millseconds = nanosecondsMatch[1]
+    }
 
     const payload = {
       candidatePubkey: targetPublicKey,
@@ -830,7 +838,7 @@ class VoteContainer extends Component {
       amount: voteAmountInput * ELF_DECIMAL,
       endTimestamp: {
         seconds: lockTime.unix(),
-        nanos: lockTime.valueOf() * 1000000,
+        nanos: millseconds * 1000000,
       },
     };
     const chainIdQuery = getChainIdQuery();
