@@ -661,7 +661,7 @@ const CreateProposal = () => {
 
       const chainIdQuery = getChainIdQuery();
       const params = {
-        contractAddress: getContractAddress(proposalType),
+        contractAddress: getContractAddress(getProposalTypeText[proposalType]),
         methodName: "CreateProposal",
         args: {
           title,

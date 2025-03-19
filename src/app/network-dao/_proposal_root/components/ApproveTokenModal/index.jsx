@@ -235,9 +235,7 @@ const ApproveTokenModal = (props) => {
             actionLoading: false,
             tokenLoading: false,
           });
-          form?.setFieldsValue({
-            amount: res.allowance,
-          });
+          form?.setValue('amount', res.allowance);
           setInputToken(res.allowance);
         })
         .catch((err) => {
