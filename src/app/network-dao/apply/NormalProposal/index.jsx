@@ -414,7 +414,7 @@ const NormalProposal = (props) => {
         ...leftParams
       } = data;
       const method = CONTRACT_INSTANCE_MAP[methods.contractAddress][methods.methodName];
-      const { inputType } = method;
+      // const { inputType } = method;
       let parsed;
       // no use to verify about integer string
       // if (methods.isSingleString) {

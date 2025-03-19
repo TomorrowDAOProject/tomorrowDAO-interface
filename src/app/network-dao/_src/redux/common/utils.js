@@ -8,6 +8,12 @@ import constants from "./constants";
 import { toast } from "react-toastify";
 const { viewer } = constants;
 
+const getProposalTypeText = {
+  1: 'Parliament',
+  2: 'Association',
+  3: 'Referendum'
+}
+
 export const arrayToMap = (arr) =>
   arr.reduce(
     (acc, v) => ({
@@ -18,8 +24,9 @@ export const arrayToMap = (arr) =>
   );
 
 export const getContractAddress = (name) => {
+  const tempName = typeof name === 'number' ? getProposalTypeText[name] : name;
   const result = viewer.contractAddress.filter(
-    (item) => item.contractName === name
+    (item) => item.contractName === tempName
   );
   return result.length > 0
     ? result[0].contractAddress

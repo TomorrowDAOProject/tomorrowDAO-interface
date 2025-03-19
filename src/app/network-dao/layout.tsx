@@ -28,7 +28,7 @@ const Layout = dynamicReq(
       useEffect(() => {
         if(isConnected && wallet){
           const newWallet = {
-            name: wallet.extraInfo?.nickName ?? '',
+            name: wallet?.name || wallet.extraInfo?.nickName || '',
             address: wallet.address ?? '',
             publicKey: wallet.extraInfo?.publicKey ?? '',
             discoverInfo: wallet.address,

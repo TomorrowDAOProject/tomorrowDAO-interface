@@ -46,13 +46,13 @@ const CopylistItem = (props) => {
                 className="tmrwdao-icon-logout text-[18px] text-lightGray ml-2 -rotate-90"
               />
             ) : (
-              <Link to={href}>
+              <Link href={href}>
                 <i className="tmrwdao-icon-logout text-[18px] text-lightGray ml-2 -rotate-90" />
               </Link>
             )}
           </>
         ) : null}
-        <i className="tmrwdao-icon-duplicate text-[18px] text-lightGray ml-2" onClick={handleCopy} />
+        <i className="tmrwdao-icon-duplicate text-[18px] text-lightGray ml-2 cursor-pointer" onClick={handleCopy} />
       </>
     </div>
   );
