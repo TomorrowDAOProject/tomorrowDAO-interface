@@ -39,7 +39,7 @@ import {
   updateContractName,
 } from "./utils.js";
 import WithoutApprovalModal from "../_proposal_root/components/WithoutApprovalModal/index";
-import { deserializeLog, isPhoneCheck } from "@common/utils";
+import { deserializeLog } from "@common/utils";
 import { interval } from "@utils/timeUtils";
 import { useSearchParams } from 'next/navigation'
 import { getAddress, fetchContractName } from 'api/request';
@@ -606,7 +606,6 @@ const CreateProposal = () => {
       confirming: true,
     });
     const { isOnlyUpdateName } = results;
-    const isMobile = isPhoneCheck();
 
     if (results.name && currentWallet.discoverInfo) {
       setContractResult((v) => ({ ...v, confirming: false }));
@@ -661,7 +660,7 @@ const CreateProposal = () => {
 
       const chainIdQuery = getChainIdQuery();
       const params = {
-        contractAddress: getContractAddress(getProposalTypeText[proposalType]),
+        contractAddress: getContractAddress(typeof proposalType === 'number' ? getProposalTypeText[proposalType] : proposalType),
         methodName: "CreateProposal",
         args: {
           title,
