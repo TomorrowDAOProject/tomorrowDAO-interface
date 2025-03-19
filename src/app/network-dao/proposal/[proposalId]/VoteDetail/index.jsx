@@ -65,6 +65,16 @@ async function getPersonalVote(params) {
     }
   );
 }
+
+async function updateVoteReClaim(params) {
+  return apiServer.post(
+    API_PATH.UPDATE_VOTE_RECLAIM,
+    {
+      ...params,
+    }
+  );
+}
+
 const isSideChain = isSideChainByQueryParams();
 const listColumn = [
   {
@@ -142,7 +152,6 @@ const VoteDetail = (props) => {
     proposalId,
     proposalType,
     logStatus,
-    wallet,
     currentWallet,
     expiredTime,
     status,
@@ -194,13 +203,24 @@ const VoteDetail = (props) => {
       });
   }
 
-  async function reclaimToken() {
-    await sendTransactionWith(
+  async function reclaimToken(voteId) {
+    const result = await sendTransactionWith(
       callContract,
       getContractAddress(proposalTypes.REFERENDUM),
       "ReclaimVoteToken",
       proposalId
     );
+    // success
+    if (result?.transactionId) {
+      const res = updateVoteReClaim({
+        chainId: currentWallet?.chainId || "AELF",
+        voteId: personVote?.list[0]?.id,
+        proposalId: proposalId,
+      })
+      if (res?.code === "20000") {
+        toast.success("Reclaim vote token success");
+      }
+    }
   }
 
   useEffect(() => {
@@ -215,13 +235,10 @@ const VoteDetail = (props) => {
       getPersonalVote({
         chainId: getChainIdQuery()?.chainId,
         proposalId,
-        proposalType: 3, //All=0,Parliament=1,Association=2,Referendum=3
-        address: currentWallet.address,
-        skipCount: 0,
-        maxResultCount: 1000,
+        voter: currentWallet.address,
       })
         .then((votes) => {
-          const votesList = votes?.data?.items || [];
+          const votesList = votes?.data || [];
           const left = votesList?.reduce(
             (acc, v) => (v.claimed ? acc : acc.add(new Decimal(v.amount))),
             new Decimal(0)
