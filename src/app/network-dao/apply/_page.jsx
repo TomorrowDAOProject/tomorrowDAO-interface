@@ -561,8 +561,8 @@ const CreateProposal = () => {
       setApplyModal({
         visible: true,
         title: proposalId
-          ? "Proposal is created！"
-          : "Proposal failed to be created！",
+          ? "Proposal is created!"
+          : "Proposal failed to be created!",
         children: (
           <div style={{ textAlign: "left" }}>
             {proposalId ? (
