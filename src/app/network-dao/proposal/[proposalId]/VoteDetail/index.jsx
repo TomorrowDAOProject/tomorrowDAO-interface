@@ -16,7 +16,6 @@ import moment from "moment";
 import { If, Then } from "react-if";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
 import config from "@common/config";
-import { WebLoginInstance } from "@utils/webLogin";
 import Total from "@components/Total";
 import constants, {
   API_PATH,
@@ -202,16 +201,7 @@ const VoteDetail = (props) => {
       });
   }
 
-  const checkExtensionLockStatus = () => {
-    return new Promise((resolve) => {
-      if (currentWallet?.address) {
-        return resolve();
-      }
-      return WebLoginInstance.get().loginAsync().then(resolve);
-    });
-  }
-
-  async function reclaimToken(voteId) {
+  async function reclaimToken() {
     const result = await sendTransactionWith(
       callContract,
       getContractAddress(proposalTypes.REFERENDUM),
@@ -220,16 +210,14 @@ const VoteDetail = (props) => {
     );
     // success
     if (result?.transactionId) {
-      checkExtensionLockStatus().then(() => {
-        const res = updateVoteReClaim({
-          chainId: curChain,
-          voteId: personVote?.list[0]?.id,
-          proposalId: proposalId,
-        })
-        if (res?.code === "20000") {
-          toast.success("Reclaim vote token success");
-        }
-      });
+      const res = updateVoteReClaim({
+        chainId: curChain,
+        voteId: personVote?.list[0]?.id,
+        proposalId: proposalId,
+      })
+      if (res?.code === "20000") {
+        toast.success("Reclaim vote token success");
+      };
     }
   }
 

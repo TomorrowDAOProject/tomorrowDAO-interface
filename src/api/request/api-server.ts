@@ -7,7 +7,6 @@ import { SentryEvents } from 'types/sentry';
 import { telegramNeedAuthList } from '../api-wrap/telegram';
 import { tmrwNeedAuthList } from '../url/tmrw';
 import { tokenIssueUrl } from 'api/url/tmrw';
-import { toast } from 'react-toastify';
 export const apiServerBaseURL = apiServerBase + '/api/app';
 const defaultServerError = 'The API has an error. Please refresh and retry.';
 export const LoginExpiredTip = 'Login expired, please log in again';
