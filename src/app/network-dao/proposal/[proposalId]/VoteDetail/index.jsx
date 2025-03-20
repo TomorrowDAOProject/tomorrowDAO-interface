@@ -217,6 +217,10 @@ const VoteDetail = (props) => {
       })
       if (res?.code === "20000") {
         toast.success("Reclaim vote token success");
+        setPersonVote({
+          ...personVote,
+          canReclaim: false,
+        })
       };
     }
   }
