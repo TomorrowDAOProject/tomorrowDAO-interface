@@ -210,7 +210,7 @@ const VoteDetail = (props) => {
     );
     // success
     if (result?.transactionId) {
-      const res = updateVoteReClaim({
+      const res = await updateVoteReClaim({
         chainId: curChain,
         voteId: personVote?.list[0]?.id,
         proposalId: proposalId,
