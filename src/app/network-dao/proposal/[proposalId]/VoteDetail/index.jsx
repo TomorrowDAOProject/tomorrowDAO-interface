@@ -16,7 +16,7 @@ import moment from "moment";
 import { If, Then } from "react-if";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
 import config from "@common/config";
-import { request } from "@common/request";
+import { WebLoginInstance } from "@utils/webLogin";
 import Total from "@components/Total";
 import constants, {
   API_PATH,
@@ -34,11 +34,10 @@ import { removePrefixOrSuffix } from "@common/utils";
 import TableLayer from "@components/TableLayer/TableLayer";
 import addressFormat from "@utils/addressFormat";
 import { isSideChainByQueryParams } from 'utils/chain'
-import { explorer, mainExplorer } from "config";
+import { explorer, mainExplorer, curChain } from "config";
 import { toast } from "react-toastify";
 import { apiServer } from "api/axios";
 import getChainIdQuery from 'utils/url';
-
 
 const { viewer } = config;
 
@@ -203,6 +202,15 @@ const VoteDetail = (props) => {
       });
   }
 
+  const checkExtensionLockStatus = () => {
+    return new Promise((resolve) => {
+      if (currentWallet?.address) {
+        return resolve();
+      }
+      return WebLoginInstance.get().loginAsync().then(resolve);
+    });
+  }
+
   async function reclaimToken(voteId) {
     const result = await sendTransactionWith(
       callContract,
@@ -212,14 +220,16 @@ const VoteDetail = (props) => {
     );
     // success
     if (result?.transactionId) {
-      const res = updateVoteReClaim({
-        chainId: currentWallet?.chainId || "AELF",
-        voteId: personVote?.list[0]?.id,
-        proposalId: proposalId,
-      })
-      if (res?.code === "20000") {
-        toast.success("Reclaim vote token success");
-      }
+      checkExtensionLockStatus().then(() => {
+        const res = updateVoteReClaim({
+          chainId: curChain,
+          voteId: personVote?.list[0]?.id,
+          proposalId: proposalId,
+        })
+        if (res?.code === "20000") {
+          toast.success("Reclaim vote token success");
+        }
+      });
     }
   }
 

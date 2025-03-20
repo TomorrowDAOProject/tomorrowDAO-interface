@@ -9,9 +9,10 @@ import getChainIdQuery from 'utils/url';
 import { useChainSelect } from "hooks/useChainSelect";
 import CopylistItem from "../_proposal_root/components/CopylistItem/index.jsx";
 import { getDeserializeLog } from "./utils.js";
-import { mainExplorer, explorer } from "config";
+import { mainExplorer, explorer, NetworkDaoHomePathName } from "config";
 import AddressNameVer from "../_proposal_root/components/AddressNameVer/index";
 import { getAddress, fetchContractName } from 'api/request';
+
 export const useCallbackAssem = () => {
   const { callSendMethod: callContract } = useConnectWallet();
   // eslint-disable-next-line no-return-await
@@ -112,19 +113,21 @@ export const useReleaseApprovedContractAction = () => {
       "";
     const Log = await getDeserializeLog(aelf, txsId, "ProposalCreated");
     const { proposalId: newProposalId } = Log ?? "";
+    const chainIdQuery = getChainIdQuery();
     return {
       visible: true,
       title:
         !isError && newProposalId
-          ? "Proposal is created！"
-          : "Proposal failed to be created！",
+          ? "Proposal is created!"
+          : "Proposal failed to be created!",
       children: (
         <div style={{ textAlign: "left" }}>
           {!isError && newProposalId ? (
             <CopylistItem
               label="Proposal ID"
-              value={newProposalId ?? ""}
+              value={newProposalId}
               // href={`/proposalsDetail/${newProposalId}`}
+              href={`${NetworkDaoHomePathName}/proposal/${newProposalId}?${chainIdQuery.chainIdQueryString}`}
             />
           ) : (
             "This may be due to transaction failure. Please check it via Transaction ID:"
@@ -234,8 +237,8 @@ export const useReleaseCodeCheckedContractAction = () => {
       visible: true,
       title:
         !isError && contractAddress
-          ? `Contract is ${isDeploy ? "deployed" : "updated"}！`
-          : `Contract failed to be ${isDeploy ? "deployed" : "updated"}！`,
+          ? `Contract is ${isDeploy ? "deployed" : "updated"}!`
+          : `Contract failed to be ${isDeploy ? "deployed" : "updated"}!`,
       children: (
         <div style={{ textAlign: "left" }}>
           {!isError && contractAddress ? (

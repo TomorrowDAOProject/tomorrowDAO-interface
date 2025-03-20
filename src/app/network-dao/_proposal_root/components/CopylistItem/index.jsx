@@ -32,9 +32,9 @@ const CopylistItem = (props) => {
       <span className="text-desc12 text-white font-Montserrat">{label}:</span>
       <>
         {valueHref ? (
-          <a href={valueHref} className="text-desc12 text-secondaryMainColor font-Montserrat">{omitString(value, 10, 10)}</a>
+          <a href={valueHref} className="text-desc12 text-secondaryMainColor font-Montserrat mr-[4px]">{omitString(value, 10, 10)}</a>
         ) : (
-          omitString(value, 10, 10)
+          <span className="text-desc12 text-white font-Montserrat mr-[4px]">{omitString(value, 10, 10)}</span>
         )}
         {href ? (
           <>
@@ -43,16 +43,16 @@ const CopylistItem = (props) => {
                 onClick={() => {
                   window.parent.location.replace(href);
                 }}
-                className="tmrwdao-icon-logout text-[18px] text-lightGray ml-2 -rotate-90"
+                className="tmrwdao-icon-logout text-[18px] text-lightGrey ml-2 cursor-pointer"
               />
             ) : (
               <Link href={href}>
-                <i className="tmrwdao-icon-logout text-[18px] text-lightGray ml-2 -rotate-90" />
+                <i className="tmrwdao-icon-logout text-[18px] text-lightGrey ml-2 cursor-pointer" />
               </Link>
             )}
           </>
         ) : null}
-        <i className="tmrwdao-icon-duplicate text-[18px] text-lightGray ml-2 cursor-pointer" onClick={handleCopy} />
+        <i className="tmrwdao-icon-duplicate text-[18px] !text-lightGrey ml-2 cursor-pointer" onClick={handleCopy} />
       </>
     </div>
   );
