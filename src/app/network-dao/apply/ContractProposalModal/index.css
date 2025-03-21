@@ -1,0 +1,20 @@
+.contract-proposal-modal .antExplorer-modal-content {
+  @apply !bg-darkBg;
+}
+
+.contract-proposal-modal .TMRWDAO-modal-close-icon {
+  @apply !text-white;
+}
+
+.contract-proposal-modal .antExplorer-modal-header {
+  @apply !bg-darkBg;
+}
+
+.contract-proposal-modal .antExplorer-modal-title {
+  font-weight: 300;
+  @apply !text-white !bg-darkBg !text-center !text-[20px] !font-Unbounded;
+}
+
+.contract-proposal-modal .antExplorer-modal-body {
+  @apply !bg-darkBg !text-white my-[20px];
+}

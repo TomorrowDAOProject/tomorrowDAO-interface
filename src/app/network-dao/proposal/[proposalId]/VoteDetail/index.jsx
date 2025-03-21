@@ -16,7 +16,6 @@ import moment from "moment";
 import { If, Then } from "react-if";
 import { useConnectWallet } from "@aelf-web-login/wallet-adapter-react";
 import config from "@common/config";
-import { request } from "@common/request";
 import Total from "@components/Total";
 import constants, {
   API_PATH,
@@ -34,11 +33,10 @@ import { removePrefixOrSuffix } from "@common/utils";
 import TableLayer from "@components/TableLayer/TableLayer";
 import addressFormat from "@utils/addressFormat";
 import { isSideChainByQueryParams } from 'utils/chain'
-import { explorer, mainExplorer } from "config";
+import { explorer, mainExplorer, curChain } from "config";
 import { toast } from "react-toastify";
 import { apiServer } from "api/axios";
 import getChainIdQuery from 'utils/url';
-
 
 const { viewer } = config;
 
@@ -65,6 +63,16 @@ async function getPersonalVote(params) {
     }
   );
 }
+
+async function updateVoteReClaim(params) {
+  return apiServer.post(
+    API_PATH.UPDATE_VOTE_RECLAIM,
+    {
+      ...params,
+    }
+  );
+}
+
 const isSideChain = isSideChainByQueryParams();
 const listColumn = [
   {
@@ -142,7 +150,6 @@ const VoteDetail = (props) => {
     proposalId,
     proposalType,
     logStatus,
-    wallet,
     currentWallet,
     expiredTime,
     status,
@@ -195,12 +202,27 @@ const VoteDetail = (props) => {
   }
 
   async function reclaimToken() {
-    await sendTransactionWith(
+    const result = await sendTransactionWith(
       callContract,
       getContractAddress(proposalTypes.REFERENDUM),
       "ReclaimVoteToken",
       proposalId
     );
+    // success
+    if (result?.transactionId) {
+      const res = await updateVoteReClaim({
+        chainId: curChain,
+        voteId: personVote?.list[0]?.id,
+        proposalId: proposalId,
+      })
+      if (res?.code === "20000") {
+        toast.success("Reclaim vote token success");
+        setPersonVote({
+          ...personVote,
+          canReclaim: false,
+        })
+      };
+    }
   }
 
   useEffect(() => {
@@ -215,13 +237,10 @@ const VoteDetail = (props) => {
       getPersonalVote({
         chainId: getChainIdQuery()?.chainId,
         proposalId,
-        proposalType: 3, //All=0,Parliament=1,Association=2,Referendum=3
-        address: currentWallet.address,
-        skipCount: 0,
-        maxResultCount: 1000,
+        voter: currentWallet.address,
       })
         .then((votes) => {
-          const votesList = votes?.data?.items || [];
+          const votesList = votes?.data || [];
           const left = votesList?.reduce(
             (acc, v) => (v.claimed ? acc : acc.add(new Decimal(v.amount))),
             new Decimal(0)
