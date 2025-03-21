@@ -616,21 +616,8 @@ class VoteContainer extends Component {
     return new Promise((resolve) => {
       if (currentWallet?.address) {
         return resolve();
-        // if (this.hasGetContractsFromExt) {
-        //   return resolve();
-        // }
-        // return this.fetchGetContractsAndProfitAmount().then(() => {
-        //   resolve();
-        // });
       }
       return WebLoginInstance.get().loginAsync().then(resolve);
-      // .then(async () => {
-      //   if (this.hasGetContractsFromExt) {
-      //     return resolve();
-      //   }
-      //   await this.fetchGetContractsAndProfitAmount();
-      //   return resolve();
-      // });
     });
   }
 

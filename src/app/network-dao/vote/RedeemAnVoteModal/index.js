@@ -2,17 +2,7 @@ import React, { PureComponent } from "react";
 import Modal from "components/Modal";
 import Button from "components/Button";
 import { NEED_PLUGIN_AUTHORIZE_TIP } from "@src/constants";
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 18 },
-  },
-};
+import { ELF_DECIMAL } from "../constants";
 
 class RedeemAnVoteModal extends PureComponent {
   generateVoteAnRedeemForm() {
@@ -35,7 +25,7 @@ class RedeemAnVoteModal extends PureComponent {
         {
           label: "Redeem Amount",
           render: (
-            <span className="w-full ext-ellipsis overflow-hidden">{voteToRedeem.amount}</span>
+            <span className="w-full ext-ellipsis overflow-hidden">{voteToRedeem.amount / ELF_DECIMAL}</span>
           ),
         },
       ],
