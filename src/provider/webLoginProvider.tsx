@@ -1,5 +1,4 @@
 'use client';
-import { NetworkDaoHomePathName } from 'config';
 import getChainIdQuery from 'utils/url';
 import { usePathname } from 'next/navigation';
 import { NetworkEnum, SignInDesignEnum, TChainId } from '@aelf-web-login/wallet-adapter-base';
@@ -9,7 +8,9 @@ import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import { WebLoginProvider } from '@aelf-web-login/wallet-adapter-react';
 import { FairyVaultDiscoverWallet } from '@aelf-web-login/wallet-adapter-fairy-vault-discover';
+import { did } from '@portkey/did';
 import {
+  NetworkDaoHomePathName,
   connectServer,
   connectUrl,
   curChain,
@@ -19,9 +20,30 @@ import {
   rpcUrlAELF,
   rpcUrlTDVV,
   rpcUrlTDVW,
+  TELEGRAM_BOT_ID,
 } from 'config';
 import { useMemo } from 'react';
 import useResponsive from 'hooks/useResponsive';
+
+export const didConfig = {
+  graphQLUrl: graphqlServer,
+  connectUrl,
+  serviceUrl: portkeyServer,
+  requestDefaults: {
+    baseURL: portkeyServer,
+    timeout: 20000,
+  },
+  socialLogin: {
+    Telegram: {
+      botId: TELEGRAM_BOT_ID,
+    },
+  },
+  networkType: networkType,
+  referralInfo: {
+    referralCode: '',
+    projectCode: 'TMRWDAO',
+  },
+};
 // import './telegram';
 
 type TNodes = {
@@ -60,6 +82,7 @@ function moveKeyToFront(nodes: TNodes, key: TNodeKeys) {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function LoginSDKProvider({ children }: { children: React.ReactNode }) {
+  did.setConfig(didConfig);
   const info: Record<string, string> = {
     networkType: networkType,
     rpcUrlAELF: rpcUrlAELF,
