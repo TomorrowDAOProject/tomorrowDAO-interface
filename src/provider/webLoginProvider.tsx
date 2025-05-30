@@ -1,15 +1,17 @@
 'use client';
-import { NetworkDaoHomePathName, TELEGRAM_BOT_ID } from 'config';
 import getChainIdQuery from 'utils/url';
 import { usePathname } from 'next/navigation';
 import { getReferrerCode } from 'app/telegram/votigram/util/start-params';
 import { NetworkEnum, SignInDesignEnum, TChainId } from '@aelf-web-login/wallet-adapter-base';
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
-import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
+import { PortkeyInnerWallet } from '@aelf-web-login/wallet-adapter-portkey-web';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import { WebLoginProvider } from '@aelf-web-login/wallet-adapter-react';
+import { FairyVaultDiscoverWallet } from '@aelf-web-login/wallet-adapter-fairy-vault-discover';
+import { did } from '@portkey/did';
 import {
+  NetworkDaoHomePathName,
   connectServer,
   connectUrl,
   curChain,
@@ -19,8 +21,9 @@ import {
   rpcUrlAELF,
   rpcUrlTDVV,
   rpcUrlTDVW,
+  TELEGRAM_BOT_ID,
 } from 'config';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import useResponsive from 'hooks/useResponsive';
 // import './telegram';
 
@@ -72,6 +75,31 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
     curChain: curChain,
   };
   const server = info.portkeyServer;
+  const referrerCode = getReferrerCode();
+
+  const didConfig = {
+    graphQLUrl: info.graphqlServer,
+    connectUrl: addBasePath(connectUrl || ''),
+    serviceUrl: server,
+    requestDefaults: {
+      timeout: networkType === 'TESTNET' ? 300000 : 80000,
+      baseURL: addBasePath(server || ''),
+    },
+    socialLogin: {
+      Portkey: {
+        websiteName: APP_NAME,
+        websiteIcon: '',
+      },
+      Telegram: {
+        botId: TELEGRAM_BOT_ID,
+      },
+    },
+    referralInfo: {
+      referralCode: referrerCode ?? '',
+      projectCode: '13027',
+    },
+  };
+  did.setConfig(didConfig);
   // const connectUrl = info?.connectUrl;
   // const networkType = (info.networkType || 'TESTNET') as NetworkType;
 
@@ -115,54 +143,43 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
     return nodes;
   };
   const nodes = getNodes();
-  const referrerCode = getReferrerCode();
 
-  const didConfig = {
-    graphQLUrl: info.graphqlServer,
-    connectUrl: addBasePath(connectUrl || ''),
-    serviceUrl: server,
-    requestDefaults: {
-      timeout: networkType === 'TESTNET' ? 300000 : 80000,
-      baseURL: addBasePath(server || ''),
-    },
-    socialLogin: {
-      Portkey: {
-        websiteName: APP_NAME,
-        websiteIcon: '',
-      },
-      Telegram: {
-        botId: TELEGRAM_BOT_ID,
-      },
-    },
-    referralInfo: {
-      referralCode: referrerCode ?? '',
-      projectCode: '13027',
-    },
-  };
-
-  const baseConfig = {
-    sideChainId: curChain as TChainId,
-    omitTelegramScript: true,
-    showVconsole: false,
-    networkType: networkType as NetworkEnum,
-    chainId: chainId as TChainId,
-    keyboard: true,
-    noCommonBaseModal: false,
-    design: SignInDesignEnum.CryptoDesign,
+  const baseConfig: IConfigProps['baseConfig'] = {
     enableAcceleration: true,
+    appName: APP_NAME,
+    theme: 'light',
+    showVconsole: true,
+    networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
+    chainId: chainId as TChainId,
+    sideChainId: chainId as TChainId,
+    design: SignInDesignEnum.SocialDesign,
   };
 
-  const aaWallet = useMemo(() => {
-    return new PortkeyAAWallet({
-      appName: APP_NAME,
+  const wallets = [
+    new PortkeyInnerWallet({
+      networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
       chainId: chainId as TChainId,
-      autoShowUnlock: true,
-      noNeedForConfirm: true,
-      enableAcceleration: true,
-    });
-  }, []);
-  const nightElfWallet = useMemo(() => {
-    return new NightElfWallet({
+      disconnectConfirm: true,
+    }),
+    new PortkeyDiscoverWallet({
+      networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
+      chainId: chainId as TChainId,
+      autoRequestAccount: true,
+      autoLogoutOnDisconnected: true,
+      autoLogoutOnNetworkMismatch: true,
+      autoLogoutOnAccountMismatch: true,
+      autoLogoutOnChainMismatch: true,
+    }),
+    new FairyVaultDiscoverWallet({
+      networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
+      chainId: chainId as TChainId,
+      autoRequestAccount: true,
+      autoLogoutOnDisconnected: true,
+      autoLogoutOnNetworkMismatch: true,
+      autoLogoutOnAccountMismatch: true,
+      autoLogoutOnChainMismatch: true,
+    }),
+    new NightElfWallet({
       chainId: chainId as TChainId,
       appName: APP_NAME,
       connectEagerly: true,
@@ -171,35 +188,30 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
         info?.rpcUrlTDVW ||
         '',
       nodes: nodes,
-    });
-  }, []);
-  const portkeyDiscoverWallet = useMemo(() => {
-    return new PortkeyDiscoverWallet({
-      networkType: networkType,
-      chainId: chainId as TChainId,
-      autoRequestAccount: true, // If set to true, please contact Portkey to add whitelist @Rachel
-      autoLogoutOnDisconnected: true,
-      autoLogoutOnNetworkMismatch: true,
-      autoLogoutOnAccountMismatch: true,
-      autoLogoutOnChainMismatch: true,
-    });
-  }, []);
-  const wallets = [aaWallet, portkeyDiscoverWallet, nightElfWallet];
+    }),
+  ];
 
   const config: IConfigProps = {
-    didConfig,
-    baseConfig: {
-      ...baseConfig,
-      PortkeyProviderProps: {
-        theme: 'dark',
-      },
-    },
-    wallets: isMD ? wallets.filter((x) => !['NightElf'].includes(x.name)) : wallets,
+    baseConfig,
+    wallets,
   };
 
-  useEffect(() => {
-    aaWallet.setChainId(chainId as TChainId);
-  }, [aaWallet, chainId]);
+  const extraElementInConnectModal = useMemo(
+    () => (
+      <div
+        style={{
+          color: baseConfig.theme === 'dark' ? '#fff' : 'black',
+        }}
+      >
+        By continuing, you agree to the Terms of Service and Privacy Policy.
+      </div>
+    ),
+    [],
+  );
 
-  return <WebLoginProvider config={config}>{children}</WebLoginProvider>;
+  return (
+    <WebLoginProvider config={config} extraElementInConnectModal={extraElementInConnectModal}>
+      {children}
+    </WebLoginProvider>
+  );
 }

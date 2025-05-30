@@ -75,7 +75,6 @@ export const useCheckLoginAndToken = () => {
       emitLoading(true, 'Authorize account...');
       if (!isTelegram) {
         const checkRes = await checkTokenValid();
-        console.log('checkRes------------ >', checkRes);
         if (checkRes) {
           apiServer.setToken(checkRes?.access_token);
           dispatch(
@@ -87,9 +86,12 @@ export const useCheckLoginAndToken = () => {
           emitLoading(false);
           authManager.isAuthing = false;
           return;
+        } else {
+          await getTokenUpdate();
         }
+      } else {
+        await getTokenUpdate();
       }
-      await getTokenUpdate();
       eventBus.emit(GetTokenLogin);
       authManager.isAuthing = false;
       // emitLoading(true, 'Authorize account...');

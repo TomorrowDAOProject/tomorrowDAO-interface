@@ -21,12 +21,14 @@
   },
   "dependencies": {
     "@aelf-design/icons": "1.1.1",
-    "@aelf-web-login/wallet-adapter-base": "0.2.2-alpha.16",
-    "@aelf-web-login/wallet-adapter-bridge": "0.2.2-alpha.16",
-    "@aelf-web-login/wallet-adapter-night-elf": "0.2.2-alpha.16",
-    "@aelf-web-login/wallet-adapter-portkey-aa": "0.2.2-alpha.16",
-    "@aelf-web-login/wallet-adapter-portkey-discover": "0.2.2-alpha.16",
-    "@aelf-web-login/wallet-adapter-react": "0.2.2-alpha.16",
+    "@aelf-web-login/wallet-adapter-base": "0.4.0-alpha.1",
+    "@aelf-web-login/wallet-adapter-bridge": "0.4.0-alpha.1",
+    "@aelf-web-login/wallet-adapter-fairy-vault-discover": "^0.4.0-alpha.1",
+    "@aelf-web-login/wallet-adapter-night-elf": "0.4.0-alpha.1",
+    "@aelf-web-login/wallet-adapter-portkey-aa": "0.4.0-alpha.1",
+    "@aelf-web-login/wallet-adapter-portkey-discover": "0.4.0-alpha.1",
+    "@aelf-web-login/wallet-adapter-portkey-web": "0.4.0-alpha.1",
+    "@aelf-web-login/wallet-adapter-react": "0.4.0-alpha.1",
     "@ant-design/icons": "^5.3.7",
     "@microsoft/signalr": "^8.0.7",
     "@monaco-editor/react": "^4.6.0",
@@ -44,6 +46,7 @@
     "@sentry/profiling-node": "^8.25.0",
     "@types/lodash-es": "^4.17.9",
     "@xstate/react": "^4.1.0",
+    "aelf-sdk": "3.4.16-alpha.7",
     "aelf-web-login": "2.1.7",
     "ahooks": "^3.7.11",
     "alloyfinger": "^0.1.16",
@@ -161,7 +164,7 @@
     "vitest": "^2.1.5"
   },
   "resolutions": {
-    "aelf-sdk": "^3.4.8",
+    "aelf-sdk": "3.4.16-alpha.7",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5"
   },
