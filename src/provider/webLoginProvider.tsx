@@ -1,6 +1,7 @@
 'use client';
 import getChainIdQuery from 'utils/url';
 import { usePathname } from 'next/navigation';
+import { getReferrerCode } from 'app/telegram/votigram/util/start-params';
 import { NetworkEnum, SignInDesignEnum, TChainId } from '@aelf-web-login/wallet-adapter-base';
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
 import { PortkeyInnerWallet } from '@aelf-web-login/wallet-adapter-portkey-web';
@@ -24,26 +25,6 @@ import {
 } from 'config';
 import { useMemo } from 'react';
 import useResponsive from 'hooks/useResponsive';
-
-export const didConfig = {
-  graphQLUrl: graphqlServer,
-  connectUrl,
-  serviceUrl: portkeyServer,
-  requestDefaults: {
-    baseURL: portkeyServer,
-    timeout: 20000,
-  },
-  socialLogin: {
-    Telegram: {
-      botId: TELEGRAM_BOT_ID,
-    },
-  },
-  networkType: networkType,
-  referralInfo: {
-    referralCode: '',
-    projectCode: 'TMRWDAO',
-  },
-};
 // import './telegram';
 
 type TNodes = {
@@ -82,7 +63,6 @@ function moveKeyToFront(nodes: TNodes, key: TNodeKeys) {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function LoginSDKProvider({ children }: { children: React.ReactNode }) {
-  did.setConfig(didConfig);
   const info: Record<string, string> = {
     networkType: networkType,
     rpcUrlAELF: rpcUrlAELF,
@@ -95,6 +75,31 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
     curChain: curChain,
   };
   const server = info.portkeyServer;
+  const referrerCode = getReferrerCode();
+
+  const didConfig = {
+    graphQLUrl: info.graphqlServer,
+    connectUrl: addBasePath(connectUrl || ''),
+    serviceUrl: server,
+    requestDefaults: {
+      timeout: networkType === 'TESTNET' ? 300000 : 80000,
+      baseURL: addBasePath(server || ''),
+    },
+    socialLogin: {
+      Portkey: {
+        websiteName: APP_NAME,
+        websiteIcon: '',
+      },
+      Telegram: {
+        botId: TELEGRAM_BOT_ID,
+      },
+    },
+    referralInfo: {
+      referralCode: referrerCode ?? '',
+      projectCode: '13027',
+    },
+  };
+  did.setConfig(didConfig);
   // const connectUrl = info?.connectUrl;
   // const networkType = (info.networkType || 'TESTNET') as NetworkType;
 
