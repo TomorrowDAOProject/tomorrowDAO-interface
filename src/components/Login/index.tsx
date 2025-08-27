@@ -3,12 +3,7 @@ import Button from 'components/Button';
 import useResponsive from 'hooks/useResponsive';
 import { useCheckLoginAndToken, useWalletService } from 'hooks/useWallet';
 import { useSelector } from 'redux/store';
-import {
-  ExitOutlined,
-  InfoCircleOutlined,
-  UserProfileOutlined,
-  WalletOutlined,
-} from '@aelf-design/icons';
+import { ExitOutlined, UserProfileOutlined, WalletOutlined } from '@aelf-design/icons';
 import { useMemo, useState } from 'react';
 import { Popover } from 'antd';
 import Link from 'next/link';
@@ -17,6 +12,7 @@ import { explorer } from 'config';
 import getChainIdQuery from 'utils/url';
 import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+
 export const LoginAuth = () => {
   const { connectWallet, walletInfo } = useConnectWallet();
 
@@ -71,7 +67,7 @@ export default function Login(props: ILoginProps) {
   const isPortkeyLogin = walletType === WalletTypeEnum.aa;
   const userName = useMemo(() => {
     if (walletInfo) {
-      if (walletType === WalletTypeEnum.discover) {
+      if (walletType === WalletTypeEnum.discover || walletType === WalletTypeEnum.fairyVault) {
         return walletInfo?.discoverInfo?.nickName;
       } else if (walletType === WalletTypeEnum.aa) {
         return walletInfo?.portkeyInfo?.nickName;
