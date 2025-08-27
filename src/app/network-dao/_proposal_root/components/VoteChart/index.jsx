@@ -2,7 +2,7 @@
  * @file vote chart
  * @author atom-yang
  */
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from "prop-types";
 import Row from 'components/Grid/Row';
 import Col from 'components/Grid/Col';
@@ -10,7 +10,7 @@ import roundTo from "round-to";
 import constants, { organizationInfoPropTypes } from "@redux/common/constants";
 import Circle from "../Circle";
 import "./index.css";
-import { useLandingPageResponsive } from "hooks/useResponsive";
+// import { useLandingPageResponsive } from "hooks/useResponsive";
 
 const { proposalActions, proposalTypes } = constants;
 
@@ -110,8 +110,7 @@ const VoteChart = (props) => {
     abstentions,
     size = 'default'
   } = props;
-  const { isPad } = useLandingPageResponsive();
-
+  // const { isPad } = useLandingPageResponsive();
 
   const votesData = useMemo(() => {
     return getCircleValues(
@@ -126,9 +125,10 @@ const VoteChart = (props) => {
     );
   }, [proposalType, organizationInfo, bpCount]);
 
-  console.log('3213213', proposalType,approvals,rejections, abstentions, organizationInfo, bpCount, votesData)
-
-  
+  useEffect(() => {
+    console.log('3213213', proposalType,approvals,rejections, abstentions, organizationInfo, bpCount, votesData);
+  }, [proposalType,approvals, rejections, abstentions, organizationInfo, bpCount, votesData]);
+  // console.log('3213213', proposalType,approvals,rejections, abstentions, organizationInfo, bpCount, votesData)
 
   return (
     <div className='pc'>
