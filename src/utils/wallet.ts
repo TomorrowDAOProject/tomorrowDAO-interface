@@ -1,6 +1,6 @@
 import { GetCAHolderByManagerParams } from '@portkey/services';
 import { ChainId, MethodsWallet } from '@portkey/provider-types';
-import { WalletTypeEnum, TWalletInfo } from '@aelf-web-login/wallet-adapter-base';
+import { TWalletInfo, WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 import { did } from '@portkey/did-ui-react';
 
 import { pubKeyToAddress } from './aelfBase';
@@ -32,7 +32,7 @@ export const getCaHashAndOriginChainIdByWallet = async (
   walletType: WalletTypeEnum,
 ): Promise<{ caHash: string; originChainId: ChainId }> => {
   let caHash, originChainId;
-  if (walletType === WalletTypeEnum.discover) {
+  if (walletType === WalletTypeEnum.discover || walletType === WalletTypeEnum.web) {
     const res = await did.services.getHolderInfoByManager({
       caAddresses: [wallet?.address],
     } as unknown as GetCAHolderByManagerParams);
