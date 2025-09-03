@@ -12,7 +12,7 @@ import { useSelector } from 'redux/store';
 import useIsNetworkDao from 'hooks/useIsNetworkDao';
 import getChainIdQuery from 'utils/url';
 import Button from 'components/Button';
-import Text from 'components/Text';
+// import Text from 'components/Text';
 import './index.css';
 import { useUrlPath } from 'hooks/useUrlPath';
 import { useRouter } from 'next/navigation';
@@ -142,7 +142,7 @@ const NavHeader = ({ className, style }: { className?: string; style?: React.CSS
   const info = useSelector((store: any) => store.elfInfo.elfInfo);
   const userName = useMemo(() => {
     if (walletInfo) {
-      if (walletType === WalletTypeEnum.discover) {
+      if (walletType === WalletTypeEnum.discover || walletType === WalletTypeEnum.fairyVault) {
         return walletInfo?.discoverInfo?.nickName;
       } else if (walletType === WalletTypeEnum.aa) {
         return walletInfo?.portkeyInfo?.nickName;

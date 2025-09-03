@@ -90,7 +90,12 @@ export const useGetToken = () => {
 
     // ------------------------------------- signature -------------------------------------
     const { caHash, originChainId } = await getCaHashAndOriginChainIdByWallet(wallet, walletType);
-    if (walletType === WalletTypeEnum.discover) {
+    console.log('getToken caHash, originChainId', caHash, originChainId, walletType, wallet);
+    if (
+      walletType === WalletTypeEnum.discover ||
+      walletType === WalletTypeEnum.fairyVault ||
+      walletType === WalletTypeEnum.web
+    ) {
       try {
         const { pubKey, signatureStr } = await getSignatureAndPublicKey(discoverSignHex, signInfo);
         publicKey = pubKey || '';
