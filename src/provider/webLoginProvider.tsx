@@ -147,7 +147,7 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
   const baseConfig: IConfigProps['baseConfig'] = {
     enableAcceleration: true,
     appName: APP_NAME,
-    theme: 'light',
+    theme: 'dark',
     showVconsole: true,
     networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
     chainId: chainId as TChainId,
