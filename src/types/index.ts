@@ -95,6 +95,7 @@ export type TWalletInfoType = {
   nightElfInfo?: any;
   discoverInfo?: any;
   portkeyInfo?: any;
+  fairyVaultInfo?: any;
 };
 
 export enum ProposalType {

@@ -15,16 +15,18 @@ import { usePathname } from 'next/navigation';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import WebLoginInstance from 'contract/webLogin';
 import { WebLoginInstance as WebLoginInstanceClass } from './_src/utils/webLogin';
+import { WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 
 const Layout = dynamicReq(
   async () => {
     return (props: React.PropsWithChildren<{}>) => {
       const dispatch = useDispatch();
       const webLoginContext = useConnectWallet();
-      const { walletInfo: wallet, isConnected } = webLoginContext;
+      const { walletInfo: wallet, isConnected, walletType } = webLoginContext;
       WebLoginInstance.get().setWebLoginContext(webLoginContext);
       WebLoginInstanceClass.get().setWebLoginContext(webLoginContext);
-      
+
+      // console.log('layout wallet init', wallet, isConnected, walletType);
       useEffect(() => {
         if(isConnected && wallet){
           const newWallet = {
@@ -34,6 +36,9 @@ const Layout = dynamicReq(
             discoverInfo: wallet.address,
             portkeyInfo: wallet.extraInfo?.portkeyInfo,
             nightElfInfo: wallet.extraInfo?.nightElfInfo,
+            fairyVaultInfo: {
+              fairyVault: walletType === WalletTypeEnum.fairyVault,
+            },
           }
           dispatch({
             type: LOG_IN_ACTIONS.LOG_IN_SUCCESS,
