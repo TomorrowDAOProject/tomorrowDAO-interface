@@ -252,7 +252,7 @@ export default function Discussion(props: IDiscussionProps) {
         Discussion
         {total > 0 && <span> ({total})</span>}
       </div>
-      <div className="input-wrap flex items-center justify-between gap-[20px]">
+      <div className="input-wrap flex items-center justify-between gap-[52px]">
         <Input
           placeholder="Thoughts?..."
           className="input-box"

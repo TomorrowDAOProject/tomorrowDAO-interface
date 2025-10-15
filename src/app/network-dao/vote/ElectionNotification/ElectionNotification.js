@@ -384,7 +384,7 @@ class ElectionNotification extends PureComponent {
       // });
       if (
         (currentWallet.discoverInfo || currentWallet.portkeyInfo) &&
-        !currentWallet.nightElfInfo
+        (!currentWallet.nightElfInfo && !currentWallet.fairyVaultInfo)
       ) {
         onlyOkModal({
           message: `Becoming a candidate node with smart contract wallet address is not supported.`,
@@ -438,6 +438,7 @@ class ElectionNotification extends PureComponent {
           }, 4000);
         })
         .catch((err) => {
+          toast.error(err.message || err.Error || "error");
           console.error(err);
         });
     });

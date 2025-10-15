@@ -343,7 +343,8 @@ const ContractProposal = (props) => {
       // ca wallet deploy contract in AELF chain
       if (
         (currentWallet.discoverInfo || currentWallet.portkeyInfo) &&
-        !currentWallet.nightElfInfo &&
+        // !currentWallet.nightElfInfo &&
+        (!currentWallet.nightElfInfo && !currentWallet.fairyVaultInfo) &&
         approvalMode === "withoutApproval" &&
         !isUpdate &&
         CHAIN_ID === "AELF"
