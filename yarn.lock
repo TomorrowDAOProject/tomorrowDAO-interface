@@ -51,6 +51,18 @@
   resolved "https://registry.yarnpkg.com/@aelf-react/types/-/types-0.1.10.tgz#dc8e426401140e138def17623f464ac22dc3489d"
   integrity sha512-oKEI07EeL8dhUqp8ze50mCXOqAS5psoOpdmCNZaFT2R62/GPoAyvtN8oaZAUb1tycpE+eUdkdv8XDblEsIIiLA==
 
+"@aelf-web-login/utils@0.4.0-alpha.8":
+  version "0.4.0-alpha.8"
+  resolved "https://registry.npmjs.org/@aelf-web-login/utils/-/utils-0.4.0-alpha.8.tgz#0e08fca90740938dda796b8a4f46ef8293f465a8"
+  integrity sha512-jBUnMTtWTTCMVQfEpPXFtiAwkBCt/4BpY03MtwVAVG6gFzzv/JM5cyE43SZWF3sKcHY/Lv5jRK6b1BVH8A4sWw==
+  dependencies:
+    "@aelf-web-login/wallet-adapter-base" "0.4.0-alpha.8"
+    "@aelf-web-login/wallet-adapter-react" "0.4.0-alpha.8"
+    bignumber.js "^9.1.2"
+    dayjs "^1.11.13"
+    react "^18.3.1"
+    react-dom "^18.3.1"
+
 "@aelf-web-login/wallet-adapter-base@0.4.0-alpha.8":
   version "0.4.0-alpha.8"
   resolved "https://registry.npmjs.org/@aelf-web-login/wallet-adapter-base/-/wallet-adapter-base-0.4.0-alpha.8.tgz#eac5b0f855250dbd9e7842b4d9758bc7b9638063"
@@ -7864,6 +7876,11 @@ dayjs@1.x, dayjs@^1.11.10, dayjs@^1.11.11, dayjs@^1.11.7, dayjs@^1.7.5, dayjs@^1
   version "1.11.13"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.13.tgz#92430b0139055c3ebb60150aa13e860a4b5a366c"
   integrity sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==
+
+dayjs@^1.11.13:
+  version "1.11.18"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.18.tgz#835fa712aac52ab9dec8b1494098774ed7070a11"
+  integrity sha512-zFBQ7WFRvVRhKcWoUh+ZA1g2HVgUbsZm9sbddh8EC5iv93sui8DVVz1Npvz+r6meo9VKfa8NyLWBsQK1VvIKPA==
 
 debug@2.6.9, debug@^2.2.0:
   version "2.6.9"
