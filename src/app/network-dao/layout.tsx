@@ -23,8 +23,12 @@ const Layout = dynamicReq(
       const dispatch = useDispatch();
       const webLoginContext = useConnectWallet();
       const { walletInfo: wallet, isConnected, walletType } = webLoginContext;
-      WebLoginInstance.get().setWebLoginContext(webLoginContext);
-      WebLoginInstanceClass.get().setWebLoginContext(webLoginContext);
+
+      useEffect(() => {
+        console.log('network-dao webLoginContext:', webLoginContext);
+        WebLoginInstance.get().setWebLoginContext(webLoginContext);
+        WebLoginInstanceClass.get().setWebLoginContext(webLoginContext);
+      }, [webLoginContext]);
 
       // console.log('layout wallet init', wallet, isConnected, walletType);
       useEffect(() => {
