@@ -107,7 +107,7 @@ export default function Header() {
 
   return (
     <header className="header-container networkdao-header-container">
-      <div className="header-banner">
+      <div className="header-banner box-border">
         <div className="header-logo flex items-center justify-between">
           <div className="">
             <Link href="/">
