@@ -1,6 +1,6 @@
 .login-container {
   .user-info {
-    @apply bg-mainColor !h-[32px] flex items-center lg:h-12 px-2 lg:px-[12px] lg:py-2 rounded-[42px] cursor-pointer text-[12px];
+    @apply bg-mainColor !h-[32px] flex items-center lg:h-12 px-2 lg:px-[12px] rounded-[42px] cursor-pointer text-[12px];
   }
 
   .avatar-container {
@@ -29,7 +29,7 @@
 
 .header-dropdown-container {
   .drop-down-items {
-    @apply flex cursor-pointer h-[48px] text-white text-[14px] font-[400] leading-[22px] px-[24px] py-[13px];
+    @apply flex cursor-pointer box-border h-[48px] text-white text-[14px] font-[400] leading-[22px] px-[24px] py-[13px];
   }
 
   .drop-down-items:hover {

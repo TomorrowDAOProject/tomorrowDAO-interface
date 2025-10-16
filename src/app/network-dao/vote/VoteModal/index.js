@@ -465,6 +465,7 @@ class VoteModal extends Component {
       voteModalVisible,
       handleVoteTypeChange,
       voteType,
+      switchableVoteRecords,
       voteConfirmLoading,
     } = this.props;
     const formItems = this.getFormItems();
@@ -564,6 +565,7 @@ class VoteModal extends Component {
         {tipHTML}
         <div className="w-full mb-[10px]">
           <Button
+            disabled={voteType === 'fromActiveVotes' && (!switchableVoteRecords || !switchableVoteRecords.length)}
             type="primary"
             className="w-full h-[40px] rounded-[42px] bg-mainColor text-white font-Montserrat border border-solid border-borderColor hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
             onClick={this.handleOk}

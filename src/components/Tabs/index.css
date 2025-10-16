@@ -16,7 +16,7 @@
 }
 
 .tab-item {
-  @apply flex items-center justify-center py-[12px] px-[22px] xl:py-[17px] xl:px-[32px] lg:py-[17px] lg:px-[32px] md:py-[17px] md:px-[32px] text-descM14 font-Montserrat cursor-pointer text-white h-[56px];
+  @apply box-border flex items-center justify-center py-[12px] px-[22px] xl:py-[17px] xl:px-[32px] lg:py-[17px] lg:px-[32px] md:py-[17px] md:px-[32px] text-descM14 font-Montserrat cursor-pointer text-white h-[56px];
   flex: 0 0 auto;
 }
 
