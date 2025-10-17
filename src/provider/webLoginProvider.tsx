@@ -152,16 +152,12 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
     networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
     chainId: chainId as TChainId,
     sideChainId: chainId as TChainId,
-    design: SignInDesignEnum.SocialDesign,
+    // design: SignInDesignEnum.SocialDesign,
+    design: SignInDesignEnum.CryptoDesign,
   };
 
   const wallets = [
-    new PortkeyInnerWallet({
-      networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
-      chainId: chainId as TChainId,
-      disconnectConfirm: true,
-    }),
-    new PortkeyDiscoverWallet({
+    new FairyVaultDiscoverWallet({
       networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
       chainId: chainId as TChainId,
       autoRequestAccount: true,
@@ -170,7 +166,7 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
       autoLogoutOnAccountMismatch: true,
       autoLogoutOnChainMismatch: true,
     }),
-    new FairyVaultDiscoverWallet({
+    new PortkeyDiscoverWallet({
       networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
       chainId: chainId as TChainId,
       autoRequestAccount: true,
@@ -188,6 +184,11 @@ export default function LoginSDKProvider({ children }: { children: React.ReactNo
         info?.rpcUrlTDVW ||
         '',
       nodes: nodes,
+    }),
+    new PortkeyInnerWallet({
+      networkType: networkType === 'TESTNET' ? NetworkEnum.TESTNET : NetworkEnum.MAINNET,
+      chainId: chainId as TChainId,
+      disconnectConfirm: true,
     }),
   ];
 

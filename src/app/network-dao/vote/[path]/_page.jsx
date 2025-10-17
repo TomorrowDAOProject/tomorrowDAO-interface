@@ -1278,7 +1278,7 @@ class VoteContainer extends Component {
           </Menu.Item>
           <Menu.Item
             key={allowPathMap.myvote}
-            className="!px-[48px] relative left-[-17px] sm:!px-[2px] sm:w-[180px] sm:left-0 sm:text-center"
+            className="!px-[48px] relative left-[-17px] sm:!px-[2px] sm:w-[100px] sm:left-0 sm:text-center"
           >
             <LinkNetworkDao href="/vote/myvote" className="sm:h-[46px] md:h-[56px] sm:leading-[46px]  md:leading-[56px] !text-white font-medium font-Montserrat">
               My Vote
