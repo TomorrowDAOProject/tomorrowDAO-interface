@@ -607,7 +607,8 @@ const CreateProposal = () => {
     });
     const { isOnlyUpdateName } = results;
 
-    if (results.name && currentWallet.discoverInfo) {
+    if (results.name && currentWallet.discoverInfo && !currentWallet.fairyVaultInfo) {
+    // if (results.name && currentWallet.discoverInfo) {
       setContractResult((v) => ({ ...v, confirming: false }));
       handleCancel();
       onlyOkModal({
@@ -692,7 +693,7 @@ const CreateProposal = () => {
           type: CommonOperationResultModalType.Success,
           primaryContent: 'Proposal Published',
           secondaryContent: <div>
-            Transaction ID: 
+            Transaction ID:
             <a
               href={`${isSideChain ? explorer : mainExplorer}/tx/${txsId}`}
               target="_blank"

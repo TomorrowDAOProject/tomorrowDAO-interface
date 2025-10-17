@@ -26,7 +26,7 @@ function ElectionRuleCard(props) {
   const onClick = () => {
     if (
       (currentWallet.discoverInfo || currentWallet.portkeyInfo) &&
-      !currentWallet.nightElfInfo
+      (!currentWallet.nightElfInfo && !currentWallet.fairyVaultInfo)
     ) {
       onlyOkModal({
         title: "Error",

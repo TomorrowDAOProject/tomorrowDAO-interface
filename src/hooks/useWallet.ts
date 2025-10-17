@@ -68,14 +68,15 @@ export const useCheckLoginAndToken = () => {
   };
   useAsyncEffect(async () => {
     const waitPublicKey =
-      walletType === WalletTypeEnum.discover ? true : wallet?.extraInfo?.publicKey;
+      walletType === WalletTypeEnum.discover || walletType === WalletTypeEnum.fairyVault
+        ? true
+        : wallet?.extraInfo?.publicKey;
     if (isConnectWallet && wallet && waitPublicKey) {
       if (authManager.isAuthing) return;
       authManager.isAuthing = true;
       emitLoading(true, 'Authorize account...');
       if (!isTelegram) {
         const checkRes = await checkTokenValid();
-        console.log('checkRes------------ >', checkRes);
         if (checkRes) {
           apiServer.setToken(checkRes?.access_token);
           dispatch(
@@ -87,9 +88,12 @@ export const useCheckLoginAndToken = () => {
           emitLoading(false);
           authManager.isAuthing = false;
           return;
+        } else {
+          await getTokenUpdate();
         }
+      } else {
+        await getTokenUpdate();
       }
-      await getTokenUpdate();
       eventBus.emit(GetTokenLogin);
       authManager.isAuthing = false;
       // emitLoading(true, 'Authorize account...');
@@ -99,6 +103,7 @@ export const useCheckLoginAndToken = () => {
   useEffect(() => {
     if (wallet?.address && isConnected) {
       console.log('gtag report', wallet.address);
+      console.log('wallet info', wallet);
       window.gtag('set', 'user_id', wallet.address);
       window.gtag('event', 'login_success', {
         user_id: wallet.address,
@@ -139,7 +144,7 @@ export const useWalletInit = () => {
       if (walletType === WalletTypeEnum.elf) {
         walletInfoToLocal.nightElfInfo = walletInfo.extraInfo?.nightElfInfo;
       }
-      if (walletType === WalletTypeEnum.discover) {
+      if (walletType === WalletTypeEnum.discover || walletType === WalletTypeEnum.fairyVault) {
         walletInfoToLocal.discoverInfo = {
           accounts: walletInfo?.extraInfo?.accounts || {},
           address: walletInfo?.address || '',

@@ -166,7 +166,7 @@ export default function Header() {
   const showHeaderExplore = isHome && isShowHeaderExplore;
   return (
     <header className={`header-container ${isHome ? 'home' : ''}`}>
-      <div className="header-banner">
+      <div className="header-banner box-border">
         <div className="header-logo">
           <div className="header-menu">
             <Link href="/">

@@ -132,7 +132,7 @@ const Select: React.FC<ISelectProps> = ({
       {isOpen && (
         <ul
           className={clsx(
-            'absolute max-h-[190px] overflow-y-auto w-full mt-1 py-4 bg-darkBg border border-solid border-fillBg8 rounded-[8px] shadow-lg z-10',
+            'absolute max-h-[190px] overflow-y-auto w-full mt-1 py-4 pl-0 bg-darkBg border border-solid border-fillBg8 rounded-[8px] shadow-lg z-10',
             {
               '!max-h-[240px] !pt-0': options?.length === 0,
             },

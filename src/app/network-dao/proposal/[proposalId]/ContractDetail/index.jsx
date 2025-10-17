@@ -93,7 +93,7 @@ const ContractDetail = (props) => {
     }
   }, [contractAddress]);
   const ref = useRef(null);
-  useEffect(() => { 
+  useEffect(() => {
     ref.current.innerHTML = params;
   }, [params])
 
@@ -150,7 +150,10 @@ const ContractDetail = (props) => {
             <span className="text-desc12 text-lightGrey font-Montserrat">Contract Params</span>
           </Col>
           <Col sm={24} md={18}>
-            <pre className="bg-transparent rounded-[8px] p-4 border border-fillBg8 border-solid text-desc14 text-lightGrey font-Montserrat" ref={ref}>{params}</pre>
+            <pre className="bg-transparent rounded-[8px] p-4
+            border border-fillBg8 border-solid max-h-[200px] overflow-scroll
+            text-desc14 text-lightGrey font-Montserrat text-wrap break-all"
+                 ref={ref}>{params}</pre>
           </Col>
         </Row>
       </div>
