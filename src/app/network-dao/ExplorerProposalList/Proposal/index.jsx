@@ -132,12 +132,12 @@ const Proposal = (props) => {
     >
       <div className="flex items-center justify-between">
         <div className="flex flex-col justify-center w-[calc(100%-100px)] h-[47px] gap-[10px]">
-          {title && <h2 className="text-[15px] font-Unbounded font-light -tracking-[0.6px] text-white leading-[24px]">{title}</h2>}
+          {title && <h2 className="text-[15px] m-0 font-Unbounded font-light -tracking-[0.6px] text-white leading-[24px]">{title}</h2>}
           <LinkNetworkDao
               className="text-secondaryMainColor text-descM10 font-Montserrat text-ellipsis hover:text-mainColor"
               href={{
                 pathname: `/proposal/${proposalId}`,
-              }}            
+              }}
             >
               {proposalId}
             </LinkNetworkDao>

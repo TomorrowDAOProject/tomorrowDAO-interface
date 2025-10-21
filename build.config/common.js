@@ -58,7 +58,7 @@ module.exports = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  webpack: (config, { webpack }) => {
+  webpack: (config, { webpack, isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack', 'url-loader'],
@@ -77,6 +77,14 @@ module.exports = {
       '@actions': path.resolve(ROOT, '_src/redux/actions/'),
       '@redux': path.resolve(ROOT, '_src/redux/'),
     };
+
+    if (!isServer) {
+      config.output.filename = 'static/chunks/[name].[contenthash:32].js';
+      config.output.chunkFilename = 'static/chunks/[name].[contenthash:32].js';
+
+      config.output.hashFunction = 'sha256';
+      config.output.hashDigestLength = 32;
+    }
     // config.module.rules.push({
     //   test: /\.less$/,
     //   use: [
