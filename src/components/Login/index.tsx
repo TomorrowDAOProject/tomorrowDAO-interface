@@ -38,7 +38,7 @@ export const LoginAuth = () => {
         const daoVersion = localStorage.getItem('daoVersion');
         if (!daoVersion) {
           localStorage.clear();
-          localStorage.setItem('dao_version', '20251017');
+          localStorage.setItem('daoVersion', '20251017');
         }
         connectWallet();
       }}
