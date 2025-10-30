@@ -68,7 +68,9 @@ export const useCheckLoginAndToken = () => {
   };
   useAsyncEffect(async () => {
     const waitPublicKey =
-      walletType === WalletTypeEnum.discover || walletType === WalletTypeEnum.fairyVault
+      walletType === WalletTypeEnum.discover ||
+      walletType === WalletTypeEnum.fairyVault ||
+      walletType === WalletTypeEnum.web
         ? true
         : wallet?.extraInfo?.publicKey;
     if (isConnectWallet && wallet && waitPublicKey) {
