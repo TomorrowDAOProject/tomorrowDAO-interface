@@ -45,11 +45,6 @@ export async function updateContractName(currentWallet, params) {
       {
         ...params,
         ...signedParams,
-      },
-      {
-        headers: {
-          "x-csrf-token": getCsrfToken(),
-        },
       }
     );
   }
@@ -68,18 +63,14 @@ export async function addContractName(currentWallet, params) {
     timestamp,
   };
   if (Object.keys(signedParams).length > 0) {
-    return apiServer.post(
+    const result = await apiServer.post(
       API_PATH.ADD_CONTRACT_NAME,
       {
         ...params,
         ...signedParams,
-      },
-      {
-        headers: {
-          "x-csrf-token": getCsrfToken(),
-        },
       }
     );
+    return result;
   }
   throw new Error("get signature failed");
 }

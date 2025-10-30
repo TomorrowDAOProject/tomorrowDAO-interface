@@ -74,7 +74,7 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
     <>
       <div
         className={clsx(
-          'relative py-[13px] px-4 pr-[40px] border border-solid border-fillBg8 rounded-[8px] cursor-pointer',
+          'box-border relative py-[13px] px-4 pr-[40px] border border-solid border-fillBg8 rounded-[8px] cursor-pointer',
           className,
         )}
         onClick={() => setIsVisible(true)}
@@ -91,7 +91,7 @@ const SimpleDatePicker = (props: ISimpleDatePickerProps) => {
         isVisible={isVisible}
         direction="bottom"
         onClose={setIsVisible}
-        rootClassName="px-[17.5px] pt-5 pb-7 bg-tertiary md:border md:border-solid md:border-borderColor"
+        rootClassName="box-border px-[17.5px] pt-5 pb-7 bg-tertiary md:border md:border-solid md:border-borderColor"
         role="dialog"
         canClose
       >

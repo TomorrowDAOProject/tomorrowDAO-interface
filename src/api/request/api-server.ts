@@ -15,6 +15,8 @@ const authList = [
   '/proposal/my-info',
   '/dao/my-dao-list',
   '/discussion/new-comment',
+  'networkdao/contract/add',
+  'networkdao/contract/update',
   ...tmrwNeedAuthList,
   ...telegramNeedAuthList,
 ];

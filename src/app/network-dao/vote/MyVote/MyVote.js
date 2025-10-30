@@ -218,7 +218,7 @@ const MyVote = ({ currentWallet, electionContract, checkExtensionLockStatus }) =
   };
 
   return (
-    <section className="py-6 px-[38px] bg-darkBg">
+    <section className="py-6 px-[38px] sm:px-[8px] sm:py-0 bg-darkBg">
       {currentWallet?.address ? (
         <Spin spinning={spinningLoading}>
           <StatisticalData data={statistData} />

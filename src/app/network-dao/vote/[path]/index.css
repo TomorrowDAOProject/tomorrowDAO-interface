@@ -83,6 +83,12 @@
   padding: 24px 38px;
 }
 
+@media screen and (max-width: 768px) {
+  .vote-container .election-notification {
+     padding: 0;
+  }
+}
+
 .vote-container {
   padding: 24px 38px;
   @apply bg-darkBg;

@@ -49,12 +49,12 @@ class RealTimeTransactions extends PureComponent {
   getTableHeadHTML() {
     return (
       <Row className="table-head" type="flex" align="middle">
-        <Col span={6} offset={6}>
+        <Col span={8} offset={6}>
           Average price(
           {SYMBOL})
         </Col>
-        <Col span={6}>Number</Col>
-        <Col span={6}>Cumulative</Col>
+        <Col span={5}>Number</Col>
+        <Col span={5}>Cumulative</Col>
       </Row>
     );
   }
@@ -126,9 +126,9 @@ class RealTimeTransactions extends PureComponent {
               Sell
             </div>
             </Col>
-            <Col span={5}>{(elf / resource).toFixed(ELF_PRECISION)}</Col>
-            <Col span={6}>{thousandsCommaWithDecimal(resource)}</Col>
-            <Col span={6}>{thousandsCommaWithDecimal(elf - fee)}</Col>
+            <Col span={7}>{(elf / resource).toFixed(ELF_PRECISION)}</Col>
+            <Col span={5}>{thousandsCommaWithDecimal(resource)}</Col>
+            <Col span={5}>{thousandsCommaWithDecimal(elf - fee)}</Col>
           </Row>
         );
       });
@@ -168,9 +168,9 @@ class RealTimeTransactions extends PureComponent {
               Buy
             </div>
             </Col>
-            <Col span={5}>{(elf / resource).toFixed(ELF_PRECISION)}</Col>
-            <Col span={6}>{thousandsCommaWithDecimal(resource)}</Col>
-            <Col span={6}>{thousandsCommaWithDecimal(elf + fee)}</Col>
+            <Col span={7}>{(elf / resource).toFixed(ELF_PRECISION)}</Col>
+            <Col span={5}>{thousandsCommaWithDecimal(resource)}</Col>
+            <Col span={5}>{thousandsCommaWithDecimal(elf + fee)}</Col>
           </Row>
         );
       });
@@ -188,10 +188,12 @@ class RealTimeTransactions extends PureComponent {
             Real Time Transactions
           </div>
         </div>
-        <div className="real-time-transactions-body">
-          {tableHead}
-          {sellInfo}
-          {buyInfo}
+        <div className="real-time-transactions-body overflow-scroll">
+          <div className="real-time-transactions-sub-body min-w-[400px]">
+            {tableHead}
+            {sellInfo}
+            {buyInfo}
+          </div>
         </div>
       </div>
     );
