@@ -100,7 +100,7 @@ export const useGetToken = () => {
         const { pubKey, signatureStr } = await getSignatureAndPublicKey(discoverSignHex, signInfo);
         publicKey = pubKey || '';
         signature = signatureStr || '';
-        source = 'portkey';
+        source = walletType === WalletTypeEnum.fairyVault ? 'eoa' : 'portkey';
       } catch (error) {
         const resError = error as IContractError;
         const errorMessage = formatErrorMsg(resError).errorMessage.message;
