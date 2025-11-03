@@ -31,6 +31,7 @@ import { CHAIN_ID } from "../../_src/constants";
 import "./index.css";
 import { toast } from "react-toastify";
 import getChainIdQuery from 'utils/url';
+import { isAAWallet } from 'utils/wallet';
 import sortContracts from '../../_src/utils/sortContracts';
 
 const FormItem = Form.Item;
@@ -60,6 +61,12 @@ const approvalModeList = [
     modeTitle: "Without Approval",
     modeType: "withoutApproval",
   },
+  {
+    modeTitle: "BP Approval",
+    modeType: "bpApproval",
+  },
+];
+const approvalModeListAAinMainChain = [
   {
     modeTitle: "BP Approval",
     modeType: "bpApproval",
@@ -447,6 +454,22 @@ const ContractProposal = (props) => {
     };
   }, [currentWallet]);
 
+  const [_approvalModeList, setApprovalModeList] = useState(approvalModeList);
+  useEffect(() => {
+    if (!currentWallet || !chain) {
+      return;
+    }
+    const isAAInMainChain = isAAWallet() && chain.chainId === 'AELF';
+    setApprovalModeList(isAAInMainChain ? approvalModeListAAinMainChain : approvalModeList);
+    if (isAAInMainChain) {
+      setApprovalMode('bpApproval');
+      setFieldsValue({
+        approvalMode: 'bpApproval',
+      });
+    }
+
+  }, [currentWallet, chain]);
+
   const updateTypeFormItem = () => {
     return (
       <FormItem label="" name="updateType">
@@ -477,7 +500,7 @@ const ContractProposal = (props) => {
         ]}
       >
         <Select showSearch optionFilterProp="children">
-          {approvalModeList.map((v) => (
+          {_approvalModeList.map((v) => (
             <Select.Option key={v.modeType} value={v.modeType}>
               {v.modeTitle}
             </Select.Option>
