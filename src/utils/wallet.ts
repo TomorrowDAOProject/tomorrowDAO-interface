@@ -48,3 +48,12 @@ export const getCaHashAndOriginChainIdByWallet = async (
     originChainId: originChainId || curChain,
   };
 };
+
+export const isAAWallet = () => {
+  const walletType = localStorage.getItem('connectedWallet') as WalletTypeEnum;
+  return (
+    walletType === WalletTypeEnum.aa ||
+    walletType === WalletTypeEnum.discover ||
+    walletType === WalletTypeEnum.web
+  );
+};
