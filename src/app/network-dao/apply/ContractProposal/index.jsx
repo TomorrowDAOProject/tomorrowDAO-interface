@@ -239,11 +239,6 @@ const ContractProposal = (props) => {
     setContractName("");
     setIsUpdate(!isUpdate);
   }
-  const contractFilter = (input) =>
-    contractList.filter(
-      ({ contractName, address }) =>
-        contractName.indexOf(input) > -1 || address.indexOf(input) > -1
-    ).length > 0;
 
   function normFile(e) {
     if (Array.isArray(e)) {
@@ -564,15 +559,15 @@ const ContractProposal = (props) => {
           placeholder="Please select a contract address"
           showSearch
           optionFilterProp="children"
-          filterOption={contractFilter}
+          filterOption={(_, option) => option?.label.indexOf(input) !== -1}
           onChange={handleContractChange}
-        >
-          {list.map((v) => (
-            <Select.Option key={v.address} value={v.address}>
-              {v.contractName || v.address}
-            </Select.Option>
-          ))}
-        </Select>
+          options={list.map((v) => {
+            return {
+              value: v.contractName || v.address,
+              label: v.contractName || v.address,
+            }
+          })}
+        />
       </FormItem>
     );
   };
