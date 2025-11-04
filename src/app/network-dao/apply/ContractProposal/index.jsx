@@ -201,22 +201,31 @@ const ContractProposal = (props) => {
   const chain = getChainIdQuery();
 
   useEffect(() => {
-    request(
-      API_PATH.GET_ALL_CONTRACTS,
-      {
-        search: "",
-        chainId: chain?.chainId,
-        skipCount: 0,
-        maxResultCount: 1000,
-      },
-      { method: "GET" }
-    )
-      .then((res) => {
-        setContractList(sortContracts(res.list) || []);
-      })
-      .catch((e) => {
-        toast.error(e.message || "Network Error");
-      });
+    let contractList = [];
+    const getContractList = async (skipCount = 0) => {
+      return request(
+        API_PATH.GET_ALL_CONTRACTS,
+        {
+          search: "",
+          chainId: chain?.chainId,
+          skipCount,
+          maxResultCount: 1000,
+        },
+        { method: "GET" }
+      )
+        .then((res) => {
+          contractList = contractList.concat(res.list);
+          if (res.list.length === 1000 && res.total > contractList.length) {
+            return getContractList(contractList.length);
+          }
+          console.log('contractList: ', contractList, contractList.length);
+          setContractList(sortContracts(contractList) || []);
+        })
+        .catch((e) => {
+          toast.error(e.message || "Network Error");
+        });
+    };
+    getContractList();
   }, [update]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [isUpdateName, setUpdateName] = useState(false);
