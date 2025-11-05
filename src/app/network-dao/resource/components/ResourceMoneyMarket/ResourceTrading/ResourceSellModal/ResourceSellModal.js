@@ -106,7 +106,7 @@ export default class ResourceSellModal extends PureComponent {
       this.setState({
         loading: false,
       });
-      toast.fail("Sell failed, please try again");
+      toast.error("Sell failed, please try again");
       console.error("result.Sell error", error);
     }
   }
@@ -163,7 +163,7 @@ export default class ResourceSellModal extends PureComponent {
         >
           Sell
         </Button>
-       
+
       </div>
     );
   }
