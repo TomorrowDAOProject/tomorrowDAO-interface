@@ -568,7 +568,7 @@ const ContractProposal = (props) => {
           placeholder="Please select a contract address"
           showSearch
           optionFilterProp="children"
-          filterOption={(_, option) => option?.label.indexOf(input) !== -1}
+          filterOption={(input, option) => option?.label.indexOf(input) !== -1}
           onChange={handleContractChange}
           options={list.map((v) => {
             return {
