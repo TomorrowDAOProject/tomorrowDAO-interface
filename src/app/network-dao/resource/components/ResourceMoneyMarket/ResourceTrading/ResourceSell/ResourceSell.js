@@ -25,7 +25,7 @@ import getFees from "@utils/getFees";
 import "./ResourceSell.css";
 import { isPhoneCheck } from "@utils/deviceCheck";
 import ButtonWithLoginCheck from "@components/ButtonWithLoginCheck";
-import { isActivityBrowser } from "@utils/isWebView";
+// import { isActivityBrowser } from "@utils/isWebView";
 import { toast } from 'react-toastify';
 
 const status = { ERROR: "error" };
@@ -505,7 +505,8 @@ class ResourceSell extends Component {
             checkAccountInfoSync
             onClick={this.checkAndShowSellModal}
             loading={sellBtnLoading || sellEstimateValueLoading}
-            disabled={validate.validateStatus === status.ERROR || isActivityBrowser()}
+            // disabled={validate.validateStatus === status.ERROR || isActivityBrowser()}
+            disabled={validate.validateStatus === status.ERROR}
           >
             Sell
           </ButtonWithLoginCheck>

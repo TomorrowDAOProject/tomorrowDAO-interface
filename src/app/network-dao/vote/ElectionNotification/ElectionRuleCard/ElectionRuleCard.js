@@ -15,7 +15,7 @@ import getChainIdQuery from 'utils/url';
 import "./ElectionRuleCard.style.css";
 import Svg from "@components/Svg/Svg";
 import { onlyOkModal } from "@components/SimpleModal/index.tsx";
-import { isActivityBrowser } from "@utils/isWebView";
+// import { isActivityBrowser } from "@utils/isWebView";
 import useNetworkDaoRouter from "hooks/useNetworkDaoRouter";
 
 function ElectionRuleCard(props) {
@@ -50,7 +50,7 @@ function ElectionRuleCard(props) {
       <Button
         type="primary"
         className="!rounded-[42px] hover:!bg-darkBg hover:!text-mainColor hover:!border hover:border-solid hover:!border-mainColor"
-        disabled={isActivityBrowser()}
+        // disabled={isActivityBrowser()}
         onClick={onClick}
       >
         {isCandidate ? "Modify team information" : "Become a candidate node"}
