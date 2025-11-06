@@ -17,6 +17,7 @@ export const LoginAuth = () => {
   const { connectWallet, walletInfo } = useConnectWallet();
 
   const { getTokenUpdate } = useCheckLoginAndToken();
+  console.log('LoginAuth: walletInfo: ', walletInfo);
   if (walletInfo) {
     return (
       <Button
@@ -142,7 +143,8 @@ export default function Login(props: ILoginProps) {
         >
           <div className="user-info">
             <i className="tmrwdao-icon-profile text-[22px] text-inherit text-white"></i>
-            {!isSM && <div className="user-name ml-[6px]">{userName}</div>}
+            {/*{!isSM && <div className="user-name ml-[6px]">{userName}</div>}*/}
+            <div className="user-name ml-[6px] sm:max-w-[80px]">{userName}</div>
           </div>
         </Popover>
       )}
