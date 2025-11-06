@@ -26,7 +26,7 @@ import { connect } from "react-redux";
 import "./index.css";
 import addressFormat from "@utils/addressFormat";
 import TableLayer from "@components/TableLayer/TableLayer";
-import { isActivityBrowser } from "@utils/isWebView";
+// import { isActivityBrowser } from "@utils/isWebView";
 
 const clsPrefix = "node-table";
 const TableItemCount = 20;
@@ -54,7 +54,7 @@ class NodeTable extends PureComponent {
     this.wsProducedBlocks();
     if (this.props.electionContract && this.props.consensusContract) {
       this.fetchNodes();
-      
+
     }
   }
 
@@ -275,7 +275,7 @@ class NodeTable extends PureComponent {
               size="small"
               className="w-[80px] text-center vote-btn text-white !bg-mainColor !rounded-[8px] !border border-solid !border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:!border-mainColor"
               key={record.pubkey}
-              disabled={isActivityBrowser()}
+              // disabled={isActivityBrowser()}
               data-nodeaddress={record.formattedAddress}
               data-targetpublickey={record.pubkey}
               data-role="vote"

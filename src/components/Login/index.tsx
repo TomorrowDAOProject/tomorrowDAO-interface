@@ -144,7 +144,7 @@ export default function Login(props: ILoginProps) {
           <div className="user-info">
             <i className="tmrwdao-icon-profile text-[22px] text-inherit text-white"></i>
             {/*{!isSM && <div className="user-name ml-[6px]">{userName}</div>}*/}
-            <div className="user-name ml-[6px] sm:max-w-[80px]">{userName}</div>
+            <div className="user-name ml-[6px] max-w-[80px] md:max-w-full">{userName}</div>
           </div>
         </Popover>
       )}

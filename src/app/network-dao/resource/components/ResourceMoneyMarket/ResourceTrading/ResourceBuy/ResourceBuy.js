@@ -36,7 +36,7 @@ import getEstimatedValueRes from "@utils/getEstimatedValueRes";
 import getEstimatedValueELF from "@utils/getEstimatedValueELF";
 import getFees from "@utils/getFees";
 import "./ResourceBuy.css";
-import { isActivityBrowser } from "@utils/isWebView";
+// import { isActivityBrowser } from "@utils/isWebView";
 import { toast } from 'react-toastify';
 
 const A_PARAM_TO_AVOID_THE_MAX_BUY_AMOUNT_LARGE_THAN_ELF_BALANCE = 0.01;
@@ -683,7 +683,8 @@ class ResourceBuy extends Component {
             loading={
               buyEstimateValueLoading || buyBtnLoading || buyInputLoading
             }
-            disabled={validate.validateStatus === status.ERROR || isActivityBrowser()}
+            // disabled={validate.validateStatus === status.ERROR || isActivityBrowser()}
+            disabled={validate.validateStatus === status.ERROR}
           >
             Buy
           </ButtonWithLoginCheck>
