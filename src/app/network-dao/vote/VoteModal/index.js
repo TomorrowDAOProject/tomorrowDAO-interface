@@ -337,6 +337,7 @@ class VoteModal extends Component {
                     message: SELECT_SOMETHING_TIP,
                   },
                 ]}
+                className="max-w-[100%]"
               >
                 <Table
                   size="small"
