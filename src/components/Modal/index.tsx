@@ -42,7 +42,8 @@ const Modal: React.FC<IModalProps> = ({
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000]">
         <motion.div
           className={clsx(
-            `relative bg-darkBg border border-solid border-fillBg8 rounded-lg shadow-lg w-[calc(100vw-12px)] max-h-[calc(100vh-44px)] overflow-y-auto`,
+            `sm:max-w-[320px] md:max-w-full 
+            relative bg-darkBg border border-solid border-fillBg8 rounded-lg shadow-lg w-[calc(100vw-12px)] max-h-[calc(100vh-44px)] overflow-y-auto`,
             rootClassName,
           )}
           initial="hidden"

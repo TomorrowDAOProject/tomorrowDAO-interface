@@ -55,7 +55,7 @@ const Textarea = (
       <textarea
         ref={ref}
         className={clsx(
-          'py-[13px] px-[16px] w-full h-[121px] rounded-[8px] placeholder:font-Montserrat border border-solid border-fillBg8 bg-transparent text-white text-desc16 md:text-desc14 font-Montserrat caret-white outline-none resize-none appearance-none',
+          'box-border py-[13px] px-[16px] w-full h-[121px] rounded-[8px] placeholder:font-Montserrat border border-solid border-fillBg8 bg-transparent text-white text-desc16 md:text-desc14 font-Montserrat caret-white outline-none resize-none appearance-none',
           {
             'border-mainColor': isError,
           },
