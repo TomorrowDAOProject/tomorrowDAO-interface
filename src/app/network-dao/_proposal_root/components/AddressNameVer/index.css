@@ -21,6 +21,7 @@
     .address-name-ver .contract-name,
     .address-name-ver .contract-version {
         width: auto;
+        margin-left: 0;
     }
 }
 

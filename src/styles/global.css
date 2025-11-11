@@ -468,3 +468,7 @@ input[type='number'] {
 .Toastify__toast-icon {
   @apply !w-[18px];
 }
+
+.portkey-connect-drawer-content-wrapper {
+    height: calc(90vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+}
