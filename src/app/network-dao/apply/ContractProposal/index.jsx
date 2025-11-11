@@ -13,6 +13,7 @@ import {
   Tooltip,
   Form,
 } from "antd";
+import { Picker } from 'antd-mobile'
 import Button from "components/Button";
 import { onlyOkModal } from "@components/SimpleModal/index.tsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +34,7 @@ import { toast } from "react-toastify";
 import getChainIdQuery from 'utils/url';
 import { isAAWallet } from 'utils/wallet';
 import sortContracts from '../../_src/utils/sortContracts';
+import { isPhoneCheck } from '../../_src/utils/deviceCheck';
 
 const FormItem = Form.Item;
 const InputNameReg = /^[.,a-zA-Z\d]+$/;
@@ -421,11 +423,18 @@ const ContractProposal = (props) => {
     }
   }
 
-  function handleContractChange(address) {
-    const info = contractList.filter((v) => v.address === address)[0];
+  function handleContractChange(input) {
+    let address = input;
+    if (typeof input === 'object') {
+      address = input[0];
+    }
+    const info = contractList.filter((v) => v.address === address || v.contractName === address)[0];
     setCurrentContractInfo(info);
     const name = +info.contractName === -1 ? "" : info.contractName;
     setContractName(name);
+    setFieldsValue({
+      address: info.address,
+    });
   }
 
   const updateTypeHandler = useCallback((e) => {
@@ -546,6 +555,7 @@ const ContractProposal = (props) => {
     );
   };
 
+  const [visiblePicker, setPickerVisible] = useState(false)
   const contractAddressFormItem = () => {
     let list =
       approvalMode === "withoutApproval"
@@ -553,6 +563,38 @@ const ContractProposal = (props) => {
         : contractList;
     // deduplicate by address
     list = deduplicateByKey(list, 'address');
+
+    if (isPhoneCheck()) {
+      return <>
+        <FormItem
+          label={<>
+            Contract Address &nbsp;
+            <Button size="small" onClick={() => setPickerVisible(true)}>Click to select</Button>
+          </>}
+          name="address"
+          rules={[
+            {
+              required: true,
+              message: "Please select a contract address!",
+            },
+          ]}
+        >
+          <Input placeholder="Please input a contract address"></Input>
+        </FormItem>
+        <Picker
+          columns={[list.map((v) => {
+            return {
+              value: v.contractName || v.address,
+              label: v.contractName || v.address,
+            }
+          })]}
+          visible={visiblePicker}
+          onClose={() => {
+            setPickerVisible(false)
+          }}
+          onConfirm={handleContractChange}
+        /></>;
+    }
     return (
       <FormItem
         label="Contract Address"
