@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
+    <html lang="en" data-prefers-color-scheme="dark">
       {/* eslint-disable-next-line @next/next/no-head-element */}
       <head>
         <meta
