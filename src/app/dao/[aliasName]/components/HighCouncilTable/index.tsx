@@ -5,7 +5,7 @@ import addressFormat from 'app/network-dao/_src/utils/addressFormat';
 import { useSelector } from 'react-redux';
 import io from 'socket.io-client';
 import NoData from 'components/NoData';
-import { consensusDPoSAddr, electionContractAddr, SOCKET_URL_NEW } from 'config';
+import { consensusDPoSAddr, electionContractAddr } from 'config';
 import { callMainNetViewContract } from 'contract/callContract';
 import { apiServer } from 'api/axios';
 import dayjs from 'dayjs';

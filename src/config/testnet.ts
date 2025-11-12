@@ -6,7 +6,7 @@ export const treasuryAccountAddress = 'KNdM6U6PyPsgyena8rPHTbCoMrkrALhxAy1b8Qx2c
 // ------------------aelf-web-login-start------------------------
 export const networkType = 'TESTNET';
 export const aelfWebLoginNetworkType = 'TESTNET';
-export const rpcUrlAELF = 'https://explorer-test.aelf.io/chain';
+export const rpcUrlAELF = 'https://aelf-test-node.aelf.io';
 export const rpcUrlTDVV = 'https://tdvw-test-node.aelf.io';
 export const rpcUrlTDVW = 'https://tdvw-test-node.aelf.io';
 export const connectServer = 'https://auth-portkey-test.portkey.finance';
@@ -40,7 +40,7 @@ export const sideChainSuffix = 'tDVW';
 export const symbolmarketUrl = 'https://test.eforest.finance/symbolmarket';
 
 // explorer
-export const SOCKET_URL_NEW = 'wss://explorer-test.aelf.io';
+// export const SOCKET_URL_NEW = 'wss://explorer-test.aelf.io';
 
 // header
 export const chainIdSelect = [
