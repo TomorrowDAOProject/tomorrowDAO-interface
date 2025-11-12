@@ -187,19 +187,19 @@ async function getContractAddress(host, fileName) {
 const queryConfig = async () => {
   const fileList = [
     {
-      host: 'https://explorer.aelf.io/chain',
+      host: 'https://aelf-public-node.aelf.io',
       fileName: 'config-mainnet-aelf.json',
     },
     {
-      host: 'https://tdvv-explorer.aelf.io/chain',
+      host: 'https://tdvv-public-node.aelf.io',
       fileName: 'config-mainnet-tdvv.json',
     },
     {
-      host: 'https://explorer-test.aelf.io/chain',
+      host: 'https://aelf-test-node.aelf.io',
       fileName: 'config-testnet-aelf.json',
     },
     {
-      host: 'https://explorer-test-side02.aelf.io/chain',
+      host: 'https://tdvw-test-node.aelf.io',
       fileName: 'config-testnet-tdvw.json',
     },
   ];

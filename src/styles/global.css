@@ -470,5 +470,5 @@ input[type='number'] {
 }
 
 .portkey-connect-drawer-content-wrapper {
-    height: calc(90vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+    height: calc(85vh - 20px) !important;
 }

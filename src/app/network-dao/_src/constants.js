@@ -18,7 +18,7 @@ const HISTORY_PRICE = "/token/price-history";
 const RESOURCE_REALTIME_RECORDS = "/resource/realtime-records";
 const RESOURCE_TURNOVER = "/resource/turnover";
 const RESOURCE_RECORDS = "/resource/records";
-const SOCKET_URL_NEW = "https://explorer-test.aelf.io/new-socket";
+// const SOCKET_URL_NEW = "https://explorer-test.aelf.io/new-socket";
 
 const LOWER_SYMBOL = SYMBOL.toLocaleLowerCase();
 const PAGE_SIZE = 25;
@@ -227,7 +227,7 @@ export {
   RESOURCE_TURNOVER,
   RESOURCE_RECORDS,
   RESOURCE_DETAILS_COLUMN,
-  SOCKET_URL_NEW,
+  // SOCKET_URL_NEW,
   IE_ADVICE,
   INPUT_STARTS_WITH_MINUS_TIP,
   INPUT_ZERO_TIP,
