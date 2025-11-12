@@ -13,6 +13,7 @@ import {
   Tooltip,
   Form,
 } from "antd";
+import { Picker } from 'antd-mobile'
 import Button from "components/Button";
 import { onlyOkModal } from "@components/SimpleModal/index.tsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +32,9 @@ import { CHAIN_ID } from "../../_src/constants";
 import "./index.css";
 import { toast } from "react-toastify";
 import getChainIdQuery from 'utils/url';
+import { isAAWallet } from 'utils/wallet';
 import sortContracts from '../../_src/utils/sortContracts';
+import { isPhoneCheck } from '../../_src/utils/deviceCheck';
 
 const FormItem = Form.Item;
 const InputNameReg = /^[.,a-zA-Z\d]+$/;
@@ -60,6 +63,12 @@ const approvalModeList = [
     modeTitle: "Without Approval",
     modeType: "withoutApproval",
   },
+  {
+    modeTitle: "BP Approval",
+    modeType: "bpApproval",
+  },
+];
+const approvalModeListAAinMainChain = [
   {
     modeTitle: "BP Approval",
     modeType: "bpApproval",
@@ -194,22 +203,31 @@ const ContractProposal = (props) => {
   const chain = getChainIdQuery();
 
   useEffect(() => {
-    request(
-      API_PATH.GET_ALL_CONTRACTS,
-      {
-        search: "",
-        chainId: chain?.chainId,
-        skipCount: 0,
-        maxResultCount: 1000,
-      },
-      { method: "GET" }
-    )
-      .then((res) => {
-        setContractList(sortContracts(res.list) || []);
-      })
-      .catch((e) => {
-        toast.error(e.message || "Network Error");
-      });
+    let contractList = [];
+    const getContractList = async (skipCount = 0) => {
+      return request(
+        API_PATH.GET_ALL_CONTRACTS,
+        {
+          search: "",
+          chainId: chain?.chainId,
+          skipCount,
+          maxResultCount: 1000,
+        },
+        { method: "GET" }
+      )
+        .then((res) => {
+          contractList = contractList.concat(res.list);
+          if (res.list.length === 1000 && res.total > contractList.length) {
+            return getContractList(contractList.length);
+          }
+          console.log('contractList: ', contractList, contractList.length);
+          setContractList(sortContracts(contractList) || []);
+        })
+        .catch((e) => {
+          toast.error(e.message || "Network Error");
+        });
+    };
+    getContractList();
   }, [update]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [isUpdateName, setUpdateName] = useState(false);
@@ -232,11 +250,6 @@ const ContractProposal = (props) => {
     setContractName("");
     setIsUpdate(!isUpdate);
   }
-  const contractFilter = (input) =>
-    contractList.filter(
-      ({ contractName, address }) =>
-        contractName.indexOf(input) > -1 || address.indexOf(input) > -1
-    ).length > 0;
 
   function normFile(e) {
     if (Array.isArray(e)) {
@@ -410,11 +423,18 @@ const ContractProposal = (props) => {
     }
   }
 
-  function handleContractChange(address) {
-    const info = contractList.filter((v) => v.address === address)[0];
+  function handleContractChange(input) {
+    let address = input;
+    if (typeof input === 'object') {
+      address = input[0];
+    }
+    const info = contractList.filter((v) => v.address === address || v.contractName === address)[0];
     setCurrentContractInfo(info);
     const name = +info.contractName === -1 ? "" : info.contractName;
     setContractName(name);
+    setFieldsValue({
+      address: info.address,
+    });
   }
 
   const updateTypeHandler = useCallback((e) => {
@@ -447,6 +467,22 @@ const ContractProposal = (props) => {
     };
   }, [currentWallet]);
 
+  const [_approvalModeList, setApprovalModeList] = useState(approvalModeList);
+  useEffect(() => {
+    if (!currentWallet || !chain) {
+      return;
+    }
+    const isAAInMainChain = isAAWallet() && chain.chainId === 'AELF';
+    setApprovalModeList(isAAInMainChain ? approvalModeListAAinMainChain : approvalModeList);
+    if (isAAInMainChain) {
+      setApprovalMode('bpApproval');
+      setFieldsValue({
+        approvalMode: 'bpApproval',
+      });
+    }
+
+  }, [currentWallet, chain]);
+
   const updateTypeFormItem = () => {
     return (
       <FormItem label="" name="updateType">
@@ -477,7 +513,7 @@ const ContractProposal = (props) => {
         ]}
       >
         <Select showSearch optionFilterProp="children">
-          {approvalModeList.map((v) => (
+          {_approvalModeList.map((v) => (
             <Select.Option key={v.modeType} value={v.modeType}>
               {v.modeTitle}
             </Select.Option>
@@ -519,6 +555,7 @@ const ContractProposal = (props) => {
     );
   };
 
+  const [visiblePicker, setPickerVisible] = useState(false)
   const contractAddressFormItem = () => {
     let list =
       approvalMode === "withoutApproval"
@@ -526,6 +563,38 @@ const ContractProposal = (props) => {
         : contractList;
     // deduplicate by address
     list = deduplicateByKey(list, 'address');
+
+    if (isPhoneCheck()) {
+      return <>
+        <FormItem
+          label={<>
+            Contract Address &nbsp;
+            <Button size="small" onClick={() => setPickerVisible(true)}>Click to select</Button>
+          </>}
+          name="address"
+          rules={[
+            {
+              required: true,
+              message: "Please select a contract address!",
+            },
+          ]}
+        >
+          <Input placeholder="Please input a contract address"></Input>
+        </FormItem>
+        <Picker
+          columns={[list.map((v) => {
+            return {
+              value: v.contractName || v.address,
+              label: v.contractName || v.address,
+            }
+          })]}
+          visible={visiblePicker}
+          onClose={() => {
+            setPickerVisible(false)
+          }}
+          onConfirm={handleContractChange}
+        /></>;
+    }
     return (
       <FormItem
         label="Contract Address"
@@ -541,15 +610,15 @@ const ContractProposal = (props) => {
           placeholder="Please select a contract address"
           showSearch
           optionFilterProp="children"
-          filterOption={contractFilter}
+          filterOption={(input, option) => option?.label.indexOf(input) !== -1}
           onChange={handleContractChange}
-        >
-          {list.map((v) => (
-            <Select.Option key={v.address} value={v.address}>
-              {v.contractName || v.address}
-            </Select.Option>
-          ))}
-        </Select>
+          options={list.map((v) => {
+            return {
+              value: v.contractName || v.address,
+              label: v.contractName || v.address,
+            }
+          })}
+        />
       </FormItem>
     );
   };

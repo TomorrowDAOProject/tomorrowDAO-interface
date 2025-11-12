@@ -25,7 +25,7 @@ async function sign(currentWallet, hexToBeSign) {
   const { signature } = await getSignature({
     appName: APPNAME,
     address: currentWallet.address,
-    signInfo: hexToBeSign,
+    signInfo: hexToBeSign + '',
   });
   return signature;
 }

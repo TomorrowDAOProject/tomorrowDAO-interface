@@ -95,12 +95,19 @@ const Input = (
         onChange={handleChange}
         className={clsx(
           'box-border w-full border border-solid border-fillBg8 rounded-[8px] pl-[16px] pr-10 py-[13px] bg-transparent text-white text-desc16 md:text-desc14 font-Montserrat font-normal leading-[19px] placeholder-lightGrey focus:outline-none transition duration-300 ease-in-out appearance-none',
-          {
-            'border-mainColor': isError,
-            '!pr-[16px]': !suffix,
-            'border-0': prefix,
-            '!pl-0': prefix,
-          },
+          showClearBtn
+            ? {
+                'border-mainColor': isError,
+                '!pr-[38px]': !suffix,
+                'border-0': prefix,
+                '!pl-0': prefix,
+              }
+            : {
+                'border-mainColor': isError,
+                '!pr-[16px]': !suffix,
+                'border-0': prefix,
+                '!pl-0': prefix,
+              },
           rootClassName,
         )}
         onBlur={() => onBlur?.(value)}
