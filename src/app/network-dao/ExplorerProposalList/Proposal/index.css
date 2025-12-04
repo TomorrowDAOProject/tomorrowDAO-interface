@@ -1,0 +1,125 @@
+.proposal-list-item {
+  .ant-card-head {
+    background-color: #ededed;
+  }
+  .antExplorer-divider-horizontal {
+    margin: 16px 0;
+  }
+  &-id {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 47px;
+    .id-wrap {
+      max-width: 80%;
+      height: 64px;
+    }
+    &-status {
+      text-align: right;
+    }
+  }
+  &-info {
+    &-item {
+      display: flex;
+      flex-flow: row nowrap;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 20px; 
+      .info-key {
+        width: 180px;
+        color: var(--Color-font_caption, #858585);
+      }
+      .info-value {
+        color: var(--Color-font_title, #252525);
+        .TMRWDAO-hash-address > span {
+          color: var(--Color-font_title, #252525);
+        }
+      }
+    }
+  }
+  .proposal-vote {
+    p {
+      margin-bottom: 1em;
+    }
+    &-chart {
+      .ant-col {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+      }
+    }
+  }
+  &-actions {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+  }
+  &-buttons {
+    display: inline-block;
+    transform: translate(-50%);
+    position: absolute;
+    left: 50%;
+    min-width: 180px;
+  }
+}
+.proposal-list-item-actions {
+  gap: 16px;
+  button {
+    flex: 1;
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .proposal-list-item {
+    .ant-divider-horizontal {
+      margin: 12px 0;
+    }
+    &-id {
+      display: block;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 47px;
+      > div {
+        max-width: 100%;
+      }
+      &-status {
+        margin-top: 4px;
+        text-align: left;
+      }
+    }
+    &-info {
+      &-item {
+        display: block;
+        flex-flow: row nowrap;
+        span {
+          display: block;
+        }
+      }
+    }
+    &-vote {
+      &-chart {
+        .ant-col {
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+        }
+      }
+    }
+    &-actions {
+      position: relative;
+    }
+    &-buttons {
+      display: inline-block;
+      transform: translate(0%);
+      position: absolute;
+      left: 0;
+      min-width: 180px;
+    }
+    &-abstain {
+      float: right;
+    }
+  }
+}

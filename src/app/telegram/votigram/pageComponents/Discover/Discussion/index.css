@@ -1,0 +1,85 @@
+.discover-app-detail-input-wrap {
+  @apply flex mt-[16px] gap-[12px];
+  .discover-app-detail-input-box {
+    min-height: 48px !important;
+    color: var(--Black-White, #FFF);
+    border-radius: 16px;
+    border: 1px solid var(--Black-BG-Light-D, #3A3A3A);
+    background: var(--Black-BG-Hover-D, #0F0F0F);
+    &:focus {
+      background: var(--Black-BG-Hover-D, #1B1B1B);
+    }
+    &::-webkit-input-placeholder { 
+      color: var(--Black-Disable-D, #616161);
+    }
+    &.TMRWDAO-input-outlined.TMRWDAO-input-status-error:not(.TMRWDAO-input-disabled) {
+      border: 1px solid var(--Error, #B7142D);
+      background: var(--Black-BG-Hover-D, #1B1B1B);
+    }
+  }
+  .discover-app-detail-send-button {
+    height: 48px;
+    font-size: 24px;
+    border-radius: 16px;
+    margin-top: 0;
+    display: flex;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    &.disabled,
+    &.disabled:hover,
+    &.disabled:active
+    {
+      color: #464646 !important;
+      background: var(--Black-BG-Dark-D, #292929) !important;
+      border-color: var(--Black-BG-Dark-D, #292929) !important;
+    }
+    svg {
+      @apply w-[24px] h-[24px];
+    }
+  }
+
+}
+.discover-app-detail-discussion-wrap {
+  .discover-app-detail-user-info {
+    @apply flex justify-between;
+  }
+  .discover-app-detail-user {
+    @apply mb-[12px];
+    .TMRWDAO-hash-address > span {
+      color: var(--Black-White, #FFF);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+  }
+  .discover-app-detail-message-lists-item {
+    border-radius: 16px;
+    background: var(--Black-BG-Hover-D, #1B1B1B);
+    @apply p-[24px] mt-[16px];
+  }
+  .font-12-16{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  .discover-app-detail-user-info-time {
+    color: var(--Black-Tertiary-D, #9A9A9A);
+  }
+  .discover-app-detail-error-message {
+    width: calc(100vw - 16px - 16px - 12px - 48px);
+    color: var(--Error, #B7142D);
+    @apply mt-[8px];
+  }
+}
+.discover-app-detail-wrap {
+  .show-more-button-wrap {
+    @apply mb-[44px];
+  }
+}
+.discover-app-detail-message-lists {
+  &.without-loadmore li:last-child {
+    @apply mb-[44px];
+  }
+}

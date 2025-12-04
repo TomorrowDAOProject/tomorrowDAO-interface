@@ -1,0 +1,181 @@
+.proposal-result-list-item {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.proposal-result-list-item .sub-title {
+  display: inline-block;
+  min-width: 180px;
+  text-align: right;
+}
+
+.proposal-result-list-item pre.proposal-result-list-item-value {
+  background-color: #eeeeee;
+  max-height: 220px;
+  border-radius: 5px;
+  overflow: auto;
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+.proposal-result-list-item pre.proposal-result-list-item-value.contract-params {
+  text-align: left;
+}
+
+.contract-proposal {
+  margin-top: 16px;
+  @apply px-4 lg:px-8;
+  .antExplorer-form-item-label {
+    @apply normal-text;
+  }
+  .proposal-apply-btn-wrap {
+    @apply py-4 lg:py-8 flex justify-end;
+    border-top: 1px solid var(--Neutral-Divider, #EDEDED);
+    margin-bottom: 0;
+  }
+  .antExplorer-input {
+    height: 48px;
+  }
+}
+
+.contract-proposal .antExplorer-form-item {
+  margin-bottom: 20px;
+}
+
+.contract-proposal .upload-file-form-item {
+  margin-bottom: 0;
+}
+
+.contract-proposal .antExplorer-btn-primary:focus {
+  /* border-color: #266cd3;
+  background: #266cd3; */
+}
+
+.antExplorer-modal-footer {
+  text-align: center;
+}
+
+@media only screen and (max-width: 481px) {
+  .create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal {
+  border-radius: 8px;
+}
+
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content {
+  border-radius: 8px;
+}
+
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header {
+  height: 72px;
+  padding: 22px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header .antExplorer-modal-title,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header .antExplorer-modal-title {
+  padding: 0;
+  border-bottom: 0;
+  text-align: left;
+}
+
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body {
+  padding-top: 40px;
+}
+
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .address-name-ver .contract-address,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .address-name-ver .contract-address,
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .address-name-ver .contract-name,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .address-name-ver .contract-name,
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .address-name-ver .contract-version,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-content .address-name-ver .contract-version {
+  margin-left: 0;
+}
+
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-footer,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-footer {
+  border: none;
+  padding-bottom: 24px;
+}
+
+.create-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-footer .antExplorer-btn,
+.contract-proposal-modal.antExplorer-modal-wrap .antExplorer-modal .antExplorer-modal-footer .antExplorer-btn {
+  width: 240px;
+  height: 40px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.contract-proposal-notice-content {
+  color: var(--light-gray);
+  font-size: 14px;
+  font-family: "Montserrat";
+}
+
+.contract-proposal-notice-content div {
+  line-height: 20px;
+}
+
+.contract-proposal-notice-content .content-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.proposal-apply-tab.antExplorer-tabs-mobile .apply-btn {
+  margin: 16px auto 0;
+  display: block;
+}
+
+.sure-modal-content,
+.sure-modal-content-mobile {
+  width: 720px;
+}
+
+.sure-modal-content .antExplorer-modal-content,
+.sure-modal-content-mobile .antExplorer-modal-content {
+  border-radius: 8px;
+}
+
+.sure-modal-content .antExplorer-modal-content .antExplorer-modal-body,
+.sure-modal-content-mobile .antExplorer-modal-content .antExplorer-modal-body {
+  height: 100%;
+  padding: 56px 24px 36px;
+}
+
+.sure-modal-content .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-body-wrapper,
+.sure-modal-content-mobile .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-body-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.sure-modal-content .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-body-wrapper .antExplorer-modal-confirm-btns,
+.sure-modal-content-mobile .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-body-wrapper .antExplorer-modal-confirm-btns {
+  text-align: center;
+  margin-top: 56px;
+}
+
+.sure-modal-content .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-body-wrapper .antExplorer-modal-confirm-btns .antExplorer-btn,
+.sure-modal-content-mobile .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-body-wrapper .antExplorer-modal-confirm-btns .antExplorer-btn {
+  width: 120px;
+  height: 40px;
+}
+
+.sure-modal-content .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-body-wrapper .antExplorer-modal-confirm-btns .antExplorer-btn-primary:focus,
+.sure-modal-content-mobile .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-body-wrapper .antExplorer-modal-confirm-btns .antExplorer-btn-primary:focus {
+  border-color: #266cd3;
+  background: #266cd3;
+}
+
+.sure-modal-content-mobile {
+  padding: 0 8px 24px;
+}

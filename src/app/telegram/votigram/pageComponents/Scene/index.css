@@ -1,0 +1,42 @@
+.telegram-scene {
+  height: 100vh;
+  .TMRWDAO-progress-bg {
+    @apply !h-[4px];
+  }
+}
+.scene-body-header {
+  @apply  flex justify-center items-end;
+}
+.scene-title {
+  @apply mt-[15vh] text-center;
+}
+.scene-description {
+  @apply mt-[3.33vh] text-center w-[240px] mx-auto;
+}
+.image-love-wrap {
+  @apply mt-[7.361vh] relative left-[16px];
+}
+
+.scene-loading-foot {
+  @apply mt-[20.83vh];
+  .progress-wrap {
+    @apply  mt-[12px] flex justify-center w-full;
+    .TMRWDAO-progress {
+      @apply w-[200px];
+    }
+  }
+}
+.scene-continue-foot {
+  @apply pt-[13.47vh] flex justify-center;
+  button {
+    @apply w-[326px];
+  }
+}
+.scene-foot-text {
+  @apply fixed bottom-[48px] left-0 w-full text-center;
+}
+@media (max-height: 720px) {
+  .scene-foot-text {
+    bottom: 14px;
+  }
+}

@@ -1,0 +1,203 @@
+.proposal-detail .antExplorer-card-head {
+  background-color: #EDEDED;
+}
+.proposal-detail-tab-description {
+  h2 {
+    @apply normal-text-bold;
+  }
+  .description-card {
+    @apply px-[16px] py-[8px];
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--Neutral-Border, #E1E1E1);
+    background: var(--Neutral-Hover-BG, #FAFAFA);
+    margin-bottom: 32px;
+    word-break: break-all;
+  }
+}
+.proposal-detail {
+  .unset-bottom-border {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .unset-top-border {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .proposal-detail-tab {
+    background-color: #fff;
+  }
+  .description{
+    border-radius: 6px;
+    border: 1px solid var(--Neutral-Border, #E1E1E1);
+    background: var(--Neutral-Hover-BG, #FAFAFA);
+  }
+  .proposal-vote {
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: #1A1A1A;
+    }
+  }
+  .tag-font {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 18px; /* 180% */
+    color: var(--Neutral-Secondary-Text, #919191);
+    display: inline-flex;
+  }
+  .proposal-key-value {
+    @apply grid lg:grid-cols-3 lg:gap-x-[24px] gap-y-[16px] grid-cols-1;
+  }
+  .link-preview-content {
+    @apply lg:p-[24px] p-[16px] flex bg-white border rounded-lg border-solid border-Neutral-Border mt-[16px] cursor-pointer;
+    .icon {
+      @apply w-[48px] h-[48px] rounded-full;
+      &.text {
+        @apply text-white flex items-center justify-center bg-colorPrimary;
+      }
+    }
+  }
+  .link-preview-info {
+    @apply ml-[16px] flex flex-col justify-between;
+    word-break: break-word;
+    h3 {
+      @apply card-sm-text-bold text-neutralPrimaryText ;
+    }
+    p {
+      @apply card-sm-text text-Neutral-Secondary-Text;
+    }
+    .link-preview-info-description {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      @apply max-h-[66px] text-ellipsis overflow-hidden;
+    }
+  }
+  .proposal-detail-org {
+    .title {
+      @apply normal-text-bold;
+    }
+    .threshold-values {
+      @apply flex lg:flex-row flex-col lg:justify-between lg:items-center mb-[16px];
+      .threshold-values-item {
+        @apply flex-1 h-[30px];
+      }
+    }
+    .org-info {
+      @apply flex lg:flex-row flex-col justify-between gap-[16px];
+      .card-list-desc-item {
+        @apply flex-1;
+      }
+    }
+    .org-info {
+      @apply lg:h-[74px];
+      .card-list-desc-item {
+        .sub-title {
+          @apply card-sm-text text-Neutral-Secondary-Text pr-[4px] inline-flex;
+        }
+        .desc {
+          @apply card-sm-text-bold text-neutralPrimaryText inline-flex;
+          &.select {
+            @apply block;
+          }
+          .antExplorer-select-single.antExplorer-select-sm {
+            @apply h-[48px] mt-[4px];
+          }
+        }
+      }
+      .gap-bottom-small {
+        @apply mb-0;
+      }
+    }
+    
+  }
+  .contract-detail {
+    .title {
+      @apply normal-text-bold;
+      .icon {
+        @apply text-[16px] text-Neutral-Disable-Text ml-[8px];
+      }
+    }
+    .antExplorer-row {
+      @apply mt-[24px];
+    }
+    .view-params {
+      @apply p-[8px];
+    }
+  }
+  .network-dao-lable-key {
+    @apply card-sm-text text-Neutral-Secondary-Text pr-[4px] inline-flex;
+  }
+  .network-dao-lable-value {
+    @apply card-sm-text-bold text-neutralPrimaryText inline-flex;
+  }
+}
+
+.proposal-detail .antExplorer-btn-primary:disabled,
+.proposal-detail .antExplorer-btn-default.antExplorer-btn-dangerous:disabled {
+  color: rgba(0, 0, 0, .25);
+  border-color: #d9d9d9;
+  background: #f5f5f5;
+}
+
+.proposal-detail .detail-flex {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.proposal-detail .detail-flex .sub-title {
+  white-space: nowrap;
+}
+
+.proposal-detail .vote-data-button {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  padding-top: 16px;
+}
+
+.proposal-detail-header-divider {
+  margin-top: 0;
+}
+.vote-data {
+  @apply mt-[8px];
+  .proposal-vote-title {
+    @apply form-item-title;
+    span {
+      @apply card-xsm-text text-[#858585];
+    }
+  }
+  .proposal-vote-chart-circle {
+    @apply lg:w-[120px] lg:h-[120px] flex-shrink;
+  }
+  .proposal-vote-chart-text {
+    @apply mb-4;
+  }
+  .proposal-vote-chart {
+    @apply mb-4;
+  }
+  .vote-data-button-content {
+    @apply flex justify-between gap-[16px] w-full;
+    button {
+      @apply flex-1 h-[40px];
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .proposal-detail .detail-flex {
+    display: block;
+    flex-flow: row nowrap;
+  }
+
+  .proposal-detail .detail-flex span {
+    display: block;
+  }
+
+  .proposal-detail .vote-data-button {
+    flex-flow: row;
+    justify-content: space-between;
+  }
+}

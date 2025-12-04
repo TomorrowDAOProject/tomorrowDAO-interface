@@ -1,0 +1,78 @@
+.create-vote-drawer {
+  @apply px-[16px];
+  .drawer-header {
+    @apply px-0;
+  }
+ 
+  .card-shape {
+    @apply p-[16px];
+    border-radius: 16px;
+    background: var(--Black-BG);
+    border: 1px solid var(--Black-BG-Light-D, #3A3A3A);
+  }
+  .aws-upload-wrap .common-upload .TMRWDAO-upload-button path {
+    fill: var(--Black-White, #fff) !important;
+  }
+  .dynamic-option-item {
+    .remove-icon-wrap {
+      @apply text-[20px];
+    }
+  }
+  .dynamic-form-buttons {
+    @apply flex gap-[16px] w-full;
+    .TMRWDAO-btn {
+      @apply flex-1 mt-0;
+    }
+  }
+  .fake-input-start-time-select {
+    &:active, &:hover {
+      border-color: var(--Primary);
+    }
+  }
+}
+.create-vote-drawer-root.telegram-common-drawer {
+  .drawer-body {
+    @apply p-[0];
+   }
+   .TMRWDAO-drawer-body {
+    background: var(--Black-BG);
+  }
+}
+.votigram-create-vote-form {
+  .form-buttons {
+    border-top:  1px solid #1B1B1B;
+    @apply flex gap-4 mb-[53px];
+  }
+  .submit-button {
+    @apply flex-1;
+  }
+  .TMRWDAO-col-24 {
+    label {
+      @apply w-full;
+    }
+  }
+}
+.create-form-preview-drawer {
+  max-height: 100vh;
+  overflow-y: scroll;
+  .drawer-body {
+    @apply p-0;
+  }
+  .vote-list-preview { 
+    @apply px-[16px] pb-[16px];
+    .proposal-title {
+      @apply py-[16px] text-white text-center;
+    }
+    .preview-image {
+      @apply w-[100%] h-[120px] rounded-2xl overflow-hidden mb-[16px];
+    }
+    .telegram-vote-item + .telegram-vote-item {
+      @apply mt-[8px];
+    }
+    .telegram-vote-item {
+      .telegram-vote-item-wrap .vote-game {
+        @apply ml-0;
+      }
+    }
+  }
+}

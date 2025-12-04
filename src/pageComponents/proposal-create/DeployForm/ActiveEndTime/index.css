@@ -1,0 +1,41 @@
+.active-end-time-fill {
+  @apply mt-[8px];
+  .TMRWDAO-picker {
+    @apply w-full;
+  }
+}
+.active-time-end-wrap {
+  @apply select-none;
+  .TMRWDAO-input-number-group-addon {
+    @apply p-0;
+  }
+  .active-time-end-addon {
+    cursor: pointer;
+    width: 40px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .active-time-end-input {
+    @apply flex justify-between lg:flex-row flex-col lg:gap-[48px] gap-[12px];
+    p {
+      @apply mb-2;
+    }
+    .active-time-end-input-item {
+      @apply flex-1;
+      .TMRWDAO-input-number {
+        @apply w-full;
+      }
+    }
+  }
+  .active-time-end-input-duration {
+    @apply card-sm-text  text-Disable-Text;
+  }
+}
+.input-number-with-up-down-wrap {
+  .TMRWDAO-input-number-handler-up-inner,
+  .TMRWDAO-input-number-handler-down-inner {
+    @apply !text-[12px];
+  }
+}

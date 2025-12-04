@@ -1,0 +1,14 @@
+.votigram-communiy-list {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    background: linear-gradient(90deg, #6E53FB, #dcd1ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+    display: flex;
+  }
+}

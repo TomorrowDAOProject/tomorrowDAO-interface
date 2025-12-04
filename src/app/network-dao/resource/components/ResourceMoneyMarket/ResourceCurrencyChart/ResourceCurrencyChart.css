@@ -1,0 +1,69 @@
+.resource-currency-chart {
+  margin-bottom: 40px;
+}
+
+.resource-currency-chart .resource-header {
+  @apply xl:px-[32px] lg:px-[32px] md:px-[32px] px-[16px];
+  height: 56px!important;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.resource-currency-chart .resource-header-title {
+  height: 32px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.resource-currency-chart .time-button {
+  margin-left: 8px;
+  width: 72px;
+}
+
+.resource-currency-chart .time-button.antExplorer-btn-round.antExplorer-btn-sm:not(.antExplorer-btn-primary) {
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+}
+
+.resource-currency-chart .antExplorer-divider.antExplorer-divider-horizontal {
+  margin: 0;
+  margin-top: 20px;
+}
+.resource-type-switch {
+  .antExplorer-tabs-tab-btn {
+    @apply !text-white text-[12px];
+  }
+}
+.antExplorer-tabs-top >.antExplorer-tabs-nav::before {
+  @apply border-b border-fillBg8;
+}
+
+@media (min-width: 1600px) {
+  .antExplorer-col-xxl-16 {
+    margin-left: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .resource-currency-chart {
+    overflow: scroll;
+    margin-bottom: 20px;
+  }
+
+  .select-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .resource-currency-chart .resource-header {
+    padding: 0;
+  }
+}

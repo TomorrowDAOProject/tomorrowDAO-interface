@@ -1,0 +1,734 @@
+/*
+ * @Author: Alfred Yang
+ * @Github: https://github.com/cat-walk
+ * @Date: 2019-10-23 15:20:28
+ * @LastEditors: Alfred Yang
+ * @LastEditTime: 2019-12-10 00:17:33
+ * @Description: file content
+ */
+
+.claim-dividend-modal .ant-modal-content {
+  border-radius: 8px;
+  @apply bg-darkBg;
+}
+
+.claim-dividend-modal .ant-modal-confirm-title {
+  @apply text-white text-[20px] font-Unbounded font-light text-center;
+}
+
+.claim-dividend-modal .ant-modal-confirm-content {
+  @apply text-white text-[15px] font-Montserrat;
+}
+
+.claim-dividend-modal .ant-modal-confirm-btns {
+  @apply flex items-center justify-between;
+}
+
+.claim-dividend-modal .ant-modal-confirm-btns button:first-child {
+  @apply flex-1 text-white bg-darkBg rounded-[42px] border border-solid border-white mr-[12px] hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}
+
+.claim-dividend-modal .ant-modal-confirm-btns button:last-child {
+  @apply flex-1 text-white bg-mainColor rounded-[42px] border border-solid border-mainColor hover:!bg-darkBg hover:!text-mainColor hover:border hover:border-solid hover:border-mainColor;
+}
+
+
+.card-container {
+  margin-bottom: 20px;
+  padding: 20px 30px;
+  overflow: hidden;
+}
+
+.remove-antd-tabs-default-style .antExplorer-tabs-bar {
+  border-bottom: 0 !important;
+  margin: 0 56px 30px;
+}
+
+.remove-antd-tabs-default-style .antExplorer-tabs-bar .antExplorer-tabs-nav-wrap .antExplorer-tabs-tab-active {
+  color: #fff;
+}
+
+.remove-antd-tabs-default-style .antExplorer-tabs-bar .antExplorer-tabs-nav-wrap .antExplorer-tabs-ink-bar {
+  display: none !important;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form-item-value {
+  width: 600px;
+  display: inline-block;
+}
+
+.node-name-in-table {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vote-wrapper header {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px 0 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.vote-container .election-notification {
+  padding: 24px 38px;
+}
+
+.vote-container {
+  padding: 24px 38px;
+  @apply bg-darkBg;
+}
+
+.vote-container.vote-menu {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: 0 !important;
+}
+
+.vote-container.vote-content {
+  margin-top: 0 !important;
+}
+
+.vote-container .antExplorer-tabs-tab {
+  color: #fff;
+}
+
+.vote-container .antExplorer-tabs-tab:hover>a {
+  color: #40a9ff !important;
+}
+
+.vote-container .antExplorer-tabs-tab.antExplorer-tabs-tab-active,
+.vote-container .antExplorer-tabs-tab.antExplorer-tabs-tab-active>a {
+  color: #40a9ff !important;
+}
+
+.vote-container .antExplorer-menu {
+  background: #fff;
+  padding-left: 16px;
+}
+
+.vote-container .antExplorer-menu .antExplorer-menu-item {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  padding: 12px 0;
+  margin-right: 32px;
+}
+
+.vote-container .antExplorer-menu .antExplorer-menu-item-selected:after {
+  left: 0;
+  right: 0;
+  transition: 0.3s;
+}
+
+.vote-container .antExplorer-menu .antExplorer-menu-item-active:after,
+.vote-container .antExplorer-menu .antExplorer-menu-item-open:after,
+.vote-container .antExplorer-menu .antExplorer-menu-item:hover:after {
+  border-bottom: 2px solid transparent;
+  transition: 0.3s;
+}
+
+.vote-container .TMRWDAO-menu-item-active::after {
+  border-bottom: none !important;
+}
+
+.vote-container .TMRWDAO-menu-item-selected::after {
+  border-bottom: 2px solid #5d49f6 !important;
+}
+
+.vote-container .antExplorer-table-thead>tr>th,
+.vote-container .antExplorer-table-tbody>tr>td {
+  white-space: nowrap;
+}
+
+.vote-container-simple {
+  padding: 0 !important;
+  margin: 0 auto !important;
+}
+
+.secondary-level-nav {
+  margin: 0 56px 30px;
+}
+
+.secondary-level-nav .antExplorer-tabs-bar {
+  border-bottom: 0 !important;
+  margin: 0 56px 30px;
+  margin-bottom: 20px;
+  padding: 20px 30px;
+  overflow: hidden;
+}
+
+.secondary-level-nav .antExplorer-tabs-bar .antExplorer-tabs-nav-wrap .antExplorer-tabs-tab-active {
+  color: #fff;
+}
+
+.secondary-level-nav .antExplorer-tabs-bar .antExplorer-tabs-nav-wrap .antExplorer-tabs-ink-bar {
+  display: none !important;
+}
+
+.secondary-level-nav .antExplorer-radio-wrapper {
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .secondary-level-nav {
+    margin: 0 5px 16px;
+  }
+}
+
+.node-list-header,
+.my-vote-records-header {
+  padding: 10px;
+  font-size: 20px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.node-list-header .antExplorer-input-search,
+.my-vote-records-header .antExplorer-input-search {
+  width: 200px;
+  float: right;
+}
+
+.node-list-header .node-color-intro-item,
+.my-vote-records-header .node-color-intro-item {
+  margin-left: 20px;
+  font-size: 15px;
+  color: lightgray;
+}
+
+.node-list-header .node-color-intro-item:before,
+.my-vote-records-header .node-color-intro-item:before {
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 50%;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: lightgreen;
+}
+
+.node-list-header .node-color-intro-item:first-child:before,
+.my-vote-records-header .node-color-intro-item:first-child:before {
+  background: lightcoral;
+}
+
+.vote-confirm-modal {
+  text-align: center;
+  overflow: hidden;
+}
+
+.vote-confirm-modal .antExplorer-modal-body {
+  padding: 30px 30px 10px;
+}
+
+.vote-confirm-modal .antExplorer-modal-body .form-item-label {
+  text-align: right;
+}
+
+.vote-confirm-modal .antExplorer-modal-body .form-item-value {
+  text-align: left;
+  text-indent: 10px;
+}
+
+.vote-confirm-modal .antExplorer-modal-footer button+button {
+  margin-left: 50px;
+}
+
+.vote-confirm-modal .antExplorer-form-item {
+  text-align: left;
+}
+
+.vote-confirm-modal .antExplorer-form-item .antExplorer-form-item-label label {
+  color: #fff;
+}
+
+.vote-confirm-modal .antExplorer-form-item .antExplorer-input-affix-wrapper {
+  width: auto;
+}
+
+.vote-confirm-modal .antExplorer-form-item .antExplorer-input {
+  width: auto;
+}
+
+.vote-confirm-modal .antExplorer-slider-mark-text {
+  color: #fff;
+}
+
+.vote-confirm-modal span.antExplorer-radio+* {
+  color: #fff;
+}
+
+.vote-confirm-modal .antExplorer-modal-content {
+  text-align: center;
+}
+
+.vote-confirm-modal .antExplorer-modal-content .antExplorer-modal-header {
+  padding: 10px;
+  height: auto;
+}
+
+.vote-confirm-modal .antExplorer-modal-content .antExplorer-modal-footer {
+  text-align: center;
+  padding-bottom: 32px;
+}
+
+.vote-confirm-modal .antExplorer-tabs label:hover {
+  color: #327dec;
+  cursor: pointer;
+}
+
+.vote-confirm-modal .antExplorer-tabs .antExplorer-tabs-tab-active label {
+  color: #266cd3;
+}
+
+.plugin-lock-modal {
+  text-align: center;
+  overflow: hidden;
+}
+
+.plugin-lock-modal .antExplorer-modal-body {
+  padding: 50px;
+}
+
+.plugin-lock-modal .antExplorer-form-item {
+  text-align: left;
+}
+
+.plugin-lock-modal .antExplorer-form-item .antExplorer-form-item-label label {
+  color: #fff;
+}
+
+.plugin-lock-modal .antExplorer-form-item .antExplorer-input-affix-wrapper {
+  width: auto;
+}
+
+.plugin-lock-modal .antExplorer-form-item .antExplorer-input {
+  width: auto;
+}
+
+.plugin-lock-modal .antExplorer-slider-mark-text {
+  color: #fff;
+}
+
+.plugin-lock-modal span.antExplorer-radio+* {
+  color: #fff;
+}
+
+.plugin-lock-modal .antExplorer-modal-content {
+  text-align: center;
+}
+
+.plugin-lock-modal .antExplorer-modal-content .antExplorer-modal-header {
+  padding: 10px;
+  height: auto;
+}
+
+.plugin-lock-modal .antExplorer-modal-content .antExplorer-modal-footer {
+  text-align: center;
+  padding-bottom: 32px;
+  border: none;
+}
+
+.plugin-lock-modal .antExplorer-modal-content .antExplorer-modal-footer .antExplorer-btn {
+  width: 320px;
+}
+
+.plugin-lock-modal .antExplorer-modal-content .antExplorer-modal-footer .antExplorer-btn:first-child {
+  display: none;
+}
+
+.plugin-lock-modal .antExplorer-tabs label:hover {
+  color: #327dec;
+  cursor: pointer;
+}
+
+.plugin-lock-modal .antExplorer-tabs .antExplorer-tabs-tab-active label {
+  color: #266cd3;
+}
+
+.plugin-lock-modal .antExplorer-form {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item {
+  text-align: left;
+  margin-bottom: 24px;
+  color: #000;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra {
+  position: relative;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra .form-item-extra {
+  position: absolute;
+  right: 0;
+  top: -18px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .form-item-value {
+  font-size: 14px;
+  text-align: left !important;
+  line-height: 34px;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label {
+  color: #999;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-input {
+  width: 100%;
+  text-align: center;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control {
+  line-height: inherit;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .right-icon {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  color: #999;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker {
+  width: 100%;
+}
+
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker>div {
+  height: 34px;
+}
+
+.text-wrap-container {
+  text-align: left;
+  white-space: pre-line;
+}
+
+.table-btn {
+  line-height: 1;
+  border: none;
+  width: 78px;
+  height: 26px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-btn.antExplorer-btn-primary[disabled] {
+  background-color: #f5f5f5 !important;
+}
+
+.table-btn.vote-btn {
+  background-color: #266cd3;
+}
+
+.table-btn.vote-btn:hover {
+  background: #327dec;
+}
+
+.node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 8px;
+}
+
+.node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group .table-btn {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  height: 24px;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group .table-btn.antExplorer-btn-default[disabled] {
+  border: 1px solid var(--color-border, #d0d0d0);
+  background: var(--color-hover, #f7f8fa);
+  color: var(--color-border, #d0d0d0);
+}
+
+.node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group .table-btn.vote-btn {
+  background: var(--color-brand-default, #266cd3);
+}
+
+.node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group .table-btn.vote-btn:hover {
+  background: var(--color-brand-hover, #327dec);
+}
+
+@media (max-width: 1182px) {
+  .node-table-wrapper td.antExplorer-table-cell-fix-right {
+    padding-right: 0 !important;
+    padding-left: 8px !important;
+  }
+
+  .node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group button:first-child {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .node-table-wrapper td.antExplorer-table-cell-fix-right {
+    padding-right: 0 !important;
+    padding-left: 8px !important;
+  }
+
+  .node-table-wrapper td.antExplorer-table-cell-fix-right .node-table-btn-group .table-btn {
+    font-size: 10px;
+  }
+}
+
+.vote-modal,
+.vote-redeem-modal,
+.apply-node-modal,
+.dividend-modal,
+.vote-confirm-modal,
+.plugin-lock-modal {
+  text-align: center;
+  overflow: hidden;
+}
+
+.vote-modal .antExplorer-form,
+.vote-redeem-modal .antExplorer-form,
+.apply-node-modal .antExplorer-form,
+.dividend-modal .antExplorer-form,
+.vote-confirm-modal .antExplorer-form,
+.plugin-lock-modal .antExplorer-form {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item,
+.apply-node-modal .antExplorer-form .antExplorer-form-item,
+.dividend-modal .antExplorer-form .antExplorer-form-item,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item {
+  text-align: left;
+  margin-bottom: 24px;
+  color: #000;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra,
+.apply-node-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra,
+.dividend-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra {
+  position: relative;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra .form-item-extra,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra .form-item-extra,
+.apply-node-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra .form-item-extra,
+.dividend-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra .form-item-extra,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra .form-item-extra,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item.form-item-with-extra .form-item-extra {
+  position: absolute;
+  right: 0;
+  top: -18px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label,
+.dividend-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label,
+.vote-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.dividend-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .form-item-value {
+  font-size: 14px;
+  text-align: left !important;
+  line-height: 34px;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label,
+.dividend-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label {
+  color: #999;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.dividend-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .form-item-value,
+.vote-modal .antExplorer-form .antExplorer-form-item .antExplorer-input,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .antExplorer-input,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .antExplorer-input,
+.dividend-modal .antExplorer-form .antExplorer-form-item .antExplorer-input,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .antExplorer-input,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-input {
+  width: 100%;
+  text-align: center;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control,
+.dividend-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control {
+  line-height: inherit;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .right-icon,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .right-icon,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .right-icon,
+.dividend-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .right-icon,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .right-icon,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .right-icon {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  color: #999;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker,
+.dividend-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker {
+  width: 100%;
+}
+
+.vote-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker>div,
+.vote-redeem-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker>div,
+.apply-node-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker>div,
+.dividend-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker>div,
+.vote-confirm-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker>div,
+.plugin-lock-modal .antExplorer-form .antExplorer-form-item .antExplorer-calendar-picker>div {
+  height: 34px;
+}
+
+.vote-modal .antExplorer-modal-content,
+.vote-redeem-modal .antExplorer-modal-content,
+.apply-node-modal .antExplorer-modal-content,
+.dividend-modal .antExplorer-modal-content,
+.vote-confirm-modal .antExplorer-modal-content,
+.plugin-lock-modal .antExplorer-modal-content {
+  text-align: center;
+}
+
+.vote-modal .antExplorer-modal-footer,
+.vote-redeem-modal .antExplorer-modal-footer,
+.apply-node-modal .antExplorer-modal-footer,
+.dividend-modal .antExplorer-modal-footer,
+.vote-confirm-modal .antExplorer-modal-footer,
+.plugin-lock-modal .antExplorer-modal-footer {
+  border: none;
+  padding-bottom: 32px;
+}
+
+.vote-modal .antExplorer-modal-footer .antExplorer-btn,
+.vote-redeem-modal .antExplorer-modal-footer .antExplorer-btn,
+.apply-node-modal .antExplorer-modal-footer .antExplorer-btn,
+.dividend-modal .antExplorer-modal-footer .antExplorer-btn,
+.vote-confirm-modal .antExplorer-modal-footer .antExplorer-btn,
+.plugin-lock-modal .antExplorer-modal-footer .antExplorer-btn {
+  width: 320px;
+}
+
+.vote-modal .antExplorer-modal-footer .antExplorer-btn:first-child,
+.vote-redeem-modal .antExplorer-modal-footer .antExplorer-btn:first-child,
+.apply-node-modal .antExplorer-modal-footer .antExplorer-btn:first-child,
+.dividend-modal .antExplorer-modal-footer .antExplorer-btn:first-child,
+.vote-confirm-modal .antExplorer-modal-footer .antExplorer-btn:first-child,
+.plugin-lock-modal .antExplorer-modal-footer .antExplorer-btn:first-child {
+  display: none;
+}
+
+.antExplorer-picker-dropdown .antExplorer-picker-date-panel {
+  width: 450px;
+}
+
+.antExplorer-picker-dropdown .antExplorer-picker-date-panel .antExplorer-picker-header,
+.antExplorer-picker-dropdown .antExplorer-picker-date-panel .antExplorer-picker-content {
+  width: 100%;
+}
+
+.antExplorer-picker-dropdown .antExplorer-picker-date-panel .antExplorer-calendar-disabled-cell.antExplorer-calendar-selected-day .antExplorer-calendar-date::before,
+.antExplorer-picker-dropdown .antExplorer-picker-date-panel .antExplorer-calendar-disabled-cell.antExplorer-calendar-today .antExplorer-calendar-date::before {
+  left: 18px;
+}
+
+.vote-btn-loading.antExplorer-modal {
+  height: 54px;
+}
+
+.vote-btn-loading.antExplorer-modal .antExplorer-modal-content {
+  border-radius: 8px;
+}
+
+.vote-btn-loading .TMRWDAO-modal-content {
+  @apply bg-darkBg;
+}
+
+.vote-btn-loading .TMRWDAO-modal-close-icon {
+  @apply text-lightGrey;
+}
+
+.vote-btn-loading .TMRWDAO-modal-body {
+  @apply text-lightGrey;
+}
+
+.vote-btn-loading.antExplorer-modal .antExplorer-modal-body {
+  padding: 16px;
+  text-align: center;
+}
+
+.vote-btn-loading.antExplorer-modal .antExplorer-modal-close-x {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    padding: 20px;
+  }
+
+  .antExplorer-calendar-picker-container .antExplorer-calendar {
+    width: 300px;
+  }
+}
+
+.table-card-header {
+  padding: 46px 30px 30px;
+}
+
+.statistical-data-container .vote-statistic .antExplorericon {
+  position: static;
+}
+
+.ant-statistic.vote-statistic {
+  text-align: center;
+}

@@ -1,0 +1,26 @@
+.slide-dots {
+  @apply flex justify-center fixed bottom-[37px] w-full;
+  li {
+    @apply w-[0.5rem] h-[0.5rem] bg-white rounded-full opacity-25;
+    &.active {
+      @apply opacity-100;
+    }
+  }
+  li + li {
+    @apply ml-[6px];
+  }
+}
+.scene-start-now {
+  .scene-title {
+    @apply mt-[13.33vh];
+  }
+  .start-now-image-wrap {
+    @apply pt-[8.19vh];
+  }
+}
+
+.scene-continue {
+  .scene-title {
+    @apply mt-[15.41vh];
+  }
+}

@@ -1,0 +1,18 @@
+.delete-multisig-members-buttons {
+  @apply flex justify-between gap-[16px];
+}
+.delete-multisig-members-buttons-item {
+  @apply flex-1;
+}
+.delete-multisig-members-item {
+  @apply h-[48px] flex justify-between items-center;
+}
+.delete-multisig-members-item + .delete-multisig-members-item {
+  @apply mt-[16px];
+}
+.delete-multisig-members-list {
+  @apply my-[24px];
+}
+.delete-multisig-members-check {
+  transform: scale(0.6666);
+}

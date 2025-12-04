@@ -1,0 +1,48 @@
+.my-point-wrap {
+  @apply px-[16px];
+  min-height: calc(100vh - 186px);
+  .header {
+    @apply my-[8px];
+    p {
+      color: var(--Text-Gray-2, #edeef0);
+      .amount {
+        color: var(--Accent-2, #51ff00);
+      }
+    }
+  }
+  .point-list {
+    @apply flex flex-col gap-[8px];
+    .point-list-item {
+      @apply flex justify-between px-4 py-3 h-[92px] items-center rounded-[1rem] border-[0.0625rem] border-solid border-[#454750] bg-[#2F3036];
+      .TMRWDAO-icon {
+        @apply text-[28px] text-[#ACA6FF];
+      }
+      .wrap1 {
+        @apply flex items-center pr-[16px];
+      }
+      .body {
+        @apply ml-[16px];
+        p {
+          color: var(--Native-subtitle_text_color, #aaa);
+        }
+        h3 {
+          color: #fff;
+        }
+      }
+      .amount {
+        color: var(--Text-2, #dddfff);
+      }
+    }
+  }
+}
+.show-more-button-wrap {
+  @apply flex justify-center items-center mt-[24px];
+  .show-more-button-wrap-button {
+    @apply cursor-pointer flex h-[3.125rem] text-[#ACA6FF] w-[150px] px-[0.75rem] py-[15px] justify-center items-center gap-[0.625rem] rounded-[0.625rem] border-[0.0625rem] border-solid border-[rgba(255,255,255,0.10)];
+  }
+  .show-more-button-refresh {
+    &.loading {
+      @apply animate-spin;
+    }
+  }
+}

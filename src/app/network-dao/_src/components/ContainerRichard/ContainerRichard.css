@@ -1,0 +1,52 @@
+.conri-container {
+  padding: 0 16px 0 16px;
+}
+.conri-top-border,
+.conri-bottom-border {
+  height: 3px;
+  border-left: 7px solid #FFF;
+  border-right: 7px solid #FFF;
+  padding-top: 1px;
+}
+.conri-top-border .conri-horizontal-line,
+.conri-bottom-border .conri-horizontal-line {
+  height: 1px;
+  width: 100%;
+  background: rgba(151, 151, 151, 0.5);
+}
+.conri-center {
+  display: flex;
+  justify-content: space-between;
+}
+.conri-center-content {
+  flex: 1;
+  margin: 8px;
+  background: #FFF;
+}
+.conri-center-content-small {
+  margin: 4px;
+}
+.conri-center-left,
+.conri-center-right {
+  width: 3px;
+  border-top: 4px solid #FFF;
+  border-bottom: 4px solid #FFF;
+  padding-left: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.conri-center-left .conri-vertical-line,
+.conri-center-right .conri-vertical-line {
+  width: 1px;
+  height: 20%;
+  background: rgba(151, 151, 151, 0.5);
+}
+@media screen and (max-width: 414px) {
+  .conri-container {
+    padding: 0px;
+  }
+  .conri-container .conri-center-content-small {
+    margin: 0px;
+  }
+}

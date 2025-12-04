@@ -1,0 +1,53 @@
+.only-ok-modal {
+  width: 442px;
+}
+
+.only-ok-modal .antExplorer-modal-content {
+  border-radius: 8px;
+  line-height: 20px;
+}
+
+.only-ok-modal .antExplorer-modal-content .antExplorer-modal-body {
+  padding: 24px 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.only-ok-modal .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-title {
+  margin: auto;
+  font-size: 14px;
+}
+
+.only-ok-modal .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-content {
+  margin-top: 0;
+}
+
+.only-ok-modal .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-btns {
+  display: flex;
+  justify-content: center;
+}
+
+.only-ok-modal .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-btns .antExplorer-btn {
+  width: 214px;
+  height: 40px;
+  border-radius: 4px;
+  margin-left: 0;
+  background: var(--color-brand-default, #266cd3);
+}
+
+.only-ok-modal-mobile {
+  width: calc(100vw - 24px);
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.only-ok-modal-mobile .antExplorer-modal-content .antExplorer-modal-body {
+  display: block;
+}
+
+.only-ok-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .antExplorer-modal-confirm-btns .antExplorer-btn {
+  width: 100%;
+}

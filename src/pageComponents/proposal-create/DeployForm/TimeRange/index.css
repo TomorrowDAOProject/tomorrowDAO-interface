@@ -1,0 +1,10 @@
+.active-time-item-radio {
+  @apply h-[48px] flex items-center;
+  .TMRWDAO-radio-group {
+    @apply w-full items-center flex;
+    .TMRWDAO-radio-wrapper {
+      margin-inline-end: 0px;
+      @apply flex-1;
+    }
+  }
+}

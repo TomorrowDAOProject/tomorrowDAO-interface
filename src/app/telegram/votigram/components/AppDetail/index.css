@@ -1,0 +1,54 @@
+.votigram-app-detail-wrap {
+  @apply  bg-[#212121] py-[8px] overflow-x-scroll;
+  .summary {
+    @apply flex items-center px-[28px];
+  }
+  .summary-logo {
+    @apply w-[76px] h-[76px] rounded-[24px];
+  }
+  .summary-logo-text{
+    @apply w-[76px] h-[76px] rounded-[24px] text-[#4600C5] bg-white flex justify-center items-center shrink-0 text-2xl;
+  }
+  .summary-desc {
+    @apply ml-[20px] flex flex-col h-[76px] justify-around break-words;
+    /* .summary-desc-text{
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      color: var(--hint_color);
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    } */
+  }
+  .app-link {
+    height: 92px;
+    opacity: 1;
+    @apply mt-[24px]  bg-[#212121] px-[28px];
+    button {
+      @apply h-[50px] w-full;
+    }
+  }
+  .app-link-text {
+    @apply font-bold text-white;
+  }
+  .app-screenshots {
+    overflow-x: scroll;
+    @apply flex;
+    li {
+      border-radius: 32px;
+    }
+    li:first-child {
+      @apply ml-[28px];
+    }
+    li:last-child {
+      @apply mr-[28px];
+    }
+    img {
+      @apply w-[242px] max-h-[525px];
+      border-radius: 32px;
+    }
+    li + li {
+      @apply ml-[16px];
+    }
+  }
+}

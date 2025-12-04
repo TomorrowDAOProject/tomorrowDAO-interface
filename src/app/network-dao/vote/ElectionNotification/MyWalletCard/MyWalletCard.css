@@ -1,0 +1,278 @@
+/*
+ * @Author: Alfred Yang
+ * @Github: https://github.com/cat-walk
+ * @Date: 2019-09-28 18:14:15
+ * @LastEditors: Alfred Yang
+ * @LastEditTime: 2019-12-09 17:21:56
+ * @Description: file content
+ */
+.my-wallet-card {
+  padding: 16px 16px 0;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.my-wallet-card .my-wallet-content {
+  border-bottom: 1px solid;
+  padding-bottom: 16px;
+  @apply border-borderColor;
+}
+
+.my-wallet-card-header {
+  overflow: hidden;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.my-wallet-card-header-title {
+  display: inline-block;
+  vertical-align: middle;
+  height: 22px;
+  line-height: 22px;
+  font-size: 12px;
+}
+
+.my-wallet-card-header-title .wallet-icon {
+  margin-right: 4px;
+}
+
+.my-wallet-card-header-title .wallet-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.my-wallet-card-body {
+  display: flex;
+}
+
+.my-wallet-card-body-wallet-title {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-column-gap: 8px;
+  padding: 8px 0;
+}
+
+.my-wallet-card-body-wallet-title-name {
+  color: #000;
+  margin-right: 20px;
+}
+
+.my-wallet-card-body-wallet-title-key {
+  font-weight: 500;
+  line-height: 20px;
+  display: inline-block;
+}
+
+.my-wallet-card-body-wallet-title-value {
+  font-size: 11px;
+  margin-left: 8px;
+  line-height: 20px;
+  display: inline-block;
+}
+
+.my-wallet-card-body-wallet-title-value a {
+  line-height: 20px;
+}
+
+.my-wallet-card-body-wallet-title-value .copy-btn {
+  color: #858585 !important;
+  margin-left: 4px;
+  line-height: 20px;
+}
+
+.my-wallet-card-body-wallet-title-value .copy-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+.my-wallet-card-body-wallet-content {
+  flex: 4;
+  color: #000;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "myWalletAssets myWalletBalance myWalletProfit" "myWalletActiveVotes myWalletRedeemedVotes myWalletTime";
+  grid-column-gap: 16px;
+}
+
+.my-wallet-card-body-wallet-content>li {
+  margin: 8px 0;
+  line-height: 24px;
+}
+
+.my-wallet-card-body-wallet-content>li .item-value {
+  margin-left: 8px;
+}
+
+.my-wallet-card-body-wallet-content-withdraw-btn.antExplorer-btn.antExplorer-btn-sm {
+  margin-left: 8px;
+  border-radius: 4px;
+  height: 24px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+
+.my-wallet-card-body-wallet-content .assets {
+  grid-area: myWalletAssets;
+}
+
+.my-wallet-card-body-wallet-content .balance {
+  grid-area: myWalletBalance;
+}
+
+.my-wallet-card-body-wallet-content .profit {
+  grid-area: myWalletProfit;
+}
+
+.my-wallet-card-body-wallet-content .active-votes {
+  grid-area: myWalletActiveVotes;
+}
+
+.my-wallet-card-body-wallet-content .redeemed-votes {
+  grid-area: myWalletRedeemedVotes;
+}
+
+.my-wallet-card-body-wallet-content .time {
+  grid-area: myWalletTime;
+}
+
+.my-wallet-card .refresh-btn {
+  font-size: 12px;
+  border-radius: 42px;
+  display: flex;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 6px;
+  border: 1px solid var(--color-brand-default, #fff);
+  background: transparent;
+  color: var(--color-brand-default, #fff);
+}
+
+
+.my-wallet-card .refresh-btn.antExplorer-btn-text[disabled] {
+  border: 1px solid var(--color-border, #d0d0d0);
+  background: var(--color-hover, #f7f8fa) !important;
+}
+
+.my-wallet-card .login-btn {
+  font-size: 12px !important;
+  margin-left: 8px;
+  border-radius: 4px;
+  display: flex;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 8px;
+  color: #fff;
+}
+
+.my-wallet-card .logout-btn {
+  width: 94px;
+  font-size: 12px;
+  margin-left: 8px;
+  border-radius: 4px;
+  display: flex;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 16px;
+  border: 1px solid #266cd3;
+  background-color: #266cd3 !important;
+  color: #fff;
+}
+
+.my-wallet-card .login-btn.antExplorer-btn-text:active,
+.my-wallet-card .logout-btn.antExplorer-btn-text:active {
+  color: #fff;
+  background: var(--color-brand-pressed, #155abf) !important;
+}
+
+.my-wallet-card .login-btn.antExplorer-btn-text:hover,
+.my-wallet-card .logout-btn.antExplorer-btn-text:hover {
+  color: #fff;
+  background: var(--color-brand-hover, #327dec) !important;
+}
+
+.antExplorer-modal-confirm-body .antExplorer-modal-confirm-title {
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .my-wallet-card-body {
+    display: block;
+  }
+
+  .my-wallet-card-body-wallet-title {
+    border-right: 0;
+    word-break: break-word;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 16px;
+    line-height: 20px;
+  }
+
+  .my-wallet-card-body-wallet-title .address {
+    display: grid;
+    grid-template-columns: 50px auto;
+  }
+
+  .my-wallet-card-body-wallet-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "myWalletAssets myWalletBalance " "myWalletProfit myWalletActiveVotes" " myWalletRedeemedVotes myWalletTime";
+  }
+}
+
+@media (max-width: 640px) {
+  .my-wallet-card-body-wallet-title {
+    padding: 0;
+    border-right: 0;
+    word-break: break-word;
+    line-height: 20px;
+    display: block;
+  }
+
+  .my-wallet-card-body-wallet-title div {
+    display: grid;
+    grid-gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .my-wallet-card-body-wallet-title-key,
+  .my-wallet-card-body-wallet-title-value {
+    display: block;
+  }
+
+  .my-wallet-card-body-wallet-title-value {
+    margin-left: 0;
+  }
+
+  .my-wallet-card-body-wallet-title .address {
+    grid-template-columns: 1fr;
+  }
+
+  .my-wallet-card-body-wallet-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 16px;
+    grid-template-areas: "myWalletAssets" "myWalletBalance" "myWalletProfit" "myWalletActiveVotes" "myWalletRedeemedVotes" "myWalletTime";
+  }
+
+  .my-wallet-card-body-wallet-content>li {
+    margin: 0;
+    display: grid;
+    grid-gap: 8px;
+  }
+
+  .my-wallet-card-body-wallet-content>li .item-value {
+    margin-left: 0;
+  }
+
+  .my-wallet-card-body-wallet-content>li .item-extra {
+    float: right;
+  }
+}
+
+.wallet-dividends {
+  display: inline-block;
+}

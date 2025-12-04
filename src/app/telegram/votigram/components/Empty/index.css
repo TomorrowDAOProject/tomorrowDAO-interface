@@ -1,0 +1,11 @@
+.telegrame-empty-wrap {
+  @apply flex items-center justify-center flex-col rounded-[1rem] border-[0.0625rem] border-dashed border-[#403493];
+  .title {
+    color: var(--Text-2, #DDDFFF);
+    @apply mt-[24px] mb-[8px]  text-center;
+  }
+  .desc {
+    color: var(--Text-1, #ACA6FF);
+    @apply text-center w-[248px];
+  }
+}

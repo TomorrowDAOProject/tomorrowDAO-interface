@@ -1,0 +1,250 @@
+.transaction-table .antExplorericon.antExplorer-tooltip-open {
+  color: #e6e6e6;
+}
+
+.transaction-table .antExplorer-table-wrapper {
+  width: calc(100% - 32px);
+}
+
+.transaction-table .antExplorer-table-wrapper thead th {
+  font-family: "Roboto-Medium";
+  background: #ffffff !important;
+  border-bottom: #e6e6e6 1px solid !important;
+  font-weight: 400;
+}
+
+.transaction-table .antExplorer-table-wrapper thead th::before {
+  display: none !important;
+  width: 0 !important;
+}
+
+.transaction-table .antExplorer-table-wrapper thead th:first-child {
+  padding-left: 64px !important;
+}
+
+.transaction-table .antExplorer-table-wrapper thead th:last-child {
+  text-align: right;
+}
+
+.transaction-table .antExplorer-table-wrapper thead th .time {
+  cursor: pointer;
+}
+
+.transaction-table .antExplorer-table-wrapper thead th .time .antExplorericon {
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr {
+  padding: 0 16px;
+  overflow: hidden;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td {
+  white-space: nowrap;
+  border-bottom: none !important;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td:first-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td:last-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .id {
+  width: 161px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .id .antExplorericon {
+  font-size: 24px;
+  margin-right: 24px;
+  min-width: 24px;
+  border-radius: 4px;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .id .antExplorericon:focus {
+  background-color: #e6e6e6;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .id .antExplorericon svg {
+  width: 14px;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .id a {
+  display: block;
+  width: 113px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .method {
+  width: 116px;
+  height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #ebebeb;
+  white-space: nowrap;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .block {
+  width: 71px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .time {
+  min-width: 113px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .address {
+  position: relative;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .address a {
+  display: inline-block;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .address .antExplorericon {
+  position: absolute;
+  top: 3.5px;
+  right: 0px;
+  color: #bfbfbf;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .address .copy-btn {
+  top: 2px;
+  right: auto;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .address .copy-btn svg {
+  padding: 2px;
+}
+
+.transaction-table .antExplorer-table-wrapper tbody tr td .fee {
+  text-align: right;
+}
+
+.mobile.transaction-table {
+  padding: 0 0 10px;
+  overflow-x: scroll;
+}
+
+.mobile.transaction-table .antExplorer-table-wrapper {
+  min-width: 968px;
+}
+
+.transaction-tooltip .antExplorer-tooltip-content {
+  width: 337.5px;
+  box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.08), 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+}
+
+.transaction-tooltip .antExplorer-tooltip-content .antExplorer-tooltip-inner {
+  padding: 0 !important;
+  background-color: white;
+}
+
+.transaction-tooltip .antExplorer-tooltip-content .antExplorer-tooltip-arrow:before {
+  background-color: white;
+}
+
+.transaction-tooltip .previewer-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-tooltip .previewer-card .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 20px 11px 22px;
+  border-bottom: 1px solid #e6e6e6;
+  font-size: 14px;
+  font-family: "Roboto-Medium";
+  line-height: 22px;
+}
+
+.transaction-tooltip .previewer-card .title a {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: fit-content;
+}
+
+.transaction-tooltip .previewer-card .title a .antExplorericon {
+  font-size: 10px;
+  margin: 0 0 0 4px;
+}
+
+.transaction-tooltip .previewer-card .bottom {
+  row-gap: 16px;
+  padding: 8px 22px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-tooltip .previewer-card .bottom .label {
+  color: #262626;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.transaction-tooltip .previewer-card .bottom .block {
+  color: #595959;
+}
+
+.transaction-tooltip .previewer-card .bottom .block .antExplorer-tag,
+.transaction-tooltip .previewer-card .bottom .block .antExplorer-spin {
+  margin-left: 8px;
+}
+
+.transaction-tooltip .previewer-card .bottom .block .antExplorer-tag {
+  border-radius: 4px;
+  background: #f7f8fa;
+  border: none;
+  font-size: 12px;
+  padding: 2px 8px;
+  color: #595959;
+}
+
+.transaction-tooltip .previewer-card .bottom .value .antExplorer-tag {
+  background: #f7f8fa;
+  border-radius: 4px;
+  border: none;
+  padding: 1px 8px;
+  font-size: 14px;
+}
+
+.transaction-tooltip .previewer-card .bottom .value .antExplorer-tag span {
+  margin-left: 4px;
+}
+
+.transaction-tooltip.mobile {
+  margin: 0 auto;
+  padding: 0;
+  min-width: calc(100vw - 48px);
+  left: 50% !important;
+  transform: translateX(calc(24px - 50vw));
+  transition: left 0.3s !important;
+}
+
+.transaction-tooltip.mobile .antExplorer-tooltip-arrow {
+  display: none;
+}
+
+.transaction-tooltip.mobile .antExplorer-tooltip-content {
+  width: 100%;
+  box-shadow: 0px 0px 100000px 100000px rgba(0, 0, 0, 0.6);
+}

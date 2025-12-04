@@ -1,0 +1,13 @@
+.markdown-preview {
+  @apply text-lightGrey;
+  overflow-wrap: break-word;
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+  .contains-task-list {
+    @apply list-none;
+  }
+}

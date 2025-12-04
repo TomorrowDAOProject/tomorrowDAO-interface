@@ -1,0 +1,19 @@
+.contracts-and-files {
+  .primary-text {
+    @apply !mb-2;
+  }
+  .secondary-text {
+    @apply !text-Neutral-Secondary-Text;
+  }
+  .upload {
+    .TMRWDAO-upload-select {
+      @apply w-full mt-8;
+    }
+    .TMRWDAO-upload-button {
+      @apply min-h-[142px];
+    }
+    .TMRWDAO-upload-list {
+      @apply mt-2 mb-8;
+    }
+  }
+}

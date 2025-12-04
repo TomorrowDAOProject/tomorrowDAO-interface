@@ -1,0 +1,12 @@
+.election-notification .statistical-data-content {
+  padding: 20px 16px;
+}
+
+.election-notification .statistical-data-content .antExplorer-spin-nested-loading {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.election-notification .statistical-data-content .statistical-data-container {
+  margin-left: -16px;
+  margin-right: -16px;
+}

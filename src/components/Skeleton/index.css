@@ -1,0 +1,19 @@
+.skeleton-wrap {
+  padding: 1rem 1.5rem;
+}
+
+.my-dao-item-skeleton {
+  .TMRWDAO-skeleton-title {
+    margin-block-start: 8px !important;
+  }
+}
+
+.skeleton-line {
+  @apply !py-[7px] !px-[0] bg-transparent;
+  &.border-none {
+    border-block-end: none;
+  }
+  .TMRWDAO-skeleton-title {
+    @apply !bg-darkGray !h-[20px];
+  }
+}

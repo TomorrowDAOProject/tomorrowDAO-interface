@@ -1,0 +1,41 @@
+.basic-detail {
+  .TMRWDAO-form-item-label>label {
+    @apply font-medium leading-6;
+  }
+
+  .Media-info {
+    @apply text-xs leading-5 text-Neutral-Secondary-Text mt-1;
+  }
+
+  .symbol-radio {
+    @apply flex flex-col gap-[4px];
+  }
+
+
+
+  .dao-type-tip {
+    @apply text-[12px] leading-[20px] text-Neutral-Secondary-Text mb-[8px];
+  }
+
+  .dao-type-select {
+    @apply my-[16px] flex lg:gap-[128px] gap-[16px] w-full lg:flex-row flex-col;
+  }
+
+  .Description-textArea {
+    .TMRWDAO-input {
+      @apply !pb-8;
+    }
+
+    .TMRWDAO-input-data-count {
+      @apply bottom-3;
+      inset-inline-end: 12px;
+    }
+  }
+
+  .governance-token-item {
+    @apply mb-[8px];
+  }
+  /* .dao-type-select-radio + .dao-type-select-radio {
+    @apply ml-[128px];
+  } */
+}

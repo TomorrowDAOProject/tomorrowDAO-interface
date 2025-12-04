@@ -1,0 +1,14 @@
+.timeout-tip-wrap {
+  @apply flex items-center min-h-screen flex-col;
+  img {
+    @apply my-[80px];
+  }
+  .timeout-tip-text {
+    width: 315px;
+    text-align: center;
+    color: var(--Text-Gray-2, #EDEEF0);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}

@@ -1,0 +1,9 @@
+.common-drawer {
+  @apply rounded-t-lg;
+  .TMRWDAO-drawer-header {
+    @apply px-6 pt-6 pb-0 border-none;
+  }
+  .TMRWDAO-drawer-body {
+    @apply pt-0;
+  }
+}

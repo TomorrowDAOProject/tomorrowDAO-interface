@@ -1,0 +1,24 @@
+.event-item textarea {
+  color: #595959;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  height: 126px;
+  padding: 8px 12px;
+  border: none;
+  line-height: 22px;
+}
+
+.event-item textarea:disabled {
+  color: #595959;
+  opacity: 1;
+  -webkit-text-fill-color: #595959;
+}
+
+.event-item button {
+  width: 104px;
+}
+
+.event-item button.antExplorer-btn-text {
+  width: fit-content;
+  padding: 0;
+}

@@ -1,0 +1,13 @@
+.copy-list-item-wrapper .copy-list-value {
+  margin-left: 16px;
+  color: #266cd3;
+}
+
+.copy-list-item-wrapper .antExplorer-btn-circle {
+  border: none;
+  background-color: transparent;
+}
+
+.copy-list-item-wrapper .antExplorer-btn-circle .antExplorericon {
+  color: #266cd3;
+}

@@ -1,0 +1,12 @@
+.antExplorer-pagination {
+    align-items: center;
+
+    .antExplorer-pagination-item {
+        height: 24px;
+        line-height: 24px;
+    }
+}
+
+.page-content-wrap {
+    min-height: calc(100vh - 82px - 219px);
+}

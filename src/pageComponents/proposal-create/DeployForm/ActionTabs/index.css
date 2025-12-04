@@ -1,0 +1,47 @@
+.proposal-action-tabs {
+  .proposal-action-tabs-label {
+    @apply flex items-center font-medium;
+    .TMRWDAO-icon {
+      @apply text-[16px];
+    }
+  }
+
+  .proposal-action-tabs-text {
+    @apply ml-2 card-sm-text-bold text-neutralPrimaryText;
+    &.active {
+      @apply text-mainColor;
+    }
+  }
+
+  .TMRWDAO-tabs-tab {
+    @apply !px-[16px] !py-[12px];
+  }
+
+  .TMRWDAO-tabs-tab+.TMRWDAO-tabs-tab {
+    @apply !ml-[2px];
+  }
+
+  .amount-select-wrap {
+    @apply absolute top-1 right-1;
+
+    .TMRWDAO-select-outlined.TMRWDAO-select-status-error .TMRWDAO-select-selector {
+      @apply !border-[#E1E1E1] !shadow-none;
+    }
+  }
+
+  .amount-select {
+    @apply w-[100px] lg:w-[200px];
+  }
+
+  .amount-input {
+    @apply !border-none !shadow-none;
+  }
+
+  .amount-wrap {
+    @apply border-solid border-[#E1E1E1] border-[1px] rounded-[6px] h-[80px];
+
+    &.error {
+      @apply border-error
+    }
+  }
+}

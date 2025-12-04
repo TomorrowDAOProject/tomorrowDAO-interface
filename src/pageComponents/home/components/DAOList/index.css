@@ -1,0 +1,9 @@
+.dao-list {
+  .dao-list-container {
+    @apply grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6 mb-6 lg:mb-8;
+  }
+
+  .dao-more {
+    @apply w-full flex justify-center;
+  }
+}

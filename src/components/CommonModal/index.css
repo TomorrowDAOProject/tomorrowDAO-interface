@@ -1,0 +1,17 @@
+.common-modal {
+  .TMRWDAO-modal-content {
+    @apply p-0 max-h-[80vh] flex flex-col;
+  }
+  .TMRWDAO-modal-close {
+    @apply hidden;
+  }
+  .TMRWDAO-modal-header {
+    @apply px-6 pt-6 mb-0;
+  }
+  .TMRWDAO-modal-body {
+    @apply px-6 pb-6 flex-1 overflow-scroll;
+  }
+  .view-transaction-id-link {
+    @apply pt-4 text-mainColor flex justify-center;
+  }
+}

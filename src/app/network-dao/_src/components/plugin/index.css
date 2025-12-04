@@ -1,0 +1,42 @@
+.DownloadPlugins .Tips {
+  padding: 16px 35px 16px 82px;
+  font-size: 16px;
+  color: #266cd3;
+}
+.Step-con {
+  height: 100px;
+  display: flex;
+  color: #000;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.download-button {
+  width: 118px;
+  height: 32px;
+  background: #266cd3;
+  color: #fff;
+  text-align: center;
+  border-radius: 30px;
+  font-size: 18px;
+  line-height: 32px;
+  margin-left: 16px;
+}
+.download-button:hover {
+  background: #327dec;
+  color: #fff !important;
+}
+@media screen and (max-width: 1200px) {
+  .Step-con {
+    font-size: 16px;
+    height: 52px;
+  }
+  .DownloadPlugins .Tips {
+    font-size: 12px;
+  }
+}
+@media (max-width: 768px) {
+  .DownloadPlugins {
+    display: none;
+  }
+}

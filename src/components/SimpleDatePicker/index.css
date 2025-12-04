@@ -1,0 +1,57 @@
+.rdp-root {
+  --rdp-today-color: var(--primary);
+  --rdp-accent-color: var(--app-icon-border);
+  --rdp-selected-border: 1px solid var(--primary);
+  --rdp-accent-background-color: var(--primary);
+  --rdp-day-height: 40px;
+  --rdp-day-width: 40px;
+  --rdp-day_button-height: 100%;
+  --rdp-day_button-width: 100%;
+}
+
+.simple-date-picker {
+  @apply p-[10px];
+
+  .rdp-month_caption {
+    @apply px-[0.6rem] mb-1;
+  }
+
+  .rdp-months,
+  .rdp-month,
+  .rdp-month_grid {
+    @apply w-full !max-w-[100%];
+  }
+
+  .rdp-caption_label {
+    @apply text-[18px] font-Montserrat font-medium text-white;
+  }
+
+  .rdp-dropdown {
+    @apply appearance-none outline-0;
+  }
+
+  .rdp-weekdays,
+  .rdp-day_button {
+    @apply text-[14px] font-medium text-lightGrey aspect-square;
+  }
+
+  .rdp-day_button {
+    @apply text-[15px] font-normal;
+  }
+
+  .rdp-today .rdp-day_button {
+    @apply text-mainColor h-full;
+  }
+
+  .rdp-selected .rdp-day_button {
+    @apply bg-mainColor text-white text-[15px];
+  }
+
+  .rdp-day {
+    @apply p-[6px];
+  }
+
+  .rdp-chevron {
+    @apply fill-white;
+  }
+}

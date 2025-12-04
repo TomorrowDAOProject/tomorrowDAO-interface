@@ -1,0 +1,66 @@
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header .antExplorer-modal-title {
+  padding: 0;
+  border-bottom: 0;
+  text-align: left;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body {
+  text-align: left;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .approve-token-form.antExplorer-form {
+  width: auto;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .approve-token-form.antExplorer-form .antExplorer-input-number {
+  width: 80%;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .approve-token-form.antExplorer-form .antExplorer-form-item {
+  margin-bottom: 0;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .approve-token-form.antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label {
+  margin-left: 0;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-footer {
+  border: none;
+  text-align: center;
+  padding-bottom: 32px;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-footer .antExplorer-btn {
+  width: 320px;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-footer .antExplorer-btn:first-child {
+  display: none;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-footer {
+  padding: 10px 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-footer .antExplorer-btn {
+  width: auto;
+}
+
+.approve-token-modal .antExplorer-modal .antExplorer-modal-content .antExplorer-modal-footer .antExplorer-btn:first-child {
+  display: inline-block;
+}
+
+.approve-token-transaction-result {
+  background-color: #eeeeee;
+  max-height: 220px;
+  border-radius: 5px;
+  overflow: auto;
+  flex-grow: 1;
+  margin-bottom: 0;
+}

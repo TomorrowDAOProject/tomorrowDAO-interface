@@ -1,0 +1,29 @@
+.dynamic-form-buttons {
+  @apply mt-[8px] flex justify-between lg:justify-start lg:gap-0 gap-[16px] lg:w-auto w-full;
+  .dynamic-form-buttons-item {
+    @apply lg:w-[143px] flex-1;
+  }
+  .dynamic-form-buttons-item + .dynamic-form-buttons-item {
+    @apply lg:ml-[16px];
+  }
+}
+.delete-dynamic-form-item-icon-small {
+  @apply cursor-pointer;
+  &.TMRWDAO-icon {
+    @apply text-[16px] text-Neutral-Secondary-Text;
+  }
+}
+.delete-dynamic-form-item-icon-middle {
+  @apply cursor-pointer;
+  &.TMRWDAO-icon {
+    @apply text-[22px] text-Neutral-Secondary-Text;
+  }
+}
+.delete-dynamic-form-item-icon-with-hover {
+  &:hover,
+  &:active {
+    @apply text-rejection;
+  }
+}
+
+

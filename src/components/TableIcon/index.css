@@ -1,0 +1,6 @@
+.custom-table-icon-wrap {
+  @apply w-[12px] h-[12px] flex items-center flex-col justify-center ml-[8px];
+  svg {
+    @apply w-[6px] h-[4px];
+  }
+}

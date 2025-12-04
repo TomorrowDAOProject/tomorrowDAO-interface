@@ -1,0 +1,91 @@
+/*
+ * @Author: Alfred Yang
+ * @Github: https://github.com/cat-walk
+ * @Date: 2019-12-09 16:54:34
+ * @LastEditors: Alfred Yang
+ * @LastEditTime: 2019-12-09 17:19:06
+ * @Description: file content
+ */
+.election-rule-card {
+  padding: 16px 16px 0;
+}
+
+.election-rule-card .election-rule-content {
+  @apply border-t border-b border-x-0 border-solid border-borderColor py-[20px];
+}
+
+.election-rule-card .election-intro {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  padding-bottom: 8px;
+}
+
+.election-rule-card .election-container {
+  padding: 8px 0 0;
+}
+
+.election-rule-card .election-container .view-plan-link {
+  text-decoration: underline;
+  margin-left: 30px;
+}
+
+.election-rule-card .election-header-title {
+  padding: 8px 0 0;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.election-rule-card .election-header-title .antExplorericon svg {
+  display: flex;
+  width: 12px;
+  height: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.election-rule-card .btn-group {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin: 8px 0;
+}
+
+.election-rule-card .btn-group .view-node-election-plan-btn a {
+  color: #000;
+  font-size: 14px;
+}
+
+.election-rule-card .btn-group .apply-to-be-a-node-btn {
+  border: none;
+  border-radius: 4px;
+  height: 40px;
+  padding: 0 20px;
+}
+
+
+.election-rule-card .btn-group .quit-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 0 0;
+  @apply text-lightGrey;
+}
+
+.election-rule-card .btn-group .quit-button .quit-logo {
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  margin: 0 0 0 4px;
+  @apply text-lightGrey;
+}
+
+@media (max-width: 640px) {
+  .apply-to-be-a-node-btn {
+    width: 100%;
+  }
+}

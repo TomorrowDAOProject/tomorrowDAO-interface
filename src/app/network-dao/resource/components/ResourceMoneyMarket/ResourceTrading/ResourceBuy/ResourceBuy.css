@@ -1,0 +1,97 @@
+.trading-box {
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  .mobile-trading-input, .antExplorer-input-number-input {
+    height: 48px;
+  }
+  .antExplorer-input {
+    height: 48px;
+  }
+}
+
+
+.trading-box .antExplorer-input-group-addon {
+  border-left: none;
+  background: transparent;
+  color: #B4B4B4;
+}
+
+.trading-box .antExplorer-input {
+  border: 1px solid #d9d9d9;
+  border-right: none;
+  background: transparent;
+  color: #B4B4B4;
+}
+
+.trading-box .antExplorer-input-number {
+  border: 1px solid #d9d9d9;
+  background: transparent;
+  color: #B4B4B4;
+}
+
+.trading-buy {
+  
+}
+
+.trading-buy .trading-title {
+  color: #FA9D2B;
+  font-size: 16px;
+  font-weight: 900;
+}
+.antExplorer-slider-horizontal .antExplorer-slider-step {
+  @apply h-1;
+}
+.trading-slide {
+  .antExplorer-slider-rail {
+    @apply h-1;
+  }
+}
+
+
+.trading-buy .antExplorer-slider-track {
+ @apply bg-mainColor h-[4px];
+}
+
+.trading-buy .antExplorer-slider-dot-active {
+  @apply bg-mainColor h-[4px];
+}
+
+.trading-buy .antExplorer-slider-handle {
+  @apply bg-mainColor;
+  transform: none !important;
+}
+.trading-buy .antExplorer-slider:hover .antExplorer-slider-track {
+  @apply bg-mainColor;
+}
+
+.trading-buy .antExplorer-slider:hover .antExplorer-slider-handle {
+  border: none;
+}
+
+.trading-buy .ELF-value .antExplorer-spin-nested-loading {
+  position: relative;
+  display: inline-block;
+  min-height: 30px;
+}
+
+.trading-buy .antExplorer-spin-container {
+  padding: 3px;
+}
+
+.trading-buy .antExplorer-form-item {
+  margin-bottom: 0;
+}
+
+.trading-buy .antExplorer-form-item .antExplorer-form-explain {
+  position: absolute;
+  top: -50%;
+}
+
+.antExplorer-confirm-title {
+  color: #000;
+}
+
+.approve-info {
+  color: #000;
+}

@@ -1,0 +1,54 @@
+.resource-head {
+  height: 50px;
+  line-height: 50px;
+  background: #ffffff;
+  color: #000;
+  font-size: 16px;
+  text-indent: 30px;
+}
+
+.resource-body {
+  padding: 0 !important;
+  background-size: 100% 100%;
+}
+
+.resource-body .resource-market-body {
+  background: #ffffff;
+}
+
+/* .menu-button {
+  height: 60px;
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+  line-height: 60px;
+  background: #ffffff;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.menu-button.active {
+  background: rgba(255, 255, 255, 0.25);
+} */
+@media screen and (max-width: 992px) {
+
+  .resource-body {
+    padding: 0 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-container {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .menu-container .menu-btn-container .menu-button {
+    padding: 0 10px;
+  }
+
+}
+.resource-money-market {
+  .antExplorer-btn.antExplorer-btn-round.antExplorer-btn-sm {
+    border-radius: 4px;
+  }
+}

@@ -1,0 +1,46 @@
+.proposal-vote p {
+  margin-bottom: 16px;
+
+}
+
+.proposal-vote {
+  .proposal-vote-chart-wrap {
+    position: relative;
+    margin-bottom: 16px;
+    width: 120px;
+    height: 120px;
+  }
+  .proposal-vote-chart-count {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .sub-title {
+      color: var(--Color-font_title, #252525);
+      text-align: center;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 32px;
+    }
+    span {
+      font-size: 10px;
+      line-height: 18px; 
+      color: var(--Color-font_caption, #858585);
+    }
+  }
+  &.pc {
+    .proposal-vote-chart {
+      @apply grid lg:grid-cols-4 grid-cols-2 gap-[16px];
+    }
+  }
+}
+
+.proposal-vote .proposal-vote-chart .antExplorer-col {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
