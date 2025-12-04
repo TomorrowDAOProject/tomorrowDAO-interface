@@ -1,0 +1,131 @@
+/*
+ * @Author: Alfred Yang
+ * @Github: https://github.com/cat-walk
+ * @Date: 2019-09-25 16:08:05
+ * @LastEditors: Alfred Yang
+ * @LastEditTime: 2019-12-07 21:23:53
+ * @Description: file content
+ */
+.profit-item-value {
+  font-size: 12px;
+  display: inline-block;
+}
+
+.dividend-modal.antExplorer-modal {
+  width: 672px !important;
+  border-radius: 8px;
+}
+
+
+.dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header .antExplorer-modal-title {
+  padding: 17px 16px;
+  border: 0;
+}
+
+.dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body {
+  padding: 24px 16px;
+  display: grid;
+  grid-gap: 16px;
+  font-size: 12px;
+}
+
+.dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .claim-profit-item .text-center {
+  text-align: left;
+}
+
+.dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .claim-profit-item .antExplorer-btn {
+  width: 128px;
+  height: 24px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dividend-modal.antExplorer-modal .antExplorer-modal-close-icon {
+  color: #101010;
+}
+
+@media (max-width: 1024px) {
+  .dividend-modal.antExplorer-modal {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .dividend-modal.antExplorer-modal .antExplorer-modal-content {
+    height: 100vh;
+  }
+
+  .dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header {
+    text-align: left;
+    padding: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .dividend-modal.antExplorer-modal .text-left {
+    grid-area: left;
+  }
+
+  .dividend-modal.antExplorer-modal .text-center {
+    grid-area: center;
+  }
+
+  .dividend-modal.antExplorer-modal .text-right {
+    grid-area: right;
+    display: grid;
+    justify-content: end;
+  }
+
+  .dividend-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body .claim-profit-item {
+    grid-template-areas: "left ." "center right";
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.governance-rewards-modal .TMRWDAO-modal-content {
+  @apply !bg-darkBg;
+}
+
+.governance-rewards-modal .TMRWDAO-modal-close-icon {
+  @apply !text-white;
+}
+
+.governance-rewards-modal .TMRWDAO-modal-title {
+  font-weight: 300;
+  @apply !text-white !bg-darkBg !text-center !text-[20px] !font-Unbounded;
+}
+
+.governance-rewards-modal .profit-item-key {
+  font-size: 13px;
+  font-weight: 500;
+  @apply text-lightGrey font-Montserrat;
+}
+
+.governance-rewards-modal .claim-profit-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.governance-rewards-modal .claim-profit-item .profit-item-key {
+  @apply w-[190px] inline-block text-white font-Montserrat text-[13px] font-medium;
+}
+
+.candidate-apply-modal .list-item-value {
+  @apply text-white font-Montserrat;
+}
+
+.claim-rewards-btn[disabled] {
+  @apply !bg-darkGray border border-solid !border-borderColor hover:!text-white;
+}

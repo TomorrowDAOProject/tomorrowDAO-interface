@@ -1,0 +1,22 @@
+.header-container {
+  @apply w-full bg-white border border-Neutral-Divider border-solid;
+
+  .header-banner {
+    @apply max-w-[1440px] m-auto lg:px-10 px-4 py-3 lg:h-20 h-16 lg:py-5 flex items-center justify-between;
+  }
+
+  .header-logo {
+    @apply w-full flex items-center justify-between;
+  }
+
+  .header-menu {
+    @apply flex w-[60%] items-center;
+  }
+
+  .header-menu-icon {
+    @apply ml-2;
+  }
+  .explore-button {
+    @apply lg:h-12 h-10;
+  }
+}

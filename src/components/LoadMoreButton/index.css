@@ -1,0 +1,23 @@
+.more-button {
+  @apply flex items-center justify-center rounded-[42px] border border-solid border-fillBg8 px-[20px] py-[8px] cursor-pointer;
+
+
+  &:hover {
+    @apply border-Neutral-Secondary-Text;
+  }
+
+  .more-text {
+    @apply mr-2 text-sm font-medium;
+  }
+
+  .loading {
+    @apply w-[20px] h-[20px];
+    animation: rotate 1s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

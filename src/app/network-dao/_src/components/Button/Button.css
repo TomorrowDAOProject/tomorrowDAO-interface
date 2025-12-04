@@ -1,0 +1,12 @@
+.AElf-button {
+  background: #266cd3;
+  color: #FFF;
+  border-radius: 30px;
+  display: inline-block;
+  cursor: pointer;
+  padding: 4px 19px;
+  margin: 0 10px;
+}
+.AElf-button:hover {
+  background: #327dec;
+}

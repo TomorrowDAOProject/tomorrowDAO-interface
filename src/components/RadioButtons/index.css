@@ -1,0 +1,12 @@
+.radio-buttons-wrap {
+  @apply flex lg:justify-start justify-between;
+  button {
+    @apply w-[96px] flex-shrink;
+  }
+  button + button {
+    @apply lg:ml-[24px];
+  }
+  .radio-buttons-active {
+    @apply border-colorPrimary text-mainColor text-[16px] leading-[24px] font-medium;;
+  }
+}

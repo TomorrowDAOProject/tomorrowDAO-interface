@@ -1,0 +1,26 @@
+.tg-common-modal {
+  
+  position: relative;
+  .tg-common-modal-header {
+    @apply my-[8px] h-[44px] flex justify-center items-center;
+    svg {
+      @apply absolute right-[16px] top-[16px];
+    }
+  }
+  .title {
+    color: var(--Text-Gray-2, #EDEEF0) ;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 590;
+    line-height: 22px; 
+  }
+  .TMRWDAO-modal-content {
+    color: var(--Text-Gray-2, #EDEEF0) ;
+    padding: 0 32px 32px 32px;
+    border-radius: 16px;
+    background: var(--Interactive-Gray-1, #212125);
+  }
+  .TMRWDAO-modal-body {
+    @apply pt-[1px];
+  }
+}

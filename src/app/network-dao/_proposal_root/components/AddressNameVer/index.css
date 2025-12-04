@@ -1,0 +1,32 @@
+.address-name-ver .copy-btn {
+  border: none;
+  background-color: transparent;
+}
+.address-name-ver .copy-btn:hover {
+  background: transparent;
+  border: 0;
+}
+.address-name-ver .contract-address,
+.address-name-ver .contract-name,
+.address-name-ver .contract-version {
+  display: flex;
+  align-items: baseline;
+  width: 640px;
+  margin-left: 120px;
+  font-size: 12px;
+}
+.address-name-ver .contract-address .label,
+.address-name-ver .contract-name .label,
+.address-name-ver .contract-version .label {
+  width: 120px;
+  text-align: right;
+  margin-right: 16px;
+}
+.address-name-ver .contract-name,
+.address-name-ver .contract-version {
+  height: 22px;
+}
+.address-name-ver .contract-name .content,
+.address-name-ver .contract-version .content {
+  color: #858585;
+}

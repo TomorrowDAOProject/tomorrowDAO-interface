@@ -1,0 +1,47 @@
+.discussion-wrap {
+  @apply card-shape px-4 lg:px-8 bg-white;
+  h2 {
+    @apply py-[17px];
+  }
+  .input-wrap {
+    @apply mt-[16px] flex;
+    button {
+      @apply w-[106px] ml-[24px];
+    }
+  }
+  .user {
+    @apply flex items-center;
+    .user-avatar {
+      @apply mr-[18px];
+    }
+    .user-info-address {
+      @apply card-sm-text-bold;
+    }
+    .user-info-time {
+      @apply card-xsm-text text-white;
+    }
+  }
+  .body {
+    @apply normal-text mt-[16px] break-words;
+  }
+  .message-lists {
+    @apply mb-[24px];
+    .message-lists-item {
+      @apply mt-[24px] lg:mt-[32px];
+    }
+  }
+  .error-message {
+    @apply card-sm-text text-error;
+  }
+  .send-button.disabled,
+  .send-button.disabled:hover,
+  .TMRWDAO-btn-primary.disabled:not(:disabled):not(.TMRWDAO-btn-disabled):hover {
+    @apply cursor-not-allowed bg-Neutral-Hover-BG text-white shadow-none;
+  }
+  .loading-more-wrap {
+    @apply w-full flex justify-center pb-[24px];
+  }
+}
+.send-tool-tip .TMRWDAO-tooltip-inner {
+  @apply flex items-center font-Montserrat;
+}

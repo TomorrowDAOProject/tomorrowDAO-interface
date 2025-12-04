@@ -1,0 +1,3 @@
+.page-content-wrap {
+  min-height: calc(100vh - 82px - 219px);
+}

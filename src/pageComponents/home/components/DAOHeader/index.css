@@ -1,0 +1,11 @@
+.dao-header {
+  @apply flex flex-col lg:flex-row gap-6 lg:gap-0 lg:items-center border-0 lg:border border-b border-solid border-Neutral-Divider justify-between bg-white mt-0 lg:mt-4 mb-3 lg:my-6 py-6 px-4 lg:px-8 rounded-none lg:rounded-lg;
+
+  .dao-detail {
+    @apply lg:mr-[96px];
+
+    .description {
+      @apply text-sm leading-[22px] text-Neutral-Primary-Text mt-2;
+    }
+  }
+}

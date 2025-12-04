@@ -1,0 +1,9 @@
+.common-dao-logo {
+  @apply rounded-full flex-none;
+  &-error {
+    @apply bg-[#C8B8F9];
+    .text {
+      @apply text-white;
+    }
+  }
+}

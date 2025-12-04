@@ -1,0 +1,15 @@
+.status-tag {
+  color: currentColor;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+.status-tag.status-failed {
+  color: #ff4d4f;
+}
+.status-tag.status-pending {
+  color: #faad14;
+}
+.status-tag.status-notexisted {
+  color: #bfbfbf;
+}

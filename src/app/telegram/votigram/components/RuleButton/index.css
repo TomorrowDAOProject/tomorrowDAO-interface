@@ -1,0 +1,6 @@
+.votigram-rules-wrap {
+    @apply text-[16px] text-[#DDDFFF] px-[6px] py-[4px] rounded-[0.5rem] bg-[rgba(9,8,22,0.35)] absolute z-[1];
+    .rule-text {
+      @apply text-[#DDDFFF] text-[0.75rem] font-[700] leading-[0.75rem] pl-[2px];
+    }
+  }

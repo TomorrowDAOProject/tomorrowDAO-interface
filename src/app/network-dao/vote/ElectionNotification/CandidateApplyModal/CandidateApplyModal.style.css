@@ -1,0 +1,259 @@
+/*
+ * @Author: Alfred Yang
+ * @Github: https://github.com/cat-walk
+ * @Date: 2019-12-09 14:57:57
+ * @LastEditors: Alfred Yang
+ * @LastEditTime: 2019-12-09 15:17:21
+ * @Description: file content
+ */
+.apply-node-modal.antExplorer-modal {
+  text-align: center;
+  overflow: hidden;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-modal-close-x {
+  color: #101010;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-modal-footer {
+  padding-top: 8px;
+  padding-bottom: 24px;
+  background-color: #fff;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-modal-footer .antExplorer-btn {
+  width: 214px;
+  height: 40px;
+  border-radius: 4px;
+  background: var(--color-brand-default, #266cd3);
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header {
+  padding: 17px 16px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header .antExplorer-modal-title {
+  padding: 0;
+  line-height: 22px;
+  font-size: 14px;
+  border: none;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body {
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form {
+  width: 100%;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item {
+  border: none;
+  line-height: 20px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-row {
+  display: grid;
+  grid-template-columns: 160px auto;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label {
+  line-height: 20px;
+  height: 20px;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label {
+  margin-left: 0;
+  color: #bbbbbb;
+  font-size: 12px;
+  height: 20px;
+  vertical-align: bottom;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control {
+  line-height: 20px;
+  margin-left: 20px;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .antExplorer-form-item-control-input {
+  min-height: 20px;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control .list-item-value {
+  color: #101010;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .candidate-admin {
+  line-height: 36px;
+  height: 36px;
+  margin-bottom: 24px;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .candidate-admin .antExplorer-row.antExplorer-form-item-row {
+  align-items: baseline;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .candidate-admin .antExplorer-form-item-label label::before {
+  position: absolute;
+  left: 90px;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .candidate-admin .antExplorer-form-item-control {
+  display: flex;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .candidate-admin .antExplorer-form-item-control .antExplorer-form-item-control-input-content {
+  display: flex;
+  height: 36px;
+  align-items: center;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .candidate-admin .antExplorer-form-item-control .antExplorer-form-item-control-input-content input {
+  text-align: left;
+}
+
+.apply-node-modal.antExplorer-modal .antExplorer-form .candidate-admin-tip {
+  margin-left: 8px;
+  line-height: 32px;
+}
+
+.apply-node-modal.antExplorer-modal .tip-color {
+  text-align: left;
+  padding: 8px;
+  border-radius: 4px;
+  background: var(--color-hover, #f7f8fa);
+  display: flex;
+  line-height: 20px;
+  margin: 16px 0 0;
+}
+
+.apply-node-modal.antExplorer-modal .tip-color .antExplorericon {
+  line-height: 20px;
+}
+
+.apply-node-modal.antExplorer-modal .tip-color svg {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+}
+
+.apply-node-modal.antExplorer-modal .tip-color strong {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+@media (max-width: 1024px) {
+  .apply-node-modal.antExplorer-modal {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100%;
+    height: 100vh;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-modal-content {
+    height: 100vh;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-header {
+    text-align: left;
+    padding-right: 32px;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-modal-content .antExplorer-modal-body {
+    height: calc(100%-130px);
+    overflow-y: auto;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-modal-footer {
+    bottom: 0;
+    width: 100%;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-modal-footer .antExplorer-btn {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .candidate-apply-modal .TMRWDAO-modal-header {
+    @apply bg-darkBg;
+  }
+  .candidate-apply-modal .TMRWDAO-modal-title {
+    width: 320px;
+    margin: 0 auto;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-row {
+    grid-template-columns: 1fr;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label {
+    margin-bottom: 8px;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-control {
+    margin-left: 0;
+  }
+
+  .apply-node-modal.antExplorer-modal .antExplorer-form .candidate-admin-tip {
+    position: absolute;
+    left: 95px;
+    top: -32px;
+  }
+
+  .apply-node-modal.antExplorer-modal .tip-color {
+    flex-wrap: wrap;
+  }
+
+  .apply-node-modal.antExplorer-modal .tip-color strong {
+    margin-bottom: 8px;
+  }
+
+  .apply-node-modal.antExplorer-modal .tip-color .notice-text {
+    width: 100%;
+  }
+}
+
+.candidate-apply-modal .TMRWDAO-modal-content {
+  @apply bg-darkBg;
+}
+
+.candidate-apply-modal .TMRWDAO-modal-close-icon {
+  @apply text-white;
+}
+
+.candidate-apply-modal .TMRWDAO-modal-title {
+  font-weight: 300;
+  @apply text-white bg-darkBg text-center text-[20px] font-Unbounded;
+}
+
+.candidate-apply-modal .TMRWDAO-form-item-label > label {
+  min-width: 220px;
+  font-size: 13px;
+  font-weight: 500;
+  @apply text-lightGrey font-Montserrat;
+}
+
+.candidate-apply-modal .TMRWDAO-form-item-required::before {
+  @apply !text-white;
+}
+
+.candidate-apply-modal .list-item-value {
+  @apply text-white font-Montserrat;
+}
+
+.candidate-apply-modal .TMRWDAO-input-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.candidate-apply-modal .TMRWDAO-form-item-explain-error {
+  @apply text-mainColor;
+}

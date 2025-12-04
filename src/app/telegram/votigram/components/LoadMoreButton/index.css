@@ -1,0 +1,11 @@
+.show-more-button-wrap {
+    @apply flex justify-center items-center mt-[24px];
+    .show-more-button-wrap-button {
+      @apply cursor-pointer flex h-[3.125rem] text-[#ACA6FF] w-[150px] px-[0.75rem] py-[15px] justify-center items-center gap-[0.625rem] rounded-[0.625rem] border-[0.0625rem] border-solid border-[rgba(255,255,255,0.10)];
+    }
+    .show-more-button-refresh {
+      &.loading {
+        @apply animate-spin;
+      }
+    }
+  }

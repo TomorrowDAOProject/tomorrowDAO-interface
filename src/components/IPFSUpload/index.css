@@ -1,0 +1,26 @@
+.common-upload {
+  .TMRWDAO-upload-list-item-action {
+    @apply p-0;
+  }
+  .TMRWDAO-upload-list-item-name {
+    @apply text-Primary-Text hover:text-Primary-Text active:text-Primary-Text;
+  }
+}
+.common-upload-disabled {
+  .TMRWDAO-upload-button {
+    @apply cursor-not-allowed;
+    &:hover,
+    &:active {
+      @apply border-Neutral-Border;
+    }
+    path {
+      @apply !fill-Disable-Text;
+    }
+    > div:nth-child(2) {
+      @apply text-Active-Text;
+      > div:first-child {
+        @apply text-Disable-Text;
+      }
+    }
+  }
+}

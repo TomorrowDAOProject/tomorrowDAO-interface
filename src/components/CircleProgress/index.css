@@ -1,0 +1,13 @@
+.circle-progress {
+  @apply relative inline-flex items-center justify-center;
+}
+
+.circle-progress-bg {
+  @apply transition-all duration-300;
+}
+
+.circle-progress-value {
+  @apply transition-all duration-300 ease-in-out;
+  transform: rotate(var(--rotation));
+  transform-origin: center;
+} 

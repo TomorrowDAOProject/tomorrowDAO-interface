@@ -1,0 +1,112 @@
+.real-time-transactions .real-time-transactions-head {
+  color: var(--Neutral-Title, var(--AELF-Design-Primary-Text, #1A1A1A));
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; 
+}
+
+.real-time-transactions .real-time-transactions-body {
+  padding-top: 4px;
+  color: white;
+  background: transparent;
+  padding-bottom: 16px;
+  min-height: 268px;
+}
+.real-time-transactions .table-head .antExplorer-col {
+  @apply font-Montserrat text-[12px] text-lightGrey;
+}
+
+.real-time-transactions .antExplorer-col {
+  @apply font-Montserrat text-[12px] text-white;
+  a {
+    @apply text-white;
+  }
+}
+
+.real-time-transactions .real-time-transactions-body .table-head {
+  @apply font-Montserrat text-lightGrey border-0 border-b border-solid border-fillBg8 ;
+  background: transparent;
+  height: 48px;
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.real-time-transactions .real-time-transactions-body .table-sell {
+  @apply border-0 border-b border-solid border-fillBg8;
+  color: #000;
+  text-align: center;
+  font-size: 12px;
+  height: 56px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  color: var(--Neutral-Title, var(--AELF-Design-Primary-Text, #1A1A1A));
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.real-time-transactions .real-time-transactions-body .table-sell .sell {
+  color: #d34a64;
+}
+
+.real-time-transactions .real-time-transactions-body .table-sell .antExplorer-col {
+  white-space: nowrap;
+}
+
+.real-time-transactions .real-time-transactions-body .table-buy {
+  @apply border-0 border-b border-solid border-fillBg8;
+  color: #000;
+  text-align: center;
+  font-size: 12px;
+  height: 56px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  color: var(--Neutral-Title, var(--AELF-Design-Primary-Text, #1A1A1A));
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.real-time-transactions .real-time-transactions-body .table-buy .sell {
+  color: #05ac90;
+}
+
+.real-time-transactions .real-time-transactions-body .table-buy .antExplorer-col {
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+  .real-time-transactions .real-time-transactions-body .table-head {
+    height: 48px;
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: 300;
+    font-size: 9px;
+  }
+}
+.table-buy, .table-sell {
+  .tag {
+    display: flex;
+    width: 36px;
+    height: 24px;
+    padding: 0px 8px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    
+  }
+  .buy-tag {
+    @apply text-white bg-mainColor border border-solid border-fillBg8 font-medium;
+  }
+  .sell-tag {
+   @apply border border-solid border-fillBg8 font-medium bg-[rgba(255,55,77,0.15)] text-[#FF485D];
+  }
+}

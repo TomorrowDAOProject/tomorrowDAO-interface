@@ -1,0 +1,13 @@
+.my-vote-records-header {
+  margin: 0 0 24px 0;
+  color: #000;
+}
+
+.node-list-btn-group {
+  display: flex;
+  justify-content: center;
+}
+
+.vote-table-wrapper .redeem-btn[disabled] {
+  @apply !text-[#404040] border border-solid !border-[#404040];
+}

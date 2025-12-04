@@ -1,0 +1,231 @@
+.without-approval-modal {
+  text-align: center;
+}
+
+.without-approval-modal .antExplorer-modal-footer {
+  border: none;
+  text-align: center;
+  padding-bottom: 32px;
+}
+
+.without-approval-modal .antExplorer-modal-footer .antExplorer-btn {
+  width: 320px;
+}
+
+.without-approval-modal .antExplorer-modal-footer .antExplorer-btn:first-child {
+  display: none;
+}
+
+.without-approval-modal .antExplorer-modal-content {
+  border-radius: 8px;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree {
+  display: flex;
+  margin: 56px auto;
+  justify-content: center;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .icon2 {
+  background: #266cd3;
+  color: #fff;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .icon3 {
+  color: #858585;
+  border: 2px solid #858585;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .circle-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .circle-icon.check {
+  color: #266cd3;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .circle-icon.close {
+  color: #ff4d4f;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .title {
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .title0 {
+  color: #595959;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .title1 {
+  color: #ff4d4f;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .title2 {
+  color: #266cd3;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .title3 {
+  color: #858585;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .deployment-verification {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .middle-line {
+  margin: auto 8px;
+  width: 120px;
+  height: 1px;
+  background: #e6e6e6;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-degree .deployment-execution {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .verification-loading,
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .execution-loading,
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .fail-message,
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .success-message {
+  font-weight: 500;
+  font-size: 18px;
+  font-family: "Roboto Medium";
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .circle-icon {
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  font-size: 21px;
+  margin-right: 9.5px;
+  margin-bottom: 24px;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .circle-icon.close {
+  color: #ff4d4f;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .circle-icon.check {
+  color: #05bd72;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .verification-fail .content,
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .execution-fail .content {
+  margin-top: 18px;
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .verification-fail .content.text-left,
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .execution-fail .content.text-left {
+  text-align: left;
+  margin-left: 96px;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .verification-fail .copy-list-item-wrapper,
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-message .execution-fail .copy-list-item-wrapper {
+  text-align: left;
+  margin-left: 96px;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-notice {
+  margin: 64px 80px 0;
+  background: #f7f8fa;
+  border-radius: 4px;
+  padding: 16px 40px;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-notice .title {
+  color: #595959;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  font-family: "Roboto Medium";
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-notice .content {
+  display: flex;
+  font-weight: 400;
+  font-size: 12px;
+  color: #595959;
+  text-align: left;
+  flex-wrap: wrap;
+}
+
+.without-approval-modal .antExplorer-modal-content .without-approval-modal-notice .content-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.without-approval-modal .antExplorer-modal-content .antExplorer-modal-footer .antExplorer-btn {
+  width: 240px;
+  height: 40px;
+}
+
+.without-approval-modal-mobile .antExplorer-modal {
+  padding: 0 8px 24px;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body {
+  padding: 32px 16px 0;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-degree {
+  margin: 8px auto;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-degree .deployment-verification,
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-degree .deployment-execution {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-degree .deployment-verification .icon,
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-degree .deployment-execution .icon,
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-degree .deployment-verification .circle-icon,
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-degree .deployment-execution .circle-icon {
+  margin-bottom: 8px;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-message {
+  margin-top: 48px;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-message .verification-fail .content,
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-message .execution-fail .content {
+  margin-left: 0;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-message .copy-list-item-wrapper {
+  margin-left: 0;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-message .address-name-ver .contract-address,
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-message .address-name-ver .contract-name,
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-message .address-name-ver .contract-version {
+  margin-left: 0;
+}
+
+.without-approval-modal-mobile .antExplorer-modal-content .antExplorer-modal-body .without-approval-modal-notice {
+  margin: 48px 0 32px;
+  padding: 16px;
+}

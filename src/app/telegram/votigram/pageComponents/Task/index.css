@@ -1,0 +1,24 @@
+.votigram-task-wrap {
+  @apply px-[16px] pt-[1px];
+  min-height: calc(100vh - 154px - 32px);
+  padding-bottom: 110px;
+  .title {
+    @apply text-center text-white;
+    img {
+      vertical-align: -2px;
+      @apply w-[18px] mr-[4px];
+    }
+  }
+  .task-complete-icon {
+    @apply w-[180px];
+  }
+  .task-group-item + .task-group-item {
+    @apply mt-[24px];
+  }
+}
+.complete-task-modal-content {
+  @apply flex flex-col items-center;
+  button {
+    @apply w-full;
+  }
+}

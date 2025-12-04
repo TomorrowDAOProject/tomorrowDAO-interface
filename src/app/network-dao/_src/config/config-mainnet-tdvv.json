@@ -1,0 +1,87 @@
+{
+  "SYMBOL": "ELF",
+  "CHAIN_ID": "tDVV",
+  "CONTRACTS": {
+    "voteContractAddr": "AElf.ContractNames.Vote",
+    "electionContractAddr": "AElf.ContractNames.Election",
+    "profitContractAddr": "AElf.ContractNames.Profit",
+    "multiToken": "AElf.ContractNames.Token",
+    "dividends": "AElf.ContractNames.Treasury",
+    "consensusDPoS": "AElf.ContractNames.Consensus",
+    "tokenConverter": "AElf.ContractNames.TokenConverter",
+    "feeReceiverContract": "AElf.ContractNames.Token",
+    "parliamentContract": "AElf.ContractNames.Parliament",
+    "associationContract": "AElf.ContractNames.Association",
+    "referendumContract": "AElf.ContractNames.Referendum",
+    "crossChainContract": "AElf.ContractNames.CrossChain"
+  },
+  "schemeIds": [
+    {
+      "type": "Citizen Welfare",
+      "schemeId": "d638bb79ebeaa0e9fd6c562c9734947d467b2753d8108733ce1d9139e5b1e721"
+    },
+    {
+      "type": "Backup Subsidy",
+      "schemeId": "b44ff55650e6edb0d2789c644d40fe534bdccb21895794007a81a0f21aa52aa1"
+    },
+    {
+      "type": "Welcome Reward",
+      "schemeId": "d2e5f328f3c7423f013792aeb46df7ac2d60498d450c65aa50a3af7d344dedce"
+    },
+    {
+      "type": "Miner Basic Reward",
+      "schemeId": "6871eb0727c6a5f35d216e48ff80752085e892fa271081a728a1607dc3dddda9"
+    },
+    {
+      "type": "Flexible Reward",
+      "schemeId": "52215668c1987011fc3ec94205804c83ab5382f5f9328e92999a67e47be54e01"
+    }
+  ],
+  "voteContractAddr": null,
+  "electionContractAddr": null,
+  "profitContractAddr": "2YkY2kjG7dTPJuHcTP3fQyMqat2CMfo7kZoRr7QdejyHHbT4rk",
+  "multiToken": "7RzVGiuVWkvL4VfVHdZfQF2Tri3sgLe9U991bohHFfSRZXuGX",
+  "dividends": null,
+  "consensusDPoS": "BNPFPPwQ3DE9rwxzdY61Q2utU9FZx9KYUnrYHQqCR6N4LLhUE",
+  "tokenConverter": null,
+  "feeReceiverContract": "7RzVGiuVWkvL4VfVHdZfQF2Tri3sgLe9U991bohHFfSRZXuGX",
+  "parliamentContract": "4SGo3CUj3PPh3hC5oXV83WodyUaPHuz4trLoSTGFnxe84nqNr",
+  "associationContract": "mWU7iE7HEfeZPDRYqdJAFqr2wiGfkiVrFCBuu6x1oL7Zca4KD",
+  "referendumContract": "V8NtmXA5TsuZKPK1bJMNGK6Gqomt1abvXeGWEpyMpC77s1toc",
+  "crossChainContract": "2snHc8AMh9QMbCAa7XXmdZZVM5EBZUUPDdLjemwUJkBnL6k8z9",
+  "genesisContract": "2dtnkWDyJJXeDRcREhKSZHrYdDGMbn3eus5KYpXonfoTygFHZm",
+  "resourceTokens": [
+    {
+      "symbol": "WRITE",
+      "decimals": 8
+    },
+    {
+      "symbol": "READ",
+      "decimals": 8
+    },
+    {
+      "symbol": "STORAGE",
+      "decimals": 8
+    },
+    {
+      "symbol": "TRAFFIC",
+      "decimals": 8
+    },
+    {
+      "symbol": "CPU",
+      "decimals": 8
+    },
+    {
+      "symbol": "RAM",
+      "decimals": 8
+    },
+    {
+      "symbol": "DISK",
+      "decimals": 8
+    },
+    {
+      "symbol": "NET",
+      "decimals": 8
+    }
+  ]
+}

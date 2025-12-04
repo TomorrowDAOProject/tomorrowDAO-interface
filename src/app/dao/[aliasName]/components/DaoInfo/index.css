@@ -1,0 +1,84 @@
+.dao-basic-info {
+  @apply flex lg:flex-row flex-col gap-2 justify-between;
+}
+
+.dao-detail-dis {
+  @apply border border-fillBg8 border-solid rounded-lg bg-darkBg px-[30px] py-[32px];
+
+  .TMRWDAO-descriptions .TMRWDAO-descriptions-row > td {
+    @apply pb-[12px];
+  }
+
+  .TMRWDAO-descriptions .TMRWDAO-descriptions-row > th {
+    @apply pb-0;
+  }
+
+  .dao-detail-logo {
+    @apply lg:order-2 order-1 flex flex-row lg:flex-col lg:items-end justify-between;
+
+    .dao-detail-logo-content {
+      @apply lg:w-[80px] lg:h-[80px] w-[48px] h-[48px] rounded-full overflow-hidden;
+    }
+  }
+
+  .dao-detail-desc {
+    @apply lg:order-1 order-2;
+
+    .title {
+      @apply font-[300] lg:leading-[48px] text-[24px] lg:text-[30px] -tracking-[0.24px] leading-[32px] text-white lg:pt-[0px] pt-[8px] font-Unbounded;
+    }
+
+    .description {
+      @apply font-[400] lg:text-[15px] lg:leading-[24px] text-[14px] leading-[22px] lg:pt-[8px] pt-[16px] lg:mb-[24px] mb-[16px] text-white font-Montserrat;
+    }
+
+    .social-media-item-logo {
+      @apply w-[20px] h-[20px];
+    }
+  }
+
+  .dis-item {
+    @apply flex items-center text-white;
+
+    .dis-common-span {
+      @apply mr-1;
+    }
+    .dis-common-span-cursor {
+      @apply text-mainColor mr-1 cursor-pointer;
+    }
+  }
+
+  .TMRWDAO-collapse-header {
+    @apply px-4 lg:px-8 py-6 !important;
+  }
+
+  .TMRWDAO-collapse-content-box {
+    @apply px-4 lg:px-8 !important;
+  }
+  .dao-info-collapse-panel .TMRWDAO-collapse-header {
+    @apply items-center;
+  }
+  .TMRWDAO-collapse-header:hover {
+    @apply bg-white !important;
+  }
+}
+
+.dao-collapse-panel {
+  @apply font-[300] text-[15px] leading-[24px] text-white font-Unbounded;
+}
+
+.dao-collapse-panel-label {
+  @apply font-[300] text-[14px] leading-[22px] text-lightGrey font-Montserrat;
+}
+
+.dao-collapse-panel-child {
+  @apply text-[14px] leading-[22px] text-white font-Montserrat;
+}
+.dao-detail-dis .ant-collapse-header {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.dao-detail-dis .ant-collapse-content-box {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

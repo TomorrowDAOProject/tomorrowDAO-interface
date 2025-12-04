@@ -1,0 +1,87 @@
+{
+  "SYMBOL": "ELF",
+  "CHAIN_ID": "AELF",
+  "CONTRACTS": {
+    "voteContractAddr": "AElf.ContractNames.Vote",
+    "electionContractAddr": "AElf.ContractNames.Election",
+    "profitContractAddr": "AElf.ContractNames.Profit",
+    "multiToken": "AElf.ContractNames.Token",
+    "dividends": "AElf.ContractNames.Treasury",
+    "consensusDPoS": "AElf.ContractNames.Consensus",
+    "tokenConverter": "AElf.ContractNames.TokenConverter",
+    "feeReceiverContract": "AElf.ContractNames.Token",
+    "parliamentContract": "AElf.ContractNames.Parliament",
+    "associationContract": "AElf.ContractNames.Association",
+    "referendumContract": "AElf.ContractNames.Referendum",
+    "crossChainContract": "AElf.ContractNames.CrossChain"
+  },
+  "schemeIds": [
+    {
+      "type": "Citizen Welfare",
+      "schemeId": "d638bb79ebeaa0e9fd6c562c9734947d467b2753d8108733ce1d9139e5b1e721"
+    },
+    {
+      "type": "Backup Subsidy",
+      "schemeId": "b44ff55650e6edb0d2789c644d40fe534bdccb21895794007a81a0f21aa52aa1"
+    },
+    {
+      "type": "Welcome Reward",
+      "schemeId": "d2e5f328f3c7423f013792aeb46df7ac2d60498d450c65aa50a3af7d344dedce"
+    },
+    {
+      "type": "Miner Basic Reward",
+      "schemeId": "6871eb0727c6a5f35d216e48ff80752085e892fa271081a728a1607dc3dddda9"
+    },
+    {
+      "type": "Flexible Reward",
+      "schemeId": "52215668c1987011fc3ec94205804c83ab5382f5f9328e92999a67e47be54e01"
+    }
+  ],
+  "voteContractAddr": "2aoPatvMevjmhwsU1S9pkH2vnkNAuaiUaiU6JDroKNKe3fBQns",
+  "electionContractAddr": "NrVf8B7XUduXn1oGHZeF1YANFXEXAhvCymz2WPyKZt4DE2zSg",
+  "profitContractAddr": "2ZUgaDqWSh4aJ5s5Ker2tRczhJSNep4bVVfrRBRJTRQdMTbA5W",
+  "multiToken": "JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE",
+  "dividends": "KNdM6U6PyPsgyena8rPHTbCoMrkrALhxAy1b8Qx2cgi4169xr",
+  "consensusDPoS": "pGa4e5hNGsgkfjEGm72TEvbF7aRDqKBd4LuXtab4ucMbXLcgJ",
+  "tokenConverter": "SietKh9cArYub9ox6E4rU94LrzPad6TB72rCwe3X1jQ5m1C34",
+  "feeReceiverContract": "JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE",
+  "parliamentContract": "2JT8xzjR5zJ8xnBvdgBZdSjfbokFSbF5hDdpUCbXeWaJfPDmsK",
+  "associationContract": "XyRN9VNabpBiVUFeX2t7ZUR2b3tWV7U31exufJ2AUepVb5t56",
+  "referendumContract": "NxSBGHE3zs85tpnX1Ns4awQUtFL8Dnr6Hux4C4E18WZsW4zzJ",
+  "crossChainContract": "2SQ9LeGZYSWmfJcYuQkDQxgd3HzwjamAaaL4Tge2eFSXw2cseq",
+  "genesisContract": "pykr77ft9UUKJZLVq15wCH8PinBSjVRQ12sD1Ayq92mKFsJ1i",
+  "resourceTokens": [
+    {
+      "symbol": "WRITE",
+      "decimals": 8
+    },
+    {
+      "symbol": "READ",
+      "decimals": 8
+    },
+    {
+      "symbol": "STORAGE",
+      "decimals": 8
+    },
+    {
+      "symbol": "TRAFFIC",
+      "decimals": 8
+    },
+    {
+      "symbol": "CPU",
+      "decimals": 8
+    },
+    {
+      "symbol": "RAM",
+      "decimals": 8
+    },
+    {
+      "symbol": "DISK",
+      "decimals": 8
+    },
+    {
+      "symbol": "NET",
+      "decimals": 8
+    }
+  ]
+}

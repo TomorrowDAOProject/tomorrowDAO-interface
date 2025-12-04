@@ -1,0 +1,64 @@
+
+
+.resource-wallet .resource-wallet-header {
+  display: flex;
+  align-items: center;
+}
+
+.resource-wallet .resource-wallet-address {
+  @apply border-0 border-solid border-b border-fillBg8;
+  word-break: break-word;
+}
+
+.resource-wallet .antExplorer-divider.antExplorer-divider-horizontal {
+  margin: 8px 0;
+}
+
+.resource-wallet-address {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  @apply lg:gap-0 gap-[15px];
+}
+
+.link-detail-button {
+  @apply font-Montserrat bg-fillBg8 rounded-[6px] px-1 h-[22px] border border-solid border-white;
+  a {
+    @apply text-[10px] leading-5 font-medium text-white hover:text-white;
+  }
+}
+
+.resource-wallet-address-update {
+  display: flex;
+  align-items: center;
+}
+
+.resource-wallet-operation-container {
+  flex-grow: 1;
+  display: flex;
+  @apply lg:justify-end justify-start;
+}
+
+.resource-wallet-operation-container .antExplorer-btn>.antExplorericon {
+  line-height: 0;
+}
+.resource-wallet-info {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.resource-wallet-info .antExplorer-row .antExplorer-col {
+  @apply mb-[16px] flex items-center;
+}
+
+.resource-wallet-info-value {
+  @apply font-Montserrat text-[12px] text-lightGrey;
+}
+.resource-wallet-info .antExplorer-row .last-col {
+  margin-bottom: 0;
+}
+
+.resource-wallet-info-name {
+  @apply font-Montserrat text-[12px] text-white w-[180px] font-medium;
+}

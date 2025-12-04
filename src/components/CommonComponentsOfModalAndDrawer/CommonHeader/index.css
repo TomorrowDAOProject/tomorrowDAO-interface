@@ -1,0 +1,9 @@
+.common-header {
+  @apply pl-4 mb-1 h-7;
+  .common-header-title {
+    @apply text-center flex-1 truncate;
+  }
+  .common-header-close {
+    @apply flex-none cursor-pointer;
+  }
+}

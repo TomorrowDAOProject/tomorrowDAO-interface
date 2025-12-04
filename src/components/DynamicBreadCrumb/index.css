@@ -1,0 +1,7 @@
+.breadcrumb-back-button {
+  @apply text-[#1A1A1A] text-[14px] font-medium leading-[22px] flex items-center;
+
+  .icon {
+    @apply text-[16px] mr-[8px];
+  }
+}

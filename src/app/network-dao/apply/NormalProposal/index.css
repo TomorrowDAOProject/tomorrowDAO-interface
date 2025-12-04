@@ -1,0 +1,50 @@
+#expiredTime {
+  width: 100%;
+}
+.normal-proposal {
+  @apply px-4 lg:px-8;
+  .antExplorer-form-item-label {
+    @apply normal-text;
+  }
+  .normal-proposal-apply-title {
+    @apply h-[48px];
+  }
+  .url-input input{
+   @apply h-[48px];
+  }
+  .proposal-type-select {
+    margin-top: 16px;
+  }
+  .proposal-apply-btn-wrap {
+    @apply py-4 lg:py-8 flex justify-end;
+    border-top: 1px solid var(--Neutral-Divider, #EDEDED);
+    margin-bottom: 0;
+  }
+  .form-item-label-icon {
+    @apply text-[16px] text-Neutral-Disable-Text;
+  }
+  .form-item-optional-text {
+    @apply text-[16px] leading-[24px] text-Neutral-Secondary-Text pr-[8px];
+  }
+  .antExplorer-form-item-label {
+    @apply text-[16px] leading-[24px] text-neutralTitle;
+  }
+  .form-item-label-content {
+    @apply flex items-center;
+  }
+}
+.normal-proposal-params {
+  margin-bottom: 0;
+}
+.normal-proposal .params-input {
+  width: 100%;
+  height: 300px;
+  outline: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background: var(--Neutral-White-BG, #FFF);
+  .overflow-guard {
+    border-radius: 6px;
+    border: 1px solid var(--Neutral-Border, #E1E1E1);
+  }
+}

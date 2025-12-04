@@ -1,0 +1,7 @@
+.common-footer {
+  @apply mt-6 flex-col;
+
+  .common-footer-button {
+    @apply w-[206px];
+  }
+}

@@ -1,0 +1,247 @@
+/*
+ * @Author: Alfred Yang
+ * @Github: https://github.com/cat-walk
+ * @Date: 2019-09-24 16:15:00
+ * @LastEditors: Alfred Yang
+ * @LastEditTime: 2019-12-09 21:07:21
+ * @Description: file content
+ */
+.antExplorer-table-tbody>tr.antExplorer-table-row-selected td {
+  background: none;
+}
+
+.antExplorer-table-thead>tr.antExplorer-table-row-selected>td.antExplorer-table-column-sort,
+.antExplorer-table-tbody>tr.antExplorer-table-row-selected>td.antExplorer-table-column-sort {
+  background: none;
+}
+
+.antExplorer-btn-round.antExplorer-btn-sm {
+  background: #266cd3;
+  border: none;
+}
+
+.antExplorer-btn-round.antExplorer-btn-sm:hover {
+  background: #327dec;
+}
+
+.vote-modal {
+  overflow: visible;
+}
+
+.vote-modal .table-container {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  min-width: 569px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background: #fff;
+  padding: 10px;
+}
+
+.vote-modal .antExplorer-tabs {
+  overflow: visible;
+  margin: 0 32px;
+}
+
+.vote-modal .antExplorer-tabs .antExplorer-tabs-bar {
+  margin: 0;
+}
+
+.vote-modal .antExplorer-tabs.antExplorer-tabs-top .antExplorer-tabs-nav {
+  margin: 0;
+}
+
+.vote-modal .antExplorer-tabs.antExplorer-tabs-top .antExplorer-tabs-nav:before {
+  border: 0;
+}
+
+.vote-modal .antExplorer-tabs .antExplorer-tabs-ink-bar {
+  height: 0;
+}
+
+.vote-modal .antExplorer-table-wrapper .antExplorer-table-body {
+  margin: 0;
+}
+
+.vote-modal .antExplorer-table-wrapper .antExplorer-table-body tr>th {
+  padding: 14px 10px;
+}
+
+.vote-modal .vote-modal-form {
+  width: auto;
+}
+
+.vote-modal .vote-modal-form .antExplorer-picker {
+  width: 100%;
+}
+
+.vote-modal .vote-modal-form .antExplorer-picker input {
+  text-align: center;
+}
+
+.vote-modal .antExplorer-tabs-nav-scroll {
+  text-align: left;
+}
+
+.vote-modal .antExplorer-tabs-nav-scroll label {
+  color: #999;
+}
+
+.vote-modal .modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  width: 100vw;
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .vote-modal .antExplorer-tabs {
+    margin: 0 8px;
+  }
+}
+
+@media (max-width: 575px) {
+  .vote-modal .antExplorer-form .antExplorer-form-item .antExplorer-form-item-label label {
+    margin-left: 0;
+  }
+}
+
+.react-datepicker__day--selected {
+  background-color: #cfc1db;
+  color: #000;
+}
+
+.react-datepicker__day--selected:hover {
+  background-color: #cfc1db;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #cfc1db;
+  color: #000;
+}
+
+.react-datepicker__day--keyboard-selected:hover {
+  background-color: #cfc1db;
+}
+
+.react-datepicker-custom-container {
+  border: 1px solid rgba(217, 217, 217);
+  width: 100%;
+  border-radius: 3px;
+  height: 32px;
+  text-align: center;
+}
+
+.react-datepicker-custom-container:hover {
+  border-color: #266cd3;
+}
+
+.react-datepicker-custom-container::placeholder {
+  color: #bfbfbf;
+}
+
+.react-datepicker-custom-container:focus {
+  box-shadow: 0 0 0 2px rgba(92, 40, 169, 0.3);
+  border-color: #266cd3;
+  outline: none;
+}
+
+.node-vote-modal .TMRWDAO-modal-content {
+  @apply bg-darkBg overflow-hidden;
+}
+
+.node-vote-modal .TMRWDAO-modal-close-icon {
+  @apply text-white;
+}
+
+.node-vote-modal .TMRWDAO-modal-title {
+  font-weight: 300;
+  @apply text-white bg-darkBg text-center text-[20px] font-Unbounded;
+}
+
+.node-vote-modal .TMRWDAO-tabs .TMRWDAO-tabs-tab {
+  @apply pl-[0px];
+}
+
+.node-vote-modal .TMRWDAO-tabs-nav {
+  @apply mt-[20px];
+}
+
+.node-vote-modal .TMRWDAO-tabs-nav::before {
+  @apply !border-none mt-[20px];
+}
+
+.node-vote-modal .TMRWDAO-tabs-ink-bar {
+  display: none;
+}
+
+.node-vote-modal .TMRWDAO-tabs-tab-btn input {
+  @apply accent-mainColor;
+}
+
+.node-vote-modal .TMRWDAO-tabs-tab-btn label {
+  @apply text-white text-[13px] font-Montserrat;
+}
+
+.node-vote-modal .TMRWDAO-form-item-label {
+  text-align: left !important;
+}
+
+.node-vote-modal .TMRWDAO-form-item-label > label {
+  text-align: start !important;
+  @apply !text-white !text-[13px] !font-Montserrat !font-medium;
+}
+
+.node-vote-modal .TMRWDAO-form-item-explain-error {
+  @apply !text-mainColor;
+}
+
+.node-vote-modal .antExplorer-input-number-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.node-vote-modal .TMRWDAO-input-status-error {
+  @apply border border-solid !border-mainColor;
+}
+
+.node-vote-modal .TMRWDAO-form-item-required::before {
+  @apply !text-white;
+}
+
+.TMRWDAO-form-item-control-input-content > div > span:first-child {
+  @apply flex-1;
+}
+
+.vote-lock-data-picker {
+  @apply w-full !text-lightGrey !text-[14px] font-Montserrat !bg-darkBg border border-solid border-borderColor py-[12px];
+}
+
+.vote-lock-data-picker:hover {
+  @apply border border-solid border-borderColor;
+}
+
+.vote-lock-data-picker input::placeholder {
+  @apply !text-lightGrey !text-[14px] font-Montserrat;
+}
+
+.vote-lock-data-picker .TMRWDAO-picker-suffix {
+  @apply text-lightGrey text-[20px];
+}
+
+@media screen and (max-width: 576px) {
+  .node-vote-modal .TMRWDAO-table-wrapper {
+    max-width: 90% !important;
+  }
+
+  .node-vote-modal .TMRWDAO-tabs-nav-list {
+    @apply block;
+  }
+  .node-vote-modal .TMRWDAO-tabs .TMRWDAO-tabs-tab {
+    @apply block !m-0;
+  }
+}

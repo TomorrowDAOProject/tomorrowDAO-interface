@@ -1,0 +1,66 @@
+.votigram-main {
+  @apply p-[16px] relative min-h-full;
+  /* min-height: calc(100vh - 186px); */
+  padding-bottom: 48px;
+  .vote-lists {
+    transform: translateZ(0);
+    @apply flex flex-col gap-[8px];
+  }
+  /* .padding-bottom-content {
+    @apply h-[106px];
+  } */
+
+  .rules-wrap {
+    @apply top-[8px] right-[8px];
+  }
+  .banner {
+    transform: translateZ(0);
+    @apply rounded-[1rem] overflow-hidden relative;
+    .TMRWDAO-carousel {
+      @apply w-full;
+    }
+    .banner-img {
+      @apply w-full h-[7.5rem];
+    }
+  }
+
+  .points-entry-button {
+    .TMRWDAO-icon {
+      @apply text-[12px] ml-[2px] cursor-pointer;
+    }
+  }
+}
+.votigram-loading-wrap {
+  @apply flex justify-center items-center mt-[155px];
+}
+.vote-item-icon {
+  @apply rounded-lg;
+}
+
+.votigram-rules-text-list {
+  @apply pl-[16px] list-decimal;
+  li + li {
+    @apply mt-[18px];
+  }
+}
+
+.vote-item-fake-logo-drawer {
+  color: var(--Solid-2, #4600c5);
+  flex-shrink: 0;
+  @apply w-[64px] h-[64px] flex-center rounded-[0.5rem] bg-white;
+}
+.nft-miss-modal-content {
+  @apply flex flex-col items-center;
+  button {
+    @apply w-full;
+  }
+}
+.telegram-common-drawer {
+  .my-points-drawer.telegram-common-drawer-body .drawer-body {
+    @apply px-0;
+  }
+  .my-points-drawer {
+    max-height: 100vh;
+    overflow-y: scroll;
+  }
+}
