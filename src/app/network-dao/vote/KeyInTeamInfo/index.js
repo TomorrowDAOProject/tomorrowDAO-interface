@@ -310,7 +310,7 @@ class KeyInTeamInfo extends PureComponent {
     const { currentWallet } = this.props;
 
     apiServer.get("/networkdao/vote/getTeamDesc", {
-      publicKey: currentWallet.publicKey,
+      publicKey: currentWallet.publicKey || localStorage.getItem('currentPublicKey'),
       chainId: chain.chainId
     })
       .then((res) => {
@@ -385,17 +385,18 @@ class KeyInTeamInfo extends PureComponent {
 
           console.log('currentWallet.address', currentWallet.address)
 
+          const _publicKey = publicKey || localStorage.getItem('currentPublicKey');
           apiServer.post("/networkdao/vote/addTeamDesc", {
             chainId: chain.chainId,
             isActive: true,
-            publicKey,
+            publicKey: _publicKey,
             address: currentWallet.address,
             random: randomNum,
             signature,
             ...submitValues,
           }).then((res) => {
-            if (res.code === '2000') {
-              this.props.navigate(`/vote/team?pubkey=${publicKey}`);
+            if (res.code === '20000') {
+              this.props.navigate(`/vote/team?pubkey=${_publicKey}`);
             } else {
               toast.error(res.msg);
             }
