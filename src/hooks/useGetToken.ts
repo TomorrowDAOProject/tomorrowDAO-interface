@@ -132,6 +132,7 @@ export const useGetToken = () => {
         source = 'portkey';
       }
     }
+    localStorage.setItem('currentPublicKey', publicKey);
     // ------------------------------------- request api -------------------------------------
     const reqParams = {
       grant_type: 'signature',

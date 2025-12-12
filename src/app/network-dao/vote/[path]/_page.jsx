@@ -454,7 +454,9 @@ class VoteContainer extends Component {
   }
 
   async getCandidateInfo(currentWallet, electionContract) {
-    const { publicKey, address } = currentWallet;
+    const { publicKey: publicKeyFromWallet, address } = currentWallet;
+    const publicKeyLocal = localStorage.getItem('currentPublicKey');
+    const publicKey = publicKeyFromWallet || publicKeyLocal;
     if (!publicKey && !address) {
       return null;
     }

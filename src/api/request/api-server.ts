@@ -17,6 +17,7 @@ const authList = [
   '/discussion/new-comment',
   'networkdao/contract/add',
   'networkdao/contract/update',
+  'networkdao/vote/addTeamDesc',
   ...tmrwNeedAuthList,
   ...telegramNeedAuthList,
 ];
