@@ -1,9 +1,18 @@
-import { TelegramPlatform } from '@portkey/did-ui-react';
 import qs from 'query-string';
 import { IStartAppParams } from '../type';
 //
 export const AND_CHAR = '_';
 export const CONNECT_CHAR = '-';
+
+// Dynamically import TelegramPlatform to avoid SSR issues with lottie-web
+const getTelegramPlatform = () => {
+  if (typeof window !== 'undefined') {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { TelegramPlatform } = require('@portkey/did-ui-react');
+    return TelegramPlatform;
+  }
+  return null;
+};
 export const stringifyStartAppParams = (params: IStartAppParams) => {
   const parts = [];
   for (const [key, value] of Object.entries(params)) {
@@ -28,7 +37,8 @@ export const parseStartAppParams = (params: string): IStartAppParams => {
 };
 
 export const getReferrerCode = () => {
-  const startParam = TelegramPlatform.getInitData()?.start_param ?? '';
+  const TelegramPlatform = getTelegramPlatform();
+  const startParam = TelegramPlatform?.getInitData()?.start_param ?? '';
   let referrerCode = '';
   if (startParam.includes(AND_CHAR)) {
     const params = parseStartAppParams(startParam);

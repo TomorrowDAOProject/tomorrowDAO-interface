@@ -1,7 +1,12 @@
 'use client';
+import dynamic from 'next/dynamic';
 import { useUrlPath } from 'hooks/useUrlPath';
 import StoreProvider from './store';
-import WebLoginProvider from './webLoginProvider';
+
+// Dynamically import WebLoginProvider to avoid SSR issues with @portkey/* and @aelf-web-login/* libraries
+const WebLoginProvider = dynamic(() => import('./webLoginProvider'), {
+  ssr: false,
+});
 
 interface IProps {
   children: React.ReactNode;
